@@ -1,24 +1,28 @@
 <template>
   <div id="app">
     <Navbar/>
-    <router-view/>
+    <VerticalNavbar/>
+    <div class="monBody">
+      <router-view/>
+    </div>
   </div>
 </template>
 <script>
 import Navbar from "@/components/Navigation/Navbar.vue"
+import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue"
 export default {
   name:"Home",
   components:   {
-    Navbar
+    Navbar,
+    VerticalNavbar,
   }
 }
 </script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.monBody{
+  width: 85%;
+  float: right;
+  padding-left: 5em;
+  padding-right: 5em;
 }
 </style>
