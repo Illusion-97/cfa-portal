@@ -1,0 +1,25 @@
+.NavBar2{/*
+    background-color: lightgreen;*/
+    width: 15%;
+    float: left;
+    text-align: center;
+    padding: 2em;
+}
+
+.nav-item{
+  margin: 1em;
+  border: #6c757d 2px solid;
+  text-decoration: none;
+  color: #6c757d;
+  height: 2.5em;
+  line-height: 2em; /* ATTENTION on centre le texte verticalement "à la main"*/
+}
+.nav-item:hover{
+  background-color: #6c757d;
+  color: white;
+  text-decoration: none;
+}
+
+.active{
+  background-color: lightgrey;
+}
