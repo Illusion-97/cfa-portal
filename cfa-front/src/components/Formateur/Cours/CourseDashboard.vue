@@ -116,7 +116,9 @@ export default {
 label {
   color: black;
 }
-
+.table {
+  text-align: center;
+}
 .icon:hover {
   cursor: pointer;
 }
