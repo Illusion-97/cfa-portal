@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-2" align="center">
       <div class="identite">
-        <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
-        <p class="email">{{ utilisateur.login }}</p>
+        <!-- <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
+        <p class="email">{{ utilisateur.login }}</p> -->
       </div>
 
       <b-calendar> </b-calendar>
@@ -13,11 +13,11 @@
         <div class="col-md-3">
           <b-card header="Formateur Référent">
             <b-card-text>
-              {{ formateurReferent.prenom }} {{ formateurReferent.nom }}
-              {{ formateurReferent.login }}
+              <!-- {{ formateurReferent.prenom }} {{ formateurReferent.nom }}
+              {{ formateurReferent.login }} -->
               <!-- En attendant -->
-              <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-              <p>{{ utilisateur.login }}</p>
+              <!-- <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+              <p>{{ utilisateur.login }}</p> -->
             </b-card-text>
           </b-card>
         </div>
@@ -25,11 +25,11 @@
         <div class="offset-1 col-md-3">
           <b-card header="Référent de la promotion">
             <b-card-text>
-              {{ promotionReferent.prenom }} {{ promotionReferent.nom }}
-              {{ promotionReferent.login }}
+              <!-- {{ promotionReferent.prenom }} {{ promotionReferent.nom }}
+              {{ promotionReferent.login }} -->
               <!-- En attendant -->
-              <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-              <p>{{ utilisateur.login }}</p>
+              <!-- <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+              <p>{{ utilisateur.login }}</p> -->
             </b-card-text>
           </b-card>
         </div>
@@ -37,11 +37,11 @@
         <div class="offset-1 col-md-3">
           <b-card header="Manager">
             <b-card-text>
-              {{ manager.prenom }} {{ manager.nom }}
-              {{ manager.login }}
+              <!-- {{ manager.prenom }} {{ manager.nom }}
+              {{ manager.login }} -->
               <!-- En attendant -->
-              <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-              <p>{{ utilisateur.login }}</p>
+              <!-- <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+              <p>{{ utilisateur.login }}</p> -->
             </b-card-text>
           </b-card>
         </div>
@@ -49,7 +49,7 @@
 
       <div class="row">
         <div class="col-md-11">
-          <Planning v-bind:date="dateAujourdhui"/>
+          <!-- <Planning v-bind:date="dateAujourdhui"/> -->
         </div>
       </div>
     </div>
@@ -58,11 +58,11 @@
 
 <script>
 import axios from "axios";
-import Planning from "@/components/utils/Planning.vue";
+// import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "HomeEtudiant",
   components: {
-    Planning,
+    // Planning,
   },
   data() {
     return {
