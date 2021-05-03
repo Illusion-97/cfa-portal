@@ -13,13 +13,28 @@
         
         <b-navbar-nav>
           <b-nav-item href="/" class=" a-link">Home</b-nav-item>
-              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/acceuil">
-                  Espace pedagogique
+              <b-nav-item class=" a-link" href="/Referent/referentDashboard">
+                  Promotion
               </b-nav-item>
-              <b-nav-item class=" a-link" href="/etudiant/espace-administratif/profil">
-                  Espace administrative
-          </b-nav-item>
-        </b-navbar-nav>  
+              <b-nav-item class=" a-link" href="/Referent/cours">
+                  Cours
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/Referent/etudiants">
+                  Etudiant
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/Referent/notes">
+                  Notes
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/Referent/administratif">
+                  Administratif
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/Referent/absenceRetard">
+                  Absences / Retards
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/Referent/groupeProjet">
+                  Groupes / Projets
+              </b-nav-item>
+        </b-navbar-nav>      
       </b-collapse>
     </b-navbar>
   </header>
@@ -27,10 +42,10 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: "NavbarReferent",
   components: {
   },
-  methods: {
+methods: {
     setActiv(path){
       if(path == this.$router.currentRoute.fullPath)
         return 'active';
@@ -48,7 +63,7 @@ export default {
   /*@import './assets/styles/NavBar.css';*/
 
   header {
-    margin-bottom: 50px;;
+    margin-bottom: 50px;
   }
 
   .navbar {
@@ -111,3 +126,4 @@ export default {
     }
   }
 </style>
+

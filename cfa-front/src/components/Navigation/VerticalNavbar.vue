@@ -1,20 +1,21 @@
 <template>
     <div class="NavBar2">
 
-        <div v-if="table[1] == 'EspaceAdministratif'" id="espace-administratif">
+        <div v-if="table[1] == 'espace-administratif'" id="espace-administratif">
             <h6>Mon Espace Administratif</h6>
 
-            <div v-if="table[0] == 'Etudiant'">
+            <div v-if="table[0] == 'etudiant'">
                 <nav class="mb-3">
                     <b-nav vertical>
-                        <a class="nav-item" href="/Etudiant/EspaceAdministratif" v-bind:class="setActiv('/Etudiant/EspaceAdministratif')">Profil</a>
-                        <a class="nav-item" href="/Etudiant/EspaceAdministratif/DepotFichier" v-bind:class="setActiv('/Etudiant/EspaceAdministratif/DepotFichier')">Dépôt de Fichier</a>
-                        <a class="nav-item" href="/Etudiant/EspaceAdministratif/DemandeConge" v-bind:class="setActiv('/Etudiant/EspaceAdministratif/DemandeConge')">Demande de congés</a>
+                        <a class="nav-item" href="/etudiant/espace-administratif/profil" v-bind:class="setActiv('/etudiant/espace-administratif/profil')">Profil</a>
+                        <a class="nav-item" href="/etudiant/espace-administratif/depot-fichier" v-bind:class="setActiv('/etudiant/espace-administratif/depot-fichier')">Dépôt de Fichier</a>
+                        <a class="nav-item" href="/etudiant/espace-administratif/demande-conge" v-bind:class="setActiv('/etudiant/espace-administratif/demande-conge')">Demande de congés</a>
                     </b-nav>
                 </nav>    
-            </div>       
+            </div> 
 
-                
+            
+                  
         </div>
         
     </div>

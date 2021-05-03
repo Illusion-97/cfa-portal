@@ -1,19 +1,22 @@
 <template>
-    <h1>{{title}}</h1>
+  <h1>{{ title }}</h1>
 </template>
 
 <script>
 export default {
   name: "BodyTitle",
-  props: ["title"],
+  props: {
+    title: String,
+  },
 };
-
 </script>
 
 <style scoped>
-h1{
-    border: 1px solid #6c757d;
-    padding: 0.5em;
-    padding-left: 2em;
-  }
+h1 {
+  /* border: 1px solid #6c757d; */
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  /* padding-left: 2em; */
+}
 </style>

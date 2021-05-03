@@ -13,13 +13,28 @@
         
         <b-navbar-nav>
           <b-nav-item href="/" class=" a-link">Home</b-nav-item>
-              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/acceuil">
-                  Espace pedagogique
+              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/cursus">
+                  Mon cursus
               </b-nav-item>
-              <b-nav-item class=" a-link" href="/etudiant/espace-administratif/profil">
-                  Espace administrative
-          </b-nav-item>
-        </b-navbar-nav>  
+              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/devoirs">
+                  Devoirs
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/notes">
+                  Bulletin de notes
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/Referent/Planning">
+                  Mon Planning
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/dossierPro">
+                  Dossier professionel
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/absences">
+                  Absences / Retards
+              </b-nav-item>
+              <b-nav-item class=" a-link" href="/etudiant/espace-pedagogique/evaluationFormation">
+                  Evaluation Formation
+              </b-nav-item>
+        </b-navbar-nav>      
       </b-collapse>
     </b-navbar>
   </header>
@@ -27,10 +42,10 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: "NavbarEtudiant",
   components: {
   },
-  methods: {
+methods: {
     setActiv(path){
       if(path == this.$router.currentRoute.fullPath)
         return 'active';
@@ -48,7 +63,7 @@ export default {
   /*@import './assets/styles/NavBar.css';*/
 
   header {
-    margin-bottom: 50px;;
+    margin-bottom: 50px;
   }
 
   .navbar {
@@ -111,3 +126,4 @@ export default {
     }
   }
 </style>
+
