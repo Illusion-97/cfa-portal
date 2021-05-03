@@ -18,6 +18,9 @@ export default new Vuex.Store({
     planning: []
   },
   getters: { 
+    getUtilisateur: state => {
+      return state.utilisateur;
+    },
     getPlanning: state => {
       return state.planning;
     }

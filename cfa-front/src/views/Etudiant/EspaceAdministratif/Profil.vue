@@ -67,26 +67,20 @@
 </template>
 
 <script>
-  import axios from "axios";
-
   export default {
     name: "Profil",
     components: {},
     data() {
       return {
-        utilisateur: null,
       };
     },
     computed: {
       planning(){
         return this.$store.getters.getPlanning
-      }
-    },
-    created() {
-      axios
-        .get("http://localhost:8080/AppliCFABack/etudiants/10")
-        .then((response) => (this.utilisateur = response.data))
-        .catch((e) => this.errors.push(e));
+      },
+      utilisateur(){
+        return this.$store.getters.getUtilisateur
+      },
     },
     methods: {
       toFiche(index) {
