@@ -4,6 +4,7 @@ import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
 import DepotFichier from "@/views/Etudiant/EspaceAdministratif/DepotFichier.vue";
 import DemandeConge from "@/views/Etudiant/EspaceAdministratif/DemandeConge.vue";
 import Course from "@/views/Formateur/Cours/Cours.vue";
+import AjoutCours from "@/views/Formateur/Cours/AjoutCours.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 //import secure from '@/components/secure.vue'
 import ReferentDashboard from "@/views/Referent/ReferentDashboard.vue";
@@ -56,6 +57,11 @@ const routes = [
     path: "/formateur/cours",
     name: "formateur_cours",
     component: Course,
+  },
+  {
+    path: "/formateur/ajouter-cours",
+    name: "ajouter_cours",
+    component: AjoutCours,
   },
   {
     path: "/login/LoginPage",
