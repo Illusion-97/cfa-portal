@@ -17,6 +17,25 @@
             
                   
         </div>
+        <div v-if="table[1] == 'espace-pedagogique'" id="espace-pedagogique">
+            <h6>Mon Espace Administratif</h6>
+
+            <div v-if="table[0] == 'etudiant'">
+                <nav class="mb-3">
+                    <b-nav vertical>
+                        <a class="nav-item" href="/etudiant/espace-pedagogique/cursus" v-bind:class="setActiv('/etudiant/espace-pedagogique/cursus')">Mon cursus</a>
+                        <a class="nav-item" href="/etudiant/espace-pedagogique/devoirs" v-bind:class="setActiv('/etudiant/espace-pedagogique/devoirs')">Devoirs</a>
+                        <a class="nav-item" href="/etudiant/espace-pedagogique/notes" v-bind:class="setActiv('/etudiant/espace-pedagogique/notes')">Bulletin de notes</a>
+                        <a class="nav-item" href="/etudiant/espace-pedagogique/dossierPro" v-bind:class="setActiv('/etudiant/espace-pedagogique/dossierPro')">Dossier professionel</a>
+                        <a class="nav-item" href="/etudiant/espace-pedagogique/absences" v-bind:class="setActiv('/etudiant/espace-pedagogique/absences')">Absences / Retards</a>
+                        <a class="nav-item" href="/etudiant/espace-pedagogique/evaluationFormation" v-bind:class="setActiv('/etudiant/espace-pedagogique/evaluationFormation')">Evaluation Formation</a>
+                    </b-nav>
+                </nav>    
+            </div> 
+
+            
+                  
+        </div>
         
     </div>
 </template>
