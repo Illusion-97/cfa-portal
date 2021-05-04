@@ -2,7 +2,14 @@
   <div id="EtudiantR">
     <Navbar-Referent />
     <BodyTitle title="Liste des Etudiants de la promo" />
-
+    <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+    />
+    <!--
     <div class="container">
       <table class="table">
         <thead class="thead-dark">
@@ -39,6 +46,11 @@
         </tbody>
       </table>
       <br />
+      
+      <a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>
+    </div>
+    -->
+    <div class="container">
       <a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>
     </div>
   </div>
@@ -47,11 +59,38 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "EtudiantR",
   components: {
     NavbarReferent,
     BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          Nom: "Schwarzer",
+          Prenom: "Julien",
+          Adresse: "2 rue du Corbier",
+          FeuilleDePrésence: "Feuille de présence",
+        },
+        {
+          Nom: "Ture",
+          Prenom: "Thomas",
+          Adresse: "28 rue de la tourelle",
+          FeuilleDePrésence: "Feuille de présence",
+        },
+        {
+          Nom: "Sparrow",
+          Prenom: "Jack",
+          Adresse: "60 rue Louis",
+          FeuilleDePrésence: "Feuille de présence",
+        },
+      ],
+    };
   },
 };
 </script>

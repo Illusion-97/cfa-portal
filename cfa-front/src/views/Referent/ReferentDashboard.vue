@@ -3,6 +3,14 @@
     <Navbar-Referent />
     <BodyTitle title="Liste des Promotions" />
 
+    <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+    />
+    <!--
     <div class="container">
       <table class="table">
         <thead class="thead-dark">
@@ -43,17 +51,48 @@
         </tbody>
       </table>
     </div>
+    -->
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "ReferentDashboard",
   components: {
     NavbarReferent,
     BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          nom : ".Net",
+          etudiant:"sydaphasavanh",
+          groupeProjet: "@voir",
+          ProgrammeDeCours: "@voir",
+          Cours: "@voir",
+        },
+        {
+          nom : "Designer",
+          etudiant:"Jack",
+          groupeProjet: "@voir",
+          ProgrammeDeCours: "@voir",
+          Cours: "@voir",
+        },
+        {
+          nom : "Java",
+          etudiant:"potier",
+          groupeProjet: "@voir",
+          ProgrammeDeCours: "@voir",
+          Cours: "@voir",
+        },
+      ],
+    };
   },
 };
 </script>
