@@ -27,7 +27,16 @@ import EvaluationFormation from "@/views/Etudiant/EspacePedagogique/EvaluationFo
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import EtudiantR from "@/views/Referent/EtudiantR.vue";
 import CoursR from "@/views/Referent/CoursR.vue";
+import CreateCoursR from '@/views/Referent/CreateCoursR.vue'
 import Home from "@/views/Home.vue";
+import DevoirsR from '@/views/Referent/DevoirsR.vue'
+import CreateDevoirR from '@/views/Referent/CreateDevoirR.vue'
+import ModifierDevoirR from '@/views/Referent/ModifierDevoirR.vue'
+import ExamenR from '@/views/Referent/ExamenR.vue'
+import CreateExamenR from '@/views/Referent/CreateExamenR.vue'
+import ModifierExamenR from '@/views/Referent/ModifierExamenR.vue'
+import NoteInfoR from '@/views/Referent/NoteInfoR.vue'
+import CreateSupportCoursR from '@/views/Referent/CreateSupportCoursR.vue'
 
 Vue.use(VueRouter);
 
@@ -168,6 +177,42 @@ const routes = [
     name: "referent_cours",
     component: CoursR,
   },
+  { 
+    path: '/referent/creation-cours',
+    name: 'CreateCoursR',
+    component: CreateCoursR},
+  { 
+    path: '/referent/devoirs',
+    name: 'DevoirsR',
+    component: DevoirsR},
+  { 
+    path: '/referent/creation-devoir',
+    name: 'CreateDevoirR',
+    component: CreateDevoirR},
+  { 
+    path: '/referent/modifier-devoir',
+    name: 'ModifierDevoirR',
+    component: ModifierDevoirR},
+  { 
+    path: '/referent/examens',
+    name: 'ExamenR',
+    component: ExamenR},
+  { 
+    path: '/referent/creation-examen',
+    name: 'CreateExamenR', 
+    component: CreateExamenR},
+  { 
+    path: '/referent/modifier-examen',
+    name: 'ModifierExamenR',
+    component: ModifierExamenR},
+  { 
+    path: '/referent/creation-note-info',
+    name: 'NoteInfoR',
+    component: NoteInfoR},
+  { 
+    path: '/referent/creation-support-de-cours',
+    name: 'CreateSupportCoursR',
+    component: CreateSupportCoursR},
 ];
 
 const router = new VueRouter({

@@ -7,13 +7,20 @@
       <br />
       <div class="row g-3">
         <div class="col-sm-3">
-          <a href="/referent/creationExamenR" class="btn btn-primary"
+          <a href="/referent/creation-examen" class="btn btn-primary"
             >Créer un Examen</a
           >
         </div>
       </div>
       <br />
-      <br/>
+       <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+    />
+      <!--
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -44,6 +51,7 @@
           </tr>
         </tbody>
       </table>
+      -->
     </div>
   </div>
 </template>
@@ -51,11 +59,40 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Examens",
   components: {
     NavbarReferent,
     BodyTitle,
+    TableTemplate
+  },
+   data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          enonce: "Enonce#1",
+          cursus: "Cursus#1",
+          formation: "Formation#1",
+        },
+        {
+          enonce: "Enonce#2",
+          cursus: "Cursus#2",
+          formation: "Formation#2",
+        },
+        {
+          enonce: "Enonce#3",
+          cursus: "Cursus#3",
+          formation: "Formation#3",
+        },
+        {
+          enonce: "Enonce#4",
+          cursus: "Cursus#4",
+          formation: "Formation#4",
+        },
+      ],
+    };
   },
 };
 </script>
