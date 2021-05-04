@@ -62,14 +62,8 @@ export default {
     };
   },
   computed: {
-    planning(){
-      return this.$store.getters.getPlanning;
-    },
     utilisateur(){
       return this.$store.getters.getUtilisateur;
-    },
-    dateAujourdhui() {
-      return this.date;
     },
   },
   created() {
@@ -92,16 +86,6 @@ export default {
       .catch((error) => console.log(error));
   },
   methods: {
-    nextWeek() {
-      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());
-      newDate.setDate(this.date.getDate() + 7);
-      this.date = newDate;
-    },
-    previousWeek() {
-      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());
-      newDate.setDate(this.date.getDate() - 7);
-      this.date = newDate;
-    }
   }
 };
 </script>

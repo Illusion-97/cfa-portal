@@ -6,9 +6,9 @@
           <b-card no-body id="card-profil">
             <b-card-header>
               <span class="">Profil</span>
-              <a href="/">
+              <router-link :to="{name: 'home'}">
                 <font-awesome-icon :icon="['fas', 'edit']" class="text-white" />
-              </a>
+              </router-link>
             </b-card-header>
 
             <b-card-text class="identity">

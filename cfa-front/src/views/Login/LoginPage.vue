@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /*#login {
         width: 500px;
         border: 1px solid #CCCCCC;

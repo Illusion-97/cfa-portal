@@ -3,48 +3,37 @@
     <BodyTitle title="Demande de congé" />
 
     <b-form class="form mb-5" @submit="submit()">
+      <b-form-group >
+        <b-form-row class="text-align-left">
+          <label class="offset-1 col-1">date de début :</label>
+          <div class="col-4 pr-5">
+            <b-form-datepicker locale="fr" > </b-form-datepicker>
+          </div>          
+          <div class="col-1">date de fin :</div>
+          <div class="col-4 pr-5">
+            <b-form-datepicker locale="fr" > </b-form-datepicker>
+          </div>   
+        </b-form-row>
+      </b-form-group>
+
       <b-form-group>
         <b-form-row class="text-align-left">
-          <b-col>
-            date de début :
-          </b-col>
-
-          <b-col>
-            <b-form-datepicker locale="fr"> </b-form-datepicker>
-          </b-col>
-
-          <b-col> </b-col>
-
-          <b-col>
-            date de fin :
-          </b-col>
-
-          <b-col>
-            <b-form-datepicker> </b-form-datepicker>
-          </b-col>
+            <div class="offset-1 col-1">Motif :</div>
+            <div class="col-4 pr-5">
+              <b-form-input type="text"> </b-form-input>
+            </div>
+            <label class="col-1">Type de congé :</label>
+            <div class="col-4 pr-5">
+              <b-form-select :options="types"></b-form-select>
+            </div>
         </b-form-row>
       </b-form-group>
 
-      <b-form-group>
-        <b-form-row>
-          <b-col>
-            <label>Type de congé :</label>
-          </b-col>
-          <b-col cols="10">
-            <b-form-select :options="types"></b-form-select>
-          </b-col>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        Entrez votre message :
-        <b-form-textarea class="b-form-textarea"> </b-form-textarea>
-      </b-form-group>
-
-      <b-form-group>
+      <div class="offset-9 col-2 pl-5 pr-5 pl-0">
         <b-button type="submit">Send</b-button>
-      </b-form-group>
+      </div>
     </b-form>
+
     <TableTemplate
       :perPage="perPage"
       :items="items"
@@ -52,7 +41,8 @@
       :showBtn="false"
       btnTxt="Ajouter un fichier"
       btnLink="/"
-    />
+      class="pr-5"
+      />
   </div>
 </template>
 
@@ -127,14 +117,15 @@ export default {
 
 <style scoped>
 .form {
-  border: 1px solid #6c757d;
-  margin-top: 5em;
-  padding-top: 2em;
-  padding-left: 5em;
-  padding-right: 5em;
+  margin-top: 5em
 }
 
 .b-form-textarea {
   height: 200px;
 }
+
+.btn{
+  width: 100%;
+}
+
 </style>

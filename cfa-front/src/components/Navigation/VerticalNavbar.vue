@@ -8,7 +8,7 @@
                 <nav class="mb-3">
                     <b-nav vertical>
                         <router-link class="nav-item" :to="{name:'etudiant_profil'}">Profil</router-link>
-                        <router-link class="nav-item" :to="{name:'etudiant_depot'}">Dépôt de Fichier</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_documents_administratifs'}">Documents administratifs</router-link>
                         <router-link class="nav-item" :to="{name:'etudiant_conge'}">Demande de congés</router-link>
                     </b-nav>
                 </nav>    

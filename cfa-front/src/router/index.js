@@ -51,8 +51,8 @@ const routes = [{
     component: Profil,
   },
   {
-    path: "/etudiant/espace-administratif/depot-fichier",
-    name: "etudiant_depot-fichier",
+    path: "/etudiant/espace-administratif/documents-administratifs",
+    name: "etudiant_documents_administratifs",
     component: DepotFichier,
   },
   {
