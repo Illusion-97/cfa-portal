@@ -13,14 +13,24 @@ export default {
     HomeEtudiant
   },
   computed: {
+    utilisateur(){
+      return this.$store.getters.getUtilisateur
+    },
     planning(){
       return this.$store.getters.getPlanning
     }
   },
   created(){
-    let req = "http://localhost:8080/AppliCFABack/utilisateurs/" + this.$store.state.utilisateur.id + "/planning";
+
+    let req1 = "http://localhost:8080/AppliCFABack/utilisateurs/" + this.utilisateur.id;
     axios
-      .get(req)
+      .get(req1)
+      .then((response) => this.$store.dispatch('setUtilisateur', response.data))
+      .catch((error) => console.log(error));
+
+    let req2 = "http://localhost:8080/AppliCFABack/utilisateurs/" + this.utilisateur.id + "/planning";
+    axios
+      .get(req2)
       .then((response) => this.$store.dispatch('setPlanning', response.data))
       .catch((error) => console.log(error));
   }

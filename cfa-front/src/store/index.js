@@ -5,16 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    utilisateur: {
-      id: 1,
-      login: "login@dawan.fr",
-      password: "pwd_1",
-      prenom: "Pierre Paul",
-      nom: "Jacques",
-      adresseDto: null,
-      entrepriseDto: null,
-      roleDtos: null
-    },
+    utilisateur: {id: 1,},
     planning: []
   },
   getters: { 
@@ -26,11 +17,17 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    SET_UTILISATEUR(state, data){
+      state.utilisateur = data;
+    },
     SET_PLANNING(state, data){
       state.planning = data;
     }
   },
   actions: {
+    setUtilisateur({ commit }, data){
+      commit('SET_UTILISATEUR', data);
+    },
     setPlanning({ commit }, data){
       commit('SET_PLANNING', data);
     }
