@@ -1,11 +1,11 @@
 <template>
     <div >
-      <NavbarEtudiant />
+      
       <div class="monBody">
         <router-view />
       </div>
       <div class="body">
-        <h1>Mon Espace Pédagogique</h1>
+        <BodyTitle title="Mon espace pédagogiques" />
 
         <br>
         <br>
@@ -21,19 +21,11 @@
   
 </template>
 <script>
-import NavbarEtudiant from "@/components/Navigation/NavbarEtudiant.vue";
-
-export default ({
- name: "App",
+import BodyTitle from "@/components/utils/BodyTitle.vue";
+export default {
+  name: "Acceuil",
   components: {
-    NavbarEtudiant,
-  },
-  methods: {
-  },
-  computed: {
-    table : function(){
-      return this.$router.currentRoute.fullPath;
-    },
+    BodyTitle
   }
-})
+}
 </script>

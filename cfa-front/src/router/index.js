@@ -153,7 +153,7 @@ const routes = [
     component: Devoirs,
   },
   {
-    path: "/etudiant/espace-pedagogique/dossier-professionel",
+    path: "/etudiant/espace-pedagogique/dossierPro",
     name: "etudiant_espace-peda_dossier-pro ",
     component: DossierPro,
   },
@@ -216,9 +216,9 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
+    mode: "history",
+    base: process.env.BASE_URL,
+    routes,
 });
 
 export default router;
