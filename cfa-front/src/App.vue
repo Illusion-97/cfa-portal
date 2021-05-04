@@ -24,10 +24,13 @@ export default {
   methods: {
   },
   computed: {
-    table : function(){
-      return this.$router.currentRoute.fullPath;
+    table(){
+      return this.$route.path
     },
-  }
+    show(){
+      return "true";
+    },
+  },
 };
 </script>
 <style>

@@ -1,9 +1,6 @@
 <template>
   <div class="body">
     <div class="container">
-
-      {{planning}}
-
       <div class="row">
         <div class="col-md-10">
           <b-card no-body id="card-profil">

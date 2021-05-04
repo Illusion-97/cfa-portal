@@ -7,9 +7,9 @@
             <div v-if="table[0] == 'etudiant'">
                 <nav class="mb-3">
                     <b-nav vertical>
-                        <a class="nav-item" href="/etudiant/espace-administratif/profil" v-bind:class="setActiv('/etudiant/espace-administratif/profil')">Profil</a>
-                        <a class="nav-item" href="/etudiant/espace-administratif/depot-fichier" v-bind:class="setActiv('/etudiant/espace-administratif/depot-fichier')">Dépôt de Fichier</a>
-                        <a class="nav-item" href="/etudiant/espace-administratif/demande-conge" v-bind:class="setActiv('/etudiant/espace-administratif/demande-conge')">Demande de congés</a>
+                        <router-link class="nav-item" :to="{name:'etudiant_profil'}">Profil</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_depot'}">Dépôt de Fichier</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_conge'}">Demande de congés</router-link>
                     </b-nav>
                 </nav>    
             </div> 
@@ -18,17 +18,17 @@
                   
         </div>
         <div v-if="table[1] == 'espace-pedagogique'" id="espace-pedagogique">
-            <h6>Mon Espace Administratif</h6>
+            <h6>Mon Espace Pedogique</h6>
 
             <div v-if="table[0] == 'etudiant'">
                 <nav class="mb-3">
                     <b-nav vertical>
-                        <a class="nav-item" href="/etudiant/espace-pedagogique/cursus" v-bind:class="setActiv('/etudiant/espace-pedagogique/cursus')">Mon cursus</a>
-                        <a class="nav-item" href="/etudiant/espace-pedagogique/devoirs" v-bind:class="setActiv('/etudiant/espace-pedagogique/devoirs')">Devoirs</a>
-                        <a class="nav-item" href="/etudiant/espace-pedagogique/notes" v-bind:class="setActiv('/etudiant/espace-pedagogique/notes')">Bulletin de notes</a>
-                        <a class="nav-item" href="/etudiant/espace-pedagogique/dossierPro" v-bind:class="setActiv('/etudiant/espace-pedagogique/dossierPro')">Dossier professionel</a>
-                        <a class="nav-item" href="/etudiant/espace-pedagogique/absences" v-bind:class="setActiv('/etudiant/espace-pedagogique/absences')">Absences / Retards</a>
-                        <a class="nav-item" href="/etudiant/espace-pedagogique/evaluationFormation" v-bind:class="setActiv('/etudiant/espace-pedagogique/evaluationFormation')">Evaluation Formation</a>
+                        <router-link class="nav-item" :to="{name:'etudiant_espace-peda_cursus'}">Mon cursus</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link>
+                        <router-link class="nav-item" :to="{name:'etudiant_espace-peda_evaluation-formation'}">Evaluation Formation</router-link>
                     </b-nav>
                 </nav>    
             </div> 
@@ -44,14 +44,10 @@
 export default {
   name: "VerticalNavbar",
   methods: {
-    setActiv(path){
-      if(path == this.$router.currentRoute.fullPath)
-        return 'active';
-    }
   },
   computed: {
     table : function(){
-      return this.$router.currentRoute.fullPath.split('/').splice(1);
+      return this.$route.path.split('/').splice(1);
     },
   }
 };
@@ -82,7 +78,7 @@ export default {
         text-decoration: none;
     }
 
-    .active{
+    .router-link-exact-active{
         background-color: lightgrey;
     }
 </style>
