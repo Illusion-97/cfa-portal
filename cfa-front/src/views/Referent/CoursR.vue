@@ -7,22 +7,27 @@
       <br />
       <div class="row g-3">
         <div class="col-sm-3">
-          <a href="/referent/creationCours" class="btn btn-primary"
+          <a href="/referent/creation-cours" class="btn btn-primary"
             >Créer un cours</a
           >
         </div>
       </div>
       <br />
-      <a href="/referent/creationNoteInfo" class="btn btn-outline-dark"
-        >Rédiger une note d'information optionnelle</a>
-      <a href="/referent/creationSupportDeCours" class="btn btn-outline-info"
-        >Enregistrer un support de cours</a>
-      <a href="/referent/examensR" class="btn btn-outline-secondary"
-        >Voir la liste des examens</a>
-      <a href="/referent/devoirsR" class="btn btn-outline-success"
-        >Voir la liste des devoirs</a>
+      <div class="btn-group" role="group" aria-label="Basic example">
+      <a href="/referent/creation-note-info" class="btn btn-secondary">Rédiger une note d'information optionnelle </a>
+      <a href="/referent/creation-support-de-cours" class="btn btn-secondary" >Enregistrer un support de cours</a>
+      <a href="/referent/examens" class="btn btn-secondary" >Voir la liste des examens</a>
+      <a href="/referent/devoirs" class="btn btn-secondary" >Voir la liste des devoirs</a>
+      </div>
       <br />
-      <br/>
+      <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+    />
+      <!--
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -53,18 +58,44 @@
           </tr>
         </tbody>
       </table>
+      -->
     </div>
+    
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Cours",
   components: {
     NavbarReferent,
     BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          nom: "C#",
+          "Note d'information": "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+          ProgrammeDeCours: "Programme C#",
+        },
+        {
+          nom: "Java",
+          "Note d'information": "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+          ProgrammeDeCours: "Programme Java",
+        },
+        {
+          nom: "Sql",
+          "Note d'information": "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+          ProgrammeDeCours: "Programme Sql",
+        },
+      ],
+    };
   },
 };
 </script>

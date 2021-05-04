@@ -13,7 +13,7 @@
         
         <b-navbar-nav>
           <b-nav-item href="/" class=" a-link">Home</b-nav-item>
-              <b-nav-item class=" a-link" href="/Referent/referentDashboard">
+              <b-nav-item class=" a-link" href="/Referent/dashboard">
                   Promotion
               </b-nav-item>
               <b-nav-item class=" a-link" href="/Referent/cours">
@@ -28,10 +28,10 @@
               <b-nav-item class=" a-link" href="/Referent/administratif">
                   Administratif
               </b-nav-item>
-              <b-nav-item class=" a-link" href="/Referent/absenceRetard">
+              <b-nav-item class=" a-link" href="/Referent/absence-retard">
                   Absences / Retards
               </b-nav-item>
-              <b-nav-item class=" a-link" href="/Referent/groupeProjet">
+              <b-nav-item class=" a-link" href="/Referent/groupe-projet">
                   Groupes / Projets
               </b-nav-item>
         </b-navbar-nav>      
