@@ -1,6 +1,5 @@
 <template>
   <div id="CreateSupportCours">
-    <Navbar-Referent />
     <BodyTitle title="Enregistrer un support de cours" />
     <div class="container">
       <form>
@@ -44,12 +43,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 export default {
   name: "CreateSupportCours",
 
   components: {
-    NavbarReferent,
     BodyTitle,
   },
 };

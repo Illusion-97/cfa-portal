@@ -1,6 +1,5 @@
 <template>
   <div id="Projets">
-    <Navbar-Referent />
     <BodyTitle title="Liste des projets" />
 
     <div class="container">
@@ -18,12 +17,11 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Projets",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate,
   },

@@ -1,6 +1,6 @@
 <template>
   <div id="referentDashboard">
-    <Navbar-Referent />
+   
     <BodyTitle title="Liste des Promotions" />
 
     <TableTemplate
@@ -57,12 +57,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "ReferentDashboard",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate,
   },

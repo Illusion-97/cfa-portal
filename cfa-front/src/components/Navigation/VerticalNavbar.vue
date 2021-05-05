@@ -36,6 +36,23 @@
             
                   
         </div>
+        <div v-if="table[0] == 'referent'" id="referent">
+            <h6>Mon Espace</h6>
+
+            
+                <nav class="mb-3">
+                    <b-nav vertical>
+                        <a class="nav-item" href="/referent/dashboard" v-bind:class="setActiv('/referent/dashboard')">Home</a>
+                        <a class="nav-item" href="/referent/cours" v-bind:class="setActiv('/referent/cours')">Cours</a>
+                        <a class="nav-item" href="/referent/etudiants" v-bind:class="setActiv('/referent/etudiants')">Etudiant</a>
+                        <a class="nav-item" href="/referent/notes" v-bind:class="setActiv('/referent/notes')">Notes</a>
+                        <a class="nav-item" href="/referent/administratif" v-bind:class="setActiv('/referent/administratif')">Administratif</a>
+                        <a class="nav-item" href="/referent/absence-retard" v-bind:class="setActiv('/referent/absence-retard')">Absences / Retards</a>
+                        <a class="nav-item" href="/referent/groupe-projet" v-bind:class="setActiv('/referent/groupe-projet')">Groupes / Projets</a>
+                    </b-nav>
+                </nav>    
+                  
+        </div>
         
     </div>
 </template>

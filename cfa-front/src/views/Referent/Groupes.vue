@@ -1,6 +1,5 @@
 <template>
   <div id="Groupes">
-    <Navbar-Referent />
     <BodyTitle title="Liste des groupes" />
 
     <div class="container">
@@ -19,14 +18,28 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Groupes",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          nom: "Team1",
+        },
+        {
+          nom: "Team2",
+        },
+        {
+          nom: "Team3",
+        },
+      ],
+    };
   },
 };
 </script>

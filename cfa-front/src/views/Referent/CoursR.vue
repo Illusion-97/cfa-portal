@@ -1,6 +1,6 @@
 <template>
   <div id="Cours">
-    <Navbar-Referent />
+   
     <BodyTitle title="Liste des Cours" />
 
     <div class="container">
@@ -20,13 +20,7 @@
       <a href="/referent/devoirs" class="btn btn-secondary" >Voir la liste des devoirs</a>
       </div>
       <br />
-      <TableTemplate
-      :perPage="perPage"
-      :items="items"
-      :fields="fields"
-      :showBtn="false"
-      btnLink="/formateur/blabla"
-    />
+      
       <!--
       <table class="table">
         <thead class="thead-dark">
@@ -60,18 +54,23 @@
       </table>
       -->
     </div>
+    <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+     />
     
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Cours",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate,
   },
