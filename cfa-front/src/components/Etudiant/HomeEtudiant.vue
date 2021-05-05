@@ -45,7 +45,7 @@
 </template>
 
 <script>
-//ATTENTION : un étudiant a potentiellement plusierus promotions
+//ATTENTION : un étudiant a potentiellement plusieurs promotions
 //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 
