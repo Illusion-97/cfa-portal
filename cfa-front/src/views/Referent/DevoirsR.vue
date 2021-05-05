@@ -58,6 +58,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "Devoirs",
   components: {
@@ -84,6 +85,12 @@ export default {
           dateFin: "2021/01/08",
         },
       ],
+      created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/devoirs/10")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
     };
   },
 };

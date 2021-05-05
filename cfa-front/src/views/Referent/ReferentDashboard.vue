@@ -58,6 +58,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "ReferentDashboard",
   components: {
@@ -90,6 +91,12 @@ export default {
           Cours: "@voir",
         },
       ],
+      created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/promotions/")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
     };
   },
 };
