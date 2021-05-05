@@ -1,19 +1,25 @@
 <template>
   <div id="Devoirs">
-    <Navbar-Referent />
     <BodyTitle title="Liste des Devoirs" />
 
     <div class="container">
       <br />
       <div class="row g-3">
         <div class="col-sm-3">
-          <a href="/referent/creationDevoirR" class="btn btn-primary"
+          <a href="/referent/creation-devoir" class="btn btn-primary"
             >Créer un Devoir</a
           >
         </div>
       </div>
       <br />
-      <br/>
+      <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+    />
+      <!--
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -44,18 +50,48 @@
           </tr>
         </tbody>
       </table>
+      -->
     </div>
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "Devoirs",
   components: {
-    NavbarReferent,
     BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          enonce: "Enonce#1",
+          dateDebut: "2021/03/15",
+          dateFin: "2021/03/15",
+        },
+        {
+          enonce: "Enonce#2",
+          dateDebut: "2021/04/01",
+          dateFin: "2021/04/06",
+        },
+        {
+          enonce: "Enonce#3",
+          dateDebut: "2021/01/03",
+          dateFin: "2021/01/08",
+        },
+      ],
+      created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/devoirs/10")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
+    };
   },
 };
 </script>

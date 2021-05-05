@@ -1,6 +1,5 @@
 <template>
   <div id="CreateAbsenceRetard">
-    <Navbar-Referent />
     <BodyTitle title="Déclarer une Absence / Retard" />
 
     <div class="container">
@@ -66,11 +65,9 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 export default {
   name: "CreateAbsenceRetard",
   components: {
-    NavbarReferent,
     BodyTitle,
   },
 };

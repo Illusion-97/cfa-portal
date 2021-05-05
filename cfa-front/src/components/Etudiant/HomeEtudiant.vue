@@ -1,59 +1,49 @@
 <template>
-  <div class="row">
-    <div class="col-md-2" align="center">
-      <div class="identite">
-        <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
-        <p class="email">{{ utilisateur.login }}</p>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2" align="center">
+        <div class="identite">
+          <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
+          <p class="email">{{ utilisateur.login }}</p>
+        </div>
       </div>
 
-      <b-calendar> </b-calendar>
+      <div class="col-md-10">
+        <div class="row mb-5">
+          <div class="col-md-3">
+            <b-card header="Formateur Référent">
+              <b-card-text>
+                <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
+                <p>{{ formateurReferent.login }}</p>
+              </b-card-text>
+            </b-card>
+          </div>
+
+          <div class="offset-1 col-md-3">
+            <b-card header="Référent de la promotion">
+              <b-card-text>
+                <p>{{ promotionReferent.prenom }} {{ promotionReferent.nom }}</p>
+                <p>{{ promotionReferent.login }}</p>
+              </b-card-text>
+            </b-card>
+          </div>
+
+          <div class="offset-1 col-md-3">
+            <b-card header="Manager">
+              <b-card-text>
+                <p>{{ manager.prenom }} {{ manager.nom }}</p>
+                <p>{{ manager.login }}</p>
+              </b-card-text>
+            </b-card>
+          </div>
+        </div>
     </div>
-    <div class="col-md-10 pl-5">
-      <div class="row mb-5">
-        <div class="col-md-3">
-          <b-card header="Formateur Référent">
-            <b-card-text>
-              {{ formateurReferent.prenom }} {{ formateurReferent.nom }}
-              {{ formateurReferent.login }}
-              <!-- En attendant -->
-              <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-              <p>{{ utilisateur.login }}</p>
-            </b-card-text>
-          </b-card>
-        </div>
 
-        <div class="offset-1 col-md-3">
-          <b-card header="Référent de la promotion">
-            <b-card-text>
-              {{ promotionReferent.prenom }} {{ promotionReferent.nom }}
-              {{ promotionReferent.login }}
-              <!-- En attendant -->
-              <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-              <p>{{ utilisateur.login }}</p>
-            </b-card-text>
-          </b-card>
-        </div>
+    <Planning/>  
 
-        <div class="offset-1 col-md-3">
-          <b-card header="Manager">
-            <b-card-text>
-              {{ manager.prenom }} {{ manager.nom }}
-              {{ manager.login }}
-              <!-- En attendant -->
-              <p>{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-              <p>{{ utilisateur.login }}</p>
-            </b-card-text>
-          </b-card>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-11">
-          <Planning v-bind:date="dateAujourdhui"/>
-        </div>
-      </div>
-    </div>
   </div>
+</div>
+  
 </template>
 
 <script>
@@ -66,29 +56,53 @@ export default {
   },
   data() {
     return {
-      utilisateur: this.$store.state.utilisateur,
       formateurReferent: {},
       promotionReferent: {},
       manager: {},
-      dateAujourdhui: new Date(2021,2,25),
     };
   },
+  computed: {
+    planning(){
+      return this.$store.getters.getPlanning;
+    },
+    utilisateur(){
+      return this.$store.getters.getUtilisateur;
+    },
+    dateAujourdhui() {
+      return this.date;
+    },
+  },
   created() {
+    let req1 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/formateurReferent";
     axios
-      .get("")
+      .get(req1)
       .then((response) => (this.formateurReferent = response.data))
       .catch((error) => console.log(error));
 
+    let req2 = "http://localhost:8080/AppliCFABack/promotions/" + this.utilisateur.id + "/referent";
     axios
-      .get("")
+      .get(req2)
       .then((response) => (this.promotionReferent = response.data))
       .catch((error) => console.log(error));
 
+    let req3 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/manager";
     axios
-      .get("")
+      .get(req3)
       .then((response) => (this.manager = response.data))
       .catch((error) => console.log(error));
   },
+  methods: {
+    nextWeek() {
+      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());
+      newDate.setDate(this.date.getDate() + 7);
+      this.date = newDate;
+    },
+    previousWeek() {
+      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());
+      newDate.setDate(this.date.getDate() - 7);
+      this.date = newDate;
+    }
+  }
 };
 </script>
 
@@ -106,6 +120,10 @@ export default {
   font-size: 1.2em;
 }
 
+.card{
+  height: 11em;
+}
+
 .card-header {
   font-size: 1.35em;
 }
@@ -113,4 +131,5 @@ export default {
 .card-text {
   font-size: 1.2em;
 }
+
 </style>

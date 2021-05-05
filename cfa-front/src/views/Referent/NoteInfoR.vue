@@ -1,6 +1,5 @@
 <template>
   <div id="CreateNoteInfo">
-    <Navbar-Referent />
     <BodyTitle title="Rédiger une note d'information optionnelle" />
     <div class="container">
       <form>
@@ -46,12 +45,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 export default {
   name: "CreateNoteInfo",
 
   components: {
-    NavbarReferent,
     BodyTitle,
   },
 };

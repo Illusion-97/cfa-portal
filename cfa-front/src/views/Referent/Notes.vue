@@ -1,8 +1,14 @@
 <template>
   <div id="Notes">
-    <Navbar-Referent />
     <BodyTitle title="Liste des Notes" />
-
+    <TableTemplate
+      :perPage="perPage"
+      :items="items"
+      :fields="fields"
+      :showBtn="false"
+      btnLink="/formateur/blabla"
+    />
+    <!--
     <div class="container">
       <table class="table">
         <thead class="thead-dark">
@@ -35,17 +41,47 @@
         </tbody>
       </table>
     </div>
+    -->
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "Notes",
   components: {
-    NavbarReferent,
     BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      items: [
+        {
+          nom: "Etudiant1",
+          note: "15",
+          observation: "Bon",
+        },
+        {
+          nom: "Etudiant2",
+          note: "12",
+          observation: "Moyen",
+        },
+        {
+          nom: "Etudiant3",
+          note: "20",
+          observation: "Excellent",
+        },
+      ],
+       created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/notes/")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
+    };
   },
 };
 </script>

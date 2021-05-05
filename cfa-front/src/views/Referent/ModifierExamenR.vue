@@ -1,6 +1,5 @@
 <template>
   <div id="ModifierExamen">
-    <Navbar-Referent />
     <BodyTitle title="Modifier un examen" />
     <div class="container">
       <form>
@@ -42,12 +41,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 export default {
   name: "ModifierExamen",
 
   components: {
-    NavbarReferent,
     BodyTitle,
   },
 };

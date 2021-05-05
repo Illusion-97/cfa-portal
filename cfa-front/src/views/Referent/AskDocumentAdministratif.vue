@@ -1,6 +1,5 @@
 <template>
   <div id="referentDashboard">
-    <Navbar-Referent />
     <BodyTitle title="Demande de documents admnistratifs" />
     <div class="container">
       <form>
@@ -45,12 +44,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 export default {
   name: "AskDocumentAdministratif",
 
   components: {
-    NavbarReferent,
     BodyTitle,
   },
 };
