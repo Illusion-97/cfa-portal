@@ -1,6 +1,5 @@
 <template>
   <div id="Notes">
-    <Navbar-Referent />
     <BodyTitle title="Liste des Notes" />
     <TableTemplate
       :perPage="perPage"
@@ -48,12 +47,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Notes",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate,
   },

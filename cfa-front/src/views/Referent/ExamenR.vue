@@ -1,6 +1,5 @@
 <template>
   <div id="Examens">
-    <Navbar-Referent />
     <BodyTitle title="Liste des Examens" />
 
     <div class="container">
@@ -58,12 +57,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "Examens",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate
   },

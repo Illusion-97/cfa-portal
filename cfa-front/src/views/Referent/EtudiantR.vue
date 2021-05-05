@@ -1,6 +1,5 @@
 <template>
   <div id="EtudiantR">
-    <Navbar-Referent />
     <BodyTitle title="Liste des Etudiants de la promo" />
     <TableTemplate
       :perPage="perPage"
@@ -58,12 +57,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 export default {
   name: "EtudiantR",
   components: {
-    NavbarReferent,
     BodyTitle,
     TableTemplate,
   },

@@ -1,6 +1,6 @@
 <template>
   <div id="GroupeProjet">
-    <Navbar-Referent />
+
     <BodyTitle title="Liste - Créer un groupe / projet" />
 
     <div class="container">
@@ -12,7 +12,7 @@
               <p class="card-text">
                 Listes des groupes / créer un groupe
               </p>
-              <a href="/Referent/Groupes" class="btn btn-primary">Groupes</a>
+              <a href="/referent/Groupes" class="btn btn-primary">Groupes</a>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
               <p class="card-text">
                 Listes des projets / créer un projet
               </p>
-              <a href="/Referent/Projets" class="btn btn-primary">Projets</a>
+              <a href="/referent/Projets" class="btn btn-primary">Projets</a>
             </div>
           </div>
         </div>
@@ -34,11 +34,10 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 export default {
   name: "GroupeProjet",
   components: {
-    NavbarReferent,
+   
     BodyTitle,
   },
 };
