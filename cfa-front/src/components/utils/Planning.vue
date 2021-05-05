@@ -1,26 +1,23 @@
 <template>
-  <div class="container-fluide">
+  <div class="container-fluid">
     <div class="row">
       <div class="offset-2 col-md-10">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="my-btn-div col-md-11">
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="previousWeek()"
-              >
-                Précédente
-              </button>
-              <button type="button" class="btn btn-primary" @click="nextWeek()">
-                Suivante
-              </button>
-            </div>
+        <div class="row">
+          <div class="my-btn-div col-md-11">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="previousWeek()"
+            >
+              Précédente
+            </button>
+            <button type="button" class="btn btn-primary" @click="nextWeek()">
+              Suivante
+            </button>
           </div>
         </div>
       </div>
     </div>
-<div class="container-fluid">
     <div class="row">
       <div class="col-md-2" align="center">
         <b-calendar
@@ -87,7 +84,6 @@
         </table>
       </div>
     </div>
-</div>
   </div>
 </template>
 

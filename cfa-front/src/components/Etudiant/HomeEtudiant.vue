@@ -22,8 +22,8 @@
           <div class="offset-1 col-md-3">
             <b-card header="Référent de la promotion">
               <b-card-text>
-                <p>{{ promotionReferent.prenom }} {{ promotionReferent.nom }}</p>
-                <p>{{ promotionReferent.login }}</p>
+                <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}</p>
+                <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p>
               </b-card-text>
             </b-card>
           </div>
@@ -38,15 +38,17 @@
           </div>
         </div>
     </div>
-
     <Planning/>  
-
   </div>
 </div>
   
 </template>
 
 <script>
+//ATTENTION : un étudiant a potentiellement plusierus promotions
+//affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
+//Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
+
 import axios from "axios";
 import Planning from "@/components/utils/Planning.vue";
 export default {
@@ -57,7 +59,7 @@ export default {
   data() {
     return {
       formateurReferent: {},
-      promotionReferent: {},
+      promotion: {referentPedagogiqueDto: {nom: "", prenom: "", login: ""}},
       manager: {},
     };
   },
@@ -65,20 +67,26 @@ export default {
     utilisateur(){
       return this.$store.getters.getUtilisateur;
     },
+    promotionComputed(){
+      return this.promotion;
+    }
   },
   created() {
+    //On récupère le formateur référent
     let req1 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/formateurReferent";
     axios
       .get(req1)
       .then((response) => (this.formateurReferent = response.data))
       .catch((error) => console.log(error));
 
-    let req2 = "http://localhost:8080/AppliCFABack/promotions/" + this.utilisateur.id + "/referent";
+    //On récupère les référent des promotions de l'étudiant
+    let req2 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/promotions";
     axios
       .get(req2)
-      .then((response) => (this.promotionReferent = response.data))
+      .then((response) => (this.promotion = response.data[0]))
       .catch((error) => console.log(error));
 
+    //On récupère le manager de l'étudiant
     let req3 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/manager";
     axios
       .get(req3)

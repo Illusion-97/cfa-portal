@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    utilisateur: {id: 10,},
+    utilisateur: {id: 1,},
     planning: []
   },
   getters: { 
