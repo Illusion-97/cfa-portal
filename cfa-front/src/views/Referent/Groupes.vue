@@ -19,6 +19,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "Groupes",
   components: {
@@ -39,6 +40,12 @@ export default {
           nom: "Team3",
         },
       ],
+       created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/groupeEtudiants/")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
     };
   },
 };

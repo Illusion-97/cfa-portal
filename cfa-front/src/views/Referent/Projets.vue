@@ -19,6 +19,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "Projets",
   components: {
@@ -54,6 +55,12 @@ export default {
           groupe: "#",
         },
       ],
+      created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/projets/10")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
     };
   },
 };

@@ -58,6 +58,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
 export default {
   name: "EtudiantR",
   components: {
@@ -87,6 +88,12 @@ export default {
           FeuilleDePrésence: "Feuille de présence",
         },
       ],
+      created() {
+        axios
+          .get("http://localhost:8080/AppliCFABack/etudiants/")
+          .then((response) => (this.items = response.data))
+          .catch((e) => this.errors.push(e));
+        },
     };
   },
 };
