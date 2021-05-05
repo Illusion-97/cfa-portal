@@ -6,7 +6,7 @@
       :perPage="perPage"
       :items="items"
       :fields="fields"
-      :showBtn="true"
+      :showBtn="false"
       btnTxt="Ajouter un fichier"
       btnLink="/"
     />

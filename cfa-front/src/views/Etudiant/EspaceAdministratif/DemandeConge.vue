@@ -1,31 +1,42 @@
 <template>
   <div>
     <BodyTitle title="Demande de congé" />
-
-    <b-form class="form mb-5" @submit="submit()">
-      <b-form-group >
+    <b-form class="form mb-5" @submit="submit">
+      <b-form-group>
         <b-form-row class="text-align-left">
           <label class="offset-1 col-1">date de début :</label>
           <div class="col-4 pr-5">
-            <b-form-datepicker locale="fr" > </b-form-datepicker>
-          </div>          
+            <b-form-datepicker
+              locale="fr"
+              v-model="form.dateDebut"
+              required
+            ></b-form-datepicker>
+          </div>
           <div class="col-1">date de fin :</div>
           <div class="col-4 pr-5">
-            <b-form-datepicker locale="fr" > </b-form-datepicker>
-          </div>   
+            <b-form-datepicker
+              locale="fr"
+              v-model="form.dateFin"
+              required
+            ></b-form-datepicker>
+          </div>
         </b-form-row>
       </b-form-group>
 
       <b-form-group>
         <b-form-row class="text-align-left">
-            <div class="offset-1 col-1">Motif :</div>
-            <div class="col-4 pr-5">
-              <b-form-input type="text"> </b-form-input>
-            </div>
-            <label class="col-1">Type de congé :</label>
-            <div class="col-4 pr-5">
-              <b-form-select :options="types"></b-form-select>
-            </div>
+          <div class="offset-1 col-1">Motif :</div>
+          <div class="col-4 pr-5">
+            <b-form-input type="text" v-model="form.motif"> </b-form-input>
+          </div>
+          <label class="col-1">Type de congé :</label>
+          <div class="col-4 pr-5">
+            <b-form-select
+              :options="types"
+              v-model="form.type"
+              required
+            ></b-form-select>
+          </div>
         </b-form-row>
       </b-form-group>
 
@@ -36,17 +47,14 @@
 
     <TableTemplate
       :perPage="perPage"
-      :items="items"
+      :items="congesComputed"
       :fields="fields"
-      :showBtn="false"
-      btnTxt="Ajouter un fichier"
-      btnLink="/"
-      class="pr-5"
-      />
+    />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { leaveFields } from "@/assets/js/fields.js";
@@ -58,58 +66,61 @@ export default {
   },
   data() {
     return {
+      form: {
+        dateDebut: "",
+        dateFin: "",
+        motif: "",
+        type: "",
+        status: "EN_ATTENTE",
+        utilisateurDto: this.$store.getters.getUtilisateur,
+      },
+
       types: [
-        { text: "maladie", value: null },
-        { text: "payé", value: null },
-        { text: "sans solde", value: null },
+        { text: "maladie", value: "MALADIE" },
+        { text: "payé", value: "PAYE" },
+        { text: "sans solde", value: "SANS_SOLDE" },
       ],
-      items: [
-        {
-          dateDebut: "2020-02-12",
-          dateFin: "2020-02-15",
-          motif: "covid-19",
-          type: "Congé maladie",
-          status: "Confirmé",
-        },
-        {
-          dateDebut: "2020-02-12",
-          dateFin: "2020-02-15",
-          motif: "covid-19",
-          type: "Congé maladie",
-          status: "Refusé",
-        },
-        {
-          dateDebut: "2020-02-12",
-          dateFin: "2020-02-15",
-          motif: "covid-19",
-          type: "Congé maladie",
-          status: "En attente",
-        },{
-          dateDebut: "2020-02-12",
-          dateFin: "2020-02-15",
-          motif: "covid-19",
-          type: "Congé maladie",
-          status: "En attente",
-        },
-      ],
+
+      conges: [],
       fields: leaveFields,
       perPage: 10,
     };
   },
+  computed: {
+    utilisateur() {
+      return this.$store.getters.getUtilisateur;
+    },
+    congesComputed() {
+      return this.conges;
+    },
+  },
+  created() {
+    this.getConges();
+  },
   methods: {
-    statusColor() {
-      switch (this.items.status) {
-        case "Confirmé":
-          console.log("Confirmé");
-          break;
-        default:
-        case "En attente":
-          console.log("Attente");
-          break;
-        case "Refusé":
-          console.log("Refusé");
-          break;
-      }
+    submit(e) {
+      e.preventDefault();
+
+      let req = "http://localhost:8080/AppliCFABack/conges";
+
+      axios
+        .post(req, this.form)
+        .then(() => this.getConges())
+        .catch((error) => console.log(error));
+
+    },
+    getConges() {
+      let req =
+        "http://localhost:8080/AppliCFABack/utilisateurs/" +
+        this.utilisateur.id +
+        "/conges";
+
+      axios
+        .get(req)
+        .then((response) => (this.conges = response.data))
+        .catch((error) => console.log(error));
+      
+      console.log("on actualise ...")
     },
   },
 };
@@ -117,15 +128,14 @@ export default {
 
 <style scoped>
 .form {
-  margin-top: 5em
+  margin-top: 5em;
 }
 
 .b-form-textarea {
   height: 200px;
 }
 
-.btn{
+.btn {
   width: 100%;
 }
-
 </style>
