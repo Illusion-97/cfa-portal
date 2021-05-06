@@ -1,6 +1,6 @@
 export const courseFields = [
   { key: "id", label: "#" },
-  { key: "intitule", label: "Intitulé", sortable: true },
+  { key: "formationDto", label: "Intitulé", sortable: true },
   { key: "dateDebut", label: "Date de debut", sortable: true },
   { key: "dateFin", label: "Date de fin", sortable: true },
   "modifier",
