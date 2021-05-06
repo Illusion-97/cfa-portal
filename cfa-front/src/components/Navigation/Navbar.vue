@@ -49,6 +49,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
@@ -117,3 +118,4 @@ header {
   }
 }
 </style>
+
