@@ -34,7 +34,7 @@
     },
     created() {
       axios
-        .get("http://localhost:8080/AppliCFABack/interventions/with-object")
+        .get(this.$apiUrl + "AppliCFABack/interventions/with-object")
         .then((response) => {
           this.items = response.data;
           console.log(this.items);
