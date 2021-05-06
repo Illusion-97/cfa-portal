@@ -8,7 +8,7 @@
         <BodyTitle title="Mes absences et retards" />
 
         <br>
-        {{absence}}
+        {{absence.dateDebut}}
           <TableTemplate 
           :perPage="perPage"
           :items="items"
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       perPage: 10,
-      absence : null,
+      absence : {},
       created() {
       axios
       .get("http://localhost:8080/AppliCFABack/absences/1")
