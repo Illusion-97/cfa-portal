@@ -42,7 +42,7 @@ export default {
       ],
        created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/groupeEtudiants/")
+          .get("http://localhost:8080/AppliCFABack/groupeEtudiants/10")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
