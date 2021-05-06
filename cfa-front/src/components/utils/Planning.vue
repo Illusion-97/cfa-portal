@@ -1,22 +1,32 @@
 <template>
-  <div class="container-fluide">
-
+  <div class="container-fluid">
     <div class="row">
       <div class="offset-2 col-md-10">
-        <div class="my-btn-div col-md-11">
-          <button type="button" class="btn btn-primary" @click="previousWeek()">
-            Précédente
-          </button>
-          <button type="button" class="btn btn-primary" @click="nextWeek()">
-            Suivante
-          </button>
+        <div class="row">
+          <div class="my-btn-div col-md-11">
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="previousWeek()"
+            >
+              Précédente
+            </button>
+            <button type="button" class="btn btn-primary" @click="nextWeek()">
+              Suivante
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-2" align="center">
-        <b-calendar v-model="date" value-as-date hide-header :start-weekday="1" :date-disabled-fn="dateDisabled"></b-calendar>
+        <b-calendar
+          v-model="date"
+          value-as-date
+          hide-header
+          :start-weekday="1"
+          :date-disabled-fn="dateDisabled"
+        ></b-calendar>
       </div>
       <div class="col-md-10">
         <table class="table col-md-11">
@@ -47,14 +57,25 @@
           <tbody>
             <tr>
               <td v-for="item in edt" :key="item.id">
-                <div v-for="intervention in item" :key="intervention.id" class="intervention">
-                  <p class="font-weight-bold h5">{{ intervention.formationDto.titre }}</p>
-                  <p class="text-justify">{{ intervention.formationDto.contenu }}</p>
+                <div
+                  v-for="intervention in item"
+                  :key="intervention.id"
+                  class="intervention"
+                >
+                  <p class="font-weight-bold h5">
+                    {{ intervention.formationDto.titre }}
+                  </p>
+                  <p class="text-justify">
+                    {{ intervention.formationDto.contenu }}
+                  </p>
                   <div
                     v-for="formateur in intervention.formateurDto"
                     :key="formateur.id"
                   >
-                    <p> <span class="font-weight-bold">Formateur : </span>{{ formateur.prenom }} {{ formateur.nom }}</p>
+                    <p>
+                      <span class="font-weight-bold">Formateur : </span
+                      >{{ formateur.prenom }} {{ formateur.nom }}
+                    </p>
                   </div>
                 </div>
               </td>
@@ -71,21 +92,19 @@ export default {
   name: "Planning",
   data() {
     return {
-      date : new Date(),
+      date: new Date(),
     };
   },
   computed: {
     dateAujourdhui() {
       return this.date;
     },
-    planning() {
-      return this.$store.getters.getPlanning;
-    },
     edt() {
+      this.date.setHours(0, 0, 0, 0);
+      
       //On veut récupérer l'edt de la semaine correspondant à la date donnée en propriété du composant
-
       let result = [];
-      let edtTot = this.planning;
+      let edtTot = this.$store.getters.getPlanning;
       //on vérifie toutes les journée (dates)
       for (let i = 0; i < edtTot.length; i++) {
         //Si l'écart entre ma date de référence et la date testée est > 6 jours, on passe
@@ -171,22 +190,30 @@ export default {
       return result;
     },
     nextWeek() {
-      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());
+      let newDate = new Date(
+        this.date.getFullYear(),
+        this.date.getMonth(),
+        this.date.getDate()
+      );
       newDate.setDate(this.date.getDate() + 7);
       this.date = newDate;
     },
     previousWeek() {
-      let newDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate());
+      let newDate = new Date(
+        this.date.getFullYear(),
+        this.date.getMonth(),
+        this.date.getDate()
+      );
       newDate.setDate(this.date.getDate() - 7);
       this.date = newDate;
     },
     dateDisabled(ymd, date) {
       // Disable weekends (Sunday = `0`, Saturday = `6`) and
       // disable days that fall on the 13th of the month
-      const weekday = date.getDay()
+      const weekday = date.getDay();
       // Return `true` if the date should be disabled
-      return weekday === 0 || weekday === 6
-    }
+      return weekday === 0 || weekday === 6;
+    },
   },
 };
 </script>
@@ -198,13 +225,13 @@ table {
   min-height: 400px;
 }
 
-.my-btn-div{
+.my-btn-div {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   margin-bottom: 1%;
 }
 
-.intervention{
+.intervention {
   margin-top: 1em;
 }
 </style>

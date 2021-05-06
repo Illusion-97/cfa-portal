@@ -54,18 +54,15 @@
               </template>
 
               <template #cell(status)="data">
-                <span v-if="data.value == 'Confirmé'" class="text-success">
-                  {{ data.value }}
+                <span v-if="data.value == 'CONFIRME'" class="text-success">
+                  Confirmé
                 </span>
-                <span v-else-if="data.value == 'Refusé'" class="text-danger">
-                  {{ data.value }}
+                <span v-else-if="data.value == 'REFUSE'" class="text-danger">
+                  Refusé
                 </span>
-                <span v-else-if="data.value == 'En attente'" class="text-warning">
-                  {{ data.value }}
+                <span v-else-if="data.value == 'EN_ATTENTE'" class="text-warning">
+                  En attente
                 </span>
-                <!-- <span :class="statusColor()">
-                  {{data.value}}
-                </span> -->
               </template>
 
               <template #cell(telecharger)>
@@ -126,7 +123,7 @@
       showBtn: {
         // affiche ou non le bouton
         type: Boolean,
-        default: true,
+        default: false,
       },
     },
     data() {

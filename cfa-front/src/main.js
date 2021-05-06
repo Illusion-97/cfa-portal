@@ -10,6 +10,7 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+Vue.prototype.$apiUrl = "http://localhost:8080/"
 
 new Vue({
   router,

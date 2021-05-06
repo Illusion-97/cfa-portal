@@ -4,9 +4,9 @@
     <div v-if="table == '/'">
       <router-view />
     </div>
-    <div v-else>
-      <VerticalNavbar />
-      <div class="monBody">
+    <div v-else class="row">
+      <VerticalNavbar class="col-md-2"/>
+      <div class="monBody col-md-10">
         <router-view />
       </div>
     </div>
@@ -35,7 +35,6 @@ export default {
 </script>
 <style>
 .monBody {
-  width: 85%;
   float: right;
   padding-left: 5em;
   padding-right: 5em;
