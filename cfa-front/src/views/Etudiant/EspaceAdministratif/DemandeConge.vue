@@ -1,6 +1,26 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <BodyTitle title="Demande de congé" />
+    <table class="table text-center mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Acquis</th>
+          <th scope="col">Pris</th>
+          <th scope="col">Epargné</th>
+          <th scope="col">A venir</th>
+          <th scope="col">Disponibles</th>
+          <th scope="col">Restants</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>999</td>
+        <td>999</td>
+        <td>999</td>
+        <td>999</td>
+        <td>999</td>
+        <td>999</td>
+      </tbody>
+    </table>
     <b-form class="form mb-5" @submit="submit">
       <b-form-group>
         <b-form-row class="text-align-left">
@@ -49,6 +69,7 @@
       :perPage="perPage"
       :items="congesComputed"
       :fields="fields"
+      class="mr-5"
     />
   </div>
 </template>
