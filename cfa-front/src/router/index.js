@@ -20,6 +20,16 @@ import AbsenceRetard from "@/views/Referent/AbsenceRetard.vue";
 import CreateAbsenceRetard from "@/views/Referent/CreateAbsenceRetard.vue";
 import EtudiantR from "@/views/Referent/EtudiantR.vue";
 import CoursR from "@/views/Referent/CoursR.vue";
+import CreateCoursR from "@/views/Referent/CreateCoursR.vue";
+import Home from "@/views/Home.vue";
+import DevoirsR from "@/views/Referent/DevoirsR.vue";
+import CreateDevoirR from "@/views/Referent/CreateDevoirR.vue";
+import ModifierDevoirR from "@/views/Referent/ModifierDevoirR.vue";
+import ExamenR from "@/views/Referent/ExamenR.vue";
+import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
+import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
+import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
+import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 // import Etudiant
 import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
@@ -31,19 +41,6 @@ import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
 import DossierPro from "@/views/Etudiant/EspacePedagogique/DossierPro.vue";
 import EvaluationFormation from "@/views/Etudiant/EspacePedagogique/EvaluationFormation.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
-
-import EtudiantR from "@/views/Referent/EtudiantR.vue";
-import CoursR from "@/views/Referent/CoursR.vue";
-import CreateCoursR from "@/views/Referent/CreateCoursR.vue";
-import Home from "@/views/Home.vue";
-import DevoirsR from "@/views/Referent/DevoirsR.vue";
-import CreateDevoirR from "@/views/Referent/CreateDevoirR.vue";
-import ModifierDevoirR from "@/views/Referent/ModifierDevoirR.vue";
-import ExamenR from "@/views/Referent/ExamenR.vue";
-import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
-import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
-import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
-import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 
 Vue.use(VueRouter);
 
