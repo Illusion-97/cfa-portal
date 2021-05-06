@@ -51,7 +51,7 @@ const routes = [{ path: "/", name: "home", component: Home, },
 
 { path: "/login/LoginPage", name: "login", component: LoginPage, },
 { path: "/formateur/cours", name: "formateur_cours", component: Course, },
-{ path: "/formateur/ajouter-cours", name: "formateur_ajouter_cours", component: AjoutCours, },
+{ path: "/formateur/ajouter-cours", name: "formateur_ajouter-cours", component: AjoutCours, },
 // { path: '/secure', name: 'secure', component: secure},
 { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard, },
 { path: "/referent/notes", name: "referent_notes", component: NotesR, },
