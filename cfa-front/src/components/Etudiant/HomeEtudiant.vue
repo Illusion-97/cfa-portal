@@ -73,21 +73,21 @@ export default {
   },
   created() {
     //On récupère le formateur référent
-    let req1 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/formateurReferent";
+    let req1 = this.$apiUrl +"AppliCFABack/etudiants/" + this.utilisateur.id + "/formateurReferent";
     axios
       .get(req1)
       .then((response) => (this.formateurReferent = response.data))
       .catch((error) => console.log(error));
 
     //On récupère les référent des promotions de l'étudiant
-    let req2 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/promotions";
+    let req2 = this.$apiUrl + "AppliCFABack/etudiants/" + this.utilisateur.id + "/promotions";
     axios
       .get(req2)
       .then((response) => (this.promotion = response.data[0]))
       .catch((error) => console.log(error));
 
     //On récupère le manager de l'étudiant
-    let req3 = "http://localhost:8080/AppliCFABack/etudiants/" + this.utilisateur.id + "/manager";
+    let req3 = this.$apiUrl + "AppliCFABack/etudiants/" + this.utilisateur.id + "/manager";
     axios
       .get(req3)
       .then((response) => (this.manager = response.data))

@@ -92,7 +92,8 @@ export default {
   },
   created() {
     let req =
-      "http://localhost:8080/AppliCFABack/utilisateurs/" +
+      this.$apiUrl +
+      "AppliCFABack/utilisateurs/" +
       this.$store.getters.getUtilisateur.id +
       "/adresse";
 
