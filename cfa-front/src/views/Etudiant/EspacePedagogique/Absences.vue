@@ -1,3 +1,4 @@
+
 <template>
     <div >
       <div class="monBody">
@@ -7,12 +8,13 @@
         <BodyTitle title="Mes absences et retards" />
 
         <br>
-        <br>
-        <br>
-
-        <div class="Menu">
-            <p>censé y avoir un truc la</p>
-        </div>
+        {{absence.dateDebut}}
+          <TableTemplate 
+          :perPage="perPage"
+          :items="items"
+          :fields="fields"
+          :showBtn="false"/>
+          
     </div>
     </div>
     
@@ -21,10 +23,37 @@
 </template>
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios"
+
 export default {
   name: "Abscences",
   components: {
-    BodyTitle
-  }
+    BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      absence : {},
+      created() {
+      axios
+      .get("http://localhost:8080/AppliCFABack/absences/1")
+      .then((response) => (this.absence = response.data))
+      .catch((error) => console.log(error));
+      },
+      items: [
+        {
+          Date: " eaea",
+          Motif: "gg",
+          Justificatif: "",
+        },
+       
+      ],
+       
+    };
+  },
+  
+  
 }
 </script>
