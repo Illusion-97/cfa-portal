@@ -69,7 +69,7 @@
       :perPage="perPage"
       :items="congesComputed"
       :fields="fields"
-      class="mr-5"
+      class="table-template"
     />
   </div>
 </template>
@@ -158,5 +158,9 @@ export default {
 
 .btn {
   width: 100%;
+}
+
+.table-template{
+  margin-right: 4em;
 }
 </style>
