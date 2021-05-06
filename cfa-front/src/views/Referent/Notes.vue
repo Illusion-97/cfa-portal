@@ -48,6 +48,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { noteFields } from "@/assets/js/fields.js"
 import axios from "axios";
 export default {
   name: "Notes",
@@ -75,6 +76,7 @@ export default {
           observation: "Excellent",
         },
       ],
+      fields: noteFields,
        created() {
         axios
           .get("http://localhost:8080/AppliCFABack/notes/")

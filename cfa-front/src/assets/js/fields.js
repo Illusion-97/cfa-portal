@@ -27,6 +27,41 @@ export const absences_latesFields = [
     { key: "dateFin", label: "Date de fin" },
     { key: "motif", label: "Justificatif" },
 ];
+
+export const etudiantsFields = [
+  { key: "nom", label: "Nom de l'étudiant" },
+  { key: "prenom", label: "Prénom de l'étudiant" },
+  { key: "adresse", label: "Adresse" },
+  { key: "presence", label: "Feuille de présence"},
+
+];
+
+export const noteFields = [
+  { key: "nom", label: "Nom de l'étudiant" },
+  { key: "note", label: "Note" },
+  { key: "observation", label: "Observation" },
+];
+
+export const projetsFields = [
+  { key: "nom", label: "Nom du groupe" },
+  { key: "description", label: "Description" },
+  { key: "cahierDesCharges", label: "Cahier des charges" },
+  { key: "groupe", label: "Groupe"},
+
+];
+
+export const promotionsFields = [
+  { key: "nom", label: "Nom de promotion" },
+  { key: "etudiant", label: "Etudiant" },
+  { key: "ProgrammeDeCours", label: "Programme de cours" },
+  { key: "Cours", label: "Cours"},
+
+];
+
+export const groupesFields = [
+  { key: "nom", label: "Nom du groupe" },
+
+];
 // Example
 // export const nom_variable = [
 //   { key: "champs1", label: "nom_colonne1",sortable(triable):true/false (optionnel) },
