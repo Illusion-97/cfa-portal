@@ -122,7 +122,7 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      let req = "http://localhost:8080/AppliCFABack/conges";
+      let req = this.$apiUrl +"AppliCFABack/conges";
 
       axios
         .post(req, this.form)
@@ -132,7 +132,8 @@ export default {
     },
     getConges() {
       let req =
-        "http://localhost:8080/AppliCFABack/utilisateurs/" +
+        this.$apiUrl +
+        "AppliCFABack/utilisateurs/" +
         this.utilisateur.id +
         "/conges";
 
