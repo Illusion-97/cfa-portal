@@ -19,6 +19,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { groupesFields } from "@/assets/js/fields.js"
 import axios from "axios";
 export default {
   name: "Groupes",
@@ -40,6 +41,7 @@ export default {
           nom: "Team3",
         },
       ],
+      fields: groupesFields,
        created() {
         axios
           .get("http://localhost:8080/AppliCFABack/groupeEtudiants/10")

@@ -19,6 +19,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { projetsFields } from "@/assets/js/fields.js"
 import axios from "axios";
 export default {
   name: "Projets",
@@ -55,6 +56,7 @@ export default {
           groupe: "#",
         },
       ],
+      fields: projetsFields,
       created() {
         axios
           .get("http://localhost:8080/AppliCFABack/projets/10")
