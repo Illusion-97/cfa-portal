@@ -5,13 +5,13 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3" v-if="showBtn == true">
-            <a :href="btnLink" class="button">{{ btnTxt }}</a>
+            <!-- <a :href="btnLink" class="button">{{ btnTxt }}</a> -->
+            <router-link :to="{name:btnLink}" class="button">{{btnTxt}}</router-link>
           </div>
           <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
             <b-form inline>
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
-  
                 <b-form-select-option :value="Math.floor(items.length * 0.25)">
                   {{ (items.length * 0.25) | formatNumber }} sur
                   {{ items.length }}
@@ -35,14 +35,16 @@
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
               :current-page="currentPage">
-              <template #cell(intitule)="data">
+              <template #cell(formationDto)="data">
                 <b-link href="#" style="color:black;">
-                  {{ data.value | capitalize }}
+                  {{ data.value.titre | capitalize }}
                 </b-link>
               </template>
               <template #cell(eleve)="data">
-                  {{ data.value.nom | uppercase }} {{data.value.prenom | capitalize}}
+                {{ data.value.nom | uppercase }}
+                {{ data.value.prenom | capitalize }}
               </template>
+
               <template #cell(dateDebut)="data">
                 {{ data.value | formatDate }}
               </template>
@@ -137,21 +139,6 @@
     computed: {
       rows() {
         return this.items.length;
-      },
-      statusColor() {
-        const status = this.items.status;
-        switch (status) {
-          case "Confirmé":
-            "text-success";
-            break;
-          default:
-          case "En attente":
-            "text-warning";
-            break;
-          case "Refusé":
-            "text-danger";
-            break;
-        }
       },
     },
   };
