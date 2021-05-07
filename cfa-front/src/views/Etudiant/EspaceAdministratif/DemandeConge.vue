@@ -142,7 +142,6 @@ export default {
         .then((response) => (this.conges = response.data))
         .catch((error) => console.log(error));
       
-      console.log("on actualise ...")
     },
   },
 };

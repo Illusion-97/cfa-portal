@@ -69,17 +69,28 @@
                 {{data.value}}
               </template>
 
+
+              <template #cell(name_dl)="data">
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download(data.value)"/> 
+              </template>
+
+              <template #cell(name_delete)="data">
+                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete(data.value)"/>
+              </template>
+
+
               <template #cell(telecharger)>
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download()"/> 
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
+              </template>
+
+              <template #cell(supprimer)>
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
               </template>
 
               <template #cell(modifier)>
                 <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
               </template>
 
-              <template #cell(supprimer)>
-                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
-              </template>
             </b-table>
           </div>
         </div>
@@ -137,11 +148,14 @@
       };
     },
     methods: {
-      download(){
+      download(fileName){
         let req = 
           this.$apiUrl +
           "AppliCFABack/files/" +
-          "utilisateurs/1/formation_vuejs.pdf"
+          "utilisateurs/" +
+          this.$store.getters.getUtilisateur.id +
+          "/" +
+          fileName;
 
         axios
           .get(req, { responseType: "blob" })
@@ -149,12 +163,26 @@
                 var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
                 var fileLink = document.createElement('a');
                 fileLink.href = fileURL;
-                fileLink.setAttribute('download', 'file.pdf');
+                fileLink.setAttribute('download', fileName);
                 document.body.appendChild(fileLink);
                 fileLink.click();
           })
           .catch((error) => console.log(error));
 
+      },
+      delete(){
+        let req = 
+          this.$apiUrl +
+          "AppliCFABack/files/" +
+          "utilisateurs/" +
+          this.$store.getters.getUtilisateur.id +
+          "/" +
+          fileName;
+
+        axios
+          .delete(req)
+          .then(resp => console.log(resp.data))
+          .catch((error) => console.log(error));
       }
     },
     computed: {

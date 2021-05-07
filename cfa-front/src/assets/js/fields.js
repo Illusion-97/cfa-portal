@@ -9,8 +9,8 @@ export const courseFields = [
 
 export const fileFields = [
     { key: "name", label: "Nom des fichiers", sortable: true },
-    "telecharger",
-    "supprimer",
+    { key: "name_dl", label: "Télécharger"},
+    { key: "name_delete", label: "Supprimer"},
 ];
 
 export const leaveFields = [

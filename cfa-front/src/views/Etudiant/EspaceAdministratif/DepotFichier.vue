@@ -34,10 +34,13 @@ export default {
   computed: {
     items() {
       let result = [];
-      let table = {name : ""};
+      //set up pour TableTemplate
+      let table = {name : "", name_dl: "", name_delete: ""};
 
       for(let i = 0; i < this.files.length; i++){
         table.name = this.files[i];
+        table.name_dl = this.files[i];
+        table.name_delete = this.files[i];
         result.push(table);
       }
 
