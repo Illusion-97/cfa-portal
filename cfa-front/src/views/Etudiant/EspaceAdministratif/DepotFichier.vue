@@ -1,13 +1,14 @@
 <template>
   <div>
     <BodyTitle title="Liste des documents administratifs" />
+    <div class="">
+      <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+      <button v-on:click="submitFile()">Ajouter</button>
+    </div>
     <TableTemplate
       :perPage="perPage"
       :items="items"
       :fields="fields"
-      :showBtn="true"
-      btnTxt="Ajouter un fichier"
-      btnLink="/"
     />
 
   </div>
@@ -29,6 +30,7 @@ export default {
       files: [],
       fields: fileFields,
       perPage: 10,
+      file : '',
     };
   },
   computed: {
@@ -48,18 +50,39 @@ export default {
     }
   },
   methods: {
+    handleFileUpload(){
+      this.file = this.$refs.file.files[0];
+    },
+    submitFile(){
+      let req = 
+        this.$apiUrl +
+        "AppliCFABack/files/" +
+        "utilisateurs/"+
+        this.$store.getters.getUtilisateur.id;
+
+      let formData = new FormData();
+      formData.append('file', this.file);
+
+      axios
+        .post(req, formData,{headers: {'Content-Type': 'multipart/form-data'}})
+        .then(this.list_reset())
+        .catch((error) => console.log(error));
+    },
+    list_reset(){
+      let req = 
+        this.$apiUrl +
+        "AppliCFABack/files/" +
+        "utilisateurs/"+
+        this.$store.getters.getUtilisateur.id;
+
+      axios
+        .get(req)
+        .then((response) => (this.files = response.data))
+        .catch((error) => console.log(error));
+    }
   },
   created() {
-    let req = 
-      this.$apiUrl +
-      "AppliCFABack/files/" +
-      "utilisateurs/"+
-      this.$store.getters.getUtilisateur.id;
-
-    axios
-      .get(req)
-      .then((response) => (this.files = response.data))
-      .catch((error) => console.log(error));
+    this.list_reset();
   }
 };
 </script>
