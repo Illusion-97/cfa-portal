@@ -12,7 +12,7 @@
               <p class="card-text">
                 Listes des groupes / créer un groupe
               </p>
-              <a href="/referent/Groupes" class="btn btn-primary">Groupes</a>
+              <a href="/referent/groupes" class="btn btn-primary">Groupes</a>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
               <p class="card-text">
                 Listes des projets / créer un projet
               </p>
-              <a href="/referent/Projets" class="btn btn-primary">Projets</a>
+              <a href="/referent/projets" class="btn btn-primary">Projets</a>
             </div>
           </div>
         </div>

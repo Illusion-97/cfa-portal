@@ -38,7 +38,7 @@ export default {
   },
   created() {
     axios
-      .get("http://localhost:8080/AppliCFABack/interventions/")
+      .get("http://localhost:8080/AppliCFABack/interventions/10")
       .then((response) => (this.items = response.data))
       .catch((e) => this.errors.push(e));
   },

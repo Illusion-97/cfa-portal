@@ -79,7 +79,7 @@ export default {
       fields: noteFields,
        created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/notes/")
+          .get("http://localhost:8080/AppliCFABack/notes/10")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },

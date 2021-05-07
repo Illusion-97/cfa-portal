@@ -95,7 +95,7 @@ export default {
       fields: promotionsFields,
       created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/promotions/")
+          .get("http://localhost:8080/AppliCFABack/promotions/10")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
