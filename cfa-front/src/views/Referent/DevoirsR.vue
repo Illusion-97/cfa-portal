@@ -59,6 +59,9 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import axios from "axios";
+import {
+    devoirsFields
+  } from "@/assets/js/fieldsEtudiant.js";
 export default {
   name: "Devoirs",
   components: {
@@ -68,32 +71,18 @@ export default {
   data() {
     return {
       perPage: 10,
-      items: [
-        {
-          enonce: "Enonce#1",
-          dateDebut: "2021/03/15",
-          dateFin: "2021/03/15",
-        },
-        {
-          enonce: "Enonce#2",
-          dateDebut: "2021/04/01",
-          dateFin: "2021/04/06",
-        },
-        {
-          enonce: "Enonce#3",
-          dateDebut: "2021/01/03",
-          dateFin: "2021/01/08",
-        },
-      ],
+      fields: devoirsFields,
+      items: [],
+    };
+  },
       created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/devoirs/10")
+          .get("http://localhost:8080/AppliCFABack/1/devoirs")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
-};
+    }
+
 </script>
 <style scoped>
 .opts,

@@ -42,13 +42,13 @@
             
                 <nav class="mb-3">
                     <b-nav vertical>
-                        <a class="nav-item" href="/referent/dashboard" v-bind:class="setActiv('/referent/dashboard')">Home</a>
-                        <a class="nav-item" href="/referent/cours" v-bind:class="setActiv('/referent/cours')">Cours</a>
-                        <a class="nav-item" href="/referent/etudiants" v-bind:class="setActiv('/referent/etudiants')">Etudiant</a>
-                        <a class="nav-item" href="/referent/notes" v-bind:class="setActiv('/referent/notes')">Notes</a>
-                        <a class="nav-item" href="/referent/administratif" v-bind:class="setActiv('/referent/administratif')">Administratif</a>
-                        <a class="nav-item" href="/referent/absence-retard" v-bind:class="setActiv('/referent/absence-retard')">Absences / Retards</a>
-                        <a class="nav-item" href="/referent/groupe-projet" v-bind:class="setActiv('/referent/groupe-projet')">Groupes / Projets</a>
+                        <router-link class="nav-item" :to="{name:'referent_dashboard'}">Home</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_cours'}">Cours</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
                     </b-nav>
                 </nav>    
                   
