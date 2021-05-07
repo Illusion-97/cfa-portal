@@ -1,84 +1,16 @@
 <template>
   <div>
-    <BodyTitle title="Déposez vos documents administratif" />
+    <BodyTitle title="Liste des documents administratifs" />
 
-    <!-- <b-form class="form mb-5" :submit="submit()">
-      <b-form-group>
-        <b-form-row>
-          <b-col>
-            <label>To :</label>
-          </b-col>
-          <b-col cols="10">
-            <b-form-select :options="services"></b-form-select>
-          </b-col>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row>
-          <b-col>
-            <label>Subject :</label>
-          </b-col>
-          <b-col cols="10">
-            <b-form-input></b-form-input>
-          </b-col>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        Choisissez les documents à joindres :
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row>
-          <b-col>
-            <b-form-file></b-form-file>
-          </b-col>
-          <b-col>
-            <b-form-file></b-form-file>
-          </b-col>
-          <b-col>
-            <b-form-file></b-form-file>
-          </b-col>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row>
-          <b-col>
-            <b-form-file></b-form-file>
-          </b-col>
-          <b-col>
-            <b-form-file></b-form-file>
-          </b-col>
-          <b-col>
-            <b-form-file></b-form-file>
-          </b-col>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        Entrez votre message :
-        <b-form-textarea class="b-form-textarea"> </b-form-textarea>
-      </b-form-group>
-
-      <b-form-group>
-        <b-button type="submit">Send</b-button>
-      </b-form-group>
-    </b-form> -->
-  <b-form >
-    <b-form-group label="Destinataire : " >
-      <b-form-select></b-form-select>
-    </b-form-group>
-  </b-form>
     <TableTemplate
       :perPage="perPage"
       :items="items"
       :fields="fields"
-      :showBtn="true"
+      :showBtn="false"
       btnTxt="Ajouter un fichier"
       btnLink="/"
     />
+
   </div>
 </template>
 

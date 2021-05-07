@@ -1,0 +1,16 @@
+[{
+    "id": 1,
+    "name": "Concepteur Developpeur d'Application PARIS 2021",
+    "shorcut": "CDA PARIS 2021",
+    "city": "Paris"
+}, {
+    "id": 2,
+    "name": "Concepteur Developpeur d'Application NANTES 2021",
+    "shorcut": "CDA NANTES 2021",
+    "city": "Nantes"
+}, {
+    "id": 3,
+    "name": "Concepteur Developpeur d'Application AMIENS 2021",
+    "shorcut": "CDA AMIENS 2021",
+    "city": "Amiens"
+}]

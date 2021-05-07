@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" class="container-fluid">
     <Navbar />
     <div v-if="table == '/'">
       <router-view />
     </div>
-    <div v-else>
-      <VerticalNavbar />
-      <div class="monBody">
+    <div v-else class="row">
+      <VerticalNavbar class="col-md-2"/>
+      <div class="monBody col-md-10">
         <router-view />
       </div>
     </div>
@@ -24,15 +24,17 @@ export default {
   methods: {
   },
   computed: {
-    table : function(){
-      return this.$router.currentRoute.fullPath;
+    table(){
+      return this.$route.path
     },
-  }
+    show(){
+      return "true";
+    },
+  },
 };
 </script>
 <style>
 .monBody {
-  width: 85%;
   float: right;
   padding-left: 5em;
   padding-right: 5em;

@@ -1,31 +1,31 @@
 export const courseFields = [
-  { key: "id", label: "#" },
-  { key: "intitule", label: "Intitulé", sortable: true },
-  { key: "dateDebut", label: "Date de debut", sortable: true },
-  { key: "dateFin", label: "Date de fin", sortable: true },
-  "modifier",
-  "supprimer",
+    { key: "id", label: "#" },
+    { key: "formationDto", label: "Intitulé", sortable: true },
+    { key: "dateDebut", label: "Date de debut", sortable: true },
+    { key: "dateFin", label: "Date de fin", sortable: true },
+    "modifier",
+    "supprimer",
 ];
 
 export const fileFields = [
-  { key: "nom", label: "Nom du fichier", sortable: false },
-  "telecharger",
-  "supprimer",
+    { key: "nom", label: "Nom du fichier", sortable: false },
+    "telecharger",
+    "supprimer",
 ];
 
 export const leaveFields = [
-  { key: "dateDebut", label: "Date de debut" },
-  { key: "dateFin", label: "Date de fin" },
-  { key: "motif", label: "Motif" },
-  { key: "type", label: "Type de congé" },
-  { key: "status", label: "Status" },
+    { key: "dateDebut", label: "Date de debut" },
+    { key: "dateFin", label: "Date de fin" },
+    { key: "motif", label: "Motif" },
+    { key: "type", label: "Type de congé" },
+    { key: "status", label: "Status" },
 ];
 
 export const absences_latesFields = [
-  { key: "eleve", label: "Nom de l'étudiant" },
-  { key: "dateDebut", label: "Date de debut" },
-  { key: "dateFin", label: "Date de fin" },
-  { key: "motif", label: "Justificatif" },
+    { key: "eleve", label: "Nom de l'étudiant" },
+    { key: "dateDebut", label: "Date de debut" },
+    { key: "dateFin", label: "Date de fin" },
+    { key: "motif", label: "Justificatif" },
 ];
 
 export const etudiantsFields = [
