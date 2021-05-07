@@ -71,11 +71,11 @@
 
 
               <template #cell(name_dl)="data">
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download(data.value)"/> 
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download_file(data.value)"/> 
               </template>
 
               <template #cell(name_delete)="data">
-                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete(data.value)"/>
+                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)"/>
               </template>
 
 
@@ -148,7 +148,7 @@
       };
     },
     methods: {
-      download(fileName){
+      download_file(fileName){
         let req = 
           this.$apiUrl +
           "AppliCFABack/files/" +
@@ -170,7 +170,7 @@
           .catch((error) => console.log(error));
 
       },
-      delete(){
+      delete_file(fileName){
         let req = 
           this.$apiUrl +
           "AppliCFABack/files/" +
