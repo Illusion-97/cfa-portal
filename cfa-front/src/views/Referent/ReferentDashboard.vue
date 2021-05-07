@@ -58,6 +58,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { promotionsFields } from "@/assets/js/fields.js"
 import axios from "axios";
 export default {
   name: "ReferentDashboard",
@@ -91,6 +92,7 @@ export default {
           Cours: "@voir",
         },
       ],
+      fields: promotionsFields,
       created() {
         axios
           .get("http://localhost:8080/AppliCFABack/promotions/")

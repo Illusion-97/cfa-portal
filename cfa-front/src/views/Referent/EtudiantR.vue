@@ -58,6 +58,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { etudiantsFields } from "@/assets/js/fields.js"
 import axios from "axios";
 export default {
   name: "EtudiantR",
@@ -70,24 +71,26 @@ export default {
       perPage: 10,
       items: [
         {
-          Nom: "Schwarzer",
-          Prenom: "Julien",
-          Adresse: "2 rue du Corbier",
-          FeuilleDePrésence: "Feuille de présence",
+          nom: "Schwarzer",
+          prenom: "Julien",
+          adresse: "2 rue du Corbier",
+          presence: "Feuille de présence",
         },
         {
-          Nom: "Ture",
-          Prenom: "Thomas",
-          Adresse: "28 rue de la tourelle",
-          FeuilleDePrésence: "Feuille de présence",
+          nom: "Ture",
+          prenom: "Thomas",
+          adresse: "28 rue de la tourelle",
+          presence: "Feuille de présence",
         },
         {
-          Nom: "Sparrow",
-          Prenom: "Jack",
-          Adresse: "60 rue Louis",
-          FeuilleDePrésence: "Feuille de présence",
+          nom: "Sparrow",
+          prenom: "Jack",
+          adresse: "60 rue Louis",
+          presence: "Feuille de présence",
         },
+        
       ],
+      fields: etudiantsFields,
       created() {
         axios
           .get("http://localhost:8080/AppliCFABack/etudiants/10")

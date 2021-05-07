@@ -7,24 +7,45 @@
         <BodyTitle title="Mes notes" />
 
         <br>
-        <br>
-        <br>
-
-        <div class="Menu">
-            <p>censé y avoir un truc la</p>
-        </div>
+        <TableTemplate 
+          :perPage="perPage"
+          :items="items"
+          :fields="fields"
+          :showBtn="false"/>
     </div>
     </div>
-    
 
-  
 </template>
+
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import TableTemplate from "@/components/utils/TableTemplate.vue";
+import axios from "axios";
+import {
+    notesFields
+  } from "@/assets/js/fieldsEtudiant.js";
+
 export default {
-  name: "Notes",
+  name: "Cursus",
   components: {
-    BodyTitle
-  }
+    BodyTitle,
+    TableTemplate,
+  },
+  data() {
+    return {
+      perPage: 10,
+      fields: notesFields,
+      items: [],
+    };
+  },
+  created() {
+      axios
+      .get(this.$apiUrl + "AppliCFABack/etudiants/1/notes")
+      .then((response) => (this.items = response.data))
+      .catch((error) => console.log(error));
+      },
+  
+  
 }
 </script>
+
