@@ -70,9 +70,7 @@
               </template>
 
               <template #cell(telecharger)>
-                <button @click="download()">
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
-                </button>   
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download()"/> 
               </template>
 
               <template #cell(modifier)>
@@ -80,9 +78,7 @@
               </template>
 
               <template #cell(supprimer)>
-                <button>
                   <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
-                </button>                
               </template>
             </b-table>
           </div>
@@ -100,6 +96,7 @@
 </script>
 
 <script>
+  import axios from "axios";
   export default {
     name: "TableTemplate",
     props: {
@@ -144,11 +141,18 @@
         let req = 
           this.$apiUrl +
           "AppliCFABack/files/" +
-          "files/utilisateurs/1/formation_vuejs.pdf"
+          "utilisateurs/1/formation_vuejs.pdf"
 
         axios
-          .get(req)
-          // .then((response) => (this.files = response.data))
+          .get(req, { responseType: "blob" })
+          .then(resp => {
+                var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
+                var fileLink = document.createElement('a');
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', 'file.pdf');
+                document.body.appendChild(fileLink);
+                fileLink.click();
+          })
           .catch((error) => console.log(error));
 
       }
