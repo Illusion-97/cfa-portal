@@ -65,9 +65,14 @@
                 </span>
               </template>
 
+              <template #cell(file_name)>
+                {{data.value}}
+              </template>
+
               <template #cell(telecharger)>
-                <!-- <col style="width:50%" /> -->
-                <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
+                <button @click="download()">
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
+                </button>   
               </template>
 
               <template #cell(modifier)>
@@ -75,7 +80,9 @@
               </template>
 
               <template #cell(supprimer)>
-                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
+                <button>
+                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
+                </button>                
               </template>
             </b-table>
           </div>
@@ -132,7 +139,20 @@
         currentPage: 1, // page courante
       };
     },
-    methods: {},
+    methods: {
+      download(){
+        let req = 
+          this.$apiUrl +
+          "AppliCFABack/files/" +
+          "files/utilisateurs/1/formation_vuejs.pdf"
+
+        axios
+          .get(req)
+          // .then((response) => (this.files = response.data))
+          .catch((error) => console.log(error));
+
+      }
+    },
     computed: {
       rows() {
         return this.items.length;

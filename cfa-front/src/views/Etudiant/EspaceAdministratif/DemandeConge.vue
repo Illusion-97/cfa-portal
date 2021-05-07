@@ -24,7 +24,7 @@
     <b-form class="form mb-5" @submit="submit">
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="offset-1 col-1">date de début :</label>
+          <label class="offset-1 col-1">Date de début</label>
           <div class="col-4 pr-5">
             <b-form-datepicker
               locale="fr"
@@ -32,7 +32,7 @@
               required
             ></b-form-datepicker>
           </div>
-          <div class="col-1">date de fin :</div>
+          <div class="col-1">Date de fin</div>
           <div class="col-4 pr-5">
             <b-form-datepicker
               locale="fr"
@@ -45,11 +45,11 @@
 
       <b-form-group>
         <b-form-row class="text-align-left">
-          <div class="offset-1 col-1">Motif :</div>
+          <div class="offset-1 col-1">Motif</div>
           <div class="col-4 pr-5">
             <b-form-input type="text" v-model="form.motif"> </b-form-input>
           </div>
-          <label class="col-1">Type de congé :</label>
+          <label class="col-1">Type de congé</label>
           <div class="col-4 pr-5">
             <b-form-select
               :options="types"

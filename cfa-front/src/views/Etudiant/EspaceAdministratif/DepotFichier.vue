@@ -1,12 +1,11 @@
 <template>
   <div>
     <BodyTitle title="Liste des documents administratifs" />
-
     <TableTemplate
       :perPage="perPage"
       :items="items"
       :fields="fields"
-      :showBtn="false"
+      :showBtn="true"
       btnTxt="Ajouter un fichier"
       btnLink="/"
     />
@@ -15,6 +14,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { fileFields } from "@/assets/js/fields.js";
@@ -26,21 +26,38 @@ export default {
   },
   data() {
     return {
-      services: [
-        { text: "Ressources Humaine", value: null },
-        { text: "Service Compta", value: null },
-        { text: "Mon CEF", value: null },
-        { text: "Mon Référent", value: null },
-        { text: "Mon Formateur", value: null },
-      ],
-      items: [{ nom: "P_Java_JPA_Hibernate_Prenom_Nom_Ville.pdf" }],
+      files: [],
       fields: fileFields,
       perPage: 10,
     };
   },
-  methods: {
-    submit() {},
+  computed: {
+    items() {
+      let result = [];
+      let table = {name : ""};
+
+      for(let i = 0; i < this.files.length; i++){
+        table.name = this.files[i];
+        result.push(table);
+      }
+
+      return result;
+    }
   },
+  methods: {
+  },
+  created() {
+    let req = 
+      this.$apiUrl +
+      "AppliCFABack/files/" +
+      "utilisateurs/"+
+      this.$store.getters.getUtilisateur.id;
+
+    axios
+      .get(req)
+      .then((response) => (this.files = response.data))
+      .catch((error) => console.log(error));
+  }
 };
 </script>
 
