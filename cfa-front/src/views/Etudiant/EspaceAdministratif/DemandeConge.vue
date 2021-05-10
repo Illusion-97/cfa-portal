@@ -26,19 +26,11 @@
         <b-form-row class="text-align-left">
           <label class="offset-1 col-1">date de début :</label>
           <div class="col-4 pr-5">
-            <b-form-datepicker
-              locale="fr"
-              v-model="form.dateDebut"
-              required
-            ></b-form-datepicker>
+            <b-form-datepicker locale="fr" v-model="form.dateDebut" required></b-form-datepicker>
           </div>
           <div class="col-1">date de fin :</div>
           <div class="col-4 pr-5">
-            <b-form-datepicker
-              locale="fr"
-              v-model="form.dateFin"
-              required
-            ></b-form-datepicker>
+            <b-form-datepicker locale="fr" v-model="form.dateFin" required></b-form-datepicker>
           </div>
         </b-form-row>
       </b-form-group>
@@ -51,11 +43,7 @@
           </div>
           <label class="col-1">Type de congé :</label>
           <div class="col-4 pr-5">
-            <b-form-select
-              :options="types"
-              v-model="form.type"
-              required
-            ></b-form-select>
+            <b-form-select :options="types" v-model="form.type" required></b-form-select>
           </div>
         </b-form-row>
       </b-form-group>
@@ -65,103 +53,105 @@
       </div>
     </b-form>
 
-    <TableTemplate
-      :perPage="perPage"
-      :items="congesComputed"
-      :fields="fields"
-      class="table-template"
-    />
+    <TableTemplate :perPage="perPage" :items="congesComputed" :fields="fields" class="table-template" />
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import BodyTitle from "@/components/utils/BodyTitle.vue";
-import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { leaveFields } from "@/assets/js/fields.js";
-export default {
-  name: "DemandeConge",
-  components: {
-    BodyTitle,
-    TableTemplate,
-  },
-  data() {
-    return {
-      form: {
-        dateDebut: "",
-        dateFin: "",
-        motif: "",
-        type: "",
-        status: "EN_ATTENTE",
-        utilisateurDto: this.$store.getters.getUtilisateur,
+  import axios from "axios";
+  import BodyTitle from "@/components/utils/BodyTitle.vue";
+  import TableTemplate from "@/components/utils/TableTemplate.vue";
+  import {
+    leaveFields
+  } from "@/assets/js/fields.js";
+  export default {
+    name: "DemandeConge",
+    components: {
+      BodyTitle,
+      TableTemplate,
+    },
+    data() {
+      return {
+        form: {
+          dateDebut: "",
+          dateFin: "",
+          motif: "",
+          type: "",
+          status: "EN_ATTENTE",
+          utilisateurDto: this.$store.getters.getUtilisateur,
+        },
+
+        types: [{
+            text: "maladie",
+            value: "MALADIE"
+          },
+          {
+            text: "payé",
+            value: "PAYE"
+          },
+          {
+            text: "sans solde",
+            value: "SANS_SOLDE"
+          },
+        ],
+
+        conges: [],
+        fields: leaveFields,
+        perPage: 10,
+      };
+    },
+    computed: {
+      utilisateur() {
+        return this.$store.getters.getUtilisateur;
       },
-
-      types: [
-        { text: "maladie", value: "MALADIE" },
-        { text: "payé", value: "PAYE" },
-        { text: "sans solde", value: "SANS_SOLDE" },
-      ],
-
-      conges: [],
-      fields: leaveFields,
-      perPage: 10,
-    };
-  },
-  computed: {
-    utilisateur() {
-      return this.$store.getters.getUtilisateur;
+      congesComputed() {
+        return this.conges;
+      },
     },
-    congesComputed() {
-      return this.conges;
+    created() {
+      this.getConges();
     },
-  },
-  created() {
-    this.getConges();
-  },
-  methods: {
-    submit(e) {
-      e.preventDefault();
+    methods: {
+      submit(e) {
+        e.preventDefault();
 
-      let req = this.$apiUrl +"AppliCFABack/conges";
+        let req = this.$apiUrl + "AppliCFABack/conges";
 
-      axios
-        .post(req, this.form)
-        .then(() => this.getConges())
-        .catch((error) => console.log(error));
+        axios
+          .post(req, this.form)
+          .then(() => this.getConges())
+          .catch((error) => console.log(error));
 
+      },
+      getConges() {
+        let req =
+          this.$apiUrl + "AppliCFABack/utilisateurs/" + this.utilisateur.id + "/conges";
+
+        axios
+          .get(req)
+          .then((response) => (this.conges = response.data))
+          .catch((error) => console.log(error));
+
+        console.log("on actualise ...")
+      },
     },
-    getConges() {
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/utilisateurs/" +
-        this.utilisateur.id +
-        "/conges";
-
-      axios
-        .get(req)
-        .then((response) => (this.conges = response.data))
-        .catch((error) => console.log(error));
-      
-      console.log("on actualise ...")
-    },
-  },
-};
+  };
 </script>
 
 <style scoped>
-.form {
-  margin-top: 5em;
-}
+  .form {
+    margin-top: 5em;
+  }
 
-.b-form-textarea {
-  height: 200px;
-}
+  .b-form-textarea {
+    height: 200px;
+  }
 
-.btn {
-  width: 100%;
-}
+  .btn {
+    width: 100%;
+  }
 
-.table-template{
-  margin-right: 4em;
-}
+  .table-template {
+    margin-right: 4em;
+  }
 </style>
