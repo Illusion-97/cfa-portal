@@ -68,8 +68,7 @@
               <template #cell(file_name)>
                 {{data.value}}
               </template>
-
-
+              
               <template #cell(name_dl)="data">
                   <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download_file(data.value)"/> 
               </template>
@@ -148,41 +147,7 @@
       };
     },
     methods: {
-      download_file(fileName){
-        let req = 
-          this.$apiUrl +
-          "AppliCFABack/files/" +
-          "utilisateurs/" +
-          this.$store.getters.getUtilisateur.id +
-          "/" +
-          fileName;
-
-        axios
-          .get(req, { responseType: "blob" })
-          .then(resp => {
-                var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
-                var fileLink = document.createElement('a');
-                fileLink.href = fileURL;
-                fileLink.setAttribute('download', fileName);
-                document.body.appendChild(fileLink);
-                fileLink.click();
-          })
-          .catch((error) => console.log(error));
-
-      },
-      delete_file(fileName){
-        let req = 
-          this.$apiUrl +
-          "AppliCFABack/files/" +
-          "utilisateurs/" +
-          this.$store.getters.getUtilisateur.id +
-          "/" +
-          fileName;
-
-        axios
-          .delete(req)
-          .catch((error) => console.log(error));
-      }
+      
     },
     computed: {
       rows() {
