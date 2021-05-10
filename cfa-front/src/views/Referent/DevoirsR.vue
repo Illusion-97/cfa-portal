@@ -17,7 +17,7 @@
       :items="items"
       :fields="fields"
       :showBtn="false"
-      btnLink="/formateur/blabla"
+      btnLink="/referent/creation-devoir"
     />
       <!--
       <table class="table">
@@ -77,7 +77,7 @@ export default {
   },
       created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/1/devoirs")
+          .get(this.$apiUrl +"/AppliCFABack/devoirs")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },

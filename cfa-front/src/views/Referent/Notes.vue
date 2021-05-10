@@ -60,7 +60,7 @@ export default {
     return {
       perPage: 10,
       items: [
-        {
+        /*{
           nom: "Etudiant1",
           note: "15",
           observation: "Bon",
@@ -75,16 +75,16 @@ export default {
           note: "20",
           observation: "Excellent",
         },
-      ],
+      */],
       fields: noteFields,
-       created() {
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/notes/10")
+          .get(this.$apiUrl + "AppliCFABack/notes/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>

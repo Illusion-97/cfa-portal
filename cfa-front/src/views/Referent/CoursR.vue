@@ -69,6 +69,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import axios from "axios";
+import { courseFields } from "@/assets/js/fields.js";
 export default {
   name: "Cours",
   components: {
@@ -78,8 +79,9 @@ export default {
   data() {
     return {
       perPage: 10,
+      fields: courseFields,
       items: [
-        {
+        /*{
           nom: "C#",
           "Note d'information": "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
           ProgrammeDeCours: "Programme C#",
@@ -94,15 +96,19 @@ export default {
           "Note d'information": "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
           ProgrammeDeCours: "Programme Sql",
         },
-      ],
-      created() {
-        axios
-          .get("http://localhost:8080/AppliCFABack/interventions/10")
-          .then((response) => (this.items = response.data))
-          .catch((e) => this.errors.push(e));
-        },
+      */],
+      
     };
   },
+  created() {
+      axios
+        .get(this.$apiUrl + "AppliCFABack/interventions/")
+        .then((response) => {
+          this.items = response.data;
+          console.log(this.items);
+        })
+        .catch((e) => this.errors.push(e));
+    },
 };
 </script>
 <style scoped>

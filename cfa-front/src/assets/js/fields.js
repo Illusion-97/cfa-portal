@@ -38,8 +38,8 @@ export const etudiantsFields = [
 
 export const noteFields = [
   { key: "nom", label: "Nom de l'étudiant" },
-  { key: "note", label: "Note" },
-  { key: "observation", label: "Observation" },
+  { key: "note_obtenu", label: "Note" },
+  { key: "observations", label: "Observations" },
 ];
 
 export const projetsFields = [
@@ -60,6 +60,13 @@ export const promotionsFields = [
 
 export const groupesFields = [
   { key: "nom", label: "Nom du groupe" },
+
+];
+
+export const examensFields = [
+  { key: "enonce", label: "Enonce" },
+  { key: "cursus", label: "Cursus" },
+  { key: "formation", label: "Formation" },
 
 ];
 // Example

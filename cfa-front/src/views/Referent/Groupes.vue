@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       perPage: 10,
-      items: [
+      items: [/*
         {
           nom: "Team1",
         },
@@ -40,16 +40,17 @@ export default {
         {
           nom: "Team3",
         },
-      ],
+      */],
       fields: groupesFields,
-       created() {
+       
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/groupeEtudiants/10")
+          .get(this.$apiUrl +"/AppliCFABack/groupeEtudiants/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>
