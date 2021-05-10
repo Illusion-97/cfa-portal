@@ -2,11 +2,10 @@
   <!-- TEMPLATE TABLEAU -->
   <div>
     <section>
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3" v-if="showBtn == true">
-            <!-- <a :href="btnLink" class="button">{{ btnTxt }}</a> -->
-            <router-link :to="{name:btnLink}" class="button">{{btnTxt}}</router-link>
+          <div class="col-md-3 mb-3" v-if="showBtn == true">
+            <router-link :to="{name:btnLink}" class="button mb-2">{{btnTxt}}</router-link>
           </div>
           <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
             <b-form inline>
