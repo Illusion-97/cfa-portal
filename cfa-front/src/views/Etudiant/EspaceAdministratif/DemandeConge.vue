@@ -6,16 +6,10 @@
         <tr>
           <th scope="col">Acquis</th>
           <th scope="col">Pris</th>
-          <th scope="col">Epargné</th>
-          <th scope="col">A venir</th>
           <th scope="col">Disponibles</th>
-          <th scope="col">Restants</th>
         </tr>
       </thead>
       <tbody>
-        <td>999</td>
-        <td>999</td>
-        <td>999</td>
         <td>999</td>
         <td>999</td>
         <td>999</td>

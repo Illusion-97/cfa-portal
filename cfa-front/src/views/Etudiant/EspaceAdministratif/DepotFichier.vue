@@ -1,42 +1,83 @@
 <template>
   <div>
     <BodyTitle title="Liste des documents administratifs" />
-    <div class="">
-      <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
-      <button v-on:click="submitFile()">Ajouter</button>
-    </div>
+
     <!-- <TableTemplate
       :perPage="perPage"
       :items="items"
       :fields="fields"
     /> -->
 
-    <!-- <div>
-      <p>{{items[0]}}</p>
-      <p>{{items[1]}}</p>
-      <p>{{items[2]}}</p>
-      <p>{{items[3]}}</p>
-    </div> -->
-
-    <div class="container">
+    <div class="container mt-5">
       <div class="row">
-        <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
-              :current-page="currentPage">
+        <div class="">
+          <input
+            type="file"
+            id="file"
+            ref="file"
+            v-on:change="handleFileUpload()"
+            class="mr-3"
+          />
+          <button v-on:click="submitFile()" class="btn btn-primary">Ajouter</button>
+        </div>
+        <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
+            <b-form inline>
+              <label for="pageSelect" class="mr-sm-2">Affichage :</label>
+              <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
+                <b-form-select-option :value="Math.floor(items.length * 0.25)">
+                  {{ (items.length * 0.25) | formatNumber }} sur
+                  {{ items.length }}
+                </b-form-select-option>
+                <b-form-select-option :value="Math.floor(items.length * 0.5)">
+                  {{ (items.length * 0.5) | formatNumber }} sur
+                  {{ items.length }}
+                </b-form-select-option>
+                <b-form-select-option :value="Math.floor(items.length * 0.75)">
+                  {{ (items.length * 0.75) | formatNumber }} sur
+                  {{ items.length }}
+                </b-form-select-option>
+                <b-form-select-option :value="items.length">
+                  Tout afficher
+                </b-form-select-option>
+              </b-form-select>
+            </b-form>
+          </div>
+        <b-table
+          id="my-table"
+          striped
+          small
+          :items="items"
+          :fields="fields"
+          :per-page="per_page"
+          :current-page="currentPage"
+        >
+          <template #cell(name_dl)="data">
+            <font-awesome-icon
+              :icon="['fas', 'arrow-down']"
+              class="icon text-success"
+              @click="download_file(data.value)"
+            />
+          </template>
 
-              <template #cell(name_dl)="data">
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download_file(data.value)"/> 
-              </template>
-
-              <template #cell(name_delete)="data">
-                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)"/>
-              </template>
+          <template #cell(name_delete)="data">
+            <font-awesome-icon
+              :icon="['fas', 'times']"
+              class="icon text-danger"
+              @click="delete_file(data.value)"
+            />
+          </template>
         </b-table>
-        <b-pagination class="pages ml-auto border-0" v-model="currentPage" :total-rows="rows" :per-page="per_page"
-          aria-controls="my-table" size="sm">
+        <b-pagination
+          class="pages ml-auto border-0"
+          v-model="currentPage"
+          :total-rows="rows"
+          :per-page="per_page"
+          aria-controls="my-table"
+          size="sm"
+        >
         </b-pagination>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -57,53 +98,23 @@ export default {
       fields: fileFields,
       per_page: 10,
       currentPage: 1,
-      file : '',
+      file: "",
     };
   },
   computed: {
     items() {
       let result = [];
       //set up pour TableTemplate
-      
-      
 
-      console.log("on commence le calcul d'items");
-      console.log("file = " + this.files);
-
-      for(let i = 0; i < this.files.length; i++){
-
-        let table = {name : "", name_dl: "", name_delete: ""};
+      for (let i = 0; i < this.files.length; i++) {
+        let table = { name: "", name_dl: "", name_delete: "" };
 
         table.name = this.files[i];
         table.name_dl = this.files[i];
         table.name_delete = this.files[i];
-        
+
         result.push(table);
-        // result[i] = table;
-        // result.add()
-
-        console.log("######################")
-        // console.log("file = " + this.files);
-
-        console.log("table = " + table);
-        console.log("table.name = " + table.name);
-        console.log("table.name_dl = " + table.name_dl);
-        console.log("table.name_delete = " + table.name_delete);
-
-        // console.log("result.length = " + result.length);
-
-        console.log("result["+i+"] = ")
-        console.log(result[i]);
-
-        console.log("i = "+ i +"\tresult = " + result);
-        console.log(result);
-        
-        console.log("######################")
       }
-      
-
-      console.log("result = ");
-      console.log(result);
 
       return result;
     },
@@ -112,81 +123,79 @@ export default {
     },
   },
   methods: {
-    handleFileUpload(){
+    handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
-    submitFile(){
-      let req = 
+    submitFile() {
+      let req =
         this.$apiUrl +
         "AppliCFABack/files/" +
-        "utilisateurs/"+
+        "utilisateurs/" +
         this.$store.getters.getUtilisateur.id;
 
       let formData = new FormData();
-      formData.append('file', this.file);
+      formData.append("file", this.file);
 
       axios
-        .post(req, formData,{headers: {'Content-Type': 'multipart/form-data'}})
+        .post(req, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then(() => this.list_reset())
         .catch((error) => console.log(error));
     },
-    list_reset(){
-      let req = 
+    list_reset() {
+      let req =
         this.$apiUrl +
         "AppliCFABack/files/" +
-        "utilisateurs/"+
+        "utilisateurs/" +
         this.$store.getters.getUtilisateur.id;
 
       axios
         .get(req)
-        .then((response) =>{
-          console.log("#################");
-          console.log("response.data = ");
-          console.log(response.data);
-          console.log("#################");
-          (this.files = response.data)})
+        .then((response) => {
+          this.files = response.data;
+        })
         .catch((error) => console.log(error));
     },
-    download_file(fileName){
-        let req = 
-          this.$apiUrl +
-          "AppliCFABack/files/" +
-          "utilisateurs/" +
-          this.$store.getters.getUtilisateur.id +
-          "/" +
-          fileName;
+    download_file(fileName) {
+      let req =
+        this.$apiUrl +
+        "AppliCFABack/files/" +
+        "utilisateurs/" +
+        this.$store.getters.getUtilisateur.id +
+        "/" +
+        fileName;
 
-        axios
-          .get(req, { responseType: "blob" })
-          .then(resp => {
-                var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
-                var fileLink = document.createElement('a');
-                fileLink.href = fileURL;
-                fileLink.setAttribute('download', fileName);
-                document.body.appendChild(fileLink);
-                fileLink.click();
-          })
-          .catch((error) => console.log(error));
+      axios
+        .get(req, { responseType: "blob" })
+        .then((resp) => {
+          var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", fileName);
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })
+        .catch((error) => console.log(error));
+    },
+    delete_file(fileName) {
+      let req =
+        this.$apiUrl +
+        "AppliCFABack/files/" +
+        "utilisateurs/" +
+        this.$store.getters.getUtilisateur.id +
+        "/" +
+        fileName;
 
-      },
-      delete_file(fileName){
-        let req = 
-          this.$apiUrl +
-          "AppliCFABack/files/" +
-          "utilisateurs/" +
-          this.$store.getters.getUtilisateur.id +
-          "/" +
-          fileName;
-
-        axios
-          .delete(req)
-          .then(() => this.list_reset())
-          .catch((error) => console.log(error));
-      }
+      axios
+        .delete(req)
+        .then(() => this.list_reset())
+        .catch((error) => console.log(error));
+    },
   },
   created() {
     this.list_reset();
-  }
+  },
 };
 </script>
 
@@ -203,7 +212,7 @@ export default {
   height: 200px;
 }
 
- #my-table {
-    text-align: center;
-  }
+#my-table {
+  text-align: center;
+}
 </style>
