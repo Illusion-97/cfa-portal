@@ -70,7 +70,7 @@ export default {
     return {
       perPage: 10,
       items: [
-        {
+        /*{
           nom : ".Net",
           etudiant:"sydaphasavanh",
           groupeProjet: "@voir",
@@ -91,16 +91,17 @@ export default {
           ProgrammeDeCours: "@voir",
           Cours: "@voir",
         },
-      ],
+      */],
       fields: promotionsFields,
-      created() {
+      
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/promotions/10")
+          .get(this.$apiUrl + "/AppliCFABack/promotions/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>

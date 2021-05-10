@@ -70,7 +70,7 @@ export default {
     return {
       perPage: 10,
       items: [
-        {
+       /* {
           nom: "Schwarzer",
           prenom: "Julien",
           adresse: "2 rue du Corbier",
@@ -89,16 +89,17 @@ export default {
           presence: "Feuille de présence",
         },
         
-      ],
+      */],
       fields: etudiantsFields,
-      created() {
-        axios
-          .get("http://localhost:8080/AppliCFABack/etudiants/10")
-          .then((response) => (this.items = response.data))
-          .catch((e) => this.errors.push(e));
-        },
+      
     };
   },
+  created() {
+        axios
+          .get(this.$apiUrl + "AppliCFABack/etudiants/")
+          .then((response) => (this.items = response.data))
+          .catch((e) => console.log(e));
+        },
 };
 </script>
 <style scoped>

@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       perPage: 10,
-      items: [
+      items: [/*
         {
           nom: "Projet CFA",
           description: "Site CFA",
@@ -55,16 +55,17 @@ export default {
           cahierDesCharges: "en pj",
           groupe: "#",
         },
-      ],
+      */],
       fields: projetsFields,
-      created() {
+      
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/projets/10")
+          .get(this.$apiUrl +"/AppliCFABack/projets/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>
