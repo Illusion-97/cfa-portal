@@ -10,9 +10,9 @@
         </tr>
       </thead>
       <tbody>
-        <td>999</td>
-        <td>999</td>
-        <td>999</td>
+        <td>{{tableConge[0]}}</td>
+        <td>{{tableConge[1]}}</td>
+        <td>{{tableConge[2]}}</td>
       </tbody>
     </table>
     <b-form class="form mb-5" @submit="submit">
@@ -99,6 +99,8 @@ export default {
       conges: [],
       fields: leaveFields,
       perPage: 10,
+
+      tableConge: [],
     };
   },
   computed: {
@@ -111,6 +113,7 @@ export default {
   },
   created() {
     this.getConges();
+    this.getTableConge();
   },
   methods: {
     submit(e) {
@@ -137,7 +140,19 @@ export default {
         .catch((error) => console.log(error));
       
     },
+    getTableConge(){
+      let req =
+        this.$apiUrl +
+        "AppliCFABack/conges/acquis-disponibles-restants/" +
+        this.utilisateur.id;
+
+      axios
+        .get(req)
+        .then((response) => (this.tableConge = response.data))
+        .catch((error) => console.log(error));
+    }
   },
+  
 };
 </script>
 
