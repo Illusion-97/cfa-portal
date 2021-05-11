@@ -2,8 +2,9 @@
   <div>
     <!-- <BodyTitle title="Affichage des cours" /> -->
     <h1 class="text-center">Affichage des cours</h1>
-    <TableTemplate :perPage="perPage" :items="items" :fields="fields" btnTxt="Ajouter une intervention" :showBtn="true"
+    <TableTemplate :perPage="perPage" :items="items.interventionsDto" :fields="fields" :showBtn="false"
       btnLink="formateur_ajouter-cours" />
+      {{items.interventionsDto}}
   </div>
 </template>
 
@@ -18,6 +19,7 @@
         items: [],
         fields: courseFields,
         perPage: 10,
+        userId: 3
       };
     },
     components: {
@@ -26,22 +28,12 @@
     },
     created() {
       axios
-        .get(`${this.$apiUrl}/AppliCFABack/interventions/with-object`)
+        .get(`${this.$apiUrl}/AppliCFABack/formateurs/${this.userId}/interventions`)
         .then((response) => {
           this.items = response.data;
-          console.log(this.items);
+          // console.log(this.items.interventionsDto);
         })
-        .catch((e) => this.errors.push(e));
-    },
-    methods: {
-      // getIntervention(){
-      //   var result;
-      //    axios
-      //     .get("http://localhost:8080/AppliCFABack/etudiants/23/intervention")
-      //     .then((response) => (this.items = response.data))
-      //     .catch((e) => this.errors.push(e));
-      //     return result
-      // }
+        .catch((e) => console.error(e));
     },
   };
 </script>
