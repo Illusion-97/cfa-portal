@@ -33,6 +33,7 @@ export const etudiantsFields = [
   { key: "prenom", label: "Prénom de l'étudiant" },
   { key: "adresse", label: "Adresse" },
   { key: "presence", label: "Feuille de présence"},
+  "telecharger",
 
 ];
 
@@ -47,6 +48,8 @@ export const projetsFields = [
   { key: "description", label: "Description" },
   { key: "cahierDesCharges", label: "Cahier des charges" },
   { key: "groupe", label: "Groupe"},
+  "modifier",
+  "supprimer",
 
 ];
 
@@ -60,6 +63,8 @@ export const promotionsFields = [
 
 export const groupesFields = [
   { key: "nom", label: "Nom du groupe" },
+  "modifier",
+  "supprimer",
 
 ];
 
@@ -67,6 +72,8 @@ export const examensFields = [
   { key: "enonce", label: "Enonce" },
   { key: "cursus", label: "Cursus" },
   { key: "formation", label: "Formation" },
+  "modifier",
+  "supprimer",
 
 ];
 // Example
