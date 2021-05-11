@@ -5,9 +5,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3 mb-3" v-if="showBtn == true">
-            <router-link :to="{name:btnLink}" class="button mb-2">{{btnTxt}}</router-link>
+            <router-link :to="{ name: btnLink }" class="button mb-2">
+              {{btnTxt}}
+            </router-link>
           </div>
-          <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
+          <div class="my-3 ml-auto col-md-3" :class="display">
             <b-form inline>
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
@@ -39,6 +41,9 @@
                   {{ data.value.titre | capitalize }}
                 </b-link>
               </template>
+              <!-- <template #cell(interventionsDto)="data">
+                {{ data.dateDebut }}
+              </template> -->
               <template #cell(eleve)="data">
                 {{ data.value.nom | uppercase }}
                 {{ data.value.prenom | capitalize }}
@@ -98,6 +103,7 @@
       items: {
         // valeur des champs du tableau
         type: Array,
+        default: () => [],
         required: true,
       },
       perPage: {
@@ -136,6 +142,10 @@
       rows() {
         return this.items.length;
       },
+      display() {
+        if (this.items.length <= 10)
+          return 'd-none'
+      }
     },
   };
 </script>
