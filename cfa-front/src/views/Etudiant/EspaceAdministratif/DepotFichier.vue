@@ -215,4 +215,8 @@ export default {
 #my-table {
   text-align: center;
 }
+
+.icon:hover{
+  cursor: pointer;
+}
 </style>
