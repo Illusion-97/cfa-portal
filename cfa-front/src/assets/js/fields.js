@@ -14,11 +14,11 @@ export const fileFields = [
 ];
 
 export const leaveFields = [
-    { key: "dateDebut", label: "Date de debut" },
-    { key: "dateFin", label: "Date de fin" },
+    { key: "dateDebut", label: "Date de debut", sortable: true },
+    { key: "dateFin", label: "Date de fin", sortable: true },
     { key: "motif", label: "Motif" },
-    { key: "type", label: "Type de congé" },
-    { key: "status", label: "Status" },
+    { key: "type", label: "Type de congé", sortable: true },
+    { key: "status", label: "Status", sortable: true },
 ];
 
 export const absences_latesFields = [
