@@ -4,7 +4,7 @@ export const courseFields = [
   { key: "dateDebut", label: "Date de debut", sortable: true },
   { key: "dateFin", label: "Date de fin", sortable: true },
   "modifier",
-  "supprimer",
+  "supprimerInterv",
 ];
 
 export const fileFields = [
