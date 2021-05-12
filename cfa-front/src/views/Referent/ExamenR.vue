@@ -58,7 +58,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { examensFields } from "@/assets/js/fields.js"
+import { examensFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
 export default {
   name: "Examens",

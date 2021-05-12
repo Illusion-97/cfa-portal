@@ -52,23 +52,28 @@
       </table>
     </div>
     -->
+    <br>
+    <br>
+    <Planning/>  
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { promotionsFields } from "@/assets/js/fields.js"
+import { promotionsFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
+import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "ReferentDashboard",
   components: {
     BodyTitle,
     TableTemplate,
+    Planning,
   },
   data() {
     return {
-      perPage: 10,
+      perPage: 5,
       items: [
         /*{
           nom : ".Net",
