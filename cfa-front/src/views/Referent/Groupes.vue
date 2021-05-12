@@ -19,7 +19,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { groupesFields } from "@/assets/js/fields.js"
+import { groupesFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
 export default {
   name: "Groupes",
