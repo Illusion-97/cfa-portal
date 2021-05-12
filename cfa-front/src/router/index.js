@@ -26,6 +26,7 @@ import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 //Formateur
 import Course from "@/views/Formateur/Cours/Cours.vue";
 import AjoutCours from "@/views/Formateur/Cours/AjoutCours.vue";
+import DetailCours from "@/views/Formateur/Cours/DetailCours.vue";
 
 //Referent
 import ReferentDashboard from "@/views/Referent/ReferentDashboard.vue";
@@ -56,55 +57,56 @@ Vue.use(VueRouter);
 
 const routes = [
   //Global
-  { path: "/", name: "home", component: Home,},
-  { path: "/login/LoginPage", name: "login", component: LoginPage},
+  { path: "/", name: "home", component: Home, },
+  { path: "/login/LoginPage", name: "login", component: LoginPage },
+  { path: "/ajouter-cours", name: "ajouter-cours", component: AjoutCours, },
   // { path: '/secure', name: 'secure', component: secure},
 
   //Etudiant Administratif
-  { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil",component: Profil,},
-  { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs",component: DepotFichier},
-  { path: "/etudiant/espace-administratif/demande-conge",name: "etudiant_conge",component: DemandeConge},
-  { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie",component: FicheSalarie,},
-  { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste",component: FichePoste,},
-  { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise",component: FicheEntreprise,},
+  { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, },
+  { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs", component: DepotFichier },
+  { path: "/etudiant/espace-administratif/demande-conge", name: "etudiant_conge", component: DemandeConge },
+  { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie", component: FicheSalarie, },
+  { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste", component: FichePoste, },
+  { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise", component: FicheEntreprise, },
 
   //Etudiant Pedagogique
-  { path: "/etudiant/espace-pedagogique/accueil", name: "etudiant_espace-peda_accueil", component: Acceuil},
-  { path: "/etudiant/espace-pedagogique/absences", name: "etudiant_espace-peda_absences", component: Absences},
-  { path: "/etudiant/espace-pedagogique/cursus", name: "etudiant_espace-peda_cursus", component: Cursus},
-  { path: "/etudiant/espace-pedagogique/devoirs", name: "etudiant_espace-peda_devoirs", component: Devoirs},
-  { path: "/etudiant/espace-pedagogique/dossierPro", name: "etudiant_espace-peda_dossier-pro", component: DossierPro},
-  { path: "/etudiant/espace-pedagogique/evaluation-formation", name: "etudiant_espace-peda_evaluation-formation", component: EvaluationFormation},
-  { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes},
+  { path: "/etudiant/espace-pedagogique/accueil", name: "etudiant_espace-peda_accueil", component: Acceuil },
+  { path: "/etudiant/espace-pedagogique/absences", name: "etudiant_espace-peda_absences", component: Absences },
+  { path: "/etudiant/espace-pedagogique/cursus", name: "etudiant_espace-peda_cursus", component: Cursus },
+  { path: "/etudiant/espace-pedagogique/devoirs", name: "etudiant_espace-peda_devoirs", component: Devoirs },
+  { path: "/etudiant/espace-pedagogique/dossierPro", name: "etudiant_espace-peda_dossier-pro", component: DossierPro },
+  { path: "/etudiant/espace-pedagogique/evaluation-formation", name: "etudiant_espace-peda_evaluation-formation", component: EvaluationFormation },
+  { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes },
 
   //Formateur
-  { path: "/formateur/cours", name: "formateur_cours", component: Course},
-  { path: "/formateur/ajouter-cours", name: "formateur_ajouter-cours", component: AjoutCours, },
-  
+  { path: "/formateur/cours", name: "formateur_cours", component: Course },
+  { path: "/formateur/intervention/:id", name: "intervention-detail", component: DetailCours },
+
   //Referent
-  { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
-  { path: "/referent/notes", name: "referent_notes", component: NotesR},
-  { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif},
-  { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet},
-  { path: "/referent/projets", name: "referent_projets", component: Projets},
-  { path: "/referent/groupes", name: "referent-groupes", component: Groupes},
-  { path: "/referent/creation-groupe", name: "referent_create-groupe", component: CreateGroupe},
-  { path: "/referent/creation-projet", name: "referent_create-projet", component: CreateProjet},
-  { path: "/referent/modifier-groupe", name: "referent_modifier-groupe", component: ModifierGroupe},
-  { path: "/referent/modifier-projet", name: "referent_modifier-projet", component: ModifierProjet},
-  { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard},
-  { path: "/referent/creation-absence-retard", name: "referent_create-absence-retard", component: CreateAbsenceRetard},
-  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
-  { path: "/referent/cours", name: "referent_cours", component: CoursR},
-  { path: "/referent/creation-cours", name: "CreateCoursR", component: CreateCoursR},
-  { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
-  { path: "/referent/creation-devoir", name: "CreateDevoirR", component: CreateDevoirR},
-  { path: "/referent/modifier-devoir", name: "ModifierDevoirR", component: ModifierDevoirR},
-  { path: "/referent/examens", name: "ExamenR", component: ExamenR},
-  { path: "/referent/creation-examen", name: "CreateExamenR", component: CreateExamenR},
-  { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR},
-  { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR},
-  { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR},
+  { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard },
+  { path: "/referent/notes", name: "referent_notes", component: NotesR },
+  { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif },
+  { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet },
+  { path: "/referent/projets", name: "referent_projets", component: Projets },
+  { path: "/referent/groupes", name: "referent-groupes", component: Groupes },
+  { path: "/referent/creation-groupe", name: "referent_create-groupe", component: CreateGroupe },
+  { path: "/referent/creation-projet", name: "referent_create-projet", component: CreateProjet },
+  { path: "/referent/modifier-groupe", name: "referent_modifier-groupe", component: ModifierGroupe },
+  { path: "/referent/modifier-projet", name: "referent_modifier-projet", component: ModifierProjet },
+  { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard },
+  { path: "/referent/creation-absence-retard", name: "referent_create-absence-retard", component: CreateAbsenceRetard },
+  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR },
+  { path: "/referent/cours", name: "referent_cours", component: CoursR },
+  { path: "/referent/creation-cours", name: "CreateCoursR", component: CreateCoursR },
+  { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR },
+  { path: "/referent/creation-devoir", name: "CreateDevoirR", component: CreateDevoirR },
+  { path: "/referent/modifier-devoir", name: "ModifierDevoirR", component: ModifierDevoirR },
+  { path: "/referent/examens", name: "ExamenR", component: ExamenR },
+  { path: "/referent/creation-examen", name: "CreateExamenR", component: CreateExamenR },
+  { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR },
+  { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR },
+  { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR },
 ];
 
 const router = new VueRouter({
