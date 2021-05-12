@@ -65,18 +65,31 @@
                 </span>
               </template>
 
+              <template #cell(file_name)>
+                {{data.value}}
+              </template>
+              
+              <template #cell(name_dl)="data">
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download_file(data.value)"/> 
+              </template>
+
+              <template #cell(name_delete)="data">
+                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)"/>
+              </template>
+
+
               <template #cell(telecharger)>
-                <!-- <col style="width:50%" /> -->
-                <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
+              </template>
+
+              <template #cell(supprimer)>
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
               </template>
 
               <template #cell(modifier)>
                 <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
               </template>
 
-              <template #cell(supprimer)>
-                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
-              </template>
             </b-table>
           </div>
         </div>
@@ -93,6 +106,7 @@
 </script>
 
 <script>
+  import axios from "axios";
   export default {
     name: "TableTemplate",
     props: {
@@ -132,7 +146,9 @@
         currentPage: 1, // page courante
       };
     },
-    methods: {},
+    methods: {
+      
+    },
     computed: {
       rows() {
         return this.items.length;

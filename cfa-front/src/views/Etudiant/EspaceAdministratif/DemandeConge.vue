@@ -1,30 +1,24 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Demande de congé" />
-    <table class="table text-center mt-5">
+    <table class="table text-center mt-5" style="table-layout:fixed">
       <thead>
         <tr>
-          <th scope="col">Acquis</th>
-          <th scope="col">Pris</th>
-          <th scope="col">Epargné</th>
-          <th scope="col">A venir</th>
-          <th scope="col">Disponibles</th>
-          <th scope="col">Restants</th>
+          <th>Acquis</th>
+          <th>Pris</th>
+          <th>Disponibles</th>
         </tr>
       </thead>
       <tbody>
-        <td>999</td>
-        <td>999</td>
-        <td>999</td>
-        <td>999</td>
-        <td>999</td>
-        <td>999</td>
+        <td>{{tableConge[0] | twoDigits}}</td>
+        <td>{{tableConge[1] | twoDigits }} </td>
+        <td>{{tableConge[2] | twoDigits }} </td>
       </tbody>
     </table>
     <b-form class="form mb-5" @submit="submit">
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="offset-1 col-1">date de début :</label>
+          <label class="offset-1 col-1">Date de début</label>
           <div class="col-4 pr-5">
             <b-form-datepicker
               locale="fr"
@@ -32,7 +26,7 @@
               required
             ></b-form-datepicker>
           </div>
-          <div class="col-1">date de fin :</div>
+          <div class="col-1">Date de fin</div>
           <div class="col-4 pr-5">
             <b-form-datepicker
               locale="fr"
@@ -45,11 +39,11 @@
 
       <b-form-group>
         <b-form-row class="text-align-left">
-          <div class="offset-1 col-1">Motif :</div>
+          <div class="offset-1 col-1">Motif</div>
           <div class="col-4 pr-5">
             <b-form-input type="text" v-model="form.motif"> </b-form-input>
           </div>
-          <label class="col-1">Type de congé :</label>
+          <label class="col-1">Type de congé</label>
           <div class="col-4 pr-5">
             <b-form-select
               :options="types"
@@ -105,6 +99,8 @@ export default {
       conges: [],
       fields: leaveFields,
       perPage: 10,
+
+      tableConge: [],
     };
   },
   computed: {
@@ -117,6 +113,7 @@ export default {
   },
   created() {
     this.getConges();
+    this.getTableConge();
   },
   methods: {
     submit(e) {
@@ -142,9 +139,29 @@ export default {
         .then((response) => (this.conges = response.data))
         .catch((error) => console.log(error));
       
-      console.log("on actualise ...")
     },
+    getTableConge(){
+      let req =
+        this.$apiUrl +
+        "AppliCFABack/conges/acquis-disponibles-restants/" +
+        this.utilisateur.id;
+
+      axios
+        .get(req)
+        .then((response) => (this.tableConge = response.data))
+        .catch((error) => console.log(error));
+    }
   },
+  filters: {
+    twoDigits: function(value){
+      if(!value) return ''
+      let result = value*100;
+      result = Math.round(result);
+      result = result / 100;
+      return result;
+    }
+  }
+  
 };
 </script>
 
@@ -164,4 +181,5 @@ export default {
 .table-template{
   margin-right: 4em;
 }
+
 </style>
