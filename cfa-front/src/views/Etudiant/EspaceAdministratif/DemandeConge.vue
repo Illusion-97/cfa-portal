@@ -1,18 +1,18 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Demande de congé" />
-    <table class="table text-center mt-5">
+    <table class="table text-center mt-5" style="table-layout:fixed">
       <thead>
         <tr>
-          <th scope="col">Acquis</th>
-          <th scope="col">Pris</th>
-          <th scope="col">Disponibles</th>
+          <th>Acquis</th>
+          <th>Pris</th>
+          <th>Disponibles</th>
         </tr>
       </thead>
       <tbody>
-        <td>{{tableConge[0]}}</td>
-        <td>{{tableConge[1]}}</td>
-        <td>{{tableConge[2]}}</td>
+        <td>{{tableConge[0] | twoDigits}}</td>
+        <td>{{tableConge[1] | twoDigits }} </td>
+        <td>{{tableConge[2] | twoDigits }} </td>
       </tbody>
     </table>
     <b-form class="form mb-5" @submit="submit">
@@ -152,6 +152,15 @@ export default {
         .catch((error) => console.log(error));
     }
   },
+  filters: {
+    twoDigits: function(value){
+      if(!value) return ''
+      let result = value*100;
+      result = Math.round(result);
+      result = result / 100;
+      return result;
+    }
+  }
   
 };
 </script>
@@ -172,4 +181,5 @@ export default {
 .table-template{
   margin-right: 4em;
 }
+
 </style>
