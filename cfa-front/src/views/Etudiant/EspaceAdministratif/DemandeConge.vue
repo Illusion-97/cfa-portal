@@ -151,17 +151,7 @@ export default {
         .then((response) => (this.tableConge = response.data))
         .catch((error) => console.log(error));
     }
-  },
-  filters: {
-    twoDigits: function(value){
-      if(!value) return ''
-      let result = value*100;
-      result = Math.round(result);
-      result = result / 100;
-      return result;
-    }
-  }
-  
+  },  
 };
 </script>
 

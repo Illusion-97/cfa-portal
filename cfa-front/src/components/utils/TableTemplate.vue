@@ -106,7 +106,6 @@
 </script>
 
 <script>
-  import axios from "axios";
   export default {
     name: "TableTemplate",
     props: {

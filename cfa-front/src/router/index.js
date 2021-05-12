@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import { authenticationService } from '@/_services';
+import { Role } from '@/_helpers';
+
 //Global
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
@@ -61,12 +64,12 @@ const routes = [
   // { path: '/secure', name: 'secure', component: secure},
 
   //Etudiant Administratif
-  { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil",component: Profil,},
-  { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs",component: DepotFichier},
-  { path: "/etudiant/espace-administratif/demande-conge",name: "etudiant_conge",component: DemandeConge},
-  { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie",component: FicheSalarie,},
-  { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste",component: FichePoste,},
-  { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise",component: FicheEntreprise,},
+  { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil",component: Profil, meta: {authorize: [Role.Etudiant]}},
+  { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs",component: DepotFichier, meta: {authorize: [Role.Etudiant]} },
+  { path: "/etudiant/espace-administratif/demande-conge",name: "etudiant_conge",component: DemandeConge, meta: {authorize: [Role.Etudiant]}},
+  { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie",component: FicheSalarie, meta: {authorize: [Role.Etudiant]}},
+  { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste",component: FichePoste, meta: {authorize: [Role.Etudiant]}},
+  { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise",component: FicheEntreprise, meta: {authorize: [Role.Etudiant]}},
 
   //Etudiant Pedagogique
   { path: "/etudiant/espace-pedagogique/accueil", name: "etudiant_espace-peda_accueil", component: Acceuil},
@@ -112,5 +115,26 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const { authorize } = to.meta;
+  const currentUser = authenticationService.currentUserValue;
+
+  if (authorize) {
+      if (!currentUser) {
+          // not logged in so redirect to login page with the return url
+          return next({ path: '/login', query: { returnUrl: to.path } });
+      }
+
+      // check if route is restricted by role
+      if (authorize.length && !authorize.includes(currentUser.role)) {
+          // role not authorised so redirect to home page
+          return next({ path: '/' });
+      }
+  }
+
+  next();
+})
 
 export default router;

@@ -20,3 +20,13 @@ Vue.filter("formatNumber", function(value) { // formate les nombres en son entie
   }
   return Math.floor(value);
 });
+
+Vue.filter("twoDigits", function(value) { // arondi le nombre au centième
+  if (typeof value != "number" || !value) 
+    return '';
+  
+  let result = value*100;
+  result = Math.round(result);
+  result = result / 100;
+  return result;
+});
