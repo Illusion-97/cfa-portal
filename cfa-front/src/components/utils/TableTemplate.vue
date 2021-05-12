@@ -36,14 +36,19 @@
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
               :current-page="currentPage">
-              <template #cell(formationDto)="data">
-                <b-link href="#" style="color:black;">
-                  {{ data.value.titre | capitalize }}
-                </b-link>
-              </template>
-              <!-- <template #cell(interventionsDto)="data">
-                {{ data.dateDebut }}
+
+              <!-- <template #cell(rolesDto)="data">
+                  {{ data.item}}
               </template> -->
+
+              <template #cell(formationDto)="data">
+                <router-link :to="{name:'intervention-detail',params:{id:data.item.id}}" style="color:black;"
+                  target="_blank">
+                  {{ data.item.formationDto.titre }}
+                  <!-- {{ data.item.dateDebut | capitalize }} -->
+                </router-link>
+              </template>
+
               <template #cell(eleve)="data">
                 {{ data.value.nom | uppercase }}
                 {{ data.value.prenom | capitalize }}
@@ -81,6 +86,9 @@
               <template #cell(supprimer)>
                 <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
               </template>
+              <template #cell(supprimerInterv)>
+                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
+              </template>
             </b-table>
           </div>
         </div>
@@ -92,6 +100,7 @@
   </div>
 </template>
 <script>
+
   // == Pour importer les entetes du tableau:
   // import {nom_variable} from "fields.js" <= les en-tetes du tableau devront se situé dans le fichier fields.js
 </script>
