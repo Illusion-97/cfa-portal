@@ -1,10 +1,15 @@
 <template>
   <div class="container-fluid">
     <div class="row">
+
+formateurReferent = {{formateurReferent}}
+<br>
+formateurReferentComputed = {{formateurReferentComputed}}
+
       <div class="col-md-2" align="center">
         <div class="identite">
-          <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
-          <p class="email">{{ utilisateur.login }}</p>
+          <!-- <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
+          <p class="email">{{ utilisateur.login }}</p> -->
         </div>
       </div>
 
@@ -13,8 +18,8 @@
           <div class="col-md-3">
             <b-card header="Formateur Référent">
               <b-card-text>
-                <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
-                <p>{{ formateurReferent.login }}</p>
+                <!-- <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
+                <p>{{ formateurReferent.login }}</p> -->
               </b-card-text>
             </b-card>
           </div>
@@ -22,8 +27,8 @@
           <div class="offset-1 col-md-3">
             <b-card header="Référent de la promotion">
               <b-card-text>
-                <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}</p>
-                <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p>
+                <!-- <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}</p>
+                <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p> -->
               </b-card-text>
             </b-card>
           </div>
@@ -31,8 +36,8 @@
           <div class="offset-1 col-md-3">
             <b-card header="Manager">
               <b-card-text>
-                <p>{{ manager.prenom }} {{ manager.nom }}</p>
-                <p>{{ manager.login }}</p>
+                <!-- <p>{{ manager.prenom }} {{ manager.nom }}</p>
+                <p>{{ manager.login }}</p> -->
               </b-card-text>
             </b-card>
           </div>
@@ -49,7 +54,8 @@
 //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 
-import axios from "axios";
+// import axios from "axios";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "HomeEtudiant",
@@ -69,29 +75,15 @@ export default {
     },
     promotionComputed(){
       return this.promotion;
+    },
+    formateurReferentComputed(){
+      return this.formateurReferent;
     }
   },
   created() {
-    //On récupère le formateur référent
-    let req1 = this.$apiUrl +"AppliCFABack/etudiants/" + this.utilisateur.id + "/formateurReferent";
-    axios
-      .get(req1)
-      .then((response) => (this.formateurReferent = response.data))
-      .catch((error) => console.log(error));
-
-    //On récupère les référent des promotions de l'étudiant
-    let req2 = this.$apiUrl + "AppliCFABack/etudiants/" + this.utilisateur.id + "/promotions";
-    axios
-      .get(req2)
-      .then((response) => (this.promotion = response.data[0]))
-      .catch((error) => console.log(error));
-
-    //On récupère le manager de l'étudiant
-    let req3 = this.$apiUrl + "AppliCFABack/etudiants/" + this.utilisateur.id + "/manager";
-    axios
-      .get(req3)
-      .then((response) => (this.manager = response.data))
-      .catch((error) => console.log(error));
+    etudiantApi.getFormateurReferent(1).then(data => this.formateurReferent = data);
+    etudiantApi.getPromotions(1).then(data => this.promotion = data);
+    etudiantApi.getManager(1).then(data => this.manager = data);
   },
   methods: {
   }

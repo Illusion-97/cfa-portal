@@ -22,13 +22,13 @@ export default {
   },
   created(){
 
-    let req1 = "http://localhost:8080/AppliCFABack/utilisateurs/" + this.utilisateur.id;
+    let req1 = "http://localhost:8080/AppliCFABack/utilisateurs/" + 1;
     axios
       .get(req1)
       .then((response) => this.$store.dispatch('setUtilisateur', response.data))
       .catch((error) => console.log(error));
 
-    let req2 = "http://localhost:8080/AppliCFABack/utilisateurs/" + this.utilisateur.id + "/planning";
+    let req2 = "http://localhost:8080/AppliCFABack/utilisateurs/" + 1 + "/planning";
     axios
       .get(req2)
       .then((response) => this.$store.dispatch('setPlanning', response.data))

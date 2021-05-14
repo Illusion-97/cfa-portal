@@ -1,13 +1,13 @@
 import { BehaviorSubject } from 'rxjs';
 import store from '@/_helpers/store.js'
 
-import requestOptions from '@/_helpers/request-options.js';
+import { requestOptions } from '@/_helpers/request-options.js';
 import handleResponse from '@/_helpers/handle-response.js';
 
 
 const currentUserSubject = new BehaviorSubject(store.getters.getUtilisateur);
 
-export const authenticationService = {
+export const authenticationApi = {
     login,
     logout,
     currentUser: currentUserSubject.asObservable(),

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import { authenticationService } from '@/_services/authentication.service.js';
+// import { authenticationApi } from '@/_api/authentication.api.js';
 import { Role } from '@/_helpers/role.js';
 
 //Global
@@ -118,11 +118,11 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+/*
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const { authorize } = to.meta;
-  const currentUser = authenticationService.currentUserValue;
+  const currentUser = authenticationApi.currentUserValue;
 
   if (authorize) {
       if (!currentUser) {
@@ -151,5 +151,5 @@ router.beforeEach((to, from, next) => {
 
   next();
 })
-
+*/
 export default router;
