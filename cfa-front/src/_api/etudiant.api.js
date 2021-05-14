@@ -1,4 +1,4 @@
-import handleResponse from '@/_helpers/handle-response.js';
+// import handleResponse from '@/_helpers/handle-response.js';
 // import { requestOptions } from '@/_helpers/request-options.js';
 import axios from 'axios';
 
@@ -12,11 +12,11 @@ async function getFormateurReferent(id) {
 
     let req = "http://localhost:8080/AppliCFABack/etudiants/" + id + "/formateurReferent";
     return axios
-    //   .get(req,{headers: requestOptions.headers()})
-      .get(req)
-    //   .then((response) => response.data)
-      .then(handleResponse)
-      .catch((error) => console.log(error));
+        // .get(req,{headers: requestOptions.headers()})
+        // .then(handleResponse)
+        .get(req)
+        .then((response) => response.data)      
+        .catch((error) => console.log(error));
 
 }
 
