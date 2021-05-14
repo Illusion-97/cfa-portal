@@ -1,6 +1,6 @@
-import { authenticationService } from '@/_services';
+import { authenticationService } from '@/_services/authentication.service.js'
 
-export function handleResponse(response) {
+export default function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {

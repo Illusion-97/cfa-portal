@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { Role } from '@/_helpers/role.js';
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    utilisateur: {id: 1,},
+    utilisateur: {id: 1, role: [Role.Etudiant]},
     planning: []
   },
   getters: { 
