@@ -6,11 +6,11 @@
     <TableTemplate :perPage="perPage" :items="items.interventionsDto" :fields="fields" :showBtn="false"
       btnLink="formateur_ajouter-cours" />
 
-    <p :class="formateur">Formateur</p>
+    <!-- <p :class="formateur">Formateur</p> -->
     <!-- <p v-if="items.rolesDto.some(el => el['intitule'] == 'FORMATEUR')">OK</p> -->
-    {{formateur}}
+    <!-- {{formateur}} -->
 
-    {{items.rolesDto}}
+    <!-- {{items.rolesDto}} -->
   </div>
 </template>
 
@@ -45,9 +45,9 @@
         .catch((e) => console.error(e));
     },
     computed: {
-      formateur() {
-        return this.items.rolesDto.filter(el => el["intitule"] == 'FORMATEUR') ? 'text-success' : 'text-danger'
-      },
+      // formateur() {
+      //   return this.items.rolesDto.filter(el => el["intitule"] == 'FORMATEUR') ? 'text-success' : 'text-danger'
+      // },
       //       isFormateur() {
       //         for (let i = 0; i < this.items.rolesDtos.length; i++) {
       //           const element = this.items.rolesDtos[i];
