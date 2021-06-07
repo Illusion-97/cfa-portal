@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { congeApi } from "@/_api/conge.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { leaveFields } from "@/assets/js/fields.js";
@@ -112,45 +112,16 @@ export default {
     },
   },
   created() {
-    this.getConges();
-    this.getTableConge();
+    congeApi.getConges(this.utilisateur.id).then((response) => (this.conges = response));      
+    congeApi.getTableConge(this.utilisateur.id).then((response) => (this.tableConge = response));      
   },
   methods: {
     submit(e) {
       e.preventDefault();
-
-      let req = this.$apiUrl +"AppliCFABack/conges";
-
-      axios
-        .post(req, this.form)
-        .then(() => this.getConges())
-        .catch((error) => console.log(error));
-
+      congeApi.save(this.form)
+              //Quand on a ajouté le congé, on recharge la liste
+              .then(() => congeApi.getConges(this.utilisateur.id).then((response) => (this.conges = response)));  
     },
-    getConges() {
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/utilisateurs/" +
-        this.utilisateur.id +
-        "/conges";
-
-      axios
-        .get(req)
-        .then((response) => (this.conges = response.data))
-        .catch((error) => console.log(error));
-      
-    },
-    getTableConge(){
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/conges/acquis-disponibles-restants/" +
-        this.utilisateur.id;
-
-      axios
-        .get(req)
-        .then((response) => (this.tableConge = response.data))
-        .catch((error) => console.log(error));
-    }
   },  
 };
 </script>
