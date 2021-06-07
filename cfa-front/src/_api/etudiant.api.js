@@ -8,7 +8,7 @@ export const etudiantApi = {
     getPromotions,
 }
 
-async function getFormateurReferent(id) {
+function getFormateurReferent(id) {
 
     let req = "http://localhost:8080/AppliCFABack/etudiants/" + id + "/formateurReferent";
     return axios
