@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import {Role} from '@/_helpers/role.js';
+//import Utilisateur from '@/_entities/utilisateur.js';
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    utilisateur: {id: 1,},
+    utilisateur: {id: 1, rolesDto: [Role.Etudiant]},
+    //utilisateur: typeof Utilisateur,
     planning: []
   },
   getters: { 

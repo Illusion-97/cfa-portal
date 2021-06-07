@@ -48,6 +48,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { noteFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
 export default {
   name: "Notes",
@@ -59,7 +60,7 @@ export default {
     return {
       perPage: 10,
       items: [
-        {
+        /*{
           nom: "Etudiant1",
           note: "15",
           observation: "Bon",
@@ -74,15 +75,16 @@ export default {
           note: "20",
           observation: "Excellent",
         },
-      ],
-       created() {
+      */],
+      fields: noteFields,
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/notes/")
+          .get(this.$apiUrl + "AppliCFABack/notes/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>

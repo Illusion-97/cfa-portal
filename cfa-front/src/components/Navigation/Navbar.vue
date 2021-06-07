@@ -12,11 +12,14 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item :to="{name:'home'}" class=" a-link">Home</b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'etudiant_espace-peda_accueil'}">
+          <b-nav-item class=" a-link" :to="{name:'etudiant_espace-peda_accueil'}" v-if="isEtudiant">
             Espace pedagogique
           </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'etudiant_profil'}">
+          <b-nav-item class=" a-link" :to="{name:'etudiant_profil'}" v-if="isEtudiant">
             Espace administrative
+          </b-nav-item>
+          <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}" v-if="isReferent">
+            Espace Referent
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -25,17 +28,27 @@
 </template>
 
 <script>
+import { utilisateurService } from "@/_services/utilisateur.service.js"
   export default {
     name: "Navbar",
     components: {},
-    methods: {
-      setActiv(path) {
-        if (path == this.$router.currentRoute.fullPath) return "active";
-      },
-    },
     computed: {
-      table: function () {
-        return this.$router.currentRoute.fullPath.split("/").splice(1);
+      isAdmin(){
+        return utilisateurService.isAdmin();
+      },
+      isCEF(){
+        return utilisateurService.isCEF();
+      },
+      isReferent(){
+        // return utilisateurService.isReferent();
+        return true;
+      },
+      isFormateur(){
+        return utilisateurService.isFormateur();
+      },
+      isEtudiant(){
+        // return utilisateurService.isEtudiant();
+        return true;
       },
     },
   };

@@ -52,24 +52,30 @@
       </table>
     </div>
     -->
+    <br>
+    <br>
+    <Planning/>  
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { promotionsFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
+import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "ReferentDashboard",
   components: {
     BodyTitle,
     TableTemplate,
+    Planning,
   },
   data() {
     return {
-      perPage: 10,
+      perPage: 5,
       items: [
-        {
+        /*{
           nom : ".Net",
           etudiant:"sydaphasavanh",
           groupeProjet: "@voir",
@@ -90,15 +96,17 @@ export default {
           ProgrammeDeCours: "@voir",
           Cours: "@voir",
         },
-      ],
-      created() {
+      */],
+      fields: promotionsFields,
+      
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/promotions/")
+          .get(this.$apiUrl + "/AppliCFABack/promotions/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>

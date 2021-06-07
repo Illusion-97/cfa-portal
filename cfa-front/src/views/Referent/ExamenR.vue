@@ -58,6 +58,8 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { examensFields } from "@/assets/js/fieldsReferent.js"
+import axios from "axios";
 export default {
   name: "Examens",
   components: {
@@ -67,8 +69,9 @@ export default {
    data() {
     return {
       perPage: 10,
+      fields: examensFields,
       items: [
-        {
+        /*{
           enonce: "Enonce#1",
           cursus: "Cursus#1",
           formation: "Formation#1",
@@ -88,9 +91,15 @@ export default {
           cursus: "Cursus#4",
           formation: "Formation#4",
         },
-      ],
+      */],
     };
   },
+  created() {
+      axios
+      .get(this.$apiUrl + "AppliCFABack/examens") //faire la méthode pour recupérer le cursus
+      .then((response) => (this.items = response.data))
+      .catch((error) => console.log(error));
+      },
 };
 </script>
 <style scoped>

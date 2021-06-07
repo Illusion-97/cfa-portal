@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container-fluid">
     <Navbar />
     <div v-if="table == '/'">
       <router-view />

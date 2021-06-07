@@ -19,6 +19,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
+import { groupesFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
 export default {
   name: "Groupes",
@@ -29,7 +30,7 @@ export default {
   data() {
     return {
       perPage: 10,
-      items: [
+      items: [/*
         {
           nom: "Team1",
         },
@@ -39,15 +40,17 @@ export default {
         {
           nom: "Team3",
         },
-      ],
-       created() {
+      */],
+      fields: groupesFields,
+       
+    };
+  },
+  created() {
         axios
-          .get("http://localhost:8080/AppliCFABack/groupeEtudiants/10")
+          .get(this.$apiUrl +"/AppliCFABack/groupeEtudiants/")
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
-    };
-  },
 };
 </script>
 <style scoped>

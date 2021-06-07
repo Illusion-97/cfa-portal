@@ -2,14 +2,13 @@
   <!-- TEMPLATE TABLEAU -->
   <div>
     <section>
-      <div class="container-fluid">
+      <div class="container">
         <div class="row">
-          <div class="col-md-3 mb-3" v-if="showBtn == true">
-            <router-link :to="{ name: btnLink }" class="button mb-2">
-              {{btnTxt}}
-            </router-link>
+          <div class="col-md-3" v-if="showBtn == true">
+            <!-- <a :href="btnLink" class="button">{{ btnTxt }}</a> -->
+            <router-link :to="{name:btnLink}" class="button">{{btnTxt}}</router-link>
           </div>
-          <div class="my-3 ml-auto col-md-3" :class="display">
+          <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
             <b-form inline>
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
@@ -36,19 +35,11 @@
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
               :current-page="currentPage">
-
-              <!-- <template #cell(rolesDto)="data">
-                  {{ data.item}}
-              </template> -->
-
               <template #cell(formationDto)="data">
-                <router-link :to="{name:'intervention-detail',params:{id:data.item.id}}" style="color:black;"
-                  target="_blank">
-                  {{ data.item.formationDto.titre }}
-                  <!-- {{ data.item.dateDebut | capitalize }} -->
-                </router-link>
+                <b-link href="#" style="color:black;">
+                  {{ data.value.titre | capitalize }}
+                </b-link>
               </template>
-
               <template #cell(eleve)="data">
                 {{ data.value.nom | uppercase }}
                 {{ data.value.prenom | capitalize }}
@@ -74,21 +65,31 @@
                 </span>
               </template>
 
+              <template #cell(file_name)>
+                {{data.value}}
+              </template>
+              
+              <template #cell(name_dl)="data">
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download_file(data.value)"/> 
+              </template>
+
+              <template #cell(name_delete)="data">
+                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)"/>
+              </template>
+
+
               <template #cell(telecharger)>
-                <!-- <col style="width:50%" /> -->
-                <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
+              </template>
+
+              <template #cell(supprimer)>
+                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
               </template>
 
               <template #cell(modifier)>
                 <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
               </template>
 
-              <template #cell(supprimer)>
-                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
-              </template>
-              <template #cell(supprimerInterv)>
-                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
-              </template>
             </b-table>
           </div>
         </div>
@@ -100,7 +101,6 @@
   </div>
 </template>
 <script>
-
   // == Pour importer les entetes du tableau:
   // import {nom_variable} from "fields.js" <= les en-tetes du tableau devront se situé dans le fichier fields.js
 </script>
@@ -112,7 +112,6 @@
       items: {
         // valeur des champs du tableau
         type: Array,
-        default: () => [],
         required: true,
       },
       perPage: {
@@ -146,15 +145,13 @@
         currentPage: 1, // page courante
       };
     },
-    methods: {},
+    methods: {
+      
+    },
     computed: {
       rows() {
         return this.items.length;
       },
-      display() {
-        if (this.items.length <= 10)
-          return 'd-none'
-      }
     },
   };
 </script>
