@@ -2,12 +2,6 @@
   <div>
     <BodyTitle title="Liste des documents administratifs" />
 
-    <!-- <TableTemplate
-      :perPage="perPage"
-      :items="items"
-      :fields="fields"
-    /> -->
-
     <div class="container mt-5">
       <div class="row">
         <div class="">
@@ -82,15 +76,13 @@
 </template>
 
 <script>
-import axios from "axios";
+import { fileApi } from "@/_api/file.api.js"
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { fileFields } from "@/assets/js/fields.js";
 export default {
   name: "DepotFichier",
   components: {
     BodyTitle,
-    // TableTemplate,
   },
   data() {
     return {
@@ -103,9 +95,8 @@ export default {
   },
   computed: {
     items() {
-      let result = [];
-      //set up pour TableTemplate
-
+      let result = [];      
+      
       for (let i = 0; i < this.files.length; i++) {
         let table = { name: "", name_dl: "", name_delete: "" };
 
@@ -126,71 +117,17 @@ export default {
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
-    submitFile() {
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/files/" +
-        "utilisateurs/" +
-        this.$store.getters.getUtilisateur.id;
-
-      let formData = new FormData();
-      formData.append("file", this.file);
-
-      axios
-        .post(req, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then(() => this.list_reset())
-        .catch((error) => console.log(error));
+    submitFile() {        
+      fileApi.submitFile(this.$store.getters.getUtilisateur.id, this.file).then(() => this.list_reset());
     },
     list_reset() {
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/files/" +
-        "utilisateurs/" +
-        this.$store.getters.getUtilisateur.id;
-
-      axios
-        .get(req)
-        .then((response) => {
-          this.files = response.data;
-        })
-        .catch((error) => console.log(error));
+      fileApi.getListByUtilisateurId(this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
     },
     download_file(fileName) {
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/files/" +
-        "utilisateurs/" +
-        this.$store.getters.getUtilisateur.id +
-        "/" +
-        fileName;
-
-      axios
-        .get(req, { responseType: "blob" })
-        .then((resp) => {
-          var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
-          var fileLink = document.createElement("a");
-          fileLink.href = fileURL;
-          fileLink.setAttribute("download", fileName);
-          document.body.appendChild(fileLink);
-          fileLink.click();
-        })
-        .catch((error) => console.log(error));
+      fileApi.downloadByNameAndUtilisateurId(fileName, this.$store.getters.getUtilisateur.id);
     },
     delete_file(fileName) {
-      let req =
-        this.$apiUrl +
-        "AppliCFABack/files/" +
-        "utilisateurs/" +
-        this.$store.getters.getUtilisateur.id +
-        "/" +
-        fileName;
-
-      axios
-        .delete(req)
-        .then(() => this.list_reset())
-        .catch((error) => console.log(error));
+      fileApi.deleteByNameAndUtilisateurId(fileName, this.$store.getters.getUtilisateur.id).then(() => this.list_reset());
     },
   },
   created() {

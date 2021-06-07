@@ -64,12 +64,12 @@ function isFormateur(){
 function isEtudiant(){
 
     console.log("store = " + store)
-    console.log("store.getters.getUtilisateur = " + store.getters.getUtilisateur);
-    console.log("store.getters.getUtilisateur.id = " + store.getters.getUtilisateur.id);
-    console.log("store.getters.getUtilisateur.role = " + store.getters.getUtilisateur.rolesDto);
-    console.log(store.getters.getUtilisateur);
+    console.log("store.getters.getUtilisateur = " , store.getters.getUtilisateur);
+    console.log("store.getters.getUtilisateur.id = ", store.getters.getUtilisateur.id);
+    console.log("store.getters.getUtilisateur.role = ", store.getters.getUtilisateur.role);
+    console.log("store.getters.getUtilisateur.rolesDto = ", store.getters.getUtilisateur.rolesDto);
 
-    let roles = store.getters.getUtilisateur.role
+    let roles = store.getters.getUtilisateur.rolesDto;
 
     if(!roles.length)
         return false;

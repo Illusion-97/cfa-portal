@@ -46,10 +46,10 @@
 </template>
 
 <script>
+
 //ATTENTION : un étudiant a potentiellement plusieurs promotions
 //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
-
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import Planning from "@/components/utils/Planning.vue";
 export default {

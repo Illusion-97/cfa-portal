@@ -18,7 +18,6 @@ function getFormateurReferent(id) {
         .get(req)
         .then((response) => response.data)      
         .catch((error) => console.log(error));
-
 }
 
 function getManager(id){
