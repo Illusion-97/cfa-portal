@@ -6,7 +6,7 @@ export const utilisateurApi = {
 };
 
 function getById(id) {
-    let req = this.$apiUrl +"AppliCFABack/utilisateurs/" + id;
+    let req = "http://localhost:8080/AppliCFABack/utilisateurs/" + id;
 
     return fetch(req, requestOptions.get())
         .then(handleResponse);

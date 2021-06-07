@@ -2,14 +2,10 @@
   <div class="container-fluid">
     <div class="row">
 
-formateurReferent = {{formateurReferent}}
-<br>
-formateurReferentComputed = {{formateurReferentComputed}}
-
       <div class="col-md-2" align="center">
         <div class="identite">
-          <!-- <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
-          <p class="email">{{ utilisateur.login }}</p> -->
+          <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
+          <p class="email">{{ utilisateur.login }}</p> 
         </div>
       </div>
 
@@ -18,8 +14,8 @@ formateurReferentComputed = {{formateurReferentComputed}}
           <div class="col-md-3">
             <b-card header="Formateur Référent">
               <b-card-text>
-                <!-- <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
-                <p>{{ formateurReferent.login }}</p> -->
+                <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
+                <p>{{ formateurReferent.login }}</p> 
               </b-card-text>
             </b-card>
           </div>
@@ -27,8 +23,8 @@ formateurReferentComputed = {{formateurReferentComputed}}
           <div class="offset-1 col-md-3">
             <b-card header="Référent de la promotion">
               <b-card-text>
-                <!-- <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}</p>
-                <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p> -->
+                <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}</p>
+                <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p> 
               </b-card-text>
             </b-card>
           </div>
@@ -36,8 +32,8 @@ formateurReferentComputed = {{formateurReferentComputed}}
           <div class="offset-1 col-md-3">
             <b-card header="Manager">
               <b-card-text>
-                <!-- <p>{{ manager.prenom }} {{ manager.nom }}</p>
-                <p>{{ manager.login }}</p> -->
+                <p>{{ manager.prenom }} {{ manager.nom }}</p>
+                <p>{{ manager.login }}</p> 
               </b-card-text>
             </b-card>
           </div>

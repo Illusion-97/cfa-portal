@@ -15,7 +15,7 @@ export const authenticationApi = {
 };
 
 function login(username, password) {
-    return fetch(this.$apiUrl+'/users/authenticate', requestOptions.post({ username, password }))
+    return fetch('http://localhost:8080/AppliCFABack/users/authenticate', requestOptions.post({ username, password }))
         .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
