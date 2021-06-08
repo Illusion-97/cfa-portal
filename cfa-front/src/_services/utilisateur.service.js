@@ -9,6 +9,7 @@ export const utilisateurService = {
     isEtudiant,
 };
 
+
 function isAdmin(){
     let roles = store.getters.getUtilisateur.role;
 
@@ -79,4 +80,5 @@ function isEtudiant(){
             return true;
 
     return false;
+    
 }
