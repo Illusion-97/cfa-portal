@@ -4,12 +4,12 @@
     <section>
       <div class="container">
         <div class="row">
-          <div class="col-md-3" v-if="showBtn == true">
+          <div class="col-md-3" v-if="showBtn == true" id="show-btn">
             <!-- <a :href="btnLink" class="button">{{ btnTxt }}</a> -->
             <router-link :to="{name:btnLink}" class="button">{{btnTxt}}</router-link>
           </div>
-          <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
-            <b-form inline>
+          <div class="my-3" v-if="items.length != 0" :class="display" >
+            <b-form inline class="d-flex justify-content-end">
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
                 <b-form-select-option :value="Math.floor(items.length * 0.25)">
@@ -34,12 +34,16 @@
         <div class="row">
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
-              :current-page="currentPage">
+              :current-page="current_page">
+             
               <template #cell(formationDto)="data">
-                <b-link href="#" style="color:black;">
-                  {{ data.value.titre | capitalize }}
-                </b-link>
+                <router-link :to="{name:'intervention-detail',params:{id:data.item.id}}" style="color:black;"
+                  >
+                  {{ data.item.formationDto.titre }}
+                  <!-- {{ data.item.dateDebut | capitalize }} -->
+                </router-link>
               </template>
+
               <template #cell(eleve)="data">
                 {{ data.value.nom | uppercase }}
                 {{ data.value.prenom | capitalize }}
@@ -68,22 +72,23 @@
               <template #cell(file_name)>
                 {{data.value}}
               </template>
-              
+
               <template #cell(name_dl)="data">
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"  @click="download_file(data.value)"/> 
+                <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"
+                  @click="download_file(data.value)" />
               </template>
 
               <template #cell(name_delete)="data">
-                  <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)"/>
+                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)" />
               </template>
 
 
               <template #cell(telecharger)>
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
+                <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
               </template>
 
               <template #cell(supprimer)>
-                  <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success"/> 
+                <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" />
               </template>
 
               <template #cell(modifier)>
@@ -93,7 +98,7 @@
             </b-table>
           </div>
         </div>
-        <b-pagination class="pages ml-auto border-0" v-model="currentPage" :total-rows="rows" :per-page="per_page"
+        <b-pagination class="pages ml-auto border-0" v-model="current_page" :total-rows="rows" :per-page="per_page"
           aria-controls="my-table" size="sm">
         </b-pagination>
       </div>
@@ -113,12 +118,18 @@
         // valeur des champs du tableau
         type: Array,
         required: true,
+        default: () => []
       },
       perPage: {
         // nb de ligne par page
         type: Number,
         required: true,
         default: 10,
+      },
+      currentPage: {
+        type: Number,
+        required: false,
+        default: 1
       },
       fields: {
         // en tete
@@ -142,17 +153,22 @@
     data() {
       return {
         per_page: this.perPage, // nb d'items par pages
-        currentPage: 1, // page courante
+        current_page: this.currentPage, // page courante
       };
     },
     methods: {
-      
+
     },
     computed: {
       rows() {
         return this.items.length;
       },
+      display() {
+        if (this.items.length <= 10)
+          return 'd-none'
+      }
     },
+   
   };
 </script>
 <style scoped>
@@ -160,16 +176,18 @@
     text-align: center;
   }
 
+  #show-btn {
+    margin-bottom: 2em;
+  }
+
   .button {
     border: 1px solid black;
     border-radius: 3px;
     background-color: inherit;
+    text-decoration: none;
     color: black;
     padding: 1.5px 10px;
-  }
-
-  .button:hover {
-    text-decoration: none;
+    margin-bottom: 1em;
   }
 
   .opts,
