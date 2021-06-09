@@ -6,7 +6,7 @@ import './plugins/fontawesome-vue'
 import './plugins/moment-vue'
 import './_helpers/filters'
 import App from './App.vue'
-import router from './_helpers/router.js'
+import router from './router/router.js'
 import store from './_helpers/store.js'
 
 Vue.config.productionTip = false
