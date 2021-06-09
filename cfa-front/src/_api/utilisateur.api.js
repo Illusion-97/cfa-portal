@@ -3,6 +3,7 @@ import {constantesApi} from "@/_api/constantes.api.js"
 
 export const utilisateurApi = {
     getById,
+    getByIdWithObject,
     getAdresseById,
     getPlanningById,
 };
@@ -14,6 +15,15 @@ function getById(id) {
       .get(req)
       .then((response) => response.data)
       .catch((error) => console.log(error));
+}
+
+function getByIdWithObject(id) {
+  let req =  constantesApi.url + "utilisateurs/" + id + "/with-object";
+
+  return axios
+    .get(req)
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 function getAdresseById(id) {

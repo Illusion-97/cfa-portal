@@ -7,10 +7,9 @@ import './plugins/moment-vue'
 import './_helpers/filters'
 import App from './App.vue'
 import router from './_helpers/router.js'
-import store from './_helpers/store.js'
+import store from './store/store.js'
 
 Vue.config.productionTip = false
-//Vue.prototype.$apiUrl = "http://localhost:8080/AppliCFABack/"
 
 new Vue({
   router,

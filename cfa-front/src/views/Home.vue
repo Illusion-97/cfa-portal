@@ -1,6 +1,5 @@
 <template>
-  <div v-if="true">
-    isEtudiant = {{isEtudiant}}
+  <div v-if="isEtudiant">
     <HomeEtudiant />
   </div>
 </template>
@@ -26,8 +25,8 @@ export default {
     }
   },
   created(){
-    utilisateurApi.getById(this.$store.getters.getUtilisateur.id).then((response) => this.$store.dispatch('setUtilisateur', response));
-    utilisateurApi.getPlanningById(this.$store.getters.getUtilisateur.id).then((response) => this.$store.dispatch('setPlanning', response));
+    utilisateurApi.getByIdWithObject(1).then((response) => this.$store.dispatch('setUtilisateur', response));
+    utilisateurApi.getPlanningById(1).then((response) => this.$store.dispatch('setPlanning', response));
   }
 };
 </script>

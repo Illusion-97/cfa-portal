@@ -21,6 +21,9 @@
           <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}" v-if="isReferent">
             Espace Referent
           </b-nav-item>
+          <b-nav-item class=" a-link" :to="{name:'login'}">
+            Login
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -40,15 +43,14 @@ import { utilisateurService } from "@/_services/utilisateur.service.js"
         return utilisateurService.isCEF();
       },
       isReferent(){
-        // return utilisateurService.isReferent();
+        //return utilisateurService.isReferent();
         return true;
       },
       isFormateur(){
         return utilisateurService.isFormateur();
       },
       isEtudiant(){
-        // return utilisateurService.isEtudiant();
-        return true;
+        return utilisateurService.isEtudiant();
       },
     },
   };

@@ -7,6 +7,8 @@ class Utilisateur {
         this.password;
         this.prenom;
         this.nom;
+        this.adresseDto;
+        this.entrepriseDto;
         this.rolesDto;
     }
 }

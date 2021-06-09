@@ -63,8 +63,8 @@ const routes = [
 
   //Global
   { path: "/", name: "home", component: Home,},
-  { path: "/login/LoginPage", name: "login", component: LoginPage},
-  // { path: '/secure', name: 'secure', component: secure},
+  { path: "/login", name: "login", component: LoginPage},
+  //{ path: '/secure', name: 'secure', component: secure},
 
   //Etudiant Administratif
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil",component: Profil, meta: {authorize: [Role.Etudiant]}},
@@ -142,11 +142,11 @@ router.beforeEach((to, from, next) => {
       if(redirect)
         return next({ path: '/' });
 
-      // // check if route is restricted by role
-      // if (authorize.length && !authorize.includes(currentUser.role)) {
-      //     // role not authorised so redirect to home page
-      //     return next({ path: '/' });
-      // }
+      // check if route is restricted by role
+      if (authorize.length && !authorize.includes(currentUser.role)) {
+          // role not authorised so redirect to home page
+          return next({ path: '/' });
+      }
   }
 
   next();
