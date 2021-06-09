@@ -1,16 +1,17 @@
 <template>
   <section>
-    <router-link :to="{ name: 'formateur_cours' }" class="h6" style="cursor:pointer; color:black">
+    <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
+    <router-link :to="{ name: 'all-intervention' }" class="h5" style="cursor:pointer; color:black;text-decoration:none;">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
     </router-link>
+    <h1 class="text-center">Ajouter une intervention</h1>
     <div class="container">
       <div class="row">
         <div class=" col-md-12 div-form">
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group label="Formation :" label-for="formation">
-
-              <b-form-select v-model="form.formationDto.id" id="formation">
+              <b-form-select v-model="form.formationDto.id" id="formation" class="form-select">
                 <template #first>
                   <b-form-select-option disabled :value="null" class="select-title">Selectionnez une formation
                   </b-form-select-option>
@@ -24,8 +25,8 @@
               </b-form-select>
             </b-form-group>
 
-            <b-form-group id="input-group-3" label="Promotion :" label-for="input-3">
-              <b-form-select id="input-3" v-model="form.promotionDto" multiple required>
+            <b-form-group label="Promotion :" label-for="promotion">
+              <b-form-select id="promotion" v-model="form.promotionDto" multiple required>
                 <template #first>
                   <b-form-select-option disabled :value="null" class="select-title">Selectionnez une promotion
                   </b-form-select-option>
@@ -39,33 +40,35 @@
             </b-form-group>
 
             <b-form-group>
-              <div class="d-flex">
+              <div class="d-flex" id="date">
                 <label for="dateBegin">Date de debut :</label>
-                <div class="col">
+                <div class="col mx-2">
                   <b-form-datepicker v-model="form.dateDebut" :date-disabled-fn="dateDisabled" locale="fr"
-                    id="dateBegin" hide-header :start-weekday="1">
+                    id="dateBegin" hide-header :start-weekday="1" class="form-control" placeholder="Aucune date selectionnée">
                   </b-form-datepicker>
                 </div>
                 <label for="dateEnd">Date de fin :</label>
-                <div class="col">
-                  <b-form-datepicker v-model="form.dateFin" :date-disabled-fn="dateDisabled" locale="fr" id="dateEnd"
-                    hide-header :start-weekday="1"></b-form-datepicker>
+                <div class="col ms-2">
+                  <b-form-datepicker v-model="form.dateFin" :date-disabled-fn="dateDisabled" locale="fr" id="dateEnd" class="form-control"
+                    hide-header :start-weekday="1" placeholder="Aucune date selectionnée"></b-form-datepicker>
                 </div>
               </div>
             </b-form-group>
 
             <b-form-group>
-              <label for="support" class="pr-1">Support de cours : </label>
-              <input type="file" name="form.support" @change="previewFiles" id="support" />
+              <div id="support">
+                <label for="file">Support de cours : </label>
+                <input type="file" class="ms-2" id="file" name="form.support" @change="previewFiles"  />
+              </div>
             </b-form-group>
 
             <b-form-group label="Description :">
               <b-form-textarea v-model="form.formationDto.contenu" rows="3" max-rows="6"
-                placeholder="Description du cours">
+                placeholder="Description du cours" id="desc">
               </b-form-textarea>
             </b-form-group>
-            <b-button type="submit" variant="primary" class="float-right">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
+            <b-button type="reset" variant="outline-danger">Reset</b-button>
+            <b-button type="submit" variant="outline-info" class="float-end px-3">Submit</b-button>
           </b-form>
           <b-card class="mt-3" header="Form Data Result" v-if="!show">
             <pre class="m-0">{{ form }}</pre>
@@ -78,6 +81,7 @@
 
 <script>
   import axios from "axios";
+  import { interventionApi } from "@/_api/intervention.api.js";
   export default {
     data() {
       return {
@@ -103,18 +107,23 @@
       },
       onSubmit(event) {
         event.preventDefault();
-        // alert(JSON.stringify(this.form));
-        axios
-          .post(`${this.$apiUrl}/AppliCFABack/interventions/`, this.form)
-          .then(response => {
-            if (response.status == 200) {
-              console.log(response.status);
-              window.location = "http://localhost:8081/formateur/cours"
-            } else
-              window.location = `http://localhost:8081/formateur/ajouter-cours`
-          })
-          // .then(response => this.items = response.data)
-          .catch((err) => console.error(err));
+        // // alert(JSON.stringify(this.form));
+        // axios
+        //   .post(`${process.env.VUE_APP_API_URL}/interventions/`, this
+        //     .form) // a modifier : ajout pour l'admin et ajout pour le referent
+        //   .then((response) => {
+        //     if (response.status == 200) {
+        //       console.log(response.status);
+        //       alert("AJOUT OK");
+        //       window.location =
+        //         `/formateur/cours`; 
+        //     } else window.location = `/ajouter-cours`;
+        //   })
+        //   // .then(response => this.items = response.data)
+        //   .catch((err) => console.error(err));
+        interventionApi.insertIntervention(this.form)
+          .then((data) =>
+            data.status === 200 ? window.location = "/intervention" : window.location = "/ajouter-intervention");
       },
       onReset(event) {
         event.preventDefault();
@@ -141,14 +150,6 @@
         this.form.support = evt.target.files[0].name;
         // console.log(this.form.support);
       },
-      getIntervention() {
-        var result;
-        axios
-          .get(`${this.$apiUrl}/AppliCFABack/interventions/with-object`)
-          .then((response) => (this.items = response.data))
-          .catch((e) => this.errors.push(e));
-        return result
-      }
     },
     created() {
       axios
@@ -171,18 +172,28 @@
 </script>
 
 <style scoped>
-  .div-form {
+  /* .div-form {
     text-align: left;
+  } */
+  #formation,
+  #promotion,
+  #date,
+  #support,
+  #desc {
+    width: 100%;
+    margin-bottom: 1em;
+    height: auto;
   }
 
+  #formation,
+  #promotion,
   .form-control {
-    border-radius: 0.2em;
     border: 1px solid #767676;
-    /* border-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));; */
+    border-radius: 0.2em;
   }
 
   .form-select {
-    width: 100%;
+    /* width: 100%; */
     height: calc(1.5em + 0.5rem + 2px);
     border-radius: 0.2em;
   }
@@ -190,4 +201,10 @@
   .select-title {
     background-color: #76767625;
   }
+
+  #dateBegin,#dateEnd{
+    margin-left: 1em;
+  }
+
+
 </style>
