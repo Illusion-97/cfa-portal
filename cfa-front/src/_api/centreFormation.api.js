@@ -41,7 +41,7 @@ export async function addCentreFormationsHttp(centreFormation) {
 }
 
 export async function updateCentreFormationsHttp(centreFormation) {
-  let centreFormationAdded = null;
+  let centreFormationUpdate = null;
   const response = await axios.post(
     `${constantesApi.url}${END_POINT}`,
     {
@@ -53,8 +53,8 @@ export async function updateCentreFormationsHttp(centreFormation) {
       //headers: { Authorization: $cookies.get("token") },
     }
   );
-  centreFormationAdded = response.data;
-  return centreFormationAdded;
+  centreFormationUpdate = response.data;
+  return centreFormationUpdate;
 }
 
 export async function deleteCentreFormationsHttp(id) {
