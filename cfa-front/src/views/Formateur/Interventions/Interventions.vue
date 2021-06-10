@@ -1,10 +1,8 @@
 <template>
   <div>
-    <!-- <BodyTitle title="Affichage des cours" /> -->
     <h1 class="text-center">Affichage des cours</h1>
-    <!-- {{items.rolesDto}} -->
-    <TableTemplate :perPage="perPage" :items="items.interventionsDto" :fields="fields" :showBtn="false"
-      btnLink="formateur_ajouter-cours" />
+    <TableTemplate :currentPage="1" :perPage="perPage" :items="items.interventionsDto" :fields="fields"
+      :showBtn="false" />
 
     <!-- <p :class="formateur">Formateur</p> -->
     <!-- <p v-if="items.rolesDto.some(el => el['intitule'] == 'FORMATEUR')">OK</p> -->
@@ -16,9 +14,7 @@
 
 <script>
   import TableTemplate from "@/components/utils/TableTemplate.vue";
-  import {
-    courseFields
-  } from "@/assets/js/fields.js";
+  import { courseFields } from "@/assets/js/fields.js";
   import axios from "axios";
   export default {
     name: "Cours",
@@ -27,7 +23,7 @@
         items: [],
         fields: courseFields,
         perPage: 10,
-        userId: 3
+        userId: 3,
       };
     },
     components: {
@@ -36,9 +32,12 @@
     },
     created() {
       axios
-        .get(`${this.$apiUrl}/AppliCFABack/formateurs/${this.userId}/interventions`)
+        .get(
+          `http://localhost:8080/AppliCFABack/formateurs/${this.userId}/interventions`
+        )
         .then((response) => {
           this.items = response.data;
+
           // alert(this.items.rolesDto)
           // console.log(this.items.interventionsDto);
         })
@@ -59,7 +58,7 @@
       // // return this.items.rolesDtos[i].intitule == 'FORMATEUR' ? 'text-succes' : 'text-danger'
       //         }
       //       }
-    }
+    },
   };
 </script>
 
