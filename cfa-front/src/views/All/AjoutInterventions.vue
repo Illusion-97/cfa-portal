@@ -61,16 +61,16 @@
                 <input type="file" class="ms-2" id="file" name="form.support" @change="previewFiles"  />
               </div>
             </b-form-group>
-
+<!-- 
             <b-form-group label="Description :">
               <b-form-textarea v-model="form.formationDto.contenu" rows="3" max-rows="6"
                 placeholder="Description du cours" id="desc">
               </b-form-textarea>
-            </b-form-group>
-            <b-button type="reset" variant="outline-danger">Reset</b-button>
-            <b-button type="submit" variant="outline-info" class="float-end px-3">Submit</b-button>
+            </b-form-group> -->
+            <b-button type="reset" variant="outline-danger">Annuler</b-button>
+            <b-button type="submit" variant="outline-info" class="float-end px-3">Envoyer</b-button>
           </b-form>
-          <b-card class="mt-3" header="Form Data Result" v-if="!show">
+          <b-card class="mt-3" header="Form Data Result" v-if="show">
             <pre class="m-0">{{ form }}</pre>
           </b-card>
         </div>
@@ -90,7 +90,6 @@
         form: {
           formationDto: {
             id: "",
-            contenu: "",
           },
           promotionDto: [],
           dateDebut: "",
@@ -107,20 +106,7 @@
       },
       onSubmit(event) {
         event.preventDefault();
-        // // alert(JSON.stringify(this.form));
-        // axios
-        //   .post(`${process.env.VUE_APP_API_URL}/interventions/`, this
-        //     .form) // a modifier : ajout pour l'admin et ajout pour le referent
-        //   .then((response) => {
-        //     if (response.status == 200) {
-        //       console.log(response.status);
-        //       alert("AJOUT OK");
-        //       window.location =
-        //         `/formateur/cours`; 
-        //     } else window.location = `/ajouter-cours`;
-        //   })
-        //   // .then(response => this.items = response.data)
-        //   .catch((err) => console.error(err));
+        // a modifier : ajout pour l'admin et ajout pour le referent
         interventionApi.insertIntervention(this.form)
           .then((data) =>
             data.status === 200 ? window.location = "/intervention" : window.location = "/ajouter-intervention");
@@ -172,9 +158,6 @@
 </script>
 
 <style scoped>
-  /* .div-form {
-    text-align: left;
-  } */
   #formation,
   #promotion,
   #date,
