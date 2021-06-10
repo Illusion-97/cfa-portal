@@ -11,6 +11,8 @@ import LoginPage from "@/views/Login/LoginPage.vue";
 import AllInterventions from "../views/All/AllInterventions.vue";
 import AjoutIntervention from "@/views/All/AjoutInterventions.vue";
 import DetailIntervention from '@/views/All/DetailIntervention.vue'
+import AllFormations from "../views/All/AllFormation.vue";
+import AjoutFormation from '@/views/All/AjoutFormation.vue'
 
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
@@ -70,6 +72,8 @@ const routes = [
   // { path: '/secure', name: 'secure', component: secure},
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
   { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] } },
+  { path: "/formation", name: "all-formations", component: AllFormations, meta: { authorize: [Role.Admin] } },
+  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
   
   //Etudiant Administratif
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
@@ -89,7 +93,7 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: { authorize: [Role.Etudiant] } },
 
   //Formateur
-  { path: "/formateur/cours", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] } },
+  { path: "/formateur/intervention", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] } },
   { path: "/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
 
   //Referent
