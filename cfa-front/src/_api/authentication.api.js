@@ -1,9 +1,6 @@
-//import { BehaviorSubject } from 'rxjs';
-
+import axios from 'axios';
 //import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
-//import {constantesApi} from "@/_api/constantes.api.js"
-import axios from 'axios';
 import store from '@/store/store.js';
 
 export const authenticationApi = {

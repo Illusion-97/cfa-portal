@@ -21,9 +21,6 @@
           <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}" v-if="isReferent">
             Espace Referent
           </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'login'}">
-            Login
-          </b-nav-item>
           <b-nav-item class=" a-link" @click="logout">
             Logout
           </b-nav-item>

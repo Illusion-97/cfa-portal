@@ -1,6 +1,5 @@
 <template>  
   <div v-if="isEtudiant">
-    utilisateur : {{this.$store.getters.getUtilisateur}}
     <HomeEtudiant />
   </div>
 </template>

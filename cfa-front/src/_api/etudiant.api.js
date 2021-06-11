@@ -1,6 +1,6 @@
-// import handleResponse from '@/_helpers/handle-response.js';
-// import { requestOptions } from '@/_helpers/request-options.js';
 import axios from 'axios';
+//import { requestOptions } from '@/_helpers/request-options.js';
+//import handleResponse from '@/_helpers/handle-response.js';
 
 export const etudiantApi = {
     getFormateurReferent,
