@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-//import store from '@/store/store.js';
+import store from '@/store/store.js';
 
 // import { authenticationApi } from '@/_api/authentication.api.js';
 import { Role } from '@/_helpers/role.js';
@@ -119,40 +119,45 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-/*
+
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const { authorize } = to.meta;
-  const currentUser = store.getters.isUserLoggedIn;
+  //const { authorize } = to.meta;
 
-  //Si pas loggin, on redirect sur /login
-  if (!currentUser)    
-    return next({ path: '/login', query: { returnUrl: to.path } });
+  if(to.path !== "/login"){
+    
+    const isUserLoggedIn = store.getters.isUserLoggedIn;
+    //Si pas loggin, on redirect sur /login
+    if (!isUserLoggedIn)    
+      return next({ path: '/login', query: { returnUrl: to.path } });
+    
+  /*
+    //Si la page nécessite une autorisation
+    if (authorize) {   
   
-
-  //Si la page nécessite une autorisation
-  if (authorize) {   
-
-      let redirect = true;
-
-      //Si la page nécessite un Role particulié
-      if(authorize.length){
-        //on regarde si l'utilisateur a une role autorisé
-        for(let i=0; i<currentUser.role.length; i++){
-          if(authorize.includes(currentUser.role[i])){
-            redirect = false;
-          }         
+        let redirect = true;
+  
+        //Si la page nécessite un Role particulié
+        if(authorize.length){
+          //on regarde si l'utilisateur a une role autorisé
+          for(let i=0; i<currentUser.role.length; i++){
+            if(authorize.includes(currentUser.role[i])){
+              redirect = false;
+            }         
+          }        
         }        
-      }        
-          
-      //l'utilisateur n'a pas de role autorisé => redirect vers /home
-      if(redirect)
-        return next({ path: '/' });
-
+            
+        //l'utilisateur n'a pas de role autorisé => redirect vers /home
+        if(redirect)
+          return next({ path: '/' });
+  
+    }
+  */
   }
 
+  
   next();
   
-})*/
+})
 
 export default router;
