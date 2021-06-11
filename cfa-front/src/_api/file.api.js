@@ -1,7 +1,6 @@
 //import { handleResponse } from '@/_helpers/handle-response.js';
 //import { requestOptions } from '@/_helpers/request-options.js';
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 export const fileApi = {
     getListByUtilisateurId,
@@ -13,7 +12,7 @@ export const fileApi = {
 
 function getListByUtilisateurId(id) {
 
-    let req = constantesApi.url + "files/utilisateurs/" + id;
+    let req = "files/utilisateurs/" + id;
 
      return axios
         .get(req)
@@ -23,7 +22,7 @@ function getListByUtilisateurId(id) {
 
 function deleteByNameAndUtilisateurId(fileName,id) {
 
-    let req = constantesApi.url + "files/utilisateurs/"+id+"/"+fileName ;
+    let req = "files/utilisateurs/"+id+"/"+fileName ;
 
     return axios
         .delete(req)
@@ -33,7 +32,7 @@ function deleteByNameAndUtilisateurId(fileName,id) {
 
 function downloadByNameAndUtilisateurId(fileName,id) {
 
-    let req = constantesApi.url + "files/utilisateurs/"+id+"/"+fileName ;
+    let req = "files/utilisateurs/"+id+"/"+fileName ;
 
     return axios
         .get(req, { responseType: "blob" })
@@ -50,7 +49,7 @@ function downloadByNameAndUtilisateurId(fileName,id) {
 
 function submitFile(id, file) {
 
-    let req = constantesApi.url + "files/utilisateurs/" + id;
+    let req = "files/utilisateurs/" + id;
 
       let formData = new FormData();
       formData.append("file", file);

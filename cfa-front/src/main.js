@@ -8,8 +8,12 @@ import './_helpers/filters'
 import App from './App.vue'
 import router from './_helpers/router.js'
 import store from './store/store.js'
+import axios from 'axios';
 
 Vue.config.productionTip = false
+
+//axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'http://localhost:8080/AppliCFABack/';
 
 new Vue({
   router,

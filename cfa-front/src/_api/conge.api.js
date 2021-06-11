@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 export const congeApi = {
     getConges,
@@ -9,7 +8,7 @@ export const congeApi = {
 
 function getConges(id) {
 
-    let req = constantesApi.url + "utilisateurs/" + id + "/conges";
+    let req = "utilisateurs/" + id + "/conges";
 
     return  axios
         .get(req)
@@ -18,7 +17,7 @@ function getConges(id) {
 }
 
 function getTableConge(id) {
-    let req =  constantesApi.url + "conges/acquis-disponibles-restants/" + id;
+    let req =  "conges/acquis-disponibles-restants/" + id;
 
     return  axios
         .get(req)
@@ -28,7 +27,7 @@ function getTableConge(id) {
 }
 
 function save(form) {
-    let req =  constantesApi.url + "conges";
+    let req =  "conges";
 
     return axios
         .post(req, form)

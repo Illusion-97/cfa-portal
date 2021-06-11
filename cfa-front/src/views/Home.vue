@@ -1,4 +1,4 @@
-<template>
+<template>  
   <div v-if="isEtudiant">
     <HomeEtudiant />
   </div>
@@ -14,19 +14,15 @@ export default {
     HomeEtudiant
   },
   computed: {
-    utilisateur(){
-      return this.$store.getters.getUtilisateur
-    },
-    planning(){
-      return this.$store.getters.getPlanning
-    },
     isEtudiant(){
       return utilisateurService.isEtudiant();
+    },
+    planning(){
+      return this.$store.getters.getPlanning;
     }
   },
   created(){
-    utilisateurApi.getByIdWithObject(1).then((response) => this.$store.dispatch('setUtilisateur', response));
-    utilisateurApi.getPlanningById(1).then((response) => this.$store.dispatch('setPlanning', response));
+    utilisateurApi.getPlanningById(this.$store.getters.getUtilisateur.id).then((response) => this.$store.dispatch('setPlanning', response));   
   }
 };
 </script>

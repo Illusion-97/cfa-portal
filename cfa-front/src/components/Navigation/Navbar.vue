@@ -24,6 +24,9 @@
           <b-nav-item class=" a-link" :to="{name:'login'}">
             Login
           </b-nav-item>
+          <button class="btn btn-success" @click="logout" >
+            Logout
+          </button>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -31,6 +34,7 @@
 </template>
 
 <script>
+import { authenticationApi } from "@/_api/authentication.api.js"
 import { utilisateurService } from "@/_services/utilisateur.service.js"
   export default {
     name: "Navbar",
@@ -43,8 +47,8 @@ import { utilisateurService } from "@/_services/utilisateur.service.js"
         return utilisateurService.isCEF();
       },
       isReferent(){
-        //return utilisateurService.isReferent();
-        return true;
+        return utilisateurService.isReferent();
+        //return true;
       },
       isFormateur(){
         return utilisateurService.isFormateur();
@@ -53,6 +57,12 @@ import { utilisateurService } from "@/_services/utilisateur.service.js"
         return utilisateurService.isEtudiant();
       },
     },
+    methods:{
+      logout(){        
+        authenticationApi.logout()
+        .then(this.$router.push({name: 'login'}));
+      }
+    }
   };
 </script>
 

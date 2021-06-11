@@ -1,13 +1,15 @@
-export default {
-    state: () => ([]),
+export const planning =  {
+    state: {
+        planning: [],
+    },
     getters: {
         getPlanning: state => {
-            return state;
+            return state.planning;
         }
     },
     mutations: {
         SET_PLANNING(state, data){
-            state = data;
+            state.planning = data;
         }
     },
     actions: {

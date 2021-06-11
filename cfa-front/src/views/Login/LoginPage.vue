@@ -57,6 +57,9 @@
             <a href="LoginPage">Mot de Passe oublié ?</a>
           </div>
           -->
+          <div class="foot-lnk">
+            <router-link class="router-link"  :to="{name:'home'}">HOME</router-link>
+          </div>
         </div>
       </div>
     </form>
@@ -77,10 +80,8 @@ export default {
   methods: {
     submit: function(e) {
       e.preventDefault();
-
-      console.log("on submit");
-
-      authenticationApi.login(this.email,this.password);
+      authenticationApi.login(this.email,this.password)
+        //.then(this.$router.push({name: 'home'}));
     },
   },
 };

@@ -76,9 +76,9 @@ export default {
     }
   },
   created() {
-    etudiantApi.getFormateurReferent(1).then(data => this.formateurReferent = data);
-    etudiantApi.getPromotions(1).then(data => this.promotion = data);
-    etudiantApi.getManager(1).then(data => this.manager = data);
+    etudiantApi.getFormateurReferent(this.$store.getters.getUtilisateur.id).then(data => this.formateurReferent = data);
+    etudiantApi.getPromotions(this.$store.getters.getUtilisateur.id).then(data => this.promotion = data);
+    etudiantApi.getManager(this.$store.getters.getUtilisateur.id).then(data => this.manager = data);
   },
   methods: {
   }

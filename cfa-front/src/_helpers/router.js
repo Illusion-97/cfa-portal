@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+//import store from '@/store/store.js';
 
 // import { authenticationApi } from '@/_api/authentication.api.js';
 import { Role } from '@/_helpers/role.js';
@@ -122,16 +123,21 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const { authorize } = to.meta;
-  const currentUser = authenticationApi.currentUserValue;
+  const currentUser = store.getters.isUserLoggedIn;
 
-  if (authorize) {
-      if (!currentUser) {
-          // not logged in so redirect to login page with the return url
-          return next({ path: '/login', query: { returnUrl: to.path } });
-      }
+  //Si pas loggin, on redirect sur /login
+  if (!currentUser)    
+    return next({ path: '/login', query: { returnUrl: to.path } });
+  
+
+  //Si la page nécessite une autorisation
+  if (authorize) {   
 
       let redirect = true;
+
+      //Si la page nécessite un Role particulié
       if(authorize.length){
+        //on regarde si l'utilisateur a une role autorisé
         for(let i=0; i<currentUser.role.length; i++){
           if(authorize.includes(currentUser.role[i])){
             redirect = false;
@@ -139,17 +145,14 @@ router.beforeEach((to, from, next) => {
         }        
       }        
           
+      //l'utilisateur n'a pas de role autorisé => redirect vers /home
       if(redirect)
         return next({ path: '/' });
 
-      // check if route is restricted by role
-      if (authorize.length && !authorize.includes(currentUser.role)) {
-          // role not authorised so redirect to home page
-          return next({ path: '/' });
-      }
   }
 
   next();
-})
-*/
+  
+})*/
+
 export default router;

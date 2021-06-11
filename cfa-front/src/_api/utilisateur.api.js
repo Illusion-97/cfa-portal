@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 export const utilisateurApi = {
     getById,
@@ -9,7 +8,7 @@ export const utilisateurApi = {
 };
 
 function getById(id) {
-    let req =  constantesApi.url + "utilisateurs/" + id;
+    let req =  "utilisateurs/" + id;
 
     return axios
       .get(req)
@@ -18,7 +17,7 @@ function getById(id) {
 }
 
 function getByIdWithObject(id) {
-  let req =  constantesApi.url + "utilisateurs/" + id + "/with-object";
+  let req =  "utilisateurs/" + id + "/with-object";
 
   return axios
     .get(req)
@@ -27,7 +26,7 @@ function getByIdWithObject(id) {
 }
 
 function getAdresseById(id) {
-    let req = constantesApi.url + "utilisateurs/" + id + "/adresse";
+    let req = "utilisateurs/" + id + "/adresse";
 
   return axios
     .get(req)
@@ -36,7 +35,7 @@ function getAdresseById(id) {
 }
 
 function getPlanningById(id) {
-    let req = constantesApi.url + "utilisateurs/" + id + "/planning"
+    let req = "utilisateurs/" + id + "/planning"
 
   return axios
     .get(req)

@@ -1,7 +1,6 @@
 // import handleResponse from '@/_helpers/handle-response.js';
 // import { requestOptions } from '@/_helpers/request-options.js';
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 export const etudiantApi = {
     getFormateurReferent,
@@ -11,7 +10,7 @@ export const etudiantApi = {
 
 function getFormateurReferent(id) {
 
-    let req =  constantesApi.url + "etudiants/" + id + "/formateurReferent";
+    let req =  "etudiants/" + id + "/formateurReferent";
     return axios
         // .get(req,{headers: requestOptions.headers()})
         // .then(handleResponse)
@@ -22,7 +21,7 @@ function getFormateurReferent(id) {
 
 function getManager(id){
 
-    let req =  constantesApi.url + "etudiants/" + id + "/manager";
+    let req =  "etudiants/" + id + "/manager";
     return axios
       .get(req)
       .then(response => response.data)
@@ -34,7 +33,7 @@ function getManager(id){
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 function getPromotions(id) {
 
-    let req =  constantesApi.url + "etudiants/" + id + "/promotions";
+    let req =  "etudiants/" + id + "/promotions";
 
     return axios
       .get(req)
