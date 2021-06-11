@@ -24,9 +24,9 @@
           <b-nav-item class=" a-link" :to="{name:'login'}">
             Login
           </b-nav-item>
-          <button class="btn btn-success" @click="logout" >
+          <b-nav-item class=" a-link" @click="logout">
             Logout
-          </button>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -48,7 +48,6 @@ import { utilisateurService } from "@/_services/utilisateur.service.js"
       },
       isReferent(){
         return utilisateurService.isReferent();
-        //return true;
       },
       isFormateur(){
         return utilisateurService.isFormateur();
@@ -60,7 +59,7 @@ import { utilisateurService } from "@/_services/utilisateur.service.js"
     methods:{
       logout(){        
         authenticationApi.logout()
-        .then(this.$router.push({name: 'login'}));
+        .then(() => this.$router.push({name: 'login'}));
       }
     }
   };

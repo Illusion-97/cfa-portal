@@ -122,16 +122,18 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  //const { authorize } = to.meta;
+  const { authorize } = to.meta;
+  const currentUser = store.getters.getUtilisateur;
 
   if(to.path !== "/login"){
-    
+
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn)    
-      return next({ path: '/login', query: { returnUrl: to.path } });
+      return next({ path: '/login' });
+      //return next({ path: '/login', query: { returnUrl: to.path } });
     
-  /*
+  
     //Si la page nécessite une autorisation
     if (authorize) {   
   
@@ -140,8 +142,8 @@ router.beforeEach((to, from, next) => {
         //Si la page nécessite un Role particulié
         if(authorize.length){
           //on regarde si l'utilisateur a une role autorisé
-          for(let i=0; i<currentUser.role.length; i++){
-            if(authorize.includes(currentUser.role[i])){
+          for(let i=0; i<currentUser.rolesDto.length; i++){
+            if(authorize.includes(currentUser.rolesDto[i].intitule)){
               redirect = false;
             }         
           }        
@@ -152,7 +154,7 @@ router.beforeEach((to, from, next) => {
           return next({ path: '/' });
   
     }
-  */
+  
   }
 
   

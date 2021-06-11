@@ -1,5 +1,6 @@
 <template>  
   <div v-if="isEtudiant">
+    utilisateur : {{this.$store.getters.getUtilisateur}}
     <HomeEtudiant />
   </div>
 </template>
@@ -17,9 +18,6 @@ export default {
     isEtudiant(){
       return utilisateurService.isEtudiant();
     },
-    planning(){
-      return this.$store.getters.getPlanning;
-    }
   },
   created(){
     utilisateurApi.getPlanningById(this.$store.getters.getUtilisateur.id).then((response) => this.$store.dispatch('setPlanning', response));   

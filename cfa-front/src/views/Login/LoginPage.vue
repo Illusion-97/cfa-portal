@@ -57,9 +57,6 @@
             <a href="LoginPage">Mot de Passe oublié ?</a>
           </div>
           -->
-          <div class="foot-lnk">
-            <router-link class="router-link"  :to="{name:'home'}">HOME</router-link>
-          </div>
         </div>
       </div>
     </form>
@@ -81,7 +78,7 @@ export default {
     submit: function(e) {
       e.preventDefault();
       authenticationApi.login(this.email,this.password)
-        //.then(this.$router.push({name: 'home'}));
+        .then(()=>this.$router.push({name: 'home'}));
     },
   },
 };
