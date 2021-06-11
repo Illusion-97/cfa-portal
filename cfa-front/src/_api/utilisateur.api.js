@@ -1,6 +1,7 @@
 import { handleResponse } from '@/_helpers/handle-response.js';
 import { requestOptions } from '@/_helpers/request-options.js';
 import {constantesApi} from "@/_api/constantes.api.js"
+import axios from 'axios';
 
 export const utilisateurApi = {
     getById,
@@ -44,7 +45,7 @@ export async function getAllUsersHttp() {
 
   export async function getAllUsersByAdresse() {
     let users = [];
-    const response = await axios.get(`${basconstantesApi.urleUrl}${END_POINT}${ADRESSE}`, {
+    const response = await axios.get(`${constantesApi.url}${END_POINT}${ADRESSE}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     users = response.data;
