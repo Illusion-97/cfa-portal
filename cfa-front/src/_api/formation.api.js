@@ -13,6 +13,7 @@ export async function getAllFormationsHttp() {
     formations = response.data;
     return formations;
   }
+  
   export async function getAllFormationsBy() {
     let formations = [];
     const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
@@ -21,7 +22,6 @@ export async function getAllFormationsHttp() {
     formations = response.data;
     return formations;
   }
-
 
 export async function addFormationsHttp(formation) {
   let formationAdded = null;

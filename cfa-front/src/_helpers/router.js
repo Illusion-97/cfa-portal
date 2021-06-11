@@ -55,6 +55,11 @@ import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
 import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
 import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 
+//Admin
+import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
+import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
+import UserList from "@/views/Admin/Crud/User/UserList.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -86,6 +91,11 @@ const routes = [
   //Formateur
   { path: "/formateur/cours", name: "formateur_cours", component: Course, meta: {authorize: [Role.Formateur]}},
   { path: "/formateur/ajouter-cours", name: "formateur_ajouter-cours", component: AjoutCours,  meta: {authorize: [Role.Formateur]}},
+
+  //Admin
+  { path: "/admin/dashboard", name:"admin_dashboard", component: AdminDashboard, meta: {authorize: [Role.Admin]}},
+  { path: "/admin/addUser", name:"admin_addUser", component: AddUser, meta: {authorize: [Role.Admin]}},
+  { path: "/admin/userList", name:"admin_userList", component: UserList, meta: {authorize: [Role.Admin]}},
   
   //Referent
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard, meta: {authorize: [Role.Referent]}},

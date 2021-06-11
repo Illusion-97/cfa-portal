@@ -21,6 +21,9 @@
           <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}" v-if="isReferent">
             Espace Referent
           </b-nav-item>
+          <b-nav-item class=" a-link" :to="{name:'admin_dashboard'}" >
+            Espace Admin
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
