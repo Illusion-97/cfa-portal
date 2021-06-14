@@ -55,7 +55,7 @@
         </div>
 
         <div v-if="table[0] == 'admin'" id="admin">
-            <h6>Mon Espace</h6>
+            <h6>Mon Espace Admin</h6>
             
                 <nav class="mb-3">
                     <b-nav vertical>
@@ -66,6 +66,7 @@
                         <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
                         <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
                         <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
                     </b-nav>
                 </nav>    
                   

@@ -3,12 +3,16 @@ import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const congeApi = {
-    getConges,
+    getCongesByUtilisateurId,
     getTableConge,
     save
 }
 
-function getConges(id) {
+function getCongeByPage(page, max){
+    let req = "utilisateurs/" + id + "/conges";
+}
+
+function getCongesByUtilisateurId(id) {
 
     let req = "utilisateurs/" + id + "/conges";
 
