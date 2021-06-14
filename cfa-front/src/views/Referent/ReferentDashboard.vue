@@ -63,6 +63,7 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { promotionsFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
+import { requestOptions } from '@/_helpers/request-options.js';
 import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "ReferentDashboard",
@@ -103,7 +104,7 @@ export default {
   },
   created() {
         axios
-          .get(this.$apiUrl + "/AppliCFABack/promotions/")
+          .get("promotions/", requestOptions.headers())
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },

@@ -60,6 +60,7 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { etudiantsFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
+import { requestOptions } from '@/_helpers/request-options.js';
 export default {
   name: "EtudiantR",
   components: {
@@ -96,7 +97,7 @@ export default {
   },
   created() {
         axios
-          .get(this.$apiUrl + "AppliCFABack/etudiants/")
+          .get("etudiants/", requestOptions.headers())
           .then((response) => (this.items = response.data))
           .catch((e) => console.log(e));
         },
