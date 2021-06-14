@@ -1,5 +1,6 @@
 import axios from 'axios';
-//import { requestOptions } from '@/_helpers/request-options.js';
+import store from '@/store/store.js';
+import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const fileApi = {
@@ -15,7 +16,7 @@ function getListByUtilisateurId(id) {
     let req = "files/utilisateurs/" + id;
 
      return axios
-        .get(req)
+        .get(req, requestOptions.headers())
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
@@ -25,7 +26,7 @@ function deleteByNameAndUtilisateurId(fileName,id) {
     let req = "files/utilisateurs/"+id+"/"+fileName ;
 
     return axios
-        .delete(req)
+        .delete(req, requestOptions.headers())
         .then(response => response)
         .catch((error) => console.log(error));
 }
@@ -35,7 +36,7 @@ function downloadByNameAndUtilisateurId(fileName,id) {
     let req = "files/utilisateurs/"+id+"/"+fileName ;
 
     return axios
-        .get(req, { responseType: "blob" })
+        .get(req, { responseType: "blob", headers: {'Authorization': 'Bearer ' + store.getters.getToken}, })
         .then((resp) => {
             var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
             var fileLink = document.createElement("a");
@@ -56,7 +57,8 @@ function submitFile(id, file) {
 
       return axios
         .post(req, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
+          headers: {  "Content-Type": "multipart/form-data",
+                      'Authorization': 'Bearer ' + store.getters.getToken },
         })
         .then((response) => response)
         .catch((error) => console.log(error));

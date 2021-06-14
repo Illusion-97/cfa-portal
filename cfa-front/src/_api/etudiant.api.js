@@ -1,5 +1,5 @@
 import axios from 'axios';
-//import { requestOptions } from '@/_helpers/request-options.js';
+import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const etudiantApi = {
@@ -11,10 +11,9 @@ export const etudiantApi = {
 function getFormateurReferent(id) {
 
     let req =  "etudiants/" + id + "/formateurReferent";
-    return axios
-        // .get(req,{headers: requestOptions.headers()})
-        // .then(handleResponse)
-        .get(req)
+    return axios        
+        .get(req, requestOptions.headers())
+        //.then(handleResponse)
         .then((response) => response.data)      
         .catch((error) => console.log(error));
 }
@@ -23,7 +22,7 @@ function getManager(id){
 
     let req =  "etudiants/" + id + "/manager";
     return axios
-      .get(req)
+      .get(req, requestOptions.headers())
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
@@ -36,7 +35,7 @@ function getPromotions(id) {
     let req =  "etudiants/" + id + "/promotions";
 
     return axios
-      .get(req)
+      .get(req, requestOptions.headers())
       .then(response => response.data[0])
       .catch((error) => console.log(error));
 }
