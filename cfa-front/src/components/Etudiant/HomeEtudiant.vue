@@ -46,10 +46,10 @@
 </template>
 
 <script>
+
 //ATTENTION : un étudiant a potentiellement plusieurs promotions
 //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
-
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import Planning from "@/components/utils/Planning.vue";
 export default {
@@ -76,9 +76,9 @@ export default {
     }
   },
   created() {
-    etudiantApi.getFormateurReferent(1).then(data => this.formateurReferent = data);
-    etudiantApi.getPromotions(1).then(data => this.promotion = data);
-    etudiantApi.getManager(1).then(data => this.manager = data);
+    etudiantApi.getFormateurReferent(this.$store.getters.getUtilisateur.id).then(data => this.formateurReferent = data);
+    etudiantApi.getPromotions(this.$store.getters.getUtilisateur.id).then(data => this.promotion = data);
+    etudiantApi.getManager(this.$store.getters.getUtilisateur.id).then(data => this.manager = data);
   },
   methods: {
   }

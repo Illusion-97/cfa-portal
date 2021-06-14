@@ -1,5 +1,4 @@
-import { Role } from "@/_helpers/role.js"
-import store from "@/_helpers/store.js";
+import store from "@/store/store.js";
 
 export const utilisateurService = {
     isAdmin,
@@ -11,72 +10,65 @@ export const utilisateurService = {
 
 
 function isAdmin(){
-    let roles = store.getters.getUtilisateur.role;
+    let roles = store.getters.getUtilisateur.rolesDto;
 
     if(!roles.length)
         return false;
 
     for(let i=0; i<roles.length; i++)
-        if(roles[i] == Role.Admin) 
+        if(roles[i].intitule == "ADMIN") 
             return true;
 
     return false;
 }
 
 function isCEF(){
-    let roles = store.getters.getUtilisateur.role
+    let roles = store.getters.getUtilisateur.rolesDto
 
     if(!roles.length)
         return false;
 
     for(let i=0; i<roles.length; i++)
-        if(roles[i] == Role.Admin)
+        if(roles[i].intitule == "CEF")
             return true;
     
     return false;
 }
 
 function isReferent(){
-    let roles = store.getters.getUtilisateur.role
+    let roles = store.getters.getUtilisateur.rolesDto
 
     if(!roles.length)
         return false;
 
     for(let i=0; i<roles.length; i++)
-        if(roles[i] == Role.Admin)
+        if(roles[i].intitule == "REFERENT")
             return true;
 
     return false;
 }
 
 function isFormateur(){
-    let roles = store.getters.getUtilisateur.role
+    let roles = store.getters.getUtilisateur.rolesDto
 
     if(!roles.length)
         return false;
 
     for(let i=0; i<roles.length; i++)
-        if(roles[i] == Role.Admin)
+        if(roles[i].intitule == "FORMATEUR")
             return true;
     
     return false;
 }
 
 function isEtudiant(){
-
-    console.log("store = " + store)
-    console.log("store.getters.getUtilisateur = " + store.getters.getUtilisateur);
-    console.log("store.getters.getUtilisateur.id = " + store.getters.getUtilisateur.id);
-    console.log("store.getters.getUtilisateur.role = " + store.getters.getUtilisateur.rolesDto);
-    console.log(store.getters.getUtilisateur);
-
-    let roles = store.getters.getUtilisateur.role
+    let roles = store.getters.getUtilisateur.rolesDto;
 
     if(!roles.length)
         return false;
 
     for(let i=0; i<roles.length; i++)
-        if(roles[i] == Role.Admin)
+        if(roles[i].intitule == "ETUDIANT")
             return true;
 
     return false;

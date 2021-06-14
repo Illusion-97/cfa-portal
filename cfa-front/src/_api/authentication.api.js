@@ -1,34 +1,30 @@
-import { BehaviorSubject } from 'rxjs';
-import store from '@/_helpers/store.js'
-
-import { requestOptions } from '@/_helpers/request-options.js';
-import handleResponse from '@/_helpers/handle-response.js';
-import {constantesApi} from "@/_api/constantes.api.js"
-
-
-const currentUserSubject = new BehaviorSubject(store.getters.getUtilisateur);
+import axios from 'axios';
+//import { requestOptions } from '@/_helpers/request-options.js';
+//import handleResponse from '@/_helpers/handle-response.js';
+import store from '@/store/store.js';
 
 export const authenticationApi = {
     login,
     logout,
-    currentUser: currentUserSubject.asObservable(),
-    get currentUserValue () { return currentUserSubject.value }
 };
 
-function login(username, password) {
-    return fetch( constantesApi.url + 'users/authenticate', requestOptions.post({ username, password }))
-        .then(handleResponse)
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            currentUserSubject.next(user);
+function login(login, password) {
 
-            return user;
-        });
+    let req = "authenticate";
+
+    return axios
+        .post(req,{login: login, password: password})
+        //.then(handleResponse)
+        .then((response) => {
+            //on stock le token
+            store.dispatch('login',response.data['token']);
+            //On stocke l'utilisateur dans le store           
+            store.dispatch('setUtilisateur', response.data['utilisateurDto']);            
+        })
+        .catch((error) => console.log(error));
 }
 
 function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    currentUserSubject.next(null);
+    store.dispatch('logout');
+    return
 }

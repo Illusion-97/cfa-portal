@@ -1,6 +1,10 @@
 <template>
   <div id="app" class="container-fluid">
-    <Navbar />
+    
+    <div v-if="table != '/login'">
+      <Navbar />
+    </div>
+    
     <div v-if="table == '/'">
       <router-view />
     </div>

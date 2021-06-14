@@ -1,13 +1,12 @@
 <template>
   <div class="wrapper fadeInDown">
-    <div id="formContent">
+    <form id="formContent" @submit="submit">
       <div class="form-horizontal">
         <div class="form-group">
           <div class="col-md-offset-2 col-md-12">
             <h2>Login</h2>
           </div>
         </div>
-        <input type="hidden" name="userType" value="@ViewBag.UserType" />
 
         <div class="form-group fadeIn second">
           <div class="col-md-offset-2 col-md-4">
@@ -17,10 +16,11 @@
           <div class="col-md-12">
             <input
               name="email"
-              type="text"
-              v-model="input.email"
+              type="email"
+              v-model="email"
               class="form-control fadeIn third"
               placeholder="Email"
+              required
             />
           </div>
         </div>
@@ -35,9 +35,10 @@
             <input
               type="password"
               name="password"
-              v-model="input.password"
+              v-model="password"
               class="form-control fadeIn third"
               placeholder="Mot de Passe"
+              required
             />
           </div>
         </div>
@@ -45,71 +46,45 @@
         <div class="form-group">
           <div class="col-md-offset-2 col-md-12">
             <input
-              v-on:click="login()"
               class="btn btn-primary"
-              type="button"
+              type="submit"
               value="Se connecter"
             />
           </div>
           <hr />
+          <!--
           <div class="foot-lnk">
             <a href="LoginPage">Mot de Passe oublié ?</a>
           </div>
+          -->
         </div>
       </div>
-    </div>
+    </form>
   </div>
-
-  <!--<div id="login">
-        <h1>Login</h1>
-        <input type="text" name="email" v-model="input.email" placeholder="Email" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
-        <button type="button" v-on:click="login()">Se connecter</button>
-    </div>-->
 </template>
 
 <script>
+import { authenticationApi } from "@/_api/authentication.api.js";
 export default {
   name: "LoginPage",
   data() {
     return {
-      input: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
     };
   },
   components: {},
   methods: {
-    login() {
-      if (this.input.email != "" && this.input.password != "") {
-        if (
-          this.input.email == this.$parent.mockAccount.email &&
-          this.input.password == this.$parent.mockAccount.password
-        ) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "secure" });
-        } else {
-          console.log("Email / ou mot de passe incorect");
-        }
-      } else {
-        console.log("Un Email ou mot de passe doit être renseigné");
-      }
+    submit: function(e) {
+      e.preventDefault();
+      authenticationApi.login(this.email,this.password)
+        .then(()=>this.$router.push({name: 'home'}));
     },
   },
 };
 </script>
 
 <style scoped>
-/*#login {
-        width: 500px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
-        margin: auto;
-        margin-top: 200px;
-        padding: 20px;
-    } */
-
 /* BASIC */
 
 body {
@@ -224,7 +199,7 @@ input[type="reset"]:active {
   transform: scale(0.95);
 }
 
-input[type="text"] {
+input[type="email"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
   name: "Profil",
   components: {},
@@ -91,16 +91,7 @@ export default {
   methods: {
   },
   created() {
-    let req =
-      this.$apiUrl +
-      "AppliCFABack/utilisateurs/" +
-      this.$store.getters.getUtilisateur.id +
-      "/adresse";
-
-    axios
-      .get(req)
-      .then((response) => (this.adresse = response.data))
-      .catch((error) => console.log(error));
+    utilisateurApi.getAdresseById(this.$store.getters.getUtilisateur.id).then((response) => (this.adresse = response))
   },
 };
 </script>

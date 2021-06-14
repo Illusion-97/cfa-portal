@@ -24,6 +24,9 @@
           <b-nav-item class=" a-link" :to="{name:'admin_dashboard'}" >
             Espace Admin
           </b-nav-item>
+          <b-nav-item class=" a-link" @click="logout">
+            Logout
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -31,6 +34,7 @@
 </template>
 
 <script>
+import { authenticationApi } from "@/_api/authentication.api.js"
 import { utilisateurService } from "@/_services/utilisateur.service.js"
   export default {
     name: "Navbar",
@@ -43,17 +47,21 @@ import { utilisateurService } from "@/_services/utilisateur.service.js"
         return utilisateurService.isCEF();
       },
       isReferent(){
-        // return utilisateurService.isReferent();
-        return true;
+        return utilisateurService.isReferent();
       },
       isFormateur(){
         return utilisateurService.isFormateur();
       },
       isEtudiant(){
-        // return utilisateurService.isEtudiant();
-        return true;
+        return utilisateurService.isEtudiant();
       },
     },
+    methods:{
+      logout(){        
+        authenticationApi.logout()
+        .then(() => this.$router.push({name: 'login'}));
+      }
+    }
   };
 </script>
 

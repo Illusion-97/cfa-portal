@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from '@/store/store.js';
 
 // import { authenticationApi } from '@/_api/authentication.api.js';
 import { Role } from '@/_helpers/role.js';
@@ -68,8 +69,8 @@ const routes = [
 
   //Global
   { path: "/", name: "home", component: Home,},
-  { path: "/login/LoginPage", name: "login", component: LoginPage},
-  // { path: '/secure', name: 'secure', component: secure},
+  { path: "/login", name: "login", component: LoginPage},
+  //{ path: '/secure', name: 'secure', component: secure},
 
   //Etudiant Administratif
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil",component: Profil, meta: {authorize: [Role.Etudiant]}},
@@ -128,38 +129,47 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-/*
+
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const { authorize } = to.meta;
-  const currentUser = authenticationApi.currentUserValue;
+  const currentUser = store.getters.getUtilisateur;
 
-  if (authorize) {
-      if (!currentUser) {
-          // not logged in so redirect to login page with the return url
-          return next({ path: '/login', query: { returnUrl: to.path } });
-      }
+  if(to.path !== "/login"){
 
-      let redirect = true;
-      if(authorize.length){
-        for(let i=0; i<currentUser.role.length; i++){
-          if(authorize.includes(currentUser.role[i])){
-            redirect = false;
-          }         
+    const isUserLoggedIn = store.getters.isUserLoggedIn;
+    //Si pas loggin, on redirect sur /login
+    if (!isUserLoggedIn)    
+      return next({ path: '/login' });
+      //return next({ path: '/login', query: { returnUrl: to.path } });
+    
+  
+    //Si la page nécessite une autorisation
+    if (authorize) {   
+  
+        let redirect = true;
+  
+        //Si la page nécessite un Role particulié
+        if(authorize.length){
+          //on regarde si l'utilisateur a une role autorisé
+          for(let i=0; i<currentUser.rolesDto.length; i++){
+            if(authorize.includes(currentUser.rolesDto[i].intitule)){
+              redirect = false;
+            }         
+          }        
         }        
-      }        
-          
-      if(redirect)
-        return next({ path: '/' });
-
-      // // check if route is restricted by role
-      // if (authorize.length && !authorize.includes(currentUser.role)) {
-      //     // role not authorised so redirect to home page
-      //     return next({ path: '/' });
-      // }
+            
+        //l'utilisateur n'a pas de role autorisé => redirect vers /home
+        if(redirect)
+          return next({ path: '/' });
+  
+    }
+  
   }
 
+  
   next();
+  
 })
-*/
+
 export default router;

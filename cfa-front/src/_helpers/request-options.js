@@ -1,12 +1,11 @@
-import { authenticationApi } from '@/_api/authentication.api.js';
+import store from '@/store/store.js';
 
 export const requestOptions = {
     headers,
 }
 
 function headers() {
-    const currentUser = authenticationApi.currentUserValue || {};
-    const authHeader = currentUser.token ? { 'Authorization': 'Bearer ' + currentUser.token } : {}
+    const authHeader = store.getters.getToken ? { 'Authorization': 'Bearer ' + store.getters.getToken } : {}
     return {
         headers: {
             ...authHeader,
