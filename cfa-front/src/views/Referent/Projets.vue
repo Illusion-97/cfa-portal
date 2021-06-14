@@ -21,6 +21,7 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { projetsFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
+import { requestOptions } from '@/_helpers/request-options.js';
 export default {
   name: "Projets",
   components: {
@@ -62,7 +63,7 @@ export default {
   },
   created() {
         axios
-          .get(this.$apiUrl +"/AppliCFABack/projets/")
+          .get("projets/", requestOptions.headers())
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },

@@ -69,6 +69,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import axios from "axios";
+import { requestOptions } from '@/_helpers/request-options.js';
 import { courseFields } from "@/assets/js/fields.js";
 export default {
   name: "Cours",
@@ -102,7 +103,7 @@ export default {
   },
   created() {
       axios
-        .get(this.$apiUrl + "AppliCFABack/interventions/")
+        .get("interventions/", requestOptions.headers())
         .then((response) => {
           this.items = response.data;
           console.log(this.items);

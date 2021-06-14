@@ -50,6 +50,7 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { noteFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
+import { requestOptions } from '@/_helpers/request-options.js';
 export default {
   name: "Notes",
   components: {
@@ -81,7 +82,7 @@ export default {
   },
   created() {
         axios
-          .get(this.$apiUrl + "AppliCFABack/notes/")
+          .get("notes/", requestOptions.headers())
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },

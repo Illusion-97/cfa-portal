@@ -59,6 +59,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import axios from "axios";
+import { requestOptions } from '@/_helpers/request-options.js';
 import {
     devoirsFields
   } from "@/assets/js/fieldsEtudiant.js";
@@ -77,7 +78,7 @@ export default {
   },
       created() {
         axios
-          .get(this.$apiUrl +"/AppliCFABack/devoirs")
+          .get("devoirs/", requestOptions.headers())
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
         },
