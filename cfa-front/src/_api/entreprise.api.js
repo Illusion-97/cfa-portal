@@ -1,12 +1,11 @@
 import axios from "axios";
-import {constantesApi} from "@/_api/constantes.api.js"
 
 
 const END_POINT = "entreprises";
 
 export async function getAllEntreprisesHttp() {
     let entreprises = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     entreprises = response.data;
@@ -16,7 +15,7 @@ export async function getAllEntreprisesHttp() {
 
   export async function getAllEntreprisesBy() {
     let entreprises = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     entreprises = response.data;
@@ -27,7 +26,7 @@ export async function getAllEntreprisesHttp() {
 export async function addEntrepriseHttp(entreprise) {
   let entrepriseAdded = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: entreprise.id,
         raisonSociale: entreprise.raisonSociale,
@@ -45,7 +44,7 @@ export async function addEntrepriseHttp(entreprise) {
 export async function updateEntrepriseHttp(entreprise) {
   let entrepriseUpdated = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: entreprise.id,
         raisonSociale: entreprise.raisonSociale,
@@ -62,6 +61,6 @@ export async function updateEntrepriseHttp(entreprise) {
 
 export async function deleteEntrepriseHttp(id) {
   let response = null;
-  response = await axios.delete(`${constantesApi.url}${END_POINT}/${id}`);
+  response = await axios.delete(`${END_POINT}/${id}`);
   return response.data;
 }

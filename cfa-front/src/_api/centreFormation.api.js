@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 
 const END_POINT = "centreFormations";
@@ -7,7 +6,7 @@ const END_POINT = "centreFormations";
 
 export async function getAllCentreFormationsHttp() {
     let centreFormations = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     centreFormations = response.data;
@@ -15,7 +14,7 @@ export async function getAllCentreFormationsHttp() {
   }
   export async function getAllCentreFormationsBy() {
     let centreFormations = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     centreFormations = response.data;
@@ -26,7 +25,7 @@ export async function getAllCentreFormationsHttp() {
 export async function addCentreFormationsHttp(centreFormation) {
   let centreFormationAdded = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: centreFormation.id,
         adresse: centreFormation.adresse,
@@ -43,7 +42,7 @@ export async function addCentreFormationsHttp(centreFormation) {
 export async function updateCentreFormationsHttp(centreFormation) {
   let centreFormationUpdate = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: centreFormation.id,
         adresse: centreFormation.adresse,
@@ -59,6 +58,6 @@ export async function updateCentreFormationsHttp(centreFormation) {
 
 export async function deleteCentreFormationsHttp(id) {
   let response = null;
-  response = await axios.delete(`${constantesApi.url}${END_POINT}/${id}`);
+  response = await axios.delete(`${END_POINT}/${id}`);
   return response.data;
 }

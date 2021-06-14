@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 
 const END_POINT = "absences";
@@ -7,7 +6,7 @@ const END_POINT = "absences";
 
 export async function getAllAbsencesHttp() {
     let absences = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     absences = response.data;
@@ -15,7 +14,7 @@ export async function getAllAbsencesHttp() {
   }
   export async function getAllAbsencesBy() {
     let absences = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     absences = response.data;
@@ -26,7 +25,7 @@ export async function getAllAbsencesHttp() {
 export async function addAbsencesHttp(absence) {
   let absenceAdded = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: absence.id,
         dateDebut: absence.dateDebut,
@@ -45,7 +44,7 @@ export async function addAbsencesHttp(absence) {
 export async function updateAbsencesHttp(centreFormation) {
   let absenceUpdate = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: absence.id,
         dateDebut: absence.dateDebut,
@@ -63,6 +62,6 @@ export async function updateAbsencesHttp(centreFormation) {
 
 export async function deleteAbsencesHttp(id) {
   let response = null;
-  response = await axios.delete(`${constantesApi.url}${END_POINT}/${id}`);
+  response = await axios.delete(`${END_POINT}/${id}`);
   return response.data;
 }

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
 
 
 const END_POINT = "projets";
@@ -7,7 +6,7 @@ const END_POINT = "projets";
 
 export async function getAllProjetsHttp() {
     let projets = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     projets = response.data;
@@ -15,7 +14,7 @@ export async function getAllProjetsHttp() {
   }
   export async function getAllProjetsBy() {
     let projets = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     projets = response.data;
@@ -26,7 +25,7 @@ export async function getAllProjetsHttp() {
 export async function addProjetHttp(projet) {
   let projetAdded = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: projet.id,
         nom: projet.nom,
@@ -45,7 +44,7 @@ export async function addProjetHttp(projet) {
 export async function updateProjetHttp(projet) {
   let projetUpdated = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: projet.id,
         nom: projet.nom,
@@ -63,6 +62,6 @@ export async function updateProjetHttp(projet) {
 
 export async function deleteProjetHttp(id) {
   let response = null;
-  response = await axios.delete(`${constantesApi.url}${END_POINT}/${id}`);
+  response = await axios.delete(`${END_POINT}/${id}`);
   return response.data;
 }

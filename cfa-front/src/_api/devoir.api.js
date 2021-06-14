@@ -1,13 +1,10 @@
 import axios from 'axios';
-import {constantesApi} from "@/_api/constantes.api.js"
-
 
 const END_POINT = "devoirs";
 
-
 export async function getAllDevoirsHttp() {
     let devoirs = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     devoirs = response.data;
@@ -15,7 +12,7 @@ export async function getAllDevoirsHttp() {
   }
   export async function getAllDevoirsBy() {
     let devoirs = [];
-    const response = await axios.get(`${constantesApi.url}${END_POINT}`, {
+    const response = await axios.get(`${END_POINT}`, {
       //headers: { Authorization: $cookies.get("token") },
     });
     devoirs = response.data;
@@ -26,7 +23,7 @@ export async function getAllDevoirsHttp() {
 export async function addDevoirsHttp(devoir) {
   let devoirAdded = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: devoir.id,
         enonce: devoir.enonce,
@@ -46,7 +43,7 @@ export async function addDevoirsHttp(devoir) {
 export async function updateDevoirsHttp(centreFormation) {
   let devoirUpdate = null;
   const response = await axios.post(
-    `${constantesApi.url}${END_POINT}`,
+    `${END_POINT}`,
     {
         id: devoir.id,
         enonce: devoir.enonce,
@@ -64,6 +61,6 @@ export async function updateDevoirsHttp(centreFormation) {
 
 export async function deleteDevoirsHttp(id) {
   let response = null;
-  response = await axios.delete(`${constantesApi.url}${END_POINT}/${id}`);
+  response = await axios.delete(`${END_POINT}/${id}`);
   return response.data;
 }
