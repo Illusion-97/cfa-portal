@@ -56,7 +56,6 @@
 
         <div v-if="table[0] == 'admin'" id="admin">
             <h6>Mon Espace</h6>
-
             
                 <nav class="mb-3">
                     <b-nav vertical>

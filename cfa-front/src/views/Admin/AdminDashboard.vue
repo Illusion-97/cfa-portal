@@ -59,7 +59,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { utilisateursFields } from "@/assets/js/fieldsAdmin.js"
-import axios from "axios";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
   name: "AdminDashboard",
   components: {
@@ -97,11 +97,8 @@ export default {
     };
   },
   created() {
-        axios
-          .get(this.$apiUrl + "/AppliCFABack/utilisateurs/")
-          .then((response) => (this.items = response.data))
-          .catch((e) => this.errors.push(e));
-        },
+    utilisateurApi.getAllUsersHttp().then(response => this.items = response);
+  },
 };
 </script>
 <style scoped>
