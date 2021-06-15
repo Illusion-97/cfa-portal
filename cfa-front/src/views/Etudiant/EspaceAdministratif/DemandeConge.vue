@@ -112,7 +112,7 @@ export default {
     },
   },
   created() {
-    congeApi.getConges(this.utilisateur.id).then((response) => (this.conges = response));      
+    congeApi.getCongesByUtilisateurId(this.utilisateur.id).then((response) => (this.conges = response));      
     congeApi.getTableConge(this.utilisateur.id).then((response) => (this.tableConge = response));      
   },
   methods: {
@@ -120,7 +120,7 @@ export default {
       e.preventDefault();
       congeApi.save(this.form)
               //Quand on a ajouté le congé, on recharge la liste
-              .then(() => congeApi.getConges(this.utilisateur.id).then(response => this.conges = response));  
+              .then(() => congeApi.getCongesByUtilisateurId(this.utilisateur.id).then(response => this.conges = response));  
     },
   },  
 };

@@ -1,61 +1,39 @@
-import axios from 'axios';
-import { requestOptions } from '@/_helpers/request-options.js';
+import axios from "axios";
+import { requestOptions } from "@/_helpers/request-options.js";
 
 const END_POINT = "projets";
 
+export const projetApi = {
+  getAllProjets,
+  addProjet,
+  updateProjet,
+  deleteProjet,
+};
 
-export async function getAllProjetsHttp() {
-    let projets = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    projets = response.data;
-    return projets;
-  }
-  export async function getAllProjetsBy() {
-    let projets = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    projets = response.data;
-    return projets;
-  }
-
-
-export async function addProjetHttp(projet) {
-  let projetAdded = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: projet.id,
-        nom: projet.nom,
-        description: projet.description,
-        pjCahierDesCharges: projet.pjCahierDesCharges,
-        groupe: projet.groupe,
-    },*/
-    projet,
-    requestOptions.headers()
-  );
-  projetAdded = response.data;
-  return projetAdded;
+function getAllProjets() {
+  return axios
+    .get(`${END_POINT}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function updateProjetHttp(projet) {
-  let projetUpdated = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: projet.id,
-        nom: projet.nom,
-        description: projet.description,
-        pjCahierDesCharges: projet.pjCahierDesCharges,
-        groupe: projet.groupe,
-    },*/
-    projet,
-    requestOptions.headers()
-  );
-  projetUpdated = response.data;
-  return projetUpdated;
+function addProjet(projet) {
+  return axios
+    .post(`${END_POINT}`, projet, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function deleteProjetHttp(id) {
-  let response = null;
-  response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
-  return response.data;
+function updateProjet(projet) {
+  return axios
+    .post(`${END_POINT}`, projet, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function deleteProjet(id) {
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }

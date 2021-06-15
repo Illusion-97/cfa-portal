@@ -76,7 +76,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .submit-form {
   max-width: 300px;
   margin: auto;

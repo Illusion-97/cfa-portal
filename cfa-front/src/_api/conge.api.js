@@ -3,12 +3,33 @@ import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const congeApi = {
-    getConges,
+    getAllByPage,
+    getCount,
+    getCongesByUtilisateurId,
     getTableConge,
-    save
+    save,
+    deleteConge,
 }
 
-function getConges(id) {
+function getAllByPage(page, size){
+    let req = `/conges/${page}/${size}`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+function getCount(search = ""){
+    let req = `/conges/count/${search}`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data["nb"])
+        .catch((error) => console.log(error));
+}
+
+function getCongesByUtilisateurId(id) {
 
     let req = "utilisateurs/" + id + "/conges";
 
@@ -33,6 +54,16 @@ function save(form) {
 
     return axios
         .post(req, form, requestOptions.headers())
+        .then((response) => response)
+        .catch((error) => console.log(error));
+
+}
+
+function deleteConge(id) {
+    let req =  `conges/${id}`;
+
+    return axios
+        .delete(req, requestOptions.headers())
         .then((response) => response)
         .catch((error) => console.log(error));
 

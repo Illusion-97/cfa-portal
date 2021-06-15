@@ -97,7 +97,7 @@ export default {
     };
   },
   created() {
-    utilisateurApi.getAllUsersHttp().then(response => this.items = response);
+    utilisateurApi.getAllUsers().then(response => this.items = response);
   },
 };
 </script>

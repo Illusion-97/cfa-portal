@@ -10,9 +10,12 @@ import App from './App.vue'
 import router from './router/router.js'
 import store from './store/store.js'
 import axios from 'axios';
+import Paginate from 'vuejs-paginate'
 
 
 Vue.config.productionTip = false
+
+Vue.component('paginate', Paginate)
 
 //axios.defaults.withCredentials = true
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
@@ -22,3 +25,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
