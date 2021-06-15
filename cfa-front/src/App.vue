@@ -1,21 +1,22 @@
 <template>
   <div id="app" class="container-fluid">
-    
     <div v-if="table != '/login'">
       <Navbar />
     </div>
 
-  <div id="app" class="">
-    <Navbar />
+    <div id="app" class="">
+      <Navbar />
 
-    <div v-if="table == '/'">
-      <router-view />
-    </div>
-    <div v-else>
-      <VerticalNavbar class="col-md-2"/>
-      <div class="monBody col-md-10">
+      <div v-if="table == '/'">
         <router-view />
       </div>
+      <div v-else>
+        <VerticalNavbar class="col-md-2" />
+        <div class="monBody col-md-10">
+          <router-view />
+        </div>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -28,13 +29,12 @@ export default {
     Navbar,
     VerticalNavbar,
   },
-  methods: {
-  },
+  methods: {},
   computed: {
-    table(){
-      return this.$route.path
+    table() {
+      return this.$route.path;
     },
-    show(){
+    show() {
       return "true";
     },
   },
@@ -98,7 +98,3 @@ export default {
         margin: auto;
     }
 </style> -->
-
-
-
-

@@ -2,10 +2,16 @@
   <div class="list row">
     <div class="col-md-8">
       <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search by login"
-          v-model="login"/>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by login"
+          v-model="login"
+        />
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button"
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
             @click="searchLogin"
           >
             Search
@@ -16,7 +22,8 @@
     <div class="col-md-6">
       <h4>Users List</h4>
       <ul class="list-group">
-        <li class="list-group-item"
+        <li
+          class="list-group-item"
           :class="{ active: index == currentIndex }"
           v-for="(users, index) in users"
           :key="index"
@@ -40,12 +47,11 @@
           <label><strong>Password:</strong></label> {{ currentUser.password }}
         </div>
         <div>
-          <label><strong>Status:</strong></label> {{ currentUser.published ? "Published" : "Pending" }}
+          <label><strong>Status:</strong></label>
+          {{ currentUser.published ? "Published" : "Pending" }}
         </div>
 
-        <a class="badge badge-warning"
-          :href="'/users/' + currentUser.id"
-        >
+        <a class="badge badge-warning" :href="'/users/' + currentUser.id">
           Edit
         </a>
       </div>
@@ -58,7 +64,7 @@
 </template>
 
 <script>
-import UtilisateurDataService from "../../../../_api/utilisateur.api";
+import { utilisateurApi } from "../../../../_api/utilisateur.api";
 
 export default {
   name: "users-list",
@@ -67,17 +73,18 @@ export default {
       users: [],
       currentUser: null,
       currentIndex: -1,
-      login: ""
+      login: "",
     };
   },
   methods: {
     retrieveUsers() {
-      UtilisateurDataService.getAll()
-        .then(response => {
+      utilisateurApi
+        .getAll()
+        .then((response) => {
           this.users = response.data;
           console.log(response.data);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     },
@@ -95,29 +102,29 @@ export default {
 
     removeAllUsers() {
       UtilisateurDataService.deleteAll()
-        .then(response => {
+        .then((response) => {
           console.log(response.data);
           this.refreshList();
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     },
-    
+
     searchLogin() {
       UtilisateurDataService.findByLogin(this.login)
-        .then(response => {
+        .then((response) => {
           this.users = response.data;
           console.log(response.data);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
-    }
+    },
   },
   mounted() {
     this.retrieveUsers();
-  }
+  },
 };
 </script>
 

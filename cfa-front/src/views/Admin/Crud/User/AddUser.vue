@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import UtilisateurDataService from "../../../../_api/utilisateur.api";
+import {utilisateurApi} from "../../../../_api/utilisateur.api";
 
 export default {
   name: "add-user",
@@ -57,7 +57,7 @@ export default {
         password: this.user.password
       };
 
-      UtilisateurDataService.create(data)
+      utilisateurApi.create(data)
         .then(response => {
           this.user.id = response.data.id;
           console.log(response.data);
