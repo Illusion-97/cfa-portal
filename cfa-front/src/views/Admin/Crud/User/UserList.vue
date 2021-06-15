@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { utilisateurApi } from "../../../../_api/utilisateur.api";
+import { utilisateurApi } from "@/_api/utilisateur.api";
 
 export default {
   name: "users-list",
