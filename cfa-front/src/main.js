@@ -17,8 +17,8 @@ Vue.config.productionTip = false
 
 Vue.component('paginate', Paginate)
 
-//axios.defaults.withCredentials = true
-axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+axios.defaults.baseURL = "http://localhost:8080/AppliCFABack/";
+//axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
 new Vue({
   router,

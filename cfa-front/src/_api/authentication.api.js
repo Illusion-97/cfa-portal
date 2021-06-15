@@ -11,7 +11,7 @@ export const authenticationApi = {
 function login(login, password) {
 
     let req = "authenticate";
-
+    console.log("process.env.VUE_APP_API_URL : ", process.env);
     return axios
         .post(req,{login: login, password: password})
         //.then(handleResponse)
