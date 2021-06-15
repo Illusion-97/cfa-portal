@@ -3,28 +3,28 @@
   <div>
     <section>
       <div class="container">
-        <div class="row">
-          <div class="col-md-3" v-if="showBtn == true" id="show-btn">
+        <div class="row d-fle">
+          <div class="" v-if="showBtn == true" id="show-btn">
             <!-- <a :href="btnLink" class="button">{{ btnTxt }}</a> -->
             <router-link :to="{name:btnLink}" class="button">{{btnTxt}}</router-link>
           </div>
-          <div class="my-3" v-if="items.length != 0" :class="display" >
+          <div class="my-3" v-if="rows != 0" :class="display">
             <b-form inline class="d-flex justify-content-end">
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
-                <b-form-select-option :value="Math.floor(items.length * 0.25)">
-                  {{ (items.length * 0.25) | formatNumber }} sur
-                  {{ items.length }}
+                <b-form-select-option :value="Math.floor(rows * 0.25)">
+                  {{ (rows * 0.25) | formatNumber }} sur
+                  {{ rows }}
                 </b-form-select-option>
-                <b-form-select-option :value="Math.floor(items.length * 0.5)">
-                  {{ (items.length * 0.5) | formatNumber }} sur
-                  {{ items.length }}
+                <b-form-select-option :value="Math.floor(rows * 0.5)">
+                  {{ (rows * 0.5) | formatNumber }} sur
+                  {{ rows }}
                 </b-form-select-option>
-                <b-form-select-option :value="Math.floor(items.length * 0.75)">
-                  {{ (items.length * 0.75) | formatNumber }} sur
-                  {{ items.length }}
+                <b-form-select-option :value="Math.floor(rows * 0.75)">
+                  {{ (rows * 0.75) | formatNumber }} sur
+                  {{ rows }}
                 </b-form-select-option>
-                <b-form-select-option :value="items.length">
+                <b-form-select-option :value="rows">
                   Tout afficher
                 </b-form-select-option>
               </b-form-select>
@@ -35,12 +35,17 @@
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
               :current-page="current_page">
-             
+
               <template #cell(formationDto)="data">
-                <router-link :to="{name:'intervention-detail',params:{id:data.item.id}}" style="color:black;"
-                  >
-                  {{ data.item.formationDto.titre }}
-                  <!-- {{ data.item.dateDebut | capitalize }} -->
+                <router-link :to="{name:'intervention-detail',params:{id:data.item.id}}" style="color:black;">
+                  <span v-if="data.item.formationDto.titre === null">Aucune formation</span>
+                  <span v-else>{{ data.item.formationDto.titre | capitalize }}</span>
+                </router-link>
+              </template>
+
+              <template #cell(titre)="data">
+                <router-link :to="{name:'formation-detail',params:{id:data.item.id}}" style="color:black;">
+                  {{ data.value | capitalize }}
                 </router-link>
               </template>
 
@@ -95,9 +100,15 @@
                 <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
               </template>
 
+              <template #cell(modifierItv)="data">
+                <router-link :to="{name:'modifier-intervention',params:{id:data.item.id}}">
+                  <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
+                </router-link>
+              </template>
             </b-table>
           </div>
         </div>
+
         <b-pagination class="pages ml-auto border-0" v-model="current_page" :total-rows="rows" :per-page="per_page"
           aria-controls="my-table" size="sm">
         </b-pagination>
@@ -111,12 +122,13 @@
 </script>
 
 <script>
+  import { Role } from '../../_helpers/role.js'
   export default {
     name: "TableTemplate",
     props: {
       items: {
         // valeur des champs du tableau
-        type: Array,
+        type: [Array, Function],
         required: true,
         default: () => []
       },
@@ -133,7 +145,7 @@
       },
       fields: {
         // en tete
-        type: Array,
+        type: [Array, Object],
         required: true,
       },
       btnTxt: {
@@ -149,26 +161,28 @@
         type: Boolean,
         default: false,
       },
+      length : {
+        type : Number,
+        default : 0
+      }
     },
     data() {
       return {
         per_page: this.perPage, // nb d'items par pages
         current_page: this.currentPage, // page courante
+        role: Role,
       };
-    },
-    methods: {
-
     },
     computed: {
       rows() {
-        return this.items.length;
+        return this.length;
       },
       display() {
-        if (this.items.length <= 10)
+        if (this.length <= 10)
           return 'd-none'
       }
     },
-   
+
   };
 </script>
 <style scoped>
