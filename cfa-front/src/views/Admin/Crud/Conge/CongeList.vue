@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <BodyTitle title="Liste des Congés" />
 
-    <a class="btn btn-info" :to="{name:''}">Ajouter</a>
+    <router-link class="btn btn-info" :to="{name:'admin_conge_create'}">Ajouter</router-link>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>

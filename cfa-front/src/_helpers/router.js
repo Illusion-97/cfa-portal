@@ -61,6 +61,7 @@ import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
 import UserList from "@/views/Admin/Crud/User/UserList.vue";
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
+import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
 
 Vue.use(VueRouter);
 
@@ -99,6 +100,7 @@ const routes = [
   { path: "/admin/addUser", name:"admin_addUser", component: AddUser},
   { path: "/admin/userList", name:"admin_userList", component: UserList},
   { path: "/admin/conge-list", name:"admin_conge_list", component: CongeList},
+  { path: "/admin/conge-create", name:"admin_conge_create", component: CongeCreate},
   
   //Referent
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
