@@ -9,42 +9,42 @@ export const interventionApi = {
 }
 
 function getIntervention(page, size) {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/with-object/${page - 1}/${size}`
+    const url = `interventions/with-object/${page - 1}/${size}`
     return axios.get(url)
         .then(response => response.data)
         .catch(err => console.error(err));
 }
 
 function getInterventionById(id) {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/${id}`
+    const url = `interventions/${id}`
     return axios.get(url)
         .then(response => response.data)
         .catch(err => console.error(err));
 }
 
 function insertIntervention(form) {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/`;
+    const url = `interventions/`;
     return axios.post(url, form)
         .then(response => response)
         .catch(err => console.error(err));
 }
 
 function getAllIntervention() {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/with-object`;
+    const url = `interventions/with-object`;
     return axios.get(url)
         .then(response => response.data)
         .catch(err => console.error(err));
 }
 
 function updateIntervention(form) {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/`;
+    const url = `interventions/`;
     return axios.put(url, form)
         .then(response => response)
         .catch(err => console.error(err));
 }
 
 function countIntervention() {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/count`;
+    const url = `interventions/count`;
     return axios.get(url)
         .then(response => response.data["nb"])
         .catch(err => console.error(err));

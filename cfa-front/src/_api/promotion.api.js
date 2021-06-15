@@ -1,8 +1,8 @@
 import axios from 'axios';
+import { requestOptions } from "@/_helpers/request-options.js";
 
 export const promotionApi = {
     getPromotionByid,
-
 };
 
 function getPromotionByid(id){
