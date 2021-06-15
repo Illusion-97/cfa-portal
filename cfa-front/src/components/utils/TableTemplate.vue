@@ -3,13 +3,14 @@
   <div>
     <section>
       <div class="container">
-        <div class="row d-fle">
-          <div class="" v-if="showBtn == true" id="show-btn">
-            <!-- <a :href="btnLink" class="button">{{ btnTxt }}</a> -->
-            <router-link :to="{name:btnLink}" class="button">{{btnTxt}}</router-link>
+        <div class="row d-flex justify-content-between">
+          <div v-if="showBtn == true" id="show-btn">
+            <router-link :to="{ name: btnLink }" class="button">
+              {{ btnTxt }}
+            </router-link>
           </div>
-          <div class="my-3" v-if="rows != 0" :class="display">
-            <b-form inline class="d-flex justify-content-end">
+          <div v-if="rows != 0" :class="display">
+            <b-form inline class="">
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
                 <b-form-select-option :value="Math.floor(rows * 0.25)">
@@ -35,16 +36,23 @@
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
               :current-page="current_page">
-
               <template #cell(formationDto)="data">
-                <router-link :to="{name:'intervention-detail',params:{id:data.item.id}}" style="color:black;">
+                <router-link :to="{
+                    name: 'intervention-detail',
+                    params: { id: data.item.id },
+                  }" style="color:black;">
                   <span v-if="data.item.formationDto.titre === null">Aucune formation</span>
-                  <span v-else>{{ data.item.formationDto.titre | capitalize }}</span>
+                  <span v-else>{{
+                    data.item.formationDto.titre | capitalize
+                  }}</span>
                 </router-link>
               </template>
 
               <template #cell(titre)="data">
-                <router-link :to="{name:'formation-detail',params:{id:data.item.id}}" style="color:black;">
+                <router-link :to="{
+                    name: 'formation-detail',
+                    params: { id: data.item.id },
+                  }" style="color:black;">
                   {{ data.value | capitalize }}
                 </router-link>
               </template>
@@ -75,7 +83,7 @@
               </template>
 
               <template #cell(file_name)>
-                {{data.value}}
+                {{ data.value }}
               </template>
 
               <template #cell(name_dl)="data">
@@ -86,7 +94,6 @@
               <template #cell(name_delete)="data">
                 <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)" />
               </template>
-
 
               <template #cell(telecharger)>
                 <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
@@ -101,17 +108,26 @@
               </template>
 
               <template #cell(modifierItv)="data">
-                <router-link :to="{name:'modifier-intervention',params:{id:data.item.id}}">
+                <router-link :to="{
+                    name: 'modifier-intervention',
+                    params: { id: data.item.id },
+                  }">
                   <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
                 </router-link>
               </template>
             </b-table>
           </div>
         </div>
-
+        <paginate :page-count="rows" :page-range="2" :margin-pages="2" :click-handler="clickHandler"
+          :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'"
+          :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
+          :prev-link-class="'page-link'" :next-link-class="'page-link'" :active-class="'active'">
+          >
+        </paginate>
+        <!-- 
         <b-pagination class="pages ml-auto border-0" v-model="current_page" :total-rows="rows" :per-page="per_page"
           aria-controls="my-table" size="sm">
-        </b-pagination>
+        </b-pagination> -->
       </div>
     </section>
   </div>
@@ -122,7 +138,6 @@
 </script>
 
 <script>
-  import { Role } from '../../_helpers/role.js'
   export default {
     name: "TableTemplate",
     props: {
@@ -130,7 +145,7 @@
         // valeur des champs du tableau
         type: [Array, Function],
         required: true,
-        default: () => []
+        default: () => [],
       },
       perPage: {
         // nb de ligne par page
@@ -141,7 +156,7 @@
       currentPage: {
         type: Number,
         required: false,
-        default: 1
+        default: 1,
       },
       fields: {
         // en tete
@@ -161,16 +176,18 @@
         type: Boolean,
         default: false,
       },
-      length : {
-        type : Number,
-        default : 0
+      length: { // longueur total de la liste
+        type: Number,
+        default: 0,
+      },
+      clickHandler: { // methode quand la page est cliqué
+        type : Function
       }
     },
     data() {
       return {
         per_page: this.perPage, // nb d'items par pages
         current_page: this.currentPage, // page courante
-        role: Role,
       };
     },
     computed: {
@@ -178,11 +195,9 @@
         return this.length;
       },
       display() {
-        if (this.length <= 10)
-          return 'd-none'
-      }
+        if (this.length <= 10) return "d-none";
+      },
     },
-
   };
 </script>
 <style scoped>
