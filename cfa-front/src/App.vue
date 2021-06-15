@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid">   
+  <div id="app" class="">   
 
     <div id="app" class="">
       <div v-if="table != '/login'">
