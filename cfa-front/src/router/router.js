@@ -82,13 +82,13 @@ const routes = [
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
-  { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] } },
+  { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention },
   { path: "/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
   { path: "/modifier-intervention/:id", name: "modifier-intervention", component: ModiferIntervention },
 
   // Global -> Formation
-  { path: "/formation", name: "all-formations", component: AllFormations, meta: { authorize: [Role.Admin] } },
-  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
+  { path: "/formation", name: "all-formations", component: AllFormations },
+  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
   { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
 
 
