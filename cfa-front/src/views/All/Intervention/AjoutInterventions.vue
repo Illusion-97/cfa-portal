@@ -67,8 +67,11 @@
                 placeholder="Description du cours" id="desc">
               </b-form-textarea>
             </b-form-group> -->
+            <div class="d-flex " style="justify-content:space-between">
+
             <b-button type="reset" variant="outline-danger">Annuler</b-button>
-            <b-button type="submit" variant="outline-info" class="float-end px-3">Envoyer</b-button>
+            <b-button type="submit" variant="outline-info" class="">Envoyer</b-button>
+            </div>
           </b-form>
           <b-card class="mt-3" header="Form Data Result" v-if="show">
             <pre class="m-0">{{ form }}</pre>
