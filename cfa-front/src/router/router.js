@@ -78,10 +78,6 @@ const routes = [
 
   { path: "/", name: "home", component: Home,},
   { path: "/login", name: "login", component: LoginPage},
-  //{ path: '/secure', name: 'secure', component: secure},
-
-  { path: "/", name: "home", component: Home, },
-  { path: "/login/LoginPage", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
