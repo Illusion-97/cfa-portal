@@ -36,8 +36,10 @@
                                 </template>
                             </b-form-select>
                         </b-form-group>
-                        <b-button type="reset" variant="outline-danger">Annuler</b-button>
-                        <b-button type="submit" variant="outline-info" class="float-end px-3">Envoyer</b-button>
+                        <div class="d-flex justify-content-between">
+                            <b-button type="reset" variant="outline-danger">Annuler</b-button>
+                            <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
+                        </div>
                     </b-form>
                     <b-card class="mt-3" header="Form Data Result" v-if="show">
                         <pre class="m-0">{{ form }}</pre>
