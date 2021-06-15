@@ -4,11 +4,14 @@
     <div v-if="table != '/login'">
       <Navbar />
     </div>
-    
+
+  <div id="app" class="">
+    <Navbar />
+
     <div v-if="table == '/'">
       <router-view />
     </div>
-    <div v-else class="row">
+    <div v-else>
       <VerticalNavbar class="col-md-2"/>
       <div class="monBody col-md-10">
         <router-view />

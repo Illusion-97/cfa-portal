@@ -1,38 +1,38 @@
 export const courseFields = [
-    { key: "id", label: "#" },
-    { key: "formationDto", label: "Intitulé", sortable: true },
-    { key: "dateDebut", label: "Date de debut", sortable: true },
-    { key: "dateFin", label: "Date de fin", sortable: true },
-    "modifier",
-    "supprimer",
+  { key: "id", label: "#" },
+  { key: "formationDto", label: "Intitulé", sortable: true },
+  { key: "dateDebut", label: "Date de debut", sortable: true },
+  { key: "dateFin", label: "Date de fin", sortable: true },
+  { key: "modifierItv", label: "Modifier" },
+  { key: "supprimer", label: "Supprimer" },
 ];
 
 export const fileFields = [
-    { key: "name", label: "Nom des fichiers", sortable: true },
-    { key: "name_dl", label: "Télécharger"},
-    { key: "name_delete", label: "Supprimer"},
+  { key: "name", label: "Nom des fichiers", sortable: true },
+  { key: "name_dl", label: "Télécharger" },
+  { key: "name_delete", label: "Supprimer" },
 ];
 
 export const leaveFields = [
-    { key: "dateDebut", label: "Date de debut", sortable: true },
-    { key: "dateFin", label: "Date de fin", sortable: true },
-    { key: "motif", label: "Motif" },
-    { key: "type", label: "Type de congé", sortable: true },
-    { key: "status", label: "Status", sortable: true },
+  { key: "dateDebut", label: "Date de debut", sortable: true },
+  { key: "dateFin", label: "Date de fin", sortable: true },
+  { key: "motif", label: "Motif" },
+  { key: "type", label: "Type de congé", sortable: true },
+  { key: "status", label: "Status", sortable: true },
 ];
 
 export const absences_latesFields = [
-    { key: "eleve", label: "Nom de l'étudiant" },
-    { key: "dateDebut", label: "Date de debut" },
-    { key: "dateFin", label: "Date de fin" },
-    { key: "motif", label: "Justificatif" },
+  { key: "eleve", label: "Nom de l'étudiant" },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
+  { key: "motif", label: "Justificatif" },
 ];
 
 export const etudiantsFields = [
   { key: "nom", label: "Nom de l'étudiant" },
   { key: "prenom", label: "Prénom de l'étudiant" },
   { key: "adresse", label: "Adresse" },
-  { key: "presence", label: "Feuille de présence"},
+  { key: "presence", label: "Feuille de présence" },
   "telecharger",
 
 ];
@@ -47,7 +47,7 @@ export const projetsFields = [
   { key: "nom", label: "Nom du groupe" },
   { key: "description", label: "Description" },
   { key: "cahierDesCharges", label: "Cahier des charges" },
-  { key: "groupe", label: "Groupe"},
+  { key: "groupe", label: "Groupe" },
   "modifier",
   "supprimer",
 
@@ -57,7 +57,7 @@ export const promotionsFields = [
   { key: "nom", label: "Nom de promotion" },
   { key: "etudiant", label: "Etudiant" },
   { key: "ProgrammeDeCours", label: "Programme de cours" },
-  { key: "Cours", label: "Cours"},
+  { key: "Cours", label: "Cours" },
 
 ];
 
@@ -76,6 +76,14 @@ export const examensFields = [
   "supprimer",
 
 ];
+
+export const formationFields = [
+  { key: "titre", label: "Nom de la formation", thStyle: { width: "200px" } },
+  { key: "contenu", label: "Contenu" },
+  { key: "modifier", label:"Modifier" },
+  "supprimer"
+  // { key: "cursusLstDto", label: "Cursus" },
+]
 // Example
 // export const nom_variable = [
 //   { key: "champs1", label: "nom_colonne1",sortable(triable):true/false (optionnel) },
