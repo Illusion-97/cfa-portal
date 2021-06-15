@@ -9,10 +9,10 @@ export const formationApi = {
   updateFormationsHttp,
   deleteFormationsHttp,
   getFormation,
-
   getAllFormation,
   insertFormation,
   getFormationById,
+  countFormation
 }
 const END_POINT = "formations";
 
@@ -97,5 +97,12 @@ function getFormationById(id) {
   const url = `${process.env.VUE_APP_API_URL}/formations/${id}`;
   return axios.get(url)
     .then(response => response.data)
+    .catch(err => console.error(err))
+}
+
+function countFormation() {
+  const url = `${process.env.VUE_APP_API_URL}/formations/count`;
+  return axios.get(url)
+    .then(response => response.data["nb"])
     .catch(err => console.error(err))
 }
