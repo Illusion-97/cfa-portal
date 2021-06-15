@@ -1,25 +1,24 @@
-import axios from 'axios';
-import { requestOptions } from '@/_helpers/request-options.js';
+import axios from "axios";
+import { requestOptions } from "@/_helpers/request-options.js";
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const utilisateurApi = {
-    //getById,
-    getByIdWithObject,
-    getAdresseById,
-    getPlanningById,
-
-    getAllUsersHttp,
-    getAllUsersBy,
-    getAllUsersByEntreprise,
-    getAllUsersByAdresse,
-    addUserHttp,
-    updateUserHttp,
-    deleteUserHttp,
+  //getById,
+  getByIdWithObject,
+  getAdresseById,
+  getPlanningById,
+  getAllUsers,
+  getAllUsersByEntreprise,
+  getAllUsersByAdresse,
+  addUser,
+  updateUser,
+  deleteUser,
 };
 
 const END_POINT = "utilisateurs";
 const ADRESSE = "adresse";
 const ENTREPRISE = "entreprise";
+
 /*
 function getById(id) {
     let req =  "utilisateurs/" + id;
@@ -29,7 +28,7 @@ function getById(id) {
 */
 
 function getByIdWithObject(id) {
-  let req =  "utilisateurs/" + id + "/with-object";
+  let req = "utilisateurs/" + id + "/with-object";
 
   return axios
     .get(req, requestOptions.headers())
@@ -38,90 +37,61 @@ function getByIdWithObject(id) {
 }
 
 function getAdresseById(id) {
-    let req = "utilisateurs/" + id + "/adresse";
+  let req = "utilisateurs/" + id + "/adresse";
 
   return axios
     .get(req, requestOptions.headers())
-    .then((response) => (response.data))
+    .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
 function getPlanningById(id) {
-    let req = "utilisateurs/" + id + "/planning"
+  let req = "utilisateurs/" + id + "/planning";
 
   return axios
     .get(req, requestOptions.headers())
-    .then((response) => (response.data))
+    .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-async function getAllUsersHttp() {
-    let users = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    users = response.data;
-    return users;
-  }
-  
-async function getAllUsersBy() {
-    let users = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    users = response.data;
-    return users;
-  }
-
-async function getAllUsersByEntreprise() {
-    let users = [];
-    const response = await axios.get(`${END_POINT}${ENTREPRISE}`, requestOptions.headers());
-    users = response.data;
-    return users;
-  }
-
-async function getAllUsersByAdresse() {
-    let users = [];
-    const response = await axios.get(`${END_POINT}${ADRESSE}`, requestOptions.headers());
-    users = response.data;
-    return users;
-  }
-
-async function addUserHttp(user) {
-  let userAdded = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: user.id,
-        login: user.login,
-        password: user.password,
-        prenom: user.prenom,
-        nom: user.nom,
-    },*/
-    user,
-    requestOptions.headers()
-  );
-  userAdded = response.data;
-  return userAdded;
+function getAllUsers() {
+  return axios
+    .get(`${END_POINT}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-async function updateUserHttp(user) {
-  let userUpdated = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-      id: user.id,
-      login: user.login,
-      password: user.password,
-      prenom: user.prenom,
-      nom: user.nom,
-    },*/
-    user,
-    requestOptions.headers()
-  );
-  userUpdated = response.data;
-  return userUpdated;
+function getAllUsersByEntreprise() {
+  return axios
+    .get(`${END_POINT}/${ENTREPRISE}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-async function deleteUserHttp(id) {
-  let response = null;
-  response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
-  return response.data;
+function getAllUsersByAdresse() {
+  return axios
+    .get(`${END_POINT}/${ADRESSE}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
+function addUser(user) {
+  return axios
+    .post(`${END_POINT}`, user, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function updateUser(user) {
+  return axios
+    .post(`${END_POINT}`, user, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function deleteUser(id) {
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}

@@ -3,57 +3,37 @@ import { requestOptions } from '@/_helpers/request-options.js';
 
 const END_POINT = "examens";
 
+export const examenApi = {
+  getAllExamens,
+  addExamens,
+  updateExamens,
+  deleteExamens,
+};
 
-export async function getAllExamensHttp() {
-    let examens = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    examens = response.data;
-    return examens;
+function getAllExamens() {
+    return axios
+      .get(`${END_POINT}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
   }
-  export async function getAllExamensBy() {
-    let examens = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    examens = response.data;
-    return examens;
-  }
 
 
-export async function addExamensHttp(examen) {
-  let examenAdded = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: examen.id,
-        enonce: examen.enonce,
-        formation: examen.formation,
-        cursus: examen.cursus,
-    },*/
-    examen,
-    requestOptions.headers()
-  );
-  examenAdded = response.data;
-  return examenAdded;
+function addExamens(examen) {
+  return axios
+    .post(`${END_POINT}`, examen, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function updateExamensHttp(examen) {
-  let examenUpdate = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: examen.id,
-        enonce: examen.enonce,
-        formation: examen.formation,
-        cursus: examen.cursus,
-    },*/
-    examen,
-    requestOptions.headers()
-  );
-  examenUpdate = response.data;
-  return examenUpdate;
+function updateExamens(examen) {
+  return axios.post(`${END_POINT}`, examen, requestOptions.headers())
+  .then((response) => response.data)
+  .catch((error) => console.log(error));
 }
 
-export async function deleteExamensHttp(id) {
-  let response = null;
-  response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
-  return response.data;
+function deleteExamens(id) {
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
