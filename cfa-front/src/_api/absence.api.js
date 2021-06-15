@@ -3,59 +3,38 @@ import { requestOptions } from '@/_helpers/request-options.js';
 
 const END_POINT = "absences";
 
+export const absencesApi = {
+  getAllAbsences,
+  addAbsence,
+  updateAbsence,
+  deleteAbsence,
+};
 
-export async function getAllAbsencesHttp() {
-    let absences = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    absences = response.data;
-    return absences;
+export async function getAllAbsences() {
+    return axios
+      .get(`${END_POINT}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
   }
-  export async function getAllAbsencesBy() {
-    let absences = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    absences = response.data;
-    return absences;
-  }
 
 
-export async function addAbsencesHttp(absence) {
-  let absenceAdded = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: absence.id,
-        dateDebut: absence.dateDebut,
-        dateFin: absence.dateFin,
-        justificatif: absence.justificatif,
-        etudiant: absence.etudiant,
-    },*/
-    absence,
-    requestOptions.headers()
-  );
-  absenceAdded = response.data;
-  return absenceAdded;
+export async function addAbsence(absence) {
+  return axios
+    .post(`${END_POINT}`, absence, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function updateAbsencesHttp(absence) {
-  let absenceUpdate = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: absence.id,
-        dateDebut: absence.dateDebut,
-        dateFin: absence.dateFin,
-        justificatif: absence.justificatif,
-        etudiant: absence.etudiant,
-    },*/
-    absence,
-    requestOptions.headers()
-  );
-  absenceUpdate = response.data;
-  return absenceUpdate;
+export async function updateAbsence(absence) {
+  return axios
+    .post(`${END_POINT}`, absence, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function deleteAbsencesHttp(id) {
-  let response = null;
-  response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
-  return response.data;
+export async function deleteAbsence(id) {
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }

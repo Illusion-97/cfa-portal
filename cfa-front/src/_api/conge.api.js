@@ -3,6 +3,7 @@ import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const congeApi = {
+    getById,
     getAllByPage,
     getCount,
     getCongesByUtilisateurId,
@@ -11,8 +12,17 @@ export const congeApi = {
     deleteConge,
 }
 
-function getAllByPage(page, size){
-    let req = `/conges/${page}/${size}`;
+function getById(id){
+    let req = `/conges/${id}`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+function getAllByPage(page, size, search = ""){
+    let req = `/conges/${page}/${size}/${search}`;
 
     return  axios
         .get(req, requestOptions.headers())

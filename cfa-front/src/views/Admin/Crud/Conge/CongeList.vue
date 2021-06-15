@@ -2,7 +2,22 @@
   <div class="container-fluid">
     <BodyTitle title="Liste des Congés" />
 
-    <router-link class="btn btn-info" :to="{name:'admin_conge_create'}">Ajouter</router-link>
+    <div class="header-list">
+      <form class="form-inline form" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="saisie"
+        />
+        <button class="btn btn-primary" type="submit">Recherche</button>
+      </form>
+
+      <router-link class="btn btn-info" :to="{ name: 'admin_conge_create' }"
+        >Ajouter</router-link
+      >
+    </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
@@ -26,11 +41,13 @@
           <td>{{ conge.type }}</td>
           <td>{{ conge.status }}</td>
           <td>
-            <a class="btn btn-info">Detail</a>
+            <router-link class="btn btn-info" :to="{name:'admin_conge_detail', params: { id: conge.id }}">Detail</router-link>
             &nbsp;
-            <a class="btn btn-info">Update</a>
+            <router-link class="btn btn-info" :to="{name:'admin_conge_update', params: { id: conge.id }}">Update</router-link>
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteConge(conge.id)">Delete</button>
+            <button class="btn btn-info" v-on:click="deleteConge(conge.id)">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -71,6 +88,8 @@ export default {
       conges: [],
       perPage: 10,
       pageCount: 0,
+
+      saisie: "",
     };
   },
   computed: {
@@ -85,9 +104,18 @@ export default {
     this.refreshList();
   },
   methods: {
+    submit(e) {
+      e.preventDefault();
+      congeApi
+        .getAllByPage(0, this.perPage, this.saisie)
+        .then((response) => (this.conges = response));
+      congeApi
+        .getCount(this.saisie)
+        .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
+    },
     pageChange(pageNum) {
       congeApi
-        .getAllByPage(pageNum, this.perPage)
+        .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.conges = response));
     },
     refreshList() {
@@ -100,24 +128,26 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteConge(congeId){
-      congeApi
-        .deleteConge(congeId)
-        .then(() => this.refreshList());
-    }
+    deleteConge(congeId) {
+      congeApi.deleteConge(congeId).then(() => this.refreshList());
+    },
   },
 };
 </script>
 
-<style scoped>/*
-.pagination-custom {
+<style scoped>
+.header-list{
   display: flex;
-  padding-left: 0;
-  list-style: none;
-  border-radius: 0.25rem;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }
 
-.test {
-  background-color: green;
-}*/
+.header-list > form{
+  width: 40%;
+}
+
+#saisie{
+  width: 70%;
+  margin-right: 5%;
+}
 </style>

@@ -3,55 +3,37 @@ import { requestOptions } from '@/_helpers/request-options.js';
 
 const END_POINT = "centreFormations";
 
+export const centreFormationApi = {
+  getAllCentreFormations,
+  addCentreFormations,
+  updateCentreFormations,
+  deleteCentreFormations,
+};
 
-export async function getAllCentreFormationsHttp() {
-    let centreFormations = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    centreFormations = response.data;
-    return centreFormations;
+function getAllCentreFormations() {
+    return axios
+      .get(`${END_POINT}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
   }
-  export async function getAllCentreFormationsBy() {
-    let centreFormations = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    centreFormations = response.data;
-    return centreFormations;
-  }
 
-
-export async function addCentreFormationsHttp(centreFormation) {
-  let centreFormationAdded = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: centreFormation.id,
-        adresse: centreFormation.adresse,
-        entreprise: centreFormation.entreprise,
-    },*/
-    centreFormation,
-    requestOptions.headers()
-  );
-  centreFormationAdded = response.data;
-  return centreFormationAdded;
+function addCentreFormations(centreFormation) {
+  return axios
+    .post(`${END_POINT}`, centreFormation, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function updateCentreFormationsHttp(centreFormation) {
-  let centreFormationUpdate = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: centreFormation.id,
-        adresse: centreFormation.adresse,
-        entreprise: centreFormation.entreprise,
-    },*/
-    centreFormation,
-    requestOptions.headers()
-  );
-  centreFormationUpdate = response.data;
-  return centreFormationUpdate;
+function updateCentreFormations(centreFormation) {
+  return axios
+    .post(`${END_POINT}`, centreFormation, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
-export async function deleteCentreFormationsHttp(id) {
-  let response = null;
-  response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
-  return response.data;
+function deleteCentreFormations(id) {
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
