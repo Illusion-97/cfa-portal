@@ -66,13 +66,15 @@ import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 //Admin
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
-//import UserList from "@/views/Admin/Crud/User/UserList.vue";
+import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue"
 
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
 import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
 import CongeDetail from "@/views/Admin/Crud/Conge/CongeDetail.vue";
 
-import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue"
+import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
+
+
 
 
 Vue.use(VueRouter);
@@ -120,12 +122,12 @@ const routes = [
   { path: "/admin/dashboard", name:"admin_dashboard", component: AdminDashboard},
   { path: "/admin/addUser", name:"admin_addUser", component: AddUser},
   { path: "/admin/user-update/:id", name:"admin_user_update", component: AddUser},
-  //{ path: "/admin/userList", name:"admin_userList", component: UserList},
   { path: "/admin/conge-list", name:"admin_conge_list", component: CongeList},
   { path: "/admin/conge-create", name:"admin_conge_create", component: CongeCreate},
   { path: "/admin/conge-update/:id", name:"admin_conge_update", component: CongeCreate},
   { path: "/admin/conge-detail/:id", name:"admin_conge_detail", component: CongeDetail},
   { path: "/admin/user-detail/:id", name:"admin_user_detail", component: DetailUser},
+  { path: "/admin/promotion-list", name:"admin_promotion_list", component: PromotionList},
 
   
   //Referent
