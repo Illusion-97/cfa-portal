@@ -65,6 +65,7 @@ import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
 import CongeDetail from "@/views/Admin/Crud/Conge/CongeDetail.vue";
 import ExamenList from "@/views/Admin/Crud/Examen/ExamenList.vue";
 import ExamenCreate from "@/views/Admin/Crud/Examen/ExamenCreate.vue";
+import ExamenDetail from "@/views/Admin/Crud/Examen/ExamenDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -112,6 +113,7 @@ const routes = [
   { path: "/admin/examen-list", name:"admin_examen_list", component: ExamenList},
   { path: "/admin/examen-create", name:"admin_examen_create", component: ExamenCreate},
   { path: "/admin/examen-update/:id", name:"admin_examen_update", component: ExamenCreate},
+  { path: "/admin/examen-detail/:id", name:"admin_examen_detail", component: ExamenDetail},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},

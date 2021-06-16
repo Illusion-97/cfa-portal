@@ -98,9 +98,14 @@ export default {
       default: false,
     },
     cursusProp: {
-      type: {},
       default: null,
     },
+  },
+  watch: {
+    cursusProp(){
+      if (this.cursusProp != null) 
+        this.cursus_input = `${this.cursusProp.titre}`;
+    }
   },
   data() {
     return {
@@ -119,17 +124,9 @@ export default {
     nbPageComputed() {
       return this.pageCount;
     },
-    cursusPropComputed(){
-      return this.cursusProp;
-    }
   },
   created() {
-    this.refreshList();
-    console.log("created");
-    if (this.cursusPropComputed != null) {
-      console.log(" prop !=null");
-      this.cursus_input = `${this.cursusPropComputed.titre}`;
-    }
+    this.refreshList();    
   },
   methods: {
     submit(e) {
@@ -169,25 +166,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form {
-  width: 40%;
-}
-
-#saisie {
-  width: 70%;
-  margin-right: 5%;
-}
-
-#groupe-input {
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-}
+<style scoped src="@/assets/styles/CrudListComponent.css">
 </style>

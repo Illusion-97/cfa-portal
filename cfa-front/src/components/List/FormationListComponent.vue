@@ -85,9 +85,14 @@ export default {
       type: Boolean,
       default: false,
     },
-    formation_prop: {
-      type: {},
+    formationProp: {
       default: null,
+    }
+  },
+  watch: {
+    formationProp(){
+      if (this.formationProp != null) 
+        this.formation_input = `${this.formationProp.titre}`;
     }
   },
   data() {
@@ -110,9 +115,6 @@ export default {
   },
   created() {
     this.refreshList();
-
-    if(this.formation_prop != null)
-      this.formation_input = `${this.formation_prop.titre}`;
   },
   methods: {
     submit(e) {
@@ -152,26 +154,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form {
-  width: 40%;
-}
-
-#saisie {
-  width: 70%;
-  margin-right: 5%;
-}
-
-#groupe-input{
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-}
-
+<style scoped src="@/assets/styles/CrudListComponent.css">
 </style>

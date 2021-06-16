@@ -38,7 +38,7 @@
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: '', params: { id: examen.id } }"
+              :to="{ name: 'admin_examen_detail', params: { id: examen.id } }"
               >Detail</router-link
             >
             &nbsp;
@@ -88,8 +88,13 @@ export default {
       default: false,
     },
     examenProp: {
-      type: {},
       default: null,
+    }
+  },
+  watch: {
+    examenProp(){
+      if (this.examenProp != null) 
+        this.examen_input = `${this.examenProp.titre}`;
     }
   },
   data() {
@@ -113,9 +118,6 @@ export default {
   },
   created() {
     this.refreshList();
-
-    if(this.examenProp != null)
-      this.examen_input = `${this.examenProp.titre}`;
   },
   methods: {
     submit(e) {
@@ -155,25 +157,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form {
-  width: 40%;
-}
-
-#saisie {
-  width: 70%;
-  margin-right: 5%;
-}
-
-#groupe-input{
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-}
+<style scoped src="@/assets/styles/CrudListComponent.css">
 </style>

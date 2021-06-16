@@ -90,8 +90,13 @@ export default {
       default: false,
     },
     congeProp: {
-      type: {},
       default: null,
+    },
+  },
+  watch: {
+    congeProp(){
+      if (this.congeProp != null) 
+        this.conge_input = `${this.congeProp.titre}`;
     }
   },
   data() {
@@ -155,25 +160,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-list{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form{
-  width: 40%;
-}
-
-#saisie{
-  width: 70%;
-  margin-right: 5%;
-}
-
-#groupe-input{
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-}
+<style scoped src="@/assets/styles/CrudListComponent.css">
 </style>

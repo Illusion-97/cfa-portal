@@ -14,7 +14,7 @@
 
       <CursusListComponent v-on:click-list="onClickChildCursusList" :cursusProp="cursus_input"/>
 
-      <FormationListComponent v-on:click-list="onClickChildFormationList" :formation_prop="formation_input"/>
+      <FormationListComponent v-on:click-list="onClickChildFormationList" :formationProp="formation_input"/>
 
       <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">
@@ -79,7 +79,6 @@ export default {
         this.form = response
         this.vue_title = "Update d'un examen";                
         this.btn_form_text = "Update";
-
         this.formation = response.formationDto;
         this.cursus = response.cursusDto;
         });
