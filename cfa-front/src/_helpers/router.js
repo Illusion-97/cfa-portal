@@ -63,6 +63,7 @@ import UserList from "@/views/Admin/Crud/User/UserList.vue";
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
 import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
 import CongeDetail from "@/views/Admin/Crud/Conge/CongeDetail.vue";
+import ExamenList from "@/views/Admin/Crud/Examen/ExamenList.vue";
 
 Vue.use(VueRouter);
 
@@ -75,7 +76,7 @@ const routes = [
   { path: "/login", name: "login", component: LoginPage},
   //{ path: '/secure', name: 'secure', component: secure},
 
-  //Etudiant Administratif
+  //  ### Etudiant Administratif ###
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil",component: Profil, meta: {authorize: [Role.Etudiant]}},
   { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs",component: DepotFichier, meta: {authorize: [Role.Etudiant]}},
   { path: "/etudiant/espace-administratif/demande-conge",name: "etudiant_conge",component: DemandeConge, meta: {authorize: [Role.Etudiant]}},
@@ -83,7 +84,7 @@ const routes = [
   { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste",component: FichePoste, meta: {authorize: [Role.Etudiant]}},
   { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise",component: FicheEntreprise, meta: {authorize: [Role.Etudiant]}},
 
-  //Etudiant Pedagogique
+  //  ### Etudiant Pedagogique  ###
   { path: "/etudiant/espace-pedagogique/accueil", name: "etudiant_espace-peda_accueil", component: Acceuil, meta: {authorize: [Role.Etudiant]}},
   { path: "/etudiant/espace-pedagogique/absences", name: "etudiant_espace-peda_absences", component: Absences, meta: {authorize: [Role.Etudiant]}},
   { path: "/etudiant/espace-pedagogique/cursus", name: "etudiant_espace-peda_cursus", component: Cursus, meta: {authorize: [Role.Etudiant]}},
@@ -92,20 +93,24 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/evaluation-formation", name: "etudiant_espace-peda_evaluation-formation", component: EvaluationFormation, meta: {authorize: [Role.Etudiant]}},
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: {authorize: [Role.Etudiant]}},
 
-  //Formateur
+  //  ### Formateur ###
   { path: "/formateur/cours", name: "formateur_cours", component: Course, meta: {authorize: [Role.Formateur]}},
   { path: "/formateur/ajouter-cours", name: "formateur_ajouter-cours", component: AjoutCours,  meta: {authorize: [Role.Formateur]}},
 
-  //Admin
+  //  ### Admin ###
+  //Utilisateur
   { path: "/admin/dashboard", name:"admin_dashboard", component: AdminDashboard},
   { path: "/admin/addUser", name:"admin_addUser", component: AddUser},
   { path: "/admin/userList", name:"admin_userList", component: UserList},
+  //Conge
   { path: "/admin/conge-list", name:"admin_conge_list", component: CongeList},
   { path: "/admin/conge-create", name:"admin_conge_create", component: CongeCreate},
   { path: "/admin/conge-update/:id", name:"admin_conge_update", component: CongeCreate},
   { path: "/admin/conge-detail/:id", name:"admin_conge_detail", component: CongeDetail},
+  //Examen
+  { path: "/admin/examen-list", name:"admin_examen_list", component: ExamenList},
   
-  //Referent
+  //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
   { path: "/referent/notes", name: "referent_notes", component: NotesR},
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif},
