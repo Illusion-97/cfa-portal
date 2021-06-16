@@ -4,7 +4,7 @@ import { requestOptions } from "@/_helpers/request-options.js";
 
 export const utilisateurApi = {
   
-  //getById,
+  getById,
   getAllByPage,
   getCount,
   getByIdWithObject,
@@ -17,6 +17,7 @@ export const utilisateurApi = {
   updateUtilisateur,
   deleteUtilisateur,
   getAllUsersByName,
+  save,
 
 };
 
@@ -47,6 +48,15 @@ function getCount(search = ""){
   return  axios
       .get(req, requestOptions.headers())
       .then(response => response.data["nb"])
+      .catch((error) => console.log(error));
+}
+
+function getById(id){
+  let req = `/utilisateurs/${id}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
       .catch((error) => console.log(error));
 }
 
@@ -122,6 +132,16 @@ function updateUtilisateur(Utilisateur) {
     .post(`${END_POINT}`, Utilisateur, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+function save(form) {
+  let req =  "utilisateurs";
+
+  return axios
+      .post(req, form, requestOptions.headers())
+      .then((response) => response)
+      .catch((error) => console.log(error));
+
 }
 
 

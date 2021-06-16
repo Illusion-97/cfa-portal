@@ -59,9 +59,8 @@
             
                 <nav class="mb-3">
                     <b-nav vertical>
-                        <router-link class="nav-item" :to="{name:'admin_dashboard'}">Home</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_dashboard'}">User</router-link>
                         <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_addUser'}">Ajouter User</router-link>
                        
                     </b-nav>
                 </nav>    
