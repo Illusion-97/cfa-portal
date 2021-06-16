@@ -24,13 +24,14 @@
           <th>Enonce</th>
           <th>Fomration</th>
           <th>Cursus</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody v-if="examensComputed">
         <tr v-for="examen in examensComputed" :key="examen.id">
           <td>{{ examen.enonce }}</td>
-          <td>{{ examen.formation.titre }}</td>
-          <td>{{ examen.cursus.titre }}</td>
+          <td>{{ examen.formationDto.titre }}</td>
+          <td>{{ examen.cursusDto.titre }}</td>
           <td>
             <router-link
               class="btn btn-info"
@@ -135,4 +136,18 @@ export default {
 </script>
 
 <style scoped>
+.header-list{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
+}
+
+.header-list > form{
+  width: 40%;
+}
+
+#saisie{
+  width: 70%;
+  margin-right: 5%;
+}
 </style>
