@@ -2,13 +2,34 @@
   <div id="adminDashboard">
    
     <BodyTitle title="Liste des utilisateurs" />
-
+<section>
+      <div class="container">
+        <div class="row">
+<div class="col-md-12">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by name"
+          v-model="name"/>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button"
+            @click="searchName"
+          >
+            Rechercher
+          </button>
+        </div>
+      </div>
+       <router-link class="btn btn-primary" :to="{name:'admin_addUser'}">Ajouter un utilisateur</router-link>
+    </div>
+    </div>
+  </div>
+  </section>
     <TableTemplate
       :perPage="perPage"
       :items="items"
       :fields="fields"
       :showBtn="false"
-      btnLink="/formateur/blabla"
+      btnTxt="Ajouter un Utilisateur"
+      btnLink="admin_addUser"
+      
     />
     <!--
     <div class="container">
@@ -68,6 +89,8 @@ export default {
   },
   data() {
     return {
+      users: [],
+      name : "",
       perPage: 5,
       items: [
         /*{
@@ -96,6 +119,35 @@ export default {
       
     };
   },
+  methods: {
+
+    retrieveUsers() {
+      utilisateurApi.getAll()
+        .then(response => {
+          this.users = response.data;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+
+    searchName() {
+      utilisateurApi.getAllUsersByName(this.name)
+        .then(response => {
+          this.users = response.data;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+
+  },
+  mounted(){
+    this.retrieveUsers();
+  },
+  
   created() {
     utilisateurApi.getAllUsers().then(response => this.items = response);
   },

@@ -3,6 +3,7 @@ import { requestOptions } from "@/_helpers/request-options.js";
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const utilisateurApi = {
+  
   //getById,
   getAllByPage,
   getCount,
@@ -15,6 +16,8 @@ export const utilisateurApi = {
   addUtilisateur,
   updateUtilisateur,
   deleteUtilisateur,
+  getAllUsersByName,
+
 };
 
 const END_POINT = "utilisateurs";
@@ -75,12 +78,23 @@ function getPlanningById(id) {
     .catch((error) => console.log(error));
 }
 
+
 function getAllUtilisateurs() {
   return axios
     .get(`${END_POINT}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+
+  async function getAllUsersByName(name) {
+    let users = [];
+    const response = await axios.get(`$/admin/userList?name=${name}`, requestOptions.headers());
+    users = response.data;
+    return users;
+  }
+
+
 
 function getAllUtilisateursByEntreprise() {
   return axios
@@ -110,9 +124,11 @@ function updateUtilisateur(Utilisateur) {
     .catch((error) => console.log(error));
 }
 
+
 function deleteUtilisateur(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+

@@ -60,13 +60,9 @@
                 <nav class="mb-3">
                     <b-nav vertical>
                         <router-link class="nav-item" :to="{name:'admin_dashboard'}">Home</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_cours'}">Cours</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
                         <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_addUser'}">Ajouter User</router-link>
+                       
                     </b-nav>
                 </nav>    
                   

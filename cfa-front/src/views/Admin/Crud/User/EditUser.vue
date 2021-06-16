@@ -1,7 +1,7 @@
 <template>
  
   <div class="submit-form">
-     <BodyTitle title="Ajouter un utilisateur" />
+     <BodyTitle title="Modifier un utilisateur" />
     <div v-if="!submitted">
       <div class="form-group">
         <label for="prenom">Prénom</label>
@@ -15,7 +15,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="nom">Nom</label>
+        <label for="nom">nom</label>
         <input
           type="text"
           class="form-control"
@@ -53,17 +53,16 @@
 
     <div v-else>
       <h4>You submitted successfully!</h4>
-      <button class="btn btn-success" @click="newUser">Ajouter</button>
+      <button class="btn btn-success" @click="newUser">Modifier</button>
     </div>
   </div>
 </template>
 
 <script>
-import {utilisateurApi} from "../../../../_api/utilisateur.api";
+import UtilisateurDataService from "../../../../_api/utilisateur.api";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-
 export default {
-  name: "AddUser",
+  name: "EditUser",
   components: {
     BodyTitle,
   },
@@ -71,8 +70,6 @@ export default {
     return {
       user: {
         id: null,
-        prenom: "",
-        nom: "",
         login: "",
         password: "",
         published: false
@@ -87,7 +84,7 @@ export default {
         password: this.user.password
       };
 
-      utilisateurApi.create(data)
+      UtilisateurDataService.create(data)
         .then(response => {
           this.user.id = response.data.id;
           console.log(response.data);
@@ -106,7 +103,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .submit-form {
   max-width: 300px;
   margin: auto;
