@@ -7,9 +7,10 @@ export const examenApi = {
   getById,
   getAllByPage,
   getCount,
-  addExamen,
+  save,
   updateExamen,
   deleteExamen,
+
 };
 
 function getById(id){
@@ -39,7 +40,7 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function addExamen(examen) {
+function save(examen) {
   return axios
     .post(`${END_POINT}`, examen, requestOptions.headers())
     .then((response) => response.data)
