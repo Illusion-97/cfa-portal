@@ -1,8 +1,11 @@
 export const utilisateursFields = [
     { key: "id", label: "#" },
+    { key: "prenom", label: "Prénom", sortable: true },
+    { key: "nom", label: "Nom", sortable: true },
     { key: "login", label: "Login", sortable: true },
     { key: "password", label: "Mot de passe", sortable: true },
-    { key: "prenom", label: "Prénom", sortable: true },
+    "modifier",
+    { key: "name_delete", label: "Supprimer"},
 ];
 
 export const etudiantsFields = [

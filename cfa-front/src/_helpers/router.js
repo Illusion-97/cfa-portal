@@ -60,6 +60,7 @@ import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
 import UserList from "@/views/Admin/Crud/User/UserList.vue";
+import EditUser from "@/views/Admin/Crud/User/EditUser.vue";
 
 Vue.use(VueRouter);
 
@@ -97,6 +98,7 @@ const routes = [
   { path: "/admin/dashboard", name:"admin_dashboard", component: AdminDashboard},
   { path: "/admin/addUser", name:"admin_addUser", component: AddUser},
   { path: "/admin/userList", name:"admin_userList", component: UserList},
+  { path: "/admin/editUser", name:"admin_editUser", component: EditUser},
   
   //Referent
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},

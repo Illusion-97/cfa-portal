@@ -15,6 +15,7 @@ export const utilisateurApi = {
     addUserHttp,
     updateUserHttp,
     deleteUserHttp,
+    getAllUsersByName,
 };
 
 const END_POINT = "utilisateurs";
@@ -68,6 +69,15 @@ async function getAllUsersBy() {
     users = response.data;
     return users;
   }
+
+  async function getAllUsersByName(name) {
+    let users = [];
+    const response = await axios.get(`$/admin/userList?name=${name}`, requestOptions.headers());
+    users = response.data;
+    return users;
+  }
+
+  
 
 async function getAllUsersByEntreprise() {
     let users = [];
@@ -124,4 +134,10 @@ async function deleteUserHttp(id) {
   response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
   return response.data;
 }
+
+
+
+  
+
+
 
