@@ -43,7 +43,7 @@
                 <nav class="mb-3">
                     <b-nav vertical>
                         <router-link class="nav-item" :to="{name:'referent_dashboard'}">Home</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_cours'}">Cours</router-link>
+                        <router-link class="nav-item" :to="{name:'referent_cours'}">Intervention</router-link>
                         <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
                         <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
                         <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
@@ -54,13 +54,15 @@
                   
         </div>
 
-        <div v-if="table[0] == 'admin'" id="admin">
+        <!-- <div v-if="table[0] == 'admin'" id="admin"> -->
+        <div>
             <h6>Mon Espace Admin</h6>
             
                 <nav class="mb-3">
                     <b-nav vertical>
                         <router-link class="nav-item" :to="{name:'admin_dashboard'}">Home</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_cours'}">Cours</router-link>
+                        <router-link class="nav-item" :to="{name:'all-intervention'}">Intervention</router-link>
+                        <router-link class="nav-item" :to="{name:'all-formations'}">Formation</router-link>
                         <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
                         <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
                         <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
