@@ -9,13 +9,16 @@ import { Role } from '@/_helpers/role.js';
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 // import secure from '@/components/secure.vue'
-import AllInterventions from "../views/All/Intervention/AllInterventions.vue";
+// Global -> Intervention
+import AllInterventions from "@/views/All/Intervention/AllInterventions.vue";
 import AjoutIntervention from "@/views/All/Intervention/AjoutInterventions.vue";
 import DetailIntervention from '@/views/All/Intervention/DetailIntervention.vue'
 import ModiferIntervention from '@/views/All/Intervention/UpdateIntervention.vue'
-import AllFormations from "../views/All/Formation/AllFormation.vue";
+// Global -> Formation
+import AllFormations from "@/views/All/Formation/AllFormation.vue";
 import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
-import DetailFormation from "../views/All/Formation/DetailFormation.vue";
+import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
+
 
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
@@ -95,18 +98,18 @@ const routes = [
 
   //Global
 
-  { path: "/", name: "home", component: Home,},
-  { path: "/login", name: "login", component: LoginPage},
+  { path: "/", name: "home", component: Home, },
+  { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
-  { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] } },
+  { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention },
   { path: "/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
   { path: "/modifier-intervention/:id", name: "modifier-intervention", component: ModiferIntervention },
 
   // Global -> Formation
-  { path: "/formation", name: "all-formations", component: AllFormations, meta: { authorize: [Role.Admin] } },
-  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
+  { path: "/formation", name: "all-formations", component: AllFormations },
+  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
   { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
 
   //  ### Etudiant Administratif ###
@@ -187,7 +190,6 @@ const routes = [
   { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR},
   { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR},
   { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR},
-  
   //Formateur
   { path: "/formateur/intervention", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] } },
 
@@ -204,41 +206,41 @@ router.beforeEach((to, from, next) => {
   const { authorize } = to.meta;
   const currentUser = store.getters.getUtilisateur;
 
-  if(to.path !== "/login"){
+  if (to.path !== "/login") {
 
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
-    if (!isUserLoggedIn)    
+    if (!isUserLoggedIn)
       return next({ path: '/login' });
-      //return next({ path: '/login', query: { returnUrl: to.path } });
-    
-  
+    //return next({ path: '/login', query: { returnUrl: to.path } });
+
+
     //Si la page nécessite une autorisation
-    if (authorize) {   
-  
-        let redirect = true;
-  
-        //Si la page nécessite un Role particulié
-        if(authorize.length){
-          //on regarde si l'utilisateur a une role autorisé
-          for(let i=0; i<currentUser.rolesDto.length; i++){
-            if(authorize.includes(currentUser.rolesDto[i].intitule)){
-              redirect = false;
-            }         
-          }        
-        }        
-            
-        //l'utilisateur n'a pas de role autorisé => redirect vers /home
-        if(redirect)
-          return next({ path: '/' });
-  
+    if (authorize) {
+
+      let redirect = true;
+
+      //Si la page nécessite un Role particulié
+      if (authorize.length) {
+        //on regarde si l'utilisateur a une role autorisé
+        for (let i = 0; i < currentUser.rolesDto.length; i++) {
+          if (authorize.includes(currentUser.rolesDto[i].intitule)) {
+            redirect = false;
+          }
+        }
+      }
+
+      //l'utilisateur n'a pas de role autorisé => redirect vers /home
+      if (redirect)
+        return next({ path: '/' });
+
     }
-  
+
   }
 
-  
+
   next();
-  
+
 })
 
 export default router;

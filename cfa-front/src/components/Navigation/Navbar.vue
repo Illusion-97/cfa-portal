@@ -21,7 +21,7 @@
           <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}">
             Espace Referent
           </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'admin_dashboard'}" >
+          <b-nav-item class=" a-link" :to="{name:'all-intervention'}" >
             Espace Admin
           </b-nav-item>
           <b-nav-item class=" a-link" @click="logout">

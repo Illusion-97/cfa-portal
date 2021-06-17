@@ -8,6 +8,16 @@ export const formationApi = {
   getAllByPage,
   getCount,
   deleteFormation,
+  getAllFormationsHttp,
+  getAllFormationsBy,
+  addFormationsHttp,
+  updateFormationsHttp,
+  deleteFormationsHttp,
+  getFormation,
+  getAllFormation,
+  insertFormation,
+  getFormationById,
+  countFormation
 }
 
 function getById(id){
@@ -96,4 +106,39 @@ export async function deleteFormationsHttp(id) {
   let response = null;
   response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
   return response.data;
+}
+
+function getFormation(page, size) {
+  const url = `${process.env.VUE_APP_API_URL}/formations/${page - 1}/${size}`
+  return axios.get(url)
+    .then(response => response.data)
+    .catch(err => console.error(err))
+}
+
+function getAllFormation() {
+  const url = `${process.env.VUE_APP_API_URL}/formations`
+  return axios.get(url)
+    .then(response => response.data)
+    .catch(err => console.error(err))
+}
+
+function insertFormation(form) {
+  const url = `${process.env.VUE_APP_API_URL}/formations`
+  return axios.post(url, form)
+    .then(response => response)
+    .catch(err => console.error(err))
+}
+
+function getFormationById(id) {
+  const url = `${process.env.VUE_APP_API_URL}/formations/${id}`;
+  return axios.get(url)
+    .then(response => response.data)
+    .catch(err => console.error(err))
+}
+
+function countFormation() {
+  const url = `${process.env.VUE_APP_API_URL}/formations/count`;
+  return axios.get(url)
+    .then(response => response.data["nb"])
+    .catch(err => console.error(err))
 }
