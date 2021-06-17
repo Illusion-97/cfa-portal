@@ -30,6 +30,7 @@ export default {
       currentPage: 1,
       perPage: 5,
       pageCount: 0,
+      keyword: "",
     };
   },
   created() {
@@ -59,9 +60,16 @@ export default {
     nbPageComputed() {
       return this.pageCount;
     },
+    key: {
+      get: function() {
+        return this.keyword;
+      },
+      set: function(keyword) {
+        this.keyword = keyword;
+      },
+    },
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
