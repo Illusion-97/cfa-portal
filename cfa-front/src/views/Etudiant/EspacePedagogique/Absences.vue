@@ -23,7 +23,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import axios from "axios";
+import { etudiantApi} from "@/_api/etudiant.api.js";
 import {
     absencesFields
   } from "@/assets/js/fieldsEtudiant.js";
@@ -42,12 +42,11 @@ export default {
     };
   },
   created() {
-      axios
-      .get(this.$apiUrl + "AppliCFABack/etudiants/1/absences")
-      .then((response) => (this.items = response.data))
-      .catch((error) => console.log(error));
-      },
+      etudiantApi
+        .getAbsencesById(this.$store.getters.getUtilisateur.id)
+        .then((response) => (this.items = response));
   
   
+}
 }
 </script>
