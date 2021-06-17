@@ -1,0 +1,30 @@
+#my-card {
+    width: 90%;
+    padding-bottom: 1em;
+    margin-bottom: 5em;
+    margin-top: 5em;
+  }
+  
+  #my-card > .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #6c757d;
+    color: white;
+    margin-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 25px;
+  }
+  
+  .card-text {
+    display: flex;
+    justify-content: space-around;    
+  }
+  
+  .card-text > span {
+    display: inline-block;
+    width: 40em;
+    padding-left: 3em;
+    text-align: justify;
+  }

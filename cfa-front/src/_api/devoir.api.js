@@ -4,20 +4,42 @@ import { requestOptions } from "@/_helpers/request-options.js";
 const END_POINT = "devoirs";
 
 export const devoirApi = {
-  getAllDevoirs,
-  addDevoir,
+  getById,
+  getAllByPage,
+  getCount,
+  save,
   updateDevoir,
   deleteDevoir,
 };
 
-function getAllDevoirs() {
-  return axios
-    .get(`${END_POINT}`, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
+function getById(id){
+  let req = `/${END_POINT}/${id}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }
 
-function addDevoir(devoir) {
+function getAllByPage(page, size, search = ""){
+  let req = `/${END_POINT}/${page}/${size}/${search}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
+
+function getCount(search = ""){
+  let req = `/${END_POINT}/count/${search}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data["nb"])
+      .catch((error) => console.log(error));
+}
+
+function save(devoir) {
   return axios
     .post(`${END_POINT}`, devoir, requestOptions.headers())
     .then((response) => response.data)
