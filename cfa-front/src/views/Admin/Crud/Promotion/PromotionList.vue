@@ -16,7 +16,7 @@
         <button class="btn btn-outline-secondary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-primary" :to="{ name: 'admin_addPromotion' }"
+      <router-link class="btn btn-primary" :to="{ name: 'admin_promotion_create' }"
         >Ajouter une promotion</router-link
       >
     </div>

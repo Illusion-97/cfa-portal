@@ -73,7 +73,8 @@ import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
 import CongeDetail from "@/views/Admin/Crud/Conge/CongeDetail.vue";
 
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
-
+import AddPromo from "@/views/Admin/Crud/Promotion/PromotionAdd.vue";
+import PromoDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
 
 
 
@@ -128,6 +129,9 @@ const routes = [
   { path: "/admin/conge-detail/:id", name:"admin_conge_detail", component: CongeDetail},
   { path: "/admin/user-detail/:id", name:"admin_user_detail", component: DetailUser},
   { path: "/admin/promotion-list", name:"admin_promotion_list", component: PromotionList},
+  { path: "/admin/addPromotion", name:"admin_promotion_create", component: AddPromo},
+  { path: "/admin/promo-update/:id", name:"admin_promotion_update", component: AddPromo},
+  { path: "/admin/promo-detail/:id", name:"admin_promotion_detail", component: PromoDetail},
 
   
   //Referent
