@@ -8,8 +8,8 @@ export const interventionApi = {
     countIntervention
 }
 
-function getIntervention(page, size) {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/with-object/${page - 1}/${size}`
+function getIntervention(page, size, keyword = "") {
+    const url = `${process.env.VUE_APP_API_URL}/interventions/${page - 1}/${size}/${keyword}`
     return axios.get(url)
         .then(response => response.data)
         .catch(err => console.error(err));
@@ -43,8 +43,8 @@ function updateIntervention(form) {
         .catch(err => console.error(err));
 }
 
-function countIntervention() {
-    const url = `${process.env.VUE_APP_API_URL}/interventions/count`;
+function countIntervention(keyword = "") {
+    const url = `${process.env.VUE_APP_API_URL}/interventions/count/${keyword}`;
     return axios.get(url)
         .then(response => response.data["nb"])
         .catch(err => console.error(err));
