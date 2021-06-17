@@ -1,19 +1,19 @@
 <template>
   <div class="container-fluid">
-    <BodyTitle title="Liste des Congés" />
-    <CongeListComponent :isAction="true"/>
+    <BodyTitle title="Liste des Examens" />
+    <ExamenListeComponent :isAction="true"/>
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import CongeListComponent from "@/components/List/CongeListComponent.vue";
+import ExamenListeComponent from "@/components/List/ExamenListComponent.vue";
 
 export default {
-  name: "CongeList",
+  name: "ExamenListe",
   components: {
     BodyTitle,
-    CongeListComponent,
+    ExamenListeComponent,
   },
 };
 </script>
