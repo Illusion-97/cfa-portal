@@ -124,15 +124,15 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: {authorize: [Role.Etudiant]}},
 
   //  ### Formateur ###
-  { path: "/formateur/cours", name: "formateur_cours", component: Course, meta: {authorize: [Role.Formateur]}},
-  { path: "/formateur/ajouter-cours", name: "formateur_ajouter-cours", component: AjoutCours,  meta: {authorize: [Role.Formateur]}},
+  //{ path: "/formateur/cours", name: "formateur_cours", component: Course, meta: {authorize: [Role.Formateur]}},
+  //{ path: "/formateur/ajouter-cours", name: "formateur_ajouter-cours", component: AjoutCours,  meta: {authorize: [Role.Formateur]}},
 
   //  ### Admin ###
   //Utilisateur
   { path: "/admin/dashboard", name:"admin_dashboard", component: AdminDashboard},
   { path: "/admin/addUser", name:"admin_addUser", component: AddUser},
   { path: "/admin/user-update/:id", name:"admin_user_update", component: AddUser},
-  { path: "/admin/userList", name:"admin_userList", component: UserList},
+  //{ path: "/admin/userList", name:"admin_userList", component: UserList},
   { path: "/admin/user-detail/:id", name:"admin_user_detail", component: DetailUser},
   //Promotion
   { path: "/admin/promotion-list", name:"admin_promotion_list", component: PromotionList},

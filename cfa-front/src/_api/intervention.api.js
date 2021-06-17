@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {requestOptions} from '@/_helpers/';
+import {requestOptions} from '@/_helpers/request-options.js';
 
 const END_POINT = "interventions";
 
