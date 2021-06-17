@@ -3,8 +3,18 @@
   <div>
     <section>
       <div class="container">
+        <div class="row my-3">
+          <div class="col-md-12">
+            <!-- <input type="text" v-bind:value="key" v-on:change="$emit('change',$event.target.value)" /> -->
+            <form action="" class="form form-inline float-right" @submit="onSubmit" v-on:change="$emit('change',$event.target.value)">
+              <input type="text" name="search" id="" class="form-control mr-2" v-bind:value="key" placeholder="Rechercher.." />
+              <input type="submit" value="Rechercher" class="btn btn-info" />
+            </form>
+          </div>
+        </div>
+
         <div class="row d-flex justify-content-between">
-          <div v-if="showBtn == true" id="show-btn">
+          <div v-if="showBtn == true" id="show-btn" class="col-md-12">
             <router-link :to="{ name: btnLink }" class="button">
               {{ btnTxt }}
             </router-link>
@@ -32,6 +42,7 @@
             </b-form>
           </div>
         </div>
+
         <div class="row">
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
@@ -118,12 +129,13 @@
             </b-table>
           </div>
         </div>
-        <paginate :page-count="rows" :page-range="2" :margin-pages="2" :click-handler="clickHandler"
-          :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'"
-          :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
-          :prev-link-class="'page-link'" :next-link-class="'page-link'" :active-class="'active'">
+        <paginate :page-count="rows" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
+          :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
+          :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+          :next-link-class="'page-link'" :active-class="'active'">
           >
         </paginate>
+
         <!-- 
         <b-pagination class="pages ml-auto border-0" v-model="current_page" :total-rows="rows" :per-page="per_page"
           aria-controls="my-table" size="sm">
@@ -140,6 +152,10 @@
 <script>
   export default {
     name: "TableTemplate",
+    model: {
+      prop: "keyword",
+      event: "change",
+    },
     props: {
       items: {
         // valeur des champs du tableau
@@ -176,18 +192,28 @@
         type: Boolean,
         default: false,
       },
-      length: { // longueur total de la liste
+      length: {
+        // longueur total de la liste
         type: Number,
         default: 0,
       },
-      clickHandler: { // methode quand la page est cliqué
-        type : Function
-      }
+      clickHandler: {
+        // methode quand la page est cliqué
+        type: Function,
+      },
+      keyword: {
+        type: String,
+        default: ""
+      },
+      onSubmit: {
+        type: Function,
+      },
     },
     data() {
       return {
         per_page: this.perPage, // nb d'items par pages
         current_page: this.currentPage, // page courante
+        // key_word: this.keyword
       };
     },
     computed: {
@@ -197,6 +223,23 @@
       display() {
         if (this.length <= 10) return "d-none";
       },
+      test: {
+        get() {
+          return this.checked;
+        },
+        set(value) {
+          this.checked = value;
+        }
+      },
+      key: {
+        get() {
+          return this.keyword;
+        },
+        set(keyword) {
+          this.keyword = keyword;
+          // this.$emit('emitChange',this.keyword)
+        }
+      }
     },
   };
 </script>
