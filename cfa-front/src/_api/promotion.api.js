@@ -22,7 +22,7 @@ function getPromotionByid(id){
 }
 
 function getAllByPage(page, size, search = ""){
-  let req = `/promotions/${page}/${size}/${search}`;
+  let req = `/${END_POINT}/${page}/${size}/${search}`;
 
   return  axios
       .get(req, requestOptions.headers())

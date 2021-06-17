@@ -76,6 +76,9 @@ import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
 import AddPromo from "@/views/Admin/Crud/Promotion/PromotionAdd.vue";
 import PromoDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
 
+import AdresseList from "@/views/Admin/Crud/Adresse/AdresseList.vue";
+import AddAdresse from "@/views/Admin/Crud/Adresse/AdresseCreate.vue";
+import AdresseDetail from "@/views/Admin/Crud/Adresse/AdresseDetail.vue";
 
 
 Vue.use(VueRouter);
@@ -132,6 +135,10 @@ const routes = [
   { path: "/admin/addPromotion", name:"admin_promotion_create", component: AddPromo},
   { path: "/admin/promo-update/:id", name:"admin_promotion_update", component: AddPromo},
   { path: "/admin/promo-detail/:id", name:"admin_promotion_detail", component: PromoDetail},
+  { path: "/admin/adresse-list", name:"admin_adresse_list", component: AdresseList},
+  { path: "/admin/addAdresse", name:"admin_addAdresse", component: AddAdresse},
+  { path: "/admin/adresse-detail/:id", name:"admin_adresse_detail", component: AdresseDetail},
+  { path: "/admin/adresse-update/:id", name:"admin_adresse_update", component: AddAdresse},
 
   
   //Referent
