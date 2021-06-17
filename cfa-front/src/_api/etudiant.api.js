@@ -6,6 +6,12 @@ export const etudiantApi = {
     getFormateurReferent,
     getManager,
     getPromotions,
+    getNotesById,
+    getCount,
+    getCountDevoirs,
+    getDevoirsById,
+    getAbsencesById,
+    
 }
 
 function getFormateurReferent(id) {
@@ -37,5 +43,47 @@ function getPromotions(id) {
     return axios
       .get(req, requestOptions.headers())
       .then(response => response.data[0])
+      .catch((error) => console.log(error));
+}
+
+function getNotesById(id, page, size){
+    let req = "etudiants/" + id + "/notes/" +page+ "/" +size
+    
+    return axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
+function getCount(){
+    let req = `/notes/count`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data["nb"])
+        .catch((error) => console.log(error));
+}
+function getCountDevoirs(){
+    let req = `/devoirs/count`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data["nb"])
+        .catch((error) => console.log(error));
+}
+
+function getDevoirsById(id,page,size){
+    let req = "etudiants/" + id + "/devoirs/" +page+ "/" +size
+    
+    return axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
+function getAbsencesById(id){
+    let req = "etudiants/" + id + "/absences" 
+    
+    return axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
       .catch((error) => console.log(error));
 }
