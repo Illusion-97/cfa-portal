@@ -9,13 +9,16 @@ import { Role } from '@/_helpers/role.js';
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 // import secure from '@/components/secure.vue'
-import AllInterventions from "../views/All/Intervention/AllInterventions.vue";
+// Global -> Intervention
+import AllInterventions from "@/views/All/Intervention/AllInterventions.vue";
 import AjoutIntervention from "@/views/All/Intervention/AjoutInterventions.vue";
 import DetailIntervention from '@/views/All/Intervention/DetailIntervention.vue'
 import ModiferIntervention from '@/views/All/Intervention/UpdateIntervention.vue'
-import AllFormations from "../views/All/Formation/AllFormation.vue";
+// Global -> Formation
+import AllFormations from "@/views/All/Formation/AllFormation.vue";
 import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
-import DetailFormation from "../views/All/Formation/DetailFormation.vue";
+import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
+
 
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
@@ -77,8 +80,8 @@ const routes = [
 
   //Global
 
-  { path: "/", name: "home", component: Home,},
-  { path: "/login", name: "login", component: LoginPage},
+  { path: "/", name: "home", component: Home, },
+  { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
@@ -111,36 +114,36 @@ const routes = [
 
 
   //Admin
-  { path: "/admin/dashboard", name:"admin_dashboard", component: AdminDashboard},
-  { path: "/admin/addUser", name:"admin_addUser", component: AddUser},
-  { path: "/admin/userList", name:"admin_userList", component: UserList},
-  { path: "/admin/conge-list", name:"admin_conge_list", component: CongeList},
-  
+  { path: "/admin/dashboard", name: "admin_dashboard", component: AdminDashboard },
+  { path: "/admin/addUser", name: "admin_addUser", component: AddUser },
+  { path: "/admin/userList", name: "admin_userList", component: UserList },
+  { path: "/admin/conge-list", name: "admin_conge_list", component: CongeList },
+
   //Referent
-  { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
-  { path: "/referent/notes", name: "referent_notes", component: NotesR},
-  { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif},
-  { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet},
-  { path: "/referent/projets", name: "referent_projets", component: Projets},
-  { path: "/referent/groupes", name: "referent-groupes", component: Groupes},
-  { path: "/referent/creation-groupe", name: "referent_create-groupe", component: CreateGroupe},
-  { path: "/referent/creation-projet", name: "referent_create-projet", component: CreateProjet},
-  { path: "/referent/modifier-groupe", name: "referent_modifier-groupe", component: ModifierGroupe},
-  { path: "/referent/modifier-projet", name: "referent_modifier-projet", component: ModifierProjet},
-  { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard},
-  { path: "/referent/creation-absence-retard", name: "referent_create-absence-retard", component: CreateAbsenceRetard},
-  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
-  { path: "/referent/cours", name: "referent_cours", component: CoursR},
-  { path: "/referent/creation-cours", name: "CreateCoursR", component: CreateCoursR},
-  { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
-  { path: "/referent/creation-devoir", name: "CreateDevoirR", component: CreateDevoirR},
-  { path: "/referent/modifier-devoir", name: "ModifierDevoirR", component: ModifierDevoirR},
-  { path: "/referent/examens", name: "ExamenR", component: ExamenR},
-  { path: "/referent/creation-examen", name: "CreateExamenR", component: CreateExamenR},
-  { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR},
-  { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR},
-  { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR},
-  
+  { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard },
+  { path: "/referent/notes", name: "referent_notes", component: NotesR },
+  { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif },
+  { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet },
+  { path: "/referent/projets", name: "referent_projets", component: Projets },
+  { path: "/referent/groupes", name: "referent-groupes", component: Groupes },
+  { path: "/referent/creation-groupe", name: "referent_create-groupe", component: CreateGroupe },
+  { path: "/referent/creation-projet", name: "referent_create-projet", component: CreateProjet },
+  { path: "/referent/modifier-groupe", name: "referent_modifier-groupe", component: ModifierGroupe },
+  { path: "/referent/modifier-projet", name: "referent_modifier-projet", component: ModifierProjet },
+  { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard },
+  { path: "/referent/creation-absence-retard", name: "referent_create-absence-retard", component: CreateAbsenceRetard },
+  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR },
+  { path: "/referent/cours", name: "referent_cours", component: CoursR },
+  { path: "/referent/creation-cours", name: "CreateCoursR", component: CreateCoursR },
+  { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR },
+  { path: "/referent/creation-devoir", name: "CreateDevoirR", component: CreateDevoirR },
+  { path: "/referent/modifier-devoir", name: "ModifierDevoirR", component: ModifierDevoirR },
+  { path: "/referent/examens", name: "ExamenR", component: ExamenR },
+  { path: "/referent/creation-examen", name: "CreateExamenR", component: CreateExamenR },
+  { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR },
+  { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR },
+  { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR },
+
   //Formateur
   { path: "/formateur/intervention", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] } },
 
@@ -157,41 +160,41 @@ router.beforeEach((to, from, next) => {
   const { authorize } = to.meta;
   const currentUser = store.getters.getUtilisateur;
 
-  if(to.path !== "/login"){
+  if (to.path !== "/login") {
 
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
-    if (!isUserLoggedIn)    
+    if (!isUserLoggedIn)
       return next({ path: '/login' });
-      //return next({ path: '/login', query: { returnUrl: to.path } });
-    
-  
+    //return next({ path: '/login', query: { returnUrl: to.path } });
+
+
     //Si la page nécessite une autorisation
-    if (authorize) {   
-  
-        let redirect = true;
-  
-        //Si la page nécessite un Role particulié
-        if(authorize.length){
-          //on regarde si l'utilisateur a une role autorisé
-          for(let i=0; i<currentUser.rolesDto.length; i++){
-            if(authorize.includes(currentUser.rolesDto[i].intitule)){
-              redirect = false;
-            }         
-          }        
-        }        
-            
-        //l'utilisateur n'a pas de role autorisé => redirect vers /home
-        if(redirect)
-          return next({ path: '/' });
-  
+    if (authorize) {
+
+      let redirect = true;
+
+      //Si la page nécessite un Role particulié
+      if (authorize.length) {
+        //on regarde si l'utilisateur a une role autorisé
+        for (let i = 0; i < currentUser.rolesDto.length; i++) {
+          if (authorize.includes(currentUser.rolesDto[i].intitule)) {
+            redirect = false;
+          }
+        }
+      }
+
+      //l'utilisateur n'a pas de role autorisé => redirect vers /home
+      if (redirect)
+        return next({ path: '/' });
+
     }
-  
+
   }
 
-  
+
   next();
-  
+
 })
 
 export default router;
