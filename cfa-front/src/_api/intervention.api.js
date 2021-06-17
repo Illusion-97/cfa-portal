@@ -1,15 +1,15 @@
 import axios from "axios";
 import { requestOptions } from "@/_helpers/request-options.js";
 
-const END_POINT = "devoirs";
+const END_POINT = "interventions";
 
-export const devoirApi = {
+export const interventionApi = {
   getById,
   getAllByPage,
   getCount,
   save,
-  updateDevoir,
-  deleteDevoir,
+  updateIntervention,
+  deleteIntervention,
 };
 
 function getById(id){
@@ -39,21 +39,21 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function save(devoir) {
+function save(intervention) {
   return axios
-    .post(`${END_POINT}`, devoir, requestOptions.headers())
+    .post(`${END_POINT}`, intervention, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-function updateDevoir(devoir) {
+function updateIntervention(intervention) {
   return axios
-    .post(`${END_POINT}`, devoir, requestOptions.headers())
+    .post(`${END_POINT}`, intervention, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-function deleteDevoir(id) {
+function deleteIntervention(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)

@@ -223,23 +223,5 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form {
-  width: 40%;
-}
-
-#saisie {
-  width: 70%;
-  margin-right: 5%;
-}
-
-.mon-btn{
-  width: 80%;
-}
+<style scoped src="@/assets/styles/CrudCreate.css">
 </style>

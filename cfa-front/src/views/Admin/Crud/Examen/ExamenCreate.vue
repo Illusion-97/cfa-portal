@@ -90,24 +90,24 @@ export default {
 
 <style scoped>
 .header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form {
-  width: 40%;
-}
-
-#saisie {
-  width: 70%;
-  margin-right: 5%;
-}
-
-.mon-btn {
-  width: 80%;
-}
-
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5%;
+  }
+  
+  .header-list > form {
+    width: 40%;
+  }
+  
+  #saisie {
+    width: 70%;
+    margin-right: 5%;
+  }
+  
+  .mon-btn{
+    width: 80%;
+  }
+  
 #form-group{
   margin-left: 1.8em;
 }
