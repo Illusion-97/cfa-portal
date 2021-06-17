@@ -1,0 +1,188 @@
+<template>
+  <div class="container-fluid">
+    <div class="header-list">
+      <div class="text-align-left" id="groupe-input" v-if="!isAction">
+        <label class="col-1">Etudiant</label>
+        <input
+          class="col-9 form-control"
+          type="text"
+          :value="etudiant_input"
+          disabled="disabled"
+        />
+      </div>
+
+      <form class="form-inline form" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="saisie"
+        />
+        <button class="btn btn-primary" type="submit">Recherche</button>
+      </form>
+
+      <router-link
+        class="btn btn-info"
+        :to="{ name: 'admin_etudiant_create' }"
+        v-if="isAction"
+        >Ajouter</router-link
+      >
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Prenom Nom</th>
+          <th>Email</th>
+          <th>Promotions</th>
+          <th v-if="isAction">Actions</th>
+        </tr>
+      </thead>
+      <tbody v-if="etudiantsComputed">
+        <tr
+          v-for="etudiant in etudiantsComputed"
+          :key="etudiant.id"
+          v-on:click="clickList(etudiant)"
+        >
+          <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
+          <td>{{ etudiant.login }}</td>
+          <td>
+            <span
+              v-for="promotion in etudiant.promotionsDto"
+              :key="promotion.id"
+              >{{ promotion.nom }}</span
+            >
+          </td>
+          <td v-if="isAction">
+            <router-link
+              class="btn btn-info"
+              :to="{
+                name: 'admin_etudiant_detail',
+                params: { id: etudiant.id },
+              }"
+              >Detail</router-link
+            >
+            &nbsp;
+            <router-link
+              class="btn btn-info"
+              :to="{
+                name: 'admin_etudiant_update',
+                params: { id: etudiant.id },
+              }"
+              >Update</router-link
+            >
+            &nbsp;
+            <button
+              class="btn btn-info"
+              v-on:click="deleteEtudiant(etudiant.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <paginate
+      :page-count="pageCount"
+      :page-range="1"
+      :margin-pages="2"
+      :click-handler="pageChange"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
+      :prev-class="'page-item'"
+      :next-class="'page-item'"
+      :prev-link-class="'page-link'"
+      :next-link-class="'page-link'"
+      :active-class="'active'"
+    >
+      >
+    </paginate>
+  </div>
+</template>
+
+<script>
+import { etudiantApi } from "@/_api/etudiant.api.js";
+
+export default {
+  name: "etudiantListComponent",
+  components: {},
+  props: {
+    isAction: {
+      type: Boolean,
+      default: false,
+    },
+    etudiantProp: {
+      default: null,
+    },
+  },
+  watch: {
+    etudiantProp() {
+      if (this.etudiantProp != null)
+        this.etudiant_input = `${this.etudiantProp.titre}`;
+    },
+  },
+  data() {
+    return {
+      etudiants: [],
+      perPage: 10,
+      pageCount: 0,
+
+      saisie: "",
+
+      etudiant_input: "",
+    };
+  },
+  computed: {
+    etudiantsComputed() {
+      return this.etudiants;
+    },
+    nbPageComputed() {
+      return this.pageCount;
+    },
+  },
+  created() {
+    this.refreshList();
+  },
+  methods: {
+    submit(e) {
+      e.preventDefault();
+      etudiantApi
+        .getAllByPage(0, this.perPage, this.saisie)
+        .then((response) => (this.etudiants = response));
+      etudiantApi
+        .getCount(this.saisie)
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
+    },
+    pageChange(pageNum) {
+      etudiantApi
+        .getAllByPage(pageNum - 1, this.perPage)
+        .then((response) => (this.etudiants = response));
+    },
+    refreshList() {
+      etudiantApi
+        .getAllByPage(0, this.perPage)
+        .then((response) => (this.etudiants = response));
+      etudiantApi
+        .getCount()
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
+    },
+    deleteEtudiant(etudiantId) {
+      etudiantApi.deleteEtudiant(etudiantId).then(() => this.refreshList());
+    },
+    clickList(etudiant) {
+      this.etudiant_input = etudiant.enonce;
+      this.$emit("click-list", etudiant);
+    },
+  },
+};
+</script>
+
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
