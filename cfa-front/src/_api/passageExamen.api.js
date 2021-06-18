@@ -6,7 +6,7 @@ export const passageExamenApi = {
     getAllByPage,
     getCount,
     save,
-    deleteNote,
+    deletePassageExamen,
 }
 
 function getById(id){
@@ -46,7 +46,7 @@ function save(form) {
 
 }
 
-function deleteNote(id) {
+function deletePassageExamen(id) {
     let req =  `passageExamens/${id}`;
 
     return axios

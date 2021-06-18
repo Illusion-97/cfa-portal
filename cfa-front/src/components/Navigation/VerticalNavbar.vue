@@ -65,6 +65,7 @@
                         <router-link class="nav-item" :to="{name:'admin_examen_list'}">Examens</router-link>
                         <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>
                         <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_passage-examen_list'}">Passages Examens</router-link>
                     </b-nav>
                 </nav>    
                   

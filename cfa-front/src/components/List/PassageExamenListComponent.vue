@@ -17,7 +17,7 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_passageExamen_create' }" v-if="isAction"
+      <router-link class="btn btn-info" :to="{ name: 'admin_passage-examen_create' }" v-if="isAction"
         >Ajouter</router-link
       >
     </div>
@@ -40,13 +40,13 @@
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_passageExamen_detail', params: { id: passageExamen.id } }"
+              :to="{ name: 'admin_passage-examen_detail', params: { id: passageExamen.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_passageExamen_update', params: { id: passageExamen.id } }"
+              :to="{ name: 'admin_passage-examen_update', params: { id: passageExamen.id } }"
               >Update</router-link
             >
             &nbsp;
