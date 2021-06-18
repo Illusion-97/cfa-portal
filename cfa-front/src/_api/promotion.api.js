@@ -13,7 +13,7 @@ export const promotionApi = {
 const END_POINT = "promotions";
 
 function getPromotionByid(id){
-    let req =  "promotions/" + id ;
+    let req =  `/promotions/${id}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -22,7 +22,7 @@ function getPromotionByid(id){
 }
 
 function getAllByPage(page, size, search = ""){
-  let req = `/${END_POINT}/${page}/${size}/${search}`;
+  let req = `/promotions/${page}/${size}/${search}`;
 
   return  axios
       .get(req, requestOptions.headers())

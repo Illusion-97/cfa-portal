@@ -127,7 +127,7 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteUtilisateur(promotionId) {
+    deletePromotion(promotionId) {
       promotionApi.deletePromotion(promotionId).then(() => this.refreshList());
     },
 

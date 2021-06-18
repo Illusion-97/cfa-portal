@@ -15,15 +15,15 @@
         </b-card-header>
 
         <b-card-text class="identity row ml-5">
-          <span class="font-weight-bold col-md-2">Date de début :</span>
-          <span class="col-md-4">{{ promotion.dateDebut }}</span>
-          <span class="font-weight-bold col-md-2">Date de fin : </span>
-          <span class="col-md-4">{{ promotion.dateFin }}</span>
+          <span class="font-weight-bold col-md-3">Date de début :</span>
+          <span class="col-md-6">{{ promotion.dateDebut }}</span>
+          <span class="font-weight-bold col-md-6">Date de fin : </span>
+          <span class="col-md-6">{{ promotion.dateFin }}</span>
         </b-card-text>
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Nom :</span>
-          <span class="col-md-4">{{ promotion.nom }}</span>
+          <span class="col-md-6">{{ promotion.nom }}</span>
         </b-card-text>
 
     </b-card>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { promotionAPi } from "@/_api/promotion.api.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 export default {
   name: "PromoDetail",
   components: {
@@ -45,7 +45,7 @@ export default {
     };
   },
   created() {
-    promotionAPi.getPromotionByid(this.$route.params.id).then(response => this.user = response);
+    promotionApi.getPromotionByid(this.$route.params.id).then(response => this.promotion = response);
   },
 };
 </script>
