@@ -4,96 +4,58 @@ import { requestOptions } from '@/_helpers/request-options.js';
 const END_POINT = "formations";
 
 export const formationApi = {
-  getById,
   getAllByPage,
-  getCount,
   deleteFormation,
+  getFormation,
+  insertFormation,
+  getFormationById,
+  countFormation
 }
 
-function getById(id){
-  let req = `/${END_POINT}/${id}`;
+function getAllByPage(page, size, search = "") {
+  let url = `/${END_POINT}/${page - 1}/${size}/${search}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
-}
-
-function getAllByPage(page, size, search = ""){
-  let req = `/${END_POINT}/${page}/${size}/${search}`;
-
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
-}
-
-function getCount(search = ""){
-  let req = `/${END_POINT}/count/${search}`;
-
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data["nb"])
-      .catch((error) => console.log(error));
-}
-
-function deleteFormation(id) {
   return axios
-    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .get(url, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getFormation(page, size) {
+  const url = `/${END_POINT}/${page - 1}/${size}`;
+
+  return axios.get(url, requestOptions.headers())
+    .then(response => response.data)
+    .catch(err => console.error(err))
+}
+
+function insertFormation(form) {
+  const url = `/${END_POINT}`;
+
+  return axios.post(url, form, requestOptions.headers())
+    .then(response => response)
+    .catch(err => console.error(err))
+}
+
+function getFormationById(id) {
+  const url = `/${END_POINT}/${id}`;
+
+  return axios.get(url, requestOptions.headers())
+    .then(response => response.data)
+    .catch(err => console.error(err))
+}
+
+function deleteFormation(id) { // EN STAND BY DANS LE BACKEND
+  const url = `/${END_POINT}/${id}`
+  return axios
+    .delete(url, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-export async function getAllFormationsHttp() {
-    let formations = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    formations = response.data;
-    return formations;
-  }
-  
-  export async function getAllFormationsBy() {
-    let formations = [];
-    const response = await axios.get(`${END_POINT}`, requestOptions.headers());
-    formations = response.data;
-    return formations;
-  }
-
-export async function addFormationsHttp(formation) {
-  let formationAdded = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: formation.id,
-        titre: formation.titre,
-        contenu: formation.contenu,
-        cursus: formation.cursus,
-    },*/
-    formation,
-    requestOptions.headers()
-  );
-  formationAdded = response.data;
-  return formationAdded;
-}
-
-export async function updateFormationsHttp(formation) {
-  let formationUpdate = null;
-  const response = await axios.post(
-    `${END_POINT}`,/*
-    {
-        id: formation.id,
-        titre: formation.titre,
-        contenu: formation.contenu,
-        cursus: formation.cursus,
-    },*/
-    formation,
-    requestOptions.headers()
-  );
-  formationUpdate = response.data;
-  return formationUpdate;
-}
-
-export async function deleteFormationsHttp(id) {
-  let response = null;
-  response = await axios.delete(`${END_POINT}/${id}`, requestOptions.headers());
-  return response.data;
+function countFormation(key = "") {
+  const url = `/${END_POINT}/count/${key}`;
+  return axios.get(url, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch(err => console.error(err))
 }

@@ -1,12 +1,12 @@
 <template>
     <section>
         <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
+        <!-- TODO : afficher ou non les boutons supprimer et modifier en fonction du role. ADMIN=> afficher:oui.REF => afficher:non  -->
         <router-link :to="{ name: 'all-intervention' }" class="h5"
             style="cursor:pointer; color:black;text-decoration:none;">
             <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
             Precedent
         </router-link>
-        <!-- {{items}} -->
         <h1 class="text-center">Modifier une intervention</h1>
         <div class="container">
             <div class="row">
@@ -68,9 +68,11 @@
                             </div>
                         </b-form-group>
 
-                        <b-button type="reset" variant="outline-danger">Annuler</b-button>
-                        <b-button type="submit" variant="outline-info" class="float-end px-3">Envoyer</b-button>
+                        <div class="d-flex justify-content-end">
+                            <b-button type="submit" variant="outline-info" class="px-5">Envoyer</b-button>
+                        </div>
                     </b-form>
+
                     <div class="d-flex" v-if="!show">
                         <b-card class="mt-3 col" header="Default form result">
                             <pre class="m-0">{{ items }}</pre>
@@ -152,6 +154,8 @@
                 // this.form.dateFin = "";
                 // this.form.support = "";
                 this.form = this.items;
+                this.form.formationDto.id = this.interventionId;
+                
                 // Trick to reset/clear native browser form validation state
                 this.show = false;
                 this.$nextTick(() => {
