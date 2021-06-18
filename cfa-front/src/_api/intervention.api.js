@@ -49,7 +49,7 @@ function getAllIntervention() {
 
 function updateIntervention(form) {
     const url = `/${END_POINT}/`;
-    return axios.put(url, form)
+    return axios.put(url, form, requestOptions.headers())
         .then(response => response)
         .catch(err => console.error(err));
 }
@@ -95,12 +95,12 @@ function save(intervention) {
     .catch((error) => console.log(error));
 }
 
-function updateIntervention(intervention) {
-  return axios
-    .post(`${END_POINT}`, intervention, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-}
+// function updateIntervention(intervention) {
+//   return axios
+//     .post(`${END_POINT}`, intervention)
+//     .then((response) => response.data)
+//     .catch((error) => console.log(error));
+// }
 
 function deleteIntervention(id) {
   return axios
