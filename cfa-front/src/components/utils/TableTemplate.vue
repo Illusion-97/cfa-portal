@@ -3,11 +3,13 @@
   <div>
     <section>
       <div class="container">
+
         <div class="row my-3">
           <div class="col-md-12">
-            <!-- <input type="text" v-bind:value="key" v-on:change="$emit('change',$event.target.value)" /> -->
-            <form action="" class="form form-inline float-right" @submit="onSubmit" v-on:change="$emit('change',$event.target.value)">
-              <input type="text" name="search" id="" class="form-control mr-2" v-bind:value="key" placeholder="Rechercher.." />
+            <form action="" class="form form-inline float-right" @submit="onSubmit"
+              @input="$emit('input',$event.target.value)">
+              <input type="text" name="search" id="" class="form-control mr-2" v-bind:value="key"
+                placeholder="Rechercher.." />
               <input type="submit" value="Rechercher" class="btn btn-info" />
             </form>
           </div>
@@ -133,13 +135,8 @@
           :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
           :next-link-class="'page-link'" :active-class="'active'">
-          >
-        </paginate>
 
-        <!-- 
-        <b-pagination class="pages ml-auto border-0" v-model="current_page" :total-rows="rows" :per-page="per_page"
-          aria-controls="my-table" size="sm">
-        </b-pagination> -->
+        </paginate>
       </div>
     </section>
   </div>
@@ -154,7 +151,7 @@
     name: "TableTemplate",
     model: {
       prop: "keyword",
-      event: "change",
+      event: "input",
     },
     props: {
       items: {
@@ -200,20 +197,22 @@
       clickHandler: {
         // methode quand la page est cliqué
         type: Function,
+        required: true
       },
-      keyword: {
+      keyword: { // saisie pour la recherche
         type: String,
         default: ""
       },
-      onSubmit: {
+      onSubmit: { // methode pour soumettre la recherche
         type: Function,
-      },
+        required: false,
+        default: () => null
+      }
     },
     data() {
       return {
         per_page: this.perPage, // nb d'items par pages
         current_page: this.currentPage, // page courante
-        // key_word: this.keyword
       };
     },
     computed: {
@@ -222,14 +221,6 @@
       },
       display() {
         if (this.length <= 10) return "d-none";
-      },
-      test: {
-        get() {
-          return this.checked;
-        },
-        set(value) {
-          this.checked = value;
-        }
       },
       key: {
         get() {

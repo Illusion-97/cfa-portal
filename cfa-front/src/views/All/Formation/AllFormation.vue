@@ -20,12 +20,10 @@
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import { formationFields } from "@/assets/js/fields.js";
-import { BAlert} from 'bootstrap-vue'
 export default {
   name: "Formation",
   components: {
     TableTemplate,
-    BAlert
   },
   data() {
     return {
@@ -59,21 +57,13 @@ export default {
     },
     search(evt) {
       evt.preventDefault();
-        formationApi
-          .getAllByPage(this.currentPage, this.perPage, this.key)
-          .then((data) => {
-            this.items = data;
-            console.log(this.items);
-          });
-        formationApi
-          .countFormation(this.key)
-          .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
+      formationApi
+        .getAllByPage(this.currentPage, this.perPage, this.key)
+        .then((data) => (this.items = data));
+      formationApi
+        .countFormation(this.key)
+        .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
-    // refresh(e) {
-    //   e.preventDefault();
-    //   console.log(e);
-    //   if (this.key === "") this.fillList();
-    // },
   },
   computed: {
     nbPageComputed() {
