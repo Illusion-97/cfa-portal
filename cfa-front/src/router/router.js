@@ -86,6 +86,10 @@ import AdresseList from "@/views/Admin/Crud/Adresse/AdresseList.vue";
 import AddAdresse from "@/views/Admin/Crud/Adresse/AdresseCreate.vue";
 import AdresseDetail from "@/views/Admin/Crud/Adresse/AdresseDetail.vue";
 
+import EntrepriseList from "@/views/Admin/Crud/Entreprise/EntrepriseList.vue";
+import AddEntreprise from "@/views/Admin/Crud/Entreprise/EntrepriseCreate.vue";
+import EntrepriseDetail from "@/views/Admin/Crud/Entreprise/EntrepriseDetail.vue";
+
 
 Vue.use(VueRouter);
 
@@ -162,6 +166,11 @@ const routes = [
   { path: "/admin/devoir-create", name:"admin_devoir_create", component: DevoirCreate},
   { path: "/admin/devoir-update/:id", name:"admin_devoir_update", component: DevoirCreate},
   { path: "/admin/devoir-detail/:id", name:"admin_devoir_detail", component: DevoirDetail},
+  //Entreprise
+  { path: "/admin/entreprise-list", name:"admin_entreprise_list", component: EntrepriseList},
+  { path: "/admin/addEntreprise", name:"admin_addEntreprise", component: AddEntreprise},
+  { path: "/admin/entreprise-detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail},
+  { path: "/admin/entreprise-update/:id", name:"admin_entreprise_update", component: AddEntreprise},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},

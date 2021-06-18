@@ -65,6 +65,7 @@
                         <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
                         <router-link class="nav-item" :to="{name:'admin_examen_list'}">Examens</router-link>
                         <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
                     </b-nav>
                 </nav>    
                   
