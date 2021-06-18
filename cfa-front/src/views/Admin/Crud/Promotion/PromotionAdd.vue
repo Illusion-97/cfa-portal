@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import {promotionAPi} from "@/_api/promotion.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 
 export default {
@@ -81,14 +81,14 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      promotionAPi.save(this.form).then(() => this.$router.push({ name: 'admin_promotion_list'}));
+      promotionApi.save(this.form).then(() => this.$router.push({ name: 'admin_promotion_list'}));
     },
   },
   created() {
   
     if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
       console.log(this.$route.params.id);
-      promotionAPi.getPromotionByid(this.$route.params.id).then(response => {
+      promotionApi.getPromotionByid(this.$route.params.id).then(response => {
         this.form = response
         this.vue_title = "Modification d'une promotion";
         this.btn_form_text = "Modifier";

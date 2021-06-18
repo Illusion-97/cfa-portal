@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { promotionAPi } from "@/_api/promotion.api.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 export default {
   name: "PromoDetail",
   components: {
@@ -45,7 +45,7 @@ export default {
     };
   },
   created() {
-    promotionAPi.getPromotionByid(this.$route.params.id).then(response => this.user = response);
+    promotionApi.getPromotionByid(this.$route.params.id).then(response => this.user = response);
   },
 };
 </script>
