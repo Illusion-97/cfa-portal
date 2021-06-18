@@ -25,7 +25,7 @@
       <thead class="thead-dark">
         <tr>
           <th>Etudiant</th>
-          <th>Devoir/Examun</th>
+          <th>Devoir/Examen</th>
           <th>Note</th>
           <th>Observations</th>
           <th v-if="isAction">Actions</th>
@@ -35,8 +35,8 @@
         <tr v-for="note in notesComputed" :key="note.id" v-on:click="clickList(note)">
           <td>{{ note.etudiantDto.prenom }} {{ note.etudiantDto.nom }}</td>
           <td> 
-              <span v-if="note.devoirDto">{{ note.devoir.enonce }}</span>
-              <span v-if="note.examenDto">{{ note.examen.enonce }}</span>
+              <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span>
+              <span v-if="note.examenDto">{{ note.examenDto.enonce }}</span>
           </td>
           <td>{{ note.noteObtenu }}</td>
           <td>{{ note.observations }}</td>

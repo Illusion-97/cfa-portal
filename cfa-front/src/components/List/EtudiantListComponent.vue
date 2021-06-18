@@ -122,7 +122,7 @@ export default {
   watch: {
     etudiantProp() {
       if (this.etudiantProp != null)
-        this.etudiant_input = `${this.etudiantProp.titre}`;
+        this.etudiant_input = `${this.etudiantProp.prenom} ${this.etudiantProp.nom}`;
     },
   },
   data() {
@@ -178,7 +178,7 @@ export default {
       etudiantApi.deleteEtudiant(etudiantId).then(() => this.refreshList());
     },
     clickList(etudiant) {
-      this.etudiant_input = etudiant.enonce;
+      this.etudiant_input = `${etudiant.prenom} ${etudiant.nom}`;
       this.$emit("click-list", etudiant);
     },
   },

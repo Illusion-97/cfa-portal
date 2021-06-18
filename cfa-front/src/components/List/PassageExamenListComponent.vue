@@ -95,9 +95,9 @@ export default {
     }
   },
   watch: {
-    passageExamenProp(){
+    passageExamenProp(){      
       if (this.passageExamenProp != null) 
-        this.passageExamen_input = `${this.passageExamenProp.titre}`;
+        this.passageExamen_input = `${this.passageExamenProp.examenDto.enonce}`;
     }
   },
   data() {

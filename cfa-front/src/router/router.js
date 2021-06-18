@@ -79,6 +79,7 @@ import DevoirCreate from "@/views/Admin/Crud/Devoir/DevoirCreate.vue";
 import DevoirDetail from "@/views/Admin/Crud/Devoir/DevoirDetail.vue";
 import NoteList from "@/views/Admin/Crud/Note/NoteList.vue";
 import NoteCreate from "@/views/Admin/Crud/Note/NoteCreate.vue";
+import NoteDetail from "@/views/Admin/Crud/Note/NoteDetail.vue";
 
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
 import AddPromo from "@/views/Admin/Crud/Promotion/PromotionAdd.vue";
@@ -159,6 +160,8 @@ const routes = [
   //Note
   { path: "/admin/note-list", name:"admin_note_list", component: NoteList},
   { path: "/admin/note-create", name:"admin_note_create", component: NoteCreate},
+  { path: "/admin/note-update/:id", name:"admin_note_update", component: NoteCreate},
+  { path: "/admin/note-detail/:id", name:"admin_note_detail", component: NoteDetail},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},

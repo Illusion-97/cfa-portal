@@ -97,7 +97,7 @@ export default {
   watch: {
     devoirProp(){
       if (this.devoirProp != null) 
-        this.devoir_input = `${this.devoirProp.titre}`;
+        this.devoir_input = `${this.devoirProp.enonce}`;
     }
   },
   data() {

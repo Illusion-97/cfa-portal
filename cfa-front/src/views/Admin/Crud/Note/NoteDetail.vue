@@ -1,0 +1,65 @@
+<template>
+  <div class="container-fluid">
+    <router-link
+      :to="{ name: 'admin_note_list' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
+
+    <b-card no-body id="my-card">
+      <b-card-header>
+        <span class="">Detail</span>
+      </b-card-header>
+
+      <b-card-text class="identity row ml-5">
+        <span class="font-weight-bold col-md-2">Etudiant :</span>
+        <span class="col-md-4">{{ note.etudiantDto.prenom }} {{ note.etudiantDto.nom }}</span>
+      </b-card-text>
+
+      <b-card-text class="identity row ml-5">
+        <span class="font-weight-bold col-md-2">Devoir / Examens :</span>
+        <span class="col-md-4">
+          <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span
+          ><span v-if="note.examenDto">{{
+            note.examenDto.examenDto.enonce
+          }}</span></span
+        >
+      </b-card-text>
+
+      <b-card-text class="identity row ml-5">
+        <span class="font-weight-bold col-md-2">Note :</span>
+        <span class="col-md-4"> {{ note.noteObtenu }}</span>
+      </b-card-text>
+
+      <b-card-text class="identity row ml-5">
+        <span class="font-weight-bold col-md-2">Observations :</span>
+        <span class="col-md-4">{{ note.observations }}</span>
+      </b-card-text>
+    </b-card>
+  </div>
+</template>
+
+<script>
+import { noteApi } from "@/_api/note.api.js";
+export default {
+  name: "NoteDetail",
+  components: {},
+  data() {
+    return {
+      noteId: this.$route.params.id,
+      note: {},
+      loading: false,
+    };
+  },
+  created() {
+    noteApi
+      .getById(this.$route.params.id)
+      .then((response) => (this.note = response));
+  },
+};
+</script>
+
+<style scoped src="@/assets/styles/CrudDetail.css"></style>

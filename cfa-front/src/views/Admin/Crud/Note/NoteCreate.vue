@@ -2,12 +2,46 @@
   <div class="container-fluid">
     <BodyTitle :title="vue_title" />
 
-    <EtudiantListComponent v-on:click-list="onClickChildEtudiantList" :etudiantProp="etudiant_input"/>
+    <b-form class="form mb-5" @submit="submit">
+      <b-form-group id="form-group">
+        <b-form-row class="text-align-left">
+          <label id="label">Note</label>
+          <div id="input">
+            <b-form-input type="number" v-model="form.noteObtenu"> </b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
 
-    <PassageExamenListComponent v-on:click-list="onClickChildPassageExamenList" :passageExamenProp="passageExamen_input"/>
+      <b-form-group id="form-group">
+        <b-form-row class="text-align-left">
+          <label id="label">Observations</label>
+          <div id="input">
+            <b-form-input type="text" v-model="form.observations"> </b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
 
-    <DevoirListComponent v-on:click-list="onClickChildDevoirList" :devoirProp="devoir_input"/>
+      <EtudiantListComponent
+        v-on:click-list="onClickChildEtudiantList"
+        :etudiantProp="etudiant_input"
+      />
 
+      <PassageExamenListComponent
+        v-on:click-list="onClickChildPassageExamenList"
+        :passageExamenProp="passageExamen_input"
+      />
+
+      <DevoirListComponent
+        v-on:click-list="onClickChildDevoirList"
+        :devoirProp="devoir_input"
+      />
+
+      <div class="offset-10 col-3 pr-5 pl-0">
+        <button type="submit" class="btn btn-primary mon-btn">
+          {{ btn_form_text }}
+        </button>
+      </div>
+    </b-form>
   </div>
 </template>
 
@@ -32,7 +66,7 @@ export default {
       btn_form_text: "Ajouter",
 
       form: {
-        noteObtenu: -1,
+        noteObtenu: null,
         observations: "",
         etudiantDto: {},
         examenDto: {},
@@ -82,7 +116,6 @@ export default {
         this.form = response;
         this.vue_title = "Update d'un note";
         this.btn_form_text = "Update";
-
         this.etudiant = response.etudiantDto;
         this.passageExamen = response.examenDto;
         this.devoir = response.devoirDto;
@@ -92,4 +125,36 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.header-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5%;
+  }
+  
+  .header-list > form {
+    width: 40%;
+  }
+  
+  #saisie {
+    width: 70%;
+    margin-right: 5%;
+  }
+  
+  .mon-btn{
+    width: 80%;
+  }
+  
+#form-group{
+  margin-left: 1.8em;
+}
+
+#label{
+  width: 10em;
+  padding-left: 0.2em;;
+}
+
+#input{
+  width: 37.2%
+}
+</style>
