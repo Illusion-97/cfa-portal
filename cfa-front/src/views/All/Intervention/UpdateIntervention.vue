@@ -67,9 +67,9 @@
                                 <input type="file" class="ms-2" id="file" name="form.support" @change="previewFiles" />
                             </div>
                         </b-form-group>
-                        <div class="d-flex justify-content-between">
-                            <b-button type="reset" variant="outline-danger">Annuler</b-button>
-                            <b-button type="submit" variant="outline-info" class="px-3">Envoyer</b-button>
+
+                        <div class="d-flex justify-content-end">
+                            <b-button type="submit" variant="outline-info" class="px-5">Envoyer</b-button>
                         </div>
                     </b-form>
 
@@ -154,6 +154,8 @@
                 // this.form.dateFin = "";
                 // this.form.support = "";
                 this.form = this.items;
+                this.form.formationDto.id = this.interventionId;
+                
                 // Trick to reset/clear native browser form validation state
                 this.show = false;
                 this.$nextTick(() => {
