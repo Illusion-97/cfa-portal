@@ -26,7 +26,7 @@
           <th>#</th>
           <th>Numero</th>
           <th>Rue</th>
-          <th>Vile</th>
+          <th>Ville</th>
           <th>Code Postal</th>
           <th>Action</th>
         </tr>
