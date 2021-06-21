@@ -12,7 +12,7 @@
               <p class="card-text">
                 Listes des groupes / créer un groupe
               </p>
-              <a href="/referent/groupes" class="btn btn-primary">Groupes</a>
+              <router-link class="btn btn-primary" :to="{name :'referent-groupes'}">Groupes</router-link>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
               <p class="card-text">
                 Listes des projets / créer un projet
               </p>
-              <a href="/referent/projets" class="btn btn-primary">Projets</a>
+              <router-link class="btn btn-primary" :to="{name: 'referent_projets'}">Projets</router-link>
             </div>
           </div>
         </div>

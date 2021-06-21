@@ -7,17 +7,17 @@
       <br />
       <div class="row g-3">
         <div class="col-sm-3">
-          <a href="/referent/creation-cours" class="btn btn-primary"
-            >Créer un cours</a
+          <router-link class="btn btn-primary" :to="{name: 'CreateCoursR'}"
+            >Créer un cours</router-link
           >
         </div>
       </div>
       <br />
       <div class="btn-group" role="group" aria-label="Basic example">
-      <a href="/referent/creation-note-info" class="btn btn-secondary">Rédiger une note d'information optionnelle </a>
-      <a href="/referent/creation-support-de-cours" class="btn btn-secondary" >Enregistrer un support de cours</a>
-      <a href="/referent/examens" class="btn btn-secondary" >Voir la liste des examens</a>
-      <a href="/referent/devoirs" class="btn btn-secondary" >Voir la liste des devoirs</a>
+      <router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
+      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>
+      <router-link class="btn btn-secondary" :to="{name: 'ExamenR'}">Voir la liste des examens</router-link>
+      <router-link class="btn btn-secondary" :to="{ name: 'DevoirsR' }">Voir la liste des devoirs</router-link>
       </div>
       <br />
       

@@ -6,8 +6,8 @@
       <br />
       <div class="row g-3">
         <div class="col-sm-3">
-          <a href="/referent/creation-devoir" class="btn btn-primary"
-            >Créer un Devoir</a
+          <router-link class="btn btn-primary" :to="{ name: 'CreateDevoirR'}"
+            >Créer un Devoir</router-link
           >
         </div>
       </div>
@@ -52,6 +52,14 @@
       </table>
       -->
     </div>
+     <router-link
+      :to="{ name: 'referent_cours' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
   </div>
 </template>
 
