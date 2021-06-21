@@ -65,6 +65,7 @@
                         <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
                         <router-link class="nav-item" :to="{name:'admin_adresse_list'}">Adresses</router-link>
                         <router-link class="nav-item" :to="{name:'all-intervention'}">Intervention</router-link>
+                        <router-link class="nav-item" :to="{name:'formateur_intervention'}">Intervention Formateur</router-link>
                         <router-link class="nav-item" :to="{name:'all-formations'}">Formation</router-link>
                         <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
                         <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
