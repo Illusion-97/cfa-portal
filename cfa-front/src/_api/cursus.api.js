@@ -10,6 +10,7 @@ export const cursusApi = {
   addCursus,
   updateCursus,
   deleteCursus,
+  getAllCursus,
 };
 
 function getById(id){
@@ -54,8 +55,17 @@ function updateCursus(cursus) {
 }
 
 function deleteCursus(id) {
+  let req =  `cursus/delete/${id}`;
+
   return axios
-    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+      .delete(req, requestOptions.headers())
+      .then((response) => response)
+      .catch((error) => console.log(error));
+}
+
+function getAllCursus() {
+  return axios
+    .get(`${END_POINT}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

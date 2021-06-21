@@ -91,6 +91,11 @@ import AddEntreprise from "@/views/Admin/Crud/Entreprise/EntrepriseCreate.vue";
 import EntrepriseDetail from "@/views/Admin/Crud/Entreprise/EntrepriseDetail.vue";
 
 
+import CursusList from "@/views/Admin/Crud/Cursus/CursusList.vue";
+import AddCursus from "@/views/Admin/Crud/Cursus/CursusCreate.vue";
+import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -171,6 +176,11 @@ const routes = [
   { path: "/admin/addEntreprise", name:"admin_addEntreprise", component: AddEntreprise},
   { path: "/admin/entreprise-detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail},
   { path: "/admin/entreprise-update/:id", name:"admin_entreprise_update", component: AddEntreprise},
+  //Cursus
+  { path: "/admin/cursus-list", name:"admin_cursus_list", component: CursusList},
+  { path: "/admin/addCursus", name:"admin_addCursus", component: AddCursus},
+  { path: "/admin/cursus-detail/:id", name:"admin_cursus_detail", component: CursusDetail},
+  { path: "/admin/cursus-update/:id", name:"admin_cursus_update", component: AddCursus},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
