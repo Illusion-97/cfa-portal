@@ -92,7 +92,7 @@ export default {
         .getNotesById(this.$store.getters.getUtilisateur.id,this.pageCount, this.perPage)
         .then((response) => (this.notes = response));
       etudiantApi
-        .getCount()
+        .getCountNotes()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );

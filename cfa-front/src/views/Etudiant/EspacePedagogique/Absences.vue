@@ -6,7 +6,7 @@
       <thead class="thead-dark">
         <tr>
           <th>Date</th>
-          <th>Justificatif</th>
+          <th>Motif</th>
           <th></th>
         </tr>
       </thead>
@@ -17,6 +17,19 @@
           </td>
           <td>{{abs.justificatif }}</td>
           <td>
+            <div>
+              <input
+                type="file"
+                id="file"
+                ref="file"
+                v-on:change="handleFileUpload()"
+                class="mr-3"
+              />
+              <b-button variant="info" v-on:click="submitFile()">
+                Envoyer un justificatif
+              </b-button>
+            </div>
+           
           </td>
         </tr>
       </tbody>
@@ -46,6 +59,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { etudiantApi} from "@/_api/etudiant.api.js";
+import { fileApi } from "@/_api/file.api.js"
 
 export default {
   name: "Abscences",
@@ -54,9 +68,11 @@ export default {
   },
   data() {
     return {
+      files: [],
       perPage: 10,
       pageCount: 0,
-      absences: [],
+      absences: [], 
+      file: "",
     };
   },
   computed: {
@@ -70,25 +86,59 @@ export default {
       return this.pageCount;
     },
   },
-  created() {
-    this.refreshList();
-  },
+ 
   methods: {
     pageChange(pageNum) {
      etudiantApi
-        .getAbsencesById(this.$store.getters.getUtilisateur.id)
+        .getAbsencesById(this.$store.getters.getUtilisateur.id,pageNum - 1, this.perPage)
         .then((response) => (this.absences = response));
     },
      refreshList() {
       etudiantApi
-        .getAbsencesById(this.$store.getters.getUtilisateur.id)
+        .getAbsencesById(this.$store.getters.getUtilisateur.id,this.pageCount, this.perPage)
         .then((response) => (this.absences = response));
       etudiantApi
-        .getCountDevoirs()
+        .getCountAbsence()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-  }
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+    },
+    submitFile() {        
+      fileApi.submitFile(this.$store.getters.getUtilisateur.id, this.file).then(() => this.list_reset());
+    },
+    list_reset() {
+      fileApi.getListByUtilisateurId(this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
+    }, 
+  },
+  
+    created() {
+    this.refreshList();
+    this.list_reset();
+    },
 }
 </script>
+
+<style scoped>
+.form {
+  border: 1px solid #6c757d;
+  margin-top: 5em;
+  padding-top: 2em;
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+.b-form-textarea {
+  height: 200px;
+}
+
+#my-table {
+  text-align: center;
+}
+
+.icon:hover{
+  cursor: pointer;
+}
+</style>

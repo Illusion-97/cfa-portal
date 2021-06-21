@@ -7,10 +7,11 @@ export const etudiantApi = {
     getManager,
     getPromotions,
     getNotesById,
-    getCount,
+    getCountNotes,
     getCountDevoirs,
     getDevoirsById,
     getAbsencesById,
+    getCountAbsence,
     
 }
 
@@ -54,7 +55,7 @@ function getNotesById(id, page, size){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
-function getCount(){
+function getCountNotes(){
     let req = `/notes/count`;
 
     return  axios
@@ -79,11 +80,20 @@ function getDevoirsById(id,page,size){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
-function getAbsencesById(id){
-    let req = "etudiants/" + id + "/absences" 
+function getAbsencesById(id,page,size){
+    let req = "etudiants/" + id + "/absences/" +page + "/" + size
     
     return axios
       .get(req, requestOptions.headers())
       .then(response => response.data)
       .catch((error) => console.log(error));
+}
+
+function getCountAbsence(){
+    let req = `/absences/count`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data["nb"])
+        .catch((error) => console.log(error));
 }
