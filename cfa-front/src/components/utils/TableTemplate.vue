@@ -70,10 +70,6 @@
                 </router-link>
               </template>
 
-              <template #cell(eleve)="data">
-                {{ data.value.nom | uppercase }}
-                {{ data.value.prenom | capitalize }}
-              </template>
 
               <template #cell(dateDebut)="data">
                 {{ data.value | formatDate }}
@@ -106,6 +102,19 @@
 
               <template #cell(name_delete)="data">
                 <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)" />
+              </template>
+
+              <template #cell(adresseDto)="data">
+                {{data.value | fullAddresse}}
+              </template>
+              <template #cell(entrepriseDto)="data">
+                {{data.value.raisonSociale}}
+              </template>
+              <template #cell(formateurReferentDto)="data">
+                {{data.value | fullName}}
+              </template>
+              <template #cell(managerDto)="data">
+                {{data.value | fullName}}
               </template>
 
               <template #cell(telecharger)>
