@@ -1,14 +1,15 @@
-import axios from "axios";
-import { requestOptions } from "@/_helpers/request-options.js";
+import axios from 'axios';
+import { requestOptions } from '@/_helpers/request-options.js';
 
-const END_POINT = "projets";
+const END_POINT = "groupeEtudiants";
 
-export const projetApi = {
+export const groupeApi = {
   getById,
   getAllByPage,
   getCount,
   save,
-  deleteProjet,
+  deleteGroupe,
+
 };
 
 function getById(id){
@@ -38,14 +39,14 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function save(projet) {
+function save(groupe) {
   return axios
-    .post(`${END_POINT}`, projet, requestOptions.headers())
+    .post(`${END_POINT}`, groupe, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-function deleteProjet(id) {
+function deleteGroupe(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)

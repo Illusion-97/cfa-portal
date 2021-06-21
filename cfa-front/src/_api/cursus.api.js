@@ -7,8 +7,7 @@ export const cursusApi = {
   getById,
   getAllByPage,
   getCount,
-  addCursus,
-  updateCursus,
+  save,
   deleteCursus,
 };
 
@@ -39,14 +38,7 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function addCursus(cursus) {
-  return axios
-    .post(`${END_POINT}`, cursus, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-}
-
-function updateCursus(cursus) {
+function save(cursus) {
   return axios
     .post(`${END_POINT}`, cursus, requestOptions.headers())
     .then((response) => response.data)

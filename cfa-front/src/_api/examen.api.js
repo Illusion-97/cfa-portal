@@ -8,7 +8,6 @@ export const examenApi = {
   getAllByPage,
   getCount,
   save,
-  updateExamen,
   deleteExamen,
 
 };
@@ -45,12 +44,6 @@ function save(examen) {
     .post(`${END_POINT}`, examen, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
-}
-
-function updateExamen(examen) {
-  return axios.post(`${END_POINT}`, examen, requestOptions.headers())
-  .then((response) => response.data)
-  .catch((error) => console.log(error));
 }
 
 function deleteExamen(id) {

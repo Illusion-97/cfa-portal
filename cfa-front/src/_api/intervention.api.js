@@ -14,7 +14,6 @@ export const interventionApi = {
     getAllByPage,
     getCount,
     save,
-    updateIntervention,
     deleteIntervention,
 }
 
@@ -81,13 +80,6 @@ function getCount(search = ""){
 }
 
 function save(intervention) {
-  return axios
-    .post(`${END_POINT}`, intervention, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-}
-
-function updateIntervention(intervention) {
   return axios
     .post(`${END_POINT}`, intervention, requestOptions.headers())
     .then((response) => response.data)

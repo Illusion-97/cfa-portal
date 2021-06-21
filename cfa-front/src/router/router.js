@@ -91,6 +91,10 @@ import NoteDetail from "@/views/Admin/Crud/Note/NoteDetail.vue";
 import PassageExamenList from "@/views/Admin/Crud/PassageExamen/PassageExamenList.vue";
 import PassageExamenCreate from "@/views/Admin/Crud/PassageExamen/PassageExamenCreate.vue";
 import PassageExamenDetail from "@/views/Admin/Crud/PassageExamen/PassageExamenDetail.vue";
+//Projet
+import ProjetList from "@/views/Admin/Crud/Projet/ProjetList.vue";
+import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
+import ProjetDetail from "@/views/Admin/Crud/Projet/ProjetDetail.vue";
 
 
 
@@ -176,6 +180,11 @@ const routes = [
   { path: "/admin/passage-examen-create", name:"admin_passage-examen_create", component: PassageExamenCreate},
   { path: "/admin/passage-examen-update/:id", name:"admin_passage-examen_update", component: PassageExamenCreate},
   { path: "/admin/passage-examen-detail/:id", name:"admin_passage-examen_detail", component: PassageExamenDetail},
+  //Projet
+  { path: "/admin/projet-list", name:"admin_projet_list", component: ProjetList},
+  { path: "/admin/projet-create", name:"admin_projet_create", component: ProjetCreate},
+  { path: "/admin/projet-update/:id", name:"admin_projet_update", component: ProjetCreate},
+  { path: "/admin/projet-detail/:id", name:"admin_projet_detail", component: ProjetDetail},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},

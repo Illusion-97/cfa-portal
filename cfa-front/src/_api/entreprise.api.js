@@ -5,8 +5,7 @@ const END_POINT = "entreprises";
 
 export const entrepriseApi = {
   getAllEntreprises,
-  addEntreprise,
-  updateEntreprise,
+  save,
   deleteEntreprise,
 };
 
@@ -17,22 +16,11 @@ function getAllEntreprises() {
     .catch((error) => console.log(error));
 }
 
-function addEntreprise(entreprise) {
+function save(entreprise) {
   return axios
     .post(`${END_POINT}`, entreprise, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
-}
-
-function updateEntreprise(entreprise) {
-  return (
-    axios.post()`${END_POINT}`,
-    entreprise,
-    requestOptions
-      .headers()
-      .then((response) => response.data)
-      .catch((error) => console.log(error))
-  );
 }
 
 function deleteEntreprise(id) {
