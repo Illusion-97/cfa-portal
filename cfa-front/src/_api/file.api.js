@@ -4,16 +4,16 @@ import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const fileApi = {
-    getListByUtilisateurId,
-    downloadByNameAndUtilisateurId,
-    deleteByNameAndUtilisateurId,
-    submitFile,
+    getListByDirectoryAndId,
+    downloadByDirectoryAndIdAndFilename,
+    deleteByDirectoryAndIdAndFilename,
+    submitFileByDirectoryAndId,
 };
 
 
-function getListByUtilisateurId(id) {
+function getListByDirectoryAndId(directory, id) {
 
-    let req = "files/utilisateurs/" + id;
+    let req = `files/${directory}/${id}`;
 
      return axios
         .get(req, requestOptions.headers())
@@ -21,19 +21,9 @@ function getListByUtilisateurId(id) {
         .catch((error) => console.log(error));
 }
 
-function deleteByNameAndUtilisateurId(fileName,id) {
+function downloadByDirectoryAndIdAndFilename(directory,id, fileName) {
 
-    let req = "files/utilisateurs/"+id+"/"+fileName ;
-
-    return axios
-        .delete(req, requestOptions.headers())
-        .then(response => response)
-        .catch((error) => console.log(error));
-}
-
-function downloadByNameAndUtilisateurId(fileName,id) {
-
-    let req = "files/utilisateurs/"+id+"/"+fileName ;
+    let req = `files/${directory}/${id}/${fileName}` ;
 
     return axios
         .get(req, { responseType: "blob", headers: {'Authorization': 'Bearer ' + store.getters.getToken}, })
@@ -48,9 +38,20 @@ function downloadByNameAndUtilisateurId(fileName,id) {
         .catch((error) => console.log(error));
 }
 
-function submitFile(id, file) {
+function deleteByDirectoryAndIdAndFilename(directory, id, fileName) {
 
-    let req = "files/utilisateurs/" + id;
+  let req = `files/${directory}/${id}/${fileName}`;
+
+  return axios
+      .delete(req, requestOptions.headers())
+      .then(response => response)
+      .catch((error) => console.log(error));
+}
+
+
+function submitFileByDirectoryAndId(directory, id, file) {
+
+    let req = `files/${directory}/${id}`;
 
       let formData = new FormData();
       formData.append("file", file);

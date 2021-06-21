@@ -80,7 +80,7 @@
 import { examenApi } from "@/_api/examen.api.js";
 
 export default {
-  name: "ExamenListeComponent",
+  name: "ExamenListComponent",
   components: {},
   props: {
     isAction: {
@@ -94,7 +94,7 @@ export default {
   watch: {
     examenProp(){
       if (this.examenProp != null) 
-        this.examen_input = `${this.examenProp.titre}`;
+        this.examen_input = `${this.examenProp.enonce}`;
     }
   },
   data() {

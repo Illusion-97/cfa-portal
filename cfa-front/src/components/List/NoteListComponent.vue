@@ -1,9 +1,9 @@
 <template>
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Devoir</label>
-        <input class="col-9 form-control" type="text" :value="devoir_input" disabled="disabled"/>
+        <label class="col-1">note</label>
+        <input class="col-9 form-control" type="text" :value="note_input" disabled="disabled"/>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,40 +17,43 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_devoir_create' }" v-if="isAction"
+      <router-link class="btn btn-info" :to="{ name: 'admin_note_create' }" v-if="isAction"
         >Ajouter</router-link
       >
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>Enonce</th>
-          <th>Date de Debut</th>
-          <th>Date de Fin</th>
-          <th>Intervention</th>
+          <th>Etudiant</th>
+          <th>Devoir/Examen</th>
+          <th>Note</th>
+          <th>Observations</th>
           <th v-if="isAction">Actions</th>
         </tr>
       </thead>
-      <tbody v-if="devoirsComputed">
-        <tr v-for="devoir in devoirsComputed" :key="devoir.id" v-on:click="clickList(devoir)">
-          <td>{{ devoir.enonce }}</td>
-          <td>{{ devoir.dateDebut }}</td>
-          <td>{{ devoir.dateFin }}</td>
-          <td>{{ devoir.interventionDto.formationDto.titre }}</td>
+      <tbody v-if="notesComputed">
+        <tr v-for="note in notesComputed" :key="note.id" v-on:click="clickList(note)">
+          <td>{{ note.etudiantDto.prenom }} {{ note.etudiantDto.nom }}</td>
+          <td> 
+              <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span>
+              <span v-if="note.examenDto">{{ note.examenDto.enonce }}</span>
+          </td>
+          <td>{{ note.noteObtenu }}</td>
+          <td>{{ note.observations }}</td>
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_detail', params: { id: devoir.id } }"
+              :to="{ name: 'admin_note_detail', params: { id: note.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_update', params: { id: devoir.id } }"
+              :to="{ name: 'admin_note_update', params: { id: note.id } }"
               >Update</router-link
             >
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
+            <button class="btn btn-info" v-on:click="deleteNote(note.id)">
               Delete
             </button>
           </td>
@@ -78,42 +81,41 @@
     </paginate>
   </div>
 </template>
-
 <script>
-import { devoirApi } from "@/_api/devoir.api.js";
+import { noteApi } from "@/_api/note.api.js";
 
 export default {
-    name: "DevoirListComponent",
+  name: "noteListeComponent",
   components: {},
   props: {
     isAction: {
       type: Boolean,
       default: false,
     },
-    devoirProp: {
+    noteProp: {
       default: null,
     }
   },
   watch: {
-    devoirProp(){
-      if (this.devoirProp != null) 
-        this.devoir_input = `${this.devoirProp.enonce}`;
+    noteProp(){
+      if (this.noteProp != null) 
+        this.note_input = `${this.noteProp.titre}`;
     }
   },
   data() {
     return {
-      devoirs: [],
+      notes: [],
       perPage: 10,
       pageCount: 0,
 
       saisie: "",
 
-      devoir_input: "",
+      note_input: "",
     };
   },
   computed: {
-    devoirsComputed() {
-      return this.devoirs;
+    notesComputed() {
+      return this.notes;
     },
     nbPageComputed() {
       return this.pageCount;
@@ -125,36 +127,36 @@ export default {
   methods: {
     submit(e) {
       e.preventDefault();
-      devoirApi
+      noteApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.notes = response));
+      noteApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
     pageChange(pageNum) {
-      devoirApi
+      noteApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.devoirs = response));
+        .then((response) => (this.notes = response));
     },
     refreshList() {
-      devoirApi
+      noteApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.notes = response));
+      noteApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteDevoir(devoirId) {
-      devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
+    deleteNote(noteId) {
+      noteApi.deleteNote(noteId).then(() => this.refreshList());
     },
-    clickList(devoir) {
-      this.devoir_input = devoir.enonce;
-      this.$emit('click-list',devoir);
+    clickList(note) {
+      this.note_input = note.enonce;
+      this.$emit('click-list',note);
     },
   },
 };

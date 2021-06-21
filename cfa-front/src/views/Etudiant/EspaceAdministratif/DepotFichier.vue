@@ -118,16 +118,16 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     submitFile() {        
-      fileApi.submitFile(this.$store.getters.getUtilisateur.id, this.file).then(() => this.list_reset());
+      fileApi.submitFileByDirectoryAndId("utilisateurs", this.$store.getters.getUtilisateur.id, this.file).then(() => this.list_reset());
     },
     list_reset() {
-      fileApi.getListByUtilisateurId(this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
+      fileApi.getListByDirectoryAndId("utilisateurs",this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
     },
     download_file(fileName) {
-      fileApi.downloadByNameAndUtilisateurId(fileName, this.$store.getters.getUtilisateur.id);
+      fileApi.downloadByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
     },
     delete_file(fileName) {
-      fileApi.deleteByNameAndUtilisateurId(fileName, this.$store.getters.getUtilisateur.id).then(() => this.list_reset());
+      fileApi.deleteByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName).then(() => this.list_reset());
     },
   },
   created() {

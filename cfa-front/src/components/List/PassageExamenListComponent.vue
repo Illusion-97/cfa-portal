@@ -2,8 +2,8 @@
     <div class="container-fluid">
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Devoir</label>
-        <input class="col-9 form-control" type="text" :value="devoir_input" disabled="disabled"/>
+        <label class="col-1">Passage Examen</label>
+        <input class="col-9 form-control" type="text" :value="passageExamen_input" disabled="disabled"/>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,7 +17,7 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_devoir_create' }" v-if="isAction"
+      <router-link class="btn btn-info" :to="{ name: 'admin_passage-examen_create' }" v-if="isAction"
         >Ajouter</router-link
       >
     </div>
@@ -31,26 +31,26 @@
           <th v-if="isAction">Actions</th>
         </tr>
       </thead>
-      <tbody v-if="devoirsComputed">
-        <tr v-for="devoir in devoirsComputed" :key="devoir.id" v-on:click="clickList(devoir)">
-          <td>{{ devoir.enonce }}</td>
-          <td>{{ devoir.dateDebut }}</td>
-          <td>{{ devoir.dateFin }}</td>
-          <td>{{ devoir.interventionDto.formationDto.titre }}</td>
+      <tbody v-if="passageExamensComputed">
+        <tr v-for="passageExamen in passageExamensComputed" :key="passageExamen.id" v-on:click="clickList(passageExamen)">
+          <td>{{ passageExamen.examenDto.enonce }}</td>
+          <td>{{ passageExamen.dateDebut }}</td>
+          <td>{{ passageExamen.dateFin }}</td>
+          <td>{{ passageExamen.interventionDto.formationDto.titre }}</td>
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_detail', params: { id: devoir.id } }"
+              :to="{ name: 'admin_passage-examen_detail', params: { id: passageExamen.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_update', params: { id: devoir.id } }"
+              :to="{ name: 'admin_passage-examen_update', params: { id: passageExamen.id } }"
               >Update</router-link
             >
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
+            <button class="btn btn-info" v-on:click="deletePassageExamen(passageExamen.id)">
               Delete
             </button>
           </td>
@@ -80,40 +80,40 @@
 </template>
 
 <script>
-import { devoirApi } from "@/_api/devoir.api.js";
+import { passageExamenApi } from "@/_api/passageExamen.api.js";
 
 export default {
-    name: "DevoirListComponent",
+    name: "passageExamenListComponent",
   components: {},
   props: {
     isAction: {
       type: Boolean,
       default: false,
     },
-    devoirProp: {
+    passageExamenProp: {
       default: null,
     }
   },
   watch: {
-    devoirProp(){
-      if (this.devoirProp != null) 
-        this.devoir_input = `${this.devoirProp.enonce}`;
+    passageExamenProp(){      
+      if (this.passageExamenProp != null) 
+        this.passageExamen_input = `${this.passageExamenProp.examenDto.enonce}`;
     }
   },
   data() {
     return {
-      devoirs: [],
+      passageExamens: [],
       perPage: 10,
       pageCount: 0,
 
       saisie: "",
 
-      devoir_input: "",
+      passageExamen_input: "",
     };
   },
   computed: {
-    devoirsComputed() {
-      return this.devoirs;
+    passageExamensComputed() {
+      return this.passageExamens;
     },
     nbPageComputed() {
       return this.pageCount;
@@ -125,36 +125,36 @@ export default {
   methods: {
     submit(e) {
       e.preventDefault();
-      devoirApi
+      passageExamenApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.passageExamens = response));
+      passageExamenApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
     pageChange(pageNum) {
-      devoirApi
+      passageExamenApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.devoirs = response));
+        .then((response) => (this.passageExamens = response));
     },
     refreshList() {
-      devoirApi
+      passageExamenApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.passageExamens = response));
+      passageExamenApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteDevoir(devoirId) {
-      devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
+    deletePassageExamen(passageExamenId) {
+      passageExamenApi.deletePassageExamen(passageExamenId).then(() => this.refreshList());
     },
-    clickList(devoir) {
-      this.devoir_input = devoir.enonce;
-      this.$emit('click-list',devoir);
+    clickList(passageExamen) {
+      this.passageExamen_input = passageExamen.examenDto.enonce;
+      this.$emit('click-list',passageExamen);
     },
   },
 };

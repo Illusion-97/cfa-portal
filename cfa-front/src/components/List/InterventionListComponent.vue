@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">intervention</label>
+        <label class="col-1">Intervention</label>
         <input
           class="col-9 form-control"
           type="text"
@@ -124,7 +124,6 @@ export default {
   },
   watch: {
     interventionProp() {
-      console.log("this.interventionProp :", this.interventionProp);
       if (this.interventionProp != null)
         this.intervention_input = `${this.interventionProp.formationDto.titre}`;
     },

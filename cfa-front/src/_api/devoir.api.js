@@ -8,7 +8,6 @@ export const devoirApi = {
   getAllByPage,
   getCount,
   save,
-  updateDevoir,
   deleteDevoir,
 };
 
@@ -40,13 +39,6 @@ function getCount(search = ""){
 }
 
 function save(devoir) {
-  return axios
-    .post(`${END_POINT}`, devoir, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-}
-
-function updateDevoir(devoir) {
   return axios
     .post(`${END_POINT}`, devoir, requestOptions.headers())
     .then((response) => response.data)

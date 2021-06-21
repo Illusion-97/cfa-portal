@@ -14,8 +14,7 @@ export const entrepriseApi = {
 const END_POINT = "entreprises";
 
 function getById(id){
-    let req = `/entreprises/${id}`;
-
+    let req = `/${END_POINT}/${id}`;
     return  axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
@@ -40,7 +39,7 @@ function getAllEntreprises() {
   }
 
 function getCount(search = ""){
-    let req = `/entreprises/count/${search}`;
+    let req = `/${END_POINT}/count/${search}`;
 
     return  axios
         .get(req, requestOptions.headers())
@@ -48,23 +47,16 @@ function getCount(search = ""){
         .catch((error) => console.log(error));
 }
 
-
-function save(form) {
-    let req =  "entreprises";
-
-    return axios
-        .post(req, form, requestOptions.headers())
-        .then((response) => response)
-        .catch((error) => console.log(error));
-
+function save(entreprise) {
+  return axios
+    .post(`${END_POINT}`, entreprise, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 function deleteEntreprise(id) {
-    let req =  `entreprises/${id}`;
-
-    return axios
-        .delete(req, requestOptions.headers())
-        .then((response) => response)
-        .catch((error) => console.log(error));
-
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }

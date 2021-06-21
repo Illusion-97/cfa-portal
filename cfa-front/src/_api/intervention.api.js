@@ -14,7 +14,6 @@ export const interventionApi = {
     getAllByPage,
     getCount,
     save,
-    updateIntervention,
     deleteIntervention,
 }
 
@@ -44,13 +43,6 @@ function getAllIntervention() {
     const url = `/${END_POINT}/with-object`;
     return axios.get(url, requestOptions.headers())
         .then(response => response.data)
-        .catch(err => console.error(err));
-}
-
-function updateIntervention(form) {
-    const url = `/${END_POINT}/`;
-    return axios.put(url, form, requestOptions.headers())
-        .then(response => response)
         .catch(err => console.error(err));
 }
 

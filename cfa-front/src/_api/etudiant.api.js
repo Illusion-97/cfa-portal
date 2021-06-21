@@ -3,6 +3,12 @@ import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const etudiantApi = {
+    getById,
+    getAllByPage,
+    getCount,
+    save,
+    deleteEtudiant,
+
     getFormateurReferent,
     getManager,
     getPromotions,
@@ -12,7 +18,53 @@ export const etudiantApi = {
     getDevoirsById,
     getAbsencesById,
     getCountAbsence,
-    
+      
+}
+
+function getById(id){
+    let req = `/etudiants/${id}`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+function getAllByPage(page, size, search = ""){
+    let req = `/etudiants/${page}/${size}/${search}`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+function getCount(search = ""){
+    let req = `/etudiants/count/${search}`;
+
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data["nb"])
+        .catch((error) => console.log(error));
+}
+
+function save(form) {
+    let req =  "etudiants";
+
+    return axios
+        .post(req, form, requestOptions.headers())
+        .then((response) => response)
+        .catch((error) => console.log(error));
+
+}
+
+function deleteEtudiant(id) {
+    let req =  `etudiants/${id}`;
+
+    return axios
+        .delete(req, requestOptions.headers())
+        .then((response) => response)
+        .catch((error) => console.log(error));
 }
 
 function getFormateurReferent(id) {
@@ -63,6 +115,7 @@ function getCountNotes(){
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
 }
+
 function getCountDevoirs(){
     let req = `/devoirs/count`;
 

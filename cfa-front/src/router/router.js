@@ -70,20 +70,36 @@ import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
 import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue"
-
-import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
-import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
-import CongeDetail from "@/views/Admin/Crud/Conge/CongeDetail.vue";
-import ExamenList from "@/views/Admin/Crud/Examen/ExamenList.vue";
-import ExamenCreate from "@/views/Admin/Crud/Examen/ExamenCreate.vue";
-import ExamenDetail from "@/views/Admin/Crud/Examen/ExamenDetail.vue";
-import DevoirList from "@/views/Admin/Crud/Devoir/DevoirList.vue";
-import DevoirCreate from "@/views/Admin/Crud/Devoir/DevoirCreate.vue";
-import DevoirDetail from "@/views/Admin/Crud/Devoir/DevoirDetail.vue";
-
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
 import AddPromo from "@/views/Admin/Crud/Promotion/PromotionAdd.vue";
 import PromoDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
+
+//Conge
+import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
+import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
+import CongeDetail from "@/views/Admin/Crud/Conge/CongeDetail.vue";
+//Examen
+import ExamenList from "@/views/Admin/Crud/Examen/ExamenList.vue";
+import ExamenCreate from "@/views/Admin/Crud/Examen/ExamenCreate.vue";
+import ExamenDetail from "@/views/Admin/Crud/Examen/ExamenDetail.vue";
+//Devoir
+import DevoirList from "@/views/Admin/Crud/Devoir/DevoirList.vue";
+import DevoirCreate from "@/views/Admin/Crud/Devoir/DevoirCreate.vue";
+import DevoirDetail from "@/views/Admin/Crud/Devoir/DevoirDetail.vue";
+//Note
+import NoteList from "@/views/Admin/Crud/Note/NoteList.vue";
+import NoteCreate from "@/views/Admin/Crud/Note/NoteCreate.vue";
+import NoteDetail from "@/views/Admin/Crud/Note/NoteDetail.vue";
+//PassageExamen
+import PassageExamenList from "@/views/Admin/Crud/PassageExamen/PassageExamenList.vue";
+import PassageExamenCreate from "@/views/Admin/Crud/PassageExamen/PassageExamenCreate.vue";
+import PassageExamenDetail from "@/views/Admin/Crud/PassageExamen/PassageExamenDetail.vue";
+//Projet
+import ProjetList from "@/views/Admin/Crud/Projet/ProjetList.vue";
+import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
+import ProjetDetail from "@/views/Admin/Crud/Projet/ProjetDetail.vue";
+
+
 
 import AdresseList from "@/views/Admin/Crud/Adresse/AdresseList.vue";
 import AddAdresse from "@/views/Admin/Crud/Adresse/AdresseCreate.vue";
@@ -184,6 +200,21 @@ const routes = [
   { path: "/admin/addCursus", name:"admin_addCursus", component: AddCursus},
   { path: "/admin/cursus-detail/:id", name:"admin_cursus_detail", component: CursusDetail},
   { path: "/admin/cursus-update/:id", name:"admin_cursus_update", component: AddCursus},
+  //Note
+  { path: "/admin/note-list", name:"admin_note_list", component: NoteList},
+  { path: "/admin/note-create", name:"admin_note_create", component: NoteCreate},
+  { path: "/admin/note-update/:id", name:"admin_note_update", component: NoteCreate},
+  { path: "/admin/note-detail/:id", name:"admin_note_detail", component: NoteDetail},
+  //PassageExamen
+  { path: "/admin/passage-examen-list", name:"admin_passage-examen_list", component: PassageExamenList},
+  { path: "/admin/passage-examen-create", name:"admin_passage-examen_create", component: PassageExamenCreate},
+  { path: "/admin/passage-examen-update/:id", name:"admin_passage-examen_update", component: PassageExamenCreate},
+  { path: "/admin/passage-examen-detail/:id", name:"admin_passage-examen_detail", component: PassageExamenDetail},
+  //Projet
+  { path: "/admin/projet-list", name:"admin_projet_list", component: ProjetList},
+  { path: "/admin/projet-create", name:"admin_projet_create", component: ProjetCreate},
+  { path: "/admin/projet-update/:id", name:"admin_projet_update", component: ProjetCreate},
+  { path: "/admin/projet-detail/:id", name:"admin_projet_detail", component: ProjetDetail},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},

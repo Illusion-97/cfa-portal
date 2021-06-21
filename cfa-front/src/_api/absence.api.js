@@ -5,8 +5,7 @@ const END_POINT = "absences";
 
 export const absencesApi = {
   getAllAbsences,
-  addAbsence,
-  updateAbsence,
+  save,
   deleteAbsence,
 };
 
@@ -18,14 +17,7 @@ export async function getAllAbsences() {
   }
 
 
-export async function addAbsence(absence) {
-  return axios
-    .post(`${END_POINT}`, absence, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-}
-
-export async function updateAbsence(absence) {
+export async function save(absence) {
   return axios
     .post(`${END_POINT}`, absence, requestOptions.headers())
     .then((response) => response.data)

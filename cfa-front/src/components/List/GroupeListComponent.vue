@@ -1,9 +1,9 @@
 <template>
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Devoir</label>
-        <input class="col-9 form-control" type="text" :value="devoir_input" disabled="disabled"/>
+        <label class="col-1">groupe</label>
+        <input class="col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,40 +17,40 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_devoir_create' }" v-if="isAction"
+      <router-link class="btn btn-info" :to="{ name: '' }" v-if="isAction"
         >Ajouter</router-link
       >
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>Enonce</th>
-          <th>Date de Debut</th>
-          <th>Date de Fin</th>
-          <th>Intervention</th>
-          <th v-if="isAction">Actions</th>
+          <th>Id</th>
+          <th>Nom</th>
+          <th>Etudiants</th>
+          <th v-if="isAction">Action</th>
         </tr>
       </thead>
-      <tbody v-if="devoirsComputed">
-        <tr v-for="devoir in devoirsComputed" :key="devoir.id" v-on:click="clickList(devoir)">
-          <td>{{ devoir.enonce }}</td>
-          <td>{{ devoir.dateDebut }}</td>
-          <td>{{ devoir.dateFin }}</td>
-          <td>{{ devoir.interventionDto.formationDto.titre }}</td>
+      <tbody v-if="groupeComputed">
+        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)">
+          <td>{{ groupe.id }}</td>
+          <td>{{ groupe.nom }}</td>
+          <td>
+              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
+            </td>
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_detail', params: { id: devoir.id } }"
+              :to="{ name: '', params: { id: groupe.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_update', params: { id: devoir.id } }"
+              :to="{ name: '', params: { id: groupe.id } }"
               >Update</router-link
             >
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
+            <button class="btn btn-info" v-on:click="deleteGroupe(groupe.id)">
               Delete
             </button>
           </td>
@@ -80,40 +80,38 @@
 </template>
 
 <script>
-import { devoirApi } from "@/_api/devoir.api.js";
-
+import { groupeApi } from "@/_api/groupe.api.js";
 export default {
-    name: "DevoirListComponent",
+  name: "groupeListComponent",
   components: {},
   props: {
     isAction: {
       type: Boolean,
       default: false,
     },
-    devoirProp: {
+    groupeProp: {
       default: null,
     }
   },
   watch: {
-    devoirProp(){
-      if (this.devoirProp != null) 
-        this.devoir_input = `${this.devoirProp.enonce}`;
+    groupeProp(){
+      if (this.groupeProp != null) 
+        this.groupe_input = `${this.groupeProp.titre}`;
     }
   },
   data() {
     return {
-      devoirs: [],
+      groupe: [],
       perPage: 10,
       pageCount: 0,
-
       saisie: "",
 
-      devoir_input: "",
+      groupe_input: "",
     };
   },
   computed: {
-    devoirsComputed() {
-      return this.devoirs;
+    groupeComputed() {
+      return this.groupe;
     },
     nbPageComputed() {
       return this.pageCount;
@@ -125,36 +123,36 @@ export default {
   methods: {
     submit(e) {
       e.preventDefault();
-      devoirApi
+      groupeApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.groupe = response));
+      groupeApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
     pageChange(pageNum) {
-      devoirApi
+      groupeApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.devoirs = response));
+        .then((response) => (this.groupe = response));
     },
     refreshList() {
-      devoirApi
+      groupeApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.groupe = response));
+      groupeApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteDevoir(devoirId) {
-      devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
+    deleteGroupe(groupeId) {
+      groupeApi.deleteGroupe(groupeId).then(() => this.refreshList());
     },
-    clickList(devoir) {
-      this.devoir_input = devoir.enonce;
-      this.$emit('click-list',devoir);
+    clickList(groupe) {
+      this.groupe_input = groupe.nom;
+      this.$emit('click-list',groupe);
     },
   },
 };

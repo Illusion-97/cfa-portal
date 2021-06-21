@@ -1,9 +1,14 @@
 <template>
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Devoir</label>
-        <input class="col-9 form-control" type="text" :value="devoir_input" disabled="disabled"/>
+        <label class="col-1">Etudiant</label>
+        <input
+          class="col-9 form-control"
+          type="text"
+          :value="etudiant_input"
+          disabled="disabled"
+        />
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,40 +22,60 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_devoir_create' }" v-if="isAction"
+      <router-link
+        class="btn btn-info"
+        :to="{ name: 'admin_etudiant_create' }"
+        v-if="isAction"
         >Ajouter</router-link
       >
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>Enonce</th>
-          <th>Date de Debut</th>
-          <th>Date de Fin</th>
-          <th>Intervention</th>
+          <th>Prenom Nom</th>
+          <th>Email</th>
+          <th>Promotions</th>
           <th v-if="isAction">Actions</th>
         </tr>
       </thead>
-      <tbody v-if="devoirsComputed">
-        <tr v-for="devoir in devoirsComputed" :key="devoir.id" v-on:click="clickList(devoir)">
-          <td>{{ devoir.enonce }}</td>
-          <td>{{ devoir.dateDebut }}</td>
-          <td>{{ devoir.dateFin }}</td>
-          <td>{{ devoir.interventionDto.formationDto.titre }}</td>
+      <tbody v-if="etudiantsComputed">
+        <tr
+          v-for="etudiant in etudiantsComputed"
+          :key="etudiant.id"
+          v-on:click="clickList(etudiant)"
+        >
+          <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
+          <td>{{ etudiant.login }}</td>
+          <td>
+            <span
+              v-for="promotion in etudiant.promotionsDto"
+              :key="promotion.id"
+              >{{ promotion.nom }}</span
+            >
+          </td>
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_detail', params: { id: devoir.id } }"
+              :to="{
+                name: 'admin_etudiant_detail',
+                params: { id: etudiant.id },
+              }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-info"
-              :to="{ name: 'admin_devoir_update', params: { id: devoir.id } }"
+              :to="{
+                name: 'admin_etudiant_update',
+                params: { id: etudiant.id },
+              }"
               >Update</router-link
             >
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
+            <button
+              class="btn btn-info"
+              v-on:click="deleteEtudiant(etudiant.id)"
+            >
               Delete
             </button>
           </td>
@@ -80,40 +105,40 @@
 </template>
 
 <script>
-import { devoirApi } from "@/_api/devoir.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 
 export default {
-    name: "DevoirListComponent",
+  name: "etudiantListComponent",
   components: {},
   props: {
     isAction: {
       type: Boolean,
       default: false,
     },
-    devoirProp: {
+    etudiantProp: {
       default: null,
-    }
+    },
   },
   watch: {
-    devoirProp(){
-      if (this.devoirProp != null) 
-        this.devoir_input = `${this.devoirProp.enonce}`;
-    }
+    etudiantProp() {
+      if (this.etudiantProp != null)
+        this.etudiant_input = `${this.etudiantProp.prenom} ${this.etudiantProp.nom}`;
+    },
   },
   data() {
     return {
-      devoirs: [],
+      etudiants: [],
       perPage: 10,
       pageCount: 0,
 
       saisie: "",
 
-      devoir_input: "",
+      etudiant_input: "",
     };
   },
   computed: {
-    devoirsComputed() {
-      return this.devoirs;
+    etudiantsComputed() {
+      return this.etudiants;
     },
     nbPageComputed() {
       return this.pageCount;
@@ -125,40 +150,39 @@ export default {
   methods: {
     submit(e) {
       e.preventDefault();
-      devoirApi
+      etudiantApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.etudiants = response));
+      etudiantApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
     pageChange(pageNum) {
-      devoirApi
+      etudiantApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.devoirs = response));
+        .then((response) => (this.etudiants = response));
     },
     refreshList() {
-      devoirApi
+      etudiantApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.devoirs = response));
-      devoirApi
+        .then((response) => (this.etudiants = response));
+      etudiantApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteDevoir(devoirId) {
-      devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
+    deleteEtudiant(etudiantId) {
+      etudiantApi.deleteEtudiant(etudiantId).then(() => this.refreshList());
     },
-    clickList(devoir) {
-      this.devoir_input = devoir.enonce;
-      this.$emit('click-list',devoir);
+    clickList(etudiant) {
+      this.etudiant_input = `${etudiant.prenom} ${etudiant.nom}`;
+      this.$emit("click-list", etudiant);
     },
   },
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
