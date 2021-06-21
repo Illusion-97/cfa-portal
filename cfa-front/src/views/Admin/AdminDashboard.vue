@@ -130,9 +130,12 @@ export default {
         );
     },
     deleteUtilisateur(userId) {
-      utilisateurApi.deleteUtilisateur(userId).then(() => this.refreshList());
+      var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if(res){
+        utilisateurApi.deleteUtilisateur(userId).then(() => this.refreshList());
+      }
+      
     },
-
   },
 };
 </script>

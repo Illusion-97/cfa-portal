@@ -124,7 +124,10 @@ export default {
         );
     },
     deleteCursus(cursusId) {
+      var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if(res){
       cursusApi.deleteCursus(cursusId).then(() => this.refreshList());
+      }
     },
 
   },

@@ -130,7 +130,10 @@ export default {
         );
     },
     deleteAdresse(adresseId) {
+      var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if(res){
       adresseApi.deleteAdresse(adresseId).then(() => this.refreshList());
+      }
     },
 
   },
