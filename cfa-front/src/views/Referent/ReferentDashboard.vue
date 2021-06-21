@@ -1,125 +1,145 @@
 <template>
-  <div id="referentDashboard">
+  <div class="container-fluid">
    
-    <BodyTitle title="Liste des Promotions" />
+    <BodyTitle title="Liste des promotions" />
 
-    <TableTemplate
-      :perPage="perPage"
-      :items="items"
-      :fields="fields"
-      :showBtn="false"
-      btnLink="/formateur/blabla"
-    />
-    <!--
-    <div class="container">
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Etudiants</th>
-            <th scope="col">Groupe / Projets</th>
-            <th scope="col">Programme de cours</th>
-            <th scope="col">Cours</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>.Net</td>
-            <td>@voir</td>
-            <td>@voir</td>
-            <td>@voir</td>
-            <td>@voir</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Designer</td>
-            <td>@voir</td>
-            <td>@voir</td>
-            <td>@voir</td>
-            <td>@voir</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Java</td>
-            <td>@voir</td>
-            <td>@voir</td>
-            <td>@voir</td>
-            <td>@voir</td>
-          </tr>
-        </tbody>
-      </table>
+    
+    <div class="header-list">
+      <form class="form-inline form" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="saisie"
+        />
+        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+      </form>
+
     </div>
-    -->
-    <br>
-    <br>
-    <Planning/>  
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Nom de la promo</th>
+          <th>Date de debut</th>
+          <th>Date de fin</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody v-if="promotionsComputed">
+        <tr v-for="promotion in promotionsComputed" :key="promotion.id">
+          <td>{{ promotion.id }} </td>
+          <td>{{ promotion.nom }}</td>
+          <td>{{ promotion.dateDebut }}</td>
+          <td>{{ promotion.dateFin }}</td>
+          <td>
+            <router-link class="btn btn-info" :to="{name:'referent_dashboard', params: { id: promotion.id }}">#</router-link>
+            &nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <paginate
+      :page-count="pageCount"
+      :page-range="1"
+      :margin-pages="2"
+      :click-handler="pageChange"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
+      :prev-class="'page-item'"
+      :next-class="'page-item'"
+      :prev-link-class="'page-link'"
+      :next-link-class="'page-link'"
+      :active-class="'active'"
+    >
+      >
+    </paginate>
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { promotionsFields } from "@/assets/js/fieldsReferent.js"
-import axios from "axios";
-import { requestOptions } from '@/_helpers/request-options.js';
-import Planning from "@/components/utils/Planning.vue";
+import { promotionApi } from "@/_api/promotion.api.js";
 export default {
-  name: "ReferentDashboard",
+  name: "PromotionList",
   components: {
     BodyTitle,
     TableTemplate,
-    Planning,
   },
   data() {
     return {
-      perPage: 5,
-      items: [
-        /*{
-          nom : ".Net",
-          etudiant:"sydaphasavanh",
-          groupeProjet: "@voir",
-          ProgrammeDeCours: "@voir",
-          Cours: "@voir",
-        },
-        {
-          nom : "Designer",
-          etudiant:"Jack",
-          groupeProjet: "@voir",
-          ProgrammeDeCours: "@voir",
-          Cours: "@voir",
-        },
-        {
-          nom : "Java",
-          etudiant:"potier",
-          groupeProjet: "@voir",
-          ProgrammeDeCours: "@voir",
-          Cours: "@voir",
-        },
-      */],
-      fields: promotionsFields,
-      
+      promotions: [],
+      perPage: 3,
+      pageCount: 0,
+      saisie: "",
+    
     };
   },
+  computed: {
+    promotionsComputed() {
+      return this.promotions;
+    },
+    nbPageComputed() {
+      return this.pageCount;
+    },
+  },
   created() {
-        axios
-          .get("promotions/", requestOptions.headers())
-          .then((response) => (this.items = response.data))
-          .catch((e) => this.errors.push(e));
-        },
+    this.refreshList();
+  },
+
+  methods: {
+
+    submit(e) {
+      e.preventDefault();
+      promotionApi
+        .getAllByPage(0, this.perPage, this.saisie)
+        .then((response) => (this.promotions = response));
+      promotionApi
+        .getCount(this.saisie)
+        .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
+    },
+    pageChange(pageNum) {
+      promotionApi
+        .getAllByPage(pageNum - 1, this.perPage)
+        .then((response) => (this.promotions = response));
+    },
+    refreshList() {
+      promotionApi
+        .getAllPromotions(0, this.perPage)
+        .then((response) => (this.promotions = response));
+      promotionApi
+        .getCount()
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
+    },
+    deletePromotion(promotionId) {
+      promotionApi.deletePromotion(promotionId).then(() => this.refreshList());
+    },
+
+  },
 };
 </script>
 <style scoped>
-.opts,
-label {
-  color: black;
+.header-list{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }
-.table {
-  text-align: center;
+
+.header-list > form{
+  width: 40%;
 }
-.icon:hover {
-  cursor: pointer;
+
+#saisie{
+  width: 70%;
+  margin-right: 5%;
 }
 </style>
 

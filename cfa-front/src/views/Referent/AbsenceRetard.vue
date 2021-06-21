@@ -1,6 +1,5 @@
 <template>
   <div id="AbsenceRetard">
-    <!-- <Navbar-Referent /> -->
     <BodyTitle title="Liste des Absences / Retards" />
     <TableTemplate
       :perPage="perPage"
@@ -8,7 +7,7 @@
       :fields="fields"
       btnTxt="Signaler une absence"
       :showBtn="true"
-      btnLink="/formateur/blabla"
+      btnLink=""
     />
     <!-- 
     <div class="container">
@@ -55,13 +54,11 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import NavbarReferent from "@/components/Navigation/NavbarReferent.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { absences_latesFields } from "@/assets/js/fields.js";
 export default {
   name: "AbsenceRetard",
   components: {
-    // NavbarReferent,
     BodyTitle,
     TableTemplate,
   },

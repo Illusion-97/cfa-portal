@@ -124,7 +124,10 @@ export default {
         );
     },
     deleteEntreprise(entrepriseId) {
+      var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if(res){
       entrepriseApi.deleteEntreprise(entrepriseId).then(() => this.refreshList());
+      }
     },
 
   },

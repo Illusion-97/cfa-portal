@@ -128,7 +128,10 @@ export default {
         );
     },
     deletePromotion(promotionId) {
+      var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if(res){
       promotionApi.deletePromotion(promotionId).then(() => this.refreshList());
+      }
     },
 
   },
