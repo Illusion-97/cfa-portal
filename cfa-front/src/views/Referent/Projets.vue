@@ -3,7 +3,7 @@
     <BodyTitle title="Liste des projets" />
 
     <div class="container">
-      <a href="/referent/creation-projet" class="btn btn-primary">Créer un projet</a>
+      <router-link class="btn btn-primary" :to="{ name: 'referent_create-projet'}">Créer un projet</router-link>
     </div>
     <TableTemplate
       :perPage="perPage"
@@ -12,6 +12,14 @@
       :showBtn="false"
       btnLink="/formateur/blabla"
     />
+    <router-link
+      :to="{ name: 'referent_groupe-projet' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
   </div>
 </template>
 

@@ -50,6 +50,15 @@
             </button>
       </form>
     </div>
+    <br>
+    <router-link
+      :to="{ name: 'referent_projets' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
   </div>
 </template>
 

@@ -59,7 +59,16 @@
         </div>
       </form>
     </div>
+    <router-link
+      :to="{ name: 'referent_cours' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
   </div>
+  
 </template>
 
 <script>

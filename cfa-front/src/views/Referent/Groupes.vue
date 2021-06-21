@@ -3,7 +3,7 @@
     <BodyTitle title="Liste des groupes" />
 
     <div class="container">
-      <a href="/referent/creation-groupe" class="btn btn-primary">Créer un groupe</a>
+      <router-link class="btn btn-primary" :to="{ name:'referent_create-groupe'}">Créer un groupe</router-link>
     </div>
 
     <TableTemplate
@@ -13,6 +13,14 @@
       :showBtn="false"
       btnLink="/formateur/blabla"
     />
+    <router-link
+      :to="{ name: 'referent_groupe-projet' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
   </div>
 </template>
 
