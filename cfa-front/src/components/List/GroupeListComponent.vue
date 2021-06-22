@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">groupe</label>
+        <label class="col-1">Groupe</label>
         <input class="col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
       </div>
 
@@ -96,7 +96,7 @@ export default {
   watch: {
     groupeProp(){
       if (this.groupeProp != null) 
-        this.groupe_input = `${this.groupeProp.titre}`;
+        this.groupe_input = `${this.groupeProp.nom}`;
     }
   },
   data() {
