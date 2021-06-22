@@ -76,6 +76,7 @@ export default {
   data() {
     return {
       btn_form_text: "Ajouter",
+      vue_title: "Création d'un utilisateur",
 
       form: {
         id: null,
