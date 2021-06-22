@@ -3,7 +3,12 @@
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
         <label class="col-1">projet</label>
-        <input class="col-9 form-control" type="text" :value="projet_input" disabled="disabled"/>
+        <input
+          class="col-9 form-control"
+          type="text"
+          :value="projet_input"
+          disabled="disabled"
+        />
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,7 +22,10 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_projet_create' }" v-if="isAction"
+      <router-link
+        class="btn btn-info"
+        :to="{ name: 'admin_projet_create' }"
+        v-if="isAction"
         >Ajouter</router-link
       >
     </div>
@@ -26,28 +34,22 @@
         <tr>
           <th>Nom</th>
           <th>Description</th>
-          <th>Groupe</th>       
+          <th>Groupe</th>
           <th v-if="isAction">Actions</th>
         </tr>
       </thead>
       <tbody v-if="projetsComputed">
-        <tr v-for="projet in projetsComputed" :key="projet.id" v-on:click="clickList(projet)">
+        <tr
+          v-for="projet in projetsComputed"
+          :key="projet.id"
+          v-on:click="clickList(projet)"
+          v-on:dblclick="detail(projet.id)"
+          class="mon-tr"
+        >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
           <td>{{ projet.groupeDto.nom }}</td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_projet_detail', params: { id: projet.id } }"
-              >Detail</router-link
-            >
-            &nbsp;
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_projet_update', params: { id: projet.id } }"
-              >Update</router-link
-            >
-            &nbsp;
             <button class="btn btn-info" v-on:click="deleteProjet(projet.id)">
               Delete
             </button>
@@ -89,13 +91,13 @@ export default {
     },
     projetProp: {
       default: null,
-    }
+    },
   },
   watch: {
-    projetProp(){
-      if (this.projetProp != null) 
+    projetProp() {
+      if (this.projetProp != null)
         this.projet_input = `${this.projetProp.enonce}`;
-    }
+    },
   },
   data() {
     return {
@@ -150,8 +152,14 @@ export default {
       projetApi.deleteProjet(projetId).then(() => this.refreshList());
     },
     clickList(projet) {
-      this.projet_input = projet.enonce;
-      this.$emit('click-list',projet);
+      if (!this.isAction) {
+        this.projet_input = projet.enonce;
+        this.$emit("click-list", projet);
+      }
+    },
+    detail(id) {
+      if (this.isAction)
+        this.$router.push({ name: "admin_projet_detail", params: { id: id } });
     },
   },
 };

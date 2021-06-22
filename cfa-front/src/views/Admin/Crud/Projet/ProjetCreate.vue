@@ -34,8 +34,8 @@
           />
           <button
             v-if="routeId"
-            v-on:click="submitFile(routeId)"
-            class="btn btn-primary"            
+            v-on:click.stop.prevent="submitFile(routeId)"
+            class="btn btn-primary"
           >
             Ajouter
           </button>
@@ -111,7 +111,6 @@ export default {
       files: [],
       fields: fileFields,
       file: "",
-
     };
   },
   computed: {
@@ -138,9 +137,9 @@ export default {
     rows() {
       return this.items.length;
     },
-    routeId(){
+    routeId() {
       return this.$route.params.id;
-    }
+    },
   },
   methods: {
     onClickChildGroupeList(groupe) {
@@ -150,12 +149,11 @@ export default {
       e.preventDefault();
       projetApi
         .save(this.form)
-        .then(response => {
+        .then((response) => {
           //Quand on créer l'objet, on ajoute la pj sur le serveur, après la création du dossier (donc de l'objet)
           if (this.file != "") this.submitFile(response.id);
         })
-        .then(() => this.$router.push({ name: "admin_projet_list" }));      
-      
+        .then(() => this.$router.push({ name: "admin_projet_list" }));
     },
 
     //Pour la piece jointe
@@ -163,33 +161,23 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     submitFile(id) {
-      console.log("submitFile");
-      fileApi
-        .submitFileByDirectoryAndId("projets", id, this.file)
-        .then(() => this.list_reset(id));
+      if (this.file)
+        fileApi
+          .submitFileByDirectoryAndId("projets", id, this.file)
+          .then(() => this.list_reset(id));
+          
     },
     list_reset(id) {
-      console.log("list_reset");
       fileApi
         .getListByDirectoryAndId("projets", id)
         .then((response) => (this.files = response));
     },
     download_file(id, fileName) {
-      console.log("download_file");
-      fileApi.downloadByDirectoryAndIdAndFilename(
-        "projets",
-        id,
-        fileName
-      );
+      fileApi.downloadByDirectoryAndIdAndFilename("projets", id, fileName);
     },
     delete_file(id, fileName) {
-      console.log("delete_file");
       fileApi
-        .deleteByDirectoryAndIdAndFilename(
-          "projets",
-          id,
-          fileName
-        )
+        .deleteByDirectoryAndIdAndFilename("projets", id, fileName)
         .then(() => this.list_reset(id));
     },
   },
