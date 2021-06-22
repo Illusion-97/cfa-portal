@@ -2,9 +2,9 @@
  
   <div class="container-fluid">
      <BodyTitle :title=vue_title />
-      
-
+     
     <b-form class="form mb-5" @submit="submit">
+    
       <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Prénom</label>
@@ -58,6 +58,15 @@
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
+
+    <router-link
+      :to="{ name: 'admin_dashboard' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
 
     </div>
 

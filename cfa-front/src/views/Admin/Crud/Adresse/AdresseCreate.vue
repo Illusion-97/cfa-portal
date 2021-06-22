@@ -59,6 +59,15 @@
       </div>
     </b-form>
 
+    <router-link
+      :to="{ name: 'admin_adresse_list' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
+
     </div>
 
     
