@@ -54,10 +54,8 @@
                     name: 'intervention-detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
-                  <span v-if="data.item.formationDto.titre === null">Aucune formation</span>
-                  <span v-else>{{
-                    data.item.formationDto.titre | capitalize
-                  }}</span>
+              
+                  <span>{{ data.item.formationDto.titre | capitalize}}</span>
                 </router-link>
               </template>
 
@@ -116,6 +114,16 @@
               <template #cell(managerDto)="data">
                 {{data.value | fullName}}
               </template>
+              <template #cell(promotionsDto)="data">
+                <ul v-for="promo in data.value" :key="promo.id">
+                  <span>{{promo.nom}}</span>
+                </ul>
+              </template>
+              <template #cell(groupesDto)="data"> 
+                <ul v-for="grp in data.value" :key="grp.id">
+                  <span>{{grp.nom}}</span>
+                </ul>
+              </template>
 
               <template #cell(telecharger)>
                 <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
@@ -130,13 +138,12 @@
               </template>
 
               <template #cell(modifierItv)="data">
-                <router-link :to="{
-                    name: 'modifier-intervention',
-                    params: { id: data.item.id },
-                  }">
+                <router-link :to="{ name: 'modifier-intervention',
+                    params: { id: data.item.id }, }">
                   <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
                 </router-link>
               </template>
+
             </b-table>
           </div>
         </div>
@@ -144,7 +151,6 @@
           :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
           :next-link-class="'page-link'" :active-class="'active'">
-
         </paginate>
       </div>
     </section>
