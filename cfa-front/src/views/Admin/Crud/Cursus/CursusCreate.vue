@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      vue_title: "Création d'une adresse",
+      vue_title: "Création d'un Cursus",
       btn_form_text: "Ajouter",
 
       form: {
