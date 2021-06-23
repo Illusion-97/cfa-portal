@@ -1,5 +1,14 @@
 <template>
   <div class="container-fluid">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+
     <BodyTitle :title="vue_title" />
 
     <b-form class="form mb-5" @submit="submit">
@@ -16,13 +25,18 @@
         <b-form-row class="text-align-left">
           <label class="mon-label">Description</label>
           <div class="mon-input">
-            <b-form-input type="text" v-model="form.description">
-            </b-form-input>
+            <b-form-textarea
+              type="text"
+              v-model="form.description"
+              rows="3"
+              max-rows="6"
+            >
+            </b-form-textarea>
           </div>
         </b-form-row>
       </b-form-group>
 
-      <b-form-group>
+      <!-- <b-form-group>
         <b-form-row class="text-align-left">
           <label class="mon-label">Cahier des Charges</label>
           <input
@@ -65,7 +79,7 @@
             </template>
           </b-table>
         </b-form-row>
-      </b-form-group>
+      </b-form-group> -->
 
       <GroupeListComponent
         v-on:click-list="onClickChildGroupeList"
@@ -142,6 +156,9 @@ export default {
     },
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     onClickChildGroupeList(groupe) {
       this.form.groupeDto = groupe;
     },
@@ -165,7 +182,6 @@ export default {
         fileApi
           .submitFileByDirectoryAndId("projets", id, this.file)
           .then(() => this.list_reset(id));
-          
     },
     list_reset(id) {
       fileApi

@@ -67,6 +67,7 @@
                         <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>
                         <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>                        
                         <router-link class="nav-item" :to="{name:'admin_projet_list'}">Projets</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>
                     </b-nav>
                 </nav>    
                   

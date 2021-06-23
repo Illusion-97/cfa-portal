@@ -2,7 +2,6 @@
   <div id="adminDashboard">
    
     <BodyTitle title="Liste des utilisateurs" />
-
     
     <div class="header-list">
       <form class="form-inline form" @submit="submit">
@@ -74,13 +73,13 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import TableTemplate from "@/components/utils/TableTemplate.vue";
+// import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
   name: "AdminDashboard",
   components: {
     BodyTitle,
-    TableTemplate,
+    // TableTemplate,
   },
   data() {
     return {

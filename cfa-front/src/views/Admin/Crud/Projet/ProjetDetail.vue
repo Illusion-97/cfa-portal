@@ -19,39 +19,87 @@
         >
       </b-card-header>
 
-      <b-card-text class="identity row ml-5">
-        <span class="font-weight-bold col-md-2">Description :</span>
-        <span class="">{{ projet.description }}</span>
-      </b-card-text>
+      <div class="offset-1 col-10 mb-5">
+        <div class="">
+          <span class="mon-label">Description :</span>
+          <p class="">{{ projet.description }}</p>
+        </div>        
+      </div>
 
-      <b-card-text class="identity row ml-5">
-        <span class="font-weight-bold col-md-2">Groupe :</span>
-        <span class="">{{ projet.groupeDto.nom }}</span>
-      </b-card-text>
-      <table
-        class="table table-bordered table-striped table-hover offset-1 col-10">
-        <thead class="thead-dark">
-          <tr>
-            <th>Prenom Nom</th>
-            <th>Email</th>
-            <th>Promotions</th>
-          </tr>
-        </thead>
-        <tbody v-if="etudiantsComputed">
-          <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
-            <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-            <td>{{ etudiant.login }}</td>
-            <td>
-              <p
-                v-for="promotion in etudiant.promotionsDto"
-                :key="promotion.id"
-              >
-                {{ promotion.nom }}
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="offset-1 col-10 mb-5">
+        <div class="mb-2">
+          <span class="mon-label">Groupe :</span>
+          <span class="group-nom">{{ projet.groupeDto.nom }}</span>
+        </div>
+        <table class="table">
+          <thead class="">
+            <tr>
+              <th>Etudiant</th>
+              <th>Email</th>
+              <th>Promotions</th>
+            </tr>
+          </thead>
+          <tbody v-if="etudiantsComputed">
+            <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
+              <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
+              <td>{{ etudiant.login }}</td>
+              <td>
+                <p
+                  v-for="promotion in etudiant.promotionsDto"
+                  :key="promotion.id"
+                >
+                  {{ promotion.nom }}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="offset-1 col-10 text-align-left">
+        <div class="div-files">
+          <label class="mon-label">Documents : </label>
+          <input
+            type="file"
+            id="file"
+            ref="file"
+            v-on:change="handleFileUpload()"
+            class="mr-3"
+          />
+          <button
+            v-if="routeId"
+            v-on:click.stop.prevent="submitFile(routeId)"
+            class="btn btn-primary"
+          >
+            Ajouter
+          </button>
+        </div>
+
+        <b-table
+          v-if="routeId && items.length > 0"
+          class="table"
+          striped
+          small
+          :items="items"
+          :fields="fields"
+        >
+          <template #cell(name_dl)="data">
+            <font-awesome-icon
+              :icon="['fas', 'arrow-down']"
+              class="icon text-success"
+              @click="download_file(routeId, data.value)"
+            />
+          </template>
+
+          <template #cell(name_delete)="data">
+            <font-awesome-icon
+              :icon="['fas', 'times']"
+              class="icon text-danger"
+              @click="delete_file(routeId, data.value)"
+            />
+          </template>
+        </b-table>
+      </div>
     </b-card>
   </div>
 </template>
@@ -59,26 +107,61 @@
 <script>
 import { projetApi } from "@/_api/projet.api.js";
 import { groupeApi } from "@/_api/groupe.api.js";
+import { fileApi } from "@/_api/file.api.js";
+import { fileFields } from "@/assets/js/fields.js";
+
+import "@/assets/styles/CrudDetail.css";
+
 export default {
   name: "ProjetDetail",
   components: {},
   data() {
     return {
       projetId: this.$route.params.id,
-      projet: {},
+      //On initialise nom pour éviter les soucis dans la console
+      projet: { nom: "", groupeDto: { nom: "" } },
       loading: false,
 
       etudiants: [],
+
+      //Pour les files
+      files: [],
+      fields: fileFields,
+      file: "",
     };
   },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
-    refreshList() {
+    refreshListEtudiant() {
       groupeApi
         .getEtudiants(this.projetId)
         .then((response) => (this.etudiants = response));
+    },
+
+    //Pour la piece jointe
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
+    },
+    submitFile(id) {
+      if (this.file)
+        fileApi
+          .submitFileByDirectoryAndId("projets", id, this.file)
+          .then(() => this.refreshListFiles(id));
+    },
+    refreshListFiles(id) {
+      fileApi
+        .getListByDirectoryAndId("projets", id)
+        .then((response) => (this.files = response));
+    },
+    download_file(id, fileName) {
+      fileApi.downloadByDirectoryAndIdAndFilename("projets", id, fileName);
+    },
+    delete_file(id, fileName) {
+      fileApi
+        .deleteByDirectoryAndIdAndFilename("projets", id, fileName)
+        .then(() => this.refreshListFiles(id));
     },
   },
   created() {
@@ -86,14 +169,61 @@ export default {
       .getById(this.projetId)
       .then((response) => (this.projet = response));
 
-    this.refreshList();
+    this.refreshListEtudiant();
+
+    //Pour etre sur, on test les 3 possibilités qui sont source d'erreurs
+    if (
+      this.$route.params.id != null &&
+      this.$route.params.id != "" &&
+      this.$route.params.id != 0
+    ) {
+      this.refreshListFiles(this.$route.params.id);
+    }
   },
   computed: {
     etudiantsComputed() {
       return this.etudiants;
     },
+    //Pour les files
+    items() {
+      let result = [];
+
+      for (let i = 0; i < this.files.length; i++) {
+        let table = { name: "", name_dl: "", name_delete: "" };
+
+        table.name = this.files[i];
+        table.name_dl = this.files[i];
+        table.name_delete = this.files[i];
+
+        result.push(table);
+      }
+
+      return result;
+    },
+    rows() {
+      return this.items.length;
+    },
+    routeId() {
+      return this.$route.params.id;
+    },
   },
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudDetail.css"></style>
+<style scoped>
+.div-files{
+  display: flex;
+  justify-content: space-between;
+}
+
+.mon-label{
+  font-weight: bold;
+  font-size: 22px;;
+}
+
+.group-nom{
+  margin-left: 2em;
+  font-size: 20px;
+}
+
+</style>
