@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- A MODIFIER POUR LE REFERENT => ABSENCES DE SA PROMOTION -->
     <BodyTitle title="Absences - Retards" />
     <TableTemplate
       :items="items"
