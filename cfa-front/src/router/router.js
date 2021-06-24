@@ -20,7 +20,8 @@ import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
 import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
 // Global -> Etudiant
 import AllEtudiant from "@/views/All/Etudiant/AllEtudiant.vue";
-
+// Global -> Absence
+import AllAbsences from '@/views/All/Absence/AllAbsence.vue'
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
 import DepotFichier from "@/views/Etudiant/EspaceAdministratif/DepotFichier.vue";
@@ -139,6 +140,7 @@ const routes = [
   { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
   // Global -> Etudiant
   { path: "/etudiants", name: "all-etudiant", component: AllEtudiant },
+  { path: "/absences", name: "all-absences", component: AllAbsences },
 
   //  ### Etudiant Administratif ###
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
