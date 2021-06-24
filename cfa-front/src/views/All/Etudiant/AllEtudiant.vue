@@ -54,7 +54,7 @@ export default {
       this.countEtudiant();
     },
     countEtudiant() {
-      etudiantApi.getCount(this.key).then((data) => (this.pageCount = data));
+      etudiantApi.getCount(this.key).then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     pageChange(page) {
       etudiantApi
@@ -64,9 +64,7 @@ export default {
     },
     search(evt) {
       evt.preventDefault();
-      etudiantApi
-        .getAllByPage(this.currentPage, this.perPage, this.key)
-        .then((data) => (this.items = data));
+      this.fillList();
       this.countEtudiant();
     },
   },
