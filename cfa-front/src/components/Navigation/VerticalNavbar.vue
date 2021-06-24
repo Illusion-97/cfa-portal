@@ -70,7 +70,7 @@
                         <router-link class="nav-item" :to="{name:'all-etudiant'}">Etudiant</router-link>
                         <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>
                         <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
+                        <router-link class="nav-item" :to="{name:'all-absences'}">Absences / Retards</router-link>
                         <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
                         <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
                         <router-link class="nav-item" :to="{name:'admin_examen_list'}">Examens</router-link>
