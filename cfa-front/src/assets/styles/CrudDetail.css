@@ -2,7 +2,7 @@
     width: 90%;
     padding-bottom: 1em;
     margin-bottom: 5em;
-    margin-top: 5em;
+    margin-top: 2em;
   }
   
   #my-card > .card-header {
@@ -27,4 +27,14 @@
     width: 40em;
     padding-left: 3em;
     text-align: justify;
+  }
+
+  .mon-label{
+    font-weight: bold;
+    font-size: 22px;;
+  }
+  
+  .group-nom{
+    margin-left: 2em;
+    font-size: 20px;
   }

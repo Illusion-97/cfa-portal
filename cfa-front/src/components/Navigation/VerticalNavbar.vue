@@ -79,7 +79,7 @@
                         <router-link class="nav-item" :to="{name:'admin_projet_list'}">Projets</router-link>
                         <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
                         <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
-                        
+                        <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>
                     </b-nav>
                 </nav>    
                   

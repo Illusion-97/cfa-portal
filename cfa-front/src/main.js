@@ -15,6 +15,8 @@ import Paginate from 'vuejs-paginate'
 
 Vue.config.productionTip = false
 
+// require("./assets/styles/CrudDetail.css");
+
 Vue.component('paginate', Paginate)
 
 axios.defaults.baseURL = "http://localhost:8080/AppliCFABack/";
