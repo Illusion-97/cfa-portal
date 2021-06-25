@@ -28,3 +28,13 @@
     padding-left: 3em;
     text-align: justify;
   }
+
+  .mon-label{
+    font-weight: bold;
+    font-size: 22px;;
+  }
+  
+  .group-nom{
+    margin-left: 2em;
+    font-size: 20px;
+  }

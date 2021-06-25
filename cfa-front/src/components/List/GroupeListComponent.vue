@@ -1,9 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="header-list">
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
+      <div class="text-align-left row" id="groupe-input" v-if="!isAction">
         <label class="col-1">Groupe</label>
-        <input class="col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
+        <input class="offset-1 col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
+        <span class="col-1 delete-input" v-if="groupe_input" @click="delete_input()">x</span>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -31,7 +32,7 @@
         </tr>
       </thead>
       <tbody v-if="groupeComputed">
-        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe.id)">
+        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe.id)" class="mon-tr">
           <td>{{ groupe.id }}</td>
           <td>{{ groupe.nom }}</td>
           <td>
@@ -148,6 +149,10 @@ export default {
       if (this.isAction)
         this.$router.push({ name: "admin_groupe_detail", params: { id: id } });
     },
+    delete_input(){
+      this.groupe_input = "";
+      this.$emit('delete_input');
+    }
   },
 };
 </script>

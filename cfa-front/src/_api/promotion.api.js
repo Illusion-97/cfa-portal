@@ -8,6 +8,9 @@ export const promotionApi = {
     save,
     deletePromotion,
     getAllPromotions,
+
+    getAll,
+    getEtudiants,
 };
 
 const END_POINT = "promotions";
@@ -60,7 +63,27 @@ function deletePromotion(id) {
 
   return axios
       .delete(req, requestOptions.headers())
-      .then((response) => response)
+      .then((response) => response.data)
       .catch((error) => console.log(error));
 
+}
+
+
+function getEtudiants(id) {
+  let req =  `promotions/${id}/etudiants`;
+
+  return axios
+      .get(req, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
+}
+
+function getAll(){
+  let req = `/promotions`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }

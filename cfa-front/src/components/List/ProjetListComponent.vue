@@ -101,6 +101,7 @@ export default {
   },
   data() {
     return {
+      // projets: [{nom: "", description: "", groupeDto: {nom: ""}}],
       projets: [],
       perPage: 10,
       pageCount: 0,
@@ -141,7 +142,17 @@ export default {
     refreshList() {
       projetApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.projets = response));
+        .then((response) => {
+          this.projets = response;
+
+          //pour chaque projet, si groupe == null, pb de rendu de groupe.nom
+          if (this.projets == null) return;
+          for (let i = 0; i < this.projets.length; i++) {
+            if (this.projets[i].groupeDto == null)
+              this.projets[i].groupeDto = { nom: "" };
+          }
+        });
+
       projetApi
         .getCount()
         .then(
@@ -165,5 +176,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>

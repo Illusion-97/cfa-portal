@@ -11,7 +11,11 @@
 
     <b-card no-body id="my-card">
       <b-card-header>
-        <span class="font-weight-bold">groupe : {{ groupe.nom }}</span>
+        <div>
+          <span class="mon-label">Groupe : </span>
+          <span class="group-nom">{{ groupe.nom }}</span>
+        </div>
+
         <router-link
           class="btn btn-info"
           :to="{ name: 'admin_groupe_update', params: { id: groupeId } }"
@@ -19,39 +23,32 @@
         >
       </b-card-header>
 
-      <b-card-text class="identity row ml-5">
-        <span class="font-weight-bold col-md-2">Description :</span>
-        <span class="">{{ groupe.description }}</span>
-      </b-card-text>
-
-      <b-card-text class="identity row ml-5">
-        <span class="font-weight-bold col-md-2">Groupe :</span>
-        <span class="">{{ groupe.groupeDto.nom }}</span>
-      </b-card-text>
-      <table
-        class="table table-bordered table-striped table-hover offset-1 col-10">
-        <thead class="thead-dark">
-          <tr>
-            <th>Prenom Nom</th>
-            <th>Email</th>
-            <th>Promotions</th>
-          </tr>
-        </thead>
-        <tbody v-if="etudiantsComputed">
-          <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
-            <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-            <td>{{ etudiant.login }}</td>
-            <td>
-              <p
-                v-for="promotion in etudiant.promotionsDto"
-                :key="promotion.id"
-              >
-                {{ promotion.nom }}
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="offset-1 col-10">
+        <p class="mon-label ">Etudiants :</p>
+        <table class="table">
+          <thead class="">
+            <tr>
+              <th>Prenom Nom</th>
+              <th>Email</th>
+              <th>Promotions</th>
+            </tr>
+          </thead>
+          <tbody v-if="etudiantsComputed">
+            <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
+              <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
+              <td>{{ etudiant.login }}</td>
+              <td>
+                <div
+                  v-for="promotion in etudiant.promotionsDto"
+                  :key="promotion.id"
+                >
+                  {{ promotion.nom }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </b-card>
   </div>
 </template>
@@ -64,10 +61,10 @@ export default {
   data() {
     return {
       groupeId: this.$route.params.id,
-      groupe: {},
+      groupe: { nom: "" },
       loading: false,
 
-      etudiants: [],
+      etudiants: [{ nom: "", promotionsDto: [{ nom: "" }] }],
     };
   },
   methods: {

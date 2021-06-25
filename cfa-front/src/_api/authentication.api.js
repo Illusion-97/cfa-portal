@@ -2,6 +2,7 @@ import axios from 'axios';
 //import { requestOptions } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 import store from '@/store/store.js';
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 
 export const authenticationApi = {
     login,
@@ -14,12 +15,8 @@ function login(login, password) {
     return axios
         .post(req,{login: login, password: password})
         //.then(handleResponse)
-        .then((response) => {
-            //on stock le token
-            store.dispatch('login',response.data['token']);
-            //On stocke l'utilisateur dans le store           
-            store.dispatch('setUtilisateur', response.data['utilisateurDto']);            
-        })
+        .then((response) => store.dispatch('login',response.data['token']))
+        .then(() => utilisateurApi.getByLogin(login).then(response => store.dispatch('setUtilisateur', response)) )
         .catch((error) => console.log(error));
 }
 

@@ -39,17 +39,17 @@
               <th>Promotions</th>
             </tr>
           </thead>
-          <tbody v-if="etudiantsComputed">
+          <tbody>
             <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
               <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
               <td>{{ etudiant.login }}</td>
               <td>
-                <p
+                <div
                   v-for="promotion in etudiant.promotionsDto"
                   :key="promotion.id"
                 >
                   {{ promotion.nom }}
-                </p>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -134,9 +134,9 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    refreshListEtudiant() {
+    refreshListEtudiant(id) {
       groupeApi
-        .getEtudiants(this.projetId)
+        .getEtudiants(id)
         .then((response) => (this.etudiants = response));
     },
 
@@ -167,9 +167,7 @@ export default {
   created() {
     projetApi
       .getById(this.projetId)
-      .then((response) => (this.projet = response));
-
-    this.refreshListEtudiant();
+      .then((response) => {this.projet = response; this.refreshListEtudiant(this.projet.groupeDto.id);});
 
     //Pour etre sur, on test les 3 possibilités qui sont source d'erreurs
     if (
@@ -216,14 +214,5 @@ export default {
   justify-content: space-between;
 }
 
-.mon-label{
-  font-weight: bold;
-  font-size: 22px;;
-}
-
-.group-nom{
-  margin-left: 2em;
-  font-size: 20px;
-}
 
 </style>

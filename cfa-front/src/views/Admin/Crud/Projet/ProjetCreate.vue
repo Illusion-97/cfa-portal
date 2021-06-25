@@ -36,53 +36,9 @@
         </b-form-row>
       </b-form-group>
 
-      <!-- <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="mon-label">Cahier des Charges</label>
-          <input
-            type="file"
-            id="file"
-            ref="file"
-            v-on:change="handleFileUpload()"
-            class="mr-3"
-          />
-          <button
-            v-if="routeId"
-            v-on:click.stop.prevent="submitFile(routeId)"
-            class="btn btn-primary"
-          >
-            Ajouter
-          </button>
-
-          <b-table
-            v-if="routeId && items.length > 0"
-            id="my-table"
-            striped
-            small
-            :items="items"
-            :fields="fields"
-          >
-            <template #cell(name_dl)="data">
-              <font-awesome-icon
-                :icon="['fas', 'arrow-down']"
-                class="icon text-success"
-                @click="download_file(routeId, data.value)"
-              />
-            </template>
-
-            <template #cell(name_delete)="data">
-              <font-awesome-icon
-                :icon="['fas', 'times']"
-                class="icon text-danger"
-                @click="delete_file(routeId, data.value)"
-              />
-            </template>
-          </b-table>
-        </b-form-row>
-      </b-form-group> -->
-
       <GroupeListComponent
         v-on:click-list="onClickChildGroupeList"
+        v-on:delete_input="onClickDeleteInput"
         :groupeProp="groupe_input"
       />
 
@@ -116,7 +72,7 @@ export default {
       form: {
         nom: "",
         description: "",
-        groupeDto: {},
+        groupeDto: null,
       },
 
       groupe: null,
@@ -162,6 +118,9 @@ export default {
     onClickChildGroupeList(groupe) {
       this.form.groupeDto = groupe;
     },
+    onClickDeleteInput(){
+      this.form.groupeDto = null;
+    },
     submit(e) {
       e.preventDefault();
       projetApi
@@ -170,7 +129,7 @@ export default {
           //Quand on créer l'objet, on ajoute la pj sur le serveur, après la création du dossier (donc de l'objet)
           if (this.file != "") this.submitFile(response.id);
         })
-        .then(() => this.$router.push({ name: "admin_projet_list" }));
+        .then(() => this.goBack());
     },
 
     //Pour la piece jointe

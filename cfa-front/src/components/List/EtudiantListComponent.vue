@@ -108,7 +108,7 @@
 import { etudiantApi } from "@/_api/etudiant.api.js";
 
 export default {
-  name: "etudiantListComponent",
+  name: "EtudiantListComponent",
   components: {},
   props: {
     isAction: {
