@@ -16,7 +16,7 @@
         <b-form-row class="text-align-left">
           <label class="mon-label">Nom</label>
           <div class="mon-input">
-            <b-form-input type="text" v-model="form.nom"> </b-form-input>
+            <b-form-input type="text" v-model="form.nom" required> </b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
