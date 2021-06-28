@@ -55,6 +55,9 @@
 
 <script>
 import { groupeApi } from "@/_api/groupe.api.js";
+
+import "@/assets/styles/CrudDetail.css";
+
 export default {
   name: "GroupeDetail",
   components: {},
@@ -92,4 +95,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudDetail.css"></style>
+<style scoped></style>

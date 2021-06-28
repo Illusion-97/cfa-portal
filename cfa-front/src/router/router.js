@@ -99,6 +99,10 @@ import ProjetDetail from "@/views/Admin/Crud/Projet/ProjetDetail.vue";
 import GroupeList from "@/views/Admin/Crud/Groupe/GroupeList.vue";
 import GroupeCreate from "@/views/Admin/Crud/Groupe/GroupeCreate.vue";
 import GroupeDetail from "@/views/Admin/Crud/Groupe/GroupeDetail.vue";
+//Etudiant
+import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
+import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
+import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
 
 
 
@@ -194,6 +198,11 @@ const routes = [
   { path: "/admin/groupe-create", name:"admin_groupe_create", component: GroupeCreate},
   { path: "/admin/groupe-update/:id", name:"admin_groupe_update", component: GroupeCreate},
   { path: "/admin/groupe-detail/:id", name:"admin_groupe_detail", component: GroupeDetail},
+   //Etudiant
+   { path: "/admin/etudiant-list", name:"admin_etudiant_list", component: EtudiantList},
+   { path: "/admin/etudiant-create", name:"admin_etudiant_create", component: EtudiantCreate},
+   { path: "/admin/etudiant-update/:id", name:"admin_etudiant_update", component: EtudiantCreate},
+   { path: "/admin/etudiant-detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail},
   
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
