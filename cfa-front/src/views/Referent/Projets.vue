@@ -2,9 +2,29 @@
   <div id="Projets">
     <BodyTitle title="Liste des projets" />
 
+    <div class="mon-group">
+            <label class="form-label"
+              >Choisissez une promotion pour affiner la recherche :
+            </label>
+            <select
+              class="custom-select"
+              v-model="selected"
+              @change="onSelected()"
+            >
+              <option
+                v-for="promotion in promotionsComputed"
+                :key="promotion.id"
+                :value="promotion"
+                >{{ promotion.nom }}</option
+              >
+            </select>
+          </div>
+  <br>
     <div class="container">
       <router-link class="btn btn-primary" :to="{ name: 'referent_create-projet'}">Créer un projet</router-link>
     </div>
+
+    
     <TableTemplate
       :perPage="perPage"
       :items="items"
@@ -30,6 +50,7 @@ import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { projetsFields } from "@/assets/js/fieldsReferent.js"
 import axios from "axios";
 import { requestOptions } from '@/_helpers/request-options.js';
+import { promotionApi } from "@/_api/promotion.api.js";
 export default {
   name: "Projets",
   components: {
@@ -39,6 +60,10 @@ export default {
   data() {
     return {
       perPage: 10,
+      etudiantsBDD: null,
+      promotions: null,
+
+      selected: null,
       items: [/*
         {
           nom: "Projet CFA",
@@ -69,11 +94,27 @@ export default {
       
     };
   },
+  computed: {
+    promotionsComputed() {
+      return this.promotions;
+    },
+    etudiantsBDDComputed() {
+      return this.etudiantsBDD;
+    },
+  },
+  methods: {
+    onSelected() {
+      promotionApi
+        .getEtudiants(this.selected.id)
+        .then((response) => (this.etudiantsBDD = response));
+    },
+  },
   created() {
         axios
           .get("projets/", requestOptions.headers())
           .then((response) => (this.items = response.data))
           .catch((e) => this.errors.push(e));
+          promotionApi.getAll().then((response) => (this.promotions = response));
         },
 };
 </script>
