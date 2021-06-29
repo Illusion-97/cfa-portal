@@ -55,14 +55,21 @@
 
       <!--<b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Rôle</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.role"
-              required
-            ></b-form-input>
-          </div>
-        </b-form-row>
+          <label class="form-label"
+              >Selectionner un Rôle:
+            </label>
+            <select
+              class="custom-select"
+              v-model="selected"
+              @change="onSelected()"
+            >
+              <option
+                v-for="role in rolesComputed"
+                :key="role.id"
+                :value="role"
+                >{{ role.intitule }}</option
+              >
+            </select>
       </b-form-group>-->
 
     
@@ -81,7 +88,6 @@
     </router-link>
 
     </div>
-
     
 </template>
 
@@ -99,6 +105,10 @@ export default {
       btn_form_text: "Ajouter",
       vue_title: "Création d'un utilisateur",
 
+      roles: null,
+
+      selected: null,
+
       form: {
         id: null,
         prenom: "",
@@ -108,13 +118,24 @@ export default {
       },
     };
   },
+  computed: {
+    rolesComputed() {
+      return this.roles;
+    },
+  },
   methods: {
+    
     submit(e) {
       e.preventDefault();
 
       utilisateurApi.save(this.form).then(() => this.$router.push({ name: 'admin_dashboard'}));
     },
   },
+  onSelected() {
+      utilisateurApi
+        .getRole(this.selected.id)
+        .then((response) => (this.roles = response));
+    },
   created() {
   
     if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){

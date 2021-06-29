@@ -74,7 +74,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { formateurApi } from "@/_api/adresse.api.js";
+import { formateurApi } from "@/_api/formateur.api.js";
+import { requestOptions } from '@/_helpers/request-options.js';
 export default {
   name: "CreateCours",
 

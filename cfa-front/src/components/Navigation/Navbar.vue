@@ -25,7 +25,7 @@
             Espace Admin
           </b-nav-item>
           <b-nav-item class=" a-link" @click="logout">
-            Logout
+            Déconnexion
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

@@ -3,6 +3,24 @@
    
     <BodyTitle title="Liste des Cours" />
 
+    <div class="mon-group">
+            <label class="form-label"
+              >Choisissez une promotion pour affiner la recherche :
+            </label>
+            <select
+              class="custom-select"
+              v-model="selected"
+              @change="onSelected()"
+            >
+              <option
+                v-for="promotion in promotionsComputed"
+                :key="promotion.id"
+                :value="promotion"
+                >{{ promotion.nom }}</option
+              >
+            </select>
+          </div>
+
     <div class="container">
       <br />
       <div class="row g-3">
@@ -71,6 +89,7 @@ import TableTemplate from "@/components/utils/TableTemplate.vue";
 import axios from "axios";
 import { requestOptions } from '@/_helpers/request-options.js';
 import { courseFields } from "@/assets/js/fields.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 export default {
   name: "Cours",
   components: {
@@ -81,6 +100,10 @@ export default {
     return {
       perPage: 10,
       fields: courseFields,
+      etudiantsBDD: null,
+      promotions: null,
+
+      selected: null,
       items: [
         /*{
           nom: "C#",
@@ -101,6 +124,22 @@ export default {
       
     };
   },
+  computed: {
+    promotionsComputed() {
+      return this.promotions;
+    },
+    etudiantsBDDComputed() {
+      return this.etudiantsBDD;
+    },
+  },
+  methods: {
+    onSelected() {
+      promotionApi
+        .getEtudiants(this.selected.id)
+        .then((response) => (this.etudiantsBDD = response));
+        
+    },
+  },
   created() {
       axios
         .get("interventions/", requestOptions.headers())
@@ -109,6 +148,7 @@ export default {
           console.log(this.items);
         })
         .catch((e) => this.errors.push(e));
+        promotionApi.getAll().then((response) => (this.promotions = response));
     },
 };
 </script>

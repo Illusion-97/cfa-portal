@@ -43,24 +43,28 @@
         </b-form-row>
       </b-form-group>
 
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Cef</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.nom"
-              required
-            ></b-form-input>
-          </div>
-        </b-form-row>
-      </b-form-group>
+      <!--<div class="mon-group">
+            <label class="form-label"
+              >Selectionner un Cef
+            </label>
+            <select
+              class="custom-select"
+              v-model="selected"
+              @change="onSelected()"
+            >
+              <option
+                v-for="cef in cefComputed"
+                :key="cef.id"
+                :value="cef"
+                >{{ cef.id }}</option
+              >
+            </select>
+          </div>-->
 
 
       <!--Liste etudiant 
 
       List intervention-->
-
-
 
 
     
@@ -96,6 +100,7 @@ export default {
     return {
       vue_title: "Création d'une promotion",
       btn_form_text: "Ajouter",
+      cef: null,
 
       form: {
         id: null,
@@ -104,6 +109,11 @@ export default {
         nom: "",
       },
     };
+  },
+  computed: {
+    cefComputed() {
+      return this.cef;
+    },
   },
   methods: {
     submit(e) {

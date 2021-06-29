@@ -11,6 +11,7 @@ export const utilisateurApi = {
   getByIdWithObject,
   getAdresseById,
   getPlanningById,
+  getRoleById,
   getAllUtilisateurs,
   getAllUtilisateursByEntreprise,
   getAllUtilisateursByAdresse,
@@ -91,6 +92,15 @@ function getAdresseById(id) {
 
 function getPlanningById(id) {
   let req = "utilisateurs/" + id + "/planning";
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getRoleById(id) {
+  let req = "utilisateurs/" + id + "/roles";
 
   return axios
     .get(req, requestOptions.headers())
