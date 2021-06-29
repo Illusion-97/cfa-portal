@@ -1,9 +1,14 @@
 <template>
-    <div class="container-fluid">
+  <div class="container-fluid">
     <div class="header-list">
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
+      <div class="text-align-left row" id="groupe-input" v-if="!isAction">
         <label class="col-1">Devoir</label>
-        <input class="col-9 form-control" type="text" :value="devoir_input" disabled="disabled"/>
+        <input
+          class="offset-1 col-9 form-control"
+          type="text"
+          :value="devoir_input"
+          disabled="disabled"
+        />
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,7 +22,10 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_devoir_create' }" v-if="isAction"
+      <router-link
+        class="btn btn-info"
+        :to="{ name: 'admin_devoir_create' }"
+        v-if="isAction"
         >Ajouter</router-link
       >
     </div>
@@ -32,7 +40,11 @@
         </tr>
       </thead>
       <tbody v-if="devoirsComputed">
-        <tr v-for="devoir in devoirsComputed" :key="devoir.id" v-on:click="clickList(devoir)">
+        <tr
+          v-for="devoir in devoirsComputed"
+          :key="devoir.id"
+          v-on:click="clickList(devoir)"
+        >
           <td>{{ devoir.enonce }}</td>
           <td>{{ devoir.dateDebut }}</td>
           <td>{{ devoir.dateFin }}</td>
@@ -83,7 +95,7 @@
 import { devoirApi } from "@/_api/devoir.api.js";
 
 export default {
-    name: "DevoirListComponent",
+  name: "DevoirListComponent",
   components: {},
   props: {
     isAction: {
@@ -92,13 +104,15 @@ export default {
     },
     devoirProp: {
       default: null,
-    }
+    },
   },
   watch: {
-    devoirProp(){
-      if (this.devoirProp != null) 
-        this.devoir_input = `${this.devoirProp.enonce}`;
-    }
+    devoirProp() {
+      if (this.devoirProp != null)
+        if (this.devoirProp.enonce)
+          this.devoir_input = `${this.devoirProp.enonce}`;
+        else this.devoir_input = "";
+    },
   },
   data() {
     return {
@@ -154,11 +168,10 @@ export default {
     },
     clickList(devoir) {
       this.devoir_input = devoir.enonce;
-      this.$emit('click-list',devoir);
+      this.$emit("click-list", devoir);
     },
   },
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>

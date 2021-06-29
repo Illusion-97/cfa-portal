@@ -170,7 +170,6 @@
             class="mon-tr"
           >
             <td>
-              <!-- <span>{{note}}</span> -->
               <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span>
               <span v-if="note.examenDto">{{note.examenDto.examenDto.enonce}}</span>
             </td>
