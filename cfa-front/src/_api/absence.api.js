@@ -7,6 +7,8 @@ export const absencesApi = {
   getAllAbsences,
   save,
   deleteAbsence,
+
+  getAllByIdEtudiant,
 };
 
 export async function getAllAbsences() {
@@ -29,4 +31,14 @@ export async function deleteAbsence(id) {
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+function getAllByIdEtudiant(id) {
+  let req =  `${END_POINT}/etudiant/${id}`;
+
+  return axios
+      .get(req, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+
 }

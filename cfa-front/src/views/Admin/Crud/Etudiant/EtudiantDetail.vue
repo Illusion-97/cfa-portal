@@ -37,7 +37,7 @@
     </div>
 
     <!-- Promotions -->
-    <div class="">
+    <div class="ma-fenetre">
       <table class="table">
         <thead class="">
           <tr>
@@ -62,82 +62,84 @@
     </div>
 
     <!-- Groupes -->
-    <div class="">
+    <div class="ma-fenetre">
       <table class="table">
         <thead class="">
           <tr>
-            <th>Promotion</th>
-            <th>Date de debut</th>
-            <th>Date de fin</th>
+            <th>Nom</th>
+            <th>Etudiants</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="promotion in etudiant.promotionsDto"
-            :key="promotion.id"
-            @dblclick="clickPromotion(promotion)"
+            v-for="groupe in etudiant.groupesDto"
+            :key="groupe.id"
+            @dblclick="clickGroupe(groupe)"
             class="mon-tr"
           >
-            <td>{{ promotion.nom }}</td>
-            <td>{{ promotion.dateDebut }}</td>
-            <td>{{ promotion.dateFin }}</td>
+            <td>{{ groupe.nom }}</td>
+            <td v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">
+              {{ etudiant.prenom }} {{ etudiant.nom }}
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Notes -->
-    <div class="">
+    <div class="ma-fenetre">
       <table class="table">
         <thead class="">
           <tr>
-            <th>Promotion</th>
-            <th>Date de debut</th>
-            <th>Date de fin</th>
+            <th>Examen</th>
+            <th>Note</th>
+            <th>Observations</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="promotion in etudiant.promotionsDto"
-            :key="promotion.id"
-            @dblclick="clickPromotion(promotion)"
+            v-for="note in notesComputed"
+            :key="note.id"
+            @dblclick="clickNote(note)"
             class="mon-tr"
           >
-            <td>{{ promotion.nom }}</td>
-            <td>{{ promotion.dateDebut }}</td>
-            <td>{{ promotion.dateFin }}</td>
+            <td>
+              <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span>
+            </td>
+            <td>{{ note.noteObtenu }}</td>
+            <td>{{ note.observations }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Absences -->
-    <div class="">
+    <div class="ma-fenetre">
       <table class="table">
         <thead class="">
           <tr>
-            <th>Promotion</th>
             <th>Date de debut</th>
             <th>Date de fin</th>
+            <th>Raison</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="promotion in etudiant.promotionsDto"
-            :key="promotion.id"
-            @dblclick="clickPromotion(promotion)"
+            v-for="absence in absencesComputed"
+            :key="absence.id"
+            @dblclick="clickAbsence(absence)"
             class="mon-tr"
           >
-            <td>{{ promotion.nom }}</td>
-            <td>{{ promotion.dateDebut }}</td>
-            <td>{{ promotion.dateFin }}</td>
+            <td>{{ absence.dateDebut }}</td>
+            <td>{{ absence.dateFin }}</td>
+            <td>{{ absence.justificatif }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Congés -->
-    <div class="">
+    <div class="ma-fenetre">
       <table class="table">
         <thead class="">
           <tr>
@@ -166,6 +168,8 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { etudiantApi } from "@/_api/etudiant.api.js";
+import { noteApi } from "@/_api/note.api.js";
+import { absencesApi } from "@/_api/absence.api.js";
 
 import "@/assets/styles/CrudDetail.css";
 
@@ -178,20 +182,58 @@ export default {
     etudiantApi
       .getById(this.$route.params.id)
       .then((response) => (this.etudiant = response));
+
+    noteApi
+      .getAllByIdEtudiant(this.$route.params.id)
+      .then((response) => (this.notes = response));
+
+    absencesApi
+      .getAllByIdEtudiant(this.$route.params.id)
+      .then((response) => (this.absences = response));
   },
   data() {
     return {
-      etudiant: {},
+      etudiant: {formateurReferentDto: {}, managerDto: {}},
+
+      notes: [],
+      absences: [],
     };
   },
   computed: {
     title() {
       return "Etudiant : " + this.etudiant.prenom + " " + this.etudiant.nom;
     },
+    notesComputed() {
+      return this.notes;
+    },
+    absencesComputed() {
+      return this.absences;
+    },
   },
   methods: {
     clickPromotion(promotion) {
-      console.log(promotion);
+      this.$router.push({
+        name: "admin_promotion_detail",
+        params: { id: promotion.id },
+      });
+    },
+    clickGroupe(groupe) {
+      this.$router.push({
+        name: "admin_groupe_detail",
+        params: { id: groupe.id },
+      });
+    },
+    clickNote(note) {
+      this.$router.push({
+        name: "admin_note_detail",
+        params: { id: note.id },
+      });
+    },
+    clickAbsence(absence) {
+      this.$router.push({
+        name: "admin_absence_detail",
+        params: { id: absence.id },
+      });
     },
   },
 };
@@ -226,5 +268,9 @@ export default {
 .mon-tr:hover {
   background-color: rgb(216, 213, 213) !important;
   cursor: pointer;
+}
+
+.ma-fenetre {
+  margin-bottom: 5em;
 }
 </style>
