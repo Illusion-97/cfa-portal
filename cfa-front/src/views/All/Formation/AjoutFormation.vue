@@ -1,7 +1,7 @@
 <template>
     <section>
         <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
-        <router-link :to="{ name: 'all-intervention' }" class="h5"
+        <router-link :to="{ name: 'all-formations' }" class="h5"
             style="cursor:pointer; color:black;text-decoration:none;">
             <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
             Precedent
@@ -12,30 +12,23 @@
                 <div class=" col-md-12 div-form">
                     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                         <b-form-group label="Nom de la formation :" label-for="formation">
-                            <b-form-input v-model="form.titre" id="formation" class="form-control">
+                            <b-form-input v-model="form.titre" id="formation" class="form-control" placeholder="Ex : Java Init., Photoshop Init.">
                             </b-form-input>
                         </b-form-group>
 
                         <b-form-group label="Description :">
                             <b-form-textarea v-model="form.contenu" rows="3" max-rows="6"
-                                placeholder="Description du cours" id="desc">
+                                placeholder="Description de la formation" id="desc">
                             </b-form-textarea>
                         </b-form-group>
 
-                        <b-form-group label="Cursus :" label-for="cursus">
-                            <b-form-select id="cursus" v-model="form.cursusLstDto" multiple required>
-                                <template #first>
-                                    <b-form-select-option disabled :value="null" class="select-title">
-                                        Selectionnez un cursus
-                                    </b-form-select-option>
-                                </template>
-                                <template>
-                                    <b-form-select-option v-for="opt in opts" :key="opt.id" :value="opt">
-                                        {{ opt.titre }}
-                                    </b-form-select-option>
-                                </template>
-                            </b-form-select>
-                        </b-form-group>
+                        <!-- <b-form-group>
+                            <label for="" class="mr-2">Cursus: </label>
+                            <span type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal">
+                                Ajouter un cursus
+                            </span>
+                            <modal-cursus-formation idName="modal"/>
+                        </b-form-group > -->
                         <div class="d-flex justify-content-between">
                             <b-button type="reset" variant="outline-danger">Annuler</b-button>
                             <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
@@ -51,12 +44,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-    import {
-        formationApi
-    } from "@/_api/formation.api.js";
-
+    import { formationApi } from "@/_api/formation.api.js";
+    import ModalCursusFormation from "../../../components/ModalPromo.vue";
     export default {
+        name: "Ajout-formation",
+        components: {
+            ModalCursusFormation,
+        },
         data() {
             return {
                 opts: [],
@@ -65,7 +59,7 @@
                     // id: "",
                     titre: "",
                     contenu: "",
-                    cursusLstDto: [],
+                    // cursusLstDto: [],
                 },
                 items: [],
                 show: true,
@@ -78,32 +72,34 @@
             onSubmit(event) {
                 event.preventDefault();
                 // a modifier : ajout pour l'admin et ajout pour le referent
-                formationApi
-                    .insertFormation(this.form)
-                    .then((data) =>
-                        data.status === 200 ?
-                        (window.location = "/intervention") :
-                        (window.location = "/ajouter-formation")
-                    );
+                formationApi.insertFormation(this.form).then((data) => {
+                    if (data.status === 200)
+                        this.$router.push({
+                            name: "all-formations",
+                        });
+                    else
+                        this.$router.push({
+                            name: "ajouter-formation",
+                        });
+                });
             },
             onReset(event) {
                 event.preventDefault();
                 // Reset our form values
-                this.form.name = "";
+                this.form.titre=""
                 this.form.contenu = "";
-                this.form.cursusLstDto = [];
+                // this.form.cursusLstDto = [];
                 // Trick to reset/clear native browser form validation state
                 this.show = false;
                 this.$nextTick(() => {
                     this.show = true;
                 });
             },
+            openModal() {
+                this.$refs.modal.show();
+            }
         },
         created() {
-            axios
-                .get("http://localhost:8080/AppliCFABack/cursus")
-                .then((response) => (this.opts = response.data))
-                .catch((err) => console.error(err));
         },
     };
 </script>
