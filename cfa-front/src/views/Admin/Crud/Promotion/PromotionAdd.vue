@@ -43,12 +43,40 @@
         </b-form-row>
       </b-form-group>
 
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">Cef</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.nom"
+              required
+            ></b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
+
+
+      <!--Liste etudiant 
+
+      List intervention-->
+
+
+
 
     
       <div class="offset-1 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
+
+    <router-link
+      :to="{ name: 'admin_promotion_list' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
 
     </div>
 

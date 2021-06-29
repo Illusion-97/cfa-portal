@@ -2,9 +2,9 @@
  
   <div class="container-fluid">
      <BodyTitle :title=vue_title />
-      
-
+     
     <b-form class="form mb-5" @submit="submit">
+    
       <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Prénom</label>
@@ -53,11 +53,32 @@
         </b-form-row>
       </b-form-group>
 
+      <!--<b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">Rôle</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.role"
+              required
+            ></b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>-->
+
     
       <div class="offset-1 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
+
+    <router-link
+      :to="{ name: 'admin_dashboard' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
 
     </div>
 
@@ -76,6 +97,7 @@ export default {
   data() {
     return {
       btn_form_text: "Ajouter",
+      vue_title: "Création d'un utilisateur",
 
       form: {
         id: null,

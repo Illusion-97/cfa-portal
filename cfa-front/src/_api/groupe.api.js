@@ -10,6 +10,7 @@ export const groupeApi = {
   save,
   deleteGroupe,
 
+  getEtudiants,
 };
 
 function getById(id){
@@ -51,4 +52,13 @@ function deleteGroupe(id) {
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+function getEtudiants(id){
+  let req = `/${END_POINT}/${id}/etudiants`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }

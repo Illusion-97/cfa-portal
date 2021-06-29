@@ -68,7 +68,7 @@
                         <router-link class="nav-item" :to="{name:'formateur_intervention'}">Intervention Formateur</router-link>
                         <router-link class="nav-item" :to="{name:'all-formations'}">Formation</router-link>
                         <router-link class="nav-item" :to="{name:'all-etudiant'}">Etudiant</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>
                         <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
                         <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
                         <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
@@ -79,7 +79,7 @@
                         <router-link class="nav-item" :to="{name:'admin_projet_list'}">Projets</router-link>
                         <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
                         <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
-                        
+                        <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>
                     </b-nav>
                 </nav>    
                   

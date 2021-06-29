@@ -1,9 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="header-list">
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">groupe</label>
-        <input class="col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
+      <div class="text-align-left row" id="groupe-input" v-if="!isAction">
+        <label class="col-1">Groupe</label>
+        <input class="offset-1 col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
+        <span class="col-1 delete-input" v-if="groupe_input" @click="delete_input()">x</span>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,7 +18,7 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: '' }" v-if="isAction"
+      <router-link class="btn btn-info" :to="{ name: 'admin_groupe_create' }" v-if="isAction"
         >Ajouter</router-link
       >
     </div>
@@ -31,25 +32,13 @@
         </tr>
       </thead>
       <tbody v-if="groupeComputed">
-        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)">
+        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe.id)" class="mon-tr">
           <td>{{ groupe.id }}</td>
           <td>{{ groupe.nom }}</td>
           <td>
               <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
             </td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{ name: '', params: { id: groupe.id } }"
-              >Detail</router-link
-            >
-            &nbsp;
-            <router-link
-              class="btn btn-info"
-              :to="{ name: '', params: { id: groupe.id } }"
-              >Update</router-link
-            >
-            &nbsp;
             <button class="btn btn-info" v-on:click="deleteGroupe(groupe.id)">
               Delete
             </button>
@@ -96,7 +85,7 @@ export default {
   watch: {
     groupeProp(){
       if (this.groupeProp != null) 
-        this.groupe_input = `${this.groupeProp.titre}`;
+        this.groupe_input = `${this.groupeProp.nom}`;
     }
   },
   data() {
@@ -151,9 +140,19 @@ export default {
       groupeApi.deleteGroupe(groupeId).then(() => this.refreshList());
     },
     clickList(groupe) {
+      if (!this.isAction) {
       this.groupe_input = groupe.nom;
       this.$emit('click-list',groupe);
+      }
     },
+    detail(id) {
+      if (this.isAction)
+        this.$router.push({ name: "admin_groupe_detail", params: { id: id } });
+    },
+    delete_input(){
+      this.groupe_input = "";
+      this.$emit('delete_input');
+    }
   },
 };
 </script>

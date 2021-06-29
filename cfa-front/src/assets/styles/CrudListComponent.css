@@ -14,7 +14,15 @@
   }
   
   #groupe-input{
-    display: flex;
-    justify-content: space-between;
     width: 50%;
   }
+  
+  .mon-tr:hover {
+    background-color: rgb(216, 213, 213) !important;
+    cursor: pointer;
+  }
+
+  .delete-input:hover{
+    cursor: pointer;
+  }
+

@@ -23,12 +23,13 @@
           >
           <div class="col-sm-10">
             <div class="input-group">
-              <select class="custom-select" id="inputGroupSelect">
-                <option selected>Séléctionner un formateur</option>
-                <option value="1">Mohamed</option>
+              <select class="custom-select" id="inputGroupSelect" v-model="formateur">
+                <option value="" disabled>Séléctionner un formateur</option>
+                <option v-for="formateur in formateurs" :key="formateur.id">{{ formateur.nom }}</option>
+                <!--<option value="1">Mohamed</option>
                 <option value="2">Thaïs</option>
                 <option value="3">Yohann</option>
-                <option value="4">Mourad</option>
+                <option value="4">Mourad</option>-->
               </select>
             </div>
           </div>
@@ -73,11 +74,23 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import { formateurApi } from "@/_api/adresse.api.js";
 export default {
   name: "CreateCours",
 
   components: {
     BodyTitle,
+  },
+  data(){
+    return{
+      formateurs: [],
+      selected: '',
+    }
+  },
+  created() {
+    formateurApi.getAllFormateur("formateurs/", requestOptions.headers()) 
+      .then((response) => (this.formateurs = response.data))
+      .catch((error) => console.log(error));
   },
 };
 </script>

@@ -5,6 +5,7 @@ import { requestOptions } from "@/_helpers/request-options.js";
 export const utilisateurApi = {
   
   getById,
+  getByLogin,
   getAllByPage,
   getCount,
   getByIdWithObject,
@@ -53,6 +54,15 @@ function getCount(search = ""){
 
 function getById(id){
   let req = `/utilisateurs/${id}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
+
+function getByLogin(login){
+  let req = `/utilisateurs/email=${login}`;
 
   return  axios
       .get(req, requestOptions.headers())

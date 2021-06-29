@@ -1,5 +1,14 @@
 <template>
   <div class="container-fluid">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+
     <BodyTitle :title="vue_title" />
 
     <b-form class="form mb-5" @submit="submit">
@@ -7,7 +16,7 @@
         <b-form-row class="text-align-left">
           <label class="mon-label">Nom</label>
           <div class="mon-input">
-            <b-form-input type="text" v-model="form.nom"> </b-form-input>
+            <b-form-input type="text" v-model="form.nom" required> </b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
@@ -16,98 +25,20 @@
         <b-form-row class="text-align-left">
           <label class="mon-label">Description</label>
           <div class="mon-input">
-            <b-form-input type="text" v-model="form.description">
-            </b-form-input>
+            <b-form-textarea
+              type="text"
+              v-model="form.description"
+              rows="3"
+              max-rows="6"
+            >
+            </b-form-textarea>
           </div>
         </b-form-row>
       </b-form-group>
 
-      <b-form-group>
-        <div class="container mt-5">
-          <div class="row">
-            <div class="">
-              <input
-                type="file"
-                id="file"
-                ref="file"
-                v-on:change="handleFileUpload()"
-                class="mr-3"
-              />
-              <button v-on:click="submitFile()" class="btn btn-primary">
-                Ajouter
-              </button>
-            </div>
-            <div class="my-3 ml-auto col-md-3" v-if="items.length != 0">
-              <b-form inline>
-                <label for="pageSelect" class="mr-sm-2">Affichage :</label>
-                <b-form-select
-                  id="pageSelect"
-                  v-model="per_page"
-                  class="border-0 opts"
-                  size="sm"
-                >
-                  <b-form-select-option
-                    :value="Math.floor(items.length * 0.25)"
-                  >
-                    {{ (items.length * 0.25) | formatNumber }} sur
-                    {{ items.length }}
-                  </b-form-select-option>
-                  <b-form-select-option :value="Math.floor(items.length * 0.5)">
-                    {{ (items.length * 0.5) | formatNumber }} sur
-                    {{ items.length }}
-                  </b-form-select-option>
-                  <b-form-select-option
-                    :value="Math.floor(items.length * 0.75)"
-                  >
-                    {{ (items.length * 0.75) | formatNumber }} sur
-                    {{ items.length }}
-                  </b-form-select-option>
-                  <b-form-select-option :value="items.length">
-                    Tout afficher
-                  </b-form-select-option>
-                </b-form-select>
-              </b-form>
-            </div>
-            <b-table
-              id="my-table"
-              striped
-              small
-              :items="items"
-              :fields="fields"
-              :per-page="per_page"
-              :current-page="currentPage"
-            >
-              <template #cell(name_dl)="data">
-                <font-awesome-icon
-                  :icon="['fas', 'arrow-down']"
-                  class="icon text-success"
-                  @click="download_file(data.value)"
-                />
-              </template>
-
-              <template #cell(name_delete)="data">
-                <font-awesome-icon
-                  :icon="['fas', 'times']"
-                  class="icon text-danger"
-                  @click="delete_file(data.value)"
-                />
-              </template>
-            </b-table>
-            <b-pagination
-              class="pages ml-auto border-0"
-              v-model="currentPage"
-              :total-rows="rows"
-              :per-page="per_page"
-              aria-controls="my-table"
-              size="sm"
-            >
-            </b-pagination>
-          </div>
-        </div>
-      </b-form-group>
-
       <GroupeListComponent
         v-on:click-list="onClickChildGroupeList"
+        v-on:delete_input="onClickDeleteInput"
         :groupeProp="groupe_input"
       />
 
@@ -125,6 +56,7 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
 import { projetApi } from "@/_api/projet.api.js";
 import { fileApi } from "@/_api/file.api.js";
+import { fileFields } from "@/assets/js/fields.js";
 
 export default {
   name: "projetCreate",
@@ -140,42 +72,88 @@ export default {
       form: {
         nom: "",
         description: "",
-        pjCahierDesCharges: "",
-        groupeDto: {},
+        groupeDto: null,
       },
 
       groupe: null,
+
+      //Pour les files
+      files: [],
+      fields: fileFields,
+      file: "",
     };
   },
   computed: {
     groupe_input() {
       return this.groupe;
     },
+
+    //Pour les files
+    items() {
+      let result = [];
+
+      for (let i = 0; i < this.files.length; i++) {
+        let table = { name: "", name_dl: "", name_delete: "" };
+
+        table.name = this.files[i];
+        table.name_dl = this.files[i];
+        table.name_delete = this.files[i];
+
+        result.push(table);
+      }
+
+      return result;
+    },
+    rows() {
+      return this.items.length;
+    },
+    routeId() {
+      return this.$route.params.id;
+    },
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     onClickChildGroupeList(groupe) {
       this.form.groupeDto = groupe;
+    },
+    onClickDeleteInput(){
+      this.form.groupeDto = null;
     },
     submit(e) {
       e.preventDefault();
       projetApi
         .save(this.form)
-        .then(() => this.$router.push({ name: "admin_projet_list" }));
+        .then((response) => {
+          //Quand on créer l'objet, on ajoute la pj sur le serveur, après la création du dossier (donc de l'objet)
+          if (this.file != "") this.submitFile(response.id);
+        })
+        .then(() => this.goBack());
     },
+
+    //Pour la piece jointe
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
     },
-    submitFile() {        
-      fileApi.submitFileByDirectoryAndId("projets", this.$store.getters.getUtilisateur.id, this.file).then(() => this.list_reset());
+    submitFile(id) {
+      if (this.file)
+        fileApi
+          .submitFileByDirectoryAndId("projets", id, this.file)
+          .then(() => this.list_reset(id));
     },
-    list_reset() {
-      fileApi.getListByDirectoryAndId("projets",this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
+    list_reset(id) {
+      fileApi
+        .getListByDirectoryAndId("projets", id)
+        .then((response) => (this.files = response));
     },
-    download_file(fileName) {
-      fileApi.downloadByDirectoryAndIdAndFilename("projets", this.$store.getters.getUtilisateur.id, fileName);
+    download_file(id, fileName) {
+      fileApi.downloadByDirectoryAndIdAndFilename("projets", id, fileName);
     },
-    delete_file(fileName) {
-      fileApi.deleteByDirectoryAndIdAndFilename("projets", this.$store.getters.getUtilisateur.id, fileName).then(() => this.list_reset());
+    delete_file(id, fileName) {
+      fileApi
+        .deleteByDirectoryAndIdAndFilename("projets", id, fileName)
+        .then(() => this.list_reset(id));
     },
   },
   created() {
@@ -190,6 +168,8 @@ export default {
         this.btn_form_text = "Update";
         this.groupe = response.groupeDto;
       });
+
+      this.list_reset(this.$route.params.id);
     }
   },
 };
