@@ -45,11 +45,9 @@
 
 <script>
     import { formationApi } from "@/_api/formation.api.js";
-    import ModalCursusFormation from "../../../components/ModalPromo.vue";
     export default {
         name: "Ajout-formation",
         components: {
-            ModalCursusFormation,
         },
         data() {
             return {

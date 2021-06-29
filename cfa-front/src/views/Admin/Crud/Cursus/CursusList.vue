@@ -68,13 +68,11 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { cursusApi } from "@/_api/cursus.api.js";
 export default {
   name: "CursusList",
   components: {
     BodyTitle,
-    TableTemplate,
   },
   data() {
     return {
