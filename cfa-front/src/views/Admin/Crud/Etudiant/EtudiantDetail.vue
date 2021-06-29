@@ -29,15 +29,15 @@
     </div>
 
     <div class="mon-container-tuile">
-      <div class="ma-tuile">Promotions</div>
-      <div class="ma-tuile">Groupes</div>
-      <div class="ma-tuile">Notes</div>
-      <div class="ma-tuile">Absences</div>
-      <div class="ma-tuile">Congés</div>
+      <div :class="{ btn: true, 'btn-primary': true, ma_tuile: true, activ: isPromotion }" @click="changementOnglet(1)">Promotions</div>
+      <div :class="{ btn: true, 'btn-primary': true, ma_tuile: true, activ: isGroupe }" @click="changementOnglet(2)">Groupes</div>
+      <div :class="{ btn: true, 'btn-primary': true, ma_tuile: true,activ: isNote }" @click="changementOnglet(3)">Notes</div>
+      <div :class="{ btn: true, 'btn-primary': true, ma_tuile: true,activ: isAbsence }" @click="changementOnglet(4)">Absences</div>
+      <div :class="{ btn: true, 'btn-primary': true, ma_tuile: true,activ: isConge }" @click="changementOnglet(5)">Congés</div>
     </div>
 
     <!-- Promotions -->
-    <div class="ma-fenetre">
+    <div :class="{ma_fenetre: true, collapse: !isPromotion}">
       <table class="table">
         <thead class="">
           <tr>
@@ -62,7 +62,7 @@
     </div>
 
     <!-- Groupes -->
-    <div class="ma-fenetre">
+    <div :class="{ma_fenetre: true, collapse: !isGroupe}">
       <table class="table">
         <thead class="">
           <tr>
@@ -87,7 +87,7 @@
     </div>
 
     <!-- Notes -->
-    <div class="ma-fenetre">
+    <div :class="{ma_fenetre: true, collapse: !isNote}">
       <table class="table">
         <thead class="">
           <tr>
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Absences -->
-    <div class="ma-fenetre">
+    <div :class="{ma_fenetre: true, collapse: !isAbsence}">
       <table class="table">
         <thead class="">
           <tr>
@@ -139,25 +139,29 @@
     </div>
 
     <!-- Congés -->
-    <div class="ma-fenetre">
+    <div :class="{ma_fenetre: true, collapse: !isConge}">
       <table class="table">
         <thead class="">
           <tr>
-            <th>Promotion</th>
             <th>Date de debut</th>
             <th>Date de fin</th>
+            <th>Motif</th>
+            <th>Type</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="promotion in etudiant.promotionsDto"
-            :key="promotion.id"
-            @dblclick="clickPromotion(promotion)"
+            v-for="conge in congesComputed"
+            :key="conge.id"
+            @dblclick="clickConge(conge)"
             class="mon-tr"
           >
-            <td>{{ promotion.nom }}</td>
-            <td>{{ promotion.dateDebut }}</td>
-            <td>{{ promotion.dateFin }}</td>
+            <td>{{ conge.dateDebut }}</td>
+            <td>{{ conge.dateFin }}</td>
+            <td>{{ conge.motif }}</td>
+            <td>{{ conge.type }}</td>
+            <td>{{ conge.status }}</td>
           </tr>
         </tbody>
       </table>
@@ -170,6 +174,7 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { noteApi } from "@/_api/note.api.js";
 import { absencesApi } from "@/_api/absence.api.js";
+import { congeApi } from "@/_api/conge.api.js";
 
 import "@/assets/styles/CrudDetail.css";
 
@@ -190,13 +195,20 @@ export default {
     absencesApi
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => (this.absences = response));
+
+    congeApi
+      .getAllByIdEtudiant(this.$route.params.id)
+      .then((response) => (this.conges = response));
   },
   data() {
     return {
-      etudiant: {formateurReferentDto: {}, managerDto: {}},
+      etudiant: { formateurReferentDto: {}, managerDto: {} },
 
       notes: [],
       absences: [],
+      conges: [],
+
+      onglet: 0,
     };
   },
   computed: {
@@ -208,6 +220,30 @@ export default {
     },
     absencesComputed() {
       return this.absences;
+    },
+    congesComputed() {
+      return this.conges;
+    },
+
+    isPromotion() {
+      if(this.onglet == 1)return true;
+      else return false      
+    },
+    isGroupe() {
+      if(this.onglet == 2)return true;
+      else return false    
+    },
+    isNote() {
+      if(this.onglet == 3)return true;
+      else return false    
+    },
+    isAbsence() {
+      if(this.onglet == 4)return true;
+      else return false    
+    },
+    isConge() {
+     if(this.onglet == 5)return true;
+      else return false    
     },
   },
   methods: {
@@ -235,6 +271,15 @@ export default {
         params: { id: absence.id },
       });
     },
+    clickConge(conge) {
+      this.$router.push({
+        name: "admin_conge_detail",
+        params: { id: conge.id },
+      });
+    },    
+    changementOnglet(onglet){
+      this.onglet = onglet;
+    }
   },
 };
 </script>
@@ -244,22 +289,14 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 3em;
+  padding-right: 50%;
 }
 
-.ma-tuile {
-  width: 10em;
-  height: 5em;
-  /*TODO un centrage plus "jolie"*/
-  line-height: 4em;
-  color: #6c757d;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  border: 5px #6c757d solid;
-  border-radius: 30px;
+.ma_tuile{
+  width: 8em;
 }
 
-.ma-tuile:hover {
+.ma_tuile:hover {
   background-color: #6c757d;
   color: white;
   cursor: pointer;
@@ -270,7 +307,11 @@ export default {
   cursor: pointer;
 }
 
-.ma-fenetre {
+.ma_fenetre {
   margin-bottom: 5em;
+}
+
+.activ {
+  background-color: #28a745;
 }
 </style>
