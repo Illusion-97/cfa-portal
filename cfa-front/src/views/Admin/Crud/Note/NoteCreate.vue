@@ -5,26 +5,37 @@
     <b-form class="form mb-5" @submit="submit">
       <b-form-group id="form-group">
         <b-form-row class="text-align-left">
-          <label id="label">Note</label>
-          <div id="input">
-            <b-form-input type="number" v-model="form.noteObtenu"> </b-form-input>
+          <label>Note</label>
+          <div class="mon-input">
+            <b-form-input type="number" v-model="form.noteObtenu">
+            </b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
 
       <b-form-group id="form-group">
         <b-form-row class="text-align-left">
-          <label id="label">Observations</label>
-          <div id="input">
-            <b-form-input type="text" v-model="form.observations"> </b-form-input>
+          <label>Observations</label>
+          <div class="mon-input">
+            <b-form-input type="text" v-model="form.observations">
+            </b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
 
-      <EtudiantListComponent
-        v-on:click-list="onClickChildEtudiantList"
-        :etudiantProp="etudiant_input"
-      />
+      <b-form-group id="form-group">
+        <b-form-row class="text-align-left">
+          <label>Etudiant</label>
+          <div class="mon-input">
+            <b-form-input
+              type="text"
+              v-model="etudiant_input"
+              disabled="disabled"
+            >
+            </b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
 
       <PassageExamenListComponent
         v-on:click-list="onClickChildPassageExamenList"
@@ -47,18 +58,34 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import EtudiantListComponent from "@/components/List/EtudiantListComponent.vue";
 import PassageExamenListComponent from "@/components/List/PassageExamenListComponent.vue";
 import DevoirListComponent from "@/components/List/DevoirListComponent.vue";
 import { noteApi } from "@/_api/note.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 
 export default {
   name: "CongeCreate",
   components: {
     BodyTitle,
-    EtudiantListComponent,
     PassageExamenListComponent,
     DevoirListComponent,
+  },
+  created() {
+    if (this.$route.name == "admin_note_create") {
+      etudiantApi.getById(this.$route.params.id).then(response => {
+        this.form.etudiantDto = response;
+        this.etudiant_input = `${this.form.etudiantDto.prenom} ${this.form.etudiantDto.nom}`;
+      })
+    } else {
+      noteApi.getById(this.$route.params.id).then((response) => {
+        this.form = response;
+        this.vue_title = "Update d'un note";
+        this.btn_form_text = "Update";
+        this.etudiant_input = `${this.form.etudiantDto.prenom} ${this.form.etudiantDto.nom}`;
+        this.passageExamen = response.examenDto;
+        this.devoir = response.devoirDto;
+      });
+    }
   },
   data() {
     return {
@@ -73,15 +100,12 @@ export default {
         devoirDto: {},
       },
 
-      etudiant: null,
+      etudiant_input: "",
       passageExamen: null,
       devoir: null,
     };
   },
   computed: {
-    etudiant_input() {
-      return this.etudiant;
-    },
     passageExamen_input() {
       return this.passageExamen;
     },
@@ -106,55 +130,39 @@ export default {
         .then(() => this.$router.push({ name: "admin_note_list" }));
     },
   },
-  created() {
-    if (
-      this.$route.params.id != null &&
-      this.$route.params.id != "" &&
-      this.$route.params.id != 0
-    ) {
-      noteApi.getById(this.$route.params.id).then((response) => {
-        this.form = response;
-        this.vue_title = "Update d'un note";
-        this.btn_form_text = "Update";
-        this.etudiant = response.etudiantDto;
-        this.passageExamen = response.examenDto;
-        this.devoir = response.devoirDto;
-      });
-    }
-  },
 };
 </script>
 
 <style scoped>
 .header-list {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5%;
-  }
-  
-  .header-list > form {
-    width: 40%;
-  }
-  
-  #saisie {
-    width: 70%;
-    margin-right: 5%;
-  }
-  
-  .mon-btn{
-    width: 80%;
-  }
-  
-#form-group{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
+}
+
+.header-list > form {
+  width: 40%;
+}
+
+#saisie {
+  width: 70%;
+  margin-right: 5%;
+}
+
+.mon-btn {
+  width: 80%;
+}
+
+#form-group {
   margin-left: 1.8em;
 }
 
-#label{
+label {
   width: 10em;
-  padding-left: 0.2em;;
+  padding-left: 0.2em;
 }
 
-#input{
-  width: 37.2%
+.mon-input {
+  width: 37.2%;
 }
 </style>

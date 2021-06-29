@@ -165,7 +165,7 @@ const routes = [
   { path: "/admin/promo-detail/:id", name:"admin_promotion_detail", component: PromoDetail},
   //Conge
   { path: "/admin/conge-list", name:"admin_conge_list", component: CongeList},
-  { path: "/admin/conge-create", name:"admin_conge_create", component: CongeCreate},
+  { path: "/admin/conge-create/:id", name:"admin_conge_create", component: CongeCreate},
   { path: "/admin/conge-update/:id", name:"admin_conge_update", component: CongeCreate},
   { path: "/admin/conge-detail/:id", name:"admin_conge_detail", component: CongeDetail},
   //Examen
@@ -180,7 +180,7 @@ const routes = [
   { path: "/admin/devoir-detail/:id", name:"admin_devoir_detail", component: DevoirDetail},
   //Note
   { path: "/admin/note-list", name:"admin_note_list", component: NoteList},
-  { path: "/admin/note-create", name:"admin_note_create", component: NoteCreate},
+  { path: "/admin/note-create/:id", name:"admin_note_create", component: NoteCreate},
   { path: "/admin/note-update/:id", name:"admin_note_update", component: NoteCreate},
   { path: "/admin/note-detail/:id", name:"admin_note_detail", component: NoteDetail},
   //PassageExamen
