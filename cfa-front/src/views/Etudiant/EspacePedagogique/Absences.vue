@@ -107,16 +107,12 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     submitFile() {        
-      fileApi.submitFile(this.$store.getters.getUtilisateur.id, this.file).then(() => this.list_reset());
+     fileApi.submitFileByDirectoryAndId("utilisateurs", this.$store.getters.getUtilisateur.id, this.file);
     },
-    list_reset() {
-      fileApi.getListByUtilisateurId(this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
-    }, 
   },
   
     created() {
     this.refreshList();
-    this.list_reset();
     },
 }
 </script>
