@@ -12,8 +12,7 @@ import LoginPage from "@/views/Login/LoginPage.vue";
 // Global -> Intervention
 import AllInterventions from "@/views/All/Intervention/AllInterventions.vue";
 import AjoutIntervention from "@/views/All/Intervention/AjoutInterventions.vue";
-import DetailIntervention from '@/views/All/Intervention/DetailIntervention.vue'
-import ModiferIntervention from '@/views/All/Intervention/UpdateIntervention.vue'
+import DetailIntervention from '@/views/All/Intervention/DetailIntervention.vue';
 // Global -> Formation
 import AllFormations from "@/views/All/Formation/AllFormation.vue";
 import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
@@ -132,12 +131,13 @@ const routes = [
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
   { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention },
   { path: "/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
-  { path: "/modifier-intervention/:id", name: "modifier-intervention", component: ModiferIntervention },
+  { path: "/modifier-intervention/:id", name: "modifier-intervention", component: AjoutIntervention },
 
   // Global -> Formation
   { path: "/formation", name: "all-formations", component: AllFormations },
   { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
   { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
+  { path: "/modifier-formation/:id", component: AjoutFormation, name: "modifier-formation" },
   // Global -> Etudiant
   { path: "/etudiants", name: "all-etudiant", component: AllEtudiant },
   { path: "/absences", name: "all-absences", component: AllAbsences },
