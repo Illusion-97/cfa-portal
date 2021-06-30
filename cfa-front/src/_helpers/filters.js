@@ -32,9 +32,13 @@ Vue.filter("twoDigits", function (value) { // arondi le nombre au centième
 });
 
 Vue.filter("fullAddresse", (value) => {
+  if (typeof value.rue === 'undefined' && typeof value.ville === 'undefined' && typeof value.codePostal === 'undefined')
+    return "Non précisé"
   return `${value.numero} ${value.rue} ${value.ville} ${value.codePostal}`
 })
 
 Vue.filter("fullName", value => {
+  if (typeof value.nom === 'undefined' && typeof value.prenom === 'undefined')
+    return ""
   return `${value.nom} ${value.prenom}`
 })

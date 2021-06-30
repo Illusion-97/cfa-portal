@@ -4,12 +4,20 @@ import { requestOptions } from '@/_helpers/request-options.js';
 const END_POINT = "formations";
 
 export const formationApi = {
+  getAll,
   getAllByPage,
   deleteFormation,
   getFormation,
   insertFormation,
   getFormationById,
   countFormation
+}
+
+function getAll() {
+  return axios
+    .get("/formations")
+    .then(response => response.data)
+    .catch(err => console.error(err))
 }
 
 function getAllByPage(page, size, search = "") {
