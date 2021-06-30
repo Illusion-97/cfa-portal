@@ -53,7 +53,7 @@
         </b-form-row>
       </b-form-group>
 
-      <!--<b-form-group>
+      <b-form-group>
         <b-form-row class="text-align-left">
           <label class="form-label"
               >Selectionner un Rôle:
@@ -70,7 +70,8 @@
                 >{{ role.intitule }}</option
               >
             </select>
-      </b-form-group>-->
+            </b-form-row>
+      </b-form-group>
 
     
       <div class="offset-1 col-3 pr-5 pl-0">
@@ -133,7 +134,7 @@ export default {
   },
   onSelected() {
       utilisateurApi
-        .getRole(this.selected.id)
+        .getRoleById(this.selected.id)
         .then((response) => (this.roles = response));
     },
   created() {
