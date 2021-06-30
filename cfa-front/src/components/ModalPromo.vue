@@ -6,7 +6,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ajouter une promotion</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Ajouter des promotions</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -24,7 +24,9 @@
               </div>
               <div class="row mt-3">
                 <div class="col-md-6">
-                  <small class="form-text text-muted">Selectionnez une ou plusieurs promotions.*</small>
+                  <small class="form-text info-text">
+                    <font-awesome-icon :icon="['fas', 'info-circle']" />
+                    Selectionnez une ou plusieurs promotions.</small>
                   <table class="table text-center">
                     <thead>
                       <tr>
@@ -56,8 +58,8 @@
                       <h6 class="text-center">Promotions selectionnée</h6>
                     </div>
                     <div class="card-body">
-                      <ul v-for="(p,index) in promotions" :key="p.id">
-                        <div class="alert alert-custom">
+                      <ul>
+                        <div class="alert alert-custom" v-for="(p,index) in promotions" :key="p.id">
                           <span class="close" @click.prevent="removePromo(index)">&times;</span>
                           {{p.nom}}
                         </div>
@@ -71,7 +73,7 @@
               </div>
             </div>
             <div class="modal-footer mt-2">
-              <button type="button" class="btn btn-outline-info" @click="saveChange" data-dismiss="modal">
+              <button type="button" class="btn btn-outline-info px-5" @click="saveChange" data-dismiss="modal">
                 Envoyer
               </button>
             </div>
@@ -83,9 +85,7 @@
 </template>
 
 <script>
-  import {
-    promotionApi
-  } from "../_api/promotion.api";
+  import { promotionApi } from "../_api/promotion.api";
   export default {
     name: "ModalCursusFormation",
     props: {
@@ -140,7 +140,7 @@
         this.promotions = []
       },
       saveChange() {
-        this.$emit('input', this.promotions);
+        this.$emit('click', this.promotions);
         // console.log("modal",this.promotions);
         // $("#modal").modal('hide');
       }
@@ -185,13 +185,17 @@
   .radius {
     border-radius: 0 5px 5px 0;
   }
+  
+  .info-text {
+    color: #2867bc;
+  }
 
   td:hover {
-    background-color: #7fa2f2;
+    background-color: #645e5998;
   }
 
   .alert-custom {
-    background-color: #7fe8f27a;
+    background-color: #0f84ba7a;
   }
 
   .close,
