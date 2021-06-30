@@ -9,6 +9,12 @@
           :value="etudiant_input"
           disabled="disabled"
         />
+        <span
+          class="col-1 delete-input"
+          v-if="etudiant_input"
+          @click="delete_input()"
+          >x</span
+        >
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -43,35 +49,20 @@
           v-for="etudiant in etudiantsComputed"
           :key="etudiant.id"
           v-on:click="clickList(etudiant)"
+          v-on:dblclick="detail(etudiant.id)"
+          class="mon-tr"
         >
           <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
           <td>{{ etudiant.login }}</td>
           <td>
-            <span
+            <div
               v-for="promotion in etudiant.promotionsDto"
               :key="promotion.id"
-              >{{ promotion.nom }}</span
             >
+              {{ promotion.nom }}
+            </div>
           </td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{
-                name: 'admin_etudiant_detail',
-                params: { id: etudiant.id },
-              }"
-              >Detail</router-link
-            >
-            &nbsp;
-            <router-link
-              class="btn btn-info"
-              :to="{
-                name: 'admin_etudiant_update',
-                params: { id: etudiant.id },
-              }"
-              >Update</router-link
-            >
-            &nbsp;
             <button
               class="btn btn-info"
               v-on:click="deleteEtudiant(etudiant.id)"
@@ -180,6 +171,14 @@ export default {
     clickList(etudiant) {
       this.etudiant_input = `${etudiant.prenom} ${etudiant.nom}`;
       this.$emit("click-list", etudiant);
+    },
+    detail(id) {
+      if (this.isAction)
+        this.$router.push({ name: "admin_etudiant_detail", params: { id: id } });
+    },
+    delete_input() {
+      this.etudiant_input = "";
+      this.$emit("delete_input");
     },
   },
 };

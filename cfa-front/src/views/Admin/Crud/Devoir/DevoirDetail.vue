@@ -53,7 +53,6 @@ export default {
     return {
       devoirId: this.$route.params.id,
       devoir: {},
-      loading: false,
     };
   },
   methods: {

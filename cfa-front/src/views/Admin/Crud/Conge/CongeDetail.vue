@@ -12,6 +12,11 @@
     <b-card no-body id="my-card">
         <b-card-header>
           <span class="">Detail</span>
+          <router-link
+          class="btn btn-info"
+          :to="{ name: 'admin_conge_update', params: { id: congeId } }"
+          >Update</router-link
+        >
         </b-card-header>
 
         <b-card-text class="identity row ml-5">
@@ -48,7 +53,7 @@ export default {
   data() {
     return {
       congeId: this.$route.params.id,
-      conge: {},
+      conge: {utilisateurDto: {}},
       loading: false,
     };
   },

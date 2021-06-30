@@ -18,8 +18,6 @@ import ModiferIntervention from '@/views/All/Intervention/UpdateIntervention.vue
 import AllFormations from "@/views/All/Formation/AllFormation.vue";
 import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
 import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
-// Global -> Etudiant
-import AllEtudiant from "@/views/All/Etudiant/AllEtudiant.vue";
 
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
@@ -103,6 +101,13 @@ import ProjetDetail from "@/views/Admin/Crud/Projet/ProjetDetail.vue";
 import GroupeList from "@/views/Admin/Crud/Groupe/GroupeList.vue";
 import GroupeCreate from "@/views/Admin/Crud/Groupe/GroupeCreate.vue";
 import GroupeDetail from "@/views/Admin/Crud/Groupe/GroupeDetail.vue";
+//Etudiant
+import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
+import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
+import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
+//Absence
+import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
+import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
 
 
 
@@ -141,8 +146,6 @@ const routes = [
   { path: "/formation", name: "all-formations", component: AllFormations },
   { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
   { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
-  // Global -> Etudiant
-  { path: "/etudiants", name: "all-etudiant", component: AllEtudiant },
 
   //  ### Etudiant Administratif ###
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
@@ -182,10 +185,10 @@ const routes = [
   { path: "/admin/adresse-detail/:id", name: "admin_adresse_detail", component: AdresseDetail },
   { path: "/admin/adresse-update/:id", name: "admin_adresse_update", component: AddAdresse },
   //Conge
-  { path: "/admin/conge-list", name: "admin_conge_list", component: CongeList },
-  { path: "/admin/conge-create", name: "admin_conge_create", component: CongeCreate },
-  { path: "/admin/conge-update/:id", name: "admin_conge_update", component: CongeCreate },
-  { path: "/admin/conge-detail/:id", name: "admin_conge_detail", component: CongeDetail },
+  { path: "/admin/conge-list", name:"admin_conge_list", component: CongeList},
+  { path: "/admin/conge-create/:id", name:"admin_conge_create", component: CongeCreate},
+  { path: "/admin/conge-update/:id", name:"admin_conge_update", component: CongeCreate},
+  { path: "/admin/conge-detail/:id", name:"admin_conge_detail", component: CongeDetail},
   //Examen
   { path: "/admin/examen-list", name: "admin_examen_list", component: ExamenList },
   { path: "/admin/examen-create", name: "admin_examen_create", component: ExamenCreate },
@@ -209,7 +212,7 @@ const routes = [
   { path: "/admin/cursus-update/:id", name:"admin_cursus_update", component: AddCursus},
   //Note
   { path: "/admin/note-list", name:"admin_note_list", component: NoteList},
-  { path: "/admin/note-create", name:"admin_note_create", component: NoteCreate},
+  { path: "/admin/note-create/:id", name:"admin_note_create", component: NoteCreate},
   { path: "/admin/note-update/:id", name:"admin_note_update", component: NoteCreate},
   { path: "/admin/note-detail/:id", name:"admin_note_detail", component: NoteDetail},
   //PassageExamen
@@ -227,7 +230,17 @@ const routes = [
   { path: "/admin/groupe-create", name:"admin_groupe_create", component: GroupeCreate},
   { path: "/admin/groupe-update/:id", name:"admin_groupe_update", component: GroupeCreate},
   { path: "/admin/groupe-detail/:id", name:"admin_groupe_detail", component: GroupeDetail},
-  
+   //Etudiant
+   { path: "/admin/etudiant-list", name:"admin_etudiant_list", component: EtudiantList},
+   { path: "/admin/etudiant-create", name:"admin_etudiant_create", component: EtudiantCreate},
+   { path: "/admin/etudiant-update/:id", name:"admin_etudiant_update", component: EtudiantCreate},
+   { path: "/admin/etudiant-detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail},
+   //Absence
+   { path: "/admin/absence-create/:id", name:"admin_absence_create", component: AbsenceCreate},
+   { path: "/admin/absence-update/:id", name:"admin_absence_update", component: AbsenceCreate},
+   { path: "/admin/absence-detail/:id", name:"admin_absence_detail", component: AbsenceDetail},
+
+
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
   { path: "/referent/notes", name: "referent_notes", component: NotesR},
