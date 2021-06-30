@@ -160,7 +160,7 @@
           </div>
         </div>
         <paginate :page-count="rows" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
-          :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
+          :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
           :next-link-class="'page-link'" :active-class="'active'">
         </paginate>
@@ -224,7 +224,7 @@
       clickHandler: {
         // methode quand la page est cliqué
         type: Function,
-        required: true
+        required: false
       },
       keyword: { // saisie pour la recherche
         type: String,
