@@ -70,8 +70,8 @@ import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
 import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue"
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
-import AddPromo from "@/views/Admin/Crud/Promotion/PromotionAdd.vue";
-import PromoDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
+import PromotionCreate from "@/views/Admin/Crud/Promotion/PromotionCreate.vue";
+import PromotionDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
 
 //Conge
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
@@ -139,7 +139,7 @@ const routes = [
   // Global -> Intervention
   { path: "/intervention", name: "all-intervention", component: AllInterventions },
   { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention },
-  { path: "/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
+  { path: "/detail-intervention/:id", name: "intervention-detail", component: DetailIntervention,  },
   { path: "/modifier-intervention/:id", name: "modifier-intervention", component: ModiferIntervention },
 
   // Global -> Formation
@@ -176,9 +176,9 @@ const routes = [
   { path: "/admin/user-detail/:id", name: "admin_user_detail", component: DetailUser },
   //Promotion
   { path: "/admin/promotion-list", name: "admin_promotion_list", component: PromotionList },
-  { path: "/admin/addPromotion", name: "admin_promotion_create", component: AddPromo },
-  { path: "/admin/promo-update/:id", name: "admin_promotion_update", component: AddPromo },
-  { path: "/admin/promo-detail/:id", name: "admin_promotion_detail", component: PromoDetail },
+  { path: "/admin/promotion-create", name: "admin_promotion_create", component: PromotionCreate },
+  { path: "/admin/promotion-update/:id", name: "admin_promotion_update", component: PromotionCreate },
+  { path: "/admin/promotion-detail/:id", name: "admin_promotion_detail", component: PromotionDetail },
   //Adresse
   { path: "/admin/adresse-list", name: "admin_adresse_list", component: AdresseList },
   { path: "/admin/addAdresse", name: "admin_addAdresse", component: AddAdresse },
@@ -200,7 +200,6 @@ const routes = [
   { path: "/admin/devoir-update/:id", name: "admin_devoir_update", component: DevoirCreate },
   { path: "/admin/devoir-detail/:id", name: "admin_devoir_detail", component: DevoirDetail },
   //Entreprise
-
   { path: "/admin/entreprise-list", name:"admin_entreprise_list", component: EntrepriseList},
   { path: "/admin/addEntreprise", name:"admin_addEntreprise", component: AddEntreprise},
   { path: "/admin/entreprise-detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail},
