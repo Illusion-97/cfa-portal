@@ -191,6 +191,16 @@
             <th>Date de debut</th>
             <th>Date de fin</th>
             <th>Raison</th>
+            <th>
+              <router-link
+                class="btn btn-primary font-weight-bold mon-plus"
+                :to="{
+                  name: 'admin_absence_create',
+                  params: { id: etudiant.id },
+                }"
+                >+</router-link
+              >
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -203,6 +213,11 @@
             <td>{{ absence.dateDebut }}</td>
             <td>{{ absence.dateFin }}</td>
             <td>{{ absence.justificatif }}</td>
+            <td>
+              <span class="close ma-croix" @click="deleteAbsence(absence.id)"
+                >x</span
+              >
+            </td>
           </tr>
         </tbody>
       </table>
@@ -375,7 +390,13 @@ export default {
         );
     },
     deleteAbsence(id) {
-      console.log(id);
+      absencesApi
+        .deleteAbsence(id)
+        .then(() =>
+          absencesApi
+            .getAllByIdEtudiant(this.$route.params.id)
+            .then((response) => (this.absences = response))
+        );
     },
     deleteConge(id) {
       congeApi

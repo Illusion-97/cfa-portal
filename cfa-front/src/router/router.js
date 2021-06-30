@@ -103,6 +103,9 @@ import GroupeDetail from "@/views/Admin/Crud/Groupe/GroupeDetail.vue";
 import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
 import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
 import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
+//Absence
+import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
+import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
 
 
 
@@ -203,7 +206,12 @@ const routes = [
    { path: "/admin/etudiant-create", name:"admin_etudiant_create", component: EtudiantCreate},
    { path: "/admin/etudiant-update/:id", name:"admin_etudiant_update", component: EtudiantCreate},
    { path: "/admin/etudiant-detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail},
-  
+   //Absence
+   { path: "/admin/absence-create/:id", name:"admin_absence_create", component: AbsenceCreate},
+   { path: "/admin/absence-update/:id", name:"admin_absence_update", component: AbsenceCreate},
+   { path: "/admin/absence-detail/:id", name:"admin_absence_detail", component: AbsenceDetail},
+
+
   //  ### Referent ###
   { path: "/referent/dashboard", name: "referent_dashboard", component: ReferentDashboard},
   { path: "/referent/notes", name: "referent_notes", component: NotesR},

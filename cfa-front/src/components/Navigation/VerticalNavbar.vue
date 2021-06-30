@@ -62,11 +62,11 @@
                         <router-link class="nav-item" :to="{name:'admin_dashboard'}">User</router-link>    
                         <router-link class="nav-item" :to="{name:'admin_etudiant_list'}">Etudiants</router-link>                    
                         <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
+                        <!-- <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link> -->
                         <router-link class="nav-item" :to="{name:'admin_examen_list'}">Examens</router-link>
                         <router-link class="nav-item" :to="{name:'admin_passage-examen_list'}">Passages Examens</router-link>
                         <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>                        
+                        <!-- <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>                         -->
                         <router-link class="nav-item" :to="{name:'admin_projet_list'}">Projets</router-link>
                         <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>
                     </b-nav>
