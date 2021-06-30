@@ -12,7 +12,8 @@
                 <div class=" col-md-12 div-form">
                     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                         <b-form-group label="Nom de la formation :" label-for="formation">
-                            <b-form-input v-model="form.titre" id="formation" class="form-control" placeholder="Ex : Java Init., Photoshop Init.">
+                            <b-form-input v-model="form.titre" id="formation" class="form-control"
+                                placeholder="Ex : Java Init., Photoshop Init.">
                             </b-form-input>
                         </b-form-group>
 
@@ -22,15 +23,11 @@
                             </b-form-textarea>
                         </b-form-group>
 
-                        <!-- <b-form-group>
-                            <label for="" class="mr-2">Cursus: </label>
-                            <span type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal">
-                                Ajouter un cursus
-                            </span>
-                            <modal-cursus-formation idName="modal"/>
-                        </b-form-group > -->
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between" v-if="formationId == null">
                             <b-button type="reset" variant="outline-danger">Annuler</b-button>
+                            <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
+                        </div>
+                        <div class="d-flex justify-content-end" v-else>
                             <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
                         </div>
                     </b-form>
@@ -46,20 +43,17 @@
 <script>
     import { formationApi } from "@/_api/formation.api.js";
     export default {
-        name: "Ajout-formation",
-        components: {
-        },
+        name: "formation-form",
+        components: {},
         data() {
             return {
-                opts: [],
-                courses: [],
                 form: {
-                    // id: "",
+                    id: "",
                     titre: "",
                     contenu: "",
-                    // cursusLstDto: [],
                 },
-                items: [],
+                items: {},
+                formationId: this.$route.params.id,
                 show: true,
             };
         },
@@ -70,21 +64,17 @@
             onSubmit(event) {
                 event.preventDefault();
                 // a modifier : ajout pour l'admin et ajout pour le referent
-                formationApi.insertFormation(this.form).then((data) => {
-                    if (data.status === 200)
-                        this.$router.push({
-                            name: "all-formations",
-                        });
-                    else
-                        this.$router.push({
-                            name: "ajouter-formation",
-                        });
-                });
+                formationApi
+                    .insertFormation(this.form)
+                    .then((data) => {
+                        if (data.status === 200)
+                            this.$router.push({ name: "all-formations" });
+                    });
             },
             onReset(event) {
                 event.preventDefault();
                 // Reset our form values
-                this.form.titre=""
+                this.form.titre = ""
                 this.form.contenu = "";
                 // this.form.cursusLstDto = [];
                 // Trick to reset/clear native browser form validation state
@@ -93,11 +83,16 @@
                     this.show = true;
                 });
             },
-            openModal() {
-                this.$refs.modal.show();
-            }
         },
         created() {
+            if (this.formationId != null && this.formationId != "" && this.formationId != 0) {
+                formationApi
+                    .getFormationById(this.formationId)
+                    .then((data) => {
+                        this.items = data;
+                        this.form = this.items;
+                    });
+            }
         },
     };
 </script>
