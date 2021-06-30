@@ -39,8 +39,8 @@
               <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
             </td>
           <td v-if="isAction">
-            <button class="btn btn-info" v-on:click="deleteGroupe(groupe.id)">
-              Delete
+            <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
+              Supprimer
             </button>
           </td>
         </tr>

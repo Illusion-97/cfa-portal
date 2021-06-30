@@ -48,13 +48,13 @@
             >
             &nbsp;
             <router-link
-              class="btn btn-info"
+              class="btn btn-success"
               :to="{ name: 'admin_note_update', params: { id: note.id } }"
               >Update</router-link
             >
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteNote(note.id)">
-              Delete
+            <button class="btn btn-danger" v-on:click="deleteNote(note.id)">
+              Supprimer
             </button>
           </td>
         </tr>
