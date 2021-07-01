@@ -1,8 +1,8 @@
 export const courseFields = [
   // { key: "id", label: "#" },
-  { key: "formationDto", label: "Intitulé", sortable: true,  },
-  { key: "dateDebut", label: "Date de debut", sortable: true },
-  { key: "dateFin", label: "Date de fin", sortable: true },
+  { key: "formationDto", label: "Intitulé" },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
   // { key: "modifierItv", label: "Modifier" },
   // { key: "supprimer", label: "Supprimer" },
 ];
@@ -14,11 +14,11 @@ export const fileFields = [
 ];
 
 export const leaveFields = [
-  { key: "dateDebut", label: "Date de debut", sortable: true },
-  { key: "dateFin", label: "Date de fin", sortable: true },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
   { key: "motif", label: "Motif" },
-  { key: "type", label: "Type de congé", sortable: true },
-  { key: "status", label: "Status", sortable: true },
+  { key: "type", label: "Type de congé" },
+  { key: "status", label: "Status" },
 ];
 
 export const absences_latesFields = [
