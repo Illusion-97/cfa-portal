@@ -1,10 +1,47 @@
 <template>
  
   <div class="container-fluid">
-     <BodyTitle :title=vue_title />
-      
+     <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+
+    <BodyTitle :title="vue_title" />      
 
     <b-form class="form mb-5" @submit="submit">
+
+      <!-- Cursus -->
+      <b-form-group>        
+        <b-form-row class="text-align-left">
+          <label class="col-1">Cursus</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.cursusDto.titre"
+              required
+            ></b-form-input>
+          </div>
+          <a class="btn btn-primary" @click="showCursusModal">Choisir le cursus</a>
+        </b-form-row>
+      </b-form-group>
+
+      <!-- Nom -->
+      <b-form-group>        
+        <b-form-row class="text-align-left">
+          <label class="col-1">Nom</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.nom"
+              required
+            ></b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
+
+      <!-- Dates -->
       <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Date de début</label>
@@ -17,7 +54,6 @@
           </div>
         </b-form-row>
       </b-form-group>
-
       <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Date de fin</label>
@@ -29,72 +65,55 @@
             ></b-form-datepicker>
           </div>
         </b-form-row>
-      </b-form-group>
+      </b-form-group>          
 
-      <b-form-group>
+      <!-- Referent -->
+      <b-form-group>        
         <b-form-row class="text-align-left">
-          <label class="col-1">Nom</label>
+          <label class="col-1">Referent</label>
           <div class="col-5 pr-5">
             <b-form-input
-              v-model="form.nom"
+              v-model="form.referentPedagogiqueDto"
               required
             ></b-form-input>
           </div>
+          <a class="btn btn-primary" @click="showReferentModal">Choisir le référent</a>
         </b-form-row>
       </b-form-group>
 
-      <!--<div class="mon-group">
-            <label class="form-label"
-              >Selectionner un Cef
-            </label>
-            <select
-              class="custom-select"
-              v-model="selected"
-              @change="onSelected()"
-            >
-              <option
-                v-for="cef in cefComputed"
-                :key="cef.id"
-                :value="cef"
-                >{{ cef.id }}</option
-              >
-            </select>
-          </div>-->
+      <!-- CEF -->
 
+      <!-- Centre -->
 
-      <!--Liste etudiant 
+      <!-- Etudiants -->
 
-      List intervention-->
-
-
+      <!-- Interventions   -->
     
       <div class="offset-1 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
 
-    <router-link
-      :to="{ name: 'admin_promotion_list' }"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </router-link>
-
-    </div>
-
     
+      <CursusModal
+      v-show="isCursusModalVisible"
+      @close="closeCursusModal"
+      v-on:close="onClickCursusClose"
+      />
+
+    </div>    
 </template>
 
 <script>
 import {promotionApi} from "@/_api/promotion.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import CursusModal from "@/components/Modal/CursusModal.vue";
 
 export default {
   name: "AddPromo",
   components: {
     BodyTitle,
+    CursusModal,
   },
   data() {
     return {
@@ -107,7 +126,16 @@ export default {
         dateDebut: "",
         dateFin: "",
         nom: "",
+        cursusDto: {},
+        referentPedagogiqueDto: {},
+        cefDto: {},
+        centreFormationDto: {},
+        etudiantsDto: [],
+        interventionsDto: [],
       },
+
+      isCursusModalVisible: false,
+      isReferentModalVisible: false,
     };
   },
   computed: {
@@ -116,11 +144,36 @@ export default {
     },
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     submit(e) {
       e.preventDefault();
 
       promotionApi.save(this.form).then(() => this.$router.push({ name: 'admin_promotion_list'}));
     },
+
+    //Cursus Modal
+    showCursusModal() {
+      this.isCursusModalVisible = true;
+    },
+    closeCursusModal() {
+      this.isCursusModalVisible = false;
+    },
+    onClickCursusClose(cursus){
+      this.form.cursusDto = cursus;
+    },
+
+    //Referent Modal
+    showReferentModal() {
+      this.isReferentModalVisible = true;
+    },
+    closeReferentModal() {
+      this.isReferentModalVisible = false;
+    },
+    onClickReferentClose(referent){
+      this.form.referentPedagogiqueDto = referent;
+    }
   },
   created() {
   
