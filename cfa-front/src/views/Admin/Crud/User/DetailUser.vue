@@ -28,24 +28,26 @@
           <span class="col-md-4">{{ user.login }}</span>
         </b-card-text>
 
-        <b-card-text class="identity row ml-5">
-          <span class="font-weight-bold col-md-2">Mot de passe :</span>
-          <span class="col-md-10">{{ user.password }} </span>
-        </b-card-text>
-
-        <b-card-text class="identity row ml-5">
+         <b-card-text class="identity row ml-5">
         <span class="font-weight-bold col-md-2">Adresse :</span>
-        <span class="col-md-10"
-          >{{ user.adresseDto.rue }}</span
+        <span class="col-md-4"
+          >{{ user.adresseDto.numero }} {{ user.adresseDto.rue }}, {{ user.adresseDto.codePostal }}, {{ user.adresseDto.ville }} </span
         >
-      </b-card-text>
-
-      <b-card-text class="identity row ml-5">
         <span class="font-weight-bold col-md-2">Entreprise :</span>
-        <span class="col-md-10"
+        <span class="col-md-4"
           >{{ user.entrepriseDto.raisonSociale }}</span
         >
       </b-card-text>
+
+
+        <b-card-text class="identity row ml-5">
+          <span class="font-weight-bold col-md-2">Mot de passe :</span>
+          <span class="col-md-4">{{ user.password }} </span>
+          <span class="font-weight-bold col-md-2">Rôle :</span>
+          <span class="col-md-4"><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p> </span>
+        </b-card-text>
+
+       
     </b-card>
 
   </div>

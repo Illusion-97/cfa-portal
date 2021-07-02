@@ -53,25 +53,25 @@
         </b-form-row>
       </b-form-group>
 
-      <!--<b-form-group>
+      <b-form-group class="mb-5">
         <b-form-row class="text-align-left">
-          <label class="form-label"
-              >Selectionner un Rôle:
-            </label>
-            <select
-              class="custom-select"
-              v-model="selected"
-              @change="onSelected()"
-            >
-              <option
-                v-for="role in rolesComputed"
-                :key="role.id"
-                :value="role"
-                >{{ role.intitule }}</option
-              >
-            </select>
-            </b-form-row>
-      </b-form-group>-->
+          <label class="mon-label col-1">Rôles :</label>
+          <a class="btn btn-primary" @click="showModal">Ajouter des Rôles</a>
+        </b-form-row>
+      </b-form-group>
+
+      <table class="table">
+        <thead class="">
+          <tr>
+            <th>Intitule</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr v-for="role in rolesComputed" :key="role.id">
+            <td>{{ role.intitule }} </td>
+          </tr>
+        </tbody>
+      </table>
 
       <AdresseListComponent
         v-on:click-list="onClickChildAdresseList"
@@ -98,50 +98,55 @@
       Precedent
     </router-link>
 
+    <RoleModal
+      v-show="isModalVisible"
+      @close="closeModal"
+      :rolesProp="rolesComputed"
+      v-on:close="onClickClose"
+    />
+
     </div>
     
 </template>
 
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
-import {utilisateursRoleApi} from "@/_api/utilisateurRole.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
 import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+import RoleModal from "@/components/Modal/RoleModal.vue";
 export default {
   name: "AddUser",
   components: {
     BodyTitle,
     AdresseListComponent,
     EntrepriseListComponent,
+    RoleModal,
   },
   data() {
     return {
       btn_form_text: "Ajouter",
       vue_title: "Création d'un utilisateur",
 
-      selected: null,
-
-      rolesInit : null,
-      roles: null,
       form: {
         id: null,
         prenom: "",
         nom: "",
         login: "",
         password: "",
-      
+        rolesDto: [],
         adresseDto: {},
         entrepriseDto: {},
       },
 
       adresse: null,
       entreprise: null,
+      isModalVisible: false,
     };
   },
   computed: {
     rolesComputed() {
-      return this.rolesInit;
+      return this.form.rolesDto;
     },
     adresse_input(){
       return this.adresse;
@@ -164,12 +169,19 @@ export default {
       .save(this.form)
       .then(() => this.$router.push({ name: 'admin_dashboard'}));
     },
-  },
-  onSelected() {
-      utilisateursRoleApi
-        .getById(this.selected.id)
-        .then((response) => (this.roles = response));
+    showModal() {
+      this.isModalVisible = true;
     },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
+    onClickClose(roles){
+      this.form.rolesDto = roles;
+    }
+  },
   created() {
   
     if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
@@ -180,11 +192,8 @@ export default {
         this.btn_form_text = "Modifier";
         this.adresse = response.adresseDto;
         this.entreprise = response.entrepriseDto;
+        this.role = response.rolesDto;
         });
-        utilisateursRoleApi.getAllByPage().then(response =>{
-          this.rolesInit=response;
-        })
-      
     }
   },
 };

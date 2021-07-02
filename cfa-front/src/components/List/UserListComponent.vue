@@ -25,11 +25,9 @@
       <thead class="thead-dark">
         <tr>
           <th>#</th>
-          <th>Prénom</th>
-          <th>Nom</th>
+          <th>Prénom Nom</th>
           <th>Login</th>
-          <th>Mot de passe</th>
-          <th>Adresse</th>
+          <th>Rôle</th>
           <th>Entreprise</th>
           <th v-if="isAction">Action</th>
         </tr>
@@ -38,11 +36,9 @@
         <tr v-for="user in usersComputed" :key="user.id"
             v-on:click="clickList(user)">
           <td>{{ user.id }} </td>
-          <td>{{ user.prenom }}</td>
-          <td>{{ user.nom }}</td>
+          <td>{{ user.prenom }} {{ user.nom }}</td>
           <td>{{ user.login }}</td>
-          <td>{{ user.password }}</td>
-          <td>{{ user.adresseDto.rue}}</td>
+          <td><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p></td>
           <td>{{ user.entrepriseDto.raisonSociale}}</td>
           
           <td v-if="isAction">
@@ -138,7 +134,7 @@ export default {
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.users = response));
     },
-    refreshList() {
+    refreshList(id) {
       utilisateurApi
         .getAllByPage(0, this.perPage)
         .then((response) => (this.users = response));
