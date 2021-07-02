@@ -9,7 +9,7 @@ export const utilisateursRoleApi = {
   getCount,
   save,
   deleteUtilisateurRole,
-
+  getAll,
 };
 
 function getById(id){
@@ -51,4 +51,13 @@ function deleteUtilisateurRole(id) {
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+function getAll(){
+  let req = `/utilisateursRoles`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }
