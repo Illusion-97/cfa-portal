@@ -29,6 +29,8 @@
           <th>Nom</th>
           <th>Login</th>
           <th>Mot de passe</th>
+          <th>Adresse</th>
+          <th>Entreprise</th>
           <th v-if="isAction">Action</th>
         </tr>
       </thead>
@@ -40,6 +42,9 @@
           <td>{{ user.nom }}</td>
           <td>{{ user.login }}</td>
           <td>{{ user.password }}</td>
+          <td>{{ user.adresseDto.rue}}</td>
+          <td>{{ user.entrepriseDto.raisonSociale}}</td>
+          
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_user_detail', params: { id: user.id }}">Details</router-link>
             &nbsp;
@@ -135,7 +140,7 @@ export default {
     },
     refreshList() {
       utilisateurApi
-        .getAllUtilisateurs(0, this.perPage)
+        .getAllByPage(0, this.perPage)
         .then((response) => (this.users = response));
       utilisateurApi
         .getCount()
