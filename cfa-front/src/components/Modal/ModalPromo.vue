@@ -85,7 +85,7 @@
 </template>
 
 <script>
-  import { promotionApi } from "../_api/promotion.api";
+  import { promotionApi } from "../../_api/promotion.api";
   export default {
     name: "ModalCursusFormation",
     props: {
@@ -140,7 +140,7 @@
         this.promotions = []
       },
       saveChange() {
-        this.$emit('click', this.promotions);
+        this.$emit('input', this.promotions);
         // console.log("modal",this.promotions);
         // $("#modal").modal('hide');
       }

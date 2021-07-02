@@ -14,14 +14,13 @@
             </form>
           </div>
         </div>
-
         <div class="row d-flex justify-content-between">
           <div v-if="showBtn == true" id="show-btn" class="col-md-12">
             <router-link :to="{ name: btnLink }" class="button">
               {{ btnTxt }}
             </router-link>
           </div>
-          <div v-if="rows != 0" :class="display">
+          <!-- <div class="display">
             <b-form inline class="">
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
@@ -42,7 +41,7 @@
                 </b-form-select-option>
               </b-form-select>
             </b-form>
-          </div>
+          </div> -->
         </div>
 
         <div class="row">
@@ -159,7 +158,7 @@
             </b-table>
           </div>
         </div>
-        <paginate :page-count="rows" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
+        <paginate :page-count="page" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
           :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
           :next-link-class="'page-link'" :active-class="'active'">
@@ -221,6 +220,11 @@
         type: Number,
         default: 0,
       },
+      pageCount:{
+        // nombre de pages
+        type: Number,
+        default: 0,
+      },
       clickHandler: {
         // methode quand la page est cliqué
         type: Function,
@@ -245,6 +249,9 @@
     computed: {
       rows() {
         return this.length;
+      },
+      page(){
+        return this.pageCount;
       },
       display() {
         if (this.length <= 10) return "d-none";
