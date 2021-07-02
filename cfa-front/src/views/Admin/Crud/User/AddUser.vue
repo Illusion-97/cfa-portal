@@ -104,6 +104,7 @@
 
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
+import {utilisateursRoleApi} from "@/_api/utilisateurRole.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
 import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
@@ -119,16 +120,17 @@ export default {
       btn_form_text: "Ajouter",
       vue_title: "Création d'un utilisateur",
 
-      roles: null,
-
       selected: null,
 
+      rolesInit : null,
+      roles: null,
       form: {
         id: null,
         prenom: "",
         nom: "",
         login: "",
         password: "",
+      
         adresseDto: {},
         entrepriseDto: {},
       },
@@ -139,7 +141,7 @@ export default {
   },
   computed: {
     rolesComputed() {
-      return this.roles;
+      return this.rolesInit;
     },
     adresse_input(){
       return this.adresse;
@@ -164,8 +166,8 @@ export default {
     },
   },
   onSelected() {
-      utilisateurApi
-        .getRoleById(this.selected.id)
+      utilisateursRoleApi
+        .getById(this.selected.id)
         .then((response) => (this.roles = response));
     },
   created() {
@@ -179,6 +181,9 @@ export default {
         this.adresse = response.adresseDto;
         this.entreprise = response.entrepriseDto;
         });
+        utilisateursRoleApi.getAllByPage().then(response =>{
+          this.rolesInit=response;
+        })
       
     }
   },
