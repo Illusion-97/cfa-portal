@@ -17,7 +17,10 @@
         </b-form-row>
       </b-form-group>
 
-
+      <AdresseListComponent
+        v-on:click-list="onClickChildAdresseList"
+        :adresseProp="adresse_input"
+      />
     
       <div class="offset-1 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
@@ -41,11 +44,12 @@
 <script>
 import {entrepriseApi} from "@/_api/entreprise.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-
+import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
 export default {
   name: "AddEntreprise",
   components: {
     BodyTitle,
+    AdresseListComponent,
   },
   data() {
     return {
@@ -55,8 +59,15 @@ export default {
       form: {
         id: null,
         raisonSociale: "",
+        adresseDto: {},
       },
+      adresse: null,
     };
+  },
+  computed: {
+    adresse_input(){
+      return this.formation;
+    },
   },
   methods: {
     submit(e) {

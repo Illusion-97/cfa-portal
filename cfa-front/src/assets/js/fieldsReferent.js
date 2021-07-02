@@ -1,12 +1,11 @@
 export const etudiantsFields = [
-  { key: "nom", label: "Nom", thStyle: { width: "100px" } },
-  { key: "prenom", label: "Prénom", thStyle: { width: "100px" } },
+  { key: "etudiant", label: "Etudiant", thStyle: { width: "150px" } },
   { key: "adresseDto", label: "Adresse" },
   { key: "entrepriseDto", label: "Entreprise" },
   { key: "formateurReferentDto", label: "Référent" },
   { key: "managerDto", label: "Manager" },
-  { key: "promotionsDto", label: "Promotion" },
-  { key: "groupesDto", label: "Groupe", thStyle: { width: "150px" }},
+  { key: "promotionsDto", label: "Promotion"},
+  { key: "groupesDto", label: "Groupe"},
 ];
 
 export const noteFields = [

@@ -1,10 +1,10 @@
 export const courseFields = [
-  { key: "id", label: "#" },
-  { key: "formationDto", label: "Intitulé", sortable: true },
+  // { key: "id", label: "#" },
+  { key: "formationDto", label: "Intitulé", sortable: true,  },
   { key: "dateDebut", label: "Date de debut", sortable: true },
   { key: "dateFin", label: "Date de fin", sortable: true },
-  { key: "modifierItv", label: "Modifier" },
-  { key: "supprimer", label: "Supprimer" },
+  // { key: "modifierItv", label: "Modifier" },
+  // { key: "supprimer", label: "Supprimer" },
 ];
 
 export const fileFields = [
@@ -22,10 +22,10 @@ export const leaveFields = [
 ];
 
 export const absences_latesFields = [
-  { key: "eleve", label: "Nom de l'étudiant" },
+  { key: "etudiantDto", label: "Nom de l'étudiant" },
   { key: "dateDebut", label: "Date de debut" },
   { key: "dateFin", label: "Date de fin" },
-  { key: "motif", label: "Justificatif" },
+  { key: "justificatif", label: "Justificatif" },
 ];
 
 export const etudiantsFields = [
@@ -80,8 +80,6 @@ export const examensFields = [
 export const formationFields = [
   { key: "titre", label: "Nom de la formation", thStyle: { width: "200px" } },
   { key: "contenu", label: "Contenu" },
-  { key: "modifier", label:"Modifier" },
-  "supprimer"
   // { key: "cursusLstDto", label: "Cursus" },
 ]
 // Example

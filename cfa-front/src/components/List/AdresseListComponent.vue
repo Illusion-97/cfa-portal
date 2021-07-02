@@ -17,6 +17,7 @@
       </form>
 
       <router-link class="btn btn-primary" :to="{ name: 'admin_addAdresse' }"
+        v-if="isAction"
         >Ajouter une adresse</router-link
       >
     </div>
@@ -28,17 +29,20 @@
           <th>Rue</th>
           <th>Ville</th>
           <th>Code Postal</th>
-          <th>Action</th>
+          <th v-if="isAction">Action</th>
         </tr>
       </thead>
       <tbody v-if="adressesComputed">
-        <tr v-for="adresse in adressesComputed" :key="adresse.id">
+        <tr v-for="adresse in adressesComputed" 
+        :key="adresse.id" 
+        v-on:click="clickList(adresse)">
+
           <td>{{ adresse.id }}</td>
           <td>{{ adresse.numero }} </td>
           <td>{{ adresse.rue }}</td>
           <td>{{ adresse.ville }}</td>
           <td>{{ adresse.codePostal }}</td>
-          <td>
+          <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_adresse_detail', params: { id: adresse.id }}">Details</router-link>
             &nbsp;
             <router-link class="btn btn-success" :to="{name:'admin_adresse_update', params: { id: adresse.id }}">Modifier</router-link>
@@ -76,8 +80,7 @@
 import { adresseApi } from "@/_api/adresse.api.js";
 export default {
   name: "AdresseListComponent",
-  components: {
-  },
+  components: {},
    props: {
     isAction: {
       type: Boolean,
@@ -90,7 +93,7 @@ export default {
   watch: {
     adresseProp(){
       if (this.adresseProp != null) 
-        this.adresse_input = `${this.adresseProp.numero}`;
+        this.adresse_input = `${this.adresseProp.rue}`;
     }
   },
   data() {
@@ -149,7 +152,7 @@ export default {
       }
     },
     clickList(adresse){
-        this.adresse_input = adresse.numero;
+      this.adresse_input = adresse.rue;
       this.$emit('click-list',adresse);
     }
 

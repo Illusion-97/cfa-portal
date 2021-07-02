@@ -53,7 +53,7 @@
         </b-form-row>
       </b-form-group>
 
-      <b-form-group>
+      <!--<b-form-group>
         <b-form-row class="text-align-left">
           <label class="form-label"
               >Selectionner un Rôle:
@@ -71,10 +71,20 @@
               >
             </select>
             </b-form-row>
-      </b-form-group>
+      </b-form-group>-->
+
+      <AdresseListComponent
+        v-on:click-list="onClickChildAdresseList"
+        :adresseProp="adresse_input"
+      />
+
+      <EntrepriseListComponent
+        v-on:click-list="onClickChildEntrepriseList"
+        :entrepriseProp="entreprise_input"
+      />
 
     
-      <div class="offset-1 col-3 pr-5 pl-0">
+      <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
@@ -94,47 +104,70 @@
 
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
+import {utilisateursRoleApi} from "@/_api/utilisateurRole.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-
+import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
+import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
 export default {
   name: "AddUser",
   components: {
     BodyTitle,
+    AdresseListComponent,
+    EntrepriseListComponent,
   },
   data() {
     return {
       btn_form_text: "Ajouter",
       vue_title: "Création d'un utilisateur",
 
-      roles: null,
-
       selected: null,
 
+      rolesInit : null,
+      roles: null,
       form: {
         id: null,
         prenom: "",
         nom: "",
         login: "",
         password: "",
+      
+        adresseDto: {},
+        entrepriseDto: {},
       },
+
+      adresse: null,
+      entreprise: null,
     };
   },
   computed: {
     rolesComputed() {
-      return this.roles;
+      return this.rolesInit;
+    },
+    adresse_input(){
+      return this.adresse;
+    },
+    entreprise_input(){
+      return this.entreprise;
     },
   },
   methods: {
-    
+    onClickChildAdresseList(adresse) {
+      this.form.adresseDto = adresse;
+    },
+    onClickChildEntrepriseList(entreprise) {
+      this.form.entrepriseDto = entreprise;
+    },
     submit(e) {
       e.preventDefault();
 
-      utilisateurApi.save(this.form).then(() => this.$router.push({ name: 'admin_dashboard'}));
+      utilisateurApi
+      .save(this.form)
+      .then(() => this.$router.push({ name: 'admin_dashboard'}));
     },
   },
   onSelected() {
-      utilisateurApi
-        .getRoleById(this.selected.id)
+      utilisateursRoleApi
+        .getById(this.selected.id)
         .then((response) => (this.roles = response));
     },
   created() {
@@ -145,7 +178,12 @@ export default {
         this.form = response
         this.vue_title = "Modification d'un utilisateur";
         this.btn_form_text = "Modifier";
+        this.adresse = response.adresseDto;
+        this.entreprise = response.entrepriseDto;
         });
+        utilisateursRoleApi.getAllByPage().then(response =>{
+          this.rolesInit=response;
+        })
       
     }
   },
