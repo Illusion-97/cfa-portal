@@ -38,7 +38,7 @@
                     <tbody>
                       <tr v-for="promo in items" :key="promo.id">
                         <td @click.prevent="addPromo(promo)">
-                          <span>{{ promo.nom }}</span>
+                          <span> {{ promo.nom }}</span>
                         </td>
                       </tr>
                     </tbody>
@@ -61,7 +61,7 @@
                       <ul>
                         <div class="alert alert-custom" v-for="(p,index) in promotions" :key="p.id">
                           <span class="close" @click.prevent="removePromo(index)">&times;</span>
-                          {{p.nom}}
+                            {{p.nom}}
                         </div>
                         <!-- <p class="alert alert-primary">{{p.nom}} <span class="close" @click="removePromo(index)">&times;</span></p> -->
                       </ul>
@@ -87,7 +87,7 @@
 <script>
   import { promotionApi } from "../../_api/promotion.api";
   export default {
-    name: "ModalCursusFormation",
+    name: "ModalPromotion",
     props: {
       idName: String,
     },
