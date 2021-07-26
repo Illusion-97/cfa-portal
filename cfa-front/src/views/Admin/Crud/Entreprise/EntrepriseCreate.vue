@@ -59,7 +59,7 @@ export default {
       form: {
         id: null,
         raisonSociale: "",
-        adresseDto: {},
+        adresseSiegeDto: {},
       },
       adresse: null,
     };
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
      onClickChildAdresseList(adresse) {
-      this.form.adresseDto = adresse;
+      this.form.adresseSiegeDto = adresse;
     },
     submit(e) {
       e.preventDefault();
@@ -89,7 +89,7 @@ export default {
         this.form = response
         this.vue_title = "Modification d'une entreprise";
         this.btn_form_text = "Modifier";
-        this.adresse = response.adresseDto;
+        this.adresse = response.adresseSiegeDto;
         });
       
     }
