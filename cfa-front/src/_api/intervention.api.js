@@ -28,7 +28,7 @@ function getIntervention(page, size, keyword = "") {
 function getInterventionById(id) {
     const url = `/${END_POINT}/${id}`
     return axios.get(url, requestOptions.headers())
-        .then(response => response.data)
+        .then(response => response)
         .catch(err => console.error(err));
 }
 
@@ -97,6 +97,6 @@ function save(intervention) {
 function deleteIntervention(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
-    .then((response) => response.data)
+    .then((response) => response)
     .catch((error) => console.log(error));
 }
