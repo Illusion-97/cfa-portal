@@ -27,7 +27,7 @@
         <tr>
           <th>#</th>
           <th>Raison Sociale</th>
-          <!--<th>Adresse</th>-->
+          <th>Adresse</th>
           <th v-if="isAction">Action</th>
         </tr>
       </thead>
@@ -38,7 +38,7 @@
         
           <td>{{ entreprise.id }}</td>
           <td>{{ entreprise.raisonSociale }} </td>
-          <!--<td>{{ entreprise.adresseDto.rue}}</td>-->
+          <td>{{ entreprise.adresseSiegeDto.rue}}</td>
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_entreprise_detail', params: { id: entreprise.id }}">Details</router-link>
             &nbsp;
@@ -134,7 +134,7 @@ export default {
     },
     refreshList() {
       entrepriseApi
-        .getAllEntreprises(0, this.perPage)
+        .getAllByPage(0, this.perPage)
         .then((response) => (this.entreprises = response));
       entrepriseApi
         .getCount()
