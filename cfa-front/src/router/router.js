@@ -13,7 +13,6 @@ import LoginPage from "@/views/Login/LoginPage.vue";
 import AllInterventions from "@/views/All/Intervention/AllInterventions.vue";
 import AjoutIntervention from "@/views/All/Intervention/AjoutInterventions.vue";
 import DetailIntervention from '@/views/All/Intervention/DetailIntervention.vue'
-import ModiferIntervention from '@/views/All/Intervention/UpdateIntervention.vue'
 // Global -> Formation
 import AllFormations from "@/views/All/Formation/AllFormation.vue";
 import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
