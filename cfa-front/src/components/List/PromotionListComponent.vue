@@ -16,14 +16,13 @@
         <button class="btn btn-outline-secondary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-primary" :to="{ name: 'admin_promotion_create' }"
-        >Ajouter une promotion</router-link
+      <router-link class="btn btn-info" :to="{ name: 'admin_promotion_create' }"
+        >Ajouter</router-link
       >
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>#</th>
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
@@ -31,18 +30,13 @@
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
-        <tr v-for="promotion in promotionsComputed" :key="promotion.id">
-          <td>{{ promotion.id }} </td>
+        <tr v-for="promotion in promotionsComputed" :key="promotion.id" class="mon-tr" v-on:dblclick="detail(promotion.id)" v-on:click="clickList(promotion)">
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut }}</td>
           <td>{{ promotion.dateFin }}</td>
           <td>
-            <router-link class="btn btn-info" :to="{name:'admin_promotion_detail', params: { id: promotion.id }}">Details</router-link>
-            &nbsp;
-            <router-link class="btn btn-success" :to="{name:'admin_promotion_update', params: { id: promotion.id }}">Modifier</router-link>
-            &nbsp;
-            <button class="btn btn-danger" v-on:click="deletePromotion(promotion.id)">
-              Supprimer
+            <button class="btn btn-info" v-on:click="deletePromotion(promotion.id)">
+              Delete
             </button>
           </td>
         </tr>
@@ -148,6 +142,10 @@ export default {
     clickList(promotion) {
       this.promotion_input = promotion.nom;
       this.$emit('click-list',promotion);
+    },
+    detail(id) {
+      if (this.isAction)
+        this.$router.push({ name: "admin_promotion_detail", params: { id: id } });
     },
 
   },

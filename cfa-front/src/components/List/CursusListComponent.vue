@@ -1,33 +1,46 @@
 <template>
   <div class="container-fluid">
     <div class="header-list">
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Cursus</label>
-        <input
-          class="col-9 form-control"
-          type="text"
-          :value="cursus_input"
-          disabled="disabled"
-        />
+
+      <div v-if="!isAction" class="row mt-3 mb-3">
+        <div class="text-align-left col-md-6 d-flex justify-content-between">
+          <label class="mr-3">Cursus</label>
+          <input
+            class="form-control"
+            type="text"
+            :value="cursus_input"
+            disabled="disabled"
+          />
+        </div>
+
+        <form class="col-md-6 d-flex justify-content-between float-right" @submit="submit">
+          <input
+            id="saisie"
+            name="saisie"
+            type="text"
+            class="form-control"
+            v-model="saisie"
+          />
+          <button class="btn btn-primary" type="submit">Recherche</button>
+        </form>
       </div>
 
-      <form class="form-inline form" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          v-model="saisie"
-        />
-        <button class="btn btn-primary" type="submit">Recherche</button>
-      </form>
+      <div v-if="isAction">
+        <form class="form-inline form" @submit="submit">
+          <input
+            id="saisie"
+            name="saisie"
+            type="text"
+            class="form-control"
+            v-model="saisie"
+          />
+          <button class="btn btn-primary" type="submit">Recherche</button>
+        </form>
 
-      <router-link
-        class="btn btn-info"
-        :to="{ name: 'admin_conge_create' }"
-        v-if="isAction"
-        >Ajouter</router-link
-      >
+        <router-link class="btn btn-info" :to="{ name: 'admin_conge_create' }"
+          >Ajouter</router-link
+        >
+      </div>
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -102,10 +115,10 @@ export default {
     },
   },
   watch: {
-    cursusProp(){
-      if (this.cursusProp != null) 
+    cursusProp() {
+      if (this.cursusProp != null)
         this.cursus_input = `${this.cursusProp.titre}`;
-    }
+    },
   },
   data() {
     return {
@@ -121,12 +134,9 @@ export default {
     cursusComputed() {
       return this.cursus;
     },
-    nbPageComputed() {
-      return this.pageCount;
-    },
   },
   created() {
-    this.refreshList();    
+    this.refreshList();
   },
   methods: {
     submit(e) {
@@ -166,5 +176,26 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
+<style scoped>  
+  .header-list > form{
+    width: 40%;
+  }
+  
+  #saisie{
+    width: 70%;
+    margin-right: 5%;
+  }
+  
+  #groupe-input{
+    width: 50%;
+  }
+  
+  .mon-tr:hover {
+    background-color: rgb(216, 213, 213) !important;
+    cursor: pointer;
+  }
+
+  .delete-input:hover{
+    cursor: pointer;
+  }
 </style>

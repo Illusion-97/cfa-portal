@@ -63,6 +63,7 @@
       :perPage="perPage"
       :items="congesComputed"
       :fields="fields"
+      :isPaginate="false"
       class="table-template"
     />
   </div>
