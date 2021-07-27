@@ -2,14 +2,13 @@
   <transition name="modal">
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
-
         <div class="modal-header">
           <h3>Choisir le cursus</h3>
         </div>
 
         <CursusListComponent
-         v-on:click-list="onClickChildInterventionList"
-        :interventionProp="cursus_input"
+          v-on:click-list="onClickChildInterventionList"
+          :interventionProp="cursus"
         />
 
         <div class="modal-footer text-right">
@@ -17,7 +16,6 @@
             Close
           </button>
         </div>
-        
       </div>
     </div>
   </transition>
@@ -33,16 +31,18 @@ export default {
   },
   data() {
     return {
-        cursus: {},
+      cursus: {},
     };
   },
   props: {
+    cursusProp: {
+      default: null,
+    },
   },
   watch: {
-  },
-  computed: {
-      cursus_input() {
-      return this.cursus;
+    cursusProp() {
+      console.log("prop : ", this.cursusProp);
+      if (this.cursusProp != null) this.cursus = this.cursusProp;
     },
   },
   methods: {
@@ -53,8 +53,7 @@ export default {
       this.cursus = cursus;
     },
   },
-  created() {
-  },
+  created() {},
 };
 </script>
 

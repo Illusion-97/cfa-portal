@@ -1,7 +1,6 @@
 <template>
- 
   <div class="container-fluid">
-     <a
+    <a
       @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
@@ -10,12 +9,11 @@
       Precedent
     </a>
 
-    <BodyTitle :title="vue_title" />      
+    <BodyTitle :title="vue_title" />
 
     <b-form class="form mb-5" @submit="submit">
-
       <!-- Cursus -->
-      <b-form-group>        
+      <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Cursus</label>
           <div class="col-5 pr-5">
@@ -24,19 +22,18 @@
               required
             ></b-form-input>
           </div>
-          <a class="btn btn-primary" @click="showCursusModal">Choisir le cursus</a>
+          <a class="btn btn-primary" @click="showCursusModal"
+            >Choisir le cursus</a
+          >
         </b-form-row>
       </b-form-group>
 
       <!-- Nom -->
-      <b-form-group>        
+      <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Nom</label>
           <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.nom"
-              required
-            ></b-form-input>
+            <b-form-input v-model="form.nom" required></b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
@@ -65,82 +62,185 @@
             ></b-form-datepicker>
           </div>
         </b-form-row>
-      </b-form-group>          
+      </b-form-group>
 
       <!-- Referent -->
-      <b-form-group>        
+      <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Referent</label>
           <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.referentPedagogiqueDto"
-              required
-            ></b-form-input>
+            <b-form-input v-model="referent" required></b-form-input>
           </div>
-          <a class="btn btn-primary" @click="showReferentModal">Choisir le référent</a>
+          <a class="btn btn-primary" @click="showUtilisateurModal('formateur')"
+            >Choisir le référent</a
+          >
         </b-form-row>
       </b-form-group>
 
       <!-- CEF -->
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">CEF</label>
+          <div class="col-5 pr-5">
+            <b-form-input v-model="cef" required></b-form-input>
+          </div>
+          <a class="btn btn-primary" @click="showUtilisateurModal('cef')"
+            >Choisir le CEF</a
+          >
+        </b-form-row>
+      </b-form-group>
 
       <!-- Centre -->
 
       <!-- Etudiants -->
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">Etudiants</label>
+          <div class="col-5 pr-5">
+            <div class="mon-group" v-if="form.etudiantsDto">
+              <!-- <label class="form-label">Les étudiants du groupe</label>  -->
+              <div
+                class="d-inline p-2 border border-dark rounded"
+                v-for="(etudiant, index) in form.etudiantsDto"
+                :key="etudiant.id"
+              >
+                {{ etudiant.prenom }} {{ etudiant.nom }}
+                <span @click="removeFromlist(index)" class="croix-delete"
+                  >x</span
+                >
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-primary" @click="showEtudiantModal()"
+            >Choisir les étudiants</a
+          >
+        </b-form-row>
+      </b-form-group>
 
       <!-- Interventions   -->
-    
-      <div class="offset-1 col-3 pr-5 pl-0">
-        <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
-      </div>
+      <b-form-group class="mb-5">
+        <b-form-row class="text-align-left">
+          <label class="col-1">Interventions :</label>
+          <!-- <div class="col-5">test</div> -->
+          <a class="btn btn-primary offset-5" @click="showInterventionModal"
+            >Ajouter des interventions</a
+          >
+        </b-form-row>
+      </b-form-group>
+
+      <table class="table">
+        <thead class="">
+          <tr>
+            <th>Titre</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Formateur</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="intervention in form.interventionsDto"
+            :key="intervention.id"
+          >
+            <td>{{ intervention.formationDto.titre }}</td>
+            <td>{{ intervention.dateDebut }}</td>
+            <td>{{ intervention.dateFin }}</td>
+            <!-- <td>{{ intervention.formateursDto.prenom }} {{intervention.formateursDto.nom}}</td> -->
+          </tr>
+        </tbody>
+      </table>
     </b-form>
 
-    
-      <CursusModal
+    <CursusModal
       v-show="isCursusModalVisible"
       @close="closeCursusModal"
       v-on:close="onClickCursusClose"
-      />
+      :cursusProp="form.cursusDto"
+    />
 
-    </div>    
+    <UtilisateurModal
+      v-show="isUtilisateurModalVisible"
+      @close="closeUtilisateurModal"
+      v-on:close="onClickUtilisateurClose"
+      :roleProp="UtilisateurModal_role"
+      :utilisateursProp="UtilisateurModale_utilisateur"
+    />
+
+    <EtudiantModal
+      v-show="isEtudiantModalVisible"
+      @close="closeEtudiantModal"
+      :etudiantsProp="etudiantsComputed"
+      v-on:close="onClickEtudiantClose"
+      :allEtudiant="true"
+    />
+
+    <InterventionModal
+      v-show="isInterventionModalVisible"
+      @close="closeInterventionModal"
+      :etudiantsProp="etudiantsComputed"
+      v-on:close="onClickInterventionClose"
+      :allEtudiant="true"
+    />
+  </div>
 </template>
 
 <script>
-import {promotionApi} from "@/_api/promotion.api.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import CursusModal from "@/components/Modal/CursusModal.vue";
+import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";
+import EtudiantModal from "@/components/Modal/EtudiantModal.vue";
+import InterventionModal from "@/components/Modal/InterventionModal.vue";
 
 export default {
-  name: "AddPromo",
+  name: "PromotionCreate",
   components: {
     BodyTitle,
     CursusModal,
+    UtilisateurModal,
+    EtudiantModal,
+    InterventionModal,
   },
   data() {
     return {
       vue_title: "Création d'une promotion",
       btn_form_text: "Ajouter",
-      cef: null,
 
+      //form promotion
       form: {
         id: null,
         dateDebut: "",
         dateFin: "",
         nom: "",
         cursusDto: {},
-        referentPedagogiqueDto: {},
-        cefDto: {},
+        referentPedagogiqueDto: { prenom: "", nom: "" },
+        cefDto: { prenom: "", nom: "" },
         centreFormationDto: {},
         etudiantsDto: [],
         interventionsDto: [],
       },
 
+      //CursusModal
       isCursusModalVisible: false,
-      isReferentModalVisible: false,
+      //UtilisateurModal
+      isUtilisateurModalVisible: false,
+      UtilisateurModal_role: null,
+      UtilisateurModale_utilisateur: null,
+      //EtudiantModal
+      isEtudiantModalVisible: false,
+      //InterventionModal
+      isInterventionModalVisible: false,
     };
   },
   computed: {
-    cefComputed() {
-      return this.cef;
+    referent() {
+      return `${this.form.referentPedagogiqueDto.prenom} ${this.form.referentPedagogiqueDto.nom}`;
+    },
+    cef() {
+      return `${this.form.cefDto.prenom} ${this.form.cefDto.nom}`;
+    },
+    etudiantsComputed() {
+      return this.form.etudiantsDto;
     },
   },
   methods: {
@@ -150,7 +250,12 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      promotionApi.save(this.form).then(() => this.$router.push({ name: 'admin_promotion_list'}));
+      promotionApi
+        .save(this.form)
+        .then(() => this.$router.push({ name: "admin_promotion_list" }));
+    },
+    removeFromlist(index) {
+      this.etudiants.splice(index, 1);
     },
 
     //Cursus Modal
@@ -160,31 +265,75 @@ export default {
     closeCursusModal() {
       this.isCursusModalVisible = false;
     },
-    onClickCursusClose(cursus){
+    onClickCursusClose(cursus) {
       this.form.cursusDto = cursus;
     },
 
-    //Referent Modal
-    showReferentModal() {
-      this.isReferentModalVisible = true;
+    //Utilisateur Modal
+    showUtilisateurModal(role) {
+      switch (role) {
+        case "formateur":
+          //Un referent est formateur avant de le désigner comme referent
+          this.UtilisateurModal_role = "FORMATEUR";
+          this.UtilisateurModale_utilisateur = this.form.referentPedagogiqueDto;
+          break;
+        case "cef":
+          this.UtilisateurModal_role = "CEF";
+          this.UtilisateurModale_utilisateur = this.form.cefDto;
+          break;
+        default:
+          this.UtilisateurModal_role = "FORMATEUR";
+          break;
+      }
+      this.isUtilisateurModalVisible = true;
     },
-    closeReferentModal() {
-      this.isReferentModalVisible = false;
+    closeUtilisateurModal() {
+      this.isUtilisateurModalVisible = false;
     },
-    onClickReferentClose(referent){
-      this.form.referentPedagogiqueDto = referent;
-    }
+    onClickUtilisateurClose(utilisateur) {
+      // console.log(utilisateur);
+
+      switch (this.UtilisateurModal_role) {
+        case "FORMATEUR":
+          this.form.referentPedagogiqueDto = utilisateur;
+          break;
+        case "CEF":
+          this.form.cefDto = utilisateur;
+          break;
+      }
+    },
+    //Etudiant Modal
+    showEtudiantModal() {
+      this.isEtudiantModalVisible = true;
+    },
+    closeEtudiantModal() {
+      this.isEtudiantModalVisible = false;
+    },
+    onClickEtudiantClose(etudiants) {
+      this.form.etudiantsDto = etudiants;
+    },
+    //Intervention Modal
+    showInterventionModal() {
+      this.isInterventionModalVisible = true;
+    },
+    closeInterventionModal() {
+      this.isInterventionModalVisible = false;
+    },
+    onClickInterventionClose(interventions) {
+      this.form.interventionsDto = interventions;
+    },
   },
   created() {
-  
-    if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-      console.log(this.$route.params.id);
-      promotionApi.getPromotionByid(this.$route.params.id).then(response => {
-        this.form = response
+    if (
+      this.$route.params.id != null &&
+      this.$route.params.id != "" &&
+      this.$route.params.id != 0
+    ) {
+      promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
+        this.form = response;
         this.vue_title = "Modification d'une promotion";
         this.btn_form_text = "Modifier";
-        });
-      
+      });
     }
   },
 };
@@ -206,7 +355,7 @@ export default {
   margin-right: 5%;
 }
 
-.mon-btn{
+.mon-btn {
   width: 80%;
 }
 </style>

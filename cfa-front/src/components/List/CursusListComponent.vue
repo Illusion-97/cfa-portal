@@ -134,9 +134,6 @@ export default {
     cursusComputed() {
       return this.cursus;
     },
-    nbPageComputed() {
-      return this.pageCount;
-    },
   },
   created() {
     this.refreshList();
