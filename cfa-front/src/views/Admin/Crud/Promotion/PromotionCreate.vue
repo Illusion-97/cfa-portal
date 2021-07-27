@@ -149,6 +149,12 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="offset-10 col-3 pr-5 pl-0">
+        <button type="submit" class="btn btn-primary mon-btn">
+          {{ btn_form_text }}
+        </button>
+      </div>
     </b-form>
 
     <CursusModal
