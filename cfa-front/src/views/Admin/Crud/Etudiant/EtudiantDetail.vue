@@ -1,5 +1,14 @@
 <template>
   <div class="container-fluid">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+
     <div class="row">
       <div class="col-md-2" align="center">
         <div class="identite">
@@ -341,6 +350,9 @@ export default {
     },
   },
   methods: {
+     goBack() {
+      this.$router.go(-1);
+    },
     clickPromotion(promotion) {
       this.$router.push({
         name: "admin_promotion_detail",

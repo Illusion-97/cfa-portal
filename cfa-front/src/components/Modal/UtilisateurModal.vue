@@ -3,42 +3,22 @@
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
-          <h3>Liste d'étudiants dans mon groupe</h3>
+          <h3>Choisissez un utilisateur</h3>
         </div>
         <div class="modal-body">
-          <div class="mon-group" v-if="etudiants">
-            <!-- <label class="form-label">Les étudiants du groupe</label>  -->
+          <div class="row mt-3 mb-3">
             <div
-              class="d-inline p-2 border border-dark rounded"
-              v-for="(etudiant, index) in etudiants"
-              :key="etudiant.id"
+              class="text-align-left col-md-6 d-flex justify-content-between"
             >
-              {{ etudiant.prenom }} {{ etudiant.nom }}
-              <span @click="removeFromlist(index)" class="croix-delete">x</span>
+              <label class="mr-3">Utilisateur</label>
+              <input
+                class="form-control"
+                type="text"
+                :value="utilisateurChoisi_input"
+                disabled="disabled"
+              />
             </div>
-          </div>
 
-          <!-- Select Promotion -->
-          <div class="mon-group" v-if="!allEtudiant">
-            <label class="form-label"
-              >Choisissez une promotion pour affiner la recherche :
-            </label>
-            <select
-              class="custom-select"
-              v-model="selected"
-              @change="onSelected()"
-            >
-              <option
-                v-for="promotion in promotionsComputed"
-                :key="promotion.id"
-                :value="promotion"
-                >{{ promotion.nom }}</option
-              >
-            </select>
-          </div>
-
-          <!-- Recherche Etudiant -->
-          <div class="row mt-3 mb-3" v-if="allEtudiant">
             <form
               class="col-md-6 d-flex justify-content-between float-right"
               @submit="submit"
@@ -53,39 +33,29 @@
               <button class="btn btn-primary" type="submit">Recherche</button>
             </form>
           </div>
-          
+
+          <!-- Liste -->
           <div class="mon-group">
             <table class="table table-bordered table-striped table-hover">
               <thead class="thead-dark">
                 <tr>
                   <th>Prenom Nom</th>
                   <th>Email</th>
-                  <th>Promotions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="etudiant in etudiantsBDDComputed"
-                  :key="etudiant.id"
-                  @click="clickListe(etudiant)"
+                  v-for="utilisateur in utilisateurs"
+                  :key="utilisateur.id"
+                  @click="clickListe(utilisateur)"
                   class="mon-tr"
                 >
-                  <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-                  <td>{{ etudiant.login }}</td>
-                  <td>
-                    <div
-                      v-for="promotion in etudiant.promotionsDto"
-                      :key="promotion.id"
-                    >
-                      {{ promotion.nom }}
-                    </div>
-                  </td>
+                  <td>{{ utilisateur.prenom }} {{ utilisateur.nom }}</td>
+                  <td>{{ utilisateur.login }}</td>
                 </tr>
               </tbody>
             </table>
-
             <paginate
-              v-if="allEtudiant"
               :page-count="pageCount"
               :page-range="1"
               :margin-pages="2"
@@ -116,86 +86,79 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 
 export default {
   name: "EtudiantModal",
   components: {},
   data() {
     return {
-      etudiants: [],
-      etudiantsBDD: null,
-      promotions: null,
+      utilisateurChoisi: {},
+      utilisateurs: [],
 
       selected: null,
-      saisie: "",
+
       perPage: 10,
       pageCount: 0,
+      saisie: "",
     };
   },
   props: {
-    etudiantsProp: {
+    utilisateursProp: {
       default: null,
     },
-    allEtudiant: {
-      default: false,
-    }
+    roleProp: {
+      default: null,
+    },
   },
   watch: {
-    etudiantsProp() {
-      if (this.etudiantsProp != null) this.etudiants = this.etudiantsProp;
+    utilisateursProp() {
+      if (this.utilisateursProp != null)
+        this.utilisateurChoisi = this.utilisateursProp;
+    },
+    roleProp() {
+      if (this.roleProp != null) {
+        this.selected = this.roleProp;
+        this.refreshList();
+      }
     },
   },
   computed: {
-    promotionsComputed() {
-      return this.promotions;
-    },
-    etudiantsBDDComputed() {
-      return this.etudiantsBDD;
+    utilisateurChoisi_input() {
+      if (this.utilisateurChoisi != null)
+        return `${this.utilisateurChoisi.prenom} ${this.utilisateurChoisi.nom}`;
+      else return "";
     },
   },
   methods: {
-    close() {
-      this.$emit("close", this.etudiants);
-    },
-    onSelected() {
-      promotionApi
-        .getEtudiants(this.selected.id)
-        .then((response) => (this.etudiantsBDD = response));
-    },
-    removeFromlist(index) {
-      this.etudiants.splice(index, 1);
-    },
-    clickListe(etudiant) {
-      //On test si déjà dans la liste
-      let test = false;
-      for (let i = 0; i < this.etudiants.length; i++) {
-        if (this.etudiants[i].id == etudiant.id) test = true;
-      }
-
-      //si non, on ajoute
-      if (!test) this.etudiants.push(etudiant);
-    },
     submit(e) {
       e.preventDefault();
-      etudiantApi
-        .getAllByPage(0, this.perPage,this.saisie)
-        .then((response) => (this.etudiantsBDD = response));
-
-      etudiantApi
-        .getCount(this.saisie)
-        .then((response) => (this.pageCount = Math.ceil(response / this.perPage)));
+      this.refreshList();
+    },
+    close() {
+      this.$emit("close", this.utilisateurChoisi);
+    },
+    clickListe(utilisateur) {
+      this.utilisateurChoisi = utilisateur;
     },
     pageChange(pageNum) {
-      etudiantApi
-        .getAllByPage(pageNum - 1, this.perPage, this.saisie)
-        .then((response) => (this.etudiantsBDD = response));
+      utilisateurApi
+        .getByRoleByPage(this.selected, pageNum - 1, this.perPage, this.saisie)
+        .then((response) => (this.utilisateurs = response));
+    },
+    refreshList() {
+      utilisateurApi
+        .getByRoleByPage(this.selected, 0, this.perPage, this.saisie)
+        .then((response) => (this.utilisateurs = response));
+
+      utilisateurApi
+        .getCountByRole(this.selected, this.saisie)
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
     },
   },
-  created() {
-    promotionApi.getAll().then((response) => (this.promotions = response));
-  },
+  created() {},
 };
 </script>
 

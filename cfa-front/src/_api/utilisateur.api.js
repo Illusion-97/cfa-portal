@@ -8,6 +8,8 @@ export const utilisateurApi = {
   getByLogin,
   getAllByPage,
   getCount,
+  getByRoleByPage,
+  getCountByRole,
   getByIdWithObject,
   getAdresseById,
   getPlanningById,
@@ -19,7 +21,7 @@ export const utilisateurApi = {
   updateUtilisateur,
   deleteUtilisateur,
   getAllUsersByName,
-  save,
+  save, 
 
 };
 
@@ -47,11 +49,30 @@ function getAllByPage(page, size, search = ""){
 function getCount(search = ""){
   let req = `/${END_POINT}/count/${search}`;
 
+  return  axios 
+      .get(req, requestOptions.headers())
+      .then(response => response.data["nb"])
+      .catch((error) => console.log(error));
+}
+
+function getByRoleByPage(role, page, size, search = ""){
+  let req = `/${END_POINT}/${page}/${size}?role=${role}&search=${search}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
+
+function getCountByRole(role, search = ""){
+  let req = `/${END_POINT}/count?role=${role}&search=${search}`;
+
   return  axios
       .get(req, requestOptions.headers())
       .then(response => response.data["nb"])
       .catch((error) => console.log(error));
 }
+
 
 function getById(id){
   let req = `/utilisateurs/${id}`;

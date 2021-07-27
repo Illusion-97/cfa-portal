@@ -3,42 +3,23 @@
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
-          <h3>Liste d'étudiants dans mon groupe</h3>
+          <h3>Liste des interventions</h3>
         </div>
         <div class="modal-body">
-          <div class="mon-group" v-if="etudiants">
+          <div class="mon-group" v-if="interventions">
             <!-- <label class="form-label">Les étudiants du groupe</label>  -->
             <div
               class="d-inline p-2 border border-dark rounded"
-              v-for="(etudiant, index) in etudiants"
-              :key="etudiant.id"
+              v-for="(intervention, index) in interventions"
+              :key="intervention.id"
             >
-              {{ etudiant.prenom }} {{ etudiant.nom }}
+              {{ intervention.formationDto.titre }} 
               <span @click="removeFromlist(index)" class="croix-delete">x</span>
             </div>
           </div>
 
-          <!-- Select Promotion -->
-          <div class="mon-group" v-if="!allEtudiant">
-            <label class="form-label"
-              >Choisissez une promotion pour affiner la recherche :
-            </label>
-            <select
-              class="custom-select"
-              v-model="selected"
-              @change="onSelected()"
-            >
-              <option
-                v-for="promotion in promotionsComputed"
-                :key="promotion.id"
-                :value="promotion"
-                >{{ promotion.nom }}</option
-              >
-            </select>
-          </div>
-
-          <!-- Recherche Etudiant -->
-          <div class="row mt-3 mb-3" v-if="allEtudiant">
+          <!-- Recherche intervention -->
+          <div class="row mt-3 mb-3">
             <form
               class="col-md-6 d-flex justify-content-between float-right"
               @submit="submit"
@@ -58,34 +39,28 @@
             <table class="table table-bordered table-striped table-hover">
               <thead class="thead-dark">
                 <tr>
-                  <th>Prenom Nom</th>
-                  <th>Email</th>
-                  <th>Promotions</th>
+                  <th>Titre</th>
+                  <th>Date de début</th>
+                  <th>Date de fin</th>
+                  <th>Formateur</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="etudiant in etudiantsBDDComputed"
-                  :key="etudiant.id"
-                  @click="clickListe(etudiant)"
+                  v-for="intervention in interventionsBDDComputed"
+                  :key="intervention.id"
+                  @click="clickListe(intervention)"
                   class="mon-tr"
                 >
-                  <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-                  <td>{{ etudiant.login }}</td>
-                  <td>
-                    <div
-                      v-for="promotion in etudiant.promotionsDto"
-                      :key="promotion.id"
-                    >
-                      {{ promotion.nom }}
-                    </div>
-                  </td>
+                  <td>{{ intervention.formationDto.titre }}</td>
+                  <td>{{ intervention.dateDebut }}</td>
+                  <td>{{ intervention.dateFin }}</td>
+                  <!-- <td>{{ intervention.formateursDto.prenom }} {{intervention.formateursDto.nom}}</td> -->
                 </tr>
               </tbody>
             </table>
 
             <paginate
-              v-if="allEtudiant"
               :page-count="pageCount"
               :page-range="1"
               :margin-pages="2"
@@ -117,15 +92,15 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import { interventionApi } from "@/_api/intervention.api.js";
 
 export default {
-  name: "EtudiantModal",
+  name: "interventionModal",
   components: {},
   data() {
     return {
-      etudiants: [],
-      etudiantsBDD: null,
+      interventions: [],
+      interventionsBDD: null,
       promotions: null,
 
       selected: null,
@@ -135,62 +110,54 @@ export default {
     };
   },
   props: {
-    etudiantsProp: {
+    interventionsProp: {
       default: null,
     },
-    allEtudiant: {
-      default: false,
-    }
   },
   watch: {
-    etudiantsProp() {
-      if (this.etudiantsProp != null) this.etudiants = this.etudiantsProp;
+    interventionsProp() {
+      if (this.interventionsProp != null) this.interventions = this.interventionsProp;
     },
   },
   computed: {
     promotionsComputed() {
       return this.promotions;
     },
-    etudiantsBDDComputed() {
-      return this.etudiantsBDD;
+    interventionsBDDComputed() {
+      return this.interventionsBDD;
     },
   },
   methods: {
     close() {
-      this.$emit("close", this.etudiants);
-    },
-    onSelected() {
-      promotionApi
-        .getEtudiants(this.selected.id)
-        .then((response) => (this.etudiantsBDD = response));
+      this.$emit("close", this.interventions);
     },
     removeFromlist(index) {
-      this.etudiants.splice(index, 1);
+      this.interventions.splice(index, 1);
     },
-    clickListe(etudiant) {
+    clickListe(intervention) {
       //On test si déjà dans la liste
       let test = false;
-      for (let i = 0; i < this.etudiants.length; i++) {
-        if (this.etudiants[i].id == etudiant.id) test = true;
+      for (let i = 0; i < this.interventions.length; i++) {
+        if (this.interventions[i].id == intervention.id) test = true;
       }
 
       //si non, on ajoute
-      if (!test) this.etudiants.push(etudiant);
+      if (!test) this.interventions.push(intervention);
     },
     submit(e) {
       e.preventDefault();
-      etudiantApi
+      interventionApi
         .getAllByPage(0, this.perPage,this.saisie)
-        .then((response) => (this.etudiantsBDD = response));
+        .then((response) => (this.interventionsBDD = response));
 
-      etudiantApi
+      interventionApi
         .getCount(this.saisie)
         .then((response) => (this.pageCount = Math.ceil(response / this.perPage)));
     },
     pageChange(pageNum) {
-      etudiantApi
+      interventionApi
         .getAllByPage(pageNum - 1, this.perPage, this.saisie)
-        .then((response) => (this.etudiantsBDD = response));
+        .then((response) => (this.interventionsBDD = response));
     },
   },
   created() {

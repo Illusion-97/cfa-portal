@@ -161,7 +161,7 @@
         <paginate :page-count="page" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
           :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
-          :next-link-class="'page-link'" :active-class="'active'">
+          :next-link-class="'page-link'" :active-class="'active'" v-if="isPaginate" >
         </paginate>
       </div>
     </section>
@@ -238,6 +238,10 @@
         type: Function,
         required: false,
         default: () => null
+      },
+      isPaginate: {
+        type: Boolean,
+        default: true,
       }
     },
     data() {
