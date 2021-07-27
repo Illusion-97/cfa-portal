@@ -98,14 +98,14 @@
 
         <nav class="mb-3">
           <b-nav vertical>
-            <router-link class="nav-item" :to="{ name: 'admin_adresse_list' }"
+            <!-- <router-link class="nav-item" :to="{ name: 'admin_adresse_list' }"
               >Adresses</router-link
-            >
-            <router-link
+            > -->
+            <!-- <router-link
               class="nav-item"
               :to="{ name: 'admin_entreprise_list' }"
               >Entreprises</router-link
-            >
+            > -->
 
             <router-link class="nav-item" :to="{ name: 'admin_dashboard' }"
               >User</router-link
@@ -118,14 +118,16 @@
               >Promotions</router-link
             >
 
-            <router-link class="nav-item" :to="{ name: 'all-intervention' }"
+            <!-- <router-link class="nav-item" :to="{ name: 'all-intervention' }"
               >Intervention</router-link
-            >
-            <router-link
+            > -->
+
+            <!-- <router-link
               class="nav-item"
               :to="{ name: 'formateur_intervention' }"
               >Intervention Formateur</router-link
-            >
+            > -->
+
             <router-link class="nav-item" :to="{ name: 'all-formations' }"
               >Formation</router-link
             >
@@ -134,17 +136,19 @@
               >Cursus</router-link
             >
 
-            <router-link class="nav-item" :to="{ name: 'admin_examen_list' }"
+            <!-- <router-link class="nav-item" :to="{ name: 'admin_examen_list' }"
               >Examens</router-link
-            >
-            <router-link
+            > -->
+
+            <!-- <router-link
               class="nav-item"
               :to="{ name: 'admin_passage-examen_list' }"
               >Passages Examens</router-link
-            >
-            <router-link class="nav-item" :to="{ name: 'admin_devoir_list' }"
+            > -->
+
+            <!-- <router-link class="nav-item" :to="{ name: 'admin_devoir_list' }"
               >Devoirs</router-link
-            >
+            > -->
 
             <router-link class="nav-item" :to="{ name: 'admin_projet_list' }"
               >Projets</router-link
