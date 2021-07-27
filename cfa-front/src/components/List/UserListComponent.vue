@@ -28,7 +28,7 @@
           <th>Prénom Nom</th>
           <th>Login</th>
           <th>Rôle</th>
-          <th>Entreprise</th>
+          <!-- <th>Entreprise</th> -->
           <th v-if="isAction">Action</th>
         </tr>
       </thead>
@@ -39,7 +39,7 @@
           <td>{{ user.prenom }} {{ user.nom }}</td>
           <td>{{ user.login }}</td>
           <td><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p></td>
-          <td>{{ user.entrepriseDto.raisonSociale}}</td>
+          <!-- <td>{{ user.entrepriseDto.raisonSociale}}</td> -->
           
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_user_detail', params: { id: user.id }}">Details</router-link>
