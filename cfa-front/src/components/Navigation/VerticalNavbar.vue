@@ -54,35 +54,39 @@
                   
         </div>
 
-        <!-- <div v-if="table[0] == 'admin'" id="admin"> -->
+        <div v-if="table[0] == 'admin'" id="admin">
         <div>
             <h6>Mon Espace Admin</h6>
             
                 <nav class="mb-3">
                     <b-nav vertical>
 
-                        <router-link class="nav-item" :to="{name:'admin_dashboard'}">User</router-link>                        
-                        <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
                         <router-link class="nav-item" :to="{name:'admin_adresse_list'}">Adresses</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
+
+                        <router-link class="nav-item" :to="{name:'admin_dashboard'}">User</router-link>     
+                        <router-link class="nav-item" :to="{name:'admin_etudiant_list'}">Etudiants</router-link>  
+
+                        <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
+
                         <router-link class="nav-item" :to="{name:'all-intervention'}">Intervention</router-link>
                         <router-link class="nav-item" :to="{name:'formateur_intervention'}">Intervention Formateur</router-link>
                         <router-link class="nav-item" :to="{name:'all-formations'}">Formation</router-link>
-                        <router-link class="nav-item" :to="{name:'all-etudiant'}">Etudiant</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_note_list'}">Notes</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
-                        <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_conge_list'}">Congés</router-link>
+
+                        <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
+                       
                         <router-link class="nav-item" :to="{name:'admin_examen_list'}">Examens</router-link>
                         <router-link class="nav-item" :to="{name:'admin_passage-examen_list'}">Passages Examens</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>                   
+                        <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>  
+
                         <router-link class="nav-item" :to="{name:'admin_projet_list'}">Projets</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>
+                        <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>                        
+                        
+                        <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>                      
+
                     </b-nav>
                 </nav>    
-                  
+            </div> 
         </div>
         
     </div>

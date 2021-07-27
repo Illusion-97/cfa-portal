@@ -1,6 +1,15 @@
 <template>
   <div class="container-fluid">
-    <BodyTitle :title=vue_title />
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+
+    <BodyTitle :title="vue_title" />
 
     <b-form class="form mb-5" @submit="submit">
       <b-form-group>
@@ -53,68 +62,19 @@
           </div>
           <div class="col-1">Utilisateur</div>
           <div class="col-5">
-            <b-form-input type="text" v-model="utilisateur_input" disabled="disabled">
+            <b-form-input
+              type="text"
+              v-model="utilisateur_input"
+              disabled="disabled"
+            >
             </b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
-
-      <b-form-group>
-        <div class="header-list">
-          <form class="form-inline form" @submit="recherche">
-            <input
-              id="saisie"
-              name="saisie"
-              type="text"
-              class="form-control"
-              v-model="saisie"
-            />
-            <button class="btn btn-primary" type="submit">Recherche</button>
-          </form>
-        </div>
-        <table class="table table-bordered table-striped table-hover">
-          <thead class="thead-dark">
-            <tr>
-              <th>Prenom</th>
-              <th>Nom</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody v-if="utilisateursComputed">
-            <tr
-              v-for="utilisateur in utilisateursComputed"
-              :key="utilisateur.id"
-              v-on:click="clickList(utilisateur)"
-            >
-              <td>{{ utilisateur.prenom }}</td>
-              <td>{{ utilisateur.nom }}</td>
-              <td>{{ utilisateur.login }}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <paginate
-          :page-count="pageCount"
-          :page-range="1"
-          :margin-pages="2"
-          :click-handler="pageChange"
-          :prev-text="'Prev'"
-          :next-text="'Next'"
-          :container-class="'pagination'"
-          :page-class="'page-item'"
-          :page-link-class="'page-link'"
-          :prev-class="'page-item'"
-          :next-class="'page-item'"
-          :prev-link-class="'page-link'"
-          :next-link-class="'page-link'"
-          :active-class="'active'"
-        >
-          >
-        </paginate>
-      </b-form-group>
-
       <div class="offset-10 col-3 pr-5 pl-0">
-        <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
+        <button type="submit" class="btn btn-primary mon-btn">
+          {{ btn_form_text }}
+        </button>
       </div>
     </b-form>
   </div>
@@ -128,6 +88,25 @@ export default {
   name: "CongeCreate",
   components: {
     BodyTitle,
+  },
+  created() {
+    this.refreshList();
+
+    if (this.$route.name == "admin_conge_create") {
+      utilisateurApi.getById(this.$route.params.id).then(response => {
+        this.form.utilisateurDto = response
+        this.utilisateur_input = `${this.form.utilisateurDto.prenom} ${this.form.utilisateurDto.nom}`;
+      });
+    } else {
+      console.log("this.route : ", this.$route);
+
+      congeApi.getById(this.$route.params.id).then((response) => {
+        this.form = response;
+        this.vue_title = "Update d'un congé";
+        this.utilisateur_input = `${response.utilisateurDto.prenom} ${response.utilisateurDto.nom}`;
+        this.btn_form_text = "Update";
+      });
+    }
   },
   data() {
     return {
@@ -169,6 +148,9 @@ export default {
     },
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     recherche(e) {
       e.preventDefault();
 
@@ -183,12 +165,12 @@ export default {
     },
     clickList(utilisateur) {
       this.form.utilisateurDto = utilisateur;
-      this.utilisateur_input = `${utilisateur.prenom} ${utilisateur.nom}`
+      this.utilisateur_input = `${utilisateur.prenom} ${utilisateur.nom}`;
     },
     submit(e) {
       e.preventDefault();
 
-      congeApi.save(this.form).then(() => this.$router.push({ name: 'admin_conge_list'}));
+      congeApi.save(this.form).then(() => this.goBack());
     },
     pageChange(pageNum) {
       console.log("pageNum : ", pageNum);
@@ -207,21 +189,7 @@ export default {
         );
     },
   },
-  created() {
-    this.refreshList();
-  
-    if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-        congeApi.getById(this.$route.params.id).then(response => {
-        this.form = response
-        this.vue_title = "Update d'un congé";
-        this.utilisateur_input = `${response.utilisateurDto.prenom} ${response.utilisateurDto.nom}`;
-        this.btn_form_text = "Update";
-        });
-      
-    }
-  },
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudCreate.css">
-</style>
+<style scoped src="@/assets/styles/CrudCreate.css"></style>

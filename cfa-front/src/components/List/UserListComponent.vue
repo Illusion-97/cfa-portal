@@ -17,6 +17,7 @@
       </form>
 
       <router-link class="btn btn-primary" :to="{ name: 'admin_addUser' }"
+        v-if="isAction"
         >Ajouter un utilisateur</router-link
       >
     </div>
@@ -24,21 +25,23 @@
       <thead class="thead-dark">
         <tr>
           <th>#</th>
-          <th>Prénom</th>
-          <th>Nom</th>
+          <th>Prénom Nom</th>
           <th>Login</th>
-          <th>Mot de passe</th>
-          <th>Action</th>
+          <th>Rôle</th>
+          <th>Entreprise</th>
+          <th v-if="isAction">Action</th>
         </tr>
       </thead>
       <tbody v-if="usersComputed">
-        <tr v-for="user in usersComputed" :key="user.id">
+        <tr v-for="user in usersComputed" :key="user.id"
+            v-on:click="clickList(user)">
           <td>{{ user.id }} </td>
-          <td>{{ user.prenom }}</td>
-          <td>{{ user.nom }}</td>
+          <td>{{ user.prenom }} {{ user.nom }}</td>
           <td>{{ user.login }}</td>
-          <td>{{ user.password }}</td>
-          <td>
+          <td><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p></td>
+          <td>{{ user.entrepriseDto.raisonSociale}}</td>
+          
+          <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_user_detail', params: { id: user.id }}">Details</router-link>
             &nbsp;
             <router-link class="btn btn-success" :to="{name:'admin_user_update', params: { id: user.id }}">Modifier</router-link>
@@ -131,9 +134,9 @@ export default {
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.users = response));
     },
-    refreshList() {
+    refreshList(id) {
       utilisateurApi
-        .getAllUtilisateurs(0, this.perPage)
+        .getAllByPage(0, this.perPage)
         .then((response) => (this.users = response));
       utilisateurApi
         .getCount()

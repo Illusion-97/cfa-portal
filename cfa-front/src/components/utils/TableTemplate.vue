@@ -2,7 +2,7 @@
   <!-- TEMPLATE TABLEAU -->
   <div>
     <section>
-      <div class="container">
+      <div class="container-fluid">
 
         <div class="row my-3">
           <div class="col-md-12">
@@ -14,14 +14,13 @@
             </form>
           </div>
         </div>
-
         <div class="row d-flex justify-content-between">
           <div v-if="showBtn == true" id="show-btn" class="col-md-12">
             <router-link :to="{ name: btnLink }" class="button">
               {{ btnTxt }}
             </router-link>
           </div>
-          <div v-if="rows != 0" :class="display">
+          <!-- <div class="display">
             <b-form inline class="">
               <label for="pageSelect" class="mr-sm-2">Affichage :</label>
               <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
@@ -42,19 +41,20 @@
                 </b-form-select-option>
               </b-form-select>
             </b-form>
-          </div>
+          </div> -->
         </div>
 
         <div class="row">
           <div class="col-md-12">
             <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
               :current-page="current_page">
+              
               <template #cell(formationDto)="data">
                 <router-link :to="{
                     name: 'intervention-detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
-              
+
                   <span>{{ data.item.formationDto.titre | capitalize}}</span>
                 </router-link>
               </template>
@@ -68,7 +68,7 @@
                 </router-link>
               </template>
 
-
+              <!-- #Date slot -->
               <template #cell(dateDebut)="data">
                 {{ data.value | formatDate }}
               </template>
@@ -76,6 +76,7 @@
               <template #cell(dateFin)="data">
                 {{ data.value | formatDate }}
               </template>
+              <!-- #end Date slot -->
 
               <template #cell(status)="data">
                 <span v-if="data.value == 'CONFIRME'" class="text-success">
@@ -101,7 +102,10 @@
               <template #cell(name_delete)="data">
                 <font-awesome-icon :icon="['fas', 'times']" class="icon text-danger" @click="delete_file(data.value)" />
               </template>
-
+              <!-- #Etudiant slot -->
+              <template #cell(etudiant)="data">
+                {{data.item | fullName}}
+              </template>
               <template #cell(adresseDto)="data">
                 {{data.value | fullAddresse}}
               </template>
@@ -109,7 +113,8 @@
                 {{data.value.raisonSociale}}
               </template>
               <template #cell(formateurReferentDto)="data">
-                {{data.value | fullName}}
+                <span v-if="data.value == null ">Non précisé</span>
+                <span v-else>{{data.value | fullName}}</span>
               </template>
               <template #cell(managerDto)="data">
                 {{data.value | fullName}}
@@ -119,13 +124,19 @@
                   <span>{{promo.nom}}</span>
                 </ul>
               </template>
-              <template #cell(groupesDto)="data"> 
+              <template #cell(groupesDto)="data">
                 <ul v-for="grp in data.value" :key="grp.id">
                   <span>{{grp.nom}}</span>
                 </ul>
               </template>
+              <!-- #end Etudiant slot -->
+              <!-- #Absence slot -->
+              !-- <template #cell(etudiantDto)="data">
+                {{data.value | fullName}}
+              </template>
+              <!-- #end Absence slot -->
 
-              <template #cell(telecharger)>
+              <!-- <template #cell(telecharger)>
                 <font-awesome-icon :icon="['fas', 'arrow-down']" class="icon text-success" />
               </template>
 
@@ -142,13 +153,13 @@
                     params: { id: data.item.id }, }">
                   <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
                 </router-link>
-              </template>
+              </template> -->
 
             </b-table>
           </div>
         </div>
-        <paginate :page-count="rows" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
-          :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :page-link-class="'page-link'"
+        <paginate :page-count="page" :page-range="2" :margin-pages="2" :click-handler="clickHandler" :prev-text="'Prev'"
+          :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'" :page-link-class="'page-link'"
           :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
           :next-link-class="'page-link'" :active-class="'active'">
         </paginate>
@@ -209,10 +220,15 @@
         type: Number,
         default: 0,
       },
+      pageCount:{
+        // nombre de pages
+        type: Number,
+        default: 0,
+      },
       clickHandler: {
         // methode quand la page est cliqué
         type: Function,
-        required: true
+        required: false
       },
       keyword: { // saisie pour la recherche
         type: String,
@@ -233,6 +249,9 @@
     computed: {
       rows() {
         return this.length;
+      },
+      page(){
+        return this.pageCount;
       },
       display() {
         if (this.length <= 10) return "d-none";

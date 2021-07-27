@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
     <div class="header-list">
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Passage Examen</label>
-        <input class="col-9 form-control" type="text" :value="passageExamen_input" disabled="disabled"/>
+      <div class="text-align-left row" id="groupe-input" v-if="!isAction">
+        <label class="col-4">Passage Examen</label>
+        <input class="col-8 form-control" type="text" :value="passageExamen_input" disabled="disabled"/>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -91,13 +91,15 @@ export default {
       default: false,
     },
     passageExamenProp: {
-      default: null,
+      default: {examenDto: {}},
     }
   },
   watch: {
     passageExamenProp(){      
       if (this.passageExamenProp != null) 
-        this.passageExamen_input = `${this.passageExamenProp.examenDto.enonce}`;
+        if(this.passageExamenProp.examenDto.enonce)
+          this.passageExamen_input = `${this.passageExamenProp.examenDto.enonce}`;
+        else this.passageExamen_input = "";
     }
   },
   data() {

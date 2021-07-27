@@ -10,6 +10,8 @@ export const congeApi = {
     getTableConge,
     save,
     deleteConge,
+
+    getAllByIdEtudiant,
 }
 
 function getById(id){
@@ -78,3 +80,13 @@ function deleteConge(id) {
         .catch((error) => console.log(error));
 
 }
+
+function getAllByIdEtudiant(id) {
+    let req =  `conges/utilisateur/${id}`;
+  
+    return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+  
+  }

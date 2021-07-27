@@ -1,7 +1,7 @@
 <template>
     <section>
         <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
-        <router-link :to="{ name: 'all-intervention' }" class="h5"
+        <router-link :to="{ name: 'all-formations' }" class="h5"
             style="cursor:pointer; color:black;text-decoration:none;">
             <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
             Precedent
@@ -12,32 +12,22 @@
                 <div class=" col-md-12 div-form">
                     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
                         <b-form-group label="Nom de la formation :" label-for="formation">
-                            <b-form-input v-model="form.titre" id="formation" class="form-control">
+                            <b-form-input v-model="form.titre" id="formation" class="form-control"
+                                placeholder="Ex : Java Init., Photoshop Init.">
                             </b-form-input>
                         </b-form-group>
 
                         <b-form-group label="Description :">
                             <b-form-textarea v-model="form.contenu" rows="3" max-rows="6"
-                                placeholder="Description du cours" id="desc">
+                                placeholder="Description de la formation" id="desc">
                             </b-form-textarea>
                         </b-form-group>
 
-                        <b-form-group label="Cursus :" label-for="cursus">
-                            <b-form-select id="cursus" v-model="form.cursusLstDto" multiple required>
-                                <template #first>
-                                    <b-form-select-option disabled :value="null" class="select-title">
-                                        Selectionnez un cursus
-                                    </b-form-select-option>
-                                </template>
-                                <template>
-                                    <b-form-select-option v-for="opt in opts" :key="opt.id" :value="opt">
-                                        {{ opt.titre }}
-                                    </b-form-select-option>
-                                </template>
-                            </b-form-select>
-                        </b-form-group>
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between" v-if="formationId == null">
                             <b-button type="reset" variant="outline-danger">Annuler</b-button>
+                            <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
+                        </div>
+                        <div class="d-flex justify-content-end" v-else>
                             <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
                         </div>
                     </b-form>
@@ -51,23 +41,19 @@
 </template>
 
 <script>
-    import axios from "axios";
-    import {
-        formationApi
-    } from "@/_api/formation.api.js";
-
+    import { formationApi } from "@/_api/formation.api.js";
     export default {
+        name: "formation-form",
+        components: {},
         data() {
             return {
-                opts: [],
-                courses: [],
                 form: {
-                    // id: "",
+                    id: "",
                     titre: "",
                     contenu: "",
-                    cursusLstDto: [],
                 },
-                items: [],
+                items: {},
+                formationId: this.$route.params.id,
                 show: true,
             };
         },
@@ -80,18 +66,17 @@
                 // a modifier : ajout pour l'admin et ajout pour le referent
                 formationApi
                     .insertFormation(this.form)
-                    .then((data) =>
-                        data.status === 200 ?
-                        (window.location = "/intervention") :
-                        (window.location = "/ajouter-formation")
-                    );
+                    .then((data) => {
+                        if (data.status === 200)
+                            this.$router.push({ name: "all-formations" });
+                    });
             },
             onReset(event) {
                 event.preventDefault();
                 // Reset our form values
-                this.form.name = "";
+                this.form.titre = ""
                 this.form.contenu = "";
-                this.form.cursusLstDto = [];
+                // this.form.cursusLstDto = [];
                 // Trick to reset/clear native browser form validation state
                 this.show = false;
                 this.$nextTick(() => {
@@ -100,10 +85,14 @@
             },
         },
         created() {
-            axios
-                .get("http://localhost:8080/AppliCFABack/cursus")
-                .then((response) => (this.opts = response.data))
-                .catch((err) => console.error(err));
+            if (this.formationId != null && this.formationId != "" && this.formationId != 0) {
+                formationApi
+                    .getFormationById(this.formationId)
+                    .then((data) => {
+                        this.items = data;
+                        this.form = this.items;
+                    });
+            }
         },
     };
 </script>

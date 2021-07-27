@@ -12,6 +12,11 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Detail</span>
+        <router-link
+          class="btn btn-info"
+          :to="{ name: 'admin_note_update', params: { id: noteId } }"
+          >Update</router-link
+        >
       </b-card-header>
 
       <b-card-text class="identity row ml-5">
@@ -20,7 +25,7 @@
       </b-card-text>
 
       <b-card-text class="identity row ml-5">
-        <span class="font-weight-bold col-md-2">Devoir / Examens :</span>
+        <span class="font-weight-bold col-md-2">Devoir/Examens :</span>
         <span class="col-md-4">
           <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span
           ><span v-if="note.examenDto">{{
@@ -50,7 +55,7 @@ export default {
   data() {
     return {
       noteId: this.$route.params.id,
-      note: {},
+      note: {etudiantDto: {}},
       loading: false,
     };
   },

@@ -1,6 +1,6 @@
 <template>
-  <div id="Etudiant">
-    <BodyTitle title="Liste des Etudiants" />
+  <div>
+    <BodyTitle title="Absences - Retards" />
     <TableTemplate
       :items="items"
       :fields="fields"
@@ -9,35 +9,33 @@
       :length="nbPageComputed"
       :clickHandler="pageChange"
       :showBtn="true"
-      btnTxt="Ajouter un etudiant"
-      btnLink=""
+      btnTxt="Ajouter une absence / un retard"
+      btnLink="referent_create-absence-retard"
       v-model="keyword"
       :onSubmit="search"
     />
-
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { etudiantsFields } from "@/assets/js/fieldsReferent.js";
-import { etudiantApi } from "../../../_api/etudiant.api";
+import { absences_latesFields } from "@/assets/js/fields.js";
+import { absencesApi } from "@/_api/absence.api";
 export default {
-  name: "Etudiant",
+  name: "AbsenceRetard",
   components: {
     BodyTitle,
     TableTemplate,
   },
   data() {
     return {
-      currentPage: 0,
+      currentPage: 1,
       perPage: 10,
-      keyword: "",
       pageCount: 0,
+      keyword: "",
       items: [],
-      fields: etudiantsFields,
-      adresseDto: "",
+      fields: absences_latesFields,
     };
   },
   created() {
@@ -45,29 +43,26 @@ export default {
   },
   methods: {
     fillList() {
-      etudiantApi
-        .getAllByPage(this.currentPage, this.perPage, this.keyword)
-        .then((data) => {
-          this.items = data;
-          this.adresseDto = this.items.adresseDto;
-        });
-      this.countEtudiant();
+      absencesApi
+        .getAllAbsences(this.currentPage, this.perPage, this.key)
+        .then((data) => (this.items = data));
+      this.countAbsence();
     },
-    countEtudiant() {
-      etudiantApi.getCount(this.key).then((data) => (this.pageCount = data));
+    countAbsence() {
+      absencesApi
+        .countAbsence(this.key)
+        .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     pageChange(page) {
-      etudiantApi
-        .getAllByPage(page, this.perPage, this.key)
+      absencesApi
+        .getAllAbsences(page, this.perPage, this.key)
         .then((data) => (this.items = data));
-      this.countEtudiant();
+      this.countAbsence();
     },
     search(evt) {
       evt.preventDefault();
-      etudiantApi
-        .getAllByPage(this.currentPage, this.perPage, this.key)
-        .then((data) => (this.items = data));
-      this.countEtudiant();
+      this.fillList();
+      this.countAbsence();
     },
   },
   computed: {
@@ -75,10 +70,10 @@ export default {
       return this.pageCount;
     },
     key: {
-      get() {
+      get: function() {
         return this.keyword;
       },
-      set(keyword) {
+      set: function(keyword) {
         this.keyword = keyword;
       },
     },
@@ -90,9 +85,11 @@ export default {
 label {
   color: black;
 }
+
 .table {
   text-align: center;
 }
+
 .icon:hover {
   cursor: pointer;
 }

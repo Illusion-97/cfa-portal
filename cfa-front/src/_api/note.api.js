@@ -7,6 +7,8 @@ export const noteApi = {
     getCount,
     save,
     deleteNote,
+
+    getAllByIdEtudiant,
 }
 
 function getById(id){
@@ -52,6 +54,16 @@ function deleteNote(id) {
     return axios
         .delete(req, requestOptions.headers())
         .then((response) => response)
+        .catch((error) => console.log(error));
+
+}
+
+function getAllByIdEtudiant(id) {
+    let req =  `notes/etudiant/${id}`;
+
+    return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
         .catch((error) => console.log(error));
 
 }

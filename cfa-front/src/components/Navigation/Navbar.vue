@@ -12,7 +12,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item :to="{name:'home'}" class=" a-link">Home</b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'etudiant_espace-peda_accueil'}" v-if="isEtudiant">
+          <b-nav-item class=" a-link" :to="{name:'etudiant_espace-peda_cursus'}" v-if="isEtudiant">
             Espace pedagogique
           </b-nav-item>
           <b-nav-item class=" a-link" :to="{name:'etudiant_profil'}" v-if="isEtudiant">
@@ -21,11 +21,11 @@
           <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}">
             Espace Referent
           </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'all-intervention'}" >
+          <b-nav-item class=" a-link" :to="{name:'admin_dashboard'}" >
             Espace Admin
           </b-nav-item>
           <b-nav-item class=" a-link" @click="logout">
-            Logout
+            Déconnexion
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

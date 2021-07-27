@@ -17,9 +17,12 @@
         </b-form-row>
       </b-form-group>
 
-
+      <AdresseListComponent
+        v-on:click-list="onClickChildAdresseList"
+        :adresseProp="adresse_input"
+      />
     
-      <div class="offset-1 col-3 pr-5 pl-0">
+      <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
@@ -41,11 +44,12 @@
 <script>
 import {entrepriseApi} from "@/_api/entreprise.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-
+import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
 export default {
   name: "AddEntreprise",
   components: {
     BodyTitle,
+    AdresseListComponent,
   },
   data() {
     return {
@@ -55,14 +59,26 @@ export default {
       form: {
         id: null,
         raisonSociale: "",
+        adresseSiegeDto: {},
       },
+      adresse: null,
     };
   },
+  computed: {
+    adresse_input(){
+      return this.adresse;
+    },
+  },
   methods: {
+     onClickChildAdresseList(adresse) {
+      this.form.adresseSiegeDto = adresse;
+    },
     submit(e) {
       e.preventDefault();
 
-      entrepriseApi.save(this.form).then(() => this.$router.push({ name: 'admin_entreprise_list'}));
+      entrepriseApi
+      .save(this.form)
+      .then(() => this.$router.push({ name: 'admin_entreprise_list'}));
     },
   },
   created() {
@@ -73,6 +89,7 @@ export default {
         this.form = response
         this.vue_title = "Modification d'une entreprise";
         this.btn_form_text = "Modifier";
+        this.adresse = response.adresseSiegeDto;
         });
       
     }

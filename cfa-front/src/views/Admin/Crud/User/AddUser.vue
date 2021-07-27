@@ -53,20 +53,38 @@
         </b-form-row>
       </b-form-group>
 
-      <!--<b-form-group>
+      <b-form-group class="mb-5">
         <b-form-row class="text-align-left">
-          <label class="col-1">Rôle</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.role"
-              required
-            ></b-form-input>
-          </div>
+          <label class="mon-label col-1">Rôles :</label>
+          <a class="btn btn-primary" @click="showModal">Ajouter des Rôles</a>
         </b-form-row>
-      </b-form-group>-->
+      </b-form-group>
+
+      <table class="table">
+        <thead class="">
+          <tr>
+            <th>Intitule</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr v-for="role in rolesComputed" :key="role.id">
+            <td>{{ role.intitule }} </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <AdresseListComponent
+        v-on:click-list="onClickChildAdresseList"
+        :adresseProp="adresse_input"
+      />
+
+      <EntrepriseListComponent
+        v-on:click-list="onClickChildEntrepriseList"
+        :entrepriseProp="entreprise_input"
+      />
 
     
-      <div class="offset-1 col-3 pr-5 pl-0">
+      <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
       </div>
     </b-form>
@@ -80,19 +98,30 @@
       Precedent
     </router-link>
 
-    </div>
+    <RoleModal
+      v-show="isModalVisible"
+      @close="closeModal"
+      :rolesProp="rolesComputed"
+      v-on:close="onClickClose"
+    />
 
+    </div>
     
 </template>
 
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-
+import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
+import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+import RoleModal from "@/components/Modal/RoleModal.vue";
 export default {
   name: "AddUser",
   components: {
     BodyTitle,
+    AdresseListComponent,
+    EntrepriseListComponent,
+    RoleModal,
   },
   data() {
     return {
@@ -105,15 +134,53 @@ export default {
         nom: "",
         login: "",
         password: "",
+        rolesDto: [],
+        adresseDto: {},
+        entrepriseDto: {},
       },
+
+      adresse: null,
+      entreprise: null,
+      isModalVisible: false,
     };
   },
+  computed: {
+    rolesComputed() {
+      return this.form.rolesDto;
+    },
+    adresse_input(){
+      return this.adresse;
+    },
+    entreprise_input(){
+      return this.entreprise;
+    },
+  },
   methods: {
+    onClickChildAdresseList(adresse) {
+      this.form.adresseDto = adresse;
+    },
+    onClickChildEntrepriseList(entreprise) {
+      this.form.entrepriseDto = entreprise;
+    },
     submit(e) {
       e.preventDefault();
 
-      utilisateurApi.save(this.form).then(() => this.$router.push({ name: 'admin_dashboard'}));
+      utilisateurApi
+      .save(this.form)
+      .then(() => this.$router.push({ name: 'admin_dashboard'}));
     },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
+    onClickClose(roles){
+      this.form.rolesDto = roles;
+    }
   },
   created() {
   
@@ -123,8 +190,10 @@ export default {
         this.form = response
         this.vue_title = "Modification d'un utilisateur";
         this.btn_form_text = "Modifier";
+        this.adresse = response.adresseDto;
+        this.entreprise = response.entrepriseDto;
+        this.role = response.rolesDto;
         });
-      
     }
   },
 };

@@ -1,54 +1,20 @@
 <template>
-  <div id="AbsenceRetard">
-    <BodyTitle title="Liste des Absences / Retards" />
+  <div>
+    <!-- A MODIFIER POUR LE REFERENT => ABSENCES DE SA PROMOTION -->
+    <BodyTitle title="Absences - Retards" />
     <TableTemplate
-      :perPage="perPage"
       :items="items"
       :fields="fields"
-      btnTxt="Signaler une absence"
+      :currentPage="currentPage"
+      :perPage="perPage"
+      :length="nbPageComputed"
+      :clickHandler="pageChange"
       :showBtn="true"
-      btnLink=""
+      btnTxt="Ajouter une absence / un retard"
+      btnLink="referent_create-absence-retard"
+      v-model="keyword"
+      :onSubmit="search"
     />
-    <!-- 
-    <div class="container">
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nom</th>
-            <th scope="col">DateDebut</th>
-            <th scope="col">DateFin</th>
-            <th scope="col">Justificatif</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Etudiant1</td>
-            <td>15/02/2021</td>
-            <td>16/02/2021</td>
-            <td>Certificat médical</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Etudiant2</td>
-            <td>15/02/2021</td>
-            <td>15/02/2021</td>
-            <td>Aucun motif</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Etudiant3</td>
-            <td>15/02/2021</td>
-            <td>17/02/2021</td>
-            <td>Certificat médical</td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
-      <a href="/referent/CreationAbsenceRetard" class="link"
-        >Déclarer une absence / retard</a>
-    </div> -->
   </div>
 </template>
 
@@ -56,6 +22,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { absences_latesFields } from "@/assets/js/fields.js";
+import { absencesApi } from "@/_api/absence.api";
 export default {
   name: "AbsenceRetard",
   components: {
@@ -64,35 +31,53 @@ export default {
   },
   data() {
     return {
+      currentPage: 1,
       perPage: 10,
-      items: [
-        {
-          eleve: { nom: "sydaphasavanh", prenom: "kanha" },
-          dateDebut: "2021-03-15",
-          dateFin: "2021-03-15",
-          motif: "aucune",
-        },
-        {
-          eleve: { nom: "billon", prenom: "tanguy" },
-          dateDebut: "2021-03-15",
-          dateFin: "2021-03-15",
-          motif: "aucune",
-        },
-        {
-          eleve: { nom: "potier", prenom: "nicolas" },
-          dateDebut: "2021-03-15",
-          dateFin: "2021-03-15",
-          motif: "aucune",
-        },
-        {
-          eleve: { nom: "atia", prenom: "ali-haidar" },
-          dateDebut: "2021-03-15",
-          dateFin: "2021-03-15",
-          motif: "aucune",
-        },
-      ],
+      pageCount: 0,
+      keyword: "",
+      items: [],
       fields: absences_latesFields,
     };
+  },
+  created() {
+    this.fillList();
+  },
+  methods: {
+    fillList() {
+      absencesApi
+        .getAllAbsences(this.currentPage, this.perPage, this.key)
+        .then((data) => (this.items = data));
+      this.countAbsence();
+    },
+    countAbsence() {
+      absencesApi
+        .countAbsence(this.key)
+        .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
+    },
+    pageChange(page) {
+      absencesApi
+        .getAllAbsences(page, this.perPage, this.key)
+        .then((data) => (this.items = data));
+      this.countAbsence();
+    },
+    search(evt) {
+      evt.preventDefault();
+      this.fillList();
+      this.countAbsence();
+    },
+  },
+  computed: {
+    nbPageComputed() {
+      return this.pageCount;
+    },
+    key: {
+      get: function() {
+        return this.keyword;
+      },
+      set: function(keyword) {
+        this.keyword = keyword;
+      },
+    },
   },
 };
 </script>

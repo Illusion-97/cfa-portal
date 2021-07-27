@@ -1,10 +1,10 @@
 export const courseFields = [
-  { key: "id", label: "#" },
-  { key: "formationDto", label: "Intitulé", sortable: true },
-  { key: "dateDebut", label: "Date de debut", sortable: true },
-  { key: "dateFin", label: "Date de fin", sortable: true },
-  { key: "modifierItv", label: "Modifier" },
-  { key: "supprimer", label: "Supprimer" },
+  // { key: "id", label: "#" },
+  { key: "formationDto", label: "Intitulé" },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
+  // { key: "modifierItv", label: "Modifier" },
+  // { key: "supprimer", label: "Supprimer" },
 ];
 
 export const fileFields = [
@@ -14,18 +14,18 @@ export const fileFields = [
 ];
 
 export const leaveFields = [
-  { key: "dateDebut", label: "Date de debut", sortable: true },
-  { key: "dateFin", label: "Date de fin", sortable: true },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
   { key: "motif", label: "Motif" },
-  { key: "type", label: "Type de congé", sortable: true },
-  { key: "status", label: "Status", sortable: true },
+  { key: "type", label: "Type de congé" },
+  { key: "status", label: "Status" },
 ];
 
 export const absences_latesFields = [
-  { key: "eleve", label: "Nom de l'étudiant" },
+  { key: "etudiantDto", label: "Nom de l'étudiant" },
   { key: "dateDebut", label: "Date de debut" },
   { key: "dateFin", label: "Date de fin" },
-  { key: "motif", label: "Justificatif" },
+  { key: "justificatif", label: "Justificatif" },
 ];
 
 export const etudiantsFields = [
@@ -80,8 +80,6 @@ export const examensFields = [
 export const formationFields = [
   { key: "titre", label: "Nom de la formation", thStyle: { width: "200px" } },
   { key: "contenu", label: "Contenu" },
-  { key: "modifier", label:"Modifier" },
-  "supprimer"
   // { key: "cursusLstDto", label: "Cursus" },
 ]
 // Example

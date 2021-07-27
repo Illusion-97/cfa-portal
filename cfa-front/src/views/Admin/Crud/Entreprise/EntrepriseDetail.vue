@@ -19,6 +19,8 @@
           <span class="col-md-10">{{ entreprise.id }}</span>
           <span class="font-weight-bold col-md-2">Raison Sociale : </span>
           <span class="col-md-10">{{ entreprise.raisonSociale }}</span>
+          <span class="font-weight-bold col-md-2">Adresse : </span>
+          <span class="col-md-10">{{ entreprise.adresseSiegeDto.numero}} {{entreprise.adresseSiegeDto.rue }}, {{entreprise.adresseSiegeDto.codePostal }}, {{entreprise.adresseSiegeDto.ville }}</span>
         </b-card-text>
 
     </b-card>

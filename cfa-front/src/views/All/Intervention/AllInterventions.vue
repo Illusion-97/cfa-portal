@@ -5,7 +5,8 @@
       :fields="fields"
       :currentPage="currentPage"
       :perPage="perPage"
-      :length="nbPageComputed"
+      :pageCount="pageCount"
+      :length="length"
       :clickHandler="pageChange"
       :showBtn="true"
       btnTxt="Ajouter une intervention"
@@ -31,13 +32,15 @@ export default {
       items: [],
       fields: courseFields,
       currentPage: 1,
-      perPage: 10,
+      perPage: 5,
       pageCount: 0,
       keyword: "",
+      length : 0,
     };
   },
   created() {
     this.fillList();
+    this.lengthItv();
   },
   methods: {
     fillList() {
@@ -70,6 +73,9 @@ export default {
       e.preventDefault();
       if (this.key === "") this.fillList();
     },
+    lengthItv(){
+      interventionApi.countIntervention().then(data => this.length = data)
+    }
   },
   computed: {
     nbPageComputed() {
@@ -83,6 +89,7 @@ export default {
         this.keyword = keyword;
       },
     },
+
   },
 };
 </script>

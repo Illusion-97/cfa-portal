@@ -1,58 +1,64 @@
 <template>
   <div>
-    <h1>Detail Intervention</h1>
-    <router-link :to="{ name: 'all-intervention' }" class="h5" style="cursor:pointer; color:black;text-decoration:none;">
+    <!-- <h1>Detail Intervention</h1> -->
+    <span @click="goBack" class="h5 icon-link d-block" >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
-    <!-- <p class="h2">{{ items.formationDto.titre }}</p> -->
-    <!-- {{ items }} -->
-    <!-- <b-card :header="items.formationDto.titre" header-tag="h1">
-      <div class="d-flex justify-content-center">
-        <b-card-text class="me-2">
-          Date debut : {{ items.dateDebut | formatDate }}
-        </b-card-text>
-        <b-card-text>
-          Date fin : {{ items.dateFin | formatDate }}
-          </b-card-text>
+    </span>
+    <div class="card mt-3">
+      <div class="card-header">
+        
+        <router-link :to="{ name: 'modifier-intervention',params:{id:interventionId} }" class="h5 icon-link float-right"
+          >
+          <font-awesome-icon :icon="['far', 'edit']" class="icon" />
+          Modifier
+        </router-link>
+        <h2>{{ items.formationDto.titre }}</h2>
       </div>
-      <b-card-text>Contenu : {{items.formationDto.contenu}}</b-card-text>
-      <div v-for="promo in items.promotionDto" :key="promo.id">
-        <b-card-text>{{promo.nom}}</b-card-text>
+      <div class="card-body">
+        <pre class="m-0">{{ items }}</pre>
       </div>
-    </b-card> -->
-    <b-card class="mt-3 col" header="Default form result">
-      <pre class="m-0">{{ items }}</pre>
-    </b-card>
+    </div>
   </div>
 </template>
 
 <script>
-import { interventionApi } from "@/_api/intervention.api.js";
-export default {
-  name: "DetailIntervention",
-  data() {
-    return {
-      interventionId: this.$route.params.id,
-      items: [],
-      loading: false,
-    };
-  },
-  created() {
-    this.getId();
-  },
-  methods: {
-    goBack() {
-      this.$router.go(-1);
+  import { interventionApi } from "@/_api/intervention.api.js";
+  export default {
+    name: "DetailIntervention",
+    data() {
+      return {
+        interventionId: this.$route.params.id,
+        items: {
+          formationDto: {}
+        },
+        loading: false,
+      };
     },
-    getId() {
-      interventionApi
-        .getInterventionById(this.interventionId)
-        .then((data) => (this.items = data));
+    created() {
+      this.getId();
     },
-  },
-  computed: {},
-};
+    methods: {
+      goBack() {
+        this.$router.go(-1);
+      },
+      getId() {
+        interventionApi.getInterventionById(this.interventionId).then((data) => {
+          this.items = data;
+          this.items.formationDto = data.formationDto;
+        });
+      },
+    },
+    computed: {},
+  };
 </script>
 
-<style scoped></style>
+<style scoped>
+.icon-link {
+  cursor: pointer;
+  color:black;
+  text-decoration:none;
+  /* margin-bottom: 2em; */
+}
+.icon {cursor: pointer;}
+</style>

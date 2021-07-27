@@ -64,13 +64,11 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { promotionApi } from "@/_api/promotion.api.js";
 export default {
   name: "PromotionList",
   components: {
     BodyTitle,
-    TableTemplate,
   },
   data() {
     return {
