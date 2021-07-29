@@ -1,103 +1,141 @@
 <template>
-  <div id="Notes">
-    <BodyTitle title="Liste des Notes" />
-    <TableTemplate
-      :perPage="perPage"
-      :items="items"
-      :fields="fields"
-      :showBtn="false"
-      btnLink="/formateur/blabla"
-    />
-    <!--
-    <div class="container">
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Note</th>
-            <th scope="col">Observation</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Etudiant1</td>
-            <td>15</td>
-            <td>Bon</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Etudiant2</td>
-            <td>12</td>
-            <td>Moyen</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Etudiant3</td>
-            <td>19</td>
-            <td>Excellent</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    -->
+  <div class="container-fluid">
+   
+    <BodyTitle title="Liste des notes" />
+
     
+    <div class="header-list">
+      <form class="form-inline form" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="saisie"
+        />
+        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+      </form>
+
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Note obtenu</th>
+          <th>Observations</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody v-if="notesComputed">
+        <tr v-for="note in notesComputed" :key="note.id">
+          <td>{{ note.id }} </td>
+          <td>{{ note.noteObtenu }}</td>
+          <td>{{ note.observations }}</td>
+          <td>
+            <router-link class="btn btn-info" :to="{name:'referent_notes', params: { id: note.id }}">#</router-link>
+            &nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <paginate
+      :page-count="pageCount"
+      :page-range="1"
+      :margin-pages="2"
+      :click-handler="pageChange"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
+      :prev-class="'page-item'"
+      :next-class="'page-item'"
+      :prev-link-class="'page-link'"
+      :next-link-class="'page-link'"
+      :active-class="'active'"
+    >
+      >
+    </paginate>
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { noteFields } from "@/assets/js/fieldsReferent.js"
-import axios from "axios";
-import { requestOptions } from '@/_helpers/request-options.js';
+import { noteApi } from "@/_api/note.api.js";
 export default {
-  name: "Notes",
+  name: "NoteList",
   components: {
     BodyTitle,
-    TableTemplate,
   },
   data() {
     return {
-      perPage: 10,
-      items: [
-        /*{
-          nom: "Etudiant1",
-          note: "15",
-          observation: "Bon",
-        },
-        {
-          nom: "Etudiant2",
-          note: "12",
-          observation: "Moyen",
-        },
-        {
-          nom: "Etudiant3",
-          note: "20",
-          observation: "Excellent",
-        },
-      */],
-      fields: noteFields,
+      notes: [],
+      perPage: 3,
+      pageCount: 0,
+      saisie: "",
+    
     };
   },
+  computed: {
+    notesComputed() {
+      return this.notes;
+    },
+    nbPageComputed() {
+      return this.pageCount;
+    },
+  },
   created() {
-        axios
-          .get("notes/", requestOptions.headers())
-          .then((response) => (this.items = response.data))
-          .catch((e) => this.errors.push(e));
-        },
+    this.refreshList();
+  },
+
+  methods: {
+
+    submit(e) {
+      e.preventDefault();
+      noteApi
+        .getAllByPage(0, this.perPage, this.saisie)
+        .then((response) => (this.notes = response));
+      noteApi
+        .getCount(this.saisie)
+        .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
+    },
+    pageChange(pageNum) {
+      noteApi
+        .getAllByPage(pageNum - 1, this.perPage)
+        .then((response) => (this.notes = response));
+    },
+    refreshList() {
+      noteApi
+        .getAllNotes(0, this.perPage)
+        .then((response) => (this.notes = response));
+      noteApi
+        .getCount()
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
+    },
+    deleteNote(noteId) {
+      noteApi.deleteNote(noteId).then(() => this.refreshList());
+    },
+
+  },
 };
 </script>
 <style scoped>
-.opts,
-label {
-  color: black;
+.header-list{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }
-.table {
-  text-align: center;
+
+.header-list > form{
+  width: 40%;
 }
-.icon:hover {
-  cursor: pointer;
+
+#saisie{
+  width: 70%;
+  margin-right: 5%;
 }
 </style>
+

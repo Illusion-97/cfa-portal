@@ -23,8 +23,8 @@
 
     <div class="container">
       <br />
-      <div class="row g-3">
-        <div class="col-sm-3">
+      <div class="row g-2">
+        <div class="col-sm-2">
           <router-link class="btn btn-primary" :to="{name: 'CreateCoursR'}"
             >Créer un cours</router-link
           >

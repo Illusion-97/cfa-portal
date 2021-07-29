@@ -22,7 +22,7 @@
           <br>
           <div class="mon-group">
             <label class="form-label">Liste des étudiants de la promo : </label>
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-bordered table-striped table-hover" v-if="!isAction">
               <thead class="thead-dark">
                 <tr>
                   <th>Prenom Nom</th>
@@ -30,11 +30,12 @@
                   <th>Promotions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="etudiantsBDDComputed">
                 <tr
                   v-for="etudiant in etudiantsBDDComputed"
                   :key="etudiant.id"
-                  @click="clickListe(etudiant)"
+                  v-on:click="clickList(etudiant)"
+                  v-on:dblclick="detail(etudiant.id)"
                   class="mon-tr"
                 >
                   <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
@@ -50,11 +51,8 @@
                 </tr>
               </tbody>
             </table>
+             <a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>
           </div>
-        
-    <div class="container">
-      <a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>
-    </div>
   </div>
 </template>
 
@@ -76,13 +74,18 @@ export default {
     };
   },
   props: {
+    isAction: {
+      type: Boolean,
+      default: false,
+    },
     etudiantsProp: {
       default: null,
     },
   },
   watch: {
     etudiantsProp() {
-      if (this.etudiantsProp != null) this.etudiants = this.etudiantsProp;
+      if (this.etudiantsProp != null) 
+          this.etudiants = this.etudiantsProp;
     },
   },
   computed: {
@@ -98,6 +101,15 @@ export default {
       promotionApi
         .getEtudiants(this.selected.id)
         .then((response) => (this.etudiantsBDD = response));
+    },
+    clickList(etudiant) {
+      this.etudiant_input = `${etudiant.prenom} ${etudiant.nom}`;
+      this.$emit("click-list", etudiant);
+    },
+    detail(id) {
+      this.isAction = true;
+      if (this.isAction)
+        this.$router.push({ name: "referent_etudiant_detail", params: { id: id } });
     },
   },
   created() {
