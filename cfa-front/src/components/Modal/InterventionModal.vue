@@ -25,7 +25,6 @@
               @submit="submit"
             >
               <input
-                id="saisie"
                 name="saisie"
                 type="text"
                 class="form-control"

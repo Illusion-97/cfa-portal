@@ -38,6 +38,18 @@
         </b-form-row>
       </b-form-group>
 
+      <!-- Centre -->
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">Centre</label>
+          <div class="col-5 pr-5">
+            <select class="form-control" aria-label="Default select example" v-model="form.centreFormationDto" required>
+              <option v-for="centre in centres" :key="centre.id" :value="centre">{{centre.adresseDto.ville}}</option>
+            </select>
+          </div>
+        </b-form-row>
+      </b-form-group>
+
       <!-- Dates -->
       <b-form-group>
         <b-form-row class="text-align-left">
@@ -46,7 +58,7 @@
             <b-form-datepicker
               locale="fr"
               v-model="form.dateDebut"
-              required
+              :required="true"
             ></b-form-datepicker>
           </div>
         </b-form-row>
@@ -58,7 +70,7 @@
             <b-form-datepicker
               locale="fr"
               v-model="form.dateFin"
-              required
+              :required="true"
             ></b-form-datepicker>
           </div>
         </b-form-row>
@@ -89,8 +101,6 @@
           >
         </b-form-row>
       </b-form-group>
-
-      <!-- Centre -->
 
       <!-- Etudiants -->
       <b-form-group>
@@ -192,6 +202,7 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
+import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import CursusModal from "@/components/Modal/CursusModal.vue";
 import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";
@@ -211,6 +222,8 @@ export default {
     return {
       vue_title: "Création d'une promotion",
       btn_form_text: "Ajouter",
+
+      centres: [],
 
       //form promotion
       form: {
@@ -341,6 +354,10 @@ export default {
         this.btn_form_text = "Modifier";
       });
     }
+
+    centreFormationApi
+      .getAllCentreFormations()
+      .then(response => this.centres = response)
   },
 };
 </script>
