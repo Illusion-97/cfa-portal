@@ -9,7 +9,10 @@ export const noteApi = {
     deleteNote,
 
     getAllByIdEtudiant,
+    getAllNotes
 }
+
+const END_POINT = "notes";
 
 function getById(id){
     let req = `/notes/${id}`;
@@ -67,3 +70,10 @@ function getAllByIdEtudiant(id) {
         .catch((error) => console.log(error));
 
 }
+
+function getAllNotes() {
+    return axios
+      .get(`${END_POINT}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+  }

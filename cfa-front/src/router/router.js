@@ -64,6 +64,7 @@ import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
 import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
 import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
 import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
+import EtudiantRDetail from "@/views/Referent/EtudiantRDetail.vue";
 
 //Admin
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
@@ -254,7 +255,6 @@ const routes = [
   { path: "/referent/modifier-projet", name: "referent_modifier-projet", component: ModifierProjet},
   { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard},
   { path: "/referent/creation-absence-retard", name: "referent_create-absence-retard", component: CreateAbsenceRetard},
-  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
   { path: "/referent/cours", name: "referent_cours", component: CoursR},
   { path: "/referent/creation-cours", name: "CreateCoursR", component: CreateCoursR},
   { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
@@ -265,6 +265,9 @@ const routes = [
   { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR},
   { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR},
   { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR},
+  //etudiant
+  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
+  { path: "/referent/etudiant-detail:id", name: "referent_etudiant_detail", component: EtudiantRDetail},
 ];
 
 const router = new VueRouter({
