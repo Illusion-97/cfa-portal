@@ -91,11 +91,11 @@ function getManager(id){
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 function getPromotions(id) {
 
-    let req =  "etudiants/" + id + "/promotions";
+    let req =  `/etudiants/${id}/promotions`;
 
     return axios
       .get(req, requestOptions.headers())
-      .then(response => response.data[0])
+      .then(response => response.data)
       .catch((error) => console.log(error));
 }
 

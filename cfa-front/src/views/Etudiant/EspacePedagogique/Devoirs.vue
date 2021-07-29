@@ -1,27 +1,29 @@
 <template>
   <div class="container-fluid">
-    <BodyTitle title="Liste des Notes" />
+    <BodyTitle title="Liste des devoirs" />
 
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>Notes</th>
-          <th>Observations</th>
-          <th>Devoir</th>
-          <th>Examen</th>
+          <th>Enoncé</th>
+          <th>Date de début</th>
+          <th>Date de fin</th>
+          <th>Intervention</th>
         </tr>
       </thead>
       <tbody v-if="devoirsComputed">
         <tr v-for="devoir in devoirsComputed" :key="devoir.id">
           <td>
-            {{ devoir.noteObtenu }}
-          </td>
-          <td>{{devoir.observations }}</td>
-          <td>
-            <!-- {{note.devoirDto.enonce}} -->
+            {{ devoir.enonce }}
           </td>
           <td>
-            <!-- {{note.examenDto.examenDto.enonce}} -->
+            {{devoir.dateDebut }}
+          </td>
+          <td>
+            {{devoir.dateFin}}
+          </td>
+          <td>
+            {{devoirs.interventionDto.formationDto.titre}}
           </td>
         </tr>
       </tbody>
