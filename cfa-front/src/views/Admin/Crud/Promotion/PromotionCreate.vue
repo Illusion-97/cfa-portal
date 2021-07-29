@@ -43,9 +43,8 @@
         <b-form-row class="text-align-left">
           <label class="col-1">Centre</label>
           <div class="col-5 pr-5">
-            <select class="form-control" aria-label="Default select example">
-              <option selected>Choisissez un centre</option>
-              <option v-for="centre in centres" :key="centre.id">{{centre.adresseDto.ville}}</option>
+            <select class="form-control" aria-label="Default select example" v-model="form.centreFormationDto" required>
+              <option v-for="centre in centres" :key="centre.id" :value="centre">{{centre.adresseDto.ville}}</option>
             </select>
           </div>
         </b-form-row>
@@ -59,7 +58,7 @@
             <b-form-datepicker
               locale="fr"
               v-model="form.dateDebut"
-              required
+              :required="true"
             ></b-form-datepicker>
           </div>
         </b-form-row>
@@ -71,7 +70,7 @@
             <b-form-datepicker
               locale="fr"
               v-model="form.dateFin"
-              required
+              :required="true"
             ></b-form-datepicker>
           </div>
         </b-form-row>
@@ -160,6 +159,12 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="offset-10 col-3 pr-5 pl-0">
+        <button type="submit" class="btn btn-primary mon-btn">
+          {{ btn_form_text }}
+        </button>
+      </div>
     </b-form>
 
     <CursusModal
