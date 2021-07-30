@@ -39,38 +39,6 @@
       </div>
       <br />
       
-      <!--
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Note d'information</th>
-            <th scope="col">Programme de cours</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>C#</td>
-            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit</td>
-            <td>Programme C#</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Java</td>
-            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit</td>
-            <td>Programme Java</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>SQL</td>
-            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit</td>
-            <td>Programme SQL</td>
-          </tr>
-        </tbody>
-      </table>
-      -->
     </div>
     <TableTemplate
       :perPage="perPage"

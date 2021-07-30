@@ -1,10 +1,14 @@
 <template>
   <div class="container-fluid">
     <div class="header-list">
-      <div class="text-align-left row" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Groupe</label>
-        <input class="offset-1 col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
-        <span class="col-1 delete-input" v-if="groupe_input" @click="delete_input()">x</span>
+      <div class="text-align-left" id="groupe-input" v-if="!isAction">
+        <label class="col-1">projet</label>
+        <input
+          class="col-9 form-control"
+          type="text"
+          :value="projet_input"
+          disabled="disabled"
+        />
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -17,8 +21,11 @@
         />
         <button class="btn-hover color-9" type="submit">Recherche</button>
       </form>
-      
-      <router-link class="btn-lg btn-info" :to="{ name: 'referent_create-groupe' }" v-if="isAction"
+
+      <router-link
+        class="btn btn-info"
+        :to="{ name: 'referent_create-projet' }"
+        v-if="isAction"
         >Ajouter</router-link
       >
     </div>
@@ -26,22 +33,25 @@
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>Id</th>
           <th>Nom</th>
-          <th>Etudiants</th>
-          <th v-if="isAction">Action</th>
+          <th>Description</th>
+          <th>Groupe</th>
+          <th v-if="isAction">Actions</th>
         </tr>
       </thead>
-      <tbody v-if="groupeComputed">
-        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" class="mon-tr">
-          <td>{{ groupe.id }}</td>
-          <td>{{ groupe.nom }}</td>
-          <td>
-              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
-            </td>
+      <tbody v-if="projetsComputed">
+        <tr
+          v-for="projet in projetsComputed"
+          :key="projet.id"
+          v-on:click="clickList(projet)"
+          class="mon-tr"
+        >
+          <td>{{ projet.nom }}</td>
+          <td>{{ projet.description }}</td>
+          <td>{{ projet.groupeDto.nom }}</td>
           <td v-if="isAction">
-            <button class="btn-hover color-11" v-on:click="deleteGroupe(groupe.id)">
-              Supprimer
+            <button class="btn-hover color-11" v-on:click="deleteProjet(projet.id)">
+              Delete
             </button>
           </td>
         </tr>
@@ -66,42 +76,44 @@
     >
       >
     </paginate>
-</div>
+  </div>
 </template>
-
 <script>
-import { groupeApi } from "@/_api/groupe.api.js";
+import { projetApi } from "@/_api/projet.api.js";
+
 export default {
-  name: "groupeListComponent",
+  name: "projetListComponent",
   components: {},
   props: {
     isAction: {
       type: Boolean,
       default: false,
     },
-    groupeProp: {
+    projetProp: {
       default: null,
-    }
+    },
   },
   watch: {
-    groupeProp(){
-      if (this.groupeProp != null) 
-        this.groupe_input = `${this.groupeProp.nom}`;
-    }
+    projetProp() {
+      if (this.projetProp != null)
+        this.projet_input = `${this.projetProp.enonce}`;
+    },
   },
   data() {
     return {
-      groupe: [],
+      // projets: [{nom: "", description: "", groupeDto: {nom: ""}}],
+      projets: [],
       perPage: 10,
       pageCount: 0,
+
       saisie: "",
 
-      groupe_input: "",
+      projet_input: "",
     };
   },
   computed: {
-    groupeComputed() {
-      return this.groupe;
+    projetsComputed() {
+      return this.projets;
     },
     nbPageComputed() {
       return this.pageCount;
@@ -113,50 +125,57 @@ export default {
   methods: {
     submit(e) {
       e.preventDefault();
-      groupeApi
+      projetApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.groupe = response));
-      groupeApi
+        .then((response) => (this.projets = response));
+      projetApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
     pageChange(pageNum) {
-      groupeApi
+      projetApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.groupe = response));
+        .then((response) => (this.projets = response));
     },
     refreshList() {
-      groupeApi
+      projetApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.groupe = response));
-      groupeApi
+        .then((response) => {
+          this.projets = response;
+
+          //pour chaque projet, si groupe == null, pb de rendu de groupe.nom
+          if (this.projets == null) return;
+          for (let i = 0; i < this.projets.length; i++) {
+            if (this.projets[i].groupeDto == null)
+              this.projets[i].groupeDto = { nom: "" };
+          }
+        });
+
+      projetApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    deleteGroupe(groupeId) {
+    deleteProjet(projetId) {
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
       if(res){
-      groupeApi.deleteGroupe(groupeId).then(() => this.refreshList());
+      projetApi.deleteProjet(projetId).then(() => this.refreshList());
       }
+      
     },
-    clickList(groupe) {
+    clickList(projet) {
       if (!this.isAction) {
-      this.groupe_input = groupe.nom;
-      this.$emit('click-list',groupe);
+        this.projet_input = projet.enonce;
+        this.$emit("click-list", projet);
       }
     },
     detail(id) {
       if (this.isAction)
-        this.$router.push({ name: "admin_groupe_detail", params: { id: id } });
+        this.$router.push({ name: "admin_projet_detail", params: { id: id } });
     },
-    delete_input(){
-      this.groupe_input = "";
-      this.$emit('delete_input');
-    }
   },
 };
 </script>
@@ -247,5 +266,4 @@ export default {
 .btn-hover.color-11 {
        background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
 }
-
 </style>
