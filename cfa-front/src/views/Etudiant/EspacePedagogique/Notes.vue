@@ -17,11 +17,18 @@
             {{ note.noteObtenu }}
           </td>
           <td>{{note.observations }}</td>
-          <td>
-            <!-- {{note.devoirDto.enonce}} -->
+          
+          <td v-if="note.devoirDto !=null">
+            {{note.devoirDto.enonce}}
           </td>
-          <td>
-            <!-- {{note.examenDto.examenDto.enonce}} -->
+          <td v-else>
+            NaN
+          </td>
+          <td v-if="note.examenDto != null">
+            {{note.examenDto.examenDto.enonce}}
+          </td>
+          <td v-else>
+            NaN
           </td>
         </tr>
       </tbody>
