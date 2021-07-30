@@ -9,104 +9,93 @@
       Precedent
     </a>
 
-    <BodyTitle :title="vue_title" />
+    <BodyTitle :title="vue_title" class="mb-5"/>    
 
-    <b-form class="form mb-5" @submit="submit">
-      <!-- Cursus -->
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Cursus</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.cursusDto.titre"
-              required
-            ></b-form-input>
-          </div>
-          <a class="btn btn-primary" @click="showCursusModal"
-            >Choisir le cursus</a
+    <b-form class="form mb-5 " @submit="submit">
+      <b-form-row class="text-align-left">
+        <!-- Nom -->
+        <label class="col-2">Nom de la promotion</label>
+        <div class="col-3">
+          <b-form-input v-model="form.nom" required></b-form-input>
+        </div>
+
+        <!-- Cursus -->
+        <label class="offset-1 col-2">Cursus</label>
+        <div class="col-3">
+          <b-form-input v-model="form.cursusDto.titre" disabled="disabled" required></b-form-input>
+        </div>
+        <a class="btn btn-primary col-1" @click="showCursusModal">Cursus</a>
+      </b-form-row>
+
+      <b-form-row class="text-align-left">
+        <!-- Centre -->
+        <label class="col-2">Centre</label>
+        <div class="col-3">
+          <select
+            class="form-control"
+            aria-label="Default select example"
+            v-model="form.centreFormationDto"
+            required
           >
-        </b-form-row>
-      </b-form-group>
+            <option
+              v-for="centre in centres"
+              :key="centre.id"
+              :value="centre"
+              >{{ centre.adresseDto.ville }}</option
+            >
+          </select>
+        </div>
 
-      <!-- Nom -->
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Nom</label>
-          <div class="col-5 pr-5">
-            <b-form-input v-model="form.nom" required></b-form-input>
-          </div>
-        </b-form-row>
-      </b-form-group>
+        <!-- Referent -->
+        <label class="offset-1 col-2">Referent</label>
+        <div class="col-3">
+          <b-form-input v-model="referent" disabled="disabled" required></b-form-input>
+        </div>
+        <a
+          class="btn btn-primary col-1"
+          @click="showUtilisateurModal('formateur')"
+          >Référent</a
+        >
+      </b-form-row>
 
-      <!-- Centre -->
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Centre</label>
-          <div class="col-5 pr-5">
-            <select class="form-control" aria-label="Default select example" v-model="form.centreFormationDto" required>
-              <option v-for="centre in centres" :key="centre.id" :value="centre">{{centre.adresseDto.ville}}</option>
-            </select>
-          </div>
-        </b-form-row>
-      </b-form-group>
+      <b-form-row class="text-align-left">
+        <!-- Dates Debut -->
+        <label class="col-2">Date de début</label>
+        <div class="col-3">
+          <b-form-datepicker
+            locale="fr"
+            v-model="form.dateDebut"
+            :required="true"
+          ></b-form-datepicker>
+        </div>
 
-      <!-- Dates -->
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Date de début</label>
-          <div class="col-5 pr-5">
-            <b-form-datepicker
-              locale="fr"
-              v-model="form.dateDebut"
-              :required="true"
-            ></b-form-datepicker>
-          </div>
-        </b-form-row>
-      </b-form-group>
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Date de fin</label>
-          <div class="col-5 pr-5">
-            <b-form-datepicker
-              locale="fr"
-              v-model="form.dateFin"
-              :required="true"
-            ></b-form-datepicker>
-          </div>
-        </b-form-row>
-      </b-form-group>
+        <!-- CEF -->
+        <label class="offset-1 col-2">CEF</label>
+        <div class="col-3">
+          <b-form-input v-model="cef" disabled="disabled" required></b-form-input>
+        </div>
+        <a class="btn btn-primary col-1" @click="showUtilisateurModal('cef')"
+          >CEF</a
+        >
+      </b-form-row>
 
-      <!-- Referent -->
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Referent</label>
-          <div class="col-5 pr-5">
-            <b-form-input v-model="referent" required></b-form-input>
-          </div>
-          <a class="btn btn-primary" @click="showUtilisateurModal('formateur')"
-            >Choisir le référent</a
-          >
-        </b-form-row>
-      </b-form-group>
-
-      <!-- CEF -->
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">CEF</label>
-          <div class="col-5 pr-5">
-            <b-form-input v-model="cef" required></b-form-input>
-          </div>
-          <a class="btn btn-primary" @click="showUtilisateurModal('cef')"
-            >Choisir le CEF</a
-          >
-        </b-form-row>
-      </b-form-group>
+      <b-form-row class="text-align-left">
+        <!-- Dates Fin -->
+        <label class="col-2">Date de fin</label>
+        <div class="col-3">
+          <b-form-datepicker
+            locale="fr"
+            v-model="form.dateFin"
+            :required="true"
+          ></b-form-datepicker>
+        </div>
+      </b-form-row>
 
       <!-- Etudiants -->
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Etudiants</label>
-          <div class="col-5 pr-5">
+          <label class="col-2">Etudiants</label>
+          <div class="col-9">
             <div class="mon-group" v-if="form.etudiantsDto">
               <!-- <label class="form-label">Les étudiants du groupe</label>  -->
               <div
@@ -121,44 +110,42 @@
               </div>
             </div>
           </div>
-          <a class="btn btn-primary" @click="showEtudiantModal()"
-            >Choisir les étudiants</a
+          <a class="btn btn-primary col-1" @click="showEtudiantModal()"
+            >Etudiants</a
           >
         </b-form-row>
       </b-form-group>
 
       <!-- Interventions   -->
-      <b-form-group class="mb-5">
-        <b-form-row class="text-align-left">
-          <label class="col-1">Interventions :</label>
-          <!-- <div class="col-5">test</div> -->
-          <a class="btn btn-primary offset-5" @click="showInterventionModal"
-            >Ajouter des interventions</a
-          >
-        </b-form-row>
-      </b-form-group>
+      <b-form-row class="text-align-left">
+        <label class="col-2">Interventions :</label>
+        <!-- <div class="col-5">test</div> -->
+        <a class="btn btn-primary offset-9 col-1" @click="showInterventionModal"
+          >Interventions</a
+        >
+      </b-form-row>
 
-      <table class="table">
-        <thead class="">
-          <tr>
-            <th>Titre</th>
-            <th>Date de début</th>
-            <th>Date de fin</th>
-            <th>Formateur</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="intervention in form.interventionsDto"
-            :key="intervention.id"
-          >
-            <td>{{ intervention.formationDto.titre }}</td>
-            <td>{{ intervention.dateDebut }}</td>
-            <td>{{ intervention.dateFin }}</td>
-            <!-- <td>{{ intervention.formateursDto.prenom }} {{intervention.formateursDto.nom}}</td> -->
-          </tr>
-        </tbody>
-      </table>
+      <table class="table col-12">
+          <thead class="">
+            <tr>
+              <th>Titre</th>
+              <th>Date de début</th>
+              <th>Date de fin</th>
+              <th>Formateur</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="intervention in form.interventionsDto"
+              :key="intervention.id"
+            >
+              <td>{{ intervention.formationDto.titre }}</td>
+              <td>{{ intervention.dateDebut }}</td>
+              <td>{{ intervention.dateFin }}</td>
+              <!-- <td>{{ intervention.formateursDto.prenom }} {{intervention.formateursDto.nom}}</td> -->
+            </tr>
+          </tbody>
+        </table>
 
       <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">
@@ -357,7 +344,7 @@ export default {
 
     centreFormationApi
       .getAllCentreFormations()
-      .then(response => this.centres = response)
+      .then((response) => (this.centres = response));
   },
 };
 </script>
@@ -380,5 +367,9 @@ export default {
 
 .mon-btn {
   width: 80%;
+}
+
+.form-row {
+  margin-bottom: 1em;
 }
 </style>
