@@ -23,7 +23,7 @@
             {{devoir.dateFin}}
           </td>
           <td>
-            <!-- {{devoirs.interventionDto.formationDto.titre}} -->
+            {{devoir.interventionDto.formationDto.titre}}
           </td>
         </tr>
       </tbody>
