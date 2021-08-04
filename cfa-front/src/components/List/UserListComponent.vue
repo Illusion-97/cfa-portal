@@ -47,9 +47,9 @@
           
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_user_detail', params: { id: user.id }}">Details</router-link>
-            &nbsp;
-            <router-link class="btn btn-success" :to="{name:'admin_user_update', params: { id: user.id }}">Modifier</router-link>
-            &nbsp;
+            <!-- &nbsp; -->
+            <router-link class="btn btn-success mx-2" :to="{name:'admin_user_update', params: { id: user.id }}">Modifier</router-link>
+            <!-- &nbsp; -->
             <button class="btn btn-danger" v-on:click="deleteUtilisateur(user.id)">
               Supprimer
             </button>
@@ -65,7 +65,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"
