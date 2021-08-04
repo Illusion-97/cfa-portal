@@ -1,7 +1,6 @@
 <template>
-  <div id="app" class="">   
-
-    <div id="app" class="">
+  <div id="app">   
+    <div>
       <div v-if="table != '/login'">
         <Navbar />
       </div>
@@ -15,7 +14,6 @@
           <router-view />
         </div>
       </div>
-      
     </div>
   </div>
 </template>
