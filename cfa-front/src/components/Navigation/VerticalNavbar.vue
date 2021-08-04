@@ -2,7 +2,7 @@
     <div class="NavBar2">
 
         <div v-if="table[1] == 'espace-administratif'" id="espace-administratif">
-            <h6>Mon Espace Administratif</h6>
+            <h5>Espace Administratif</h5>
 
             <div v-if="table[0] == 'etudiant'">
                 <nav class="mb-3">
@@ -18,7 +18,7 @@
                   
         </div>
         <div v-if="table[1] == 'espace-pedagogique'" id="espace-pedagogique">
-            <h6>Mon Espace Pedogique</h6>
+            <h5>Espace Pedogique</h5>
 
             <div v-if="table[0] == 'etudiant'">
                 <nav class="mb-3">
@@ -37,7 +37,7 @@
                   
         </div>
         <div v-if="table[0] == 'referent'" id="referent">
-            <h6>Mon Espace</h6>
+            <h5>Mon Espace</h5>
 
             
                 <nav class="mb-3">
@@ -56,7 +56,7 @@
 
         <div v-if="table[0] == 'admin'" id="admin">
         <div>
-            <h6>Mon Espace Admin</h6>
+            <h5>Espace Administrateur</h5>
             
                 <nav class="mb-3">
                     <b-nav vertical>
@@ -64,7 +64,7 @@
                         <router-link class="nav-item" :to="{name:'admin_adresse_list'}">Adresses</router-link>
                         <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
 
-                        <router-link class="nav-item" :to="{name:'admin_dashboard'}">User</router-link>     
+                        <router-link class="nav-item" :to="{name:'admin_dashboard'}">Utilisateurs</router-link>     
                         <router-link class="nav-item" :to="{name:'admin_etudiant_list'}">Etudiants</router-link>  
 
                         <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
@@ -118,9 +118,11 @@ export default {
 
     .nav-item{
         margin: 1em;
-        border: #6c757d 2px solid;
-        text-decoration: none;
-        color: #6c757d;
+        /* border: #6c757d 2px solid; */
+        border-bottom: 1px solid black;
+        /* text-decoration: underline; */
+        /* color: #6c757d; */
+        color: black;
         height: 2.5em;
         line-height: 2em; /* ATTENTION on centre le texte verticalement "à la main"*/
     }
@@ -132,5 +134,6 @@ export default {
 
     .router-link-exact-active{
         background-color: lightgrey;
+        /* background-color: rgba(209, 14, 14, 0.705); */
     }
 </style>

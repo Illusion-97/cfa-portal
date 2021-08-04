@@ -1,118 +1,115 @@
 <template>
   <header>
-    <b-navbar toggleable="lg" class="navbar">
-      <b-navbar-brand :to="{name:'home'}">
-        <a class="navbar-brand">
-          <img src="@/assets/img/institutionnel-logo.png" alt="" id="dawan_logo" />
-        </a>
-      </b-navbar-brand>
+    <router-link :to="{name:'home'}">
+      <img src="@/assets/img/institutionnel-logo.png" alt="dawan-logo" id="dawan_logo" class="img-fluid"
+        style="margin-left:1em;margin-top:1em;width:50%;" />
+    </router-link>
+    <nav class="navbar navbar-expand-lg">
 
-      <b-navbar-toggle target="nav-collapse" class="border-0"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item :to="{name:'home'}" class=" a-link">Home</b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'etudiant_espace-peda_accueil'}" v-if="isEtudiant">
-            Espace pedagogique
-          </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'etudiant_profil'}" v-if="isEtudiant">
-            Espace administrative
-          </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}">
-            Espace Referent
-          </b-nav-item>
-          <b-nav-item class=" a-link" :to="{name:'admin_dashboard'}" >
-            Espace Admin
-          </b-nav-item>
-          <b-nav-item class=" a-link" @click="logout">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name:'home'}">Accueil</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name:'etudiant_espace-peda_accueil'}" v-if="isEtudiant">Espace
+              Pédagogique</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name:'etudiant_profil'}" v-if="isEtudiant">
+              Espace Administratif</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name:'referent_dashboard'}">
+              Espace Référent</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name:'admin_dashboard'}">
+              Espace Administrateur </router-link>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a @click="logout" class="nav-link" href="#">
+            <!-- <font-awesome-icon :icon="['fas', 'power-off']" class="icon" /> -->
+            <!-- <b-icon icon="power"></b-icon> -->
             Déconnexion
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </header>
 </template>
 
 <script>
-import { authenticationApi } from "@/_api/authentication.api.js"
-import { utilisateurService } from "@/_services/utilisateur.service.js"
+  import { authenticationApi} from "@/_api/authentication.api.js"
+  import { utilisateurService } from "@/_services/utilisateur.service.js"
   export default {
     name: "Navbar",
     components: {},
     computed: {
-      isAdmin(){
+      isAdmin() {
         return utilisateurService.isAdmin();
       },
-      isCEF(){
+      isCEF() {
         return utilisateurService.isCEF();
       },
-      isReferent(){
+      isReferent() {
         return utilisateurService.isReferent();
       },
-      isFormateur(){
+      isFormateur() {
         return utilisateurService.isFormateur();
       },
-      isEtudiant(){
+      isEtudiant() {
         return utilisateurService.isEtudiant();
       },
     },
-    methods:{
-      logout(){        
+    methods: {
+      logout() {
         authenticationApi.logout()
-        .then(() => this.$router.push({name: 'login'}));
+          .then(() => this.$router.push({
+            name: 'login'
+          }));
       }
     }
   };
 </script>
-
+<!--<style scoped src="@/assets/styles/NavBar.css">
+</style>-->
 <style scoped>
-  /*@import './assets/styles/NavBar.css';*/
 
   header {
     margin-bottom: 50px;
+    display: flex;
+  }
+
+  nav {
+    margin: 0 auto;
   }
 
   .navbar {
-    margin-top: 3em;
+    margin-top: 2em;
     height: 4em;
-    background-color: #212529;
-    /* width: 70%; */
+    /* background-color: #212529; */
+    width: 70%;
   }
 
-  .a-link,
-  .nav-form {
-    background-color: #212529;
-  }
-
-  .navbar-light .navbar-nav .nav-link {
-    color: #fff;
+  .nav-link {
+    color: rgb(0, 0, 0) !important;
     font-size: 20px;
+    text-transform: uppercase !important;
+    font-weight: bold;
   }
 
-  .input-search {
-    background-color: #212529;
-    border: none;
-    border-bottom: 1px solid #fff;
-    border-radius: 0;
-    outline: none;
-    color: rgba(255, 255, 255, 0.877);
+  .nav-link:hover {
+    text-decoration: underline;
   }
 
-  .input-search:focus {
-    outline: solid #212529;
-  }
-
-  .input-search::placeholder {
-    color: rgb(168, 168, 168);
-    font-size: 15px;
-  }
-
-  .btn-search {
-    background-color: rgba(226, 27, 40, 0.65);
-    border: none;
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-  }
 
   @media (max-width: 990px) {
     .navbar {
