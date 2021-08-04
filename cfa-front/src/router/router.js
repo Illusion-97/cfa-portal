@@ -136,10 +136,10 @@ const routes = [
   { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
-  { path: "/intervention", name: "all-intervention", component: AllInterventions },
-  { path: "/ajouter-intervention", component: AjoutIntervention, name: "ajouter-intervention"},
-  { path: "/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
-  { path: "/modifier-intervention/:id", name: "modifier-intervention", component: AjoutIntervention },
+  { path: "/admin/intervention", name: "all-intervention", component: AllInterventions },
+  { path: "/admin/ajouter-intervention", component: AjoutIntervention, name: "ajouter-intervention"},
+  { path: "/admin/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
+  { path: "/admin/modifier-intervention/:id", name: "modifier-intervention", component: AjoutIntervention },
 
   // Global -> Formation
   { path: "/formation", name: "all-formations", component: AllFormations },
