@@ -3,17 +3,19 @@
     <div class="row">
       <div class="offset-2 col-md-10">
         <div class="row">
-          <div class="my-btn-div col-md-11">
-            <button
+          <div class="my-btn-div col-md-12">
+            <span
               type="button"
-              class="btn btn-primary"
+              class="next-prev"
               @click="previousWeek()"
             >
-              Précédente
-            </button>
-            <button type="button" class="btn btn-primary" @click="nextWeek()">
-              Suivante
-            </button>
+            <b-icon icon="chevron-double-left"></b-icon>
+              Précédent
+            </span>
+            <span type="button" class="next-prev" @click="nextWeek()">
+              Suivant
+            <b-icon icon="chevron-double-right"></b-icon>
+            </span>
           </div>
         </div>
       </div>
@@ -29,7 +31,7 @@
         ></b-calendar>
       </div>
       <div class="col-md-10">
-        <table class="table col-md-11">
+        <table class="table">
           <thead>
             <tr>
               <th>
@@ -233,5 +235,20 @@ table {
 
 .intervention {
   margin-top: 1em;
+}
+
+.next-prev:hover {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.table {
+  width: 95%;
+  margin: 0 auto;
+}
+.table thead th,
+.table td, .table th {
+  border: 0;
+  /* border-right: 1px solid black; */
 }
 </style>
