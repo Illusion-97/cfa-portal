@@ -23,8 +23,8 @@
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>#</th>
-          <th>Nom de la promo</th>
+          <!-- <th>#</th> -->
+          <th>Promotion</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
           <th>Action</th>
@@ -32,10 +32,10 @@
       </thead>
       <tbody v-if="promotionsComputed">
         <tr v-for="promotion in promotionsComputed" :key="promotion.id">
-          <td>{{ promotion.id }} </td>
+          <!-- <td>{{ promotion.id }} </td> -->
           <td>{{ promotion.nom }}</td>
-          <td>{{ promotion.dateDebut }}</td>
-          <td>{{ promotion.dateFin }}</td>
+          <td>{{ promotion.dateDebut |formatDate}}</td>
+          <td>{{ promotion.dateFin |formatDate }}</td>
           <td>
             <router-link class="btn btn-info" :to="{name:'admin_promotion_detail', params: { id: promotion.id }}">Details</router-link>
             &nbsp;
