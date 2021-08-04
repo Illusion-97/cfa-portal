@@ -36,8 +36,8 @@
           <li class="nav-item">
             <a @click="logout" class="nav-link" href="#">
             <!-- <font-awesome-icon :icon="['fas', 'power-off']" class="icon" /> -->
-            <!-- <b-icon icon="power"></b-icon> -->
             Déconnexion
+            <b-icon icon="box-arrow-right"></b-icon>
             </a>
           </li>
         </ul>
@@ -84,7 +84,7 @@
 <style scoped>
 
   header {
-    margin-bottom: 50px;
+    margin-bottom: 4em;
     display: flex;
   }
 
@@ -96,7 +96,7 @@
     margin-top: 2em;
     height: 4em;
     /* background-color: #212529; */
-    width: 70%;
+    width: 100%;
   }
 
   .nav-link {
