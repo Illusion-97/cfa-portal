@@ -37,21 +37,28 @@
 
             <b-form-group>
               <div class="row">
-              <div class="col-6">
-                <!-- Promotions -->
-                <label for="" v-if="form.promotionsDto.length > 0">Promotions :</label>
-                <div v-for="(prom,index) in form.promotionsDto" :key="uniqueKey(prom,index)">
-                  <input type="text" name="promo" id="promo" class="form-control mb-2" disabled :value="prom.nom" />
+                <div class="col-6">
+                  <!-- Promotions -->
+                  <label for="" v-if="form.promotionsDto.length > 0">Promotions :</label>
+                  <div v-for="(prom,index) in form.promotionsDto" :key="uniqueKey(prom,index)">
+                    <!-- <input type="text" name="promo" id="promo" class="form-control mb-2" disabled :value="prom.nom" /> -->
+                    <div class="alert alert-secondary" role="alert">
+                      {{prom.nom}}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-6">
-                <!-- Trainers -->
-                <label for="" v-if="form.formateursDto.length > 0">Formateurs:</label>
-                <div v-for="(trainer,index) in form.formateursDto" :key="uniqueKey(trainer,index)">
-                  <input type="text" name="promo" id="trainer" class="form-control mb-2" disabled
-                    :value="`${trainer.nom} ${trainer.prenom}`" />
+                <div class="col-6">
+                  <!-- Trainers -->
+                  <label for="" v-if="form.formateursDto.length > 0">Formateurs:</label>
+                  <div v-for="(trainer,index) in form.formateursDto" :key="uniqueKey(trainer,index)">
+                    <!-- <input type="text" name="promo" id="trainer" class="form-control mb-2" disabled
+                      :value="`${trainer.nom} ${trainer.prenom}`" /> -->
+                    <div class="alert alert-secondary" role="alert">
+                      {{trainer.nom}}
+                      {{trainer.prenom}}
+                    </div>
+                  </div>
                 </div>
-              </div>
               </div>
             </b-form-group>
 
@@ -67,7 +74,7 @@
                 <label for="dateEnd">Date de fin :</label>
                 <div class="col ms-2">
                   <b-form-datepicker v-model="form.dateFin" :date-disabled-fn="dateDisabled" locale="fr" id="dateEnd"
-                    class="form-control" hide-header :start-weekday="1" placeholder="Aucune date selectionnée">
+                    class="form-control" hide-header :start-weekday="1" placeholder="Aucune date selectionnée" required>
                   </b-form-datepicker>
                 </div>
               </div>
@@ -88,7 +95,7 @@
             </div>
           </form>
           <div id="error"></div>
-          <b-card class="mt-3" header="Form Data Result" v-if="!show">
+          <b-card class="mt-3" header="Form Data Result" v-if="show">
             <pre class="m-0">{{ form }}</pre>
             <!-- <pre class="m-0">{{ items }}</pre> -->
           </b-card>
@@ -100,7 +107,9 @@
 
 <script>
   import axios from 'axios';
-  import { interventionApi } from "@/_api/intervention.api.js";
+  import {
+    interventionApi
+  } from "@/_api/intervention.api.js";
   import ModalPromotion from "@/components/Modal/ModalPromo.vue";
   import ModalFormateur from "@/components/Modal/FormateurModal.vue"
   import FormationList from "@/components/List/FormationListComponent.vue";
@@ -144,13 +153,9 @@
           .insertIntervention(this.form)
           .then((data) => {
             if (data.status == 200) {
-              this.$router.push({
-                name: "all-intervention"
-              });
-              // console.log(data);
+              this.$router.push({  name: "all-intervention" });
               alert('ok')
-            } else
-              alert("ERREUR")
+            } 
           })
       },
       onReset(event) {
@@ -180,7 +185,7 @@
         // console.log(this.form.support);
       },
       getPromotions(promo) {
-        console.log("get promo", promo);
+        // console.log("get promo", promo);
         this.form.promotionsDto = promo;
       },
       getTrainers(trainer) {
@@ -189,7 +194,7 @@
       onClickChildFormation(formation) {
         this.form.formationDto = formation;
       },
-      uniqueKey(item,index) {
+      uniqueKey(item, index) {
         return `${item}-${index}`;
       }
     },
@@ -221,7 +226,6 @@
 </script>
 
 <style scoped>
-
   .previous {
     cursor: pointer;
     color: black;
