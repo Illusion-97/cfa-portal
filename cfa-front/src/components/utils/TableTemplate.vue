@@ -8,7 +8,7 @@
           <div class="col-md-12">
             <form action="" class="form form-inline float-right" @submit="onSubmit"
               @input="$emit('input',$event.target.value)">
-              <input type="text" name="search" id="keyword" class="form-control" v-bind:value="key"
+              <input type="search" name="search" id="keyword" class="form-control" v-bind:value="key"
                 placeholder="Rechercher.." />
               <!-- <input type="submit" value="Rechercher" class="btn btn-info" /> -->
               <button class="btn btn-key btn-info" type="submit">
@@ -28,7 +28,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
+            <b-table id="my-table" striped :items="items" :fields="fields" :per-page="per_page"
               :current-page="current_page">
 
               <template #cell(formationDto)="data">
