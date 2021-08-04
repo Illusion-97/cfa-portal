@@ -24,26 +24,26 @@
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>#</th>
+          <!-- <th>#</th> -->
           <th>Prénom</th>
           <th>Nom</th>
           <th>Login</th>
-          <th>Mot de passe</th>
-          <th>Adresse</th>
-          <th>Entreprise</th>
+          <!-- <th>Mot de passe</th> -->
+          <!-- <th>Adresse</th> -->
+          <!-- <th>Entreprise</th> -->
           <th v-if="isAction">Action</th>
         </tr>
       </thead>
       <tbody v-if="usersComputed">
         <tr v-for="user in usersComputed" :key="user.id"
             v-on:click="clickList(user)">
-          <td>{{ user.id }} </td>
+          <!-- <td>{{ user.id }} </td> -->
           <td>{{ user.prenom }}</td>
           <td>{{ user.nom }}</td>
           <td>{{ user.login }}</td>
-          <td>{{ user.password }}</td>
-          <td>{{ user.adresseDto.rue}}</td>
-          <td>{{ user.entrepriseDto.raisonSociale}}</td>
+          <!-- <td>{{ user.password }}</td> -->
+          <!-- <td>{{ user.adresseDto.rue}}</td> -->
+          <!-- <td>{{ user.entrepriseDto.raisonSociale}}</td> -->
           
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_user_detail', params: { id: user.id }}">Details</router-link>
