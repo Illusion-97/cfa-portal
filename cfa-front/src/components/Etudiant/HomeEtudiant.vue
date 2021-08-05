@@ -43,33 +43,29 @@
 </div> -->
   <div id="grid-container">
     <div id="grid-container2">
-      <div class="identite">
+      <div class="identite ">
         <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
         <p class="email">{{ utilisateur.login }}</p>
       </div>
-
+      <div class="card p-3">
       <div class="formateur-ref text-center">
-        <span class="h5"> Formateur referent</span>
-        <div class="card">
-          <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
-          <p>{{ formateurReferent.login }}</p>
-        </div>
+        <p class="font-weight-bold h5">Formateur referent : </p>
+        <p class="my-1">{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
+        <p>{{ formateurReferent.login }}</p>
       </div>
       <div class="referent-peda text-center">
-        <span class="h5"> Referent pedagogique</span>
-        <div class="card">
-    
-          <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}
+        <p class="font-weight-bold h5">Referent pedagogique : </p>
+          <p class="my-1">{{ promotionComputed.referentPedagogiqueDto.prenom }} 
+            {{ promotionComputed.referentPedagogiqueDto.nom }}
           </p>
           <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p>
-        </div>
       </div>
       <div class="manager text-center">
-        <span class="h5"> Manager</span>
-        <div class="card">
-          <p>{{ manager.prenom }} {{ manager.nom }}</p>
-          <p>{{ manager.login }}</p>
-        </div>
+        <p class="font-weight-bold h5">Manager : </p>
+        <p class="my-1">{{ manager.prenom }} {{ manager.nom }}</p>
+        <p>{{ manager.login }}</p>
+      </div>
+
       </div>
     </div>
 
@@ -139,11 +135,11 @@
   }
 
   .identite>.nom {
-    font-size: 1.5em;
+    font-size:25px;
   }
 
   .identite>.email {
-    font-size: 1.2em;
+    font-size: 25px;
   }
 
   .card {
@@ -167,9 +163,6 @@
     grid-template-rows: 1fr;
   }
 
-  #student-info {
-    grid-row: 1;
-  }
 
   #student-planning {
     grid-row: 1;
@@ -181,8 +174,9 @@
   #grid-container2 {
     grid-row: 1;
     grid-column: 1;
-    display: grid;
-    grid-template-rows: 100px repeat(3, 150px);
+    /* display: grid; */
+    /* grid-template-rows: 100px repeat(3, 150px); */
+    /* grid-template-rows: 1fr; */
     margin-left: 1em;
 }
   
