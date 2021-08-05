@@ -84,7 +84,7 @@
       <div id="promotion-list">
         <span class="btn-toggle" data-toggle="collapse" href="#Collapse2" role="button" aria-expanded="false"
           aria-controls="Collapse2">Promotions</span>
-        <div class="collapse" id="Collapse2">
+        <div class="collapse show" id="Collapse2">
           <div class="card card-body">
             <ul v-for="p in promo" :key="p.id" class="list-style-none">
               <li>{{ p.nom }}</li>
