@@ -1,17 +1,14 @@
 <template>
   <header>
     <router-link :to="{name:'home'}">
-      <img src="@/assets/img/institutionnel-logo.png" alt="dawan-logo" id="dawan_logo" class="img-fluid"
-        style="margin-left:1em;margin-top:1em;width:50%;" />
+      <img src="@/assets/img/institutionnel-logo.png" alt="dawan-logo" id="dawan_logo" />
     </router-link>
     <nav class="navbar navbar-expand-lg">
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
+      <a data-toggle="collapse" href="#navbarNav" aria-controls="navbarNav" aria-expanded="false" id="toggle" >
+        <font-awesome-icon :icon="['fas','bars']" class="text-dark"></font-awesome-icon>
+      </a>
+      <div class="mx-auto" id="navbarNav">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <router-link class="nav-link" :to="{name:'home'}">Accueil</router-link>
           </li>
@@ -31,13 +28,10 @@
             <router-link class="nav-link" :to="{name:'admin_dashboard'}">
               Espace Administrateur </router-link>
           </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" id="on-responsive">
             <a @click="logout" class="nav-link" href="#">
-            <!-- <font-awesome-icon :icon="['fas', 'power-off']" class="icon" /> -->
-            Déconnexion
-            <b-icon icon="box-arrow-right"></b-icon>
+              Déconnexion
+              <b-icon icon="box-arrow-right"></b-icon>
             </a>
           </li>
         </ul>
@@ -45,14 +39,36 @@
     </nav>
   </header>
 </template>
+<script>
+  const nav = document.getElementById('navbarNav')
+  const width = screen.width
+  if (width < 1388)
+    nav.className = "bg-danger"
+  else
+    nav.className = "bg-success"
+</script>
 
 <script>
-  import { authenticationApi} from "@/_api/authentication.api.js"
-  import { utilisateurService } from "@/_services/utilisateur.service.js"
+  import {
+    authenticationApi
+  } from "@/_api/authentication.api.js"
+  import {
+    utilisateurService
+  } from "@/_services/utilisateur.service.js"
   export default {
     name: "Navbar",
     components: {},
     computed: {
+      collapse() {
+        const width = screen.width
+        console.log(width);
+        switch (width) {
+          case 1388:
+            return 'bg-dark'
+          default:
+            return 'bg-danger'
+        }
+      },
       isAdmin() {
         return utilisateurService.isAdmin();
       },
@@ -82,14 +98,15 @@
 <!--<style scoped src="@/assets/styles/NavBar.css">
 </style>-->
 <style scoped>
-
   header {
     margin-bottom: 4em;
     display: flex;
   }
 
-  nav {
-    margin: 0 auto;
+  #dawan_logo {
+    margin-left: 1em;
+    margin-top: 1em;
+    width: 50%;
   }
 
   .navbar {
@@ -97,6 +114,11 @@
     height: 4em;
     /* background-color: #212529; */
     width: 100%;
+  }
+
+  #toggle {
+    font-size: 25px;
+    display: none;
   }
 
   .nav-link {
@@ -111,10 +133,26 @@
   }
 
 
-  @media (max-width: 990px) {
+
+  @media (max-width: 1388px) {
     .navbar {
-      width: 100%;
-      margin: 0;
+      margin-top: 0;
+      height: 100%;
+      text-align: center;
+      /* justify-content: center; */
+    }
+
+    #toggle {
+      position: relative;
+      display: block;
+    }
+
+    #navbarNav {
+      margin: 0 auto;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+      flex-direction: column;
     }
 
     #dawan_logo {
@@ -126,5 +164,6 @@
       padding-top: 0.5em;
       padding-bottom: 0.5em;
     }
+
   }
 </style>
