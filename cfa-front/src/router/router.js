@@ -142,10 +142,10 @@ const routes = [
   { path: "/admin/modifier-intervention/:id", name: "modifier-intervention", component: AjoutIntervention },
 
   // Global -> Formation
-  { path: "/formation", name: "all-formations", component: AllFormations },
-  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
-  { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
-  { path: "/modifier-formation/:id", component: AjoutFormation, name: "modifier-formation" },
+  { path: "/admin/formation", name: "all-formations", component: AllFormations },
+  { path: "/admin/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
+  { path: "/admin/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
+  { path: "/admin/modifier-formation/:id", component: AjoutFormation, name: "modifier-formation" },
   //  ### Etudiant Administratif ###
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs", component: DepotFichier, meta: { authorize: [Role.Etudiant] } },
