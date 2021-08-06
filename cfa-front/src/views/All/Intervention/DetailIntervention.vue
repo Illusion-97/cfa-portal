@@ -58,9 +58,9 @@
       </div>
       <div id="student-list">
         <span class="btn-toggle" data-toggle="collapse" href="#Collapse1" role="button" aria-expanded="false"
-          aria-controls="Collapse1">Etudiants</span>
+          aria-controls="Collapse1">Afficher les étudiants</span>
         <div class="collapse" id="Collapse1">
-          <div class="card card-body">
+          <div class="card card-body border-0">
             <table class="table text-center table-sm">
               <thead>
                 <tr>
@@ -83,9 +83,9 @@
 
       <div id="promotion-list">
         <span class="btn-toggle" data-toggle="collapse" href="#Collapse2" role="button" aria-expanded="false"
-          aria-controls="Collapse2">Promotions</span>
+          aria-controls="Collapse2">Afficher les promotions</span>
         <div class="collapse show" id="Collapse2">
-          <div class="card card-body">
+          <div class="card card-body border-0">
             <ul v-for="p in promo" :key="p.id" class="list-style-none">
               <li>{{ p.nom }}</li>
             </ul>
@@ -97,7 +97,7 @@
         <span class="btn-toggle" data-toggle="collapse" href="#Collapse3" role="button" aria-expanded="false"
           aria-controls="Collapse3">Devoirs</span>
         <div class="collapse" id="Collapse3">
-          <div class="card card-body">
+          <div class="card card-body border-0">
             <span v-if="assignements.length > 0">
               <pre>{{assignements}}</pre>
             </span>
@@ -134,7 +134,6 @@
     created() {
       this.getId();
       this.getStudents();
-      this.getPromo();
       this.getAssignement();
       this.getTrainer();
     },
@@ -146,6 +145,7 @@
         interventionApi.getInterventionById(this.interventionId).then((data) => {
           this.status = data.status;
           this.items = data.data;
+          this.promo = this.items.promotionsDto;
           // this.items.formationDto = data.formationDto;
         });
       },
@@ -164,11 +164,6 @@
         interventionApi
           .findStudentsByPromoInterventionId(this.interventionId)
           .then((data) => (this.students = data));
-      },
-      getPromo() {
-        interventionApi
-          .findPromoByInterventionId(this.interventionId)
-          .then((data) => (this.promo = data));
       },
       getAssignement() {
         interventionApi
@@ -227,6 +222,10 @@
 
   .icon {
     cursor: pointer;
+  }
+
+  .table th {
+    border-top: 0;
   }
 
   .list-style-none {
