@@ -2,7 +2,8 @@
   <div id="app">   
     <div>
       <div v-if="table != '/login'">
-        <Navbar />
+        <!-- <Navbar /> -->
+        <Navbar2/>
       </div>
 
       <div v-if="table == '/'">
@@ -19,11 +20,13 @@
 </template>
 <script>
 import Navbar from "@/components/Navigation/Navbar.vue";
+import Navbar2 from "@/components/Navigation/Navbar2.vue";
 import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 export default {
   name: "App",
   components: {
     Navbar,
+    Navbar2,
     VerticalNavbar,
   },
   methods: {},
