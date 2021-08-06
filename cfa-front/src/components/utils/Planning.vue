@@ -239,7 +239,6 @@ table {
 
 .next-prev:hover {
   font-weight: bold;
-  font-size: larger;
 }
 
 .table {
