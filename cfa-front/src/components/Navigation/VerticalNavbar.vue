@@ -61,27 +61,12 @@
                 <nav class="mb-3">
                     <b-nav vertical>
 
-                        <router-link class="nav-item" :to="{name:'admin_adresse_list'}">Adresses</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprises</router-link>
-
                         <router-link class="nav-item" :to="{name:'admin_dashboard'}">Utilisateurs</router-link>     
                         <router-link class="nav-item" :to="{name:'admin_etudiant_list'}">Etudiants</router-link>  
-
+                        <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
                         <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
-
-                        <router-link class="nav-item" :to="{name:'all-intervention'}">Intervention</router-link>
-                        <router-link class="nav-item" :to="{name:'formateur_intervention'}">Intervention Formateur</router-link>
-                        <router-link class="nav-item" :to="{name:'all-formations'}">Formation</router-link>
-
-                        <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
-                       
-                        <router-link class="nav-item" :to="{name:'admin_examen_list'}">Examens</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_passage-examen_list'}">Passages Examens</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_devoir_list'}">Devoirs</router-link>  
-
-                        <router-link class="nav-item" :to="{name:'admin_projet_list'}">Projets</router-link>
-                        <router-link class="nav-item" :to="{name:'admin_groupe_list'}">Groupes</router-link>                        
-                        
+                        <router-link class="nav-item" :to="{name:'formateur_intervention'}" v-if="isFormateur">Intervention</router-link>
+                        <router-link class="nav-item" :to="{name:'all-intervention'}" v-else>Interventions</router-link>
                         <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>                      
 
                     </b-nav>
@@ -93,13 +78,16 @@
 </template>
 
 <script>
+import { utilisateurService } from "@/_services/utilisateur.service.js"
+
 export default {
   name: "VerticalNavbar",
-  methods: {
-  },
   computed: {
     table : function(){
       return this.$route.path.split('/').splice(1);
+    },
+     isFormateur() {
+        return utilisateurService.isFormateur();
     },
   }
 };
@@ -127,13 +115,17 @@ export default {
         line-height: 2em; /* ATTENTION on centre le texte verticalement "à la main"*/
     }
     .nav-item:hover{
-        background-color: #6c757d;
-        color: white;
+        /* background-color: #6c757d; */
+        /* color: #b3334a; */
+        color: brown;
         text-decoration: none;
+        font-weight: bold;
     }
 
     .router-link-exact-active{
-        background-color: lightgrey;
+        /* color: #b3334a; */
+        color: brown;
+        /* background-color: lightgrey; */
         /* background-color: rgba(209, 14, 14, 0.705); */
     }
 </style>
