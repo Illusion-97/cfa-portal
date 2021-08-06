@@ -1,0 +1,31 @@
+section {
+    height: 25vh;
+}
+
+#mainNav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.navbar-nav .nav-item .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; */
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: brown;
+}
+
+.navbar-nav .nav-item .logout {
+    color: brown;
+}
+
+.navbar-nav .nav-item .logout:hover {
+    color: #000;
+}
