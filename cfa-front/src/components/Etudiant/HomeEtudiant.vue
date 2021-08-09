@@ -43,7 +43,7 @@
 </div> -->
   <div id="grid-container">
     <div class="identite">
-      <p class="nom">Bonjour {{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+      <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
       <!-- <p class="email">{{ utilisateur.login }}</p> -->
     </div>
     <div id="student-info">
