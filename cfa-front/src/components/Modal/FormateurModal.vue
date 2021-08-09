@@ -6,7 +6,7 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ajouter des promotions</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Ajouter des formateurs</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -26,19 +26,17 @@
                 <div class="col-md-6">
                   <small class="form-text info-text">
                     <font-awesome-icon :icon="['fas', 'info-circle']" />
-                    Selectionnez une ou plusieurs promotions.</small>
+                    Selectionnez un ou plusieurs formateurs.</small>
                   <table class="table text-center">
                     <thead>
                       <tr>
-                        <th scope="col">Nom de la promotion</th>
-                        <!-- <th scope="col">Formations</th> -->
-                        <!-- <th scope="col">Handle</th> -->
+                        <th scope="col">Formateur</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="promo in items" :key="promo.id">
-                        <td @click.prevent="addPromo(promo)">
-                          <span> {{ promo.nom }}</span>
+                      <tr v-for="trainer in items" :key="trainer.id">
+                        <td @click.prevent="addTrainer(trainer)">
+                          <span>{{ trainer.nom }} {{ trainer.prenom }} </span>
                         </td>
                       </tr>
                     </tbody>
@@ -55,18 +53,18 @@
                 <div class="col-md-6">
                   <div class="card h-100 p-2">
                     <div class="card-header">
-                      <h6 class="text-center">Promotions selectionnée</h6>
+                      <h6 class="text-center">Formateurs selectionnée</h6>
                     </div>
                     <div class="card-body">
                       <ul>
-                        <div class="alert alert-custom" v-for="(p,index) in promotions" :key="p.id">
+                        <div class="alert alert-custom" v-for="(f,index) in formateur" :key="f.id">
                           <span class="close" @click.prevent="removePromo(index)">&times;</span>
-                            {{p.nom}}
+                         {{f.id}} {{f.nom}} {{f.prenom}}
                         </div>
-                        <!-- <p class="alert alert-primary">{{p.nom}} <span class="close" @click="removePromo(index)">&times;</span></p> -->
+
                       </ul>
                     </div>
-                    <button class="btn btn-outline-dark" @click="onReset" v-if="promotions.length > 0">Reset</button>
+                    <button class="btn btn-outline-dark" @click="onReset" v-if="formateur.length > 0">Reset</button>
                   </div>
                   <!-- {{items}} -->
                 </div>
@@ -85,9 +83,9 @@
 </template>
 
 <script>
-  import { promotionApi } from "../../_api/promotion.api";
+  import { formateurApi } from "../../_api/formateur.api";
   export default {
-    name: "ModalPromotion",
+    name: "FormateurModal",
     props: {
       idName: String,
     },
@@ -98,7 +96,7 @@
         keyword: "",
         pageCount: 0,
         items: [],
-        promotions: [],
+        formateur: [],
       };
     },
     created() {
@@ -106,19 +104,19 @@
     },
     methods: {
       fillList() {
-        promotionApi
-          .getAllByPage(this.currentPage, this.perPage, this.keyword)
+        formateurApi
+          .getAllFormateur(this.currentPage, this.perPage, this.keyword)
           .then((data) => this.items = data);
         this.count();
       },
       count() {
-        promotionApi
-          .getCount(this.key)
+        formateurApi
+          .countFormateurs(this.key)
           .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
       },
       pageChange(page) {
-        promotionApi
-          .getAllByPage(page, this.perPage, this.key)
+        formateurApi
+          .getAllFormateur(page, this.perPage, this.key)
           .then((data) => (this.items = data));
       },
       search(evt) {
@@ -126,22 +124,22 @@
         this.fillList();
         this.count();
       },
-      addPromo(promo) {
+      addTrainer(trainer) {
         // evt.preventDefault();
-        if (this.promotions.some(el => el.id == promo.id))
+        if (this.formateur.some(el => el.id == trainer.id))
           return ''
-        this.promotions.push(promo);
+        this.formateur.push(trainer);
       },
       removePromo(index) {
-        this.promotions.splice(index, 1)
+        this.formateur.splice(index, 1)
       },
       onReset(evt) {
         evt.preventDefault();
-        this.promotions = []
+        this.formateur = []
       },
       saveChange() {
-        this.$emit('input', this.promotions);
-        // console.log("modal",this.promotions);
+        this.$emit('input', this.formateur);
+        // console.log("modal",this.formateur);
         // $("#modal").modal('hide');
       }
     },

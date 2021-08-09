@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section style="height:90vh;">
     <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
     <span @click="goBack" class="h5 previous d-block">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
@@ -10,32 +10,56 @@
       <div class="row">
         <div class=" col-md-12 div-form">
           <form @submit="onSubmit" @reset="onReset" v-if="show">
-            <!-- <b-form-group label="Formation :" label-for="formation">
-              <b-form-select v-model="form.formationDto.id" id="formation" class="form-select">
-                <template #first>
-                  <b-form-select-option disabled :value="null" class="select-title">Selectionnez une formation
-                  </b-form-select-option>
-                </template>
-
-                <template>
-                  <b-form-select-option v-for="course in courses" :key="course.id" :value="course.id">
-                    {{ course.titre }}
-                  </b-form-select-option>
-                </template>
-              </b-form-select>
-            </b-form-group> -->
             <b-form-group>
               <FormationList @click-list="onClickChildFormation" :formationProp="formation_input" />
             </b-form-group>
             <b-form-group>
-              <label class="mr-2" for="promo">Promotion :</label>
-              <span class="btn btn-outline-dark mb-2 px-5" data-toggle="modal" data-target="#modal">
-                Ajouter des promotions
-              </span>
-              <div v-for="prom in form.promotionsDto" :key="prom.id">
-                <input type="text" name="promo" id="promo" class="form-control mb-2" disabled :value="prom.nom" />
+              <div class="d-flex justify-content-around">
+                <!-- Promotions -->
+                <div>
+                  <label class="mr-2" for="promo">Promotion :</label>
+                  <span class="btn btn-outline-dark btn-sm mb-2 px-5" data-toggle="modal" data-target="#modalPromo">
+                    Ajouter des promotions
+                  </span>
+                </div>
+                <!-- Trainers -->
+                <div>
+                  <label class="mr-2" for="promo">Formateur :</label>
+                  <span class="btn btn-outline-dark btn-sm mb-2 px-5" data-toggle="modal" data-target="#modalTrainer">
+                    Ajouter des formateurs
+                  </span>
+                </div>
               </div>
-              <ModalPromotion idName="modal" @input="getPromotions"></ModalPromotion>
+
+              <ModalFormateur idName="modalTrainer" @input="getTrainers" />
+              <ModalPromotion idName="modalPromo" @input="getPromotions" />
+            </b-form-group>
+
+            <b-form-group>
+              <div class="row">
+                <div class="col-6">
+                  <!-- Promotions -->
+                  <label for="" v-if="form.promotionsDto.length > 0">Promotions :</label>
+                  <div v-for="(prom,index) in form.promotionsDto" :key="uniqueKey(prom,index)">
+                    <!-- <input type="text" name="promo" id="promo" class="form-control mb-2" disabled :value="prom.nom" /> -->
+                    <div class="alert alert-secondary" role="alert">
+                      {{prom.nom}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <!-- Trainers -->
+                  <label for="" v-if="form.formateursDto.length > 0">Formateurs:</label>
+                  <div v-for="(trainer,index) in form.formateursDto" :key="uniqueKey(trainer,index)">
+                    <!-- <input type="text" name="promo" id="trainer" class="form-control mb-2" disabled
+                      :value="`${trainer.nom} ${trainer.prenom}`" /> -->
+                    <div class="alert alert-secondary" role="alert">
+                      {{trainer.nom}}
+                      {{trainer.prenom}}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </b-form-group>
 
             <b-form-group>
@@ -50,10 +74,16 @@
                 <label for="dateEnd">Date de fin :</label>
                 <div class="col ms-2">
                   <b-form-datepicker v-model="form.dateFin" :date-disabled-fn="dateDisabled" locale="fr" id="dateEnd"
-                    class="form-control" hide-header :start-weekday="1" placeholder="Aucune date selectionnée">
+                    class="form-control" hide-header :start-weekday="1" placeholder="Aucune date selectionnée" required>
                   </b-form-datepicker>
                 </div>
               </div>
+            </b-form-group>
+            <b-form-group>
+              <label for="noteInfo">Rediger une note d'information : </label>
+              <textarea name="noteInfo" class="form-control" id="noteInfo" cols="30" rows="5"
+                v-model="form.noteInfoPersonnel">
+              </textarea>
             </b-form-group>
 
             <div class="d-flex justify-content-between" v-if="interventionId == null">
@@ -77,8 +107,11 @@
 
 <script>
   import axios from 'axios';
-  import { interventionApi } from "@/_api/intervention.api.js";
+  import {
+    interventionApi
+  } from "@/_api/intervention.api.js";
   import ModalPromotion from "@/components/Modal/ModalPromo.vue";
+  import ModalFormateur from "@/components/Modal/FormateurModal.vue"
   import FormationList from "@/components/List/FormationListComponent.vue";
   // import VueSimpleComplete from "vue-simple-complete";
   export default {
@@ -93,8 +126,10 @@
             id: "",
           },
           promotionsDto: [],
+          formateursDto: [],
           dateDebut: "",
           dateFin: "",
+          noteInfoPersonnel: "",
           // support: "",
         },
         items: [],
@@ -104,6 +139,7 @@
     },
     components: {
       ModalPromotion,
+      ModalFormateur,
       FormationList,
     },
     methods: {
@@ -117,41 +153,17 @@
           .insertIntervention(this.form)
           .then((data) => {
             if (data.status == 200) {
-              this.$router.push({ name: "all-intervention" });
-              // console.log(data);
+              this.$router.push({  name: "all-intervention" });
               alert('ok')
-            } else
-              alert("ERREUR")
+            } 
           })
-        // .catch((err) => alert(err.response));
-
-        //       axios.interceptors.response.use(
-        //         (response) => {
-        //           return response;
-        //         },
-        //         (error) => {
-        //           if(error.status == 500) { 
-        //             var newDiv = document.createElement("p");
-        //             newDiv = document.textContent("error");
-        //             newDiv.appendChild(newContent);
-        //             var currentDiv = document.getElementById('error');
-        //             document.body.insertBefore(newDiv, currentDiv);
-        //           }
-        // // Do something with response error
-        //           // if (error.response.status === 401) {
-        //           //   console.log("unauthorized, logging out ...");
-        //           //   auth.logout();
-        //           //   router.replace("/auth/login");
-        //           // }
-        //           // return Promise.reject(error.response);
-        //         }
-        // );
       },
       onReset(event) {
         event.preventDefault();
         // Reset our form values*
         this.form.formationDto.id = "";
         this.form.promotionsDto = [];
+        this.form.formateursDto = [];
         this.form.dateDebut = "";
         this.form.dateFin = "";
 
@@ -173,12 +185,18 @@
         // console.log(this.form.support);
       },
       getPromotions(promo) {
-        console.log("get promo", promo);
+        // console.log("get promo", promo);
         this.form.promotionsDto = promo;
+      },
+      getTrainers(trainer) {
+        this.form.formateursDto = trainer;
       },
       onClickChildFormation(formation) {
         this.form.formationDto = formation;
       },
+      uniqueKey(item, index) {
+        return `${item}-${index}`;
+      }
     },
     created() {
       // this.renderData();
@@ -190,7 +208,7 @@
         interventionApi
           .getInterventionById(this.$route.params.id)
           .then((data) => {
-            this.items = data;
+            this.items = data.data;
             this.items.id = this.interventionId;
             this.form = this.items;
             this.title = "Modifier";

@@ -35,13 +35,13 @@
         >Ajouter</router-link
       >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
-          <th>Prenom Nom</th>
+          <th>Nom de l'étudiant</th>
           <th>Email</th>
           <th>Promotions</th>
-          <th v-if="isAction">Actions</th>
+          <th v-if="isAction">Supprimer</th>
         </tr>
       </thead>
       <tbody v-if="etudiantsComputed">
@@ -63,12 +63,13 @@
             </div>
           </td>
           <td v-if="isAction">
-            <button
-              class="btn btn-info"
+            <span
+            type="button"
+              class="text-danger"
               v-on:click="deleteEtudiant(etudiant.id)"
             >
-              Delete
-            </button>
+              <font-awesome-icon :icon="['fas', 'user-slash']" class="icon" />
+            </span>
           </td>
         </tr>
       </tbody>
@@ -174,7 +175,10 @@ export default {
     },
     detail(id) {
       if (this.isAction)
-        this.$router.push({ name: "admin_etudiant_detail", params: { id: id } });
+        this.$router.push({
+          name: "admin_etudiant_detail",
+          params: { id: id },
+        });
     },
     delete_input() {
       this.etudiant_input = "";

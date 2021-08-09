@@ -20,8 +20,8 @@
         >Ajouter</router-link
       >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>Nom de la promo</th>
           <th>Date de debut</th>
@@ -32,8 +32,8 @@
       <tbody v-if="promotionsComputed">
         <tr v-for="promotion in promotionsComputed" :key="promotion.id" class="mon-tr" v-on:dblclick="detail(promotion.id)" v-on:click="clickList(promotion)">
           <td>{{ promotion.nom }}</td>
-          <td>{{ promotion.dateDebut }}</td>
-          <td>{{ promotion.dateFin }}</td>
+          <td>{{ promotion.dateDebut |formatDate}}</td>
+          <td>{{ promotion.dateFin |formatDate }}</td>
           <td>
             <button class="btn btn-info" v-on:click="deletePromotion(promotion.id)">
               Delete

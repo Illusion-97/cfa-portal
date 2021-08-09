@@ -1,174 +1,79 @@
 <template>
+
   <div class="NavBar2">
+
     <div v-if="table[1] == 'espace-administratif'" id="espace-administratif">
-      <h6>Mon Espace Administratif</h6>
+      <h5>Espace Administratif</h5>
+
       <div v-if="table[0] == 'etudiant'">
         <nav class="mb-3">
           <b-nav vertical>
-            <router-link class="nav-item" :to="{ name: 'etudiant_profil' }"
-              >Profil</router-link
-            >
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_documents_administratifs' }"
-              >Documents administratifs</router-link
-            >
-            <router-link class="nav-item" :to="{ name: 'etudiant_conge' }"
-              >Demande de congés</router-link
-            >
+            <router-link class="nav-item" :to="{name:'etudiant_profil'}">Profil</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_documents_administratifs'}">Documents administratifs
+            </router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_conge'}">Demande de congés</router-link>
           </b-nav>
         </nav>
       </div>
     </div>
+
     <div v-if="table[1] == 'espace-pedagogique'" id="espace-pedagogique">
-      <h6>Mon Espace Pedogique</h6>
+      <h5>Espace Pedogique</h5>
+
       <div v-if="table[0] == 'etudiant'">
         <nav class="mb-3">
           <b-nav vertical>
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_espace-peda_cursus' }"
-              >Mon cursus</router-link
-            >
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_espace-peda_devoirs' }"
-              >Devoirs</router-link
-            >
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_espace-peda_notes' }"
-              >Bulletin de notes</router-link
-            >
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_espace-peda_dossier-pro' }"
-              >Dossier professionel</router-link
-            >
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_espace-peda_absences' }"
-              >Absences / Retards</router-link
-            >
-            <router-link
-              class="nav-item"
-              :to="{ name: 'etudiant_espace-peda_evaluation-formation' }"
-              >Evaluation Formation</router-link
-            >
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_cursus'}">Mon cursus</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel
+            </router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_evaluation-formation'}">Evaluation Formation
+            </router-link>
           </b-nav>
         </nav>
       </div>
     </div>
+
     <div v-if="table[0] == 'referent'" id="referent">
-      <h6>Mon Espace</h6>
+      <h5>Mon Espace</h5>
+
       <nav class="mb-3">
         <b-nav vertical>
-          <router-link class="nav-item" :to="{ name: 'referent_dashboard' }"
-            >Home</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_cours' }"
-            >Intervention</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_etudiant' }"
-            >Etudiant</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_notes' }"
-            >Notes</router-link
-          >
-          <router-link
-            class="nav-item"
-            :to="{ name: 'referent_document-administratif' }"
-            >Administratif</router-link
-          >
-          <router-link
-            class="nav-item"
-            :to="{ name: 'referent_absence-retard' }"
-            >Absences / Retards</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_groupe-projet' }"
-            >Groupes / Projets</router-link
-          >
+          <router-link class="nav-item" :to="{name:'referent_dashboard'}">Home</router-link>
+          <router-link class="nav-item" :to="{name:'referent_cours'}">Intervention</router-link>
+          <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
+          <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
+          <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
+          <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
+          <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
         </b-nav>
       </nav>
     </div>
 
     <div v-if="table[0] == 'admin'" id="admin">
       <div>
-        <h6>Mon Espace Admin</h6>
+        <h5>Espace Administrateur</h5>
 
         <nav class="mb-3">
           <b-nav vertical>
-            <!-- <router-link class="nav-item" :to="{ name: 'admin_adresse_list' }"
-              >Adresses</router-link
-            > -->
-            <!-- <router-link
-              class="nav-item"
-              :to="{ name: 'admin_entreprise_list' }"
-              >Entreprises</router-link
-            > -->
 
-            <router-link class="nav-item" :to="{ name: 'admin_dashboard' }"
-              >User</router-link
-            >
-            <router-link class="nav-item" :to="{ name: 'admin_etudiant_list' }"
-              >Etudiants</router-link
-            >
+            <router-link class="nav-item" :to="{name:'admin_dashboard'}">Utilisateurs</router-link>
+            <router-link class="nav-item" :to="{name:'admin_etudiant_list'}">Etudiants</router-link>
+            <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
+            <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
+            <router-link class="nav-item" :to="{name:'formateur_intervention'}" v-if="isFormateur">Intervention
+            </router-link>
+            <router-link class="nav-item" :to="{name:'all-intervention'}" v-else>Interventions</router-link>
+            <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
 
-            <router-link class="nav-item" :to="{ name: 'admin_promotion_list' }"
-              >Promotions</router-link
-            >
-
-            <!-- <router-link class="nav-item" :to="{ name: 'all-intervention' }"
-              >Intervention</router-link
-            > -->
-
-            <!-- <router-link
-              class="nav-item"
-              :to="{ name: 'formateur_intervention' }"
-              >Intervention Formateur</router-link
-            > -->
-
-            <router-link class="nav-item" :to="{ name: 'all-formations' }"
-              >Formation</router-link
-            >
-
-            <router-link class="nav-item" :to="{ name: 'admin_cursus_list' }"
-              >Cursus</router-link
-            >
-
-            <!-- <router-link class="nav-item" :to="{ name: 'admin_examen_list' }"
-              >Examens</router-link
-            > -->
-
-            <!-- <router-link
-              class="nav-item"
-              :to="{ name: 'admin_passage-examen_list' }"
-              >Passages Examens</router-link
-            > -->
-
-            <!-- <router-link class="nav-item" :to="{ name: 'admin_devoir_list' }"
-              >Devoirs</router-link
-            > -->
-
-            <router-link class="nav-item" :to="{ name: 'admin_projet_list' }"
-              >Projets</router-link
-            >
-            <router-link class="nav-item" :to="{ name: 'admin_groupe_list' }"
-              >Groupes</router-link
-            >
-
-            <router-link
-              class="nav-item"
-              :to="{ name: 'referent_document-administratif' }"
-              >Administratif</router-link
-            >
           </b-nav>
         </nav>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "VerticalNavbar",
@@ -180,34 +85,66 @@ export default {
   },
 };
 </script>
+<!--<style scoped>
+  /*@import './assets/styles/VerticalNavBar.css';*/
 
+  .NavBar2 {
+   width: 15%;
+    float: left;
+    text-align: center;
+    padding: 2em;
+  }
+
+  .nav-item {
+    margin: 1em;
+    border: #6c757d 2px solid;
+    text-decoration: none;
+    color: #6c757d;
+    height: 2.5em;
+    line-height: 2em;
+    /* ATTENTION on centre le texte verticalement "à la main"*/
+  }
+
+  .nav-item:hover {
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+  }
+
+  .router-link-exact-active {
+    background-color: lightgrey;
+  }
+</style> -->
 <style scoped>
-/*@import './assets/styles/VerticalNavBar.css';*/
-
 .NavBar2 {
-  /*
-        background-color: lightgreen;*/
-  width: 15%;
-  float: left;
-  text-align: center;
-  padding: 2em;
+width: 15%;
+float: left;
+text-align: center;
+padding: 2em;
 }
 
-.nav-item {
-  margin: 1em;
-  border: #6c757d 2px solid;
-  text-decoration: none;
-  color: #6c757d;
-  height: 2.5em;
-  line-height: 2em; /* ATTENTION on centre le texte verticalement "à la main"*/
+.nav-item{
+margin: 1em;
+/* border: #6c757d 2px solid; */
+border-bottom: 1px solid black;
+/* text-decoration: underline; */
+/* color: #6c757d; */
+color: black;
+height: 2.5em;
+line-height: 2em; /* ATTENTION on centre le texte verticalement "à la main"*/
 }
-.nav-item:hover {
-  background-color: #6c757d;
-  color: white;
-  text-decoration: none;
+.nav-item:hover{
+/* background-color: #6c757d; */
+/* color: #b3334a; */
+color: brown;
+text-decoration: none;
+font-weight: bold;
 }
 
-.router-link-exact-active {
-  background-color: lightgrey;
+.router-link-exact-active{
+/* color: #b3334a; */
+color: brown;
+/* background-color: lightgrey; */
+/* background-color: rgba(209, 14, 14, 0.705); */
 }
 </style>
