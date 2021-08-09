@@ -61,6 +61,7 @@
         <div class="referent-peda text-center">
           <p class="font-weight-bold h5">Referent pedagogique :</p>
           <p class="my-1">
+            {{promotion}}
             {{ promotionComputed.referentPedagogiqueDto.prenom }}
             {{ promotionComputed.referentPedagogiqueDto.nom }}
           </p>

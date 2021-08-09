@@ -75,6 +75,8 @@
   </div>
 </template>
 <script>
+import { utilisateurService } from "@/_services/utilisateur.service.js"
+
 export default {
   name: "VerticalNavbar",
   methods: {},
@@ -82,6 +84,9 @@ export default {
     table: function() {
       return this.$route.path.split("/").splice(1);
     },
+       isFormateur(){
+        return utilisateurService.isFormateur();
+      },
   },
 };
 </script>
