@@ -1,28 +1,38 @@
-.header-list{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5%;
-  }
-  
-  .header-list > form{
-    width: 40%;
-  }
-  
-  #saisie{
-    width: 70%;
-    margin-right: 5%;
-  }
-  
-  #groupe-input{
-    width: 50%;
-  }
-  
-  .mon-tr:hover {
-    background-color: rgb(216, 213, 213) !important;
-    cursor: pointer;
-  }
+.header-list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
+}
 
-  .delete-input:hover{
-    cursor: pointer;
-  }
+.header-list>form {
+  width: 40%;
+}
 
+#saisie {
+  width: 70%;
+  margin-right: 5%;
+}
+
+#groupe-input {
+  width: 50%;
+}
+
+.table th {
+  border-top: 0;
+}
+
+.mon-tr:hover {
+  background-color: rgb(216, 213, 213) !important;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: x-large;
+}
+.icon:hover {
+  margin: auto 0;
+  color: black;
+}
+.delete-input:hover {
+  cursor: pointer;
+}

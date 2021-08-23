@@ -13,7 +13,6 @@ import LoginPage from "@/views/Login/LoginPage.vue";
 import AllInterventions from "@/views/All/Intervention/AllInterventions.vue";
 import AjoutIntervention from "@/views/All/Intervention/AjoutInterventions.vue";
 import DetailIntervention from '@/views/All/Intervention/DetailIntervention.vue'
-import ModiferIntervention from '@/views/All/Intervention/UpdateIntervention.vue'
 // Global -> Formation
 import AllFormations from "@/views/All/Formation/AllFormation.vue";
 import AjoutFormation from '@/views/All/Formation/AjoutFormation.vue'
@@ -138,16 +137,17 @@ const routes = [
   { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
-  { path: "/intervention", name: "all-intervention", component: AllInterventions },
-  { path: "/ajouter-intervention", name: "ajouter-intervention", component: AjoutIntervention },
-  { path: "/detail-intervention/:id", name: "intervention-detail", component: DetailIntervention,  },
-  { path: "/modifier-intervention/:id", name: "modifier-intervention", component: ModiferIntervention },
+  { path: "/admin/intervention", name: "all-intervention", component: AllInterventions },
+  { path: "/admin/ajouter-intervention", component: AjoutIntervention, name: "ajouter-intervention"},
+  { path: "/admin/detail-intervention/:id", component: DetailIntervention, name: "intervention-detail" },
+  { path: "/admin/modifier-intervention/:id", name: "modifier-intervention", component: AjoutIntervention },
+
 
   // Global -> Formation
-  { path: "/formation", name: "all-formations", component: AllFormations },
-  { path: "/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
-  { path: "/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
-  { path: "/modifier-formation/:id", component: AjoutFormation, name: "modifier-formation" },
+  { path: "/admin/formation", name: "all-formations", component: AllFormations },
+  { path: "/admin/ajouter-formation", name: "ajouter-formation", component: AjoutFormation },
+  { path: "/admin/detail-formation/:id", component: DetailFormation, name: "formation-detail" },
+  { path: "/admin/modifier-formation/:id", component: AjoutFormation, name: "modifier-formation" },
   //  ### Etudiant Administratif ###
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs", component: DepotFichier, meta: { authorize: [Role.Etudiant] } },

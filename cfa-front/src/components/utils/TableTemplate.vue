@@ -8,9 +8,13 @@
           <div class="col-md-12">
             <form action="" class="form form-inline float-right" @submit="onSubmit"
               @input="$emit('input',$event.target.value)">
-              <input type="text" name="search" id="" class="form-control mr-2" v-bind:value="key"
+              <input type="search" name="search" id="keyword" class="form-control" v-bind:value="key"
                 placeholder="Rechercher.." />
-              <input type="submit" value="Rechercher" class="btn btn-info" />
+              <!-- <input type="submit" value="Rechercher" class="btn btn-info" /> -->
+              <button class="btn btn-key btn-info" type="submit">
+                <!-- <b-icon icon="search"></b-icon> -->
+                <font-awesome-icon :icon="['fas','search']"></font-awesome-icon>
+              </button>
             </form>
           </div>
         </div>
@@ -20,35 +24,13 @@
               {{ btnTxt }}
             </router-link>
           </div>
-          <!-- <div class="display">
-            <b-form inline class="">
-              <label for="pageSelect" class="mr-sm-2">Affichage :</label>
-              <b-form-select id="pageSelect" v-model="per_page" class="border-0 opts" size="sm">
-                <b-form-select-option :value="Math.floor(rows * 0.25)">
-                  {{ (rows * 0.25) | formatNumber }} sur
-                  {{ rows }}
-                </b-form-select-option>
-                <b-form-select-option :value="Math.floor(rows * 0.5)">
-                  {{ (rows * 0.5) | formatNumber }} sur
-                  {{ rows }}
-                </b-form-select-option>
-                <b-form-select-option :value="Math.floor(rows * 0.75)">
-                  {{ (rows * 0.75) | formatNumber }} sur
-                  {{ rows }}
-                </b-form-select-option>
-                <b-form-select-option :value="rows">
-                  Tout afficher
-                </b-form-select-option>
-              </b-form-select>
-            </b-form>
-          </div> -->
         </div>
 
         <div class="row">
           <div class="col-md-12">
-            <b-table id="my-table" striped small :items="items" :fields="fields" :per-page="per_page"
+            <b-table id="my-table" striped :items="items" :fields="fields" :per-page="per_page"
               :current-page="current_page">
-              
+
               <template #cell(formationDto)="data">
                 <router-link :to="{
                     name: 'intervention-detail',
@@ -220,7 +202,7 @@
         type: Number,
         default: 0,
       },
-      pageCount:{
+      pageCount: {
         // nombre de pages
         type: Number,
         default: 0,
@@ -254,7 +236,7 @@
       rows() {
         return this.length;
       },
-      page(){
+      page() {
         return this.pageCount;
       },
       display() {
@@ -279,6 +261,14 @@
 
   #show-btn {
     margin-bottom: 2em;
+  }
+
+  #keyword {
+    border-radius: 100px 0 0 100px;
+  }
+
+  .btn-key {
+    border-radius: 0 100px 100px 0;
   }
 
   .button {

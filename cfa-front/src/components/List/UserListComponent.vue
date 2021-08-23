@@ -21,13 +21,14 @@
         >Ajouter un utilisateur</router-link
       >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
-          <th>#</th>
-          <th>Prénom Nom</th>
-          <th>Login</th>
-          <th>Rôle</th>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <!-- <th>Mot de passe</th> -->
+          <!-- <th>Adresse</th> -->
           <!-- <th>Entreprise</th> -->
           <th v-if="isAction">Action</th>
         </tr>
@@ -35,17 +36,18 @@
       <tbody v-if="usersComputed">
         <tr v-for="user in usersComputed" :key="user.id"
             v-on:click="clickList(user)">
-          <td>{{ user.id }} </td>
           <td>{{ user.prenom }} {{ user.nom }}</td>
           <td>{{ user.login }}</td>
           <td><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p></td>
+          <!-- <td>{{ user.password }}</td> -->
+          <!-- <td>{{ user.adresseDto.rue}}</td> -->
           <!-- <td>{{ user.entrepriseDto.raisonSociale}}</td> -->
           
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_user_detail', params: { id: user.id }}">Details</router-link>
-            &nbsp;
-            <router-link class="btn btn-success" :to="{name:'admin_user_update', params: { id: user.id }}">Modifier</router-link>
-            &nbsp;
+            <!-- &nbsp; -->
+            <router-link class="btn btn-success mx-2" :to="{name:'admin_user_update', params: { id: user.id }}">Modifier</router-link>
+            <!-- &nbsp; -->
             <button class="btn btn-danger" v-on:click="deleteUtilisateur(user.id)">
               Supprimer
             </button>
@@ -61,7 +63,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"
