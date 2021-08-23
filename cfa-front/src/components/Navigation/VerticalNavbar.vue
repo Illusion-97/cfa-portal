@@ -60,7 +60,6 @@
           <b-nav vertical>
 
             <router-link class="nav-item" :to="{name:'admin_dashboard'}">Utilisateurs</router-link>
-            <router-link class="nav-item" :to="{name:'admin_etudiant_list'}">Etudiants</router-link>
             <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
             <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
             <router-link class="nav-item" :to="{name:'formateur_intervention'}" v-if="isFormateur">Intervention

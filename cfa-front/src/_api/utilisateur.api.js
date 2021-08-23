@@ -56,7 +56,15 @@ function getCount(search = ""){
 }
 
 function getByRoleByPage(role, page, size, search = ""){
-  let req = `/${END_POINT}/${page}/${size}?role=${role}&search=${search}`;
+  let req = "";
+
+  if(role == ""){
+    if(search == "") req = `/${END_POINT}/${page}/${size}`;
+    else req = `/${END_POINT}/${page}/${size}?search=${search}`;    
+  }else{
+    if(search == "") req = `/${END_POINT}/${page}/${size}?role=${role}`;
+    else req = `/${END_POINT}/${page}/${size}?role=${role}&search=${search}`;
+  }
 
   return  axios
       .get(req, requestOptions.headers())
