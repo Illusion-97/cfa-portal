@@ -3,7 +3,7 @@
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
-          <h3>Liste d'étudiants dans mon groupe</h3>
+          <h3>Liste des étudiants</h3>
         </div>
         <div class="modal-body">
           <div class="mon-group" v-if="etudiants">

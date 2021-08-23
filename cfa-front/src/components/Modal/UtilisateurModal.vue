@@ -3,7 +3,7 @@
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
-          <h3>Choisissez un utilisateur</h3>
+          <h3>Choisissez un {{titre_modal}}</h3>
         </div>
         <div class="modal-body">
           <div class="row mt-3 mb-3">
@@ -100,6 +100,8 @@ export default {
       perPage: 10,
       pageCount: 0,
       saisie: "",
+
+      titre_modal: "utilisateur"
     };
   },
   props: {
@@ -117,6 +119,31 @@ export default {
     },
     roleProp() {
       if (this.roleProp != null) {
+        
+        //Pour changer le titre et autres besoin spécifique au role
+        switch(this.roleProp){
+          case "ETUDIANT":
+          default:
+            this.titre_modal = "etudiant";
+            break;
+
+          case "FORMATEUR":
+            this.titre_modal = "formateur";
+            break;
+
+          case "REFERENT":
+            this.titre_modal = "referent";
+            break;
+
+          case "CEF":
+            this.titre_modal = "cef";
+            break;
+
+          case "ADMIN":
+            this.titre_modal = "admin";
+            break;
+        }
+
         this.selected = this.roleProp;
         this.refreshList();
       }
