@@ -2,7 +2,7 @@
   <div id="adresseList">
     <div class="header-list">
         <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Adresse</label>
+        <!-- <label class="col-1">Adresse</label> -->
         <input class="col-9 form-control" type="text" :value="adresse_input" disabled="disabled"/>
       </div>
       <form class="form-inline form" @submit="submit">
