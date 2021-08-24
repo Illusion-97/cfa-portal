@@ -106,7 +106,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  // import axios from 'axios';
   import {
     interventionApi
   } from "@/_api/intervention.api.js";

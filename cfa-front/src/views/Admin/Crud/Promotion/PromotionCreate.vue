@@ -99,7 +99,7 @@
             <div class="mon-group" v-if="form.etudiantsDto">
               <!-- <label class="form-label">Les étudiants du groupe</label>  -->
               <div
-                class="d-inline p-2 border border-dark rounded"
+                class="d-inline p-2 border border-dark rounded mr-1"
                 v-for="(etudiant, index) in form.etudiantsDto"
                 :key="etudiant.id"
               >

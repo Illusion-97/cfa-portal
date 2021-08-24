@@ -1,6 +1,15 @@
 <template>
  
   <div class="container-fluid">
+    <router-link
+      :to="{ name: 'admin_dashboard' }"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </router-link>
+    
      <BodyTitle :title=vue_title />
      
     <b-form class="form mb-5" @submit="submit">
@@ -53,25 +62,30 @@
         </b-form-row>
       </b-form-group>
 
-      <b-form-group class="mb-5">
+      <!-- Roles -->
+      <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="mon-label col-1">Rôles :</label>
-          <a class="btn btn-primary" @click="showModal">Ajouter des Rôles</a>
+          <label class="col-1">Roles</label>
+          <div class="col-5">
+            <div class="mon-group" v-if="rolesComputed">
+              <div
+                class="d-inline p-2 border border-dark rounded mr-1"
+                v-for="(role, index) in rolesComputed"
+                :key="role.id"
+              >
+                {{ role.intitule }} 
+                <span @click="removeFromlist(index)" class="croix-delete"
+                  >x</span
+                >
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-primary col-1" @click="showModal()"
+            >Ajouter</a
+          >
         </b-form-row>
       </b-form-group>
 
-      <table class="table">
-        <thead class="">
-          <tr>
-            <th>Intitule</th>
-          </tr>
-        </thead>
-        <tbody >
-          <tr v-for="role in rolesComputed" :key="role.id">
-            <td>{{ role.intitule }} </td>
-          </tr>
-        </tbody>
-      </table>
 
       <AdresseListComponent
         v-on:click-list="onClickChildAdresseList"
@@ -89,14 +103,7 @@
       </div>
     </b-form>
 
-    <router-link
-      :to="{ name: 'admin_dashboard' }"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </router-link>
+    
 
     <RoleModal
       v-show="isModalVisible"
@@ -180,7 +187,10 @@ export default {
     },
     onClickClose(roles){
       this.form.rolesDto = roles;
-    }
+    },
+    removeFromlist(index) {
+      this.form.rolesDto.splice(index, 1);
+    },
   },
   created() {
   
@@ -217,5 +227,9 @@ export default {
 
 .mon-btn{
   width: 80%;
+}
+
+.croix-delete:hover{
+  cursor: pointer;
 }
 </style>
