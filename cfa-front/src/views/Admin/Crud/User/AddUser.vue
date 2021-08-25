@@ -74,7 +74,7 @@
       <b-form-group>
         <div class="mb-4 row">
           <label class="col-1">Adresse :</label>
-          <!-- <button class="btn btn-primary offset-5 col-1" @click="setAdresseVisibility()">{{btn_adresse}}</button> -->
+          <a class="btn btn-primary offset-5 col-1" @click="setAdresseVisibility()">{{btn_adresse}}</a>
         </div>
 
         <div :class="{ collapse: !isAdresseNew }">
@@ -82,7 +82,7 @@
             <b-form-row class="text-align-left">
               <label class="col-1">Numero</label>
               <div class="col-5 pr-5">
-                <b-form-input v-model="form.adresseDto.numero" required></b-form-input>
+                <b-form-input v-model="form.adresseDto.numero"></b-form-input>
               </div>
             </b-form-row>
           </b-form-group>
@@ -91,7 +91,7 @@
             <b-form-row class="text-align-left">
               <label class="col-1">Rue</label>
               <div class="col-5 pr-5">
-                <b-form-input v-model="form.adresseDto.rue" required></b-form-input>
+                <b-form-input v-model="form.adresseDto.rue"></b-form-input>
               </div>
             </b-form-row>
           </b-form-group>
@@ -100,7 +100,7 @@
             <b-form-row class="text-align-left">
               <label class="col-1">Ville</label>
               <div class="col-5 pr-5">
-                <b-form-input v-model="form.adresseDto.ville" required></b-form-input>
+                <b-form-input v-model="form.adresseDto.ville"></b-form-input>
               </div>
             </b-form-row>
           </b-form-group>
@@ -180,7 +180,7 @@ export default {
           ville: "",
           codePostal: "",
         },
-        entrepriseDto: {},
+        entrepriseDto: null,
       },
 
       entreprise: null,
