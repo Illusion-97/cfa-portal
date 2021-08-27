@@ -197,8 +197,14 @@ function save(form) {
 
   return axios
       .post(req, form, requestOptions.headers())
-      .then((response) => response)
-      .catch((error) => console.log(error));
+      .then((response) => {
+        console.log("response : ", response);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error)
+        throw error;
+      });
 
 }
 

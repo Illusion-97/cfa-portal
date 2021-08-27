@@ -74,7 +74,7 @@
       <b-form-group>
         <div class="mb-4 row">
           <label class="col-1">Adresse :</label>
-          <a class="btn btn-primary offset-5 col-1" @click="setAdresseVisibility()">{{btn_adresse}}</a>
+          <!-- <a class="btn btn-primary offset-5 col-1" @click="setAdresseVisibility()">{{btn_adresse}}</a> -->
         </div>
 
         <div :class="{ collapse: !isAdresseNew }">
@@ -212,8 +212,11 @@ export default {
       e.preventDefault();
 
       utilisateurApi
-          .save(this.form)
-          .then(() => this.$router.push({ name: "admin_dashboard" }));
+        .save(this.form)
+        .then(() => this.$router.push({ name: "admin_dashboard" }))
+        .catch((error) => {
+          if(error.response.data == "Un utilisateur utilise déjà cette adresse mail") console.log("meme adresse")
+        });
     },
     showModal() {
       this.isModalVisible = true;
