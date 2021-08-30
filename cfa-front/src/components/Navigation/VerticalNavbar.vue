@@ -29,8 +29,6 @@
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel
             </router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link>
-            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_evaluation-formation'}">Evaluation Formation
-            </router-link>
           </b-nav>
         </nav>
       </div>

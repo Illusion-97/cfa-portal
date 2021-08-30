@@ -16,7 +16,7 @@
                             <router-link class="nav-link" :to="{name:'home'}">Accueil</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{name:'etudiant_espace-peda_accueil'}" v-if="isEtudiant">
+                            <router-link class="nav-link" :to="{name:'etudiant_espace-peda_cursus'}" v-if="isEtudiant">
                                 Espace Pédagogique</router-link>
                         </li>
                         <li class="nav-item">
