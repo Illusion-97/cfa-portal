@@ -11,7 +11,7 @@
 
     <BodyTitle :title="vue_title" />
 
-    <b-form class="form mb-5" @submit="submit">
+    <b-form class="form mb-5" @submit="submit" id="form">
       <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-1">Prénom :</label>
@@ -34,7 +34,7 @@
         <b-form-row class="text-align-left">
           <label class="col-1">Login :</label>
           <div class="col-5 pr-5">
-            <b-form-input v-model="form.login" required></b-form-input>
+            <b-form-input v-model="form.login" required id="login" type="email"></b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
@@ -211,11 +211,35 @@ export default {
     submit(e) {
       e.preventDefault();
 
+      //  let form = document.getElementById('form').validate();
+      //  form.resetForm();
+
+      //Pour custom le message d'erreur
+      let login = document.getElementById('login');
+      //On reset le message pour retest
+      login.setCustomValidity();
+
+
+      if(this.form.login == "" || this.form.login == null) login.setCustomValidity("Veuillez renseigner ce champ") //message de base : required
+     
+      //si pas un email
+      if(this.testEmail())  login.setCustomValidity("Veuillez utiliser une adresse mail pour le login") 
+
+
       utilisateurApi
         .save(this.form)
         .then(() => this.$router.push({ name: "admin_dashboard" }))
         .catch((error) => {
-          if(error.response.data == "Un utilisateur utilise déjà cette adresse mail") console.log("meme adresse")
+          console.log(error.response.data)
+          if(error.response.data == "Un utilisateur utilise déjà cette adresse mail"){
+            console.log("true")
+
+            
+            login.setCustomValidity("Cette adresse mail est déjà utilisée")
+            login.reportValidity();
+            // let form = document.querySelector('form');
+            // form.reportValidity();
+          } 
         });
     },
     showModal() {
@@ -237,6 +261,10 @@ export default {
       this.isAdresseNew = !this.isAdresseNew;
       if (this.btn_adresse == "Existante") this.btn_adresse = "Nouvelle";
       else this.btn_adresse = "Existante";
+    },
+    testEmail(email){
+      const regex = new RegExp(`/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i`);
+      return regex.test(email);
     },
   },
   created() {
