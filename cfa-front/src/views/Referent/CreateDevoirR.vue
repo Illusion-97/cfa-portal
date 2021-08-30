@@ -1,68 +1,138 @@
 <template>
-  <div id="CreateDevoir">
-    <BodyTitle title="Créer un devoir" />
-    <div class="container">
-      <form>
-        <div class="row mb-3">
-          <label for="inputEnonce" class="col-sm-2 col-form-label"
-            >Enoncé</label
-          >
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputMatiere" />
+  <div class="container-fluid">
+    <BodyTitle :title="vue_title" />
+
+    <b-form class="form mb-5" @submit="submit">
+      <b-form-group id="form-group">
+        <b-form-row class="text-align-left">
+          <label class="mon-label">Enonce</label>
+          <div class="mon-input">
+            <b-form-input type="text" v-model="form.enonce"> </b-form-input>
           </div>
-        </div>
-        <div class="row mb-3">
-          <label for="inputDate" class="col-sm-2 col-form-label">Date début</label>
-          <div class="col-sm-10">
-            <input type="date" class="form-control" id="inputDate" />
+        </b-form-row>
+      </b-form-group>
+
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="mon-label">Date de début</label>
+          <div class="mon-input">
+            <b-form-datepicker
+              locale="fr"
+              v-model="form.dateDebut"
+              required
+            ></b-form-datepicker>
           </div>
-        </div>
-        <div class="row mb-3">
-          <label for="inputDate" class="col-sm-2 col-form-label">Date fin</label>
-          <div class="col-sm-10">
-            <input type="date" class="form-control" id="inputDate" />
+        </b-form-row>
+      </b-form-group>
+
+       <b-form-group>
+        <b-form-row class="text-align-left">
+          <div class="mon-label">Date de fin</div>
+          <div class="mon-input">
+            <b-form-datepicker
+              locale="fr"
+              v-model="form.dateFin"
+              required
+            ></b-form-datepicker>
           </div>
-        </div>
-         <div class="row">
-          <div class="col-lg-12">
-            <button v-on:click="create" type="submit" class="btn btn-primary float-right">
-              Créer
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <router-link
-      :to="{ name: 'DevoirsR' }"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </router-link>
+        </b-form-row>
+      </b-form-group>
+
+      
+      <InterventionListComponent
+        v-on:click-list="onClickChildInterventionList"
+        :interventionProp="intervention_input"
+      />
+
+      <div class="offset-10 col-3 pr-5 pl-0">
+        <button type="submit" class="btn btn-primary mon-btn">
+          {{ btn_form_text }}
+        </button>
+      </div>
+    </b-form>
   </div>
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-export default {
-  name: "CreateDevoir",
+import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
+import { devoirApi } from "@/_api/devoir.api.js";
 
+export default {
+  name: "DevoirCreate",
   components: {
     BodyTitle,
+    InterventionListComponent,
+  },
+  data() {
+    return {
+      vue_title: "Création d'un nouveau devoir",
+      btn_form_text: "Ajouter",
+
+      form: {
+        enonce: "",
+        dateDebut: "",
+        dateFin: "",
+        interventionDto: {},
+      },
+
+      intervention: null,
+    };
+  },
+  computed: {
+    intervention_input() {
+      return this.intervention;
+    },
+  },
+  methods: {
+    onClickChildInterventionList(intervention) {
+      this.form.interventionDto = intervention;
+    },
+    submit(e) {
+      e.preventDefault();
+      devoirApi
+        .save(this.form)
+        .then(() => this.$router.push({ name: "admin_devoir_list" }));
+    },
+  },
+  created() {
+    if (
+      this.$route.params.id != null &&
+      this.$route.params.id != "" &&
+      this.$route.params.id != 0
+    ) {
+      devoirApi.getById(this.$route.params.id).then((response) => {
+        this.form = response;
+        this.vue_title = "Update d'un devoir";
+        this.btn_form_text = "Update";
+        this.intervention = response.interventionDto;
+      });
+    }
   },
 };
 </script>
+
 <style scoped>
-.opts,
-label {
-  color: black;
+.header-list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
 }
-.table {
-  text-align: center;
+
+.header-list > form {
+  width: 40%;
 }
-.icon:hover {
-  cursor: pointer;
+
+.mon-btn {
+  width: 80%;
+}
+
+.mon-label{
+margin-left: 2.2em;
+width: 9.7em;
+}
+
+.mon-input{
+  width: 32em;
 }
 </style>
-
