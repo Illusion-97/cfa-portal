@@ -153,7 +153,7 @@
           .insertIntervention(this.form)
           .then((data) => {
             if (data.status == 200) {
-              this.$router.push({  name: "all-intervention" });
+              this.$router.push({  name: "referent_cours" });
               alert('ok')
             } 
           })
