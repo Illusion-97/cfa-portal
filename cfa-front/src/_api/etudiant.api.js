@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { requestOptions } from '@/_helpers/request-options.js';
+import {
+    requestOptions
+} from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const etudiantApi = {
@@ -18,38 +20,38 @@ export const etudiantApi = {
     getDevoirsById,
     getAbsencesById,
     getCountAbsence,
-      
+
 }
 
-function getById(id){
+function getById(id) {
     let req = `/etudiants/${id}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
 
-function getAllByPage(page, size, search = ""){
+function getAllByPage(page, size, search = "") {
     let req = `/etudiants/${page}/${size}/${search}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
 
-function getCount(search = ""){
+function getCount(search = "") {
     let req = `/etudiants/count/${search}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
 }
 
 function save(form) {
-    let req =  "etudiants";
+    let req = "etudiants";
 
     return axios
         .post(req, form, requestOptions.headers())
@@ -59,7 +61,7 @@ function save(form) {
 }
 
 function deleteEtudiant(id) {
-    let req =  `etudiants/${id}`;
+    let req = `etudiants/${id}`;
 
     return axios
         .delete(req, requestOptions.headers())
@@ -69,21 +71,21 @@ function deleteEtudiant(id) {
 
 function getFormateurReferent(id) {
 
-    let req =  "etudiants/" + id + "/formateurReferent";
-    return axios        
+    let req = "etudiants/" + id + "/formateurReferent";
+    return axios
         .get(req, requestOptions.headers())
         //.then(handleResponse)
-        .then((response) => response.data)      
+        .then((response) => response.data)
         .catch((error) => console.log(error));
 }
 
-function getManager(id){
+function getManager(id) {
 
-    let req =  "etudiants/" + id + "/manager";
+    let req = "etudiants/" + id + "/manager";
     return axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
 
 //ATTENTION : un étudiant a potentiellement plusieurs promotions
@@ -91,61 +93,63 @@ function getManager(id){
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 function getPromotions(id) {
 
-    let req =  `/etudiants/${id}/promotions`;
-
+    let req = "etudiants/" + id + "/promotions";
     return axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+        .get(req, requestOptions.headers())
+        .then(response => response.data[0])
+        .catch((error) => console.log(error));
 }
 
-function getNotesById(id, page, size){
-    let req = "etudiants/" + id + "/notes/" +page+ "/" +size
-    
+
+function getNotesById(id, page, size) {
+
+    let req = "etudiants/" + id + "/notes/" + page + "/" + size
     return axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
-function getCountNotes(){
+
+function getCountNotes() {
+
     let req = `/notes/count`;
-
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
 }
 
-function getCountDevoirs(){
+function getCountDevoirs() {
     let req = `/devoirs/count`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
 }
 
-function getDevoirsById(id,page,size){
-    let req = "etudiants/" + id + "/devoirs/" +page+ "/" +size
-    
+function getDevoirsById(id, page, size) {
+
+    let req = "etudiants/" + id + "/devoirs/" + page + "/" + size
     return axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
-}
-function getAbsencesById(id,page,size){
-    let req = "etudiants/" + id + "/absences/" +page + "/" + size
-    
-    return axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
 
-function getCountAbsence(){
+function getAbsencesById(id, page, size) {
+
+    let req = "etudiants/" + id + "/absences/" + page + "/" + size
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+function getCountAbsence() {
+
     let req = `/absences/count`;
-
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));

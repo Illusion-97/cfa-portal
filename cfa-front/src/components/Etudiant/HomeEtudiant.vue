@@ -44,6 +44,7 @@
   <div id="grid-container">
     <div class="identite">
       <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+
       <!-- <p class="email">{{ utilisateur.login }}</p> -->
     </div>
     <div id="student-info">
@@ -61,7 +62,6 @@
         <div class="referent-peda text-center">
           <p class="font-weight-bold h5">Referent pedagogique :</p>
           <p class="my-1">
-            {{promotion}}
             {{ promotionComputed.referentPedagogiqueDto.prenom }}
             {{ promotionComputed.referentPedagogiqueDto.nom }}
           </p>
@@ -82,121 +82,117 @@
 </template>
 
 <script>
-//ATTENTION : un étudiant a potentiellement plusieurs promotions
-//affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
-//Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import Planning from "@/components/utils/Planning.vue";
-export default {
-  name: "HomeEtudiant",
-  components: {
-    Planning,
-  },
-  data() {
-    return {
-      formateurReferent: {},
-      promotion: {
-        referentPedagogiqueDto: {
-          nom: "",
-          prenom: "",
-          login: "",
+  //ATTENTION : un étudiant a potentiellement plusieurs promotions
+  //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
+  //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
+  import { etudiantApi } from "@/_api/etudiant.api.js";
+  import Planning from "@/components/utils/Planning.vue";
+  export default {
+    name: "HomeEtudiant",
+    components: {
+      Planning,
+    },
+    data() {
+      return {
+        formateurReferent: {},
+        promotion: {
+          referentPedagogiqueDto: {}
         },
+        manager: {},
+      };
+    },
+    computed: {
+      utilisateur() {
+        return this.$store.getters.getUtilisateur;
       },
-      manager: {},
-    };
-  },
-  computed: {
-    utilisateur() {
-      return this.$store.getters.getUtilisateur;
+      promotionComputed() {
+        return this.promotion;
+      },
+      formateurReferentComputed() {
+        return this.formateurReferent;
+      },
     },
-    promotionComputed() {
-      return this.promotion;
+    created() {
+      etudiantApi
+        .getFormateurReferent(this.$store.getters.getUtilisateur.id)
+        .then((data) => (this.formateurReferent = data));
+      etudiantApi
+        .getPromotions(this.$store.getters.getUtilisateur.id)
+        .then((data) => this.promotion = data);
+      etudiantApi
+        .getManager(this.$store.getters.getUtilisateur.id)
+        .then((data) => (this.manager = data));
     },
-    formateurReferentComputed() {
-      return this.formateurReferent;
-    },
-  },
-  created() {
-    etudiantApi
-      .getFormateurReferent(this.$store.getters.getUtilisateur.id)
-      .then((data) => (this.formateurReferent = data));
-    etudiantApi
-      .getPromotions(this.$store.getters.getUtilisateur.id)
-      .then((data) => (this.promotion = data));
-    etudiantApi
-      .getManager(this.$store.getters.getUtilisateur.id)
-      .then((data) => (this.manager = data));
-  },
-  methods: {},
-};
+    methods: {},
+  };
 </script>
 
 <style scoped>
-#grid-container {
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-template-rows: 55vh 2fr;
-  row-gap: 2em;
-}
+  #grid-container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 55vh 2fr;
+    row-gap: 2em;
+  }
 
-.identite {
-  text-align: center;
-  grid-column: 2;
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  .identite {
+    text-align: center;
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-  /* margin-left: 5em; */
-  /* margin-bottom: 7em; */
-}
+    /* margin-left: 5em; */
+    /* margin-bottom: 7em; */
+  }
 
-.identite > .nom {
-  font-size: 25px;
-  text-transform: uppercase;
-}
+  .identite>.nom {
+    font-size: 25px;
+    text-transform: uppercase;
+  }
 
-.identite > .email {
-  font-size: 25px;
-}
+  .identite>.email {
+    font-size: 25px;
+  }
 
-.identite,
-#student-info {
-  /* background-color: #fff; */
-  background-color: #f5f5f5;
-  
-}
+  .identite,
+  #student-info {
+    /* background-color: #fff; */
+    background-color: #f5f5f5;
 
-#student-info {
-  grid-column: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+  }
 
-.card {
-  width: 18.5em;
-  margin: 0 auto;
-  border-radius: 0;
-  /* height: 11em; */
-}
+  #student-info {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-.card-header {
-  font-size: 20px;
-  background-color: inherit;
-  text-align: center;
-  margin-bottom: 1em;
-  margin-top: 0;
-}
+  .card {
+    width: 18.5em;
+    margin: 0 auto;
+    border-radius: 0;
+    /* height: 11em; */
+  }
 
-.card-text {
-  font-size: 1.2em;
-}
+  .card-header {
+    font-size: 20px;
+    background-color: inherit;
+    text-align: center;
+    margin-bottom: 1em;
+    margin-top: 0;
+  }
 
-#student-planning {
-  grid-row: 2;
-  grid-column: 1 / span 2;
-  display: flex;
-  justify-content: center;
-}
+  .card-text {
+    font-size: 1.2em;
+  }
+
+  #student-planning {
+    grid-row: 2;
+    grid-column: 1 / span 2;
+    display: flex;
+    justify-content: center;
+  }
 </style>
