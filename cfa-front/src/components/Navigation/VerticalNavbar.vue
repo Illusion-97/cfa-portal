@@ -72,20 +72,22 @@
   </div>
 </template>
 <script>
-import { utilisateurService } from "@/_services/utilisateur.service.js"
+  import {
+    utilisateurService
+  } from "@/_services/utilisateur.service.js"
 
-export default {
-  name: "VerticalNavbar",
-  methods: {},
-  computed: {
-    table: function() {
-      return this.$route.path.split("/").splice(1);
-    },
-       isFormateur(){
+  export default {
+    name: "VerticalNavbar",
+    methods: {},
+    computed: {
+      table: function () {
+        return this.$route.path.split("/").splice(1);
+      },
+      isFormateur() {
         return utilisateurService.isFormateur();
       },
-  },
-};
+    },
+  };
 </script>
 <!--<style scoped>
   /*@import './assets/styles/VerticalNavBar.css';*/
@@ -118,35 +120,42 @@ export default {
   }
 </style> -->
 <style scoped>
-.NavBar2 {
-width: 15%;
-float: left;
-text-align: center;
-padding: 2em;
-}
+  .NavBar2 {
+    width: 15%;
+    float: left;
+    text-align: center;
+    padding: 2em;
+  }
 
-.nav-item{
-margin: 1em;
-/* border: #6c757d 2px solid; */
-border-bottom: 1px solid black;
-/* text-decoration: underline; */
-/* color: #6c757d; */
-color: black;
-height: 2.5em;
-line-height: 2em; /* ATTENTION on centre le texte verticalement "à la main"*/
-}
-.nav-item:hover{
-/* background-color: #6c757d; */
-/* color: #b3334a; */
-color: brown;
-text-decoration: none;
-font-weight: bold;
-}
+  .nav-item {
+    margin-bottom: 1em;
+    /* border: #6c757d 2px solid; */
+    border-bottom: 1px solid black;
+    /* text-decoration: underline; */
+    /* color: #6c757d; */
+    color: black;
+    height: 2.5em;
+    line-height: 2em;
+    /* ATTENTION on centre le texte verticalement "à la main"*/
+  }
 
-.router-link-exact-active{
-/* color: #b3334a; */
-color: brown;
-/* background-color: lightgrey; */
-/* background-color: rgba(209, 14, 14, 0.705); */
-}
+  .nav-item:first-child {
+    margin-top: 1em;
+  }
+
+  .nav-item:hover {
+    /* background-color: #6c757d; */
+    /* color: #b3334a; */
+    color: brown;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 0.5em;
+  }
+
+  .router-link-exact-active {
+    /* color: #b3334a; */
+    color: brown;
+    /* background-color: lightgrey; */
+    /* background-color: rgba(209, 14, 14, 0.705); */
+  }
 </style>
