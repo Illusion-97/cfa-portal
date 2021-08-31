@@ -149,7 +149,7 @@
     color: brown;
     text-decoration: none;
     font-weight: bold;
-    margin-left: 0.5em;
+    /* margin-left: 0.5em; */
   }
 
   .router-link-exact-active {
