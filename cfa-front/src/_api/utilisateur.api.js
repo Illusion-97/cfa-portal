@@ -55,7 +55,7 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function getByRoleByPage(role, page, size, search = ""){
+function getByRoleByPage(role = "", page, size, search = ""){
   let req = "";
 
   if(role == ""){
@@ -73,7 +73,16 @@ function getByRoleByPage(role, page, size, search = ""){
 }
 
 function getCountByRole(role, search = ""){
-  let req = `/${END_POINT}/count?role=${role}&search=${search}`;
+  let req = "";
+
+  if(role == ""){
+    if(search == "") req = `/${END_POINT}/count`;
+    else req = `/${END_POINT}/count?search=${search}`;    
+  }else{
+    if(search == "") req = `/${END_POINT}/count?role=${role}`;
+    else req = `/${END_POINT}/count?role=${role}&search=${search}`;
+  }
+
 
   return  axios
       .get(req, requestOptions.headers())
@@ -188,8 +197,14 @@ function save(form) {
 
   return axios
       .post(req, form, requestOptions.headers())
-      .then((response) => response)
-      .catch((error) => console.log(error));
+      .then((response) => {
+        console.log("response : ", response);
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error)
+        throw error;
+      });
 
 }
 

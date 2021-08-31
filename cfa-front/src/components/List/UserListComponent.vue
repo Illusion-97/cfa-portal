@@ -113,7 +113,6 @@
       :next-link-class="'page-link'"
       :active-class="'active'"
     >
-      >
     </paginate>
   </div>
 </template>
@@ -141,7 +140,7 @@ export default {
   data() {
     return {
       users: [],
-      perPage: 3,
+      perPage: 10,
       pageCount: 0,
       saisie: "",
 
@@ -169,7 +168,7 @@ export default {
     },
     pageChange(pageNum) {
       utilisateurApi
-        .getAllByPage(pageNum - 1, this.perPage)
+        .getByRoleByPage(this.selected_role, pageNum - 1, this.perPage, this.saisie)
         .then((response) => (this.users = response));
     },
     refreshList() {

@@ -12,15 +12,19 @@ export const utilisateur = {
     getters: {
         getUtilisateur: state => {
             return state.utilisateur;
+            // return JSON.parse(localStorage.getItem('utilisateur'))
         }
     },
     mutations: {
-        SET_UTILISATEUR(state, data){
+        SET_UTILISATEUR( state, data){
             state.utilisateur = data;
+            // console.log("new user :", data);
+            // localStorage.setItem('utilisateur', JSON.stringify(data))
           }
     },
     actions: {
         setUtilisateur({ commit }, data){
+            // console.log("action utilisateur = ", data);
             commit('SET_UTILISATEUR', data);
           }
     }

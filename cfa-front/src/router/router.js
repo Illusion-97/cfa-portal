@@ -65,14 +65,16 @@ import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
 import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 import EtudiantRDetail from "@/views/Referent/EtudiantRDetail.vue";
 
-//Admin
+//  ### Admin ###
+
+//Utilisateur
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
 import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue"
+//Promotion
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
 import PromotionCreate from "@/views/Admin/Crud/Promotion/PromotionCreate.vue";
 import PromotionDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
-
 //Conge
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
 import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
@@ -108,18 +110,15 @@ import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
 //Absence
 import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
 import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
-
-
-
+//Adresse
 import AdresseList from "@/views/Admin/Crud/Adresse/AdresseList.vue";
 import AddAdresse from "@/views/Admin/Crud/Adresse/AdresseCreate.vue";
 import AdresseDetail from "@/views/Admin/Crud/Adresse/AdresseDetail.vue";
-
+//Entreprise
 import EntrepriseList from "@/views/Admin/Crud/Entreprise/EntrepriseList.vue";
 import AddEntreprise from "@/views/Admin/Crud/Entreprise/EntrepriseCreate.vue";
 import EntrepriseDetail from "@/views/Admin/Crud/Entreprise/EntrepriseDetail.vue";
-
-
+//Cursus
 import CursusList from "@/views/Admin/Crud/Cursus/CursusList.vue";
 import AddCursus from "@/views/Admin/Crud/Cursus/CursusCreate.vue";
 import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
@@ -281,19 +280,16 @@ router.beforeEach((to, from, next) => {
   const currentUser = store.getters.getUtilisateur;
 
   if (to.path !== "/login") {
-
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn)
       return next({ path: '/login' });
     //return next({ path: '/login', query: { returnUrl: to.path } });
 
-
     //Si la page nécessite une autorisation
     if (authorize) {
 
       let redirect = true;
-
       //Si la page nécessite un Role particulié
       if (authorize.length) {
         //on regarde si l'utilisateur a une role autorisé
@@ -303,7 +299,6 @@ router.beforeEach((to, from, next) => {
           }
         }
       }
-
       //l'utilisateur n'a pas de role autorisé => redirect vers /home
       if (redirect)
         return next({ path: '/' });

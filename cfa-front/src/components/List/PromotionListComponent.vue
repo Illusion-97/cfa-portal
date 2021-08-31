@@ -58,8 +58,7 @@
       :prev-link-class="'page-link'"
       :next-link-class="'page-link'"
       :active-class="'active'"
-    >
-      >
+    >      
     </paginate>
   </div>
 </template>
@@ -87,7 +86,7 @@ export default {
   data() {
     return {
       promotions: [],
-      perPage: 3,
+      perPage: 10,
       pageCount: 0,
       saisie: "",
 

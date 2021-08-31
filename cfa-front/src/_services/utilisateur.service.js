@@ -63,7 +63,7 @@ function isFormateur(){
 
 function isEtudiant(){
     let roles = store.getters.getUtilisateur.rolesDto;
-
+    console.log("roles : ", roles);
     if(!roles.length)
         return false;
 

@@ -18,9 +18,10 @@
               name="email"
               type="email"
               v-model="email"
-              class="form-control fadeIn third"
+              :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Email"
               required
+              @input="test()"
             />
           </div>
         </div>
@@ -36,14 +37,18 @@
               type="password"
               name="password"
               v-model="password"
-              class="form-control fadeIn third"
+              :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Mot de Passe"
               required
+              @input="test()"
             />
           </div>
         </div>
 
         <div class="form-group">
+          <div v-if="isInvalid" class="my-invalid-feedback">
+            Identifiant ou mot de passe incorrects !
+          </div>
           <div class="col-md-offset-2 col-md-12">
             <input
               class="btn btn-primary"
@@ -71,20 +76,47 @@ export default {
     return {
       email: "",
       password: "",
+      isInvalid: false,
+      isInvalidInput: false,
     };
   },
-  components: {},
   methods: {
+    test(){
+      console.log("j'exécute test");
+      this.isInvalidInput = false;
+    },
     submit: function(e) {
       e.preventDefault();
+
       authenticationApi.login(this.email,this.password)
-        .then(()=>this.$router.push({name: 'home'}));
+        .then(()=>this.$router.push({name: 'home'}))
+        .catch(error => {
+          console.log(error);
+          console.log(error.response.data.message);
+          if(error.response.data.message == "Erreur : identifiants incorrects !"){
+            this.isInvalid = true;
+            this.isInvalidInput = true;
+            console.log(this.isInvalid);
+          }
+        });
     },
   },
 };
 </script>
 
 <style scoped>
+
+.my-invalid-feedback{
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 100%;
+  color: #dc3545;
+}
+
+.my-is-invalid{
+  border:  2px solid #dc3545  !important;
+}
+
 /* BASIC */
 
 body {
