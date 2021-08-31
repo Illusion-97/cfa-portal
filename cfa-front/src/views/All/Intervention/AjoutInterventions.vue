@@ -95,9 +95,8 @@
             </div>
           </form>
           <div id="error"></div>
-          <b-card class="mt-3" header="Form Data Result" v-if="show">
+          <b-card class="mt-3" header="Form Data Result" v-if="!show">
             <pre class="m-0">{{ form }}</pre>
-            <!-- <pre class="m-0">{{ items }}</pre> -->
           </b-card>
         </div>
       </div>
@@ -106,10 +105,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import {
-    interventionApi
-  } from "@/_api/intervention.api.js";
+  // import axios from 'axios';
+  import { interventionApi } from "@/_api/intervention.api.js";
   import ModalPromotion from "@/components/Modal/ModalPromo.vue";
   import ModalFormateur from "@/components/Modal/FormateurModal.vue"
   import FormationList from "@/components/List/FormationListComponent.vue";

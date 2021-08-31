@@ -1,17 +1,16 @@
 <template>
   <div class="container-fluid">
     <div class="header-list">
-      <div class="d-flex" id="groupe-input" v-if="!isAction">
-        <label style="width:6.5em;">Formation :</label>
-        <input class="form-control" type="text" :value="formation_input" disabled="disabled"/>
+      <div id="groupe-input" v-if="!isAction">
+        <input class="form-control" type="text" :value="formation_input" :disabled="true"/>
       </div>
 
-      <form class="form-inline form" @submit="search">
+      <form class="d-flex" @submit="search">
         <input id="saisie" name="saisie" type="search" class="form-control" v-model="key" placeholder="Rechercher une formation..."/>
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: '' }" v-if="isAction">Ajouter</router-link>
+      <!-- <router-link class="btn btn-info" :to="{ name: '' }" >Ajouter</router-link> -->
     </div>
     <table class="table table-bordered table-striped table-hover table-sm mx-auto text-center">
       <thead class="thead-dark">
