@@ -59,7 +59,7 @@
                       <ul>
                         <div class="alert alert-custom" v-for="(f,index) in formateur" :key="f.id">
                           <span class="close" @click.prevent="removePromo(index)">&times;</span>
-                         {{f.id}} {{f.nom}} {{f.prenom}}
+                         {{f.nom}} {{f.prenom}}
                         </div>
 
                       </ul>
