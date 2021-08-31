@@ -11,11 +11,11 @@
 
     <BodyTitle :title="vue_title" />
 
-    <b-form class="form mb-5" @submit="submit" id="form">
+    <b-form class="form mb-5 offset-2" @submit="submit" id="form">
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Prénom :</label>
-          <div class="col-5 pr-5">
+          <label class="col-2">Prénom :</label>
+          <div class="col-7 pr-5">
             <b-form-input v-model="form.prenom" required></b-form-input>
           </div>
         </b-form-row>
@@ -23,8 +23,8 @@
 
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Nom :</label>
-          <div class="col-5 pr-5">
+          <label class="col-2">Nom :</label>
+          <div class="col-7 pr-5">
             <b-form-input v-model="form.nom" required></b-form-input>
           </div>
         </b-form-row>
@@ -32,18 +32,18 @@
 
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Login :</label>
-          <div class="col-5 pr-5">
-            <b-form-input v-model="form.login" required id="login" type="email"></b-form-input>
+          <label class="col-2">Login :</label>
+          <div class="col-7 pr-5">
+            <b-form-input v-model="form.login" required id="login" type="email" oninput="this.setCustomValidity('')"></b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
 
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Password :</label>
-          <div class="col-5 pr-5">
-            <b-form-input v-model="form.password" required></b-form-input>
+          <label class="col-2">Password :</label>
+          <div class="col-7 pr-5">
+            <b-form-input v-model="form.password" required id="password" oninput="this.setCustomValidity('')"></b-form-input>
           </div>
         </b-form-row>
       </b-form-group>
@@ -51,8 +51,8 @@
       <!-- Roles -->
       <b-form-group>
         <b-form-row class="text-align-left">
-          <label class="col-1">Roles :</label>
-          <div class="col-5">
+          <label class="col-2">Roles :</label>
+          <div class="col-7">
             <div class="mon-group" v-if="rolesComputed">
               <div
                 class="d-inline p-2 border border-dark rounded mr-1"
@@ -73,15 +73,15 @@
       <!-- Adresse -->
       <b-form-group>
         <div class="mb-4 row">
-          <label class="col-1">Adresse :</label>
+          <label class="col-2">Adresse :</label>
           <!-- <a class="btn btn-primary offset-5 col-1" @click="setAdresseVisibility()">{{btn_adresse}}</a> -->
         </div>
 
         <div :class="{ collapse: !isAdresseNew }">
           <b-form-group>
             <b-form-row class="text-align-left">
-              <label class="col-1">Numero</label>
-              <div class="col-5 pr-5">
+              <label class="col-2">Numero</label>
+              <div class="col-7 pr-5">
                 <b-form-input v-model="form.adresseDto.numero"></b-form-input>
               </div>
             </b-form-row>
@@ -89,8 +89,8 @@
 
           <b-form-group>
             <b-form-row class="text-align-left">
-              <label class="col-1">Rue</label>
-              <div class="col-5 pr-5">
+              <label class="col-2">Rue</label>
+              <div class="col-7 pr-5">
                 <b-form-input v-model="form.adresseDto.rue"></b-form-input>
               </div>
             </b-form-row>
@@ -98,8 +98,8 @@
 
           <b-form-group>
             <b-form-row class="text-align-left">
-              <label class="col-1">Ville</label>
-              <div class="col-5 pr-5">
+              <label class="col-2">Ville</label>
+              <div class="col-7 pr-5">
                 <b-form-input v-model="form.adresseDto.ville"></b-form-input>
               </div>
             </b-form-row>
@@ -107,11 +107,10 @@
 
           <b-form-group>
             <b-form-row class="text-align-left">
-              <label class="col-1">Code Postal</label>
-              <div class="col-5 pr-5">
+              <label class="col-2">Code Postal</label>
+              <div class="col-7 pr-5">
                 <b-form-input
                   v-model="form.adresseDto.codePostal"
-                  required
                 ></b-form-input>
               </div>
             </b-form-row>
@@ -125,10 +124,73 @@
         />
       </b-form-group>
 
-      <EntrepriseListComponent
+
+
+       <!-- Entreprise -->
+      <b-form-group>
+        <div class="mb-4 row">
+          <label class="col-2">Entreprise :</label>
+          <a class="btn btn-primary offset-7 col-1" @click="setEntrepriseVisibility()">{{btn_entreprise}}</a>
+        </div>
+
+        <div :class="{ collapse: !isEntrepriseNew }">
+          <b-form-group>
+           <b-form-row class="text-align-left">
+              <label class="col-2">Raison Sociale</label>
+              <div class="col-7 pr-5">
+                <b-form-input v-model="form.entrepriseDto.adresseDto.raisonSociale"></b-form-input>
+              </div>
+            </b-form-row>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-row class="text-align-left">
+              <label class="col-2">Numero</label>
+              <div class="col-7 pr-5">
+                <b-form-input v-model="form.entrepriseDto.adresseDto.numero"></b-form-input>
+              </div>
+            </b-form-row>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-row class="text-align-left">
+              <label class="col-2">Rue</label>
+              <div class="col-7 pr-5">
+                <b-form-input v-model="form.entrepriseDto.adresseDto.rue"></b-form-input>
+              </div>
+            </b-form-row>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-row class="text-align-left">
+              <label class="col-2">Ville</label>
+              <div class="col-7 pr-5">
+                <b-form-input v-model="form.entrepriseDto.adresseDto.ville"></b-form-input>
+              </div>
+            </b-form-row>
+          </b-form-group>
+
+          <b-form-group>
+            <b-form-row class="text-align-left">
+              <label class="col-2">Code Postal</label>
+              <div class="col-7 pr-5">
+                <b-form-input
+                  v-model="form.entrepriseDto.adresseDto.codePostal"
+                ></b-form-input>
+              </div>
+            </b-form-row>
+          </b-form-group>
+        </div>
+
+        <EntrepriseListComponent
+        class="col-11"
         v-on:click-list="onClickChildEntrepriseList"
         :entrepriseProp="entreprise_input"
-      />
+        :class="{ collapse: isEntrepriseNew }"
+        />
+      </b-form-group>
+
+      
 
       <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">
@@ -180,14 +242,26 @@ export default {
           ville: "",
           codePostal: "",
         },
-        entrepriseDto: null,
+        entrepriseDto: {
+          id: null,
+          raisonSociale: "",
+          adresseDto: {
+            id: null,
+            numero: "",
+            rue: "",
+            ville: "",
+            codePostal: "",
+          },
+        },
       },
 
       entreprise: null,
       isModalVisible: false,
 
       isAdresseNew: true,
+      isEntrepriseNew: true,
       btn_adresse: "Existante",
+      btn_entreprise: "Existante",
     };
   },
   computed: {
@@ -211,34 +285,30 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      //  let form = document.getElementById('form').validate();
-      //  form.resetForm();
-
       //Pour custom le message d'erreur
       let login = document.getElementById('login');
-      //On reset le message pour retest
-      login.setCustomValidity();
+      let password = document.getElementById('password');
+      // //On reset le message pour retest
+      // login.setCustomValidity("");
+      // password.setCustomValidity("");
 
+      if(!this.testPassword(this.form.password)) {
+        console.log("je set password custom validity");
+        password.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial ");
+        password.reportValidity();
+      }
 
-      if(this.form.login == "" || this.form.login == null) login.setCustomValidity("Veuillez renseigner ce champ") //message de base : required
-     
-      //si pas un email
-      if(this.testEmail())  login.setCustomValidity("Veuillez utiliser une adresse mail pour le login") 
-
+      //Si on ne donne pas d'entreprise, on la set a null pour ne rien save dans le back
+      if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
 
       utilisateurApi
         .save(this.form)
         .then(() => this.$router.push({ name: "admin_dashboard" }))
         .catch((error) => {
           console.log(error.response.data)
-          if(error.response.data == "Un utilisateur utilise déjà cette adresse mail"){
-            console.log("true")
-
-            
+          if(error.response.data == "Un utilisateur utilise déjà cette adresse mail"){            
             login.setCustomValidity("Cette adresse mail est déjà utilisée")
             login.reportValidity();
-            // let form = document.querySelector('form');
-            // form.reportValidity();
           } 
         });
     },
@@ -262,10 +332,16 @@ export default {
       if (this.btn_adresse == "Existante") this.btn_adresse = "Nouvelle";
       else this.btn_adresse = "Existante";
     },
-    testEmail(email){
-      const regex = new RegExp(`/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i`);
-      return regex.test(email);
+    setEntrepriseVisibility() {
+      this.isEntrepriseNew = !this.isEntrepriseNew;
+      if (this.btn_entreprise == "Existante") this.btn_entreprise = "Nouvelle";
+      else this.btn_entreprise = "Existante";
     },
+    testPassword(password){
+      const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$");
+      console.log("regex.test() : ", regex.test(password));
+      return regex.test(password);
+    }
   },
   created() {
     if (

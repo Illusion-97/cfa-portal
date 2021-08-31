@@ -3,7 +3,7 @@
   
     <div class="header-list">
         <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Entreprise</label>
+        <!-- <label class="col-1">Entreprise</label> -->
         <input class="col-9 form-control" type="text" :value="entreprise_input" disabled="disabled"/>
       </div>
       <form class="form-inline form" @submit="submit">
