@@ -20,7 +20,7 @@
       <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>-->
       <router-link class="btn-hover color-1" :to="{name: 'ExamenR'}">Voir la liste des examens</router-link>
       <router-link class="btn-hover color-1" :to="{name: 'DevoirsR'}">Voir la liste des devoirs </router-link>
-      </div>
+    </div>
   </div>
   
 </template>
@@ -126,7 +126,7 @@ export default {
     background-size: 300% 100%;
 
     border-radius: 50px;
-    moz-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
@@ -134,7 +134,7 @@ export default {
 
 .btn-hover:hover {
     background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
