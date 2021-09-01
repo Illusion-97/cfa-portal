@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Demande de congé" />
-    {{file.name}}
+    {{ file.name }}
     <table class="table text-center mt-5" style="table-layout:fixed">
       <thead>
         <tr>
@@ -64,6 +64,7 @@
             id="file"
             ref="file"
             v-on:change="handleFileUpload()"
+            accept="application/pdf"
           />
 
           <b-button type="submit" class="offset-9 col-2 pl-5 pr-5 pl-0"
@@ -89,6 +90,7 @@
 
 <script>
 import { congeApi } from "@/_api/conge.api.js";
+import { fileApi } from "@/_api/file.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { leaveFields } from "@/assets/js/fields.js";
@@ -158,6 +160,15 @@ export default {
           congeApi
             .getCongesByUtilisateurId(this.utilisateur.id)
             .then((response) => (this.conges = response))
+            //Si pas d'erreur, on post le fichier
+            .then(() => {
+              fileApi
+                .submitFileByDirectoryAndId(
+                  "utilisateurs",
+                  this.$store.getters.getUtilisateur.id,
+                  this.file
+                );
+            })
         );
     },
   },
