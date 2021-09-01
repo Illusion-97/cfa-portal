@@ -11,6 +11,7 @@
             ref="file"
             v-on:change="handleFileUpload()"
             class="mr-3"
+            accept="application/pdf"
           />
           <button v-on:click="submitFile()" class="btn btn-primary">Ajouter</button>
         </div>
