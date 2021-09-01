@@ -18,6 +18,9 @@
           <b-nav-item class=" a-link" :to="{name:'etudiant_profil'}" v-if="isEtudiant">
             Espace administrative
           </b-nav-item>
+          <b-nav-item class=" a-link" :to="{name:'all-intervention'}">
+            Espace Formateur
+          </b-nav-item>
           <b-nav-item class=" a-link" :to="{name:'referent_dashboard'}">
             Espace Referent
           </b-nav-item>

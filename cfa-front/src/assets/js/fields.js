@@ -1,6 +1,15 @@
 export const courseFields = [
   // { key: "id", label: "#" },
-  { key: "formationDto", label: "Intitulé" },
+  { key: "admin_interventions", label: "Intitulé" },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
+  // { key: "modifierItv", label: "Modifier" },
+  // { key: "supprimer", label: "Supprimer" },
+];
+
+export const courseFieldsReferent = [
+  // { key: "id", label: "#" },
+  { key: "referent_interventions", label: "Intitulé" },
   { key: "dateDebut", label: "Date de debut" },
   { key: "dateFin", label: "Date de fin" },
   // { key: "modifierItv", label: "Modifier" },

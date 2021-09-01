@@ -24,6 +24,10 @@
                                 Espace Administratif</router-link>
                         </li>
                         <li class="nav-item">
+                            <router-link class="nav-link" :to="{name:'formateur_intervention'}">
+                                Espace formateur</router-link>
+                        </li>
+                        <li class="nav-item">
                             <router-link class="nav-link" :to="{name:'referent_dashboard'}">
                                 Espace Référent</router-link>
                         </li>

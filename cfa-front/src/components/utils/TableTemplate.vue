@@ -31,9 +31,19 @@
             <b-table id="my-table" striped :items="items" :fields="fields" :per-page="per_page"
               :current-page="current_page">
 
-              <template #cell(formationDto)="data">
+              <template #cell(admin_interventions)="data">
                 <router-link :to="{
                     name: 'intervention-detail',
+                    params: { id: data.item.id },
+                  }" style="color:black;">
+
+                  <span>{{ data.item.formationDto.titre | capitalize}}</span>
+                </router-link>
+              </template>
+
+              <template #cell(referent_interventions)="data">
+                <router-link :to="{
+                    name: 'referent-intervention-detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
 
