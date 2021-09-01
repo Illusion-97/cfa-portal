@@ -16,6 +16,15 @@ export const courseFieldsReferent = [
   // { key: "supprimer", label: "Supprimer" },
 ];
 
+export const courseFieldsFormateur = [
+  // { key: "id", label: "#" },
+  { key: "formateur_interventions", label: "Intitulé" },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de fin" },
+  // { key: "modifierItv", label: "Modifier" },
+  // { key: "supprimer", label: "Supprimer" },
+];
+
 export const fileFields = [
   { key: "name", label: "Nom des fichiers" },
   { key: "name_dl", label: "Télécharger" },

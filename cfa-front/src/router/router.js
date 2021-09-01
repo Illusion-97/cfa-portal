@@ -131,11 +131,11 @@ Vue.use(VueRouter);
 
 const routes = [
 
-  { path: '*', redirect: '/' },
+  { path: '*', redirect: '/home' },
 
   //Global
 
-  { path: "/", name: "home", component: Home, },
+  { path: "/home", name: "home", component: Home, },
   { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
   // Global -> Intervention
@@ -168,7 +168,8 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: { authorize: [Role.Etudiant] } },
 
   //  ### Formateur ###
-  { path: "/formateur/intervention", name: "formateur_intervention", component: Intervention },
+  { path: "/formateur/interventions", name: "formateur_intervention", component: Intervention },
+  { path: "/formateur/interventions/:id", name: "formateur-intervention-detail", component: DetailIntervention},
 
   //  ### Admin ###
   //Utilisateur
@@ -259,7 +260,8 @@ const routes = [
   { path: "/referent/modifier-projet", name: "referent_modifier-projet", component: ModifierProjet},
   { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard},
   { path: "/referent/creation-absence-retard", name: "referent_create-absence-retard", component: CreateAbsenceRetard},
-  { path: "/referent/cours", name: "referent_cours", component: CoursR},
+  { path: "/referent/interventions", name: "referent_cours", component: CoursR},
+  { path: "/referent/interventions/:id", name: "referent-intervention-detail", component: DetailIntervention},
   { path: "/referent/creation-cours", name: "CreateCoursR", component: CreateCoursR},
   { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
   { path: "/referent/creation-devoir", name: "CreateDevoirR", component: CreateDevoirR},
@@ -269,7 +271,7 @@ const routes = [
   { path: "/referent/modifier-examen", name: "ModifierExamenR", component: ModifierExamenR},
   { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR},
   { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR},
-  { path: "/referent/detail-intervention/:id", name: "referent-intervention-detail", component: DetailIntervention},
+  
   //etudiant
   { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
   { path: "/referent/etudiant-detail/:id", name: "referent_etudiant_detail", component: EtudiantRDetail},
