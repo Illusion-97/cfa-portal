@@ -150,7 +150,7 @@
           .insertIntervention(this.form)
           .then((data) => {
             if (data.status == 200) {
-              this.$router.push({  name: "referent_cours" });
+              this.goBack();
               alert('ok')
             } 
           })

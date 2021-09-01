@@ -35,7 +35,7 @@
     </div>
 
     <div v-if="table[0] == 'referent'" id="referent">
-      <h5>Mon Espace</h5>
+      <h5>Espace Referent</h5>
 
       <nav class="mb-3">
         <b-nav vertical>

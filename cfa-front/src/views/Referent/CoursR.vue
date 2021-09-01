@@ -28,7 +28,7 @@
 <script>
 import { interventionApi } from "@/_api/intervention.api.js";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { courseFields } from "@/assets/js/fields.js";
+import { courseFieldsReferent } from "@/assets/js/fields.js";
 
 export default {
   name: "Intervention",
@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       items: [],
-      fields: courseFields,
+      fields: courseFieldsReferent,
       currentPage: 1,
       perPage: 5,
       pageCount: 0,
