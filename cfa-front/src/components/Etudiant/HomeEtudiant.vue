@@ -1,51 +1,9 @@
 <template>
-  <!-- <div class="container-fluid">
-    <div class="row">
-
-      <div class="col-md-2" align="center">
-        <div class="identite">
-          <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }} </p>
-          <p class="email">{{ utilisateur.login }}</p> 
-        </div>
-      </div>
-
-      <div class="col-md-10">
-        <div class="row mb-5">
-          <div class="col-md-3">
-            <b-card header="Formateur Référent">
-              <b-card-text>
-                <p>{{ formateurReferent.prenom }} {{ formateurReferent.nom }}</p>
-                <p>{{ formateurReferent.login }}</p> 
-              </b-card-text>
-            </b-card>
-          </div>
-
-          <div class="offset-1 col-md-3">
-            <b-card header="Référent de la promotion">
-              <b-card-text>
-                <p>{{ promotionComputed.referentPedagogiqueDto.prenom }} {{ promotionComputed.referentPedagogiqueDto.nom }}</p>
-                <p>{{ promotionComputed.referentPedagogiqueDto.login }}</p> 
-              </b-card-text>
-            </b-card>
-          </div>
-
-          <div class="offset-1 col-md-3">
-            <b-card header="Manager">
-              <b-card-text>
-                <p>{{ manager.prenom }} {{ manager.nom }}</p>
-                <p>{{ manager.login }}</p> 
-              </b-card-text>
-            </b-card>
-          </div>
-        </div>
-    </div>
-  </div>
-</div> -->
   <div id="grid-container">
     <div class="identite">
       <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-
-      <!-- <p class="email">{{ utilisateur.login }}</p> -->
+      <p class="">{{promotionComputed.nom}}</p>
+      <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p>
     </div>
     <div id="student-info">
       <div class="card py-0 px-3 ml-3">
@@ -95,9 +53,8 @@
     data() {
       return {
         formateurReferent: {},
-        promotion: {
-          referentPedagogiqueDto: {}
-        },
+        promotions: [],
+        groupes: [],
         manager: {},
       };
     },
@@ -106,7 +63,18 @@
         return this.$store.getters.getUtilisateur;
       },
       promotionComputed() {
-        return this.promotion;
+        let promotion = {referentPedagogiqueDto: ""};
+        for(let i=0; i<this.promotions.length; i++){
+          let dateDebut = new Date(this.promotions[i].dateDebut)
+          let dateFin = new Date(this.promotions[i].dateFin)
+          if(dateDebut.getTime() <= Date.now() && dateFin.getTime() >= Date.now()){
+            promotion = this.promotions[i];
+          }
+        }
+        return promotion;
+      },
+      groupesComputed(){
+        return this.groupes;
       },
       formateurReferentComputed() {
         return this.formateurReferent;
@@ -118,10 +86,13 @@
         .then((data) => (this.formateurReferent = data));
       etudiantApi
         .getPromotions(this.$store.getters.getUtilisateur.id)
-        .then((data) => this.promotion = data);
+        .then((data) => this.promotions = data);
       etudiantApi
         .getManager(this.$store.getters.getUtilisateur.id)
         .then((data) => (this.manager = data));
+      etudiantApi
+        .getGroupes(this.$store.getters.getUtilisateur.id)
+        .then((response) => (this.groupes = response));
     },
     methods: {},
   };
