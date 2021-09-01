@@ -95,16 +95,10 @@
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
-// import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
-// import RoleModal from "@/components/Modal/RoleModal.vue";
 export default {
   name: "AddUser",
   components: {
     BodyTitle,
-    // AdresseListComponent,
-    // EntrepriseListComponent,
-    // RoleModal,
   },
   data() {
     return {

@@ -15,7 +15,13 @@
         <!-- Cursus -->
         <label class=" col-1">Logo</label>
         <div class="col-3">
-          <b-form-input v-model="form.prenom" required></b-form-input>
+          <div class="file-field">
+            <div class="d-flex justify-content-center">
+              <div class="btn btn-mdb-color btn-rounded float-left">
+                <input type="file">
+              </div>
+            </div>
+          </div>
         </div>
       </b-form-row>
 
@@ -115,14 +121,11 @@
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
-// import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
 export default {
   name: "AddUser",
   components: {
     BodyTitle,
-    // AdresseListComponent,
-    // EntrepriseListComponent,
+
   },
   data() {
     return {
