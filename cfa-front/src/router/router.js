@@ -270,9 +270,18 @@ const routes = [
   { path: "/referent/creation-note-info", name: "NoteInfoR", component: NoteInfoR},
   { path: "/referent/creation-support-de-cours", name: "CreateSupportCoursR", component: CreateSupportCoursR},
   { path: "/referent/detail-intervention/:id", name: "referent-intervention-detail", component: DetailIntervention},
+  //promo
+  { path: "/referent/promotion-detail/:id", name: "referent-promotion-detail", component: PromotionDetail },
+  //groupe
+  { path: "/referent/groupe-detail/:id", name:"referent-groupe-detail", component: GroupeDetail},
+  //note
+  { path: "/referent/note-detail/:id", name:"referent-note-detail", component: NoteDetail},
+  //Absences
+  { path: "/referent/absence-detail/:id", name:"referent-absence-detail", component: AbsenceDetail},
   //etudiant
   { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
   { path: "/referent/etudiant-detail/:id", name: "referent_etudiant_detail", component: EtudiantRDetail},
+
 ];
 
 const router = new VueRouter({
