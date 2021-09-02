@@ -37,7 +37,7 @@
 
       <nav class="mb-3">
         <b-nav vertical>
-          <router-link class="nav-item" :to="{name:'referent_dashboard'}">Home</router-link>
+          <router-link class="nav-item" :to="{name:'referent_promotions'}">Home</router-link>
           <router-link class="nav-item" :to="{name:'referent_cours'}">Intervention</router-link>
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
           <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
@@ -55,7 +55,7 @@
         <nav class="mb-3">
           <b-nav vertical>
 
-            <router-link class="nav-item" :to="{name:'admin_dashboard'}">Utilisateurs</router-link>
+            <router-link class="nav-item" :to="{name:'admin_utilisateur'}">Utilisateurs</router-link>
             <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
             <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
             <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link>

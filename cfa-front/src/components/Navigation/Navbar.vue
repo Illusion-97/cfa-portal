@@ -20,7 +20,7 @@
                                 Espace Pédagogique</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" :to="{name:'etudiant_profil'}" v-if="isEtudiant">
+                            <router-link class="nav-link" :to="{name:'etudiant_administratif'}" v-if="isEtudiant">
                                 Espace Administratif</router-link>
                         </li>
                         <li class="nav-item">
