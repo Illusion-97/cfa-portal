@@ -87,7 +87,7 @@ import AbsenceRetard from "@/views/Referent/AbsenceRetard.vue";
 import CreateAbsenceRetard from "@/views/Referent/CreateAbsenceRetard.vue";
 //Etudiant
 import EtudiantR from "@/views/Referent/EtudiantR.vue";
-import EtudiantRDetail from "@/views/Referent/EtudiantRDetail.vue";
+// import EtudiantRDetail from "@/views/Referent/EtudiantRDetail.vue";
 //Intervention
 import CoursR from "@/views/Referent/CoursR.vue";
 import CreateCoursR from "@/views/Referent/CreateCoursR.vue";
@@ -254,7 +254,7 @@ const routes = [
   { path: "/referent/examens/update", name: "ModifierExamenR", component: ModifierExamenR},    
   //Etudiant
   { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
-  { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantRDetail},
+  { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantDetail},
 
   //#######################
   //#       ADMIN         #
