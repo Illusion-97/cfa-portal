@@ -33,6 +33,8 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <label class="col-2">Status, corps, Categorie, grade</label>
         <div class="col-10">
@@ -40,12 +42,16 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <label class="col-2">Mission Principale du service</label>
         <div class="col-10">
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
       </b-form-row>
+
+      <br>
 
       <b-form-row class="text-align-left">
         <!-- Nom -->
@@ -55,6 +61,8 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <!-- Nom -->
         <label class="col-2">Positionnement de l'agent dans le service </label>
@@ -62,6 +70,8 @@
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
       </b-form-row>
+      
+      <br>
 
       <b-form-row class="text-align-left">
         <!-- Nom -->
@@ -71,7 +81,8 @@
         </div>
       </b-form-row>
 
-
+      <br>
+      
       <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">
           {{ btn_form_text }}
