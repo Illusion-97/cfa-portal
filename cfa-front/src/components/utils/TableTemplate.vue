@@ -51,6 +51,16 @@
                 </router-link>
               </template>
 
+              <template #cell(formateur_interventions)="data">
+                <router-link :to="{
+                    name: 'formateur-intervention-detail',
+                    params: { id: data.item.id },
+                  }" style="color:black;">
+
+                  <span>{{ data.item.formationDto.titre | capitalize}}</span>
+                </router-link>
+              </template>
+
               <template #cell(titre)="data">
                 <router-link :to="{
                     name: 'formation-detail',

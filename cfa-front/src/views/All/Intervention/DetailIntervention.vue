@@ -244,7 +244,7 @@
   .btn-toggle:after {
     content: "";
     position: absolute;
-    left: 180px;
+    left: 35%;
     bottom: 0;
     height: 1px;
     width: 30%;

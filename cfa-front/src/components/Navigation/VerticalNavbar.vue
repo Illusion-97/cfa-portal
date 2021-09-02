@@ -9,8 +9,7 @@
         <nav class="mb-3">
           <b-nav vertical>
             <router-link class="nav-item" :to="{name:'etudiant_profil'}">Profil</router-link>
-            <router-link class="nav-item" :to="{name:'etudiant_documents_administratifs'}">Documents administratifs
-            </router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_documents_administratifs'}">Documents administratifs</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_conge'}">Demande de congés</router-link>
           </b-nav>
         </nav>
@@ -26,8 +25,7 @@
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_cursus'}">Mon cursus</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link>
-            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel
-            </router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link>
           </b-nav>
         </nav>
@@ -39,7 +37,7 @@
 
       <nav class="mb-3">
         <b-nav vertical>
-          <router-link class="nav-item" :to="{name:'referent_dashboard'}">Home</router-link>
+          <router-link class="nav-item" :to="{name:'referent_promotions'}">Home</router-link>
           <router-link class="nav-item" :to="{name:'referent_cours'}">Intervention</router-link>
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
           <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
@@ -57,12 +55,10 @@
         <nav class="mb-3">
           <b-nav vertical>
 
-            <router-link class="nav-item" :to="{name:'admin_dashboard'}">Utilisateurs</router-link>
+            <router-link class="nav-item" :to="{name:'admin_utilisateur'}">Utilisateurs</router-link>
             <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
             <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
-            <router-link class="nav-item" :to="{name:'formateur_intervention'}" v-if="isFormateur">Intervention
-            </router-link>
-            <router-link class="nav-item" :to="{name:'all-intervention'}" v-else>Interventions</router-link>
+            <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link>
             <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
 
           </b-nav>
@@ -152,10 +148,9 @@
     /* margin-left: 0.5em; */
   }
 
-  .router-link-exact-active {
-    /* color: #b3334a; */
+  .router-link-active {
     color: brown;
-    /* background-color: lightgrey; */
-    /* background-color: rgba(209, 14, 14, 0.705); */
+    /* border-bottom: 1px solid brown; */
+    font-weight: bold;
   }
 </style>

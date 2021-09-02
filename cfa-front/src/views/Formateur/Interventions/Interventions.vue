@@ -17,14 +17,14 @@
 
 <script>
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { courseFields } from "@/assets/js/fields.js";
+import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
 export default {
   name: "Cours",
   data() {
     return {
       items: [],
-      fields: courseFields,
+      fields: courseFieldsFormateur,
       currentPage: 1,
       perPage: 5,
       pageCount: 0,

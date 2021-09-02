@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <div>
-      <div v-if="table != '/login'">
-        <!-- <Navbar /> -->
-        <Navbar2 />
+      <div v-if="table[0] != 'login'">
+        <Navbar/>
       </div>
 
-      <div v-if="table == '/'">
+      <div v-if="table[0] == 'home'">
         <router-view />
+      </div>
+      <div v-else-if=" table[0] == 'formateur'">
+        <router-view class="mx-5"/>
       </div>
       <div v-else>
         <VerticalNavbar class="col-md-2" />
@@ -20,20 +22,20 @@
 </template>
 <script>
 // import Navbar from "@/components/Navigation/Navbar.vue";
-import Navbar2 from "@/components/Navigation/Navbar2.vue";
+import Navbar from "@/components/Navigation/Navbar.vue";
 import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 
 export default {
   name: "App",
   components: {
-    // Navbar,
-    Navbar2,
+    Navbar,
     VerticalNavbar,
   },
   methods: {},
   computed: {
     table() {
-      return this.$route.path;
+      // return this.$route.path;
+      return this.$route.path.split("/").splice(1);
     },
     show() {
       return "true";
