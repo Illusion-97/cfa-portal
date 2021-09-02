@@ -57,7 +57,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isPromotion,
         }"
@@ -68,7 +68,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isGroupe,
         }"
@@ -79,7 +79,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isNote,
         }"
@@ -90,7 +90,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isAbsence,
         }"
@@ -101,7 +101,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isConge,
         }"
@@ -472,7 +472,7 @@ export default {
 }
 
 .ma_tuile:hover {
-  background-color: #6c757d;
+  background-color: rgb(0, 140, 255);
   color: white;
   cursor: pointer;
 }
@@ -487,7 +487,8 @@ export default {
 }
 
 .activ {
-  background-color: #28a745;
+  background-color:rgb(0, 140, 255);
+  color: white;
 }
 * {
     -webkit-box-sizing: border-box;
