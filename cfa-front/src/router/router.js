@@ -255,6 +255,16 @@ const routes = [
   //Etudiant
   { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
   { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantDetail},
+  //Promo
+  { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail },
+  //Groupe
+  { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail},
+  //Note
+  { path: "/referent/notes/detail/:id", name:"referent_note_detail", component: NoteDetail},
+  //Absence
+  { path: "/referent/absences/detail/:id", name:"referent_absence_detail", component: AbsenceDetail},
+  //Conge
+  { path: "/referent/conges/detail/:id", name:"referent_conge_detail", component: CongeDetail},
 
   //#######################
   //#       ADMIN         #
