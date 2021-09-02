@@ -51,9 +51,9 @@ import FicheSalarie from "@/views/Etudiant/EspaceAdministratif/FicheSalarie.vue"
 import FichePoste from "@/views/Etudiant/EspaceAdministratif/FichePoste.vue"
 import FicheEntreprise from "@/views/Etudiant/EspaceAdministratif/FicheEntreprise.vue"
 //Etudiant Pedagogique
-import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
-import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
+// import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
 import Cursus from "@/views/Etudiant/EspacePedagogique/Cursus.vue";
+import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
 import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
 import DossierPro from "@/views/Etudiant/EspacePedagogique/DossierPro.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
@@ -193,7 +193,7 @@ const routes = [
   //#######################
 
   //Administratif 
-  { path: "/etudiant/espace-administratif", name: "etudiant_administratif", component: Profil, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-administratif", name: "etudiant_administratif", redirect: {name: 'etudiant_profil'}, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs", component: DepotFichier, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/demande-conge", name: "etudiant_conge", component: DemandeConge, meta: { authorize: [Role.Etudiant] } },
@@ -201,9 +201,9 @@ const routes = [
   { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste", component: FichePoste, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise", component: FicheEntreprise, meta: { authorize: [Role.Etudiant] } },
   //Etudiant Pedagogique
-  { path: "/etudiant/espace-pedagogique", name: "etudiant_espace-peda_accueil", component: Acceuil, meta: { authorize: [Role.Etudiant] } },
-  { path: "/etudiant/espace-pedagogique/absences", name: "etudiant_espace-peda_absences", component: Absences, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique", name: "etudiant_espace-peda_accueil", redirect: { name: 'etudiant_espace-peda_cursus' }, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/cursus", name: "etudiant_espace-peda_cursus", component: Cursus, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique/absences", name: "etudiant_espace-peda_absences", component: Absences, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/devoirs", name: "etudiant_espace-peda_devoirs", component: Devoirs, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/dossier-professionnel", name: "etudiant_espace-peda_dossier-pro", component: DossierPro, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: { authorize: [Role.Etudiant] } },
@@ -220,8 +220,8 @@ const routes = [
   //#       REFERENT      #
   //#######################
 
-  //Divers
-  { path: "/referent/", name: "referent_dashboard", component: ReferentDashboard},
+  { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}},
+  //Divers  
   { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard},
   { path: "/referent/notes", name: "referent_notes", component: NotesR},
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif},
@@ -259,7 +259,13 @@ const routes = [
   //#######################
   //#       ADMIN         #
   //#######################
-
+  
+  { path: "/admin/", name: "admin_dashboard", redirect: {name: 'admin_utilisateur'} },
+  //Utilisateur
+  { path: "/admin/utilisateurs", name: "admin_utilisateur", component: AdminDashboard },
+  { path: "/admin/utilisateurs/create", name: "admin_addUser", component: AddUser },
+  { path: "/admin/utilisateurs/update/:id", name: "admin_user_update", component: AddUser },
+  { path: "/admin/utilisateurs/detail/:id", name: "admin_user_detail", component: DetailUser },
    // Intervention
    { path: "/admin/interventions", name: "all-intervention", component: AllInterventions },
    { path: "/admin/interventions/create", component: AjoutIntervention, name: "ajouter-intervention"},
@@ -270,17 +276,11 @@ const routes = [
    { path: "/admin/formations/create", name: "ajouter-formation", component: AjoutFormation },
    { path: "/admin/formations/update/:id", component: AjoutFormation, name: "modifier-formation" },
    { path: "/admin/formations/detail/:id", component: DetailFormation, name: "formation-detail" },
-  //Utilisateur
-  { path: "/admin/", name: "admin_dashboard", component: AdminDashboard },
-  { path: "/admin/utilisateurs", name: "admin_utilisateur", component: AdminDashboard },
-  { path: "/admin/utilisateurs/create", name: "admin_addUser", component: AddUser },
-  { path: "/admin/utilisateurs/update/:id", name: "admin_user_update", component: AddUser },
-  { path: "/admin/utilisateurs/detail/:id", name: "admin_user_detail", component: DetailUser },
   //Promotion
   { path: "/admin/promotions", name: "admin_promotion_list", component: PromotionList },
   { path: "/admin/promotions/create", name: "admin_promotion_create", component: PromotionCreate },
   { path: "/admin/promotions/update/:id", name: "admin_promotion_update", component: PromotionCreate },
-  { path: "/admin/promotion/detail/:id", name: "admin_promotion_detail", component: PromotionDetail },
+  { path: "/admin/promotions/detail/:id", name: "admin_promotion_detail", component: PromotionDetail },
   //Adresse
   { path: "/admin/adresses", name: "admin_adresse_list", component: AdresseList },
   { path: "/admin/adresses/create", name: "admin_addAdresse", component: AddAdresse },
