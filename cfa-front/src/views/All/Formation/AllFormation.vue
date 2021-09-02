@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TableTemplate
+    <!-- <TableTemplate
       :items="items"
       :fields="fields"
       :currentPage="currentPage"
@@ -12,7 +12,50 @@
       v-model="keyword"
       btnTxt="Ajouter une formation"
       btnLink="ajouter-formation"
-    />
+    /> -->
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th scope="col">Intitulé</th>
+          <th scope="col">Description</th>
+          <th scope="col">Voir plus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="formation in items" :key="formation.id">
+          <td style="width:15em">{{ formation.titre }}</td>
+          <td>{{ formation.contenu }}</td>
+          <td style="width:10em;">
+            <router-link
+              :to="{ name: 'formation-detail', params: { id: formation.id } }"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'external-link-alt']"
+                class="icon"
+              />
+            </router-link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+      <paginate
+      :page-count="pageCount"
+      :page-range="1"
+      :margin-pages="2"
+      :click-handler="pageChange"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination float-right'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
+      :prev-class="'page-item'"
+      :next-class="'page-item'"
+      :prev-link-class="'page-link'"
+      :next-link-class="'page-link'"
+      :active-class="'active'"
+    >
+      >
+    </paginate>
   </div>
 </template>
 
