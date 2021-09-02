@@ -7,8 +7,7 @@
         <tr>
           <th>Notes</th>
           <th>Observations</th>
-          <th>Devoir</th>
-          <th>Examen</th>
+          <th>Devoir/Examen</th>
         </tr>
       </thead>
       <tbody v-if="notesComputed">
@@ -21,15 +20,18 @@
           <td v-if="note.devoirDto !=null">
             {{note.devoirDto.enonce}}
           </td>
-          <td v-else>
-            NaN
-          </td>
-          <td v-if="note.examenDto != null">
+          <td v-else-if="note.examenDto !=null">
             {{note.examenDto.examenDto.enonce}}
           </td>
           <td v-else>
             NaN
           </td>
+          <!-- <td v-if="note.examenDto != null">
+            {{note.examenDto.examenDto.enonce}}
+          </td>
+          <td v-else>
+            NaN
+          </td> -->
         </tr>
       </tbody>
     </table>

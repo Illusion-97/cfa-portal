@@ -107,6 +107,7 @@ export default {
       this.$emit("click-list", etudiant);
     },
     detail(id) {
+      // eslint-disable-next-line vue/no-mutating-props
       this.isAction = true;
       if (this.isAction)
         this.$router.push({ name: "referent_etudiant_detail", params: { id: id } });
