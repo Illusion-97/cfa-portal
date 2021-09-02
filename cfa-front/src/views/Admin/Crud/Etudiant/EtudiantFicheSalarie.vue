@@ -2,7 +2,9 @@
  
   <div class="container-fluid">
      <BodyTitle :title=vue_title />
-     
+
+     <br>
+
     <b-form class="form mb-5" @submit="submit">
     
      <b-form-row class="text-align-left">
@@ -17,6 +19,8 @@
           <b-form-input v-model="form.prenom" required></b-form-input>
         </div>
       </b-form-row>
+
+      <br>
 
       <b-form-row class="text-align-left">
         <!-- Civilité -->
@@ -61,6 +65,8 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <!-- Pays -->
         <label class="col-1">Pays</label>
@@ -74,6 +80,8 @@
           <b-form-input v-model="form.nationalite" required></b-form-input>
         </div>
       </b-form-row>
+
+      <br>
 
       <b-form-row class="text-align-left">
         <!-- Date de naissance -->
@@ -107,6 +115,8 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <!-- Date entrée  -->
         <label class="col-1">Date entrée </label>
@@ -137,9 +147,11 @@
 
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <!-- Precedante prefession -->
-        <label class="col-1">Precedante profession </label>
+        <label class="col-1">Précédente profession </label>
         <div class="col-3">
           <b-form-input v-model="form.lastProfession" required></b-form-input>
         </div>

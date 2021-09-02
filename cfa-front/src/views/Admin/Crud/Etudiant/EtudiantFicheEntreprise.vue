@@ -33,12 +33,16 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <label class="col-2">Historique succinct</label>
         <div class="col-10">
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
       </b-form-row>
+
+      <br>
 
       <b-form-row class="text-align-left">
         <label class="col-2">Nom du (ou de la) dirigeant(e)actuel(e)</label>
@@ -59,19 +63,22 @@
         </div>
       </b-form-row>
 
+      <br>
+
       <b-form-row class="text-align-left">
         <!-- Nom -->
         <label class="col-2">Combien de salariés</label>
-        <div class="col-10">
+        <div class="col-3">
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
-
         <!-- Nom -->
         <label class="col-2">Chiffre d'affaire annuel</label>
-        <div class="col-10">
+        <div class="col-3">
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
       </b-form-row>
+
+      <br>
 
       <b-form-row class="text-align-left">
         <!-- Nom -->
@@ -79,6 +86,11 @@
         <div class="col-10">
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
+      </b-form-row>
+
+        <br>
+
+       <b-form-row class="text-align-left">
         <label class="col-2">Type d'usagers / clients auxqels elle rend service</label>
         <div class="col-10">
           <b-form-input v-model="form.nom" required></b-form-input>
@@ -91,6 +103,11 @@
         <div class="col-10">
           <b-form-input v-model="form.nom" required></b-form-input>
         </div>
+      </b-form-row>
+
+      <br>
+      
+       <b-form-row class="text-align-left">
         <label class="col-2">Métiers exercés par ses salariés</label>
         <div class="col-10">
           <b-form-input v-model="form.nom" required></b-form-input>
