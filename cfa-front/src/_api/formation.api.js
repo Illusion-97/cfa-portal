@@ -12,7 +12,8 @@ export const formationApi = {
   getFormationById,
   countFormation,
   getFormationByPromoId,
-  getFormationByCursusId
+  getFormationByCursusId,
+  getInterventionsByFormationId
 }
 
 function getAll() {
@@ -69,6 +70,7 @@ function countFormation(key = "") {
     .then(response => response.data["nb"])
     .catch(err => console.error(err))
 }
+
 function getFormationByPromoId(id){
   const url = `/${END_POINT}/getFormationByPromoId/${id}`
 
@@ -77,6 +79,7 @@ function getFormationByPromoId(id){
   .then(response =>response.data)
   .catch((error) => console.log(error))
 }
+
 function getFormationByCursusId(id){
   const url = `/${END_POINT}/getFormationByCursusId/${id}`
 
@@ -84,4 +87,12 @@ function getFormationByCursusId(id){
   .get(url,requestOptions.headers()) //faire la méthode pour recupérer le cursus
   .then(response =>response.data)
   .catch((error) => console.log(error))
+}
+
+function getInterventionsByFormationId(id) {
+  const url = `/${END_POINT}/${id}/interventions`;
+
+  return axios.get(url, requestOptions.headers())
+    .then(response => response.data)
+    .catch(err => console.error(err))
 }

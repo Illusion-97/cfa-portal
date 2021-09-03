@@ -22,6 +22,14 @@
         </button>
       </div>
     </b-form>
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
   </div>
 </template>
 
@@ -67,6 +75,9 @@ export default {
     },
     onClickChildCursusList(cursus) {
       this.form.cursusDto = cursus;
+    },
+    goBack() {
+      this.$router.go(-1);
     },
     submit(e) {
       e.preventDefault();
