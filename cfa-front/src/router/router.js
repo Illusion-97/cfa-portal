@@ -93,8 +93,8 @@ import CoursR from "@/views/Referent/CoursR.vue";
 import CreateCoursR from "@/views/Referent/CreateCoursR.vue";
 //devoir
 import DevoirsR from "@/views/Referent/DevoirsR.vue";
-import CreateDevoirR from "@/views/Referent/CreateDevoirR.vue";
-import ModifierDevoirR from "@/views/Referent/ModifierDevoirR.vue";
+//import CreateDevoirR from "@/views/Referent/CreateDevoirR.vue";
+//import ModifierDevoirR from "@/views/Referent/ModifierDevoirR.vue";
 //Examen
 import ExamenR from "@/views/Referent/ExamenR.vue";
 import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
@@ -246,8 +246,12 @@ const routes = [
   { path: "/referent/interventions/create", name: "CreateCoursR", component: CreateCoursR},
   //Devoir
   { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
-  { path: "/referent/devoirs/create", name: "CreateDevoirR", component: CreateDevoirR},
-  { path: "/referent/devoirs/update", name: "ModifierDevoirR", component: ModifierDevoirR},
+  //{ path: "/referent/devoirs/create", name: "CreateDevoirR", component: CreateDevoirR},
+  //{ path: "/referent/devoirs/update", name: "ModifierDevoirR", component: ModifierDevoirR},
+
+  { path: "/referent/devoirs/create", name: "referent_devoir_create", component: DevoirCreate },
+  { path: "/referent/devoirs/update/:id", name: "referent_devoir_update", component: DevoirCreate },
+  { path: "/referent/devoirs/detail/:id", name: "referent_devoir_detail", component: DevoirDetail },
   //Examen
   { path: "/referent/examens", name: "ExamenR", component: ExamenR},
   { path: "/referent/examens/create", name: "CreateExamenR", component: CreateExamenR},
