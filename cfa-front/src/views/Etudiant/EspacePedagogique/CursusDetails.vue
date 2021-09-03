@@ -1,46 +1,92 @@
 <template>
   <div class="container-fluid">
     <router-link
-      :to="{ name: 'admin_cursus_list' }"
+      :to="{ name: 'etudiant_espace-peda_cursus' }"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
     </router-link>
+    
+    <BodyTitle title="Details du Cursus" />
 
-    <b-card no-body id="my-card">
-        <b-card-header>
-          <span class="">Details</span>
-        </b-card-header>
-
-        <b-card-text class="identity row ml-6">
-          <span class="font-weight-bold col-md-2">Id :</span>
-          <span class="col-md-4">{{ cursus.id }}</span>
-          <span class="font-weight-bold col-md-2">Titre : </span>
-          <span class="col-md-4">{{ cursus.titre }}</span>
-        </b-card-text>
-
-    </b-card>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Titre</th>
+          <th>Contenu</th>
+        </tr>
+      </thead>
+      <tbody v-if="FormationsComputed">
+        <tr v-for="formation in FormationsComputed" :key="formation.id">
+          <td>{{formation.titre }}</td>
+          <td>{{formation.contenu }}</td>
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 </template>
 
 <script>
-import { cursusApi } from "@/_api/cursus.api.js";
+import BodyTitle from "@/components/utils/BodyTitle.vue";
+import {formationApi} from "@/_api/formation.api.js";
+// import {etudiantApi} from "@/_api/etudiant.api.js";
+
 export default {
-  name: "CursusDetail",
+  name: "Formations",
   components: {
+    BodyTitle,
   },
   data() {
     return {
-      cursusId: this.$route.params.id,
-      cursus: {},
-      loading: false,
+      formations: null,
+      perPage: 10,
+      pageCount: 0,
+      
+      selected: null,
+
+
+      
     };
   },
+ computed: {
+    utilisateur() {
+      return this.$store.getters.getUtilisateur;
+    },
+    FormationsComputed() {
+      return this.formations;
+    }, 
+    nbPageComputed() {
+      return this.pageCount;
+    },
+  },
   created() {
-    cursusApi.getById(this.$route.params.id).then(response => this.cursus = response);
+    
+    this.refreshList();
+  },
+  methods: {
+    onSelected() {
+     formationApi
+        .getFormationByCursusId(this.$route.params.id)
+        .then((response) => (this.formations = response));
+    },
+    // pageChange(pageNum) {
+    //   formationApi
+    //     .getFormationByPromoId(this.selected.id,pageNum - 1, this.perPage)
+    //     .then((response) => (this.formations = response));
+    // },
+    refreshList() {
+      formationApi
+        .getFormationByCursusId(this.$route.params.id)
+        .then((response) => (this.formations = response));
+      // formationApi
+      //   .countFormation()
+      //   .then(
+      //     (response) => (this.pageCount = Math.ceil(response / this.perPage))
+      //   );
+    },
   },
 };
 </script>

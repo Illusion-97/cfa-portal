@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Cursus" />
-
+<!-- 
 <div class="mon-group">
             <label class="form-label"
               >Selectionner une promotion pour afficher la liste correspondante:
@@ -18,7 +18,7 @@
                 >{{ promotion.nom }}</option
               >
             </select>
-      </div>
+      </div> -->
       <br>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -30,10 +30,12 @@
       <tbody v-if="CursusComputed">
         <tr v-for="cursus in CursusComputed" :key="cursus.id">
           <td>{{cursus.titre }}</td>
-          <td><router-link
+          <td>
+            <router-link
               class="btn btn-info"
-              :to="{ name: '', params: { id: cursus.id } }"
-              >Detail</router-link></td>
+              :to="{ name: 'etudiant_espace-peda_cursusdetails', params: { id: cursus.id } }"
+              >Detail</router-link>
+              </td>
         </tr>
       </tbody>
     </table>
@@ -66,7 +68,7 @@ import {cursusApi} from "@/_api/cursus.api.js";
 // import {etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
-  name: "Formations",
+  name: "Cursus",
   components: {
     BodyTitle,
   },
