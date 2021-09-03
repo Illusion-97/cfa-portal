@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Demande de congé" />
-    {{ file.name }}
+    
     <table class="table text-center mt-5" style="table-layout:fixed">
       <thead>
         <tr>

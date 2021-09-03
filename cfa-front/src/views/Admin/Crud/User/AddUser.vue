@@ -134,60 +134,60 @@
         </div>
 
         <div :class="{ collapse: !isEntrepriseNew }">
-          <b-form-group>
+          <!-- <b-form-group>
            <b-form-row class="text-align-left">
               <label class="col-2">Raison Sociale</label>
               <div class="col-7 pr-5">
-                <b-form-input v-model="form.entrepriseDto.adresseDto.raisonSociale"></b-form-input>
+                <b-form-input v-model="form.entrepriseDto.raisonSociale"></b-form-input>
               </div>
             </b-form-row>
-          </b-form-group>
+          </b-form-group> -->
 
-          <b-form-group>
+          <!-- <b-form-group>
             <b-form-row class="text-align-left">
               <label class="col-2">Numero</label>
               <div class="col-7 pr-5">
-                <b-form-input v-model="form.entrepriseDto.adresseDto.numero"></b-form-input>
+                <b-form-input v-model="adresseEntreprise.numero"></b-form-input>
               </div>
             </b-form-row>
-          </b-form-group>
+          </b-form-group> -->
 
-          <b-form-group>
+          <!-- <b-form-group>
             <b-form-row class="text-align-left">
               <label class="col-2">Rue</label>
               <div class="col-7 pr-5">
-                <b-form-input v-model="form.entrepriseDto.adresseDto.rue"></b-form-input>
+                <b-form-input v-model="adresseEntreprise.rue"></b-form-input>
               </div>
             </b-form-row>
-          </b-form-group>
+          </b-form-group> -->
 
-          <b-form-group>
+          <!-- <b-form-group>
             <b-form-row class="text-align-left">
               <label class="col-2">Ville</label>
               <div class="col-7 pr-5">
-                <b-form-input v-model="form.entrepriseDto.adresseDto.ville"></b-form-input>
+                <b-form-input v-model="adresseEntreprise.ville"></b-form-input>
               </div>
             </b-form-row>
-          </b-form-group>
+          </b-form-group> -->
 
-          <b-form-group>
+          <!-- <b-form-group>
             <b-form-row class="text-align-left">
               <label class="col-2">Code Postal</label>
               <div class="col-7 pr-5">
                 <b-form-input
-                  v-model="form.entrepriseDto.adresseDto.codePostal"
+                  v-model="adresseEntreprise.codePostal"
                 ></b-form-input>
               </div>
             </b-form-row>
-          </b-form-group>
+          </b-form-group> -->
         </div>
 
-        <EntrepriseListComponent
+        <!-- <EntrepriseListComponent
         class="col-11"
         v-on:click-list="onClickChildEntrepriseList"
         :entrepriseProp="entreprise_input"
         :class="{ collapse: isEntrepriseNew }"
-        />
+        /> -->
       </b-form-group>
 
       
@@ -212,7 +212,7 @@
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
-import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+// import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
 import RoleModal from "@/components/Modal/RoleModal.vue";
 
 export default {
@@ -220,7 +220,7 @@ export default {
   components: {
     BodyTitle,
     AdresseListComponent,
-    EntrepriseListComponent,
+    // EntrepriseListComponent,
     RoleModal,
   },
   data() {
@@ -242,24 +242,34 @@ export default {
           ville: "",
           codePostal: "",
         },
-        entrepriseDto: {
-          id: null,
-          raisonSociale: "",
-          adresseDto: {
-            id: null,
-            numero: "",
-            rue: "",
-            ville: "",
-            codePostal: "",
-          },
-        },
+        // entrepriseDto: {
+        //   id: null,
+        //   raisonSociale: "",
+        //   adresseSiegeDto: {
+        //     id: null,
+        //     numero: "",
+        //     rue: "",
+        //     ville: "",
+        //     codePostal: "",
+        //   },
+        // },
       },
 
-      entreprise: null,
+      //On a des soucis si l'adresse de l'entreprise est null
+      //D'ou l'utilisation de cet objet
+      adresseEntreprise: {
+        id: null,
+        numero: "",
+        rue: "",
+        ville: "",
+        codePostal: "",
+      },
+
       isModalVisible: false,
 
       isAdresseNew: true,
       isEntrepriseNew: true,
+
       btn_adresse: "Existante",
       btn_entreprise: "Existante",
     };
@@ -287,19 +297,32 @@ export default {
 
       //Pour custom le message d'erreur
       let login = document.getElementById('login');
-      let password = document.getElementById('password');
+      // let password = document.getElementById('password');
+
       // //On reset le message pour retest
       // login.setCustomValidity("");
       // password.setCustomValidity("");
 
-      if(!this.testPassword(this.form.password)) {
-        console.log("je set password custom validity");
-        password.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial ");
-        password.reportValidity();
-      }
+      // if(!this.testPassword(this.form.password)) {
+      //   console.log("je set password custom validity");
+      //   password.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial ");
+      //   password.reportValidity();
+      // }
 
       //Si on ne donne pas d'entreprise, on la set a null pour ne rien save dans le back
-      if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
+      // if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
+
+      //Si on renseigne l'adresse de l'entreprise
+      if(this.adresseEntreprise.numero != ""
+      || this.adresseEntreprise.rue != "" 
+      || this.adresseEntreprise.ville != "" 
+      || this.adresseEntreprise.codePostal != "" ){
+        // this.form.entrepriseDto.adresseSiegeDto = this.adresseEntreprise;
+        console.log("j'ai une entreprise");
+      }
+      
+
+      console.log("form : ", this.form);
 
       utilisateurApi
         .save(this.form)
@@ -344,19 +367,21 @@ export default {
     }
   },
   created() {
+    //Pour etre sur, dans le doute, on fait les 3 tests
     if (
       this.$route.params.id != null &&
       this.$route.params.id != "" &&
       this.$route.params.id != 0
     ) {
-      console.log(this.$route.params.id);
       utilisateurApi.getById(this.$route.params.id).then((response) => {
-        this.form = response;
         this.vue_title = "Modification d'un utilisateur";
         this.btn_form_text = "Modifier";
-        this.adresse = response.adresseDto;
-        this.entreprise = response.entrepriseDto;
-        this.role = response.rolesDto;
+        
+        this.form = response;
+
+        if(response.entrepriseDto.adresseSiegeDto != null) 
+          this.adresseEntreprise = response.entrepriseDto.adresseSiegeDto;
+        
       });
     }
   },

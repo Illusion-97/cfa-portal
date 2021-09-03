@@ -11,7 +11,7 @@
         </tr>
       </thead>
       <tbody v-if="AbsencesComputed">
-        <tr v-for="abs in AbsencesComputed" :key="abs.id">
+        <tr v-for="(abs, index) in AbsencesComputed" :key="abs.id">
           <td>
            Du {{ abs.dateDebut }} au {{abs.dateFin}}
           </td>
@@ -20,12 +20,12 @@
             <div>
               <input
                 type="file"
-                id="file"
-                ref="file"
-                v-on:change="handleFileUpload()"
+                :ref="'file'+abs.id"
+                v-on:change="handleFileUpload(index, 'file'+abs.id)"
+                accept="application/pdf"
                 class="mr-3"
               />
-              <b-button variant="info" v-on:click="submitFile()">
+              <b-button variant="info" v-on:click="submitFile(index)">
                 Envoyer un justificatif
               </b-button>
             </div>
@@ -72,7 +72,6 @@ export default {
       perPage: 10,
       pageCount: 0,
       absences: [], 
-      file: "",
     };
   },
   computed: {
@@ -103,11 +102,11 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+    handleFileUpload(index, ref) {
+      this.files[index] = this.$refs[ref][0].files[0];
     },
-    submitFile() {        
-     fileApi.submitFileByDirectoryAndId("utilisateurs", this.$store.getters.getUtilisateur.id, this.file);
+    submitFile(index) {        
+     fileApi.submitFileByDirectoryAndId("utilisateurs", this.$store.getters.getUtilisateur.id, this.files[index]);
     },
   },
   
