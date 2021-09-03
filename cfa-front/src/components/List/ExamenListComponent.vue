@@ -17,9 +17,12 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_examen_create' }" v-if="isAction"
+      <!--<router-link class="btn btn-info" :to="{ name: 'admin_examen_create' }" v-if="isAction"
         >Ajouter</router-link
-      >
+      >-->
+      <button class="btn btn-info" v-on:click=ajouterExamen>
+              Ajouter 
+            </button>
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -36,17 +39,13 @@
           <td>{{ examen.formationDto.titre }}</td>
           <td>{{ examen.cursusDto.titre }}</td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_examen_detail', params: { id: examen.id } }"
-              >Detail</router-link
-            >
+            <button class="btn btn-info" v-on:click="detailsExamen(examen)">
+              Details 
+            </button>
             &nbsp;
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_examen_update', params: { id: examen.id } }"
-              >Update</router-link
-            >
+            <button class="btn btn-info" v-on:click="updateExamen(examen)">
+              Update 
+            </button>
             &nbsp;
             <button class="btn btn-info" v-on:click="deleteExamen(examen.id)">
               Delete
@@ -148,6 +147,51 @@ export default {
     },
     deleteExamen(examenId) {
       examenApi.deleteExamen(examenId).then(() => this.refreshList());
+    },
+    updateExamen(examen){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_examen_update",
+        params: { id: examen.id },
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_examen_update",
+        params: { id: examen.id },
+      });
+      }
+    },
+    detailsExamen(examen){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_examen_detail",
+        params: { id: examen.id },
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_examen_detail",
+        params: { id: examen.id },
+      });
+      }
+    },
+    ajouterExamen(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_examen_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_examen_create",
+        
+      });
+      }
     },
     clickList(examen) {
       this.examen_input = examen.enonce;
