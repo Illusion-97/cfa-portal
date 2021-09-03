@@ -57,7 +57,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isPromotion,
         }"
@@ -68,7 +68,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isGroupe,
         }"
@@ -79,7 +79,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isNote,
         }"
@@ -90,7 +90,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isAbsence,
         }"
@@ -101,7 +101,7 @@
       <div
         :class="{
           btn: true,
-          'btn-primary': true,
+          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isConge,
         }"
@@ -366,34 +366,146 @@ export default {
       this.$router.go(-1);
     },
     clickPromotion(promotion) {
-      this.$router.push({
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+        this.$router.push({
         name: "admin_promotion_detail",
         params: { id: promotion.id },
       });
+      }
+      else{
+        this.$router.push({
+        name: "referent-promotion-detail",
+        params: { id: promotion.id },
+      });
+      }
+      /*
+      else if{
+        this.$router.push({
+        name: "formateur-promotion-detail",
+        params: { id: promotion.id },
+      });
+      }
+      else if{
+        this.$router.push({
+        name: "cef-promotion-detail",
+        params: { id: promotion.id },
+      });
+      }*/
     },
     clickGroupe(groupe) {
-      this.$router.push({
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+        this.$router.push({
         name: "admin_groupe_detail",
         params: { id: groupe.id },
       });
+      }
+      else{
+      this.$router.push({
+        name: "referent_groupe_detail",
+        params: { id: groupe.id },
+      });
+      }
+      /*
+      else if{
+        this.$router.push({
+        name: "formateur-groupe-detail",
+        params: { id: groupe.id },
+      });
+      }
+      else if{
+        this.$router.push({
+        name: "cef-groupe-detail",
+        params: { id: groupe.id },
+      });
+      }*/
     },
     clickNote(note) {
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]=='admin'){
       this.$router.push({
         name: "admin_note_detail",
         params: { id: note.id },
       });
+      }
+       else{
+      this.$router.push({
+        name: "referent_note_detail",
+        params: { id: note.id },
+      });
+      }
+      /*
+      else if{
+        this.$router.push({
+        name: "formateur-note-detail",
+        params: { id: note.id },
+      });
+      }
+      else if{
+        this.$router.push({
+        name: "cef-note-detail",
+        params: { id: note.id },
+      });
+      }*/
+      
     },
     clickAbsence(absence) {
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]=='admin'){
       this.$router.push({
         name: "admin_absence_detail",
         params: { id: absence.id },
       });
+      }
+       else{
+      this.$router.push({
+        name: "referent_absence_detail",
+        params: { id: absence.id },
+      });
+      }
+      /*
+      else if{
+        this.$router.push({
+        name: "formateur-absence-detail",
+        params: { id: absence.id },
+      });
+      }
+      else if{
+        this.$router.push({
+        name: "cef-absence-detail",
+        params: { id: absence.id },
+      });
+      }*/
     },
     clickConge(conge) {
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]=='admin'){
       this.$router.push({
         name: "admin_conge_detail",
         params: { id: conge.id },
       });
+      }
+      else{
+      this.$router.push({
+        name: "referent_conge_detail",
+        params: { id: conge.id },
+      });
+      }
+      /*
+      else if{
+        this.$router.push({
+        name: "formateur-conge-detail",
+        params: { id: conge.id },
+      });
+      }
+      else if{
+        this.$router.push({
+        name: "cef-conge-detail",
+        params: { id: conge.id },
+      });
+      }*/
+
     },
     changementOnglet(onglet) {
       this.onglet = onglet;
@@ -472,7 +584,7 @@ export default {
 }
 
 .ma_tuile:hover {
-  background-color: #6c757d;
+  background-color: rgb(0, 140, 255);
   color: white;
   cursor: pointer;
 }
@@ -487,7 +599,8 @@ export default {
 }
 
 .activ {
-  background-color: #28a745;
+  background-color:rgb(0, 140, 255);
+  color: white;
 }
 * {
     -webkit-box-sizing: border-box;

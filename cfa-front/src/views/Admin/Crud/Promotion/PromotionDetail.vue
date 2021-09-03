@@ -14,6 +14,7 @@
       <router-link
         class="btn btn-info mon-btn"
         :to="{ name: 'admin_promotion_update', params: { id: promotionId } }"
+        @click="clickUpdatePromo(promo)"
         >Update
       </router-link>
     </div>
@@ -178,17 +179,51 @@ export default {
       this.onglet = onglet;
     },
     clickEtudiant(etudiant) {
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
       this.$router.push({
         name: "admin_etudiant_detail",
         params: { id: etudiant.id },
       });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_detail",
+        params: { id: etudiant.id },
+      });
+      }
     },
     clickIntervention(intervention) {
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
       this.$router.push({
         name: "intervention-detail",
         params: { id: intervention.id },
       });
+      }
+      else {
+        this.$router.push({
+        name: "referent-intervention-detail",
+        params: { id: intervention.id },
+      });
+      }
     },
+    clickUpdatePromo(promo){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_promotion_update",
+        params: { id: promo.id },
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_promotion_update",
+        params: { id: promo.id },
+      });
+      }
+
+    }
   },
   created() {
     promotionApi.getPromotionByid(this.$route.params.id).then((response) => {

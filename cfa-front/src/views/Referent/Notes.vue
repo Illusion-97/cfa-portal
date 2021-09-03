@@ -32,7 +32,7 @@
           <td>{{ note.noteObtenu }}</td>
           <td>{{ note.observations }}</td>
           <td>
-            <router-link class="btn btn-info" :to="{name:'referent_notes', params: { id: note.id }}">#</router-link>
+            <router-link class="btn btn-info" :to="{name:'referent_note_detail', params: { id: note.id }}">Détails</router-link>
             &nbsp;
           </td>
         </tr>

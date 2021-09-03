@@ -3,7 +3,7 @@
     <div class="identite">
       <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
       <p class="">{{promotionComputed.nom}}</p>
-      <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p>
+      <!-- <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p> -->
     </div>
     <div id="student-info">
       <div class="card py-0 px-3 ml-3">
