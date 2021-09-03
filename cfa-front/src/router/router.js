@@ -52,6 +52,7 @@ import FichePoste from "@/views/Etudiant/EspaceAdministratif/FichePoste.vue"
 import FicheEntreprise from "@/views/Etudiant/EspaceAdministratif/FicheEntreprise.vue"
 //Etudiant Pedagogique
 // import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
+import CursusDetails from "@/views/Etudiant/EspacePedagogique/CursusDetails.vue";
 import Cursus from "@/views/Etudiant/EspacePedagogique/Cursus.vue";
 import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
 import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
@@ -207,6 +208,7 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/devoirs", name: "etudiant_espace-peda_devoirs", component: Devoirs, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/dossier-professionnel", name: "etudiant_espace-peda_dossier-pro", component: DossierPro, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique/cursus/details/:id", name: "etudiant_espace-peda_cursusdetails", component: CursusDetails , meta: { authorize: [Role.Etudiant] } },
 
   //#######################
   //#       FORMATEUR     #
