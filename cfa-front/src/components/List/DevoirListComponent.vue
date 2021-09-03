@@ -22,12 +22,15 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link
+      <!--<router-link
         class="btn btn-info"
         :to="{ name: 'admin_devoir_create' }"
         v-if="isAction"
         >Ajouter</router-link
-      >
+      >-->
+      <button class="btn btn-info" v-on:click=ajouterDevoir>
+              Ajouter test 
+            </button>
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -50,17 +53,13 @@
           <td>{{ devoir.dateFin }}</td>
           <td>{{ devoir.interventionDto.formationDto.titre }}</td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_devoir_detail', params: { id: devoir.id } }"
-              >Detail</router-link
-            >
+            <button class="btn btn-info" v-on:click="detailsDevoir(devoir)">
+              Details 
+            </button>
             &nbsp;
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_devoir_update', params: { id: devoir.id } }"
-              >Update</router-link
-            >
+            <button class="btn btn-info" v-on:click="updateDevoir(devoir)">
+              Update 
+            </button>
             &nbsp;
             <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
               Delete
@@ -165,6 +164,51 @@ export default {
     },
     deleteDevoir(devoirId) {
       devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
+    },
+    updateDevoir(devoir){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_devoir_update",
+        params: { id: devoir.id },
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_devoir_update",
+        params: { id: devoir.id },
+      });
+      }
+    },
+    detailsDevoir(devoir){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_devoir_detail",
+        params: { id: devoir.id },
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_devoir_detail",
+        params: { id: devoir.id },
+      });
+      }
+    },
+    ajouterDevoir(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_devoir_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_devoir_create",
+        
+      });
+      }
     },
     clickList(devoir) {
       this.devoir_input = devoir.enonce;
