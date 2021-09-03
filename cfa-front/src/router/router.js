@@ -227,7 +227,7 @@ const routes = [
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif},
   { path: "/referent/note-info/create", name: "NoteInfoR", component: NoteInfoR},
   { path: "/referent/support-de-cours/create", name: "CreateSupportCoursR", component: CreateSupportCoursR},
-  //???
+  //Groupe/Projet
   { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet},
   //Projet
   { path: "/referent/projets", name: "referent_projets", component: Projets},
@@ -257,6 +257,7 @@ const routes = [
   { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantDetail},
   //Promo
   { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail },
+  { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate },
   //Groupe
   { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail},
   //Note
@@ -265,6 +266,8 @@ const routes = [
   { path: "/referent/absences/detail/:id", name:"referent_absence_detail", component: AbsenceDetail},
   //Conge
   { path: "/referent/conges/detail/:id", name:"referent_conge_detail", component: CongeDetail},
+  //Etudiant
+  { path: "/referent/etudiants/detail/:id", name:"referent_etudiant_detail", component: EtudiantDetail},
 
   //#######################
   //#       ADMIN         #
