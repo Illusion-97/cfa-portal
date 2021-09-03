@@ -13,6 +13,13 @@
       btnTxt="Ajouter une formation"
       btnLink="ajouter-formation"
     /> -->
+    <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
+      Ajouter une nouvelle formation
+    </router-link>
+    <small class="form-text info-text ml-1">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur une formation ou cliquez sur l'icone pour plus d'info.
+    </small>
     <table class="table text-center">
       <thead>
         <tr>
@@ -22,7 +29,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="formation in items" :key="formation.id">
+        <tr v-for="formation in items" :key="formation.id" @dblclick="detailFormation(formation.id)">
           <td style="width:15em">{{ formation.titre }}</td>
           <td>{{ formation.contenu }}</td>
           <td style="width:10em;">
@@ -31,7 +38,7 @@
             >
               <font-awesome-icon
                 :icon="['fas', 'external-link-alt']"
-                class="icon"
+                class="icon text-info"
               />
             </router-link>
           </td>
@@ -107,6 +114,9 @@ export default {
         .countFormation(this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
+    detailFormation(id) {
+      this.$router.push({name:"formation-detail",params:{id:id}})
+    }
   },
   computed: {
     nbPageComputed() {
