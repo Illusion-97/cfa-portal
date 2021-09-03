@@ -58,7 +58,7 @@
             <router-link class="nav-item" :to="{name:'admin_utilisateur'}">Utilisateurs</router-link>
             <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
             <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
-            <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link>
+            <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
             <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
 
           </b-nav>
@@ -68,9 +68,7 @@
   </div>
 </template>
 <script>
-  import {
-    utilisateurService
-  } from "@/_services/utilisateur.service.js"
+  import { utilisateurService } from "@/_services/utilisateur.service.js"
 
   export default {
     name: "VerticalNavbar",
