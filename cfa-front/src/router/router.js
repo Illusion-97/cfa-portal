@@ -97,8 +97,8 @@ import DevoirsR from "@/views/Referent/DevoirsR.vue";
 //import ModifierDevoirR from "@/views/Referent/ModifierDevoirR.vue";
 //Examen
 import ExamenR from "@/views/Referent/ExamenR.vue";
-import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
-import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
+//import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
+//import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
 
 
 //#######################
@@ -254,8 +254,12 @@ const routes = [
   { path: "/referent/devoirs/detail/:id", name: "referent_devoir_detail", component: DevoirDetail },
   //Examen
   { path: "/referent/examens", name: "ExamenR", component: ExamenR},
-  { path: "/referent/examens/create", name: "CreateExamenR", component: CreateExamenR},
-  { path: "/referent/examens/update", name: "ModifierExamenR", component: ModifierExamenR},    
+  //{ path: "/referent/examens/create", name: "CreateExamenR", component: CreateExamenR},
+  //{ path: "/referent/examens/update", name: "ModifierExamenR", component: ModifierExamenR},  
+  
+  { path: "/referent/examens/create", name: "referent_examen_create", component: ExamenCreate },
+  { path: "/referent/examens/update/:id", name: "referent_examen_update", component: ExamenCreate },
+  { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail },
   //Etudiant
   { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
   { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantDetail},
