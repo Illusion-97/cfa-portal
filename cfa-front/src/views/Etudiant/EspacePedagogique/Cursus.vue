@@ -24,20 +24,21 @@
       <thead class="thead-dark">
         <tr>
           <th>Titre</th>
-          <th>Contenu</th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody v-if="FormationsComputed">
-        <tr v-for="formation in FormationsComputed" :key="formation.id">
-          <td>
-            {{ formation.titre }}
-          </td>
-          <td>{{formation.contenu }}</td>
+      <tbody v-if="CursusComputed">
+        <tr v-for="cursus in CursusComputed" :key="cursus.id">
+          <td>{{cursus.titre }}</td>
+          <td><router-link
+              class="btn btn-info"
+              :to="{ name: '', params: { id: cursus.id } }"
+              >Detail</router-link></td>
         </tr>
       </tbody>
     </table>
 
-    <paginate
+    <!-- <paginate
       :page-count="pageCount"
       :page-range="1"
       :margin-pages="2"
@@ -54,15 +55,15 @@
       :active-class="'active'"
     >
       
-    </paginate>
+    </paginate> -->
   </div>
 </template>
 
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import {formationApi} from "@/_api/formation.api.js";
-import {etudiantApi} from "@/_api/etudiant.api.js";
+import {cursusApi} from "@/_api/cursus.api.js";
+// import {etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
   name: "Formations",
@@ -71,8 +72,7 @@ export default {
   },
   data() {
     return {
-      formations: null,
-      promotions: null,
+      cursus: null,
       perPage: 10,
       pageCount: 0,
       
@@ -86,12 +86,9 @@ export default {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
     },
-    FormationsComputed() {
-      return this.formations;
+    CursusComputed() {
+      return this.cursus;
     }, 
-    promotionsComputed() {
-      return this.promotions;
-    },
     nbPageComputed() {
       return this.pageCount;
     },
@@ -102,27 +99,24 @@ export default {
   },
   methods: {
     onSelected() {
-     formationApi
-        .getFormationByPromoId(this.selected.id)
-        .then((response) => (this.formations = response));
+     cursusApi
+        .getByIdEtudiant(this.$store.getters.getUtilisateur.id)
+        .then((response) => (this.cursus = response));
     },
-    pageChange(pageNum) {
-      formationApi
-        .getFormationByPromoId(this.selected.id,pageNum - 1, this.perPage)
-        .then((response) => (this.formations = response));
-    },
+    // pageChange(pageNum) {
+    //   formationApi
+    //     .getFormationByPromoId(this.selected.id,pageNum - 1, this.perPage)
+    //     .then((response) => (this.formations = response));
+    // },
     refreshList() {
-      etudiantApi
-      .getPromotions(this.$store.getters.getUtilisateur.id)
-      .then((response)=>(this.promotions = response));
-      formationApi
-        .getFormationByPromoId(this.selected.id,this.pageCount, this.perPage)
-        .then((response) => (this.formations = response));
-      formationApi
-        .countFormation()
-        .then(
-          (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        );
+     cursusApi
+        .getByIdEtudiant(this.$store.getters.getUtilisateur.id)
+        .then((response) => (this.cursus = response));
+      // formationApi
+      //   .countFormation()
+      //   .then(
+      //     (response) => (this.pageCount = Math.ceil(response / this.perPage))
+      //   );
     },
   },
 };
