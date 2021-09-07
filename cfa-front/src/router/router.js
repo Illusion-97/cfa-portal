@@ -208,7 +208,7 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/devoirs", name: "etudiant_espace-peda_devoirs", component: Devoirs, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/dossier-professionnel", name: "etudiant_espace-peda_dossier-pro", component: DossierPro, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: { authorize: [Role.Etudiant] } },
-  { path: "/etudiant/espace-pedagogique/cursus/details/:id", name: "etudiant_espace-peda_cursusdetails", component: CursusDetails , meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique/cursus/detail/:id", name: "etudiant_espace-peda_cursusdetails", component: CursusDetails , meta: { authorize: [Role.Etudiant] } },
 
   //#######################
   //#       FORMATEUR     #
