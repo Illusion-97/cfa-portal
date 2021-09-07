@@ -43,7 +43,6 @@
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
           <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
           <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
-          <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
           <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
         </b-nav>
       </nav>
