@@ -4,7 +4,7 @@
         <router-view />
       </div>
       <div class="body">
-        <BodyTitle title="Mon dossier professionel" />
+        <BodyTitle title="Mon dossier projet" />
         <div>
         <pdf src="attestation.pdf"></pdf>
         </div>
