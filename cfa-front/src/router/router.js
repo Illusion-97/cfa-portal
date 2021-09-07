@@ -56,8 +56,10 @@ import CursusDetails from "@/views/Etudiant/EspacePedagogique/CursusDetails.vue"
 import Cursus from "@/views/Etudiant/EspacePedagogique/Cursus.vue";
 import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
 import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
-import DossierPro from "@/views/Etudiant/EspacePedagogique/DossierPro.vue";
+import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfessionel.vue";
+import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
+import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
 
 //#######################
 //#       FORMATEUR     #
@@ -206,8 +208,10 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/cursus", name: "etudiant_espace-peda_cursus", component: Cursus, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/absences", name: "etudiant_espace-peda_absences", component: Absences, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/devoirs", name: "etudiant_espace-peda_devoirs", component: Devoirs, meta: { authorize: [Role.Etudiant] } },
-  { path: "/etudiant/espace-pedagogique/dossier-professionnel", name: "etudiant_espace-peda_dossier-pro", component: DossierPro, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique/dossier-professionnel", name: "etudiant_espace-peda_dossier-pro", component: DossierProfessionel, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique/dossier-projet", name: "etudiant_espace-peda_dossier-projet", component: DossierProjet, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/notes", name: "etudiant_espace-peda_notes", component: Notes, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-pedagogique/notes/details/:id", name: "etudiant_espace-peda_notesdetails", component: NotesDetails, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/cursus/detail/:id", name: "etudiant_espace-peda_cursusdetails", component: CursusDetails , meta: { authorize: [Role.Etudiant] } },
 
   //#######################
