@@ -127,7 +127,7 @@
             v-for="promotion in etudiant.promotionsDto"
             :key="promotion.id"
             @dblclick="clickPromotion(promotion)"
-            class="mon-tr"
+            class="mon-tr2"
           >
             <td>{{ promotion.nom }}</td>
             <td>{{ promotion.dateDebut }}</td>
@@ -489,8 +489,8 @@ export default {
       });
       }*/
   },
-    clickPromotion(promotion) {
-      let route = this.$route.path.split("/").splice(1);
+    clickPromotion() {
+      /*let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
         this.$router.push({
         name: "admin_promotion_detail",
@@ -503,7 +503,7 @@ export default {
         params: { id: promotion.id },
       });
       }
-      /*
+      
       else if{
         this.$router.push({
         name: "formateur-promotion-detail",
@@ -703,10 +703,13 @@ export default {
   padding-right: 50%;
 }
 
-.ma_tuile {
+.ma_tuile .ma_tuile2 {
   width: 8em;
 }
-
+.ma_tuile2:hover{
+  background-color: rgb(0, 140, 255);
+  color: white;
+}
 .ma_tuile:hover {
   background-color: rgb(0, 140, 255);
   color: white;
