@@ -17,6 +17,9 @@
         @click="clickUpdatePromo(promo)"
         >Update
       </router-link>
+      <!--<button class="btn btn-info" v-on:click="updatePromo(promo)">
+              Update2 
+            </button>-->
     </div>
 
     <div class="row">
@@ -208,6 +211,20 @@ export default {
       });
       }
     },
+    /*updatePromo(promo){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_promotion_update",
+        params: { id: promo.id },
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_promotion_update",
+        params: { id: promo.id },
+      });
+      }*/
     clickUpdatePromo(promo){
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){

@@ -80,8 +80,23 @@ export default {
       this.$router.go(-1);
     },
     submit(e) {
+      let route = this.$route.path.split("/").splice(1);
       e.preventDefault();
-      examenApi.save(this.form).then(() => this.$router.push({ name: 'admin_examen_list'}));
+      examenApi.save(this.form)
+      .then(() => 
+          { 
+                if (route[0]== 'admin'){
+                this.$router.push({ name: "admin_examen_list", 
+                
+                });
+              }
+              else {
+              this.$router.push({
+              name: "ExamenR",
+              });
+            }
+
+        });
     },
   },
   created(){

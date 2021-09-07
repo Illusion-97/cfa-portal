@@ -211,14 +211,9 @@
             <th>Date de fin</th>
             <th>Raison</th>
             <th>
-              <router-link
-                class="btn btn-primary font-weight-bold mon-plus"
-                :to="{
-                  name: 'admin_absence_create',
-                  params: { id: etudiant.id },
-                }"
-                >+</router-link
-              >
+              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click="createAbsence(etudiant)">
+              + 
+            </button>
             </th>
           </tr>
         </thead>
@@ -253,14 +248,9 @@
             <th>Type</th>
             <th>Status</th>
             <th>
-              <router-link
-                class="btn btn-primary font-weight-bold mon-plus"
-                :to="{
-                  name: 'admin_conge_create',
-                  params: { id: etudiant.id },
-                }"
-                >+</router-link
-              >
+              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click=createConge>
+              + 
+            </button>
             </th>
           </tr>
         </thead>
@@ -365,6 +355,60 @@ export default {
      goBack() {
       this.$router.go(-1);
     },
+    createConge(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_conge_create",
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_conge_create",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+      
+    },
+    createAbsence(etudiant){
+    let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_absence_create",
+        params: {id : etudiant.id}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_absence_create",
+        params: {id : etudiant.id}
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_absence_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_absence_create",
+      });
+      }*/
+  },
     clickPromotion(promotion) {
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){

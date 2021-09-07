@@ -254,11 +254,26 @@ export default {
       this.$router.go(-1);
     },
     submit(e) {
+      let route = this.$route.path.split("/").splice(1);
       e.preventDefault();
 
       promotionApi
         .save(this.form)
-        .then(() => this.$router.push({ name: "admin_promotion_list" }));
+        .then(() => 
+        
+            { 
+                if (route[0]== 'admin'){
+                this.$router.push({ name: "admin_promotion_list", 
+                
+                });
+              }
+              else {
+              this.$router.push({
+              name: "referent_promotion_list",
+              });
+            }
+        
+        });
     },
     removeFromlist(index) {
       this.etudiants.splice(index, 1);
