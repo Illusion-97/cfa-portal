@@ -82,7 +82,7 @@ export default {
     BodyTitle,
   },
   created() {
-    if (this.$route.name == "admin_absence_create") {
+    if (this.$route.name == "admin_absence_create" || this.$route.name == "referent_absence_create") {
       etudiantApi.getById(this.$route.params.id).then((response) => {
         this.form.etudiantDto = response;
         this.etudiant_input = `${this.form.etudiantDto.prenom} ${this.form.etudiantDto.nom}`;

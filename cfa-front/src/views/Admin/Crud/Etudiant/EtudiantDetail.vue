@@ -171,14 +171,9 @@
             <th>Note</th>
             <th>Observations</th>
             <th>
-              <router-link
-                class="btn btn-primary font-weight-bold mon-plus"
-                :to="{
-                  name: 'admin_note_create',
-                  params: { id: etudiant.id },
-                }"
-                >+</router-link
-              >
+              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click="createNote(etudiant)">
+              +
+            </button>
             </th>
           </tr>
         </thead>
@@ -434,6 +429,22 @@ export default {
         name: "cef_conge_create",
       });
       }*/
+    },
+    createNote(etudiant){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_note_create",
+        params: { id : etudiant.id},
+        
+      });
+      }
+      else if(route[0]== 'referent') {
+        this.$router.push({
+        name: "referent_note_create",
+         params: { id : etudiant.id},
+      });
+      }
     },
     createConge(){
       let route = this.$route.path.split("/").splice(1);

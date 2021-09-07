@@ -51,7 +51,7 @@
                 </tr>
               </tbody>
             </table>
-             <a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>
+             <!--<a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>-->
           </div>
   </div>
 </template>
