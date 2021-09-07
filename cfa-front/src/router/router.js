@@ -268,14 +268,21 @@ const routes = [
   //Promo
   { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail },
   { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate },
+  { path: "/referent/promotions/create", name: "referent_promotion_create", component: PromotionCreate },
   //Groupe
   { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail},
   //Note
   { path: "/referent/notes/detail/:id", name:"referent_note_detail", component: NoteDetail},
+  { path: "/referent/notes/update/:id", name:"referent_note_update", component: NoteCreate},
+  { path: "/referent/notes/create/:id", name:"referent_note_create", component: NoteCreate},
   //Absence
   { path: "/referent/absences/detail/:id", name:"referent_absence_detail", component: AbsenceDetail},
+  { path: "/referent/absences/create/:id", name:"referent_absence_create", component: AbsenceCreate},
+   { path: "/referent/absences/update/:id", name:"referent_absence_update", component: AbsenceCreate},
   //Conge
   { path: "/referent/conges/detail/:id", name:"referent_conge_detail", component: CongeDetail},
+  { path: "/referent/conges/create/:id", name:"referent_conge_create", component: CongeCreate},
+  { path: "/referent/conges/update/:id", name:"referent_conge_update", component: CongeCreate},
   //Etudiant
   { path: "/referent/etudiants/detail/:id", name:"referent_etudiant_detail", component: EtudiantDetail},
 

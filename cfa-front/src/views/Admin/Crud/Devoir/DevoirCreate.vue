@@ -101,10 +101,25 @@ export default {
       this.$router.go(-1);
     },
     submit(e) {
+      
+      let route = this.$route.path.split("/").splice(1);
       e.preventDefault();
       devoirApi
         .save(this.form)
-        .then(() => this.$router.push({ name: "admin_devoir_list" }));
+        .then(() => 
+          { 
+                if (route[0]== 'admin'){
+                this.$router.push({ name: "admin_devoir_list", 
+                
+                });
+              }
+              else {
+              this.$router.push({
+              name: "DevoirsR",
+              });
+            }
+
+        });
     },
   },
   created() {

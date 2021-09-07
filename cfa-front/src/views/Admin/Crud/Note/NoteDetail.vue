@@ -12,11 +12,9 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Detail</span>
-        <router-link
-          class="btn btn-info"
-          :to="{ name: 'admin_note_update', params: { id: noteId } }"
-          >Update</router-link
-        >
+        <button class="btn btn-info" v-on:click=updateNote>
+              Update 
+            </button>
       </b-card-header>
 
       <b-card-text class="identity row ml-5">
@@ -62,6 +60,32 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    updateNote(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_note_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_note_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_note_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_note_update",
+      });
+      }*/
     },
   },
   created() {
