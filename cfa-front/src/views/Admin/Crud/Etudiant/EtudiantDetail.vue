@@ -47,9 +47,10 @@
       <div class="btn-group " role="group" aria-label="Basic example">
       <!--<router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
       <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>-->
-      <router-link class="btn-hover color-1" :to="{name: 'admin_etudiant_fiche_salarie'}">Ajouter une fiche salarié </router-link>
-      <router-link class="btn-hover color-1" :to="{name: 'admin_etudiant_fiche_poste'}">Ajouter une fiche de poste</router-link>
-      <router-link class="btn-hover color-1" :to="{name: 'admin_etudiant_fiche_entreprise'}">Ajouter une fiche d'entreprise </router-link>
+      <button class="btn-hover color-1" v-on:click="createFicheSalarie(etudiant)">Ajouter une fiche salarié </button>
+      <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
+      <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+
     </div>
     <br>
     <br>
@@ -354,6 +355,85 @@ export default {
   methods: {
      goBack() {
       this.$router.go(-1);
+    },
+    createFicheSalarie(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_salarie",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_salarie",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+    },
+    createFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_poste",
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_poste",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+    },
+    createFicheEntreprise(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise",
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
     },
     createConge(){
       let route = this.$route.path.split("/").splice(1);
