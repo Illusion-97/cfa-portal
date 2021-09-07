@@ -255,7 +255,6 @@ const routes = [
   { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
   //{ path: "/referent/devoirs/create", name: "CreateDevoirR", component: CreateDevoirR},
   //{ path: "/referent/devoirs/update", name: "ModifierDevoirR", component: ModifierDevoirR},
-
   { path: "/referent/devoirs/create", name: "referent_devoir_create", component: DevoirCreate },
   { path: "/referent/devoirs/update/:id", name: "referent_devoir_update", component: DevoirCreate },
   { path: "/referent/devoirs/detail/:id", name: "referent_devoir_detail", component: DevoirDetail },
@@ -263,13 +262,9 @@ const routes = [
   { path: "/referent/examens", name: "ExamenR", component: ExamenR},
   //{ path: "/referent/examens/create", name: "CreateExamenR", component: CreateExamenR},
   //{ path: "/referent/examens/update", name: "ModifierExamenR", component: ModifierExamenR},  
-  
   { path: "/referent/examens/create", name: "referent_examen_create", component: ExamenCreate },
   { path: "/referent/examens/update/:id", name: "referent_examen_update", component: ExamenCreate },
   { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail },
-  //Etudiant
-  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
-  { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantDetail},
   //Promo
   { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail },
   { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate },
@@ -290,6 +285,7 @@ const routes = [
   { path: "/referent/conges/create/:id", name:"referent_conge_create", component: CongeCreate},
   { path: "/referent/conges/update/:id", name:"referent_conge_update", component: CongeCreate},
   //Etudiant
+  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
   { path: "/referent/etudiants/detail/:id", name:"referent_etudiant_detail", component: EtudiantDetail},
   { path: "/referent/etudiants/fiche-salarie", name:"referent_etudiant_fiche_salarie", component: EtudiantFicheSalarie},
   { path: "/referent/etudiants/fiche-poste", name:"referent_etudiant_fiche_poste", component: EtudiantFichePoste},

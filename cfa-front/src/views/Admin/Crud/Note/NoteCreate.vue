@@ -107,7 +107,7 @@ export default {
     DevoirListComponent,
   },
   created() {
-    if (this.$route.name == "admin_note_create") {
+    if (this.$route.name == "admin_note_create" || this.$route.name == "referent_note_create") {
       etudiantApi.getById(this.$route.params.id).then((response) => {
         this.form.etudiantDto = response;
         this.etudiant_input = `${this.form.etudiantDto.prenom} ${this.form.etudiantDto.nom}`;
