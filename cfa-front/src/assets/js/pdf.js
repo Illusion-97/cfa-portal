@@ -1,30 +1,7 @@
-<template>
-    <div >
-      <div class="monBody">
-        <router-view />
-      </div>
-      <div class="body">
-        <BodyTitle title="Mon dossier professionel" />
-          <div>
-            <input type="number" v-model.number="page"> /{{numPages}}
-            <pdf src="/attestation.pdf"
-              :page="page" 
-              @num-pages="numPages = $event" 
-              style="width:75%"></pdf>
-          </div>
-        
-        <div id="app"></div>
-    </div>
-    </div>
-    
-
-</template>
-<script>
 /* eslint-disable no-unused-vars */
 import PDFJS from "pdfjs"
-import resizeSensor from "@/assets/js/resizeSensor.js"
-import Vue from "vue";
-
+import resizeSensor from "../js/resizeSensor"
+import Vue from "@vue"
 
 function isPDFDocumentLoadingTask(obj) {
 	return typeof(obj) === 'object' && obj !== null && obj.__PDFDocumentLoadingTask === true;
@@ -410,5 +387,3 @@ components:{
 pdf: pdf
   },
 });
-
-</script>

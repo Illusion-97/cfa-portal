@@ -17,6 +17,7 @@
     "core-js": "^3.9.1",
     "jquery": "^3.6.0",
     "moment-timezone": "^0.5.33",
+    "pdfjs": "^2.4.6",
     "semantic-ui-css": "^2.4.1",
     "vue": "^2.6.14",
     "vue-loader": "^15.9.7",
