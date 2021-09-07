@@ -90,14 +90,14 @@
       </div>
     </b-form>
 
-    <router-link
-      :to="{ name: 'admin_dashboard' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
 
     </div>
     

@@ -13,7 +13,7 @@
       <b-card-header>
         <span class="">Detail d'absence</span>
         <button class="btn btn-info" v-on:click=updateAbsence>
-              Update 2
+              Update
             </button>
       </b-card-header>
       
