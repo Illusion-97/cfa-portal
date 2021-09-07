@@ -269,7 +269,7 @@ export default {
               }
               else {
               this.$router.push({
-              name: "referent_promotion_list",
+              name: "referent_promotions",
               });
             }
         

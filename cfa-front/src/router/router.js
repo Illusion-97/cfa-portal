@@ -250,6 +250,7 @@ const routes = [
   { path: "/referent/interventions", name: "referent_cours", component: CoursR},
   { path: "/referent/interventions/:id", name: "referent-intervention-detail", component: DetailIntervention},
   { path: "/referent/interventions/create", name: "CreateCoursR", component: CreateCoursR},
+  { path: "/referent/interventions/update/:id", name: "referent_modifier_intervention", component: AjoutIntervention }, 
   //Devoir
   { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
   //{ path: "/referent/devoirs/create", name: "CreateDevoirR", component: CreateDevoirR},
