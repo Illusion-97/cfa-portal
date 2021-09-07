@@ -56,7 +56,7 @@ import CursusDetails from "@/views/Etudiant/EspacePedagogique/CursusDetails.vue"
 import Cursus from "@/views/Etudiant/EspacePedagogique/Cursus.vue";
 import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
 import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
-import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfessionel.vue";
+import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfessionnel.vue";
 import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
