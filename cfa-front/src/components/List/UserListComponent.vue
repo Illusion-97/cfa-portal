@@ -52,6 +52,7 @@
           <!-- <th>Mot de passe</th> -->
           <!-- <th>Adresse</th> -->
           <!-- <th>Entreprise</th> -->
+          <th>Rôle</th>
           <th v-if="isAction">Action</th>
         </tr>
       </thead>
