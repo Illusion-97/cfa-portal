@@ -31,7 +31,7 @@
           <span class="font-weight-bold col-md-2">Email : </span>
           <span class="col-md-4">{{ utilisateur.login }}</span> 
           <span class="font-weight-bold col-md-2">Téléphone : </span>
-          <span class="col-md-4">{{/*utilisateur.telephone*/}}</span>
+          <span class="col-md-4">{{utilisateur.telephone}}</span>
         </b-card-text>
       </b-card>
 

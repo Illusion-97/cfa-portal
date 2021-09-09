@@ -18,12 +18,9 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Civilité :</span>
-          <span class="col-md-4"> {{ user.civilite }} </span>
-        </b-card-text>
-
-        <b-card-text class="row ml-5">
+          <span class="col-md-4"> {{ utilisateur.civilite }} </span>
           <span class="font-weight-bold col-md-2">Adresse : </span>
-          <span class="col-md-10"> {{ adresse.numero }} {{ adresse.rue }} </span>
+          <span class="col-md-4"> {{ adresse.numero }} {{ adresse.rue }} </span>
         </b-card-text>
 
         <b-card-text class="row ml-5">
@@ -35,14 +32,14 @@
 
         <b-card-text class="row ml-5">
           <span class="font-weight-bold col-md-2">Naissance le : </span>
-          <span class="col-md-4">{{ user.dateDeNaissance }}</span>
+          <span class="col-md-4">{{ utilisateur.dateDeNaissance }}</span>
+          <span class="font-weight-bold col-md-2">Email : </span>
+          <span class="col-md-4">{{ utilisateur.login }}</span> 
         </b-card-text>
 
         <b-card-text class="row ml-5">
-          <span class="font-weight-bold col-md-2">Email : </span>
-          <span class="col-md-4">{{ utilisateur.login }}</span> 
           <span class="font-weight-bold col-md-2">Téléphone : </span>
-          <span class="col-md-4">{{ user.telephone }}</span>
+          <span class="col-md-10">{{ utilisateur.telephone }}</span>
         </b-card-text>
       </b-card>
 
@@ -107,7 +104,6 @@ export default {
   data() {
     return {
       adresse: { id: "", numero: "", rue: "", ville: "", codePostal: "" },
-      user: { civilite: "", dateDeNaissance: "", telephone : ""}
     };
   },
   computed: {
@@ -119,8 +115,6 @@ export default {
   },
   created() {
     utilisateurApi.getAdresseById(this.$store.getters.getUtilisateur.id).then((response) => (this.adresse = response));
-
-    utilisateurApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.user = response));
   },
 };
 </script>
