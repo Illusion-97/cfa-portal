@@ -11,12 +11,13 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Intitulé du poste :</span>
-          <span class="col-md-10"> Concepteur / développeur d'application </span>
+          <span class="col-md-10"> {{ fichePoste.intitule }} </span>
         </b-card-text>
+
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Nature du poste : </span>
-          <span class="col-md-10">********* </span>
+          <span class="col-md-10">{{ fichePoste.nature }}</span>
         </b-card-text>
       </b-card>
 
@@ -30,12 +31,12 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Nom - Prenom :</span>
-          <span class="col-md-10"> Billon Tanguy </span>
+          <span class="col-md-10"> {{ utilisateur.nom }} {{ utilisateur.prenom }}</span>
         </b-card-text>
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Status,corps, Catégorie, grade : </span>
-          <span class="col-md-10">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta excepturi officiis pariatur dolorum, magnam quisquam voluptatibus, molestias totam natus rerum labore? Dignissimos alias itaque repudiandae rem possimus nihil laboriosam harum? </span>
+          <span class="col-md-10"> Etudiant </span>
         </b-card-text>
       </b-card>
 
@@ -48,17 +49,17 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Mission principale du service :</span>
-          <span class="col-md-10"> Dév Appli </span>
+          <span class="col-md-10"> {{ fichePoste.mission }} </span>
         </b-card-text>
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Composition du service : </span>
-          <span class="col-md-10">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta excepturi officiis pariatur dolorum, magnam quisquam voluptatibus, molestias totam natus rerum labore? Dignissimos alias itaque repudiandae rem possimus nihil laboriosam harum? </span>
+          <span class="col-md-10"> {{ fichePoste.compositionService }} </span>
         </b-card-text>
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Positionnement de l'agent dans le service : </span>
-          <span class="col-md-10">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta excepturi officiis pariatur dolorum, magnam quisquam voluptatibus, molestias totam natus rerum labore? Dignissimos alias itaque repudiandae rem possimus nihil laboriosam harum? </span>
+          <span class="col-md-10">{{ fichePoste.positionnement }}</span>
         </b-card-text>
       </b-card>
         <br>
@@ -70,7 +71,7 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Mission principale, Raison d'être ou finalité du poste :</span>
-          <span class="col-md-10"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi officia, ab quos molestiae fugit, dignissimos nihil nemo atque hic animi odit? Ratione, at ullam. Architecto vel vitae soluta maxime reiciendis. </span>
+          <span class="col-md-10"> {{fichePoste.missionPrincipale }}</span>
         </b-card-text>
 
       </b-card>
@@ -79,12 +80,29 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import { fichePosteApi } from "@/_api/fichePoste.api.js";
 export default {
     name: "FichePoste",
     components: {
         BodyTitle,
     },
-}
+data() {
+    return {
+      utilisateur: { nom: "", prenom: "" },
+      fichePoste: {},
+    };
+  },
+  computed: {
+    
+  },
+  methods: {
+  },
+  created() {
+    fichePosteApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.fichePoste = response));
+    utilisateurApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.utilisateur = response));
+  },
+};
 </script>
 
 <style scoped>
