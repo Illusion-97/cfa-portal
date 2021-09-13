@@ -11,6 +11,7 @@ export const cursusApi = {
   deleteCursus,
   getAllCursus,
   getByIdEtudiant,
+  getCurrentCursusByIdEtudiant,
 };
 
 function getById(id){
@@ -28,6 +29,15 @@ function getByIdEtudiant(id){
       .get(req, requestOptions.headers())
       .then(response => response.data)
       .catch((error) => console.log(error));
+}
+function getCurrentCursusByIdEtudiant(id){
+  let req = `/${END_POINT}/CurrentCursus/${id}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+
 }
 
 function getAllByPage(page, size, search = ""){
