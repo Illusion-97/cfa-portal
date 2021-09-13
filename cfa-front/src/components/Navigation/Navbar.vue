@@ -2,8 +2,9 @@
     <section>
         <nav class="navbar navbar-expand-lg" id="mainNav">
             <div class="container-fluid">
-                <router-link class="navbar-brand" to="/home"><img src="@/assets/img/institutionnel-logo.png" alt="logo"
-                        style="width:50%" /></router-link>
+                <router-link class="navbar-brand" to="/home">
+                    <img src="@/assets/img/institutionnel-logo.png" alt="logo" style="width:50%" />
+                </router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation">

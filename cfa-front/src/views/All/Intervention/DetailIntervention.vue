@@ -5,7 +5,12 @@
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
     </span>
+    
     <div id="grid-container">
+      <div id="note-information" class="mx-5 mt-2">
+        <h4>Note d'information</h4>
+        <p class="mt-4">{{this.items.noteInfoPersonnel}}</p>
+      </div>
       <div class="card" id="card-detail">
         <div class="card-header">
           <div class="float-right dropstart">
@@ -189,7 +194,7 @@
   #grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr repeat(3, 2fr);
+    grid-template-rows: 1fr 2fr;
     gap: 1em;
   }
 
@@ -210,6 +215,11 @@
 
   #devoir-list {
     grid-row: 2;
+    grid-column: 3;
+  }
+
+  #note-information{
+    grid-row: 1;
     grid-column: 3;
   }
 
