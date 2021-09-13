@@ -71,7 +71,7 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Mission principale, Raison d'être ou finalité du poste :</span>
-          <span class="col-md-10"> {{fichePoste.missionPrincipale }}</span>
+          <span class="col-md-10"> {{ fichePoste.missionPrincipale }}</span>
         </b-card-text>
 
       </b-card>
