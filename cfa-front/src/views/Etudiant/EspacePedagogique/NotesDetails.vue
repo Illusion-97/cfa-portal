@@ -12,16 +12,7 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Detail</span>
-        <button class="btn btn-info" v-on:click=updateNote>
-              Update 
-            </button>
       </b-card-header>
-
-      <b-card-text class="identity row ml-5">
-        <span class="font-weight-bold col-md-2">Etudiant :</span>
-        <span class="col-md-4">{{ note.etudiantDto.prenom }} {{ note.etudiantDto.nom }}</span>
-      </b-card-text>
-
       <b-card-text class="identity row ml-5">
         <span class="font-weight-bold col-md-2">Devoir/Examens :</span>
         <span class="col-md-4">
@@ -48,7 +39,7 @@
 <script>
 import { noteApi } from "@/_api/note.api.js";
 export default {
-  name: "NoteDetail",
+  name: "NotesDetails",
   components: {},
   data() {
     return {
@@ -60,33 +51,7 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
-    },
-    updateNote(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_note_update",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "referent_note_update",
-        
-      });
-      }
-      /*else {
-        this.$router.push({
-        name: "formateur_note_update",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_note_update",
-      });
-      }*/
-    },
+    }
   },
   created() {
     noteApi

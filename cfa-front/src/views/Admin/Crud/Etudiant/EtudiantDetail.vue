@@ -47,9 +47,10 @@
       <div class="btn-group " role="group" aria-label="Basic example">
       <!--<router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
       <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>-->
-      <router-link class="btn-hover color-1" :to="{name: 'admin_etudiant_fiche_salarie'}">Ajouter une fiche salarié </router-link>
-      <router-link class="btn-hover color-1" :to="{name: 'admin_etudiant_fiche_poste'}">Ajouter une fiche de poste</router-link>
-      <router-link class="btn-hover color-1" :to="{name: 'admin_etudiant_fiche_entreprise'}">Ajouter une fiche d'entreprise </router-link>
+      <button class="btn-hover color-1" v-on:click="createFicheSalarie(etudiant)">Ajouter une fiche salarié </button>
+      <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
+      <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+
     </div>
     <br>
     <br>
@@ -126,7 +127,7 @@
             v-for="promotion in etudiant.promotionsDto"
             :key="promotion.id"
             @dblclick="clickPromotion(promotion)"
-            class="mon-tr"
+            class="mon-tr2"
           >
             <td>{{ promotion.nom }}</td>
             <td>{{ promotion.dateDebut }}</td>
@@ -170,14 +171,9 @@
             <th>Note</th>
             <th>Observations</th>
             <th>
-              <router-link
-                class="btn btn-primary font-weight-bold mon-plus"
-                :to="{
-                  name: 'admin_note_create',
-                  params: { id: etudiant.id },
-                }"
-                >+</router-link
-              >
+              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click="createNote(etudiant)">
+              +
+            </button>
             </th>
           </tr>
         </thead>
@@ -211,14 +207,9 @@
             <th>Date de fin</th>
             <th>Raison</th>
             <th>
-              <router-link
-                class="btn btn-primary font-weight-bold mon-plus"
-                :to="{
-                  name: 'admin_absence_create',
-                  params: { id: etudiant.id },
-                }"
-                >+</router-link
-              >
+              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click="createAbsence(etudiant)">
+              + 
+            </button>
             </th>
           </tr>
         </thead>
@@ -253,14 +244,9 @@
             <th>Type</th>
             <th>Status</th>
             <th>
-              <router-link
-                class="btn btn-primary font-weight-bold mon-plus"
-                :to="{
-                  name: 'admin_conge_create',
-                  params: { id: etudiant.id },
-                }"
-                >+</router-link
-              >
+              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click=createConge>
+              + 
+            </button>
             </th>
           </tr>
         </thead>
@@ -365,8 +351,157 @@ export default {
      goBack() {
       this.$router.go(-1);
     },
-    clickPromotion(promotion) {
+    createFicheSalarie(){
       let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_salarie",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_salarie",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+    },
+    createFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_poste",
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_poste",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+    },
+    createFicheEntreprise(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise",
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+    },
+    createNote(etudiant){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_note_create",
+        params: { id : etudiant.id},
+        
+      });
+      }
+      else if(route[0]== 'referent') {
+        this.$router.push({
+        name: "referent_note_create",
+         params: { id : etudiant.id},
+      });
+      }
+    },
+    createConge(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_conge_create",
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_conge_create",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_create",
+      });
+      }*/
+      
+    },
+    createAbsence(etudiant){
+    let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_absence_create",
+        params: {id : etudiant.id}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_absence_create",
+        params: {id : etudiant.id}
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_absence_create",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_absence_create",
+      });
+      }*/
+  },
+    clickPromotion() {
+      /*let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
         this.$router.push({
         name: "admin_promotion_detail",
@@ -379,7 +514,7 @@ export default {
         params: { id: promotion.id },
       });
       }
-      /*
+      
       else if{
         this.$router.push({
         name: "formateur-promotion-detail",
@@ -579,10 +714,13 @@ export default {
   padding-right: 50%;
 }
 
-.ma_tuile {
+.ma_tuile .ma_tuile2 {
   width: 8em;
 }
-
+.ma_tuile2:hover{
+  background-color: rgb(0, 140, 255);
+  color: white;
+}
 .ma_tuile:hover {
   background-color: rgb(0, 140, 255);
   color: white;

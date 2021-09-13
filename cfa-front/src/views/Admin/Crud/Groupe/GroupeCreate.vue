@@ -103,7 +103,7 @@ export default {
       e.preventDefault();
       groupeApi
         .save(this.form)
-        .then(() => this.$router.push({ name: "admin_groupe_list" }));
+        .then(() => this.goBack());
     },
     showModal() {
       this.isModalVisible = true;

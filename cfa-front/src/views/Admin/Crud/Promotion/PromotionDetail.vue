@@ -11,12 +11,9 @@
 
     <div class="mon-titre">
       <BodyTitle :title="promotion.nom" class="mb-5" />
-      <router-link
-        class="btn btn-info mon-btn"
-        :to="{ name: 'admin_promotion_update', params: { id: promotionId } }"
-        @click="clickUpdatePromo(promo)"
-        >Update
-      </router-link>
+      <button class="btn btn-info mon-btn" v-on:click=updatePromo>
+              Update
+            </button>
     </div>
 
     <div class="row">
@@ -208,6 +205,22 @@ export default {
       });
       }
     },
+    updatePromo(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_promotion_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_promotion_update",
+       
+      });
+      }
+    },
+
     clickUpdatePromo(promo){
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){

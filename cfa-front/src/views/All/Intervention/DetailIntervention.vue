@@ -18,12 +18,9 @@
               <font-awesome-icon :icon="['fas', 'ellipsis-v']" class="icon text-dark" />
             </a>
             <div class="dropdown-menu rounded-0">
-              <router-link :to="{
-                  name: 'modifier-intervention',
-                  params: { id: interventionId },
-                }" class="icon-link dropdown-item">
+              <span v-on:click=modifierIntervention class="icon-link dropdown-item">
                 Modifier
-              </router-link>
+              </span>
               <span v-on:click="deleteIntervention(interventionId)" class="icon-link dropdown-item">
                 Supprimer
               </span>
@@ -63,7 +60,7 @@
       </div>
       <div id="student-list">
         <span class="btn-toggle" data-toggle="collapse" href="#Collapse1" role="button" aria-expanded="false"
-          aria-controls="Collapse1">Afficher les étudiants</span>
+          aria-controls="Collapse1">Les étudiants</span>
         <div class="collapse" id="Collapse1">
           <div class="card card-body border-0">
             <table class="table text-center table-sm">
@@ -88,7 +85,7 @@
 
       <div id="promotion-list">
         <span class="btn-toggle" data-toggle="collapse" href="#Collapse2" role="button" aria-expanded="false"
-          aria-controls="Collapse2">Afficher les promotions</span>
+          aria-controls="Collapse2">Les promotions</span>
         <div class="collapse show" id="Collapse2">
           <div class="card card-body border-0">
             <ul v-for="p in promo" :key="p.id" class="list-style-none">
@@ -153,6 +150,32 @@
           this.promo = this.items.promotionsDto;
           // this.items.formationDto = data.formationDto;
         });
+      },
+      modifierIntervention(){
+        let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "modifier-intervention",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_modifier_intervention",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_note_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_note_update",
+      });
+      }*/
       },
       deleteIntervention(id) {
         interventionApi.deleteIntervention(id).then((response) => {

@@ -26,6 +26,7 @@
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-projet'}">Dossier projet</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link>
           </b-nav>
         </nav>
@@ -42,7 +43,6 @@
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
           <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
           <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
-          <router-link class="nav-item" :to="{name:'referent_absence-retard'}">Absences / Retards</router-link>
           <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
         </b-nav>
       </nav>
@@ -58,7 +58,7 @@
             <router-link class="nav-item" :to="{name:'admin_utilisateur'}">Utilisateurs</router-link>
             <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
             <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
-            <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link>
+            <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
             <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link>
 
           </b-nav>
@@ -68,9 +68,7 @@
   </div>
 </template>
 <script>
-  import {
-    utilisateurService
-  } from "@/_services/utilisateur.service.js"
+  import { utilisateurService } from "@/_services/utilisateur.service.js"
 
   export default {
     name: "VerticalNavbar",

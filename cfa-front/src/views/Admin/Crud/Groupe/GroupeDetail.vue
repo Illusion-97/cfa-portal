@@ -15,12 +15,9 @@
           <span class="mon-label">Groupe : </span>
           <span class="group-nom">{{ groupe.nom }}</span>
         </div>
-
-        <router-link
-          class="btn btn-info"
-          :to="{ name: 'admin_groupe_update', params: { id: groupeId } }"
-          >Update</router-link
-        >
+        <button class="btn btn-info" v-on:click=updateGroupe>
+              Update 
+            </button>
       </b-card-header>
 
       <div class="offset-1 col-10">
@@ -73,6 +70,32 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    updateGroupe(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_groupe_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_groupe_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_groupe_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_groupe_update",
+      });
+      }*/
     },
     refreshList() {
       groupeApi

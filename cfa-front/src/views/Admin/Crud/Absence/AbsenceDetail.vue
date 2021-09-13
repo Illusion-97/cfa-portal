@@ -12,11 +12,9 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Detail d'absence</span>
-        <router-link
-          class="btn btn-info"
-          :to="{ name: 'admin_absence_update', params: { id: absenceId } }"
-          >Update</router-link
-        >
+        <button class="btn btn-info" v-on:click=updateAbsence>
+              Update
+            </button>
       </b-card-header>
       
       <b-card-text class="identity row ml-5">
@@ -61,6 +59,32 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    updateAbsence(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_absence_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_absence_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_absence_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_absence_update",
+      });
+      }*/
     },
   },
   created() {

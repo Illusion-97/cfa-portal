@@ -4,27 +4,24 @@
         <router-view />
       </div>
       <div class="body">
-        <BodyTitle title="Evaluation Formation" />
-
-        <br>
-        <br>
-        <br>
-
-        <div class="Menu">
-            <p>censé y avoir un truc la</p>
+        <BodyTitle title="Mon dossier projet" />
+        <div>
+        <pdf src="attestation.pdf"></pdf>
         </div>
     </div>
     </div>
     
 
-  
 </template>
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import pdf from 'vue-pdf'
+
 export default {
-  name: "EvaluationFormation",
+  name: "DossierPro",
   components: {
-    BodyTitle
+    BodyTitle,
+    pdf
   }
 }
 </script>

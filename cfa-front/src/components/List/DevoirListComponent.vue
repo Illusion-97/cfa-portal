@@ -29,7 +29,7 @@
         >Ajouter</router-link
       >-->
       <button class="btn btn-info" v-on:click=ajouterDevoir>
-              Ajouter test 
+              Ajouter 
             </button>
     </div>
     <table class="table table-bordered table-striped table-hover">
