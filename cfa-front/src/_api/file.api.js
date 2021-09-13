@@ -8,6 +8,7 @@ export const fileApi = {
     downloadByDirectoryAndIdAndFilename,
     deleteByDirectoryAndIdAndFilename,
     submitFileByDirectoryAndId,
+    submitFileByDirectoryAndIdAndDirectory
 };
 
 
@@ -63,4 +64,19 @@ function submitFileByDirectoryAndId(directory, id, file) {
         })
         .then((response) => response)
         .catch((error) => console.log(error));
+}
+function submitFileByDirectoryAndIdAndDirectory(directory, id,directory2, file) {
+
+  let req = `files/${directory}/${id}/${directory2}`;
+
+    let formData = new FormData();
+    formData.append("file", file);
+
+    return axios
+      .post(req, formData, {
+        headers: {  "Content-Type": "multipart/form-data",
+                    'Authorization': 'Bearer ' + store.getters.getToken },
+      })
+      .then((response) => response)
+      .catch((error) => console.log(error));
 }
