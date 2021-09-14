@@ -9,6 +9,7 @@ export const entrepriseApi = {
     save,
     deleteEntreprise,
     getAllEntreprises,
+    getAll,
 }
 
 const END_POINT = "entreprises";
@@ -59,4 +60,13 @@ function deleteEntreprise(id) {
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+function getAll(){
+  let req = `/entreprises`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }

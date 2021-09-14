@@ -9,10 +9,21 @@
         <!-- Nom -->
         <label class="col-1">Nom de l'entreprise</label>
         <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <select
+              class="custom-select"
+              v-model="form.entrepriseDto"
+            >
+              <option
+                v-for="e in entreprisesComputed"
+                :key="e.id"
+                :value="e"
+                >{{ e.raisonSociale }}</option
+              >
+            </select>
+          <!--<b-form-input v-model="form.nom" required></b-form-input>-->
         </div>
 
-        <!-- Cursus -->
+        <!-- 
         <label class=" col-1">Logo</label>
         <div class="col-3">
           <div class="file-field">
@@ -22,23 +33,26 @@
               </div>
             </div>
           </div>
-        </div>
-      </b-form-row>
+        </div>-->
+      </b-form-row> 
 
+<!-- 
       <b-form-row class="text-align-left">
-        <!-- Nom -->
         <label class="col-1">Adresse</label>
-        <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+        <div class="col-10">
+          <AdresseListComponent
+        v-on:click-list="onClickChildAdresseList"
+        :adresseProp="adresse_input"
+      />
         </div>
-      </b-form-row>
+      </b-form-row> -->
 
       <br>
 
       <b-form-row class="text-align-left">
         <label class="col-2">Historique succinct</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.historique" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -47,7 +61,7 @@
       <b-form-row class="text-align-left">
         <label class="col-2">Nom du (ou de la) dirigeant(e)actuel(e)</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.nomDirigeant" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -55,11 +69,11 @@
         <!-- Nom -->
         <label class="col-2">Secteur d'activité </label>
         <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.secteurActivite" required></b-form-input>
         </div>
         <label class="col-2">Type d'organisation</label>
         <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.organisationType" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -69,12 +83,12 @@
         <!-- Nom -->
         <label class="col-2">Combien de salariés</label>
         <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.nbSalarie" required></b-form-input>
         </div>
         <!-- Nom -->
         <label class="col-2">Chiffre d'affaire annuel</label>
         <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.chiffreAffaireAnnuel" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -84,7 +98,7 @@
         <!-- Nom -->
         <label class="col-2">Description de son activité</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.activiteDescription" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -93,7 +107,7 @@
        <b-form-row class="text-align-left">
         <label class="col-2">Type d'usagers / clients auxqels elle rend service</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.clientType" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -101,7 +115,7 @@
         <!-- Nom -->
         <label class="col-2">Profils de formations</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.formationProfil" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -110,7 +124,7 @@
        <b-form-row class="text-align-left">
         <label class="col-2">Métiers exercés par ses salariés</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.metiersExerces" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -136,86 +150,79 @@
 </template>
 
 <script>
-import {utilisateurApi} from "@/_api/utilisateur.api.js";
+import {ficheEntrepriseApi} from "@/_api/ficheEntreprise.api.js";
+import { entrepriseApi } from "@/_api/entreprise.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+// import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
 export default {
   name: "AddUser",
   components: {
     BodyTitle,
-
+    // AdresseListComponent,
   },
   data() {
     return {
       btn_form_text: "Ajouter",
       vue_title: "Création fiche entreprise",
+      entreprises: null,
+      selected: null,
+      
 
       form: {
-        id: null,
-        prenom: "",
-        nom: "",
-        login: "",
-        password: "",
-        rolesDto: [],
-        adresseDto: {},
-        entrepriseDto: {},
+        entrepriseDto: null,
+        historique: "",
+        nomDirigeant: "",
+        secteurActivite: "",
+        organisationType: "",
+        nbSalarie: "",
+        chiffreAffaireAnnuel: "",
+        activiteDescription: "",
+        clientType: "",
+        formationProfil: "",
+        metiersExerces: "",
       },
-
       adresse: null,
-      entreprise: null,
+
     };
   },
+  created(){
+    etudiantApi.getById(this.utilisateur.id).then((response) => {
+        this.form.etudiantDto = response;
+    });
+
+    entrepriseApi.getAll().then((response) => (this.entreprises = response));
+  },
   computed: {
-    rolesComputed() {
-      return this.form.rolesDto;
+    entreprisesComputed() {
+      return this.entreprises;
+    },
+    utilisateur(){
+
+      return this.$store.getters.getUtilisateur;
     },
     adresse_input(){
       return this.adresse;
     },
-    entreprise_input(){
-      return this.entreprise;
-    },
   },
   methods: {
     onClickChildAdresseList(adresse) {
-      this.form.adresseDto = adresse;
-    },
-    onClickChildEntrepriseList(entreprise) {
-      this.form.entrepriseDto = entreprise;
+      this.form.adresseSiegeDto = adresse;
     },
     submit(e) {
       e.preventDefault();
 
-      utilisateurApi
+      ficheEntrepriseApi
       .save(this.form)
       .then(() => this.$router.push({ name: 'admin_dashboard'}));
-    },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
+
     },
     goBack() {
       this.$router.go(-1);
     },
-    onClickClose(roles){
-      this.form.rolesDto = roles;
-    }
   },
-  created() {
+
   
-    if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-      console.log(this.$route.params.id);
-      utilisateurApi.getById(this.$route.params.id).then(response => {
-        this.form = response
-        this.vue_title = "Modification d'un utilisateur";
-        this.btn_form_text = "Modifier";
-        this.adresse = response.adresseDto;
-        this.entreprise = response.entrepriseDto;
-        this.role = response.rolesDto;
-        });
-    }
-  },
 };
 </script>
 
