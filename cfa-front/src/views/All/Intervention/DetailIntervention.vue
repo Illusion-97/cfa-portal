@@ -5,23 +5,34 @@
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
     </span>
-    
+
+    {{absencesComp}}
+
     <div id="grid-container">
       <div id="note-information" class="mx-5 mt-2">
         <h4>Note d'information</h4>
-        <p class="mt-4">{{this.items.noteInfoPersonnel}}</p>
+        <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
       <div class="card" id="card-detail">
         <div class="card-header">
           <div class="float-right dropstart">
             <a class="" href="#" id="navbardrop" data-toggle="dropdown">
-              <font-awesome-icon :icon="['fas', 'ellipsis-v']" class="icon text-dark" />
+              <font-awesome-icon
+                :icon="['fas', 'ellipsis-v']"
+                class="icon text-dark"
+              />
             </a>
             <div class="dropdown-menu rounded-0">
-              <span v-on:click=modifierIntervention class="icon-link dropdown-item">
+              <span
+                v-on:click="modifierIntervention"
+                class="icon-link dropdown-item"
+              >
                 Modifier
               </span>
-              <span v-on:click="deleteIntervention(interventionId)" class="icon-link dropdown-item">
+              <span
+                v-on:click="deleteIntervention(interventionId)"
+                class="icon-link dropdown-item"
+              >
                 Supprimer
               </span>
             </div>
@@ -47,7 +58,7 @@
                 <th>Formateurs affecté</th>
                 <td v-if="trainers.length > 0">
                   <ul class="list-style-none" v-for="t in trainers" :key="t.id">
-                    <li>{{t.nom}} {{t.prenom}}</li>
+                    <li>{{ t.nom }} {{ t.prenom }}</li>
                   </ul>
                 </td>
                 <td v-else>
@@ -59,8 +70,15 @@
         </div>
       </div>
       <div id="student-list">
-        <span class="btn-toggle" data-toggle="collapse" href="#Collapse1" role="button" aria-expanded="false"
-          aria-controls="Collapse1">Les étudiants</span>
+        <span
+          class="btn-toggle"
+          data-toggle="collapse"
+          href="#Collapse1"
+          role="button"
+          aria-expanded="false"
+          aria-controls="Collapse1"
+          >Les étudiants</span
+        >
         <div class="collapse" id="Collapse1">
           <div class="card card-body border-0">
             <table class="table text-center table-sm">
@@ -73,9 +91,9 @@
               </thead>
               <tbody>
                 <tr v-for="stud in students" :key="stud.id">
-                  <td>{{stud.nom}}</td>
-                  <td>{{stud.prenom}}</td>
-                  <td>{{stud.login}}</td>
+                  <td>{{ stud.nom }}</td>
+                  <td>{{ stud.prenom }}</td>
+                  <td>{{ stud.login }}</td>
                 </tr>
               </tbody>
             </table>
@@ -84,8 +102,15 @@
       </div>
 
       <div id="promotion-list">
-        <span class="btn-toggle" data-toggle="collapse" href="#Collapse2" role="button" aria-expanded="false"
-          aria-controls="Collapse2">Les promotions</span>
+        <span
+          class="btn-toggle"
+          data-toggle="collapse"
+          href="#Collapse2"
+          role="button"
+          aria-expanded="false"
+          aria-controls="Collapse2"
+          >Les promotions</span
+        >
         <div class="collapse show" id="Collapse2">
           <div class="card card-body border-0">
             <ul v-for="p in promo" :key="p.id" class="list-style-none">
@@ -96,16 +121,55 @@
         </div>
       </div>
       <div id="devoir-list">
-        <span class="btn-toggle" data-toggle="collapse" href="#Collapse3" role="button" aria-expanded="false"
-          aria-controls="Collapse3">Devoirs</span>
+        <span
+          class="btn-toggle"
+          data-toggle="collapse"
+          href="#Collapse3"
+          role="button"
+          aria-expanded="false"
+          aria-controls="Collapse3"
+          >Devoirs</span
+        >
         <div class="collapse" id="Collapse3">
           <div class="card card-body border-0">
             <span v-if="assignements.length > 0">
-              <pre>{{assignements}}</pre>
+              <pre>{{ assignements }}</pre>
             </span>
             <span v-else class="text-center">
               Aucun devoirs
             </span>
+          </div>
+        </div>
+      </div>
+
+      <div id="absence-list">
+        <span
+          class="btn-toggle"
+          data-toggle="collapse"
+          href="#Collapse3"
+          role="button"
+          aria-expanded="false"
+          aria-controls="Collapse3"
+          >Absences</span
+        >
+        <div class="collapse" id="Collapse3">
+          <div class="card card-body border-0">
+            <table class="table text-center table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Etudiant</th>
+                  <th scope="col">Date debut</th>
+                  <th scope="col">Date Fin</th>                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="absence in absences" :key="absence.id">
+                  <td>{{ absence.etudiantDto }}</td>
+                  <td>{{ absence.dateDebut }}</td>
+                  <td>{{ absence.dateFin }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -114,56 +178,55 @@
 </template>
 
 <script>
-  import {
-    interventionApi
-  } from "@/_api/intervention.api.js";
-  export default {
-    name: "DetailIntervention",
-    data() {
-      return {
-        interventionId: this.$route.params.id,
-        items: {
-          formationDto: {},
-        },
-        students: [],
-        promo: [],
-        assignements: [],
-        trainers: [],
-        loading: false,
-        status,
-      };
-    },
-    created() {
-      this.getId();
-      this.getStudents();
-      this.getAssignement();
-      this.getTrainer();
-    },
-    methods: {
-      goBack() {
-        this.$router.go(-1);
+import { interventionApi } from "@/_api/intervention.api.js";
+import { absencesApi } from "@/_api/absence.api.js";
+export default {
+  name: "DetailIntervention",
+  data() {
+    return {
+      interventionId: this.$route.params.id,
+      items: {
+        formationDto: {},
       },
-      getId() {
-        interventionApi.getInterventionById(this.interventionId).then((data) => {
-          this.status = data.status;
-          this.items = data.data;
-          this.promo = this.items.promotionsDto;
-          // this.items.formationDto = data.formationDto;
-        });
-      },
-      modifierIntervention(){
-        let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "modifier-intervention",
-        
+      students: [],
+      promo: [],
+      assignements: [],
+      absences: [],
+      trainers: [],
+      loading: false,
+      status,
+    };
+  },
+  created() {
+    this.getId();
+    //On a besoin de this.students.length pour getAbsences
+    this.getStudents()
+    this.getAssignement();
+    this.getTrainer();
+    
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+    getId() {
+      interventionApi.getInterventionById(this.interventionId).then((data) => {
+        this.status = data.status;
+        this.items = data.data;
+        this.promo = this.items.promotionsDto;
+        // this.items.formationDto = data.formationDto;
       });
-      }
-      else {
+    },
+    modifierIntervention() {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_modifier_intervention",
-        
-      });
+          name: "modifier-intervention",
+        });
+      } else {
+        this.$router.push({
+          name: "referent_modifier_intervention",
+        });
       }
       /*else {
         this.$router.push({
@@ -176,111 +239,133 @@
         name: "cef_note_update",
       });
       }*/
-      },
-      deleteIntervention(id) {
-        interventionApi.deleteIntervention(id).then((response) => {
-          this.status = response.status;
-          if (this.status == 202) {
-            this.$router.push({
-              name: "all-intervention",
-            });
-            this.showAlert;
+    },
+    deleteIntervention(id) {
+      interventionApi.deleteIntervention(id).then((response) => {
+        this.status = response.status;
+        if (this.status == 202) {
+          this.$router.push({
+            name: "all-intervention",
+          });
+          this.showAlert;
+        }
+      });
+    },
+    getStudents() {
+      interventionApi
+        .findStudentsByPromoInterventionId(this.interventionId)
+        .then((data) => (this.students = data))
+        .then(() => this.getAbsences());
+    },
+    getAssignement() {
+      interventionApi
+        .findAssignementByInterventionId(this.interventionId)
+        .then((data) => (this.assignements = data));
+    },
+    getTrainer() {
+      interventionApi
+        .findTrainerByInterventionId(this.interventionId)
+        .then((data) => (this.trainers = data));
+    },
+    getAbsences() {
+      for(let i=0; i < this.students.length; i++){
+        absencesApi
+          .getAllByIdEtudiant(this.students[i].id)
+          .then(data =>{
+            //data est un array, on veut pas un array d'array donc on fait element par element
+            for(let j=0; j<data.length; j++){
+              this.absences.push(data[j])
+            }
           }
-        });
-      },
-      getStudents() {
-        interventionApi
-          .findStudentsByPromoInterventionId(this.interventionId)
-          .then((data) => (this.students = data));
-      },
-      getAssignement() {
-        interventionApi
-          .findAssignementByInterventionId(this.interventionId)
-          .then((data) => (this.assignements = data));
-      },
-      getTrainer() {
-        interventionApi
-          .findTrainerByInterventionId(this.interventionId)
-          .then((data) => (this.trainers = data));
-      },
+           )
+      }
     },
-    computed: {
-      showAlert() {
-        if (this.status == 202) return "d-block";
-        return "d-none";
-      },
+  },
+  computed: {
+    showAlert() {
+      if (this.status == 202) return "d-block";
+      return "d-none";
     },
-  };
+    absencesComp(){
+      return this.absences;
+    }
+  },
+};
 </script>
 
 <style scoped>
-  #grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 2fr;
-    gap: 1em;
-  }
+#grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 2fr;
+  gap: 1em;
+}
 
-  #card-detail {
-    grid-column: 2;
-    grid-row: 1;
-  }
+#card-detail {
+  grid-column: 2 / span 2;
+  grid-row: 1;
+}
 
-  #student-list {
-    grid-row: 2;
-    grid-column: 1;
-  }
+#student-list {
+  grid-row: 2;
+  grid-column: 1;
+}
 
-  #promotion-list {
-    grid-row: 2;
-    grid-column: 2;
-  }
+#promotion-list {
+  grid-row: 2;
+  grid-column: 2;
+}
 
-  #devoir-list {
-    grid-row: 2;
-    grid-column: 3;
-  }
+#devoir-list {
+  grid-row: 2;
+  grid-column: 3;
+}
 
-  #note-information{
-    grid-row: 1;
-    grid-column: 3;
-  }
+#absence-list {
+  grid-row: 2;
+  grid-column: 4;
+}
 
-  .icon-link {
-    cursor: pointer;
-    color: black;
-    text-decoration: none;
-    /* margin-bottom: 2em; */
-  }
+#note-information {
+  grid-row: 1;
+  grid-column: 4;
+}
 
-  .icon {
-    cursor: pointer;
-  }
+.icon-link {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  /* margin-bottom: 2em; */
+}
 
-  .table th {
-    border-top: 0;
-  }
+.icon {
+  cursor: pointer;
+}
 
-  .list-style-none {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+.table th {
+  border-top: 0;
+}
 
-  .btn-toggle {
-    border-radius: 0;
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
+.list-style-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-  .btn-toggle:after {
-    content: "";
-    position: absolute;
-    left: 35%;
-    bottom: 0;
-    height: 1px;
-    width: 30%;
-    border-bottom: 1px solid black;
-  }
+.btn-toggle {
+  border-radius: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-toggle:after {
+  content: "";
+  position: absolute;
+  left: 35%;
+  bottom: 0;
+  height: 1px;
+  width: 30%;
+  border-bottom: 1px solid black;
+}
 </style>

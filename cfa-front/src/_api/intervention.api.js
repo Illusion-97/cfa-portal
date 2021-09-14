@@ -21,8 +21,7 @@ export const interventionApi = {
     findStudentsByPromoInterventionId,
     findPromoByInterventionId,
     findAssignementByInterventionId,
-    findTrainerByInterventionId
-    
+    findTrainerByInterventionId,    
 }
 
 

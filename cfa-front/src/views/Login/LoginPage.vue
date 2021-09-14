@@ -4,7 +4,7 @@
       <div class="form-horizontal">
         <div class="form-group">
           <div class="col-md-offset-2 col-md-12">
-            <h2>Login</h2>
+            <h2>Connexion</h2>
           </div>
         </div>
 
@@ -56,7 +56,7 @@
               value="Se connecter"
             />
           </div>
-          <hr />
+          <!-- <hr /> -->
           <!--
           <div class="foot-lnk">
             <a href="LoginPage">Mot de Passe oublié ?</a>
