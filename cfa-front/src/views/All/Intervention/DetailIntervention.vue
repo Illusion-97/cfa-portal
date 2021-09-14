@@ -6,10 +6,8 @@
       Precedent
     </span>
 
-    {{absencesComp}}
-
     <div id="grid-container">
-      <div id="note-information" class="mx-5 mt-2">
+      <div id="note-information" class="mx-5 mt-2" v-if="items.noteInfoPersonnel">
         <h4>Note d'information</h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
@@ -146,13 +144,36 @@
         <span
           class="btn-toggle"
           data-toggle="collapse"
-          href="#Collapse3"
+          href="#Collapse4"
           role="button"
           aria-expanded="false"
-          aria-controls="Collapse3"
-          >Absences</span
-        >
-        <div class="collapse" id="Collapse3">
+          aria-controls="Collapse4"
+          > Absences       
+        
+        <div class="dropstart">
+            <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+              <font-awesome-icon
+                :icon="['fas', 'ellipsis-v']"
+                class="icon text-dark"
+              />
+            </a>
+            <div class="dropdown-menu rounded-0">
+              <span
+                v-on:click="modifierIntervention"
+                class="icon-link dropdown-item"
+              >
+                Modifier
+              </span>
+              <span
+                v-on:click="deleteIntervention(interventionId)"
+                class="icon-link dropdown-item"
+              >
+                Supprimer
+              </span>
+            </div>
+          </div>
+          </span>
+        <div class="collapse" id="Collapse4">
           <div class="card card-body border-0">
             <table class="table text-center table-sm">
               <thead>
@@ -164,7 +185,7 @@
               </thead>
               <tbody>
                 <tr v-for="absence in absences" :key="absence.id">
-                  <td>{{ absence.etudiantDto }}</td>
+                  <td>{{ absence.etudiantDto.prenom}} {{ absence.etudiantDto.nom }}</td>
                   <td>{{ absence.dateDebut }}</td>
                   <td>{{ absence.dateFin }}</td>
                 </tr>
