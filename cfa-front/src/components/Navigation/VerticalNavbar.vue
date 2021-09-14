@@ -25,7 +25,7 @@
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_cursus'}">Mon cursus</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link>
-            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionel</router-link>
+            <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-pro'}">Dossier professionnel</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_dossier-projet'}">Dossier projet</router-link>
             <router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link>
           </b-nav>
