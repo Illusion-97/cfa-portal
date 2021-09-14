@@ -4,17 +4,13 @@
       <div class="offset-2 col-md-10">
         <div class="row">
           <div class="my-btn-div col-md-12">
-            <span
-              type="button"
-              class="next-prev"
-              @click="previousWeek()"
-            >
-            <b-icon icon="chevron-double-left"></b-icon>
+            <span type="button" class="next-prev" @click="previousWeek()">
+              <b-icon icon="chevron-double-left"></b-icon>
               Précédent
             </span>
             <span type="button" class="next-prev" @click="nextWeek()">
               Suivant
-            <b-icon icon="chevron-double-right"></b-icon>
+              <b-icon icon="chevron-double-right"></b-icon>
             </span>
           </div>
         </div>
@@ -62,8 +58,7 @@
                 <div
                   v-for="intervention in item"
                   :key="intervention.id"
-                  class="intervention"
-                >
+                  class="intervention">
                   <p class="font-weight-bold h5">
                     {{ intervention.formationDto.titre }}
                   </p>
@@ -72,13 +67,19 @@
                   </p>
                   <div
                     v-for="formateur in intervention.formateurDto"
-                    :key="formateur.id"
-                  >
+                    :key="formateur.id">
                     <p>
-                      <span class="font-weight-bold">Formateur : </span
-                      >{{ formateur.prenom }} {{ formateur.nom }}
+                      <span class="font-weight-bold">Formateur : </span>
+                      {{ formateur.prenom }} {{ formateur.nom }}
                     </p>
                   </div>
+                  <router-link
+                    :to="{ name: 'intervention-detail',
+                      params: { id: intervention.idIntervention },}">
+                    <font-awesome-icon
+                      :icon="['fas', 'external-link-alt']"
+                      class="icon text-primary"/>
+                  </router-link>
                 </div>
               </td>
             </tr>
@@ -103,7 +104,7 @@ export default {
     },
     edt() {
       this.date.setHours(0, 0, 0, 0);
-      
+
       //On veut récupérer l'edt de la semaine correspondant à la date donnée en propriété du composant
       let result = [];
       let edtTot = this.$store.getters.getPlanning;
@@ -246,7 +247,8 @@ table {
   margin: 0 auto;
 }
 .table thead th,
-.table td, .table th {
+.table td,
+.table th {
   border: 0;
   /* border-right: 1px solid black; */
 }
