@@ -8,13 +8,22 @@ export const fileApi = {
     downloadByDirectoryAndIdAndFilename,
     deleteByDirectoryAndIdAndFilename,
     submitFileByDirectoryAndId,
-    submitFileByDirectoryAndIdAndDirectory
+    submitFileByDirectoryAndIdAndDirectory,
+    getListByDirectoryAndIdAndDirectory,
 };
 
 
 function getListByDirectoryAndId(directory, id) {
 
     let req = `files/${directory}/${id}`;
+
+     return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
+function getListByDirectoryAndIdAndDirectory(directory,id,directory2){
+  let req = `files/${directory}/${id}/${directory2}`;
 
      return axios
         .get(req, requestOptions.headers())

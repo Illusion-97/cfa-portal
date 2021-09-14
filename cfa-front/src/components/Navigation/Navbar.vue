@@ -83,5 +83,5 @@
     }
 </script>
 
-<style scoped src="@/assets/styles/Navbar.css">
+<style scoped src="@/assets/styles/navbar.css">
 </style>
