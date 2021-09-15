@@ -52,7 +52,7 @@
             <li class="nav-item">
               <router-link
                 class="nav-link"
-                :to="{ name: 'formateur_intervention' }"
+                :to="{ name: 'formateur' }"
                 v-if="isFormateur"
               >
                 Espace formateur</router-link
@@ -89,8 +89,6 @@
 import { authenticationApi } from "@/_api/authentication.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 
-import store from "@/store/store.js";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
   name: "navbar",
   computed: {
