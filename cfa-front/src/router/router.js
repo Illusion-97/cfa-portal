@@ -218,11 +218,18 @@ const routes = [
   //#       FORMATEUR     #
   //#######################
 
+  { path: "/formateur", name: "formateur",  redirect: {name: 'formateur_intervention'}, meta: { authorize: [Role.Formateur] }},
   //Intervention
   { path: "/formateur/interventions", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] }},
   { path: "/formateur/interventions/detail/:id", name: "formateur-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Formateur] }},
   //Etudiant
   { path: "/formateur/etudiants/detail/:id", name:"formateur_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Formateur] }},
+  //Promotion
+  { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Formateur] } },
+  //Devoir
+  { path: "/formateur/devoirs/detail/:id", name: "formateur_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Formateur] } },
+  //Absence
+  { path: "/formateur/absences/detail/:id", name:"formateur_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Formateur] }},
  
   //#######################
   //#       REFERENT      #

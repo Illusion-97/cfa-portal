@@ -671,6 +671,7 @@ export default {
 };
 </script>
 
+<style src="@/assets/styles/Onglet.css"></style>
 <style scoped>
 .mon-plus {
   font-size: 24px;
@@ -694,34 +695,6 @@ export default {
 
 .identite > .email {
   font-size: 1.2em;
-}
-
-.mon-container-tuile {
-  margin-bottom: 3em;
-}
-
-.ma_tuile {
-  font-size: 18px;
-  text-transform: uppercase;
-  border-bottom: 1px solid black;
-  padding: 0 4em;
-  padding-top: 0.25em;
-  margin-right: 2em;
-}
-
-.ma_tuile:hover {
-  cursor: pointer;
-  background-color: rgba(165, 165, 165, 0.26);
-}
-
-.activ {
-  border-bottom: 2px solid rgb(49, 49, 170);
-  color: rgb(9, 49, 170);
-  font-weight: bold;
-}
-
-.activ:hover {
-  background-color: unset;
 }
 
 .ma_tuile2 {

@@ -73,82 +73,130 @@
       </div>
     </div>
 
-    <div class="mon-container-tuile">
-      <span :class="{ ma_tuile: true, activ: isEtudiant,}" class="mr-5" @click="changementOnglet(1)">
-        Etudiants
-      </span>
-      <span :class="{ ma_tuile: true, activ: isPromotion,}" class="mr-5" @click="changementOnglet(2)">
-        Promotions
-      </span>
-      <span :class="{ ma_tuile: true, activ: isDevoir,}" class="mr-5" @click="changementOnglet(3)">
-        Devoirs
-      </span>
-      <span :class="{ ma_tuile: true, activ: isAbsence,}" @click="changementOnglet(4)">
-        Absences
-      </span>
-    </div>
-
-    <!-- Etudiants -->
-    <div :class="{ ma_fenetre: true, collapse: !isEtudiant }">
-      <table class="table text-center table-sm">
-        <thead>
-          <tr>
-            <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
-            <th scope="col">Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="stud in students" :key="stud.id">
-            <td>{{ stud.nom }}</td>
-            <td>{{ stud.prenom }}</td>
-            <td>{{ stud.login }}</td>
-            <td>
-              <!-- Update -->
-               <router-link
-              :to="{ name: 'formateur_etudiant_detail', params: { id: stud.id } }"
-              >
-                detail
-              </router-link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Promotions -->
-    <div :class="{ ma_fenetre: true, collapse: !isPromotion }">
-      <div class="card card-body border-0">
-        <ul v-for="p in promo" :key="p.id" class="list-style-none">
-          <li>{{ p.nom }}</li>
-        </ul>
+    <div class="mon-container-body">
+      <div class="mon-container-tuile">
+        <span
+          :class="{ ma_tuile: true, activ: isEtudiant }"
+          class="mr-5"
+          @click="changementOnglet(1)"
+        >
+          Etudiants
+        </span>
+        <span
+          :class="{ ma_tuile: true, activ: isPromotion }"
+          class="mr-5"
+          @click="changementOnglet(2)"
+        >
+          Promotions
+        </span>
+        <span
+          :class="{ ma_tuile: true, activ: isDevoir }"
+          class="mr-5"
+          @click="changementOnglet(3)"
+        >
+          Devoirs
+        </span>
+        <span
+          :class="{ ma_tuile: true, activ: isAbsence }"
+          @click="changementOnglet(4)"
+        >
+          Absences
+        </span>
       </div>
-    </div>
 
-    <!-- Devoirs -->
+      <!-- Etudiants -->
+      <div :class="{ ma_fenetre: true, collapse: !isEtudiant }">
+        <table class="table text-center table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th scope="col">Prenom</th>
+              <th scope="col">Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="stud in students" :key="stud.id">
+              <td>{{ stud.nom }}</td>
+              <td>{{ stud.prenom }}</td>
+              <td>{{ stud.login }}</td>
+              <td>
+                <!-- Detail -->
+                <router-link
+                  :to="{
+                    name: 'formateur_etudiant_detail',
+                    params: { id: stud.id },
+                  }"
+                >
+                  detail
+                </router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Promotions -->
+      <div :class="{ ma_fenetre: true, collapse: !isPromotion }">
+        <table class="table text-center table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Nom</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="promotion in promotions" :key="promotion.id">
+              <td>{{ promotion.nom }}</td>
+              <td>
+                <!-- Detail -->
+                <router-link
+                  :to="{
+                    name: 'formateur_promotion_detail',
+                    params: { id: promotion.id },
+                  }"
+                >
+                  detail
+                </router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Devoirs -->
       <div :class="{ ma_fenetre: true, collapse: !isDevoir }">
-         <table class="table text-center table-sm">
-        <thead>
-          <tr>
-            <th scope="col">Enonce</th>
-            <th scope="col">Date debut</th>
-            <th scope="col">Date Fin</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="assignement in assignements" :key="assignement.id">
-            <td>{{ assignement.enonce}}</td>
-            <td>{{ assignement.dateDebut | formatDate}}</td>
-            <td>{{ assignement.dateFin | formatDate}}</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table text-center table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Enonce</th>
+              <th scope="col">Date debut</th>
+              <th scope="col">Date Fin</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="assignement in assignements" :key="assignement.id">
+              <td>{{ assignement.enonce }}</td>
+              <td>{{ assignement.dateDebut | formatDate }}</td>
+              <td>{{ assignement.dateFin | formatDate }}</td>
+              <td>
+                <!-- Detail -->
+                <router-link
+                  :to="{
+                    name: 'formateur_devoir_detail',
+                    params: { id: assignement.id },
+                  }"
+                >
+                  detail
+                </router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-    <!-- Absences -->
+      <!-- Absences -->
       <div :class="{ ma_fenetre: true, collapse: !isAbsence }">
         <div class="card card-body border-0">
           <table class="table text-center table-sm">
@@ -165,16 +213,25 @@
                 <td>
                   {{ absence.etudiantDto.prenom }} {{ absence.etudiantDto.nom }}
                 </td>
-                <td>{{ absence.dateDebut | formatDate}}</td>
-                <td>{{ absence.dateFin | formatDate}}</td>
-                <td></td>
+                <td>{{ absence.dateDebut | formatDate }}</td>
+                <td>{{ absence.dateFin | formatDate }}</td>
+                <td>
+                <!-- Detail -->
+                <router-link
+                  :to="{
+                    name: 'formateur_absence_detail',
+                    params: { id: absence.id },
+                  }"
+                >
+                  detail
+                </router-link>
+              </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-
-    
+    </div>
   </section>
 </template>
 
@@ -190,14 +247,14 @@ export default {
         formationDto: {},
       },
       students: [],
-      promo: [],
+      promotions: [],
       assignements: [],
       absences: [],
       trainers: [],
       loading: false,
       status,
 
-      onglet: 0,
+      onglet: 1,
     };
   },
   computed: {
@@ -237,7 +294,7 @@ export default {
       interventionApi.getInterventionById(this.interventionId).then((data) => {
         this.status = data.status;
         this.items = data.data;
-        this.promo = this.items.promotionsDto;
+        this.promotions = this.items.promotionsDto;
         // this.items.formationDto = data.formationDto;
       });
     },
@@ -296,7 +353,7 @@ export default {
   },
 };
 </script>
-
+<style src="@/assets/styles/Onglet.css"></style>
 <style scoped>
 #grid-container {
   display: grid;
@@ -310,31 +367,9 @@ export default {
   grid-row: 1;
 }
 
-.mon-container-tuile {
-  margin-bottom: 3em;
-}
-
-.ma_tuile {
-  font-size: 18px;
-  text-transform: uppercase;
-  border-bottom: 1px solid black;
-  padding: 0 4em;
-  padding-top: 0.25em;
-}
-
-.ma_tuile:hover {
-  cursor: pointer;
-  background-color: rgba(165, 165, 165, 0.26);
-}
-
-.activ {
-  border-bottom: 2px solid rgb(49, 49, 170);
-  color: rgb(9, 49, 170);
-  font-weight: bold;
-}
-
-.activ:hover {
-  background-color: unset;
+.mon-container-body{
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .icon-link {
