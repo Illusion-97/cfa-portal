@@ -21,7 +21,7 @@
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Email"
               required
-              @input="test()"
+              @input="isInvalidInputFalse()"
             />
           </div>
         </div>
@@ -40,7 +40,7 @@
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Mot de Passe"
               required
-              @input="test()"
+              @input="isInvalidInputFalse()"
             />
           </div>
         </div>
@@ -81,8 +81,7 @@ export default {
     };
   },
   methods: {
-    test(){
-      console.log("j'exécute test");
+    isInvalidInputFalse(){
       this.isInvalidInput = false;
     },
     submit: function(e) {

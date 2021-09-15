@@ -1,3 +1,5 @@
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
+
 export const utilisateur = {
     state: {
         utilisateur: {
@@ -20,6 +22,13 @@ export const utilisateur = {
             state.utilisateur = data;
             // console.log("new user :", data);
             // localStorage.setItem('utilisateur', JSON.stringify(data))
+
+            //Si referent, on lui ajoute le role
+            utilisateurApi.isReferent(data.id).then( response => {
+                if(response) state.utilisateur.rolesDto.push({id: 999, intitule: "REFERENT"});
+                
+            })
+
           }
     },
     actions: {
