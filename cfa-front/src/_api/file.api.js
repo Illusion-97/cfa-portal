@@ -10,6 +10,7 @@ export const fileApi = {
     submitFileByDirectoryAndId,
     submitFileByDirectoryAndIdAndDirectory,
     getListByDirectoryAndIdAndDirectory,
+    getFileByName,
 };
 
 
@@ -28,6 +29,20 @@ function getListByDirectoryAndIdAndDirectory(directory,id,directory2){
      return axios
         .get(req, requestOptions.headers())
         .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
+function getFileByName(directory,id,directory2,filename){
+  let req = `files/${directory}/${id}/${directory2}/${filename}`;
+
+     return axios
+        .get(req, { responseType: "blob", headers: {'Authorization': 'Bearer ' + store.getters.getToken}, })
+        .then((resp) => {
+            var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
+            var fileLink = document.createElement("a");
+            fileLink.href = fileURL;
+            document.body.appendChild(fileLink);
+            fileLink.click();
+          })
         .catch((error) => console.log(error));
 }
 

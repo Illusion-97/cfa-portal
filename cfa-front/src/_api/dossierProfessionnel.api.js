@@ -12,7 +12,7 @@ export const dossierProfessionnelApi = {
 
 }
 function getById(id){
-    let req = `/${END_POINT}/${id}`;
+    let req = `${END_POINT}/${id}`;
   
     return  axios
         .get(req, requestOptions.headers())
@@ -20,7 +20,7 @@ function getById(id){
         .catch((error) => console.log(error));
   }
   function getByIdEtudiant(id){
-    let req = `/${END_POINT}/etudiant/${id}`;
+    let req = `${END_POINT}/etudiant/${id}`;
   
     return  axios
         .get(req, requestOptions.headers())
@@ -28,7 +28,7 @@ function getById(id){
         .catch((error) => console.log(error));
   }
   function getAll(){
-    let req = `/${END_POINT}`;
+    let req = `${END_POINT}`;
   
     return  axios
         .get(req, requestOptions.headers())
