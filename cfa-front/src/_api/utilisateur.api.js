@@ -23,6 +23,8 @@ export const utilisateurApi = {
   getAllUsersByName,
   save, 
 
+  isReferent,
+
 };
 
 const END_POINT = "utilisateurs";
@@ -212,6 +214,13 @@ function save(form) {
 function deleteUtilisateur(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function isReferent(id) {
+  return axios
+    .get(`${END_POINT}/${id}/isReferent`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
