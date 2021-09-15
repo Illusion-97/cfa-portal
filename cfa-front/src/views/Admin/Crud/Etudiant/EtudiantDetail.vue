@@ -52,64 +52,53 @@
       <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
 
     </div>
-    <br>
-    <br>
+
     <div class="mon-container-tuile">
-      <div
+      <span
         :class="{
-          btn: true,
-          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isPromotion,
         }"
         @click="changementOnglet(1)"
       >
         Promotions
-      </div>
-      <div
+      </span>
+      <span
         :class="{
-          btn: true,
-          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isGroupe,
         }"
         @click="changementOnglet(2)"
       >
         Groupes
-      </div>
-      <div
+      </span>
+      <span
         :class="{
-          btn: true,
-          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isNote,
         }"
         @click="changementOnglet(3)"
       >
         Notes
-      </div>
-      <div
+      </span>
+      <span
         :class="{
-          btn: true,
-          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isAbsence,
         }"
         @click="changementOnglet(4)"
       >
         Absences
-      </div>
-      <div
+      </span>
+      <span
         :class="{
-          btn: true,
-          'btn btn-outline-primary': true,
           ma_tuile: true,
           activ: isConge,
         }"
         @click="changementOnglet(5)"
       >
         Congés
-      </div>
+      </span>
     </div>
 
     <!-- Promotions -->
@@ -708,23 +697,40 @@ export default {
 }
 
 .mon-container-tuile {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 3em;
-  padding-right: 50%;
 }
 
-.ma_tuile .ma_tuile2 {
+.ma_tuile {
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 1px solid black;
+  padding: 0 4em;
+  padding-top: 0.25em;
+  margin-right: 2em;
+}
+
+.ma_tuile:hover {
+  cursor: pointer;
+  background-color: rgba(165, 165, 165, 0.26);
+}
+
+.activ {
+  border-bottom: 2px solid rgb(49, 49, 170);
+  color: rgb(9, 49, 170);
+  font-weight: bold;
+}
+
+.activ:hover {
+  background-color: unset;
+}
+
+.ma_tuile2 {
   width: 8em;
 }
+
 .ma_tuile2:hover{
   background-color: rgb(0, 140, 255);
   color: white;
-}
-.ma_tuile:hover {
-  background-color: rgb(0, 140, 255);
-  color: white;
-  cursor: pointer;
 }
 
 .mon-tr:hover {
@@ -734,16 +740,6 @@ export default {
 
 .ma_fenetre {
   margin-bottom: 5em;
-}
-
-.activ {
-  background-color:rgb(0, 140, 255);
-  color: white;
-}
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .buttons .router-link {
@@ -764,7 +760,6 @@ export default {
     background-size: 300% 100%;
 
     border-radius: 50px;
-    moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
@@ -772,7 +767,6 @@ export default {
 
 .btn-hover:hover {
     background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;

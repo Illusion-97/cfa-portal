@@ -61,10 +61,10 @@
     </div>
 
     <div class="mon-container-tuile">
-      <span :class="{ btn: false,'btn-primary': false, ma_tuile: true, activ: isEtudiant,}" class="mr-5" @click="changementOnglet(1)">
+      <span :class="{ ma_tuile: true, activ: isEtudiant,}" class="mr-5" @click="changementOnglet(1)">
         Etudiants
       </span>
-      <span :class="{ btn: false, 'btn-primary': false, ma_tuile: true, activ: isIntervention,}" @click="changementOnglet(2)">
+      <span :class="{ ma_tuile: true, activ: isIntervention,}" @click="changementOnglet(2)">
         Interventions
       </span>
     </div>
@@ -142,7 +142,7 @@
           }, ],
         },
         ville: "",
-        onglet: 0,
+        onglet: 1,
         isModalVisible: false,
       };
     },
@@ -298,12 +298,6 @@
   }
 
   .mon-container-tuile {
-    /* display: flex;
-    justify-content: space-around;
-    margin-bottom: 3em;
-    float: left; */
-    /* padding-right: 80%; */
-    /* display: inline; */
     margin-bottom: 3em;
 }
 
@@ -317,16 +311,11 @@
   }
 
   .ma_tuile:hover {
-    /* background-color: #6c757d; */
-    /* color: white; */
     cursor: pointer;
     background-color: rgba(165, 165, 165, 0.26);
-    /* color: rgb(20, 20, 107); */
-    /* font-weight: bold; */
   }
     
   .activ {
-    /* background-color: #28a745; */
     border-bottom: 2px solid rgb(49, 49, 170);
     color: rgb(9, 49, 170);
     font-weight: bold;

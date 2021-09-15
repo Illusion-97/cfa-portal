@@ -6,10 +6,12 @@
       Precedent
     </span>
 
-    {{absencesComp}}
-
     <div id="grid-container">
-      <div id="note-information" class="mx-5 mt-2">
+      <div
+        id="note-information"
+        class="mx-5 mt-2"
+        v-if="items.noteInfoPersonnel"
+      >
         <h4>Note d'information</h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
@@ -69,111 +71,110 @@
           </table>
         </div>
       </div>
-      <div id="student-list">
-        <span
-          class="btn-toggle"
-          data-toggle="collapse"
-          href="#Collapse1"
-          role="button"
-          aria-expanded="false"
-          aria-controls="Collapse1"
-          >Les étudiants</span
-        >
-        <div class="collapse" id="Collapse1">
-          <div class="card card-body border-0">
-            <table class="table text-center table-sm">
-              <thead>
-                <tr>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Prenom</th>
-                  <th scope="col">Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="stud in students" :key="stud.id">
-                  <td>{{ stud.nom }}</td>
-                  <td>{{ stud.prenom }}</td>
-                  <td>{{ stud.login }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    </div>
 
-      <div id="promotion-list">
-        <span
-          class="btn-toggle"
-          data-toggle="collapse"
-          href="#Collapse2"
-          role="button"
-          aria-expanded="false"
-          aria-controls="Collapse2"
-          >Les promotions</span
-        >
-        <div class="collapse show" id="Collapse2">
-          <div class="card card-body border-0">
-            <ul v-for="p in promo" :key="p.id" class="list-style-none">
-              <li>{{ p.nom }}</li>
-            </ul>
-            <!-- <pre>{{ promo }}</pre> -->
-          </div>
-        </div>
-      </div>
-      <div id="devoir-list">
-        <span
-          class="btn-toggle"
-          data-toggle="collapse"
-          href="#Collapse3"
-          role="button"
-          aria-expanded="false"
-          aria-controls="Collapse3"
-          >Devoirs</span
-        >
-        <div class="collapse" id="Collapse3">
-          <div class="card card-body border-0">
-            <span v-if="assignements.length > 0">
-              <pre>{{ assignements }}</pre>
-            </span>
-            <span v-else class="text-center">
-              Aucun devoirs
-            </span>
-          </div>
-        </div>
-      </div>
+    <div class="mon-container-tuile">
+      <span :class="{ ma_tuile: true, activ: isEtudiant,}" class="mr-5" @click="changementOnglet(1)">
+        Etudiants
+      </span>
+      <span :class="{ ma_tuile: true, activ: isPromotion,}" class="mr-5" @click="changementOnglet(2)">
+        Promotions
+      </span>
+      <span :class="{ ma_tuile: true, activ: isDevoir,}" class="mr-5" @click="changementOnglet(3)">
+        Devoirs
+      </span>
+      <span :class="{ ma_tuile: true, activ: isAbsence,}" @click="changementOnglet(4)">
+        Absences
+      </span>
+    </div>
 
-      <div id="absence-list">
-        <span
-          class="btn-toggle"
-          data-toggle="collapse"
-          href="#Collapse3"
-          role="button"
-          aria-expanded="false"
-          aria-controls="Collapse3"
-          >Absences</span
-        >
-        <div class="collapse" id="Collapse3">
-          <div class="card card-body border-0">
-            <table class="table text-center table-sm">
-              <thead>
-                <tr>
-                  <th scope="col">Etudiant</th>
-                  <th scope="col">Date debut</th>
-                  <th scope="col">Date Fin</th>                  
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="absence in absences" :key="absence.id">
-                  <td>{{ absence.etudiantDto }}</td>
-                  <td>{{ absence.dateDebut }}</td>
-                  <td>{{ absence.dateFin }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <!-- Etudiants -->
+    <div :class="{ ma_fenetre: true, collapse: !isEtudiant }">
+      <table class="table text-center table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="stud in students" :key="stud.id">
+            <td>{{ stud.nom }}</td>
+            <td>{{ stud.prenom }}</td>
+            <td>{{ stud.login }}</td>
+            <td>
+              <!-- Update -->
+               <router-link
+              :to="{ name: 'formateur_etudiant_detail', params: { id: stud.id } }"
+              >
+                detail
+              </router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Promotions -->
+    <div :class="{ ma_fenetre: true, collapse: !isPromotion }">
+      <div class="card card-body border-0">
+        <ul v-for="p in promo" :key="p.id" class="list-style-none">
+          <li>{{ p.nom }}</li>
+        </ul>
       </div>
     </div>
+
+    <!-- Devoirs -->
+      <div :class="{ ma_fenetre: true, collapse: !isDevoir }">
+         <table class="table text-center table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Enonce</th>
+            <th scope="col">Date debut</th>
+            <th scope="col">Date Fin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="assignement in assignements" :key="assignement.id">
+            <td>{{ assignement.enonce}}</td>
+            <td>{{ assignement.dateDebut | formatDate}}</td>
+            <td>{{ assignement.dateFin | formatDate}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+    <!-- Absences -->
+      <div :class="{ ma_fenetre: true, collapse: !isAbsence }">
+        <div class="card card-body border-0">
+          <table class="table text-center table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Etudiant</th>
+                <th scope="col">Date debut</th>
+                <th scope="col">Date Fin</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="absence in absences" :key="absence.id">
+                <td>
+                  {{ absence.etudiantDto.prenom }} {{ absence.etudiantDto.nom }}
+                </td>
+                <td>{{ absence.dateDebut | formatDate}}</td>
+                <td>{{ absence.dateFin | formatDate}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    
   </section>
 </template>
 
@@ -195,15 +196,38 @@ export default {
       trainers: [],
       loading: false,
       status,
+
+      onglet: 0,
     };
+  },
+  computed: {
+    showAlert() {
+      if (this.status == 202) return "d-block";
+      return "d-none";
+    },
+    isEtudiant() {
+      if (this.onglet == 1) return true;
+      else return false;
+    },
+    isPromotion() {
+      if (this.onglet == 2) return true;
+      else return false;
+    },
+    isDevoir() {
+      if (this.onglet == 3) return true;
+      else return false;
+    },
+    isAbsence() {
+      if (this.onglet == 4) return true;
+      else return false;
+    },
   },
   created() {
     this.getId();
     //On a besoin de this.students.length pour getAbsences
-    this.getStudents()
+    this.getStudents();
     this.getAssignement();
     this.getTrainer();
-    
   },
   methods: {
     goBack() {
@@ -228,17 +252,6 @@ export default {
           name: "referent_modifier_intervention",
         });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_note_update",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_note_update",
-      });
-      }*/
     },
     deleteIntervention(id) {
       interventionApi.deleteIntervention(id).then((response) => {
@@ -268,27 +281,18 @@ export default {
         .then((data) => (this.trainers = data));
     },
     getAbsences() {
-      for(let i=0; i < this.students.length; i++){
-        absencesApi
-          .getAllByIdEtudiant(this.students[i].id)
-          .then(data =>{
-            //data est un array, on veut pas un array d'array donc on fait element par element
-            for(let j=0; j<data.length; j++){
-              this.absences.push(data[j])
-            }
+      for (let i = 0; i < this.students.length; i++) {
+        absencesApi.getAllByIdEtudiant(this.students[i].id).then((data) => {
+          //data est un array, on veut pas un array d'array donc on fait element par element
+          for (let j = 0; j < data.length; j++) {
+            this.absences.push(data[j]);
           }
-           )
+        });
       }
     },
-  },
-  computed: {
-    showAlert() {
-      if (this.status == 202) return "d-block";
-      return "d-none";
+    changementOnglet(onglet) {
+      this.onglet = onglet;
     },
-    absencesComp(){
-      return this.absences;
-    }
   },
 };
 </script>
@@ -297,8 +301,8 @@ export default {
 #grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr 2fr;
-  gap: 1em;
+  grid-template-rows: 1fr;
+  margin-bottom: 3em;
 }
 
 #card-detail {
@@ -306,29 +310,31 @@ export default {
   grid-row: 1;
 }
 
-#student-list {
-  grid-row: 2;
-  grid-column: 1;
+.mon-container-tuile {
+  margin-bottom: 3em;
 }
 
-#promotion-list {
-  grid-row: 2;
-  grid-column: 2;
+.ma_tuile {
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 1px solid black;
+  padding: 0 4em;
+  padding-top: 0.25em;
 }
 
-#devoir-list {
-  grid-row: 2;
-  grid-column: 3;
+.ma_tuile:hover {
+  cursor: pointer;
+  background-color: rgba(165, 165, 165, 0.26);
 }
 
-#absence-list {
-  grid-row: 2;
-  grid-column: 4;
+.activ {
+  border-bottom: 2px solid rgb(49, 49, 170);
+  color: rgb(9, 49, 170);
+  font-weight: bold;
 }
 
-#note-information {
-  grid-row: 1;
-  grid-column: 4;
+.activ:hover {
+  background-color: unset;
 }
 
 .icon-link {
