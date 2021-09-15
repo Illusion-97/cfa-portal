@@ -1,10 +1,7 @@
 <template>
-    <div >
-      <div class="monBody">
-        <router-view />
-      </div>
       <div class="body">
         <BodyTitle title="Mon dossier professionel" />
+        <br>
          <div class="">
           <input
             type="file"
@@ -16,29 +13,46 @@
           />
           <button v-on:click="submitFile()" class="btn btn-primary">Ajouter</button>
         </div>
-    </div>
-    </div>
-    
 
+        <br>
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th>Nom du fichier</th>
+            </tr>
+          </thead>
+          <tbody v-if="files_computed">
+            <tr v-for="file in files_computed" 
+                :key="file.id"
+                >
+              <td>
+                {{file.nom}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    
+    </div>
 </template>
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-//import pdf from 'vue-pdf';
 import { fileApi } from "@/_api/file.api.js"
 import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js"
 import {cursusApi} from "@/_api/cursus.api.js"
+import {etudiantApi} from "@/_api/etudiant.api.js"
 
 export default {
   name: "DossierPro",
   components: {
     BodyTitle,
-    //pdf
   },
   data(){
     return{
 
       files: [],
-      file : "",
+      fileToSave : "",
+      file: "",
+      etudiant: "",
 
       form:{
         nom : "",
@@ -47,32 +61,42 @@ export default {
     }
   },
   created(){
-    cursusApi.getCurrentCursusByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.form.cursusDto = response)
-
-  },
+    this.refreshList();
+   },
    computed: {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
+      },
+    files_computed(){
+      return this.files;
     },
-    },
+  },
   methods:{
+
       handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+      this.fileToSave = this.$refs.file.files[0];
     },
     submitFile() {    
-      this.form.nom = this.file.name;    
-      fileApi.submitFileByDirectoryAndIdAndDirectory("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProfessionnel", this.file).then(() => this.list_reset());
-      dossierProfessionnelApi.save(this.form);
-    },
-    list_reset() {
-      fileApi.getListByDirectoryAndId("utilisateurs",this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
+      this.form.nom = this.fileToSave.name;
+      this.etudiant.dossierProfessionnel.push(this.form)
+      fileApi.submitFileByDirectoryAndIdAndDirectory("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProfessionnel", this.fileToSave);
+      etudiantApi.save(this.etudiant)
     },
     download_file(fileName) {
       fileApi.downloadByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
     },
     delete_file(fileName) {
-      fileApi.deleteByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName).then(() => this.list_reset());
+      fileApi.deleteByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
     },
+    getfile(filename){
+      fileApi.getFileByName("utilisateurs",this.$store.getters.getUtilisateur.id,"DossierProfessionnel",filename).then(response => this.file=response);
+    },
+     refreshList() {
+        cursusApi.getCurrentCursusByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.form.cursusDto = response)
+    dossierProfessionnelApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
+    etudiantApi.getById(this.$store.getters.getUtilisateur.id).then(response => this.etudiant = response)
+  
+     }
   }
 }
 </script>
