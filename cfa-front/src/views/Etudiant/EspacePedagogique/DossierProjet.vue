@@ -18,13 +18,24 @@
           <button v-on:click="submitFile()" class="btn btn-primary">Ajouter</button>
         </div>
 
-        <div class="column" v-if="files_computed">
-          <div class="col-md-2" v-for="f in files_computed" :key="f.id">
-                <b-card-text {{f.name}}
-                  ></b-card-text>
-          </div>
+       <br>
+       <table class="table table-bordered table-striped table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th>Nom du fichier</th>
+            </tr>
+          </thead>
+          <tbody v-if="files_computed">
+            <tr v-for="file in files_computed" 
+                :key="file.id"
+                >
+              <td>
+                {{file.nom}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-    </div>
     </div>
     </div>
     
@@ -34,6 +45,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
 import { fileApi } from "@/_api/file.api.js"
+import {etudiantApi} from "@/_api/etudiant.api.js"
 
 export default {
   name: "DossierPro",
@@ -43,7 +55,9 @@ export default {
     return{
 
       files: [],
-      file : "",
+      fileToSave : "",
+      file: "",
+      etudiant: "",
 
       form:{
         nom : "",
@@ -51,26 +65,26 @@ export default {
       }
     }
   },
-  created(){
-    
-
-  },
+ created(){
+    this.refreshList();
+   },
    computed: {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
-    },
+      },
     files_computed(){
       return this.files;
     },
-    },
+  },
   methods:{
       handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+      this.fileToSave = this.$refs.file.files[0];
     },
     submitFile() {    
-      this.form.nom = this.file.name;    
-      fileApi.submitFileByDirectoryAndIdAndDirectory("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProjet", this.file).then(() => this.list_reset());
-      dossierProjetApi.save(this.form)
+      this.form.nom = this.fileToSave.name;
+      this.etudiant.dossierProjet.push(this.form)  
+      fileApi.submitFileByDirectoryAndIdAndDirectory("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProjet", this.fileToSave);
+      etudiantApi.save(this.etudiant)
     },
     list_reset() {
       // fileApi.getListByDirectoryAndIdAndDirectory("utilisateurs",this.$store.getters.getUtilisateur.id).then((response) => this.files = response);
@@ -79,8 +93,13 @@ export default {
       fileApi.downloadByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
     },
     delete_file(fileName) {
-      fileApi.deleteByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName).then(() => this.list_reset());
+      fileApi.deleteByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
     },
+    refreshList(){
+    dossierProjetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
+    etudiantApi.getById(this.$store.getters.getUtilisateur.id).then(response => this.etudiant = response)
+  
+    }
   }
 }
 </script>

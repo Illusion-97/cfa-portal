@@ -92,7 +92,7 @@ export default {
       fileApi.getFileByName("utilisateurs",this.$store.getters.getUtilisateur.id,"DossierProfessionnel",filename).then(response => this.file=response);
     },
      refreshList() {
-        cursusApi.getCurrentCursusByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.form.cursusDto = response)
+    cursusApi.getCurrentCursusByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.form.cursusDto = response)
     dossierProfessionnelApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
     etudiantApi.getById(this.$store.getters.getUtilisateur.id).then(response => this.etudiant = response)
   

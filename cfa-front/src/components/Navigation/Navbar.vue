@@ -120,4 +120,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/Navbar.css"></style>
+<style scoped src="@/assets/styles/navbar.css"></style>
