@@ -218,10 +218,12 @@ const routes = [
   //#       FORMATEUR     #
   //#######################
 
+  //Intervention
   { path: "/formateur/interventions", name: "formateur_intervention", component: Intervention },
   { path: "/formateur/interventions/detail/:id", name: "formateur-intervention-detail", component: DetailIntervention},
-
-  
+  //Etudiant
+  { path: "/formateur/etudiants/detail/:id", name:"formateur_etudiant_detail", component: EtudiantDetail},
+ 
   //#######################
   //#       REFERENT      #
   //#######################
