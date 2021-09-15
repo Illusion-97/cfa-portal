@@ -31,12 +31,9 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Nom - Prenom :</span>
-          <span class="col-md-10"> {{ utilisateur.nom }} {{ utilisateur.prenom }}</span>
-        </b-card-text>
-
-        <b-card-text class="identity row ml-5">
-          <span class="font-weight-bold col-md-2">Status,corps, Catégorie, grade : </span>
-          <span class="col-md-10"> Etudiant </span>
+          <span class="col-md-4"> {{ utilisateur.nom }} {{ utilisateur.prenom }}</span>
+          <span class="font-weight-bold col-md-3">Status,corps, Catégorie, grade : </span>
+          <span class="col-md-3"> Etudiant </span>
         </b-card-text>
       </b-card>
 
