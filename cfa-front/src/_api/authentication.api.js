@@ -12,6 +12,23 @@ export const authenticationApi = {
 function login(login, password) {
 
     let req = "authenticate";
+    // return axios
+    //     .post(req,{login: login, password: password})
+    //     //.then(handleResponse)
+    //     .then((response) => store.dispatch('login',response.data['token']))
+    //     .then(() =>  utilisateurApi.getByLogin(login))
+    //     .then(response => {
+    //         store.dispatch('setUtilisateur', response);
+    //         return response;
+    //     })
+    //     .then((response) => utilisateurApi.getPlanningById(response.id))
+    //     .then((response) => this.$store.dispatch('setPlanning', response))
+    //     .then(() => console.log("setPlanning done"))
+    //     .catch((error) => {
+    //         console.log(error)
+    //         throw error;
+    //     });
+
     return axios
         .post(req,{login: login, password: password})
         //.then(handleResponse)
@@ -21,6 +38,7 @@ function login(login, password) {
             console.log(error)
             throw error;
         });
+
 }
 
 function logout() {

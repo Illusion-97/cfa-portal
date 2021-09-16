@@ -91,11 +91,9 @@ export default {
         .then(()=>this.$router.push({name: 'home'}))
         .catch(error => {
           console.log(error);
-          console.log(error.response.data.message);
           if(error.response.data.message == "Erreur : identifiants incorrects !"){
             this.isInvalid = true;
             this.isInvalidInput = true;
-            console.log(this.isInvalid);
           }
         });
     },
