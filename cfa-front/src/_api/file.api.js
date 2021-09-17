@@ -11,6 +11,8 @@ export const fileApi = {
     submitFileByDirectoryAndIdAndDirectory,
     getListByDirectoryAndIdAndDirectory,
     getFileByName,
+    downloadByDirectoryAndIdAndDirectoryAndFilename,
+    deleteByDirectoryAndIdAndDirectoryAndFilename,
 };
 
 
@@ -62,10 +64,35 @@ function downloadByDirectoryAndIdAndFilename(directory,id, fileName) {
           })
         .catch((error) => console.log(error));
 }
+function downloadByDirectoryAndIdAndDirectoryAndFilename(directory,id,directory2, fileName) {
+
+  let req = `files/${directory}/${id}/${directory2}/${fileName}` ;
+
+  return axios
+      .get(req, { responseType: "blob", headers: {'Authorization': 'Bearer ' + store.getters.getToken}, })
+      .then((resp) => {
+          var fileURL = window.URL.createObjectURL(new Blob([resp.data]));
+          var fileLink = document.createElement("a");
+          fileLink.href = fileURL;
+          fileLink.setAttribute("download", fileName);
+          document.body.appendChild(fileLink);
+          fileLink.click();
+        })
+      .catch((error) => console.log(error));
+}
 
 function deleteByDirectoryAndIdAndFilename(directory, id, fileName) {
 
   let req = `files/${directory}/${id}/${fileName}`;
+
+  return axios
+      .delete(req, requestOptions.headers())
+      .then(response => response)
+      .catch((error) => console.log(error));
+}
+function deleteByDirectoryAndIdAndDirectoryAndFilename(directory, id,directory2, fileName) {
+
+  let req = `files/${directory}/${id}/${directory2}/${fileName}`;
 
   return axios
       .delete(req, requestOptions.headers())
