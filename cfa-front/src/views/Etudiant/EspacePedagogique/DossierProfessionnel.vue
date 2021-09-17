@@ -15,10 +15,11 @@
         </div>
 
         <br>
-        <table class="table table-bordered table-striped table-hover">
+        <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
               <th>Nom du fichier</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody v-if="files_computed">
@@ -27,6 +28,10 @@
                 >
               <td>
                 {{file.nom}}
+              </td>
+              <td>
+                <button>Visualiser</button>
+                <button v-on:click="download_file(file.nom)">Télécharger</button>
               </td>
             </tr>
           </tbody>
@@ -83,10 +88,10 @@ export default {
       etudiantApi.save(this.etudiant)
     },
     download_file(fileName) {
-      fileApi.downloadByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
+      fileApi.downloadByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, "DossierProfessionnel",fileName);
     },
     delete_file(fileName) {
-      fileApi.deleteByDirectoryAndIdAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, fileName);
+      fileApi.deleteByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProfessionnel", fileName);
     },
     getfile(filename){
       fileApi.getFileByName("utilisateurs",this.$store.getters.getUtilisateur.id,"DossierProfessionnel",filename).then(response => this.file=response);
