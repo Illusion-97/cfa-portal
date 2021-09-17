@@ -43,13 +43,51 @@
         </div>
       </div>
     </div>
-
-      <div class="btn-group " role="group" aria-label="Basic example">
-      <!--<router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
-      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>-->
+<div id="menu">
+  <ul>
+    <li class="menuAbout">
+      <button class="btn-hover color-3 btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+        Manipuler fiches
+      </button>
+      <div id="subAbout">
+                <ul>
+                  <li class="li_first">
+                    <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
+                  </li>
+                  <li>
+                       <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+                  </li>
+                  <li>
+                    <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
+                  </li>
+                  <li>
+                    <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+                  </li>
+                  <li class="li_last">
+                    <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+                  </li>
+                </ul>
+                </div>
+            </li>
+        </ul>
+	</div>
+      <!-- <div class="btn-group " role="group" aria-label="Basic example">
+      <router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
+      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>
       <button class="btn-hover color-1" v-on:click="createFicheSalarie(etudiant)">Ajouter une fiche salarié </button>
       <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
       <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+      <button class="btn-hover color-9" v-on:click="editFicheSalarie(etudiant)">Modifier la fiche salarié </button>
+      <button class="btn-hover color-9" v-on:click="editFichePoste(etudiant)">Modifier la fiche de poste</button>
+      <button class="btn-hover color-9" v-on:click="editFicheEntreprise(etudiant)">Modifier la fiche d'entreprise </button>
+      <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
+      <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+      <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+      </div> -->
+
+
+    <br>
+    <br>
 
     </div>
 
@@ -339,6 +377,133 @@ export default {
   methods: {
      goBack() {
       this.$router.go(-1);
+    },
+    detailFicheSalarie(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_salarie_detail",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_salarie_detail",
+       
+      });
+      }
+    },
+    detailFicheEntreprise(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise_detail",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise_detail",
+       
+      });
+      }
+    },
+    detailFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_poste_detail",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_poste_detail",
+       
+      });
+      }
+
+    },
+    editFicheSalarie(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_edit_fiche_salarie",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_edit_fiche_salarie",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_etudiant_edit_fiche_salarie",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_etudiant_edit_fiche_salarie",
+      });
+      }*/
+    },
+    editFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_poste_update",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_poste_update",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_etudiant_edit_fiche_poste",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_etudiant_edit_fiche_poste",
+      });
+      }*/
+    },
+    editFicheEntreprise(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise_update",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise_update",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_etudiant_edit_fiche_entreprise",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_etudiant_edit_fiche_entreprise",
+      });
+      }*/
     },
     createFicheSalarie(){
       let route = this.$route.path.split("/").splice(1);
@@ -671,6 +836,7 @@ export default {
 };
 </script>
 
+<style scoped src="@/assets/styles/EtudiantDetail.css">
 <style src="@/assets/styles/Onglet.css"></style>
 <style scoped>
 .mon-plus {
@@ -792,5 +958,5 @@ export default {
 .btn-hover.color-11 {
        background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
 }
-
 </style>
+

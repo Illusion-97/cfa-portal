@@ -1,8 +1,20 @@
 <template>
     <div>
-        <router-link class="router-link" :to="{name:'etudiant_profil'}"> <font-awesome-icon :icon="['fas', 'angle-left']" />  Retour au Profil</router-link>
         <BodyTitle title="Fiche de l'entreprise" />
-
+         <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-info" v-on:click=updateFichePoste>
+              Modifier 
+            </button>
+        </div>
+        <br>
         <b-card no-body id="card-profil">
         <b-card-header>
           <span class="">Identification de l'entreprise</span>
@@ -58,6 +70,7 @@
           <span class="col-md-4"> {{ficheEntreprise.metiersExerces}} </span>
         </b-card-text>
       </b-card>
+     
     </div>
 </template>
 
@@ -65,22 +78,52 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { ficheEntrepriseApi } from "@/_api/ficheEntreprise.api.js";
 export default {
-    name: "FicheEntreprise",
+    name: "ficheEntrepriseDetail",
     components: {
         BodyTitle,
     },
-    data() {
+data() {
     return {
-      ficheEntreprise:"",
+      ficheEntreprise: {etudiantDto: {}},
+      loading: false,
     };
   },
   computed: {
     
   },
   methods: {
+      goBack() {
+      this.$router.go(-1);
+    },
+    updateFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_note_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_note_update",
+      });
+      }*/
+    },
   },
   created() {
-    ficheEntrepriseApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.ficheEntreprise = response));
+    ficheEntrepriseApi.getByIdEtudiant(this.$route.params.id).then((response) => (this.ficheEntreprise = response));
   },
 };
 </script>

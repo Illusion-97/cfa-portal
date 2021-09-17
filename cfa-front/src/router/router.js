@@ -149,8 +149,11 @@ import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
 import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
 import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
 import EtudiantFicheSalarie from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarie.vue";
+import EtudiantFicheSalarieDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarieDetail.vue";
 import EtudiantFichePoste from "@/views/Admin/Crud/Etudiant/EtudiantFichePoste.vue";
+import EtudiantFichePosteDetail from "@/views/Admin/Crud/Etudiant/EtudiantFichePosteDetail.vue";
 import EtudiantFicheEntreprise from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntreprise.vue";
+import EtudiantFicheEntrepriseDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntrepriseDetail.vue";
 //Absence
 import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
 import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
@@ -376,6 +379,11 @@ const routes = [
   { path: "/admin/groupes/update/:id", name:"admin_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Admin] }},
   { path: "/admin/groupes/detail/:id", name:"admin_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Admin] }},
    //Etudiant
+   { path: "/admin/etudiants/fiche-salarie/detail/:id", name:"admin_etudiant_fiche_salarie_detail", component: EtudiantFicheSalarieDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste/update/:id", name:"admin_etudiant_fiche_poste_update", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise/update/:id", name:"admin_etudiant_fiche_entreprise_update", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste/detail/:id", name:"admin_etudiant_fiche_poste_detail", component: EtudiantFichePosteDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise/detail/:id", name:"admin_etudiant_fiche_entreprise_detail", component: EtudiantFicheEntrepriseDetail, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants", name:"admin_etudiant_list", component: EtudiantList, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/create", name:"admin_etudiant_create", component: EtudiantCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/update/:id", name:"admin_etudiant_update", component: EtudiantCreate, meta: { authorize: [Role.Admin] }},

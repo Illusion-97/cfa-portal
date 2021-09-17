@@ -1,6 +1,14 @@
 <template>
  
   <div class="container-fluid">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
      <BodyTitle :title=vue_title />
      
     <b-form class="form mb-5" @submit="submit">
@@ -136,14 +144,7 @@
       </div>
     </b-form>
 
-    <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </a>
+    
 
     </div>
     
@@ -187,9 +188,19 @@ export default {
     };
   },
   created(){
-    etudiantApi.getById(this.utilisateur.id).then((response) => {
+    if(this.$route.name == "admin_etudiant_fiche_entrepris" || this.$route.name == "admin_etudiant_fiche_poste"){
+        etudiantApi.getById(this.utilisateur.id).then((response) => {
         this.form.etudiantDto = response;
     });
+    }
+    else {
+      ficheEntrepriseApi.getByIdEtudiant(this.$route.params.id).then((response) => {
+        this.form = response;
+        this.vue_title = "Modification de la fiche entreprise";
+        this.btn_form_text = "Modifier";
+      });
+    }
+    
 
     entrepriseApi.getAll().then((response) => (this.entreprises = response));
   },
@@ -214,7 +225,7 @@ export default {
 
       ficheEntrepriseApi
       .save(this.form)
-      .then(() => this.$router.push({ name: 'admin_dashboard'}));
+      .then(() => this.goBack());
 
     },
     goBack() {
