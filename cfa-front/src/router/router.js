@@ -149,8 +149,11 @@ import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
 import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
 import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
 import EtudiantFicheSalarie from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarie.vue";
+import EtudiantFicheSalarieDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarieDetail.vue";
 import EtudiantFichePoste from "@/views/Admin/Crud/Etudiant/EtudiantFichePoste.vue";
+import EtudiantFichePosteDetail from "@/views/Admin/Crud/Etudiant/EtudiantFichePosteDetail.vue";
 import EtudiantFicheEntreprise from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntreprise.vue";
+import EtudiantFicheEntrepriseDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntrepriseDetail.vue";
 //Absence
 import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
 import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
@@ -341,6 +344,7 @@ const routes = [
   { path: "/admin/entreprises/create", name:"admin_addEntreprise", component: AddEntreprise},
   { path: "/admin/entreprises/update/:id", name:"admin_entreprise_update", component: AddEntreprise},  
   { path: "/admin/entreprises/detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail},
+
   //Cursus
   { path: "/admin/cursus", name:"admin_cursus_list", component: CursusList},
   { path: "/admin/cursus/create", name:"admin_addCursus", component: AddCursus},
@@ -372,8 +376,13 @@ const routes = [
    { path: "/admin/etudiants/update/:id", name:"admin_etudiant_update", component: EtudiantCreate},
    { path: "/admin/etudiants/detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail},
    { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie},
+   { path: "/admin/etudiants/fiche-salarie/detail/:id", name:"admin_etudiant_fiche_salarie_detail", component: EtudiantFicheSalarieDetail},
    { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste},
+   { path: "/admin/etudiants/fiche-poste/update/:id", name:"admin_etudiant_fiche_poste_update", component: EtudiantFichePoste},
    { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise},
+   { path: "/admin/etudiants/fiche-entreprise/update/:id", name:"admin_etudiant_fiche_entreprise_update", component: EtudiantFicheEntreprise},
+   { path: "/admin/etudiants/fiche-poste/detail/:id", name:"admin_etudiant_fiche_poste_detail", component: EtudiantFichePosteDetail},
+   { path: "/admin/etudiants/fiche-entreprise/detail/:id", name:"admin_etudiant_fiche_entreprise_detail", component: EtudiantFicheEntrepriseDetail},
    //Absence
    { path: "/admin/absences/create/:id", name:"admin_absence_create", component: AbsenceCreate},
    { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate},

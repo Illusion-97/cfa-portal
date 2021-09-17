@@ -115,7 +115,7 @@ export default {
     } else {
       noteApi.getById(this.$route.params.id).then((response) => {
         this.form = response;
-        this.vue_title = "Update d'un note";
+        this.vue_title = "Update d'une note";
         this.btn_form_text = "Update";
         this.etudiant_input = `${this.form.etudiantDto.prenom} ${this.form.etudiantDto.nom}`;
       });

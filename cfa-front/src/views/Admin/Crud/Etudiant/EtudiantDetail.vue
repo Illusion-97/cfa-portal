@@ -43,15 +43,48 @@
         </div>
       </div>
     </div>
-
-      <div class="btn-group " role="group" aria-label="Basic example">
-      <!--<router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
-      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>-->
+<div id="menu">
+  <ul>
+    <li class="menuAbout">
+      <button class="btn-hover color-3 btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+        Manipuler fiches
+      </button>
+      <div id="subAbout">
+                <ul>
+                  <li class="li_first">
+                    <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
+                  </li>
+                  <li>
+                       <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+                  </li>
+                  <li>
+                    <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
+                  </li>
+                  <li>
+                    <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+                  </li>
+                  <li class="li_last">
+                    <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+                  </li>
+                </ul>
+                </div>
+            </li>
+        </ul>
+	</div>
+      <!-- <div class="btn-group " role="group" aria-label="Basic example">
+      <router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
+      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>
       <button class="btn-hover color-1" v-on:click="createFicheSalarie(etudiant)">Ajouter une fiche salarié </button>
       <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
       <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+      <button class="btn-hover color-9" v-on:click="editFicheSalarie(etudiant)">Modifier la fiche salarié </button>
+      <button class="btn-hover color-9" v-on:click="editFichePoste(etudiant)">Modifier la fiche de poste</button>
+      <button class="btn-hover color-9" v-on:click="editFicheEntreprise(etudiant)">Modifier la fiche d'entreprise </button>
+      <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
+      <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+      <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+      </div> -->
 
-    </div>
     <br>
     <br>
     <div class="mon-container-tuile">
@@ -350,6 +383,133 @@ export default {
   methods: {
      goBack() {
       this.$router.go(-1);
+    },
+    detailFicheSalarie(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_salarie_detail",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_salarie_detail",
+       
+      });
+      }
+    },
+    detailFicheEntreprise(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise_detail",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise_detail",
+       
+      });
+      }
+    },
+    detailFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_poste_detail",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_poste_detail",
+       
+      });
+      }
+
+    },
+    editFicheSalarie(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_edit_fiche_salarie",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_edit_fiche_salarie",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_etudiant_edit_fiche_salarie",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_etudiant_edit_fiche_salarie",
+      });
+      }*/
+    },
+    editFichePoste(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_poste_update",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_poste_update",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_etudiant_edit_fiche_poste",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_etudiant_edit_fiche_poste",
+      });
+      }*/
+    },
+    editFicheEntreprise(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_etudiant_fiche_entreprise_update",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_etudiant_fiche_entreprise_update",
+       
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_etudiant_edit_fiche_entreprise",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_etudiant_edit_fiche_entreprise",
+      });
+      }*/
     },
     createFicheSalarie(){
       let route = this.$route.path.split("/").splice(1);
@@ -682,148 +842,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.mon-plus {
-  font-size: 24px;
-  height: 1.5em;
-  line-height: 0.7em;
-  float: right;
-}
-
-.ma-croix {
-  margin-right: 0.6em;
-}
-
-.identite {
-  margin-top: 4em;
-  margin-bottom: 7em;
-}
-
-.identite > .nom {
-  font-size: 1.5em;
-}
-
-.identite > .email {
-  font-size: 1.2em;
-}
-
-.mon-container-tuile {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 3em;
-  padding-right: 50%;
-}
-
-.ma_tuile .ma_tuile2 {
-  width: 8em;
-}
-.ma_tuile2:hover{
-  background-color: rgb(0, 140, 255);
-  color: white;
-}
-.ma_tuile:hover {
-  background-color: rgb(0, 140, 255);
-  color: white;
-  cursor: pointer;
-}
-
-.mon-tr:hover {
-  background-color: rgb(216, 213, 213) !important;
-  cursor: pointer;
-}
-
-.ma_fenetre {
-  margin-bottom: 5em;
-}
-
-.activ {
-  background-color:rgb(0, 140, 255);
-  color: white;
-}
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.buttons .router-link {
-    margin: 10%;
-    text-align: center;
-}
-
-.btn-hover {
-    width: 200px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-    margin: 20px;
-    height: 55px;
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-
-    border-radius: 50px;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-
-.btn-hover:hover {
-    background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-
-.btn-hover:focus {
-    outline: none;
-}
-
-.btn-hover.color-1 {
-    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
-    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
-}
-.btn-hover.color-2 {
-    background-image: linear-gradient(to right, #f5ce62, #e43603, #fa7199, #e85a19);
-    box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
-}
-.btn-hover.color-3 {
-    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
-    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
-}
-.btn-hover.color-4 {
-    background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
-    box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
-}
-.btn-hover.color-5 {
-    background-image: linear-gradient(to right, #0ba360, #3cba92, #30dd8a, #2bb673);
-    box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
-}
-.btn-hover.color-6 {
-    background-image: linear-gradient(to right, #009245, #FCEE21, #00A8C5, #D9E021);
-    box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
-}
-.btn-hover.color-7 {
-    background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);
-    box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
-}
-.btn-hover.color-8 {
-    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
-    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
-}
-.btn-hover.color-9 {
-    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
-    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
-}
-.btn-hover.color-10 {
-        background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
-    box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
-}
-.btn-hover.color-11 {
-       background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
-}
-
+<style scoped src="@/assets/styles/EtudiantDetail.css">
 </style>
+
