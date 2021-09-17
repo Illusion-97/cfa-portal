@@ -13,6 +13,7 @@ import router from './router/router.js'
 import store from './store/store.js'
 import axios from 'axios';
 import Paginate from 'vuejs-paginate'
+// import VueCookies from 'vue-cookies'
 
 let bootstrap = require('bootstrap');
 Vue.use(bootstrap)
@@ -23,10 +24,11 @@ Vue.component('paginate', Paginate)
 // axios.defaults.baseURL = "http://localhost:8080/AppliCFABack/";
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
+// Vue.use(VueCookies)
+
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
-
   

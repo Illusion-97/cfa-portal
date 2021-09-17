@@ -21,7 +21,7 @@
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Email"
               required
-              @input="test()"
+              @input="isInvalidInputFalse()"
             />
           </div>
         </div>
@@ -40,7 +40,7 @@
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Mot de Passe"
               required
-              @input="test()"
+              @input="isInvalidInputFalse()"
             />
           </div>
         </div>
@@ -81,8 +81,7 @@ export default {
     };
   },
   methods: {
-    test(){
-      console.log("j'exécute test");
+    isInvalidInputFalse(){
       this.isInvalidInput = false;
     },
     submit: function(e) {
@@ -92,11 +91,9 @@ export default {
         .then(()=>this.$router.push({name: 'home'}))
         .catch(error => {
           console.log(error);
-          console.log(error.response.data.message);
           if(error.response.data.message == "Erreur : identifiants incorrects !"){
             this.isInvalid = true;
             this.isInvalidInput = true;
-            console.log(this.isInvalid);
           }
         });
     },

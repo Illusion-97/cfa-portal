@@ -52,7 +52,8 @@
             <li class="nav-item">
               <router-link
                 class="nav-link"
-                :to="{ name: 'formateur_intervention' }"
+                :to="{ name: 'formateur' }"
+                v-if="isFormateur"
               >
                 Espace formateur</router-link
               >
@@ -61,12 +62,13 @@
               <router-link
                 class="nav-link"
                 :to="{ name: 'referent_dashboard' }"
+                v-if="isReferent"
               >
                 Espace Référent</router-link
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'admin_dashboard' }">
+              <router-link class="nav-link" :to="{ name: 'admin_dashboard' }" v-if="isAdmin">
                 Espace Administrateur
               </router-link>
             </li>
@@ -86,6 +88,7 @@
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
+
 export default {
   name: "navbar",
   computed: {

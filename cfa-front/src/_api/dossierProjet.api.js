@@ -1,11 +1,11 @@
 import axios from "axios";
 import { requestOptions } from "@/_helpers/request-options.js";
 
-const END_POINT = "/dossierProfessionnel";
+const END_POINT = "/dossierProjet";
 
-export const dossierProfessionnelApi = {
+export const dossierProjetApi = {
     getById,
-    deleteDossierProfessionnel,
+    deleteDossierProjet,
     save,
     getAll,
     getByIdEtudiant,
@@ -42,7 +42,7 @@ function getById(id){
       .catch((error) => console.log(error));
   }
   
-  function deleteDossierProfessionnel(id){
+  function deleteDossierProjet(id){
     return axios
       .delete(`${END_POINT}/delete/${id}`, requestOptions.headers())
       .then((response) => response.data)
