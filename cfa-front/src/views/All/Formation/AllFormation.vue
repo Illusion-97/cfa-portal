@@ -134,4 +134,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+tbody tr {
+  cursor: pointer;
+}
+</style>
