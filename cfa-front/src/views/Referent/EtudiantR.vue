@@ -41,11 +41,9 @@
                   <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
                   <td>{{ etudiant.login }}</td>
                   <td>
-                    <ul
-                      v-for="promotion in etudiant.promotionsDto"
-                      :key="promotion.id" class="text-left list-style-none"
-                    >
-                      <li>{{ promotion.nom }}</li>
+                    <ul class="text-left list-style-none">
+                      <li v-for="promotion in etudiant.promotionsDto"
+                      :key="promotion.id" >{{ promotion.nom }}</li>
                     </ul>
                   </td>
                 </tr>
