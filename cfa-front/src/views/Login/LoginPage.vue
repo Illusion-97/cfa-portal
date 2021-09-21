@@ -20,6 +20,7 @@
               v-model="email"
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Email"
+              autocomplete="email"
               required
               @input="isInvalidInputFalse()"
             />
@@ -39,6 +40,7 @@
               v-model="password"
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Mot de Passe"
+              autocomplete="current-password"
               required
               @input="isInvalidInputFalse()"
             />

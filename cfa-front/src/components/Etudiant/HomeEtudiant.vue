@@ -130,7 +130,8 @@
   .identite,
   #student-info {
     /* background-color: #fff; */
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
+    background-color: #d0d0d0c4;
 
   }
 

@@ -43,34 +43,39 @@
         </div>
       </div>
     </div>
-<div id="menu">
-  <ul>
-    <li class="menuAbout">
-      <button class="btn-hover color-3 btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
-        Manipuler fiches
-      </button>
-      <div id="subAbout">
-                <ul>
-                  <li class="li_first">
-                    <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
-                  </li>
-                  <li>
-                       <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
-                  </li>
-                  <li>
-                    <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
-                  </li>
-                  <li>
-                    <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
-                  </li>
-                  <li class="li_last">
-                    <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
-                  </li>
-                </ul>
-                </div>
-            </li>
-        </ul>
-	</div>
+    <div class="row">
+    <div class="col-9">
+      <div id="menu">
+            <ul>
+              <li class="menuAbout">
+                <button class="btn-hover color-3 btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                  Manipuler fiches
+                </button>
+                <div id="subAbout">
+                          <ul>
+                            <li class="li_first">
+                              <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
+                            </li>
+                            <li>
+                                <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
+                            </li>
+                            <li>
+                              <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
+                            </li>
+                            <li>
+                              <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+                            </li>
+                            <li class="li_last">
+                              <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+                            </li>
+                          </ul>
+                          </div>
+                      </li>
+                  </ul>
+            </div>
+          </div>
+  </div>
+  
       <!-- <div class="btn-group " role="group" aria-label="Basic example">
       <router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
       <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>
@@ -85,10 +90,10 @@
       <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
       </div> -->
 
-
     <br>
     <br>
-
+    <br>
+    <br>
     <div class="mon-container-tuile">
       <span
         :class="{

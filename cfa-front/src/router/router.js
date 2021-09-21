@@ -77,14 +77,6 @@ import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
 import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 //???
 import GroupeProjet from "@/views/Referent/GroupeProjet.vue";
-//Projet
-import Projets from "@/views/Referent/Projets.vue";
-import CreateProjet from "@/views/Referent/CreateProjet.vue";
-import ModifierProjet from "@/views/Referent/ModifierProjet.vue";
-//Groupe
-import Groupes from "@/views/Referent/Groupes.vue";
-import CreateGroupe from "@/views/Referent/CreateGroupe.vue";
-import ModifierGroupe from "@/views/Referent/ModifierGroupe.vue";
 //Absence
 import AbsenceRetard from "@/views/Referent/AbsenceRetard.vue";
 import CreateAbsenceRetard from "@/views/Referent/CreateAbsenceRetard.vue";
@@ -253,13 +245,17 @@ const routes = [
   //Groupe/Projet
   { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet, meta: { authorize: [Role.Referent] }},
   //Projet
-  { path: "/referent/projets", name: "referent_projets", component: Projets, meta: { authorize: [Role.Referent] }},
+  /*{ path: "/referent/projets", name: "referent_projets", component: Projets, meta: { authorize: [Role.Referent] }},
   { path: "/referent/projets/update", name: "referent_modifier-projet", component: ModifierProjet, meta: { authorize: [Role.Referent] }},
-  { path: "/referent/projets/create", name: "referent_create-projet", component: CreateProjet, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/create", name: "referent_create-projet", component: CreateProjet, meta: { authorize: [Role.Referent] }},*/
+  { path: "/referent/projets", name:"referent_projet_list", component: ProjetList, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/create", name:"referent_projet_create", component: ProjetCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/update/:id", name:"referent_projet_update", component: ProjetCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/detail/:id", name:"referent_projet_detail", component: ProjetDetail, meta: { authorize: [Role.Referent] }},
   //Groupe
-  { path: "/referent/groupes", name: "referent-groupes", component: Groupes, meta: { authorize: [Role.Referent] }},
+  /*{ path: "/referent/groupes", name: "referent-groupes", component: Groupes, meta: { authorize: [Role.Referent] }},
   { path: "/referent/groupes/create", name: "referent_create-groupe", component: CreateGroupe, meta: { authorize: [Role.Referent] }},
-  { path: "/referent/groupes/update", name: "referent_modifier-groupe", component: ModifierGroupe, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/update", name: "referent_modifier-groupe", component: ModifierGroupe, meta: { authorize: [Role.Referent] }},*/
   //Absence
   { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard, meta: { authorize: [Role.Referent] }},
   { path: "/referent/absence-retard/create", name: "referent_create-absence-retard", component: CreateAbsenceRetard, meta: { authorize: [Role.Referent] }},
@@ -287,8 +283,12 @@ const routes = [
   { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/create", name: "referent_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   //Groupe
-  { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Referent] }},
+  /*{ path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/update/:id", name:"referent_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Referent] }},*/
+  { path: "/referent/groupes", name:"referent_groupe_list", component: GroupeList, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/create", name:"referent_groupe_create", component: GroupeCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/groupes/update/:id", name:"referent_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Referent] }},
   //Note
   { path: "/referent/notes/detail/:id", name:"referent_note_detail", component: NoteDetail, meta: { authorize: [Role.Referent] }},
   { path: "/referent/notes/update/:id", name:"referent_note_update", component: NoteCreate, meta: { authorize: [Role.Referent] }},
