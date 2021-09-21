@@ -15,6 +15,16 @@
         <h4>Note d'information</h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
+
+      <div
+        id="support-cours"
+        class="mx-5 mt-2"
+        v-if="true"
+      >
+        <h4>Support de cours</h4>
+        <p class="mt-4"></p>
+      </div>
+
       <div class="card" id="card-detail">
         <div class="card-header">
           <div class="float-right dropstart">
@@ -172,7 +182,7 @@
               <th scope="col">Enonce</th>
               <th scope="col">Date debut</th>
               <th scope="col">Date Fin</th>
-              <th>Action</th>
+              <th><span class="bold" @click="addDevoir()">+</span></th>
             </tr>
           </thead>
           <tbody>
@@ -205,7 +215,7 @@
                 <th scope="col">Etudiant</th>
                 <th scope="col">Date debut</th>
                 <th scope="col">Date Fin</th>
-                <th>Action</th>
+                <th><span class="bold" @click="addAbsence()">+</span></th>
               </tr>
             </thead>
             <tbody>
@@ -350,6 +360,12 @@ export default {
     changementOnglet(onglet) {
       this.onglet = onglet;
     },
+    addDevoir(){
+      this.$router.push({name: 'admin_devoir_create'})
+    },
+    addAbsence(){
+      this.$router.push({name: 'formateur_absence_create'})
+    }
   },
 };
 </script>

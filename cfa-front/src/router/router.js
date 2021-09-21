@@ -229,10 +229,15 @@ const routes = [
   { path: "/formateur/etudiants/detail/:id", name:"formateur_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Formateur] }},
   //Promotion
   { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Formateur] } },
-  //Devoir
+  //Devoir  
+  { path: "/formateur/devoirs/create/:id", name: "admin_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
+  { path: "/formateur/devoirs/update/:id", name: "formateur_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },  
   { path: "/formateur/devoirs/detail/:id", name: "formateur_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Formateur] } },
-  //Absence
-  { path: "/formateur/absences/detail/:id", name:"formateur_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Formateur] }},
+  //Absence  
+  { path: "/formateur/absences/create", name:"formateur_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/absences/update/:id", name:"formateur_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/absences/detail/:id", name:"formateur_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Formateur] }},  
+  
  
   //#######################
   //#       REFERENT      #
@@ -392,7 +397,7 @@ const routes = [
    { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
    //Absence
-   { path: "/admin/absences/create/:id", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/absences/create", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/detail/:id", name:"admin_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Admin] }},
 

@@ -66,6 +66,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
 import { devoirApi } from "@/_api/devoir.api.js";
+import { interventionApi } from "@/_api/intervention.api.js";
 
 export default {
   name: "DevoirCreate",
@@ -121,19 +122,33 @@ export default {
 
         });
     },
+    isCreated(){
+      let tab = this.$route.path.split("/");
+
+      for(let i = 0; i<tab.length; i++)
+        if(tab[i] == "create") 
+          return true;      
+
+      return false;
+    },
   },
   created() {
-    if (
-      this.$route.params.id != null &&
-      this.$route.params.id != "" &&
-      this.$route.params.id != 0
-    ) {
+    if (!this.isCreated()) {
       devoirApi.getById(this.$route.params.id).then((response) => {
         this.form = response;
         this.vue_title = "Update d'un devoir";
         this.btn_form_text = "Update";
         this.intervention = response.interventionDto;
-      });
+      });      
+    }else if(
+      this.$route.params.id != null &&
+      this.$route.params.id != "" &&
+      this.$route.params.id != 0
+    ){
+      interventionApi.getById(this.$route.params.id).then( response => {
+        console.log(response);
+        this.intervention = response;
+      })
     }
   },
 };
