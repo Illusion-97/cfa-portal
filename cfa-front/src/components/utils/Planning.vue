@@ -74,7 +74,7 @@
                     </p>
                   </div>
                   <router-link
-                    :to="{ name: 'intervention-detail',
+                    :to="{ name: 'formateur-intervention-detail',
                       params: { id: intervention.idIntervention },}">
                     <font-awesome-icon
                       :icon="['fas', 'external-link-alt']"
