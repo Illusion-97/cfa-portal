@@ -17,6 +17,9 @@
           :to="{ name: 'admin_projet_update', params: { id: projetId } }"
           >Update</router-link
         >
+        <button class="btn btn-info" v-on:click=updateProjet>
+              Update 2
+            </button>
       </b-card-header>
 
       <div class="offset-1 col-10 mb-5">
@@ -162,6 +165,32 @@ export default {
       fileApi
         .deleteByDirectoryAndIdAndFilename("projets", id, fileName)
         .then(() => this.refreshListFiles(id));
+    },
+    updateProjet(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_projet_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_projet_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_groupe_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_groupe_update",
+      });
+      }*/
     },
   },
   created() {
