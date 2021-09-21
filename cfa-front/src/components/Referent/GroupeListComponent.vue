@@ -21,6 +21,9 @@
       <router-link class="btn-lg btn-info" :to="{ name: 'referent_create-groupe' }" v-if="isAction"
         >Ajouter</router-link
       >
+      <button class="btn-lg btn-info" v-on:click="createGroupe(etudiant)">
+              + 
+            </button>
     </div>
     <br>
     <table class="table table-bordered table-striped table-hover">

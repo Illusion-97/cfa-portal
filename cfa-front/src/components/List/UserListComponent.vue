@@ -199,6 +199,7 @@ export default {
           break;
         case "FORMATEUR":
           console.log("pas de page detail pour formateur")
+          //this.$router.push({ name: "admin_user_detail", params: { id: id }});
           break;
         case "REFERENT":
           console.log("pas de page detail pour referent")
