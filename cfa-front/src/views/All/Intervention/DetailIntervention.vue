@@ -10,9 +10,9 @@
       <div
         id="note-information"
         class="mx-5 mt-2"
-        v-if="items.noteInfoPersonnel"
+        v-if="true"
       >
-        <h4>Note d'information</h4>
+        <h4>Note d'information :</h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
 
@@ -21,8 +21,18 @@
         class="mx-5 mt-2"
         v-if="true"
       >
-        <h4>Support de cours</h4>
-        <p class="mt-4"></p>
+        <h4>Support de cours :</h4>
+        <ul class="list-style-none">
+          <li v-for="file in supports" :key="file">
+            {{file}} 
+
+            <font-awesome-icon
+              :icon="['fas', 'arrow-down']"
+              class="icon text-success"
+              @click="download_support(file)"
+            />
+          </li>
+        </ul>
       </div>
 
       <div class="card" id="card-detail">
@@ -247,6 +257,7 @@
 
 <script>
 import { interventionApi } from "@/_api/intervention.api.js";
+import { fileApi } from "@/_api/file.api.js";
 import { absencesApi } from "@/_api/absence.api.js";
 export default {
   name: "DetailIntervention",
@@ -261,6 +272,7 @@ export default {
       assignements: [],
       absences: [],
       trainers: [],
+      supports: [],
       loading: false,
       status,
 
@@ -295,6 +307,7 @@ export default {
     this.getStudents();
     this.getAssignement();
     this.getTrainer();
+    this.getSupports();
   },
   methods: {
     goBack() {
@@ -356,6 +369,14 @@ export default {
           }
         });
       }
+    },
+    getSupports(){
+      interventionApi
+        .findAllSupportByInterventionId(this.interventionId)
+        .then((response) => (this.supports = response));
+    },
+    download_support(file){
+      fileApi.downloadByDirectoryAndIdAndFilename("interventions", this.$route.params.id, file);
     },
     changementOnglet(onglet) {
       this.onglet = onglet;

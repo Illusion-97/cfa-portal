@@ -41,8 +41,8 @@
 
 
         <b-card-text class="identity row ml-5">
-          <span class="font-weight-bold col-md-2">Mot de passe :</span>
-          <span class="col-md-4">{{ user.password }} </span>
+          <!-- <span class="font-weight-bold col-md-2">Mot de passe :</span>
+          <span class="col-md-4">{{ user.password }} </span> -->
           <span class="font-weight-bold col-md-2">Rôle :</span>
           <span class="col-md-4"><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p> </span>
         </b-card-text>
