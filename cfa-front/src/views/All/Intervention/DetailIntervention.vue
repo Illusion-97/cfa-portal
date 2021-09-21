@@ -29,7 +29,7 @@
           <h2>{{ items.formationDto.titre }}</h2>
         </div>
         <div class="card-body">
-          <table class="table table-bordered table-striped">
+          <table class="table table-bordered">
             <tbody>
               <tr>
                 <th>Intitulé de la formation</th>
@@ -71,134 +71,100 @@
 
     <div class="mon-container-body">
       <div class="mon-container-tuile">
-        <span :class="{ ma_tuile: true, activ: isEtudiant }" class="mr-5" @click="changementOnglet(1)">
+        <span :class="{ ma_tuile: true, activ: showEtudiant }" class="mr-5" @click="changementOnglet(1)">
           Etudiants
         </span>
-        <span :class="{ ma_tuile: true, activ: isPromotion }" class="mr-5" @click="changementOnglet(2)">
+        <span :class="{ ma_tuile: true, activ: showPromotion }" class="mr-5" @click="changementOnglet(2)">
           Promotions
         </span>
-        <span :class="{ ma_tuile: true, activ: isDevoir }" class="mr-5" @click="changementOnglet(3)">
+        <span :class="{ ma_tuile: true, activ: showDevoir }" class="mr-5" @click="changementOnglet(3)">
           Devoirs
         </span>
-        <span :class="{ ma_tuile: true, activ: isAbsence }" @click="changementOnglet(4)">
+        <span :class="{ ma_tuile: true, activ: showAbsence }" @click="changementOnglet(4)">
           Absences
         </span>
       </div>
 
       <!-- Etudiants -->
-      <div :class="{ ma_fenetre: true, collapse: !isEtudiant }">
-        <table class="table text-center table-sm">
+      <div :class="{ ma_fenetre: true, collapse: !showEtudiant }">
+        <table class="table text-center table-sm table-custom">
           <thead>
             <tr>
               <th scope="col">Nom</th>
               <th scope="col">Prenom</th>
               <th scope="col">Email</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="stud in students" :key="stud.id">
+            <tr v-for="stud in students" :key="stud.id" @click="goToStudentDetail(stud.id)" title="Cliquez pour plus de detail">
               <td>{{ stud.nom }}</td>
               <td>{{ stud.prenom }}</td>
               <td>{{ stud.login }}</td>
-              <td>
-                <!-- Detail -->
+              <!-- <td>
+                Detail
                 <router-link :to="{
                     name: 'formateur_etudiant_detail',
                     params: { id: stud.id },
                   }">
                   detail
                 </router-link>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Promotions -->
-      <div :class="{ ma_fenetre: true, collapse: !isPromotion }">
-        <table class="table text-center table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Nom</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="promotion in promotions" :key="promotion.id">
-              <td>{{ promotion.nom }}</td>
-              <td>
-                <!-- Detail -->
-                <router-link :to="{
-                    name: 'formateur_promotion_detail',
-                    params: { id: promotion.id },
-                  }">
-                  detail
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div :class="{ ma_fenetre: true, collapse: !showPromotion }">
+        <ul v-for="promotion in promo" :key="promotion.id" class="list-style-none text-center">
+          <li>
+            <router-link :to="{name: 'formateur_promotion_detail',params: { id: promotion.id },}" title="Cliquez pour plus de detail" target="_blank" class="text-dark">
+              {{ promotion.nom }}
+            </router-link>
+          </li>
+        </ul>
+
       </div>
 
       <!-- Devoirs -->
-      <div :class="{ ma_fenetre: true, collapse: !isDevoir }">
-        <table class="table text-center table-sm">
+      <div :class="{ ma_fenetre: true, collapse: !showDevoir }">
+        <p v-if="assignements.length == 0" class="text-center">Aucun devoirs</p>
+        <table class="table text-center table-sm table-custom" v-else>
           <thead>
             <tr>
               <th scope="col">Enonce</th>
-              <th scope="col">Date debut</th>
-              <th scope="col">Date Fin</th>
-              <th>Action</th>
+              <th scope="col">Date de debut</th>
+              <th scope="col">Date de fin</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="assignement in assignements" :key="assignement.id">
+            <tr v-for="assignement in assignements" :key="assignement.id" @click="goToDevoirDetail(assignement.id)" title="Cliquez pour plus de detail">
               <td>{{ assignement.enonce }}</td>
               <td>{{ assignement.dateDebut | formatDate }}</td>
               <td>{{ assignement.dateFin | formatDate }}</td>
-              <td>
-                <!-- Detail -->
-                <router-link :to="{
-                    name: 'formateur_devoir_detail',
-                    params: { id: assignement.id },
-                  }">
-                  detail
-                </router-link>
-              </td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Absences -->
-      <div :class="{ ma_fenetre: true, collapse: !isAbsence }">
+      <div :class="{ ma_fenetre: true, collapse: !showAbsence }">
         <div class="card card-body border-0">
-          <table class="table text-center table-sm">
+          <table class="table text-center table-sm table-custom">
             <thead>
               <tr>
                 <th scope="col">Etudiant</th>
                 <th scope="col">Date debut</th>
                 <th scope="col">Date Fin</th>
-                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="absence in absences" :key="absence.id">
+              <tr v-for="absence in absences" :key="absence.id" @click="goToAbsenceDetail(absence.id)" title="Cliquez pour plus de detail">
                 <td>
                   {{ absence.etudiantDto.prenom }} {{ absence.etudiantDto.nom }}
                 </td>
                 <td>{{ absence.dateDebut | formatDate }}</td>
                 <td>{{ absence.dateFin | formatDate }}</td>
-                <td>
-                  <!-- Detail -->
-                  <router-link :to="{
-                      name: 'formateur_absence_detail',
-                      params: { id: absence.id },
-                    }">
-                    detail
-                  </router-link>
-                </td>
               </tr>
             </tbody>
           </table>
@@ -211,6 +177,7 @@
 <script>
   import { interventionApi } from "@/_api/intervention.api.js";
   import { absencesApi } from "@/_api/absence.api.js";
+  import { utilisateurService } from '@/_services/utilisateur.service.js'
   export default {
     name: "DetailIntervention",
     data() {
@@ -220,7 +187,7 @@
           formationDto: {},
         },
         students: [],
-        promotions: [],
+        promo: [],
         assignements: [],
         absences: [],
         trainers: [],
@@ -269,8 +236,11 @@
       goBack() {
         this.$router.go(-1);
       },
+      // Intervention
       getId() {
-        interventionApi.getInterventionById(this.interventionId).then((data) => {
+        interventionApi
+        .getInterventionById(this.interventionId)
+        .then((data) => {
           this.status = data.status;
           this.items = data.data;
           this.promo = this.items.promotionsDto;
@@ -300,22 +270,37 @@
           }
         });
       },
+      // Etudiant
       getStudents() {
         interventionApi
           .findStudentsByPromoInterventionId(this.interventionId)
           .then((data) => (this.students = data))
           .then(() => this.getAbsences());
       },
+      goToStudentDetail(id) {
+        const routeData = this.$router.resolve({
+          name: 'referent_etudiant_detail',
+          params: { id: id }
+        });
+        window.open(routeData.href, '_blank')
+      },
+      // Devoir
       getAssignement() {
         interventionApi
           .findAssignementByInterventionId(this.interventionId)
           .then((data) => (this.assignements = data));
       },
+      goToDevoirDetail(id) {
+        const routeData = this.$router.resolve({name:'formateur_devoir_detail',params:{id:id}});
+        window.open(routeData.href, '_blank')
+      },
+      // Formateur
       getTrainer() {
         interventionApi
           .findTrainerByInterventionId(this.interventionId)
           .then((data) => (this.trainers = data));
       },
+      // Absence
       getAbsences() {
         for (let i = 0; i < this.students.length; i++) {
           absencesApi
@@ -328,15 +313,11 @@
             });
         }
       },
-      goToStudentDetail(id) {
-        const routeData = this.$router.resolve({
-          name: 'referent_etudiant_detail',
-          params: {
-            id: id
-          }
-        });
+      goToAbsenceDetail(id) {
+        const routeData = this.$router.resolve({name:'formateur_absence_detail',params:{id:id}});
         window.open(routeData.href, '_blank')
       },
+      // Other
       changementOnglet(onglet) {
         this.onglet = onglet;
       },
@@ -357,7 +338,15 @@
   #card-detail {
     grid-column: 2 / span 2;
     grid-row: 1;
+    border-radius: 0;
   }
+
+  .card-header {
+    /* background-color: #a5303d61; */
+    border-radius: 0;
+    border-bottom: 0;
+  }
+
 
   .mon-container-body {
     padding-left: 10%;
@@ -395,6 +384,7 @@
 
   .activ:hover {
     background-color: unset;
+    cursor: default;
   }
 
   .icon-link {
@@ -404,16 +394,24 @@
     /* margin-bottom: 2em; */
   }
 
-  .table th {
-    border-top: 0;
-  }
-
   .table-custom {
     text-align: center;
   }
 
+  .table th {
+    border-top: 0;
+  }
+ 
+  tr th {
+    background: rgba(204, 198, 198, 0.329);
+  }
+
+  .table-custom tr:first-child{
+    background-color: unset;
+  }
+  
   .table-custom tbody>tr:hover {
-    background-color: rgba(192, 18, 18, 0.466);
+    background-color: rgba(18, 122, 192, 0.466);
     cursor: pointer;
   }
 
