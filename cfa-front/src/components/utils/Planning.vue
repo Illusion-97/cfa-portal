@@ -73,7 +73,7 @@
                       {{ formateur.prenom }} {{ formateur.nom }}
                     </p>
                   </div>
-                  <router-link
+                  <router-link v-if="isFormateur"
                     :to="{ name: 'formateur-intervention-detail',
                       params: { id: intervention.idIntervention },}">
                     <font-awesome-icon
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import { utilisateurService } from "@/_services/utilisateur.service.js";
 export default {
   name: "Planning",
   data() {
@@ -157,6 +158,12 @@ export default {
 
       return arr;
     },
+    isFormateur() {
+      return utilisateurService.isFormateur();
+    },
+    isEtudiant(){
+      return utilisateurService.isEtudiant();
+    }
   },
   methods: {
     triage(data) {
