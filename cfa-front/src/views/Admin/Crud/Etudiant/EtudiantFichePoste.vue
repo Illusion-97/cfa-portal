@@ -1,44 +1,29 @@
 <template>
  
   <div class="container-fluid">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
      <BodyTitle :title=vue_title />
      
     <b-form class="form mb-5" @submit="submit">
     
      <b-form-row class="text-align-left">
-        <!-- Nom -->
+        <!-- intitule -->
         <label class="col-1">Intitulé du poste</label>
         <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.intitule" required></b-form-input>
         </div>
 
-        <!-- Cursus -->
+        <!-- nature -->
         <label class=" col-1">Nature du poste</label>
         <div class="col-3">
-          <b-form-input v-model="form.prenom" required></b-form-input>
-        </div>
-      </b-form-row>
-
-      <b-form-row class="text-align-left">
-        <!-- Nom -->
-        <label class="col-1">Nom</label>
-        <div class="col-3">
-          <b-form-input v-model="form.nom" required></b-form-input>
-        </div>
-
-        <!-- Cursus -->
-        <label class=" col-1">Prénom</label>
-        <div class="col-3">
-          <b-form-input v-model="form.prenom" required></b-form-input>
-        </div>
-      </b-form-row>
-
-      <br>
-
-      <b-form-row class="text-align-left">
-        <label class="col-2">Status, corps, Categorie, grade</label>
-        <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.nature" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -47,7 +32,7 @@
       <b-form-row class="text-align-left">
         <label class="col-2">Mission Principale du service</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.mission" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -57,7 +42,7 @@
         <!-- Nom -->
         <label class="col-2">Composition du service </label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.compositionService" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -67,17 +52,16 @@
         <!-- Nom -->
         <label class="col-2">Positionnement de l'agent dans le service </label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.positionnement" required></b-form-input>
         </div>
       </b-form-row>
       
       <br>
 
       <b-form-row class="text-align-left">
-        <!-- Nom -->
         <label class="col-2">Mission principale, Raison d'être ou finalité du poste</label>
         <div class="col-10">
-          <b-form-input v-model="form.nom" required></b-form-input>
+          <b-form-input v-model="form.missionPrincipale" required></b-form-input>
         </div>
       </b-form-row>
 
@@ -90,21 +74,13 @@
       </div>
     </b-form>
 
-    <router-link
-      :to="{ name: 'admin_dashboard' }"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </router-link>
-
     </div>
     
 </template>
 
 <script>
-import {utilisateurApi} from "@/_api/utilisateur.api.js";
+import {fichePosteApi} from "@/_api/fichePoste.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 export default {
   name: "AddUser",
@@ -117,72 +93,50 @@ export default {
       vue_title: "Création fiche poste",
 
       form: {
-        id: null,
-        prenom: "",
-        nom: "",
-        login: "",
-        password: "",
-        rolesDto: [],
-        adresseDto: {},
-        entrepriseDto: {},
+        intitule: "",
+        nature: "",
+        mission: "",
+        compositionService: "",
+        positionnement: "",
+        etudiantDto: "",
+        missionPrincipale: "",
       },
 
-      adresse: null,
-      entreprise: null,
-      isModalVisible: false,
     };
   },
+  created(){
+    if (this.$route.name == "admin_etudiant_fiche_poste" || this.$route.name == "admin_etudiant_fiche_poste") {
+    etudiantApi.getById(this.utilisateur.id).then((response) => {
+        this.form.etudiantDto = response;
+
+    });
+    }
+    else {
+      fichePosteApi.getByIdEtudiant(this.$route.params.id).then((response) => {
+        this.form = response;
+        this.vue_title = "Modification de la fiche poste";
+        this.btn_form_text = "Modifier";
+      });
+      }
+  },
   computed: {
-    rolesComputed() {
-      return this.form.rolesDto;
-    },
-    adresse_input(){
-      return this.adresse;
-    },
-    entreprise_input(){
-      return this.entreprise;
-    },
+    utilisateur(){
+
+      return this.$store.getters.getUtilisateur;
+    }
   },
   methods: {
-    onClickChildAdresseList(adresse) {
-      this.form.adresseDto = adresse;
-    },
-    onClickChildEntrepriseList(entreprise) {
-      this.form.entrepriseDto = entreprise;
-    },
     submit(e) {
       e.preventDefault();
 
-      utilisateurApi
+      fichePosteApi
       .save(this.form)
-      .then(() => this.$router.push({ name: 'admin_dashboard'}));
-    },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
+      .then(() => this.goBack());
+
     },
     goBack() {
       this.$router.go(-1);
     },
-    onClickClose(roles){
-      this.form.rolesDto = roles;
-    }
-  },
-  created() {
-  
-    if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-      console.log(this.$route.params.id);
-      utilisateurApi.getById(this.$route.params.id).then(response => {
-        this.form = response
-        this.vue_title = "Modification d'un utilisateur";
-        this.btn_form_text = "Modifier";
-        this.adresse = response.adresseDto;
-        this.entreprise = response.entrepriseDto;
-        this.role = response.rolesDto;
-        });
-    }
   },
 };
 </script>

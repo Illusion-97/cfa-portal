@@ -22,7 +22,7 @@
           <br>
           <div class="mon-group">
             <label class="form-label">Liste des étudiants de la promo : </label>
-            <table class="table table-bordered table-striped table-hover" v-if="!isAction">
+            <table class="table table-striped" v-if="!isAction">
               <thead class="thead-dark">
                 <tr>
                   <th>Prenom Nom</th>
@@ -41,17 +41,17 @@
                   <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
                   <td>{{ etudiant.login }}</td>
                   <td>
-                    <div
+                    <ul
                       v-for="promotion in etudiant.promotionsDto"
-                      :key="promotion.id"
+                      :key="promotion.id" class="text-left list-style-none"
                     >
-                      {{ promotion.nom }}
-                    </div>
+                      <li>{{ promotion.nom }}</li>
+                    </ul>
                   </td>
                 </tr>
               </tbody>
             </table>
-             <a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>
+             <!--<a href="#" class="link">Télécharger toutes les feuilles de présence de la promo</a>-->
           </div>
   </div>
 </template>
@@ -128,6 +128,11 @@ label {
 }
 .icon:hover {
   cursor: pointer;
+}
+.list-style-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 </style>
 

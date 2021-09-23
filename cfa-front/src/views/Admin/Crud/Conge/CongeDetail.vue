@@ -12,11 +12,9 @@
     <b-card no-body id="my-card">
         <b-card-header>
           <span class="">Detail</span>
-          <router-link
-          class="btn btn-info"
-          :to="{ name: 'admin_conge_update', params: { id: congeId } }"
-          >Update</router-link
-        >
+        <button class="btn btn-info" v-on:click=updateConge>
+              Update
+            </button>
         </b-card-header>
 
         <b-card-text class="identity row ml-5">
@@ -60,6 +58,32 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    updateConge(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_conge_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_conge_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_conge_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_conge_update",
+      });
+      }*/
     },
   },
   created() {

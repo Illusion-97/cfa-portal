@@ -67,13 +67,13 @@
 </template>
 
 <script>
-import TableTemplate from "@/components/utils/TableTemplate.vue";
+//import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import { formationFields } from "@/assets/js/fields.js";
 export default {
   name: "Formation",
   components: {
-    TableTemplate,
+    //TableTemplate,
   },
   data() {
     return {
@@ -134,4 +134,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+tbody tr {
+  cursor: pointer;
+}
+</style>

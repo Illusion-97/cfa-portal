@@ -22,12 +22,9 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link
-        class="btn btn-info"
-        :to="{ name: 'admin_projet_create' }"
-        v-if="isAction"
-        >Ajouter</router-link
-      >
+       <button class="btn btn-info" v-on:click="createProjet()" v-if="isAction">
+              Ajouter
+            </button>
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -50,8 +47,8 @@
           <td>{{ projet.description }}</td>
           <td>{{ projet.groupeDto.nom }}</td>
           <td v-if="isAction">
-            <button class="btn btn-info" v-on:click="deleteProjet(projet.id)">
-              Delete
+            <button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">
+              Supprimer
             </button>
           </td>
         </tr>
@@ -162,6 +159,21 @@ export default {
     deleteProjet(projetId) {
       projetApi.deleteProjet(projetId).then(() => this.refreshList());
     },
+    createProjet(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_projet_create",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_projet_create",
+        
+      });
+      }
+    },
     clickList(projet) {
       if (!this.isAction) {
         this.projet_input = projet.enonce;
@@ -169,8 +181,20 @@ export default {
       }
     },
     detail(id) {
-      if (this.isAction)
-        this.$router.push({ name: "admin_projet_detail", params: { id: id } });
+      if (this.isAction){
+        let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({ 
+        name: "admin_projet_detail", params: { id: id } });
+      }
+      else {
+        this.$router.push({
+        name: "referent_projet_detail",
+        params: { id: id }
+        
+      });
+      }
+    }
     },
   },
 };

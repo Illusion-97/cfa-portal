@@ -18,9 +18,9 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_groupe_create' }" v-if="isAction"
-        >Ajouter</router-link
-      >
+      <button class="btn btn-info" v-on:click="createGroupe()" v-if="isAction">
+              Ajouter 
+            </button>
     </div>
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
@@ -139,6 +139,21 @@ export default {
     deleteGroupe(groupeId) {
       groupeApi.deleteGroupe(groupeId).then(() => this.refreshList());
     },
+    createGroupe(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_groupe_create",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "referent_groupe_create",
+        
+      });
+      }
+    },
     clickList(groupe) {
       if (!this.isAction) {
       this.groupe_input = groupe.nom;
@@ -146,8 +161,20 @@ export default {
       }
     },
     detail(id) {
-      if (this.isAction)
-        this.$router.push({ name: "admin_groupe_detail", params: { id: id } });
+      if (this.isAction){
+        let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({ 
+        name: "admin_groupe_detail", params: { id: id } });
+      }
+      else {
+        this.$router.push({
+        name: "referent_groupe_detail",
+        params: { id: id }
+        
+      });
+      }
+    }
     },
     delete_input(){
       this.groupe_input = "";

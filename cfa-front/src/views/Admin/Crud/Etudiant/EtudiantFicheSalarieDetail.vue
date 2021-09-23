@@ -1,6 +1,5 @@
 <template>
     <div>
-        <router-link class="router-link" :to="{name:'etudiant_profil'}"> <font-awesome-icon :icon="['fas', 'angle-left']" />  Retour au Profil</router-link>
         <BodyTitle title="Fiche de Salarié" />
 
         <b-card no-body id="card-profil">
@@ -89,7 +88,14 @@
 
         
       </b-card>-->
-
+      <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
     </div>
 </template>
 
@@ -97,24 +103,30 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
-    name: "FicheSalarie",
+    name: "FicheSalarieDetail",
     components: {
         BodyTitle,
     },
-  data() {
+data() {
     return {
-      adresse: { id: "", numero: "", rue: "", ville: "", codePostal: "" },
+      utilisateur: { etudiantDto: {}},
+      adresse: {etudiantDto: {}},
+      loading: false,
     };
   },
   computed: {
-    utilisateur() {
-      return this.$store.getters.getUtilisateur;
-    },
+
   },
   methods: {
+      goBack() {
+      this.$router.go(-1);
+    },
   },
   created() {
-    utilisateurApi.getAdresseById(this.$store.getters.getUtilisateur.id).then((response) => (this.adresse = response));
+    //fichePosteApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.fichePoste = response));
+    //fichePosteApi.getByIdEtudiant(this.$route.params.id).then((response) => (this.fichePoste = response));
+    utilisateurApi.getById(this.$route.params.id).then((response) => (this.utilisateur = response));
+    utilisateurApi.getAdresseById(this.$route.params.id).then((response) => (this.adresse = response));
   },
 };
 </script>

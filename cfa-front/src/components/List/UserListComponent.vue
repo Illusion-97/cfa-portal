@@ -52,6 +52,7 @@
           <!-- <th>Mot de passe</th> -->
           <!-- <th>Adresse</th> -->
           <!-- <th>Entreprise</th> -->
+          <th>Rôle</th>
           <th v-if="isAction">Action</th>
         </tr>
       </thead>
@@ -191,23 +192,23 @@ export default {
     detailUtilisateur(id) {
       switch (this.selected_role) {
         case "":
-          console.log("pas de page detail pour utilisateur sans role")
+          this.$router.push({ name: "admin_user_detail", params: { id: id }});
           break;
         case "ETUDIANT":
            this.$router.push({ name: "admin_etudiant_detail", params: { id: id }});
           break;
-        case "FORMATEUR":
-          console.log("pas de page detail pour formateur")
-          break;
-        case "REFERENT":
-          console.log("pas de page detail pour referent")
-          break;
-        case "CEF":
-          console.log("pas de page detail pour cef")
-          break;
-        case "ADMIN":
-          console.log("pas de page detail pour admin")
-          break;
+        // case "FORMATEUR":
+        //   console.log("pas de page detail pour formateur")
+        //   break;
+        // case "REFERENT":
+        //   console.log("pas de page detail pour referent")
+        //   break;
+        // case "CEF":
+        //   console.log("pas de page detail pour cef")
+        //   break;
+        // case "ADMIN":
+        //   console.log("pas de page detail pour admin")
+        //   break;
       }
     },
     clickList(utilisateur) {

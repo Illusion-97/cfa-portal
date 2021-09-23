@@ -9,7 +9,7 @@
         <router-view />
       </div>
       <div v-else-if=" table[0] == 'formateur'">
-        <router-view class="mx-5"/>
+        <router-view class="px-5"/>
       </div>
       <div v-else>
         <VerticalNavbar class="col-md-2" />

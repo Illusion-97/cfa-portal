@@ -4,7 +4,7 @@
       <div class="form-horizontal">
         <div class="form-group">
           <div class="col-md-offset-2 col-md-12">
-            <h2>Login</h2>
+            <h2>Connexion</h2>
           </div>
         </div>
 
@@ -20,8 +20,9 @@
               v-model="email"
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Email"
+              autocomplete="email"
               required
-              @input="test()"
+              @input="isInvalidInputFalse()"
             />
           </div>
         </div>
@@ -39,8 +40,9 @@
               v-model="password"
               :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
               placeholder="Mot de Passe"
+              autocomplete="current-password"
               required
-              @input="test()"
+              @input="isInvalidInputFalse()"
             />
           </div>
         </div>
@@ -56,7 +58,7 @@
               value="Se connecter"
             />
           </div>
-          <hr />
+          <!-- <hr /> -->
           <!--
           <div class="foot-lnk">
             <a href="LoginPage">Mot de Passe oublié ?</a>
@@ -81,8 +83,7 @@ export default {
     };
   },
   methods: {
-    test(){
-      console.log("j'exécute test");
+    isInvalidInputFalse(){
       this.isInvalidInput = false;
     },
     submit: function(e) {
@@ -92,11 +93,9 @@ export default {
         .then(()=>this.$router.push({name: 'home'}))
         .catch(error => {
           console.log(error);
-          console.log(error.response.data.message);
           if(error.response.data.message == "Erreur : identifiants incorrects !"){
             this.isInvalid = true;
             this.isInvalidInput = true;
-            console.log(this.isInvalid);
           }
         });
     },

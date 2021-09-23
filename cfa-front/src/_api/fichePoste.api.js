@@ -1,17 +1,16 @@
-import axios from "axios";
-import { requestOptions } from "@/_helpers/request-options.js";
+import axios from 'axios';
+import { requestOptions } from '@/_helpers/request-options.js';
 
-const END_POINT = "cursus";
+const END_POINT = "fichePostes";
 
-export const cursusApi = {
+export const fichePosteApi = {
   getById,
   getAllByPage,
   getCount,
   save,
-  deleteCursus,
-  getAllCursus,
+  deleteFichePoste,
+  getAll,
   getByIdEtudiant,
-  getCurrentCursusByIdEtudiant,
 };
 
 function getById(id){
@@ -22,6 +21,7 @@ function getById(id){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
+
 function getByIdEtudiant(id){
   let req = `/${END_POINT}/etudiant/${id}`;
 
@@ -29,15 +29,6 @@ function getByIdEtudiant(id){
       .get(req, requestOptions.headers())
       .then(response => response.data)
       .catch((error) => console.log(error));
-}
-function getCurrentCursusByIdEtudiant(id){
-  let req = `/${END_POINT}/CurrentCursus/${id}`;
-
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
-
 }
 
 function getAllByPage(page, size, search = ""){
@@ -58,25 +49,25 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function save(cursus) {
+function save(examen) {
   return axios
-    .post(`${END_POINT}`, cursus, requestOptions.headers())
+    .post(`${END_POINT}`, examen, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-function deleteCursus(id) {
-  let req =  `cursus/delete/${id}`;
-
+function deleteFichePoste(id) {
   return axios
-      .delete(req, requestOptions.headers())
-      .then((response) => response)
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getAll(){
+  let req = `/fichePostes`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
       .catch((error) => console.log(error));
-}
-
-function getAllCursus() {
-  return axios
-    .get(`${END_POINT}`, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
 }

@@ -8,6 +8,7 @@
           <th>Notes</th>
           <th>Observations</th>
           <th>Devoir/Examen</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody v-if="notesComputed">
@@ -26,6 +27,10 @@
           <td v-else>
             NaN
           </td>
+          <td> <router-link
+              class="btn btn-info"
+              :to="{ name: 'etudiant_espace-peda_notesdetails', params: { id: note.id } }"
+              >Detail</router-link></td>
           <!-- <td v-if="note.examenDto != null">
             {{note.examenDto.examenDto.enonce}}
           </td>

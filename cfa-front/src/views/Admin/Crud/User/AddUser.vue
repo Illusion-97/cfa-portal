@@ -31,6 +31,39 @@
       </b-form-group>
 
       <b-form-group>
+        <b-form-row class="text-aling-left">
+          <label class="col-2">Civilité :</label>
+        <div class="col-7 pr-5">
+          <b-form-radio v-model="form.civilite"  name="some-radios" value="Mr">Mr</b-form-radio>
+          <b-form-radio v-model="form.civilite"  name="some-radios" value="Mme">Mme</b-form-radio>
+        </div>
+        </b-form-row>
+      </b-form-group>
+
+      <b-form-group>
+        <b-form-row class="text-align-left">
+        <!-- Dates Fin -->
+        <label class="col-2">Date de naissance</label>
+        <div class="col-7 pr-5">
+          <b-form-datepicker
+            locale="fr"
+            v-model="form.dateDeNaissance"
+            :required="true"
+          ></b-form-datepicker>
+        </div>
+      </b-form-row>
+      </b-form-group>
+
+       <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-2">Téléphone :</label>
+          <div class="col-7 pr-5">
+            <b-form-input v-model="form.telephone" required id="telephone" type="tel"></b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
+
+      <b-form-group>
         <b-form-row class="text-align-left">
           <label class="col-2">Login :</label>
           <div class="col-7 pr-5">
@@ -128,10 +161,10 @@
 
        <!-- Entreprise -->
       <b-form-group>
-        <div class="mb-4 row">
+        <!-- <div class="mb-4 row">
           <label class="col-2">Entreprise :</label>
           <a class="btn btn-primary offset-7 col-1" @click="setEntrepriseVisibility()">{{btn_entreprise}}</a>
-        </div>
+        </div> -->
 
         <div :class="{ collapse: !isEntrepriseNew }">
           <!-- <b-form-group>
@@ -232,6 +265,9 @@ export default {
         id: null,
         prenom: "",
         nom: "",
+        civilite: "",
+        dateDeNaissance: "",
+        telephone: "",
         login: "",
         password: "",
         rolesDto: [],

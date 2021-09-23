@@ -42,7 +42,7 @@
         <b-form-row class="text-align-left">
           <div class="offset-1 col-1">Motif</div>
           <div class="col-4 pr-5">
-            <b-form-textarea type="text" v-model="form.motif">
+            <b-form-textarea type="text" v-model="form.motif" class="my-textarea">
             </b-form-textarea>
           </div>
           <label class="col-1">Type de congé</label>
@@ -190,5 +190,9 @@ export default {
 
 .table-template {
   margin-right: 4em;
+}
+
+.my-textarea{
+  height: 150px;
 }
 </style>

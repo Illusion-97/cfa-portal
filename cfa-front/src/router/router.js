@@ -77,14 +77,6 @@ import NoteInfoR from "@/views/Referent/NoteInfoR.vue";
 import CreateSupportCoursR from "@/views/Referent/CreateSupportCoursR.vue";
 //???
 import GroupeProjet from "@/views/Referent/GroupeProjet.vue";
-//Projet
-import Projets from "@/views/Referent/Projets.vue";
-import CreateProjet from "@/views/Referent/CreateProjet.vue";
-import ModifierProjet from "@/views/Referent/ModifierProjet.vue";
-//Groupe
-import Groupes from "@/views/Referent/Groupes.vue";
-import CreateGroupe from "@/views/Referent/CreateGroupe.vue";
-import ModifierGroupe from "@/views/Referent/ModifierGroupe.vue";
 //Absence
 import AbsenceRetard from "@/views/Referent/AbsenceRetard.vue";
 import CreateAbsenceRetard from "@/views/Referent/CreateAbsenceRetard.vue";
@@ -149,8 +141,11 @@ import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
 import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
 import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
 import EtudiantFicheSalarie from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarie.vue";
+import EtudiantFicheSalarieDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarieDetail.vue";
 import EtudiantFichePoste from "@/views/Admin/Crud/Etudiant/EtudiantFichePoste.vue";
+import EtudiantFichePosteDetail from "@/views/Admin/Crud/Etudiant/EtudiantFichePosteDetail.vue";
 import EtudiantFicheEntreprise from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntreprise.vue";
+import EtudiantFicheEntrepriseDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntrepriseDetail.vue";
 //Absence
 import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
 import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
@@ -218,156 +213,193 @@ const routes = [
   //#       FORMATEUR     #
   //#######################
 
-  { path: "/formateur/interventions", name: "formateur_intervention", component: Intervention },
-  { path: "/formateur/interventions/detail/:id", name: "formateur-intervention-detail", component: DetailIntervention},
-
+  { path: "/formateur", name: "formateur",  redirect: {name: 'formateur_intervention'}, meta: { authorize: [Role.Formateur] }},
+  //Intervention
+  { path: "/formateur/interventions", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/interventions/detail/:id", name: "formateur-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Formateur] }},
+  //Etudiant
+  { path: "/formateur/etudiants/detail/:id", name:"formateur_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Formateur] }},
+  //Promotion
+  { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Formateur] } },
+  //Devoir  
+  { path: "/formateur/devoirs/create/:id", name: "admin_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
+  { path: "/formateur/devoirs/update/:id", name: "formateur_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },  
+  { path: "/formateur/devoirs/detail/:id", name: "formateur_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Formateur] } },
+  //Absence  
+  { path: "/formateur/absences/create", name:"formateur_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/absences/update/:id", name:"formateur_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/absences/detail/:id", name:"formateur_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Formateur] }},  
   
+ 
   //#######################
   //#       REFERENT      #
   //#######################
 
-  { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}},
+  { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}, meta: { authorize: [Role.Referent] }},
   //Divers  
-  { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard},
-  { path: "/referent/notes", name: "referent_notes", component: NotesR},
-  { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif},
-  { path: "/referent/note-info/create", name: "NoteInfoR", component: NoteInfoR},
-  { path: "/referent/support-de-cours/create", name: "CreateSupportCoursR", component: CreateSupportCoursR},
+  { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/notes", name: "referent_notes", component: NotesR, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/note-info/create", name: "NoteInfoR", component: NoteInfoR, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/support-de-cours/create", name: "CreateSupportCoursR", component: CreateSupportCoursR, meta: { authorize: [Role.Referent] }},
   //Groupe/Projet
-  { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet},
+  { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet, meta: { authorize: [Role.Referent] }},
   //Projet
-  { path: "/referent/projets", name: "referent_projets", component: Projets},
-  { path: "/referent/projets/update", name: "referent_modifier-projet", component: ModifierProjet},
-  { path: "/referent/projets/create", name: "referent_create-projet", component: CreateProjet},
+  /*{ path: "/referent/projets", name: "referent_projets", component: Projets, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/update", name: "referent_modifier-projet", component: ModifierProjet, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/create", name: "referent_create-projet", component: CreateProjet, meta: { authorize: [Role.Referent] }},*/
+  { path: "/referent/projets", name:"referent_projet_list", component: ProjetList, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/create", name:"referent_projet_create", component: ProjetCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/update/:id", name:"referent_projet_update", component: ProjetCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/projets/detail/:id", name:"referent_projet_detail", component: ProjetDetail, meta: { authorize: [Role.Referent] }},
   //Groupe
-  { path: "/referent/groupes", name: "referent-groupes", component: Groupes},
-  { path: "/referent/groupes/create", name: "referent_create-groupe", component: CreateGroupe},
-  { path: "/referent/groupes/update", name: "referent_modifier-groupe", component: ModifierGroupe},
+  /*{ path: "/referent/groupes", name: "referent-groupes", component: Groupes, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/create", name: "referent_create-groupe", component: CreateGroupe, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/update", name: "referent_modifier-groupe", component: ModifierGroupe, meta: { authorize: [Role.Referent] }},*/
   //Absence
-  { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard},
-  { path: "/referent/absence-retard/create", name: "referent_create-absence-retard", component: CreateAbsenceRetard},
+  { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/absence-retard/create", name: "referent_create-absence-retard", component: CreateAbsenceRetard, meta: { authorize: [Role.Referent] }},
   //Intervention
-  { path: "/referent/interventions", name: "referent_cours", component: CoursR},
-  { path: "/referent/interventions/:id", name: "referent-intervention-detail", component: DetailIntervention},
-  { path: "/referent/interventions/create", name: "CreateCoursR", component: CreateCoursR},
+  { path: "/referent/interventions", name: "referent_cours", component: CoursR, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/interventions/:id", name: "referent-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/interventions/create", name: "CreateCoursR", component: CreateCoursR, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/interventions/update/:id", name: "referent_modifier_intervention", component: AjoutIntervention, meta: { authorize: [Role.Referent] }}, 
   //Devoir
-  { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR},
+  { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR, meta: { authorize: [Role.Referent] }},
   //{ path: "/referent/devoirs/create", name: "CreateDevoirR", component: CreateDevoirR},
   //{ path: "/referent/devoirs/update", name: "ModifierDevoirR", component: ModifierDevoirR},
-
-  { path: "/referent/devoirs/create", name: "referent_devoir_create", component: DevoirCreate },
-  { path: "/referent/devoirs/update/:id", name: "referent_devoir_update", component: DevoirCreate },
-  { path: "/referent/devoirs/detail/:id", name: "referent_devoir_detail", component: DevoirDetail },
+  { path: "/referent/devoirs/create", name: "referent_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/devoirs/update/:id", name: "referent_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/devoirs/detail/:id", name: "referent_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Referent] }},
   //Examen
-  { path: "/referent/examens", name: "ExamenR", component: ExamenR},
+  { path: "/referent/examens", name: "ExamenR", component: ExamenR, meta: { authorize: [Role.Referent] }},
   //{ path: "/referent/examens/create", name: "CreateExamenR", component: CreateExamenR},
   //{ path: "/referent/examens/update", name: "ModifierExamenR", component: ModifierExamenR},  
-  
-  { path: "/referent/examens/create", name: "referent_examen_create", component: ExamenCreate },
-  { path: "/referent/examens/update/:id", name: "referent_examen_update", component: ExamenCreate },
-  { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail },
-  //Etudiant
-  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR},
-  { path: "/referent/etudiants/detail/:id", name: "referent_etudiant_detail", component: EtudiantDetail},
+  { path: "/referent/examens/create", name: "referent_examen_create", component: ExamenCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/examens/update/:id", name: "referent_examen_update", component: ExamenCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Referent] }},
   //Promo
-  { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail },
-  { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate },
+  { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/promotions/create", name: "referent_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   //Groupe
-  { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail},
+  /*{ path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/update/:id", name:"referent_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Referent] }},*/
+  { path: "/referent/groupes", name:"referent_groupe_list", component: GroupeList, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/create", name:"referent_groupe_create", component: GroupeCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/update/:id", name:"referent_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/groupes/detail/:id", name:"referent_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Referent] }},
   //Note
-  { path: "/referent/notes/detail/:id", name:"referent_note_detail", component: NoteDetail},
+  { path: "/referent/notes/detail/:id", name:"referent_note_detail", component: NoteDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/notes/update/:id", name:"referent_note_update", component: NoteCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/notes/create/:id", name:"referent_note_create", component: NoteCreate, meta: { authorize: [Role.Referent] }},
   //Absence
-  { path: "/referent/absences/detail/:id", name:"referent_absence_detail", component: AbsenceDetail},
+  { path: "/referent/absences/detail/:id", name:"referent_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/absences/create/:id", name:"referent_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/absences/update/:id", name:"referent_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Referent] }},
   //Conge
-  { path: "/referent/conges/detail/:id", name:"referent_conge_detail", component: CongeDetail},
+  { path: "/referent/conges/detail/:id", name:"referent_conge_detail", component: CongeDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/conges/create/:id", name:"referent_conge_create", component: CongeCreate, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/conges/update/:id", name:"referent_conge_update", component: CongeCreate, meta: { authorize: [Role.Referent] }},
+  //Etudiant
+  { path: "/referent/etudiants", name: "referent_etudiant", component: EtudiantR, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/etudiants/detail/:id", name:"referent_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/etudiants/fiche-salarie", name:"referent_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/etudiants/fiche-poste", name:"referent_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/etudiants/fiche-entreprise", name:"referent_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Referent] }},
 
   //#######################
   //#       ADMIN         #
   //#######################
   
-  { path: "/admin/", name: "admin_dashboard", redirect: {name: 'admin_utilisateur'} },
+  { path: "/admin/", name: "admin_dashboard", redirect: {name: 'admin_utilisateur'}, meta: { authorize: [Role.Admin] }},
   //Utilisateur
-  { path: "/admin/utilisateurs", name: "admin_utilisateur", component: AdminDashboard },
-  { path: "/admin/utilisateurs/create", name: "admin_addUser", component: AddUser },
-  { path: "/admin/utilisateurs/update/:id", name: "admin_user_update", component: AddUser },
-  { path: "/admin/utilisateurs/detail/:id", name: "admin_user_detail", component: DetailUser },
+  { path: "/admin/utilisateurs", name: "admin_utilisateur", component: AdminDashboard, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/utilisateurs/create", name: "admin_addUser", component: AddUser, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/utilisateurs/update/:id", name: "admin_user_update", component: AddUser, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/utilisateurs/detail/:id", name: "admin_user_detail", component: DetailUser, meta: { authorize: [Role.Admin] }},
    // Intervention
-   { path: "/admin/interventions", name: "all-intervention", component: AllInterventions },
-   { path: "/admin/interventions/create", component: AjoutIntervention, name: "ajouter-intervention"},
-   { path: "/admin/interventions/update/:id", name: "modifier-intervention", component: AjoutIntervention }, 
-   { path: "/admin/interventions/detail/:id", component: DetailIntervention, name: "intervention-detail" },
+   { path: "/admin/interventions", name: "all-intervention", component: AllInterventions, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/interventions/create", name: "ajouter-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/interventions/update/:id", name: "modifier-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] } }, 
+   { path: "/admin/interventions/detail/:id", name: "intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Admin] } },
    // Formation
-   { path: "/admin/formations", name: "all-formations", component: AllFormations },
-   { path: "/admin/formations/create", name: "ajouter-formation", component: AjoutFormation },
-   { path: "/admin/formations/update/:id", component: AjoutFormation, name: "modifier-formation" },
-   { path: "/admin/formations/detail/:id", component: DetailFormation, name: "formation-detail" },
+   { path: "/admin/formations", name: "all-formations", component: AllFormations, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations/create", name: "ajouter-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations/update/:id", name: "modifier-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations/detail/:id", name: "formation-detail", component: DetailFormation, meta: { authorize: [Role.Admin] } },
   //Promotion
-  { path: "/admin/promotions", name: "admin_promotion_list", component: PromotionList },
-  { path: "/admin/promotions/create", name: "admin_promotion_create", component: PromotionCreate },
-  { path: "/admin/promotions/update/:id", name: "admin_promotion_update", component: PromotionCreate },
-  { path: "/admin/promotions/detail/:id", name: "admin_promotion_detail", component: PromotionDetail },
+  { path: "/admin/promotions", name: "admin_promotion_list", component: PromotionList, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/promotions/create", name: "admin_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/promotions/update/:id", name: "admin_promotion_update", component: PromotionCreate, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/promotions/detail/:id", name: "admin_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Admin] } },
   //Adresse
-  { path: "/admin/adresses", name: "admin_adresse_list", component: AdresseList },
-  { path: "/admin/adresses/create", name: "admin_addAdresse", component: AddAdresse },
-  { path: "/admin/adresses/update/:id", name: "admin_adresse_update", component: AddAdresse },
-  { path: "/admin/adresses/detail/:id", name: "admin_adresse_detail", component: AdresseDetail },
+  { path: "/admin/adresses", name: "admin_adresse_list", component: AdresseList, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/adresses/create", name: "admin_addAdresse", component: AddAdresse, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/adresses/update/:id", name: "admin_adresse_update", component: AddAdresse, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/adresses/detail/:id", name: "admin_adresse_detail", component: AdresseDetail, meta: { authorize: [Role.Admin] } },
   //Conge
-  { path: "/admin/conges", name:"admin_conge_list", component: CongeList},
-  { path: "/admin/conges/create/:id", name:"admin_conge_create", component: CongeCreate},
-  { path: "/admin/conges/update/:id", name:"admin_conge_update", component: CongeCreate},
-  { path: "/admin/conges/detail/:id", name:"admin_conge_detail", component: CongeDetail},
+  { path: "/admin/conges", name:"admin_conge_list", component: CongeList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/conges/create/:id", name:"admin_conge_create", component: CongeCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/conges/update/:id", name:"admin_conge_update", component: CongeCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/conges/detail/:id", name:"admin_conge_detail", component: CongeDetail, meta: { authorize: [Role.Admin] }},
   //Examen
-  { path: "/admin/examens", name: "admin_examen_list", component: ExamenList },
-  { path: "/admin/examens/create", name: "admin_examen_create", component: ExamenCreate },
-  { path: "/admin/examens/update/:id", name: "admin_examen_update", component: ExamenCreate },
-  { path: "/admin/examens/detail/:id", name: "admin_examen_detail", component: ExamenDetail },
+  { path: "/admin/examens", name: "admin_examen_list", component: ExamenList, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/examens/create", name: "admin_examen_create", component: ExamenCreate, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/examens/update/:id", name: "admin_examen_update", component: ExamenCreate, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/examens/detail/:id", name: "admin_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Admin] } },
   //Devoir
-  { path: "/admin/devoirs", name: "admin_devoir_list", component: DevoirList },
-  { path: "/admin/devoirs/create", name: "admin_devoir_create", component: DevoirCreate },
-  { path: "/admin/devoirs/update/:id", name: "admin_devoir_update", component: DevoirCreate },
-  { path: "/admin/devoirs/detail/:id", name: "admin_devoir_detail", component: DevoirDetail },
+  { path: "/admin/devoirs", name: "admin_devoir_list", component: DevoirList, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/devoirs/create", name: "admin_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/devoirs/update/:id", name: "admin_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Admin] } },
+  { path: "/admin/devoirs/detail/:id", name: "admin_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Admin] } },
   //Entreprise
-  { path: "/admin/entreprises", name:"admin_entreprise_list", component: EntrepriseList},
-  { path: "/admin/entreprises/create", name:"admin_addEntreprise", component: AddEntreprise},
-  { path: "/admin/entreprises/update/:id", name:"admin_entreprise_update", component: AddEntreprise},  
-  { path: "/admin/entreprises/detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail},
+  { path: "/admin/entreprises", name:"admin_entreprise_list", component: EntrepriseList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/entreprises/create", name:"admin_addEntreprise", component: AddEntreprise, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/entreprises/update/:id", name:"admin_entreprise_update", component: AddEntreprise, meta: { authorize: [Role.Admin] }},  
+  { path: "/admin/entreprises/detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail, meta: { authorize: [Role.Admin] }},
   //Cursus
-  { path: "/admin/cursus", name:"admin_cursus_list", component: CursusList},
-  { path: "/admin/cursus/create", name:"admin_addCursus", component: AddCursus},
-  { path: "/admin/cursus/update/:id", name:"admin_cursus_update", component: AddCursus},
-  { path: "/admin/cursus/detail/:id", name:"admin_cursus_detail", component: CursusDetail},
+  { path: "/admin/cursus", name:"admin_cursus_list", component: CursusList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/cursus/create", name:"admin_addCursus", component: AddCursus, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/cursus/update/:id", name:"admin_cursus_update", component: AddCursus, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/cursus/detail/:id", name:"admin_cursus_detail", component: CursusDetail, meta: { authorize: [Role.Admin] }},
   //Note
-  { path: "/admin/notes", name:"admin_note_list", component: NoteList},
-  { path: "/admin/notes/create/:id", name:"admin_note_create", component: NoteCreate},
-  { path: "/admin/notes/update/:id", name:"admin_note_update", component: NoteCreate},
-  { path: "/admin/notes/detail/:id", name:"admin_note_detail", component: NoteDetail},
+  { path: "/admin/notes", name:"admin_note_list", component: NoteList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/notes/create/:id", name:"admin_note_create", component: NoteCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/notes/update/:id", name:"admin_note_update", component: NoteCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/notes/detail/:id", name:"admin_note_detail", component: NoteDetail, meta: { authorize: [Role.Admin] }},
   //PassageExamen
-  { path: "/admin/passage-examen", name:"admin_passage-examen_list", component: PassageExamenList},
-  { path: "/admin/passage-examen/create", name:"admin_passage-examen_create", component: PassageExamenCreate},
-  { path: "/admin/passage-examen/update/:id", name:"admin_passage-examen_update", component: PassageExamenCreate},
-  { path: "/admin/passage-examen/detail/:id", name:"admin_passage-examen_detail", component: PassageExamenDetail},
+  { path: "/admin/passage-examen", name:"admin_passage-examen_list", component: PassageExamenList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/passage-examen/create", name:"admin_passage-examen_create", component: PassageExamenCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/passage-examen/update/:id", name:"admin_passage-examen_update", component: PassageExamenCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/passage-examen/detail/:id", name:"admin_passage-examen_detail", component: PassageExamenDetail, meta: { authorize: [Role.Admin] }},
   //Projet
-  { path: "/admin/projets", name:"admin_projet_list", component: ProjetList},
-  { path: "/admin/projets/create", name:"admin_projet_create", component: ProjetCreate},
-  { path: "/admin/projets/update/:id", name:"admin_projet_update", component: ProjetCreate},
-  { path: "/admin/projets/detail/:id", name:"admin_projet_detail", component: ProjetDetail},
+  { path: "/admin/projets", name:"admin_projet_list", component: ProjetList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/projets/create", name:"admin_projet_create", component: ProjetCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/projets/update/:id", name:"admin_projet_update", component: ProjetCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/projets/detail/:id", name:"admin_projet_detail", component: ProjetDetail, meta: { authorize: [Role.Admin] }},
   //Groupe
-  { path: "/admin/groupes", name:"admin_groupe_list", component: GroupeList},
-  { path: "/admin/groupes/create", name:"admin_groupe_create", component: GroupeCreate},
-  { path: "/admin/groupes/update/:id", name:"admin_groupe_update", component: GroupeCreate},
-  { path: "/admin/groupes/detail/:id", name:"admin_groupe_detail", component: GroupeDetail},
+  { path: "/admin/groupes", name:"admin_groupe_list", component: GroupeList, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/groupes/create", name:"admin_groupe_create", component: GroupeCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/groupes/update/:id", name:"admin_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/groupes/detail/:id", name:"admin_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Admin] }},
    //Etudiant
-   { path: "/admin/etudiants", name:"admin_etudiant_list", component: EtudiantList},
-   { path: "/admin/etudiants/create", name:"admin_etudiant_create", component: EtudiantCreate},
-   { path: "/admin/etudiants/update/:id", name:"admin_etudiant_update", component: EtudiantCreate},
-   { path: "/admin/etudiants/detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail},
-   { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie},
-   { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste},
-   { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise},
+   { path: "/admin/etudiants/fiche-salarie/detail/:id", name:"admin_etudiant_fiche_salarie_detail", component: EtudiantFicheSalarieDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste/update/:id", name:"admin_etudiant_fiche_poste_update", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise/update/:id", name:"admin_etudiant_fiche_entreprise_update", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste/detail/:id", name:"admin_etudiant_fiche_poste_detail", component: EtudiantFichePosteDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise/detail/:id", name:"admin_etudiant_fiche_entreprise_detail", component: EtudiantFicheEntrepriseDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants", name:"admin_etudiant_list", component: EtudiantList, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/create", name:"admin_etudiant_create", component: EtudiantCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/update/:id", name:"admin_etudiant_update", component: EtudiantCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
    //Absence
-   { path: "/admin/absences/create/:id", name:"admin_absence_create", component: AbsenceCreate},
-   { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate},
-   { path: "/admin/absences/detail/:id", name:"admin_absence_detail", component: AbsenceDetail},
+   { path: "/admin/absences/create", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/absences/detail/:id", name:"admin_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Admin] }},
 
 ];
 

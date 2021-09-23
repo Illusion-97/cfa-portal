@@ -21,8 +21,9 @@ export const interventionApi = {
     findStudentsByPromoInterventionId,
     findPromoByInterventionId,
     findAssignementByInterventionId,
-    findTrainerByInterventionId
-    
+    findTrainerByInterventionId,    
+
+    findAllSupportByInterventionId,
 }
 
 
@@ -135,6 +136,14 @@ function findAssignementByInterventionId(id) {
 
 function findTrainerByInterventionId(id) {
     const url = `${END_POINT}/${id}/formateurs`
+    return axios
+        .get(url)
+        .then(response => response.data)
+        .catch(err => console.error(err))
+}
+
+function findAllSupportByInterventionId(id) {
+    const url = `${END_POINT}/${id}/supports`
     return axios
         .get(url)
         .then(response => response.data)
