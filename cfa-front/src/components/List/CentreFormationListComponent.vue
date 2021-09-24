@@ -91,7 +91,7 @@ export default {
   watch: {
     centreFormationProp(){
       if (this.centreFormationProp != null) 
-        this.centreFormation_input = `${this.centreFormationProp.id}`;
+        this.centreFormation_input = `${this.centreFormationProp.nom}`;
     }
   },
   data() {
@@ -103,7 +103,7 @@ export default {
 
           centreFormation_input: "",
 
-      }
+      };
    
   },
   computed: {

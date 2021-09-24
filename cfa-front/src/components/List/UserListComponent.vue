@@ -159,7 +159,7 @@ export default {
     },
   },
   created() {
-    // this.refreshList();
+    this.refreshList();
   },
 
   methods: {

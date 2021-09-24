@@ -38,7 +38,7 @@
         
           <td>{{ entreprise.id }}</td>
           <td>{{ entreprise.raisonSociale }} </td>
-          <td>{{ entreprise.adresseSiegeDto.rue}}</td>
+          <td>{{ entreprise.adresseSiegeDto.numero }},{{ entreprise.adresseSiegeDto.rue}}, {{ entreprise.adresseSiegeDto.ville }}, {{ entreprise.adresseSiegeDto.codePostal }}  </td>
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_entreprise_detail', params: { id: entreprise.id }}">Details</router-link>
             &nbsp;
