@@ -23,9 +23,9 @@ function getById(id){
       .catch((error) => console.log(error));
 }
 
-function getAllCentreFormations() {
+function getAllCentreFormations(page, size) {
     return axios
-      .get(`${END_POINT}`, requestOptions.headers())
+      .get(`${END_POINT}/${page}/${size}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
