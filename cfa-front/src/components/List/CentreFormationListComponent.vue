@@ -1,0 +1,165 @@
+<template>
+  <div id="adresseList">
+    <div class="header-list">
+        <div class="text-align-left" id="groupe-input" v-if="!isAction">
+        <input class="col-9 form-control" type="text" :value="centreFormation_input" disabled="disabled"/>
+      </div>
+      <form class="form-inline form" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="saisie"
+        />
+        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+      </form>
+
+      <router-link class="btn btn-primary" :to="{ name: 'admin_centreFormation_create' }"
+        v-if="isAction"
+        >Ajouter un centre de formation</router-link
+      >
+    </div>
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Nom du centre</th>
+          <th>Entreprise</th>
+          <th>Adresse</th>
+          <th v-if="isAction">Action</th>
+        </tr>
+      </thead>
+      <tbody v-if="centreFormationsComputed">
+        <tr v-for="centreFormation in centreFormationsComputed" 
+        :key="centreFormation.id" 
+        v-on:click="clickList(centreFormation)">
+              
+          <td>{{ centreFormation.id }}</td>
+          <td>{{ centreFormation.nom }}</td>
+          <td>{{ centreFormation.entrepriseDto.raisonSociale }}</td>
+          <td>{{ centreFormation.adresseDto.numero }}, {{ centreFormation.adresseDto.rue }}, {{ centreFormation.adresseDto.ville }}, {{ centreFormation.adresseDto.codePostal }}</td>
+          <td v-if="isAction">
+            <router-link class="btn btn-info" :to="{name:'admin_centreFormation_detail', params: { id: centreFormation.id }}">Details</router-link>
+            &nbsp;
+            <router-link class="btn btn-success" :to="{name:'admin_centreFormation_update', params: { id: centreFormation.id }}">Modifier</router-link>
+            &nbsp;
+            <button class="btn btn-danger" v-on:click="deleteCentreFormations(centreFormation.id)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <paginate
+      :page-count="pageCount"
+      :page-range="1"
+      :margin-pages="2"
+      :click-handler="pageChange"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
+      :prev-class="'page-item'"
+      :next-class="'page-item'"
+      :prev-link-class="'page-link'"
+      :next-link-class="'page-link'"
+      :active-class="'active'"
+    >
+      >
+    </paginate>
+  </div>
+</template>
+
+<script>
+import { centreFormationApi } from "@/_api/centreFormation.api.js";
+export default {
+  name: "CentreFormationListComponent",
+  components: {},
+   props: {
+    isAction: {
+      type: Boolean,
+      default: false,
+    },
+    centreFormationProp: {
+      default: null,
+    }
+    
+  },
+  watch: {
+    centreFormationProp(){
+      if (this.centreFormationProp != null) 
+        this.centreFormation_input = `${this.centreFormationProp.id}`;
+    }
+  },
+  data() {
+      return {
+          centreFormations: [],
+          perPage: 3,
+          pageCount: 0,
+          saisie: "",
+
+          centreFormation_input: "",
+
+      }
+   
+  },
+  computed: {
+      centreFormationsComputed(){
+          return this.centreFormations;
+      },
+      nbPageComputed(){
+          return this.pageCount;
+      },
+    
+  },
+  created(){
+      this.refreshList();
+  },
+
+  methods: {
+
+      submit(e){
+        e.preventDefault();
+        centreFormationApi
+          .getAllByPage(0, this.perPage, this.saisie)
+          .then((response) => (this.centreFormations = response));
+      centreFormationApi
+        .getCount(this.saisie)
+        .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
+    },
+
+     pageChange(pageNum) {
+      centreFormationApi
+        .getAllByPage(pageNum - 1, this.perPage)
+        .then((response) => (this.centreFormations = response));
+    },
+    refreshList() {
+      centreFormationApi
+        .getAllByPage(0, this.perPage)
+        .then((response) => (this.centreFormations = response));
+      centreFormationApi
+        .getCount()
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
+    },
+    deleteCentreFormations(centreFormationId){
+       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if(res){
+      centreFormationApi.deleteCentreFormations(centreFormationId).then(() => this.refreshList());
+      }
+    },
+    clickList(centreFormation){
+      this.centreFormation_input = centreFormation.id;
+      this.$emit('click-list',centreFormation);
+    }
+  },
+};
+
+</script>
+<style scoped src="@/assets/styles/CrudListComponent.css">
+</style>
+
