@@ -16,8 +16,8 @@
         <button class="btn btn-outline-secondary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'admin_promotion_create' }"
-        >Ajouter</router-link
+      <router-link class="btn btn-primary" :to="{ name: 'admin_promotion_create' }"
+        >Ajouter une promotion</router-link
       >
     </div>
     <table class="table table-striped table-hover text-center">
@@ -35,8 +35,8 @@
           <td>{{ promotion.dateDebut |formatDate}}</td>
           <td>{{ promotion.dateFin |formatDate }}</td>
           <td>
-            <button class="btn btn-info" v-on:click="deletePromotion(promotion.id)">
-              Delete
+            <button class="btn btn-danger" v-on:click="deletePromotion(promotion.id)">
+              Supprimer
             </button>
           </td>
         </tr>
