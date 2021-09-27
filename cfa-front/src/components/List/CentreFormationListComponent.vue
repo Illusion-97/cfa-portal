@@ -20,10 +20,10 @@
         >Ajouter un centre de formation</router-link
       >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
-          <th>#</th>
+          <!-- <th>#</th> -->
           <th>Nom du centre</th>
           <th>Entreprise</th>
           <th>Adresse</th>
@@ -35,7 +35,7 @@
         :key="centreFormation.id" 
         v-on:click="clickList(centreFormation)">
               
-          <td>{{ centreFormation.id }}</td>
+          <!-- <td>{{ centreFormation.id }}</td> -->
           <td>{{ centreFormation.nom }}</td>
           <td>{{ centreFormation.entrepriseDto.raisonSociale }}</td>
           <td>{{ centreFormation.adresseDto.numero }}, {{ centreFormation.adresseDto.rue }}, {{ centreFormation.adresseDto.ville }}, {{ centreFormation.adresseDto.codePostal }}</td>
