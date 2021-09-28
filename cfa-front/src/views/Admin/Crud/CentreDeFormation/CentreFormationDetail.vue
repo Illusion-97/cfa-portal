@@ -20,9 +20,9 @@
           <span class="font-weight-bold col-md-2">Nom :</span>
           <span class="col-md-10">{{ centreFormation.nom }}</span>
           <span class="font-weight-bold col-md-2">Raison Sociale : </span>
-          <span class="col-md-10">{{ centreFormation.entrepriseDto.raisonSociale }}</span>
+          <span class="col-md-10">{{ entrepriseDto.raisonSociale }}</span>
           <span class="font-weight-bold col-md-2">Adresse : </span>
-          <span class="col-md-10">{{ centreFormation.adresseDto.numero }}, {{ centreFormation.adresseDto.rue }}, {{ centreFormation.adresseDto.ville }}, {{ centreFormation.adresseDto.codePostal }}</span>
+          <span class="col-md-10">{{ adresseDto.numero }}, {{ adresseDto.rue }}, {{ adresseDto.ville }}, {{ adresseDto.codePostal }}</span>
         </b-card-text>
     </b-card>
 
@@ -40,11 +40,15 @@ export default {
         return {
             centreFormationId: this.$route.params.id,
             centreFormation: {},
+            entrepriseDto : {},
+            adresseDto :{},
             loading: false,
+            
         };
     },
     created(){
-        centreFormationApi.getById(this.$route.params.id).then(response => this.centreFormation = response);
+        centreFormationApi.getById(this.$route.params.id).then(response => {this.centreFormation = response; this.entrepriseDto = this.centreFormation.entrepriseDto; this.adresseDto = this.centreFormation.adresseDto} );
+        
     }
 
 }
