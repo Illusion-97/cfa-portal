@@ -7,6 +7,12 @@ Vue.filter("uppercase", function (value) { // les mots sont en majuscule
   return value.toUpperCase();
 });
 
+Vue.filter("lowercase", function (value) { // les mots sont en majuscule
+  if (!value) return "";
+  value = value.toString();
+  return value.toLowerCase();
+});
+
 Vue.filter("capitalize", function (value) { // premiere letter en majuscule
   if (!value) return "";
   value = value.toString();

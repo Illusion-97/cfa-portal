@@ -7,7 +7,10 @@
     </span>
 
     <div id="grid-container">
-      <div id="note-information" class="mx-5 mt-2" v-if="items.noteInfoPersonnel">
+      <div
+        id="note-information"
+        class="mx-5 mt-2"
+        v-if="items.noteInfoPersonnel">
         <h4>Note d'information</h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
@@ -15,13 +18,16 @@
         <div class="card-header">
           <div class="float-right dropstart" v-if="isAdmin || isReferent">
             <a class="" href="#" id="navbardrop" data-toggle="dropdown">
-              <font-awesome-icon :icon="['fas', 'ellipsis-v']" class="icon text-dark" />
+              <font-awesome-icon :icon="['fas', 'ellipsis-v']"
+                class="icon text-dark" />
             </a>
             <div class="dropdown-menu rounded-0">
-              <span v-on:click="modifierIntervention" class="icon-link dropdown-item">
+              <span v-on:click="modifierIntervention"
+                class="icon-link dropdown-item">
                 Modifier
               </span>
-              <span v-on:click="deleteIntervention(interventionId)" class="icon-link dropdown-item">
+              <span v-on:click="deleteIntervention(interventionId)"
+                class="icon-link dropdown-item">
                 Supprimer
               </span>
             </div>
@@ -36,7 +42,7 @@
                 <td>{{ items.formationDto.titre }}</td>
               </tr>
               <tr>
-                <th>Période</th>
+                <th>Dates</th>
                 <td>
                   Du
                   <span class="font-weight-bold">
@@ -71,16 +77,31 @@
 
     <div class="mon-container-body">
       <div class="mon-container-tuile">
-        <span :class="{ ma_tuile: true, activ: showEtudiant }" class="mr-5" @click="changementOnglet(1)">
+        <span
+          :class="{ ma_tuile: true, activ: showEtudiant }"
+          class="mr-5"
+          @click="changementOnglet(1)"
+        >
           Etudiants
         </span>
-        <span :class="{ ma_tuile: true, activ: showPromotion }" class="mr-5" @click="changementOnglet(2)">
+        <span
+          :class="{ ma_tuile: true, activ: showPromotion }"
+          class="mr-5"
+          @click="changementOnglet(2)"
+        >
           Promotions
         </span>
-        <span :class="{ ma_tuile: true, activ: showDevoir }" class="mr-5" @click="changementOnglet(3)">
+        <span
+          :class="{ ma_tuile: true, activ: showDevoir }"
+          class="mr-5"
+          @click="changementOnglet(3)"
+        >
           Devoirs
         </span>
-        <span :class="{ ma_tuile: true, activ: showAbsence }" @click="changementOnglet(4)">
+        <span
+          :class="{ ma_tuile: true, activ: showAbsence }"
+          @click="changementOnglet(4)"
+        >
           Absences
         </span>
       </div>
@@ -96,19 +117,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="stud in students" :key="stud.id" @click="goToStudentDetail(stud.id)" title="Cliquez pour plus de detail">
+            <tr
+              v-for="stud in students"
+              :key="stud.id"
+              @click="goToStudentDetail(stud.id)"
+              title="Cliquez pour plus de detail"
+            >
               <td>{{ stud.nom }}</td>
               <td>{{ stud.prenom }}</td>
               <td>{{ stud.login }}</td>
-              <!-- <td>
-                Detail
-                <router-link :to="{
-                    name: 'formateur_etudiant_detail',
-                    params: { id: stud.id },
-                  }">
-                  detail
-                </router-link>
-              </td> -->
+
             </tr>
           </tbody>
         </table>
@@ -116,14 +134,18 @@
 
       <!-- Promotions -->
       <div :class="{ ma_fenetre: true, collapse: !showPromotion }">
-        <ul v-for="promotion in promo" :key="promotion.id" class="list-style-none text-center">
-          <li>
-            <router-link :to="{name: 'formateur_promotion_detail',params: { id: promotion.id },}" title="Cliquez pour plus de detail" target="_blank" class="text-dark">
-              {{ promotion.nom }}
+        <ul class="list-style-none text-center">
+          <li v-for="promotion in promo" :key="promotion.id">
+            <router-link
+              :to="goToPromotionDetail(promotion.id)"
+              target="_blank"
+              title="Cliquez pour plus de detail"
+              class="text-dark"
+            >
+            {{promotion.nom}}
             </router-link>
           </li>
         </ul>
-
       </div>
 
       <!-- Devoirs -->
@@ -135,11 +157,15 @@
               <th scope="col">Enonce</th>
               <th scope="col">Date de debut</th>
               <th scope="col">Date de fin</th>
-              <th scope="col" @click="goToDevoirCreate()">+</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="assignement in assignements" :key="assignement.id" @click="goToDevoirDetail(assignement.id)" title="Cliquez pour plus de detail">
+            <tr
+              v-for="assignement in assignements"
+              :key="assignement.id"
+              @click="goToDevoirDetail(assignement.id)"
+              title="Cliquez pour plus de detail"
+            >
               <td>{{ assignement.enonce }}</td>
               <td>{{ assignement.dateDebut | formatDate }}</td>
               <td>{{ assignement.dateFin | formatDate }}</td>
@@ -147,7 +173,6 @@
           </tbody>
         </table>
       </div>
-
       <!-- Absences -->
       <div :class="{ ma_fenetre: true, collapse: !showAbsence }">
         <div class="card card-body border-0">
@@ -157,11 +182,15 @@
                 <th scope="col">Etudiant</th>
                 <th scope="col">Date debut</th>
                 <th scope="col">Date Fin</th>
-                <th scope="col" @click="goToAbsenceCreate()">+</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="absence in absences" :key="absence.id" @click="goToAbsenceDetail(absence.id)" title="Cliquez pour plus de detail">
+              <tr
+                v-for="absence in absences"
+                :key="absence.id"
+                @click="goToAbsenceDetail(absence.id)"
+                title="Cliquez pour plus de detail"
+              >
                 <td>
                   {{ absence.etudiantDto.prenom }} {{ absence.etudiantDto.nom }}
                 </td>
@@ -177,255 +206,308 @@
 </template>
 
 <script>
-  import { interventionApi } from "@/_api/intervention.api.js";
-  import { absencesApi } from "@/_api/absence.api.js";
-  import { utilisateurService } from '@/_services/utilisateur.service.js'
-  export default {
-    name: "DetailIntervention",
-    data() {
-      return {
-        interventionId: this.$route.params.id,
-        items: {
-          formationDto: {},
-        },
-        students: [],
-        promo: [],
-        assignements: [],
-        absences: [],
-        trainers: [],
-        loading: false,
-        status,
+import { interventionApi } from "@/_api/intervention.api.js";
+import { absencesApi } from "@/_api/absence.api.js";
+import { utilisateurService } from "@/_services/utilisateur.service.js";
+export default {
+  name: "DetailIntervention",
+  data() {
+    return {
+      interventionId: this.$route.params.id,
+      items: {
+        formationDto: {},
+      },
+      students: [],
+      promo: [],
+      assignements: [],
+      absences: [],
+      trainers: [],
+      status,
 
-        onglet: 1,
-      };
+      onglet: 1,
+    };
+  },
+  computed: {
+    showAlert() {
+      if (this.status == 202) return "d-block";
+      return "d-none";
     },
-    computed: {
-      showAlert() {
-        if (this.status == 202) return "d-block";
-        return "d-none";
-      },
-      showEtudiant() {
-        if (this.onglet == 1) return true;
-        else return false;
-      },
-      showPromotion() {
-        if (this.onglet == 2) return true;
-        else return false;
-      },
-      showDevoir() {
-        if (this.onglet == 3) return true;
-        else return false;
-      },
-      showAbsence() {
-        if (this.onglet == 4) return true;
-        else return false;
-      },
-      isAdmin() {
-        return utilisateurService.isAdmin();
-      },
-      isReferent() {
-        return utilisateurService.isReferent();
+    showEtudiant() {
+      if (this.onglet == 1) return true;
+      else return false;
+    },
+    showPromotion() {
+      if (this.onglet == 2) return true;
+      else return false;
+    },
+    showDevoir() {
+      if (this.onglet == 3) return true;
+      else return false;
+    },
+    showAbsence() {
+      if (this.onglet == 4) return true;
+      else return false;
+    },
+    isAdmin() {
+      return utilisateurService.isAdmin();
+    },
+    isReferent() {
+      return utilisateurService.isReferent();
+    },
+    isFormateur() {
+      return utilisateurService.isFormateur();
+    },
+  },
+  created() {
+    this.getId();
+    //On a besoin de this.students.length pour getAbsences
+    this.getStudents();
+    this.getAssignement();
+    this.getTrainer();
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+    // Intervention
+    getId() {
+      interventionApi.getInterventionById(this.interventionId).then((data) => {
+        this.status = data.status;
+        this.items = data.data;
+        this.promo = this.items.promotionsDto;
+      });
+    },
+    modifierIntervention() {
+      const route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({name: "modifier-intervention",});
+      } else {
+        this.$router.push({name: "referent_modifier_intervention",});
       }
     },
-    created() {
-      this.getId();
-      //On a besoin de this.students.length pour getAbsences
-      this.getStudents();
-      this.getAssignement();
-      this.getTrainer();
-    },
-    methods: {
-      goBack() {
-        this.$router.go(-1);
-      },
-      // Intervention
-      getId() {
-        interventionApi
-        .getInterventionById(this.interventionId)
-        .then((data) => {
-          this.status = data.status;
-          this.items = data.data;
-          this.promo = this.items.promotionsDto;
-          // this.items.formationDto = data.formationDto;
-        });
-      },
-      modifierIntervention() {
-        let route = this.$route.path.split("/").splice(1);
-        if (route[0] == "admin") {
+    deleteIntervention(id) {
+      interventionApi.deleteIntervention(id).then((response) => {
+        this.status = response.status;
+        if (this.status == 202) {
           this.$router.push({
-            name: "modifier-intervention",
+            name: "all-intervention",
           });
-        } else {
-          this.$router.push({
-            name: "referent_modifier_intervention",
-          });
+          this.showAlert;
         }
-      },
-      deleteIntervention(id) {
-        interventionApi.deleteIntervention(id).then((response) => {
-          this.status = response.status;
-          if (this.status == 202) {
-            this.$router.push({
-              name: "all-intervention",
-            });
-            this.showAlert;
+      });
+    },
+    // Etudiant
+    getStudents() {
+      interventionApi
+        .findStudentsByPromoInterventionId(this.interventionId)
+        .then((data) => (this.students = data))
+        .then(() => this.getAbsences());
+    },
+    goToStudentDetail(id) {
+      const route = this.$route.path.split("/").splice(1);
+      let routeData;
+      switch (route[0]) {
+        case "admin":
+          routeData = this.$router.resolve({
+            name: "admin_etudiant_detail",
+            params: { id: id },
+          });
+          break;
+        case "referent":
+          routeData = this.$router.resolve({
+            name: "referent_etudiant_detail",
+            params: { id: id },
+          });
+          break;
+        case "formateur":
+          routeData = this.$router.resolve({
+            name: "formateur_etudiant_detail",
+            params: { id: id },
+          });
+          break;
+      }
+      window.open(routeData.href, "_blank");
+    },
+    // Devoir
+    getAssignement() {
+      interventionApi
+        .findAssignementByInterventionId(this.interventionId)
+        .then((data) => (this.assignements = data));
+    },
+    goToDevoirDetail(id) {
+      const route = this.$route.path.split("/").splice(1);
+      let routeData;
+      switch (route[0]) {
+        case "admin":
+          routeData = this.$router.resolve({
+            name: "admin_devoir_detail",
+            params: { id: id },
+          });
+          break;
+        case "referent":
+          routeData = this.$router.resolve({
+            name: "referent_devoir_detail",
+            params: { id: id },
+          });
+          break;
+        case "formateur":
+          routeData = this.$router.resolve({
+            name: "formateur_devoir_detail",
+            params: { id: id },
+          });
+          break;
+      }
+      window.open(routeData.href, "_blank");
+    },
+    // Formateur
+    getTrainer() {
+      interventionApi
+        .findTrainerByInterventionId(this.interventionId)
+        .then((data) => (this.trainers = data));
+    },
+    // Absence
+    getAbsences() {
+      for (let i = 0; i < this.students.length; i++) {
+        absencesApi.getAllByIdEtudiant(this.students[i].id).then((data) => {
+          //data est un array, on veut pas un array d'array donc on fait element par element
+          for (let j = 0; j < data.length; j++) {
+            this.absences.push(data[j]);
           }
         });
-      },
-      // Etudiant
-      getStudents() {
-        interventionApi
-          .findStudentsByPromoInterventionId(this.interventionId)
-          .then((data) => (this.students = data))
-          .then(() => this.getAbsences());
-      },
-      goToStudentDetail(id) {
-        const routeData = this.$router.resolve({
-          name: 'referent_etudiant_detail',
-          params: { id: id }
-        });
-        window.open(routeData.href, '_blank')
-      },
-      // Devoir
-      getAssignement() {
-        interventionApi
-          .findAssignementByInterventionId(this.interventionId)
-          .then((data) => (this.assignements = data));
-      },
-      goToDevoirDetail(id) {
-        const routeData = this.$router.resolve({name:'formateur_devoir_detail',params:{id:id}});
-        window.open(routeData.href, '_blank')
-      },
-      goToDevoirCreate(){
-
-      },
-      // Formateur
-      getTrainer() {
-        interventionApi
-          .findTrainerByInterventionId(this.interventionId)
-          .then((data) => (this.trainers = data));
-      },
-      // Absence
-      getAbsences() {
-        for (let i = 0; i < this.students.length; i++) {
-          absencesApi
-            .getAllByIdEtudiant(this.students[i].id)
-            .then((data) => {
-              //data est un array, on veut pas un array d'array donc on fait element par element
-              for (let j = 0; j < data.length; j++) {
-                this.absences.push(data[j]);
-              }
-            });
-        }
-      },
-      goToAbsenceDetail(id) {
-        const routeData = this.$router.resolve({name:'formateur_absence_detail',params:{id:id}});
-        window.open(routeData.href, '_blank')
-      },      
-      goToAbsenceCreate(){
-
-      },
-      // Other
-      changementOnglet(onglet) {
-        this.onglet = onglet;
-      },
-    }
-  }
+      }
+    },
+    goToAbsenceDetail(id) {
+      const route = this.$route.path.split("/").splice(1);
+      let routeData;
+      switch (route[0]) {
+        case "admin":
+          routeData = this.$router.resolve({
+            name: "admin_absence_detail",
+            params: { id: id },
+          });
+          break;
+        case "referent":
+          routeData = this.$router.resolve({
+            name: "referent_absence_detail",
+            params: { id: id },
+          });
+          break;
+        case "formateur":
+          routeData = this.$router.resolve({
+            name: "formateur_absence_detail",
+            params: { id: id },
+          });
+          break;
+      }
+      window.open(routeData.href, "_blank");
+    },
+    // Promotion
+    goToPromotionDetail(id) {
+      const route = this.$route.path.split("/").splice(1);
+      switch (route[0]) {
+        case "admin":
+          return { name: "admin_promotion_detail", params: { id: id } };
+        case "referent":
+          return { name: "referent-promotion-detail", params: { id: id } };
+        case "formateur":
+          return { name: "formateur_promotion_detail", params: { id: id } };
+      }
+    },
+    // Other
+    changementOnglet(onglet) {
+      this.onglet = onglet;
+    },
+  },
+};
 </script>
 
 <style src="@/assets/styles/Onglet.css"></style>
 
 <style scoped>
-  #grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr;
-    margin-bottom: 3em;
-  }
+#grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  margin-bottom: 3em;
+}
 
-  #card-detail {
-    grid-column: 2 / span 2;
-    grid-row: 1;
-    border-radius: 0;
-  }
+#card-detail {
+  grid-column: 2 / span 2;
+  grid-row: 1;
+  border-radius: 0;
+}
 
-  .card-header {
-    /* background-color: #a5303d61; */
-    border-radius: 0;
-    border-bottom: 0;
-  }
+.card-header {
+  /* background-color: #a5303d61; */
+  border-radius: 0;
+  border-bottom: 0;
+}
 
+.mon-container-tuile {
+  margin-bottom: 1em;
+  text-align: center;
+}
 
-  .mon-container-body {
-    padding-left: 10%;
-    padding-right: 10%;
-  }
+.ma_fenetre {
+  width: 600px;
+  margin: 0 auto;
+}
 
-  .mon-container-tuile {
-    margin-bottom: 1em;
-    text-align: center;
-  }
+.ma_tuile {
+  font-size: 18px;
+  text-transform: uppercase;
+  border-bottom: 1px solid black;
+  padding: 0 4em;
+  padding-top: 0.25em;
+}
 
-  .ma_fenetre {
-    width: 600px;
-    margin: 0 auto;
-  }
+.ma_tuile:hover {
+  cursor: pointer;
+  background-color: rgba(165, 165, 165, 0.26);
+}
 
-  .ma_tuile {
-    font-size: 18px;
-    text-transform: uppercase;
-    border-bottom: 1px solid black;
-    padding: 0 4em;
-    padding-top: 0.25em;
-  }
+.activ {
+  border-bottom: 2px solid rgb(49, 49, 170);
+  color: rgb(9, 49, 170);
+  font-weight: bold;
+}
 
-  .ma_tuile:hover {
-    cursor: pointer;
-    background-color: rgba(165, 165, 165, 0.26);
-  }
+.activ:hover {
+  background-color: unset;
+  cursor: default;
+}
 
-  .activ {
-    border-bottom: 2px solid rgb(49, 49, 170);
-    color: rgb(9, 49, 170);
-    font-weight: bold;
-  }
+.icon-link {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  /* margin-bottom: 2em; */
+}
 
-  .activ:hover {
-    background-color: unset;
-    cursor: default;
-  }
+.table-custom {
+  text-align: center;
+}
 
-  .icon-link {
-    cursor: pointer;
-    color: black;
-    text-decoration: none;
-    /* margin-bottom: 2em; */
-  }
+.table th {
+  border-top: 0;
+}
 
-  .table-custom {
-    text-align: center;
-  }
+tr th {
+  background: rgba(204, 198, 198, 0.329);
+}
 
-  .table th {
-    border-top: 0;
-  }
- 
-  tr th {
-    background: rgba(204, 198, 198, 0.329);
-  }
+.table-custom tr:first-child {
+  background-color: unset;
+}
 
-  .table-custom tr:first-child{
-    background-color: unset;
-  }
-  
-  .table-custom tbody>tr:hover {
-    background-color: rgba(18, 122, 192, 0.466);
-    cursor: pointer;
-  }
+.table-custom tbody > tr:hover {
+  background-color: rgba(18, 122, 192, 0.466);
+  cursor: pointer;
+}
 
-  .list-style-none {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+.list-style-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 </style>

@@ -241,7 +241,6 @@ const routes = [
 
   { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}, meta: { authorize: [Role.Referent] }},
   //Divers  
-  { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard, meta: { authorize: [Role.Referent] }},
   { path: "/referent/notes", name: "referent_notes", component: NotesR, meta: { authorize: [Role.Referent] }},
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.Referent] }},
   { path: "/referent/note-info/create", name: "NoteInfoR", component: NoteInfoR, meta: { authorize: [Role.Referent] }},
@@ -283,6 +282,7 @@ const routes = [
   { path: "/referent/examens/update/:id", name: "referent_examen_update", component: ExamenCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Referent] }},
   //Promo
+  { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard, meta: { authorize: [Role.Referent] } },
   { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/create", name: "referent_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
