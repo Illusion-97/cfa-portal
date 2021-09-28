@@ -57,6 +57,7 @@
 
             <router-link class="nav-item" :to="{name:'admin_utilisateur'}">Utilisateurs</router-link>
             <router-link class="nav-item" :to="{name:'all-formations'}">Formations</router-link>
+            <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
             <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
             <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
             <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprise</router-link>
@@ -123,10 +124,7 @@
 
   .nav-item {
     margin-bottom: 1em;
-    /* border: #6c757d 2px solid; */
     border-bottom: 1px solid black;
-    /* text-decoration: underline; */
-    /* color: #6c757d; */
     color: black;
     height: 2.5em;
     line-height: 2em;

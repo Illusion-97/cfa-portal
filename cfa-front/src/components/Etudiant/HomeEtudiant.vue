@@ -1,10 +1,19 @@
 <template>
+
   <div id="grid-container">
-    <div class="identite">
+
+    <ul id="list-lien">
+      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_cursus'}">Mon cursus</router-link></li>
+      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link></li>
+      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link></li>
+      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link></li>
+    </ul>
+
+    <div class="identite"> 
       <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-      <p class="">{{promotionComputed.nom}}</p>
-      <!-- <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p> -->
+      <p class="">{{promotionComputed.nom}}</p>   
     </div>
+
     <div id="student-info">
       <div class="card py-0 px-3 ml-3">
         <div class="card-header">
@@ -106,6 +115,31 @@
     row-gap: 2em;
   }
 
+  #list-lien{
+    grid-column: 2;
+    grid-row: 1;
+    list-style:none;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+  }
+
+  #list-lien>li{
+    display:inline;
+    width: 10em;
+    margin: 2em;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-item{   
+    color:black;
+  }
+
+  .nav-item:hover{   
+    color:brown;
+  }
+
   .identite {
     text-align: center;
     grid-column: 2;
@@ -128,11 +162,8 @@
   }
 
   .identite,
-  #student-info {
-    /* background-color: #fff; */
-    /* background-color: #f5f5f5; */
+  #student-info{
     background-color: #d0d0d0c4;
-
   }
 
   #student-info {

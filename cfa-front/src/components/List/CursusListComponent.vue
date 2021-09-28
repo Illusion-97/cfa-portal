@@ -26,20 +26,23 @@
       </div>
 
       <div v-if="isAction">
-        <form class="form-inline form" @submit="submit">
+        <form class="row ml-1 mb-2 form-inline form" @submit="submit">
           <input
             id="saisie"
             name="saisie"
             type="text"
-            class="form-control"
+            class="form-control col-4"
             v-model="saisie"
           />
           <button class="btn btn-primary" type="submit">Recherche</button>
-        </form>
 
-        <router-link class="btn btn-info" :to="{ name: 'admin_conge_create' }"
+          <router-link class="btn btn-info offset-5 col-1" :to="{ name: 'admin_addCursus' }"
           >Ajouter</router-link
         >
+
+        </form>
+
+        
       </div>
     </div>
     <table class="table table-bordered table-striped table-hover">
@@ -61,13 +64,13 @@
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: '', params: { id: cursus.id } }"
+              :to="{ name: 'admin_cursus_detail', params: { id: cursus.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-info"
-              :to="{ name: '', params: { id: cursus.id } }"
+              :to="{ name: 'admin_cursus_update', params: { id: cursus.id } }"
               >Update</router-link
             >
             &nbsp;

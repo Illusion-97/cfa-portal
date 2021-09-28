@@ -135,6 +135,7 @@
               <th scope="col">Enonce</th>
               <th scope="col">Date de debut</th>
               <th scope="col">Date de fin</th>
+              <th scope="col" @click="goToDevoirCreate()">+</th>
             </tr>
           </thead>
           <tbody>
@@ -156,6 +157,7 @@
                 <th scope="col">Etudiant</th>
                 <th scope="col">Date debut</th>
                 <th scope="col">Date Fin</th>
+                <th scope="col" @click="goToAbsenceCreate()">+</th>
               </tr>
             </thead>
             <tbody>
@@ -294,6 +296,9 @@
         const routeData = this.$router.resolve({name:'formateur_devoir_detail',params:{id:id}});
         window.open(routeData.href, '_blank')
       },
+      goToDevoirCreate(){
+
+      },
       // Formateur
       getTrainer() {
         interventionApi
@@ -316,6 +321,9 @@
       goToAbsenceDetail(id) {
         const routeData = this.$router.resolve({name:'formateur_absence_detail',params:{id:id}});
         window.open(routeData.href, '_blank')
+      },      
+      goToAbsenceCreate(){
+
       },
       // Other
       changementOnglet(onglet) {
