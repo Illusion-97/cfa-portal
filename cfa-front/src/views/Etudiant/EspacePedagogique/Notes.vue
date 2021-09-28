@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <BodyTitle title="Liste des Notes" />
 
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>Notes</th>
           <th>Observations</th>

@@ -31,9 +31,6 @@
                             <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
                         </div>
                     </b-form>
-                    <b-card class="mt-3" header="Form Data Result" v-if="show">
-                        <pre class="m-0">{{ form }}</pre>
-                    </b-card>
                 </div>
             </div>
         </div>

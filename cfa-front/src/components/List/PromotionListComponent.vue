@@ -1,10 +1,17 @@
 <template>
   <div class="container-fluid">
     <div class="header-list">
-        <div class="text-align-left" id="groupe-input" v-if="!isAction">
+
+      <div class="text-align-left" id="groupe-input" v-if="!isAction">
         <label class="col-1">Promotion</label>
-        <input class="col-9 form-control" type="text" :value="promotion_input" disabled="disabled"/>
+        <input
+          class="col-9 form-control"
+          type="text"
+          :value="promotion_input"
+          disabled="disabled"
+        />
       </div>
+      
       <form class="form-inline form" @submit="submit">
         <input
           id="saisie"
@@ -13,10 +20,14 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+        <button class="btn btn-outline-secondary" type="submit">
+          Recherche
+        </button>
       </form>
 
-      <router-link class="btn btn-primary" :to="{ name: 'admin_promotion_create' }"
+      <router-link
+        class="btn btn-primary"
+        :to="{ name: 'admin_promotion_create' }"
         >Ajouter une promotion</router-link
       >
     </div>
@@ -30,19 +41,28 @@
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
-        <tr v-for="promotion in promotionsComputed" :key="promotion.id" class="mon-tr" v-on:dblclick="detail(promotion.id)" v-on:click="clickList(promotion)">
+        <tr
+          v-for="promotion in promotionsComputed"
+          :key="promotion.id"
+          class="mon-tr"
+          v-on:dblclick="detail(promotion.id)"
+          v-on:click="clickList(promotion)"
+        >
           <td>{{ promotion.nom }}</td>
-          <td>{{ promotion.dateDebut |formatDate}}</td>
-          <td>{{ promotion.dateFin |formatDate }}</td>
+          <td>{{ promotion.dateDebut | formatDate }}</td>
+          <td>{{ promotion.dateFin | formatDate }}</td>
           <td>
-            <button class="btn btn-danger" v-on:click="deletePromotion(promotion.id)">
+            <button
+              class="btn btn-danger"
+              v-on:click="deletePromotion(promotion.id)"
+            >
               Supprimer
             </button>
           </td>
         </tr>
       </tbody>
     </table>
-    
+
     <paginate
       :page-count="pageCount"
       :page-range="1"
@@ -58,7 +78,7 @@
       :prev-link-class="'page-link'"
       :next-link-class="'page-link'"
       :active-class="'active'"
-    >      
+    >
     </paginate>
   </div>
 </template>
@@ -75,13 +95,13 @@ export default {
     },
     promotionProp: {
       default: null,
-    }
+    },
   },
   watch: {
-    promotionProp(){
-      if (this.promotionProp != null) 
+    promotionProp() {
+      if (this.promotionProp != null)
         this.promotion_input = `${this.promotionProp.nom}`;
-    }
+    },
   },
   data() {
     return {
@@ -91,7 +111,6 @@ export default {
       saisie: "",
 
       promotion_input: "",
-    
     };
   },
   computed: {
@@ -107,7 +126,6 @@ export default {
   },
 
   methods: {
-
     submit(e) {
       e.preventDefault();
       promotionApi
@@ -115,7 +133,9 @@ export default {
         .then((response) => (this.promotions = response));
       promotionApi
         .getCount(this.saisie)
-        .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
     },
     pageChange(pageNum) {
       promotionApi
@@ -134,22 +154,24 @@ export default {
     },
     deletePromotion(promotionId) {
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if(res){
-      promotionApi.deletePromotion(promotionId).then(() => this.refreshList());
+      if (res) {
+        promotionApi
+          .deletePromotion(promotionId)
+          .then(() => this.refreshList());
       }
     },
     clickList(promotion) {
       this.promotion_input = promotion.nom;
-      this.$emit('click-list',promotion);
+      this.$emit("click-list", promotion);
     },
     detail(id) {
       if (this.isAction)
-        this.$router.push({ name: "admin_promotion_detail", params: { id: id } });
+        this.$router.push({
+          name: "admin_promotion_detail",
+          params: { id: id },
+        });
     },
-
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
-
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>

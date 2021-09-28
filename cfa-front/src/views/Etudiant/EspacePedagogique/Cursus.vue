@@ -1,27 +1,9 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Cursus" />
-<!-- 
-<div class="mon-group">
-            <label class="form-label"
-              >Selectionner une promotion pour afficher la liste correspondante:
-            </label>
-            <select
-              class="custom-select"
-              v-model="selected"
-              @change="onSelected()"
-            >
-              <option
-                v-for="promotion in promotionsComputed"
-                :key="promotion.id"
-                :value="promotion"
-                >{{ promotion.nom }}</option
-              >
-            </select>
-      </div> -->
-      <br>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>Titre</th>
           <th>Action</th>
