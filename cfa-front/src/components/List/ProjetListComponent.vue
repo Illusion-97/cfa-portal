@@ -19,15 +19,15 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn btn-primary" type="submit">Recherche</button>
+        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
       </form>
 
-       <button class="btn btn-info" v-on:click="createProjet()" v-if="isAction">
-              Ajouter
+       <button class="btn btn-primary" v-on:click="createProjet()" v-if="isAction">
+              Ajouter un projet
             </button>
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>Nom</th>
           <th>Description</th>

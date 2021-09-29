@@ -44,7 +44,7 @@
           <!-- <span class="font-weight-bold col-md-2">Mot de passe :</span>
           <span class="col-md-4">{{ user.password }} </span> -->
           <span class="font-weight-bold col-md-2">Rôle :</span>
-          <span class="col-md-4"><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p> </span>
+          <span class="col-md-10"><p v-for="role in user.rolesDto" :key="role.id">{{ role.intitule }}</p> </span>
         </b-card-text>
 
        

@@ -17,8 +17,8 @@
       </form>
 
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>#</th>
           <th>Nom de la promo</th>
