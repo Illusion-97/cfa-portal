@@ -130,7 +130,7 @@
   import moment from "moment-timezone";
   import { utilisateurApi } from "@/_api/utilisateur.api.js";
   import BodyTitle from "@/components/utils/BodyTitle.vue";
-  import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
+  // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
   // import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
   import RoleModal from "@/components/Modal/RoleModal.vue";
 
@@ -138,7 +138,7 @@
     name: "AddUser",
     components: {
       BodyTitle,
-      AdresseListComponent,
+      // AdresseListComponent,
       // EntrepriseListComponent,
       RoleModal,
     },
@@ -219,7 +219,7 @@
 
         //Pour custom le message d'erreur
         let login = document.getElementById("login");
-        let role = document.getElementById("role");
+        // let role = document.getElementById("role");
         // let password = document.getElementById('password');
 
         // //On reset le message pour retest

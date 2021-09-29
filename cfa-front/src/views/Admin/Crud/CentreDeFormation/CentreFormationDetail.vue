@@ -12,6 +12,22 @@
     <b-card no-body id="my-card">
         <b-card-header>
           <span class="">Details</span>
+          <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon text-light"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span v-on:click="updateCentre()" class="icon-link dropdown-item">
+              Modifier
+            </span>
+            <span v-on:click="deleteCentre()" class="icon-link dropdown-item">
+              Supprimer
+            </span>
+          </div>
+        </div>
         </b-card-header>
 
         <b-card-text class="identity row ml-6">
@@ -49,6 +65,31 @@ export default {
     created(){
         centreFormationApi.getById(this.$route.params.id).then(response => {this.centreFormation = response; this.entrepriseDto = this.centreFormation.entrepriseDto; this.adresseDto = this.centreFormation.adresseDto} );
         
+    },
+    methods :{
+      updateCentre() {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_centreFormation_update",
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_centreFormation_update",
+        });
+      } else if (route[0] == "formateur") {
+        this.$router.push({
+          name: "formateur_centreFormation_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_centreFormation_update",
+        });
+      }
+    },
+    deleteCentre() {
+      centreFormationApi.deleteCentreFormations(this.$route.params.id).then(() => this.goBack());
+    },
     }
 
 }

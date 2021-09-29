@@ -88,28 +88,31 @@ export default {
         this.$router.push({
           name: "admin_absence_update",
         });
-      } else {
+      } else if (route[0] == "referent"){
         this.$router.push({
           name: "referent_absence_update",
         });
       }
-      /*else {
+      else if (route[0] == "formateur"){
         this.$router.push({
         name: "formateur_absence_update",
         
       });
       }
-      else {
+      else if (route[0] == "cef"){
         this.$router.push({
         name: "cef_absence_update",
       });
-      }*/
+      }
     },
+    deleteAbsence(){
+      absencesApi.deleteAbsence(this.$route.params.id).then(() => this.goBack());
+    }
   },
   created() {
     absencesApi
       .getById(this.$route.params.id)
-      .then((response) => (this.absence = response));
+      .then((response) => (this.absence = response));this.$router.push()
   },
 };
 </script>

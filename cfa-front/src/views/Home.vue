@@ -37,6 +37,10 @@ export default {
     utilisateurApi
       .getPlanningById(this.$store.getters.getUtilisateur.id)
       .then((response) => this.$store.dispatch("setPlanning", response));
+
+      if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
+        this.$router.push();
+      }
   },
 };
 </script>

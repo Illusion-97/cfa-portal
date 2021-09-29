@@ -11,7 +11,8 @@
 
     <div class="identite"> 
       <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-      <p class="">{{promotionComputed.nom}}</p>   
+      <p class="">{{promotionComputed.nom}}</p>  
+      <p class="">{{groupesComputed.nom}}</p> 
     </div>
 
     <div id="student-info">
@@ -83,7 +84,7 @@
         return promotion;
       },
       groupesComputed(){
-        return this.groupes;
+        return this.groupes[0];
       },
       formateurReferentComputed() {
         return this.formateurReferent;
