@@ -12,11 +12,33 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Detail d'absence</span>
-        <button class="btn btn-info" v-on:click=updateAbsence>
+        <!-- <button class="btn btn-info" v-on:click=updateAbsence>
               Update
-            </button>
+            </button> -->
+        <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon text-light"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span
+              v-on:click="updateAbsence()"
+              class="icon-link dropdown-item"
+            >
+              Modifier
+            </span>
+            <span
+              v-on:click="deleteAbsence()"
+              class="icon-link dropdown-item"
+            >
+              Supprimer
+            </span>
+          </div>
+        </div>
       </b-card-header>
-      
+
       <b-card-text class="identity row ml-5">
         <div class="font-weight-bold col-2">Etudiant :</div>
         <div class="col-4">
@@ -60,19 +82,16 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    updateAbsence(){
+    updateAbsence() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_absence_update",
-        
-      });
-      }
-      else {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_absence_update",
-        
-      });
+          name: "admin_absence_update",
+        });
+      } else {
+        this.$router.push({
+          name: "referent_absence_update",
+        });
       }
       /*else {
         this.$router.push({
