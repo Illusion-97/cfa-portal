@@ -23,7 +23,7 @@
           <div class="mon-group">
             <label class="form-label">Liste des étudiants de la promo : </label>
             <table class="table table-striped" v-if="!isAction">
-              <thead class="thead-dark">
+              <thead>
                 <tr>
                   <th>Prenom Nom</th>
                   <th>Email</th>
