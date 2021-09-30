@@ -22,10 +22,10 @@
         >Ajouter une entreprise</router-link
       >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
-          <th>#</th>
+          <!-- <th>#</th> -->
           <th>Raison Sociale</th>
           <th>Adresse</th>
           <th v-if="isAction">Action</th>
@@ -36,9 +36,9 @@
         :key="entreprise.id"
         v-on:click="clickList(entreprise)">
         
-          <td>{{ entreprise.id }}</td>
+          <!-- <td>{{ entreprise.id }}</td> -->
           <td>{{ entreprise.raisonSociale }} </td>
-          <td>{{ entreprise.adresseSiegeDto.rue}}</td>
+          <td>{{ entreprise.adresseSiegeDto.numero }},{{ entreprise.adresseSiegeDto.rue}}, {{ entreprise.adresseSiegeDto.ville }}, {{ entreprise.adresseSiegeDto.codePostal }}  </td>
           <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_entreprise_detail', params: { id: entreprise.id }}">Details</router-link>
             &nbsp;

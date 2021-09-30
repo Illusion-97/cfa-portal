@@ -23,7 +23,7 @@
           <div class="mon-group">
             <label class="form-label">Liste des étudiants de la promo : </label>
             <table class="table table-striped" v-if="!isAction">
-              <thead class="thead-dark">
+              <thead>
                 <tr>
                   <th>Prenom Nom</th>
                   <th>Email</th>
@@ -41,11 +41,9 @@
                   <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
                   <td>{{ etudiant.login }}</td>
                   <td>
-                    <ul
-                      v-for="promotion in etudiant.promotionsDto"
-                      :key="promotion.id" class="text-left list-style-none"
-                    >
-                      <li>{{ promotion.nom }}</li>
+                    <ul class="text-left list-style-none">
+                      <li v-for="promotion in etudiant.promotionsDto"
+                      :key="promotion.id" >{{ promotion.nom }}</li>
                     </ul>
                   </td>
                 </tr>

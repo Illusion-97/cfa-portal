@@ -20,7 +20,7 @@
           <span class="font-weight-bold col-md-2">Raison Sociale : </span>
           <span class="col-md-10">{{ entreprise.raisonSociale }}</span>
           <span class="font-weight-bold col-md-2">Adresse : </span>
-          <span class="col-md-10">{{ entreprise.adresseSiegeDto.numero}} {{entreprise.adresseSiegeDto.rue }}, {{entreprise.adresseSiegeDto.codePostal }}, {{entreprise.adresseSiegeDto.ville }}</span>
+          <span class="col-md-10">{{ adresseSiegeDto.numero}} {{adresseSiegeDto.rue }}, {{adresseSiegeDto.codePostal }}, {{adresseSiegeDto.ville }}</span>
         </b-card-text>
 
     </b-card>
@@ -38,11 +38,12 @@ export default {
     return {
       entrepriseId: this.$route.params.id,
       entreprise: {},
+      adresseSiegeDto: {},
       loading: false,
     };
   },
   created() {
-    entrepriseApi.getById(this.$route.params.id).then(response => this.entreprise = response);
+    entrepriseApi.getById(this.$route.params.id).then(response => {this.entreprise = response; this.adresseSiegeDto = this.entreprise.adresseSiegeDto});
   },
 };
 </script>

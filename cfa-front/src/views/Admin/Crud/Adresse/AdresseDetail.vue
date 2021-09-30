@@ -10,30 +10,45 @@
     </router-link>
 
     <b-card no-body id="my-card">
-        <b-card-header>
-          <span class="">Details</span>
-        </b-card-header>
+      <b-card-header>
+        <span class="">Details</span>
+        <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon text-light"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span v-on:click="updateAdresse()" class="icon-link dropdown-item">
+              Modifier
+            </span>
+            <span v-on:click="deleteAdresse()" class="icon-link dropdown-item">
+              Supprimer
+            </span>
+          </div>
+        </div>
+      </b-card-header>
 
-        <b-card-text class="identity row ml-6">
-          <span class="font-weight-bold col-md-2">Id :</span>
-          <span class="col-md-4">{{ adresse.id }}</span>
-          <span class="font-weight-bold col-md-2">Numero : </span>
-          <span class="col-md-4">{{ adresse.numero }}</span>
-        </b-card-text>
+      <b-card-text class="identity row ml-6">
+        <span class="font-weight-bold col-md-2">Id :</span>
+        <span class="col-md-4">{{ adresse.id }}</span>
+        <span class="font-weight-bold col-md-2">Numero : </span>
+        <span class="col-md-4">{{ adresse.numero }}</span>
+      </b-card-text>
 
-        <b-card-text class="identity row ml-6">
-          <span class="font-weight-bold col-md-2">Rue :</span>
-          <span class="col-md-4">{{ adresse.rue }}</span>
-          <span class="font-weight-bold col-md-2">Ville : </span>
-          <span class="col-md-4">{{ adresse.ville }}</span>
-        </b-card-text>
+      <b-card-text class="identity row ml-6">
+        <span class="font-weight-bold col-md-2">Rue :</span>
+        <span class="col-md-4">{{ adresse.rue }}</span>
+        <span class="font-weight-bold col-md-2">Ville : </span>
+        <span class="col-md-4">{{ adresse.ville }}</span>
+      </b-card-text>
 
-        <b-card-text class="identity row ml-6">
-          <span class="font-weight-bold col-md-2">Code postal :</span>
-          <span class="col-md-10">{{ adresse.codePostal }} </span>
-        </b-card-text>
+      <b-card-text class="identity row ml-6">
+        <span class="font-weight-bold col-md-2">Code postal :</span>
+        <span class="col-md-10">{{ adresse.codePostal }} </span>
+      </b-card-text>
     </b-card>
-
   </div>
 </template>
 
@@ -41,8 +56,7 @@
 import { adresseApi } from "@/_api/adresse.api.js";
 export default {
   name: "AdresseDetail",
-  components: {
-  },
+  components: {},
   data() {
     return {
       adresseId: this.$route.params.id,
@@ -51,7 +65,34 @@ export default {
     };
   },
   created() {
-    adresseApi.getById(this.$route.params.id).then(response => this.adresse = response);
+    adresseApi
+      .getById(this.$route.params.id)
+      .then((response) => (this.adresse = response));
+  },
+  methods: {
+    updateAdresse() {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_adresse_update",
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_adresse_update",
+        });
+      } else if (route[0] == "formateur") {
+        this.$router.push({
+          name: "formateur_adresse_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_adresse_update",
+        });
+      }
+    },
+    deleteAbsence() {
+      adresseApi.deleteAdresse(this.$route.params.id).then(() => this.goBack());
+    },
   },
 };
 </script>

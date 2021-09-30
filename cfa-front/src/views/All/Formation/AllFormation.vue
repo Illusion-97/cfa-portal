@@ -1,19 +1,7 @@
 <template>
   <div>
-    <!-- <TableTemplate
-      :items="items"
-      :fields="fields"
-      :currentPage="currentPage"
-      :perPage="perPage"
-      :length="nbPageComputed"
-      :clickHandler="pageChange"
-      :onSubmit="search"
-      :showBtn="true"
-      v-model="keyword"
-      btnTxt="Ajouter une formation"
-      btnLink="ajouter-formation"
-    /> -->
-    <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
+
+    <!-- <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
       Ajouter une nouvelle formation
     </router-link>
     <small class="form-text info-text ml-1">
@@ -62,18 +50,27 @@
       :active-class="'active'"
     >
       >
-    </paginate>
+    </paginate> -->
+
+    <BodyTitle title="Liste des Formations" />
+    <FormationListComponent :isAction="true"/>
   </div>
+
+  
 </template>
 
 <script>
 //import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import { formationFields } from "@/assets/js/fields.js";
+import BodyTitle from "@/components/utils/BodyTitle.vue";
+import FormationListComponent from "@/components/List/FormationListComponent.vue";
 export default {
   name: "Formation",
   components: {
     //TableTemplate,
+    BodyTitle,
+    FormationListComponent,
   },
   data() {
     return {

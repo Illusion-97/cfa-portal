@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <BodyTitle title="Liste des Absences" />
 
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>Date</th>
           <th>Motif</th>

@@ -12,6 +12,7 @@ export const cursusApi = {
   getAllCursus,
   getByIdEtudiant,
   getCurrentCursusByIdEtudiant,
+  getPromotionsById,
 };
 
 function getById(id){
@@ -66,7 +67,7 @@ function save(cursus) {
 }
 
 function deleteCursus(id) {
-  let req =  `cursus/delete/${id}`;
+  let req =  `cursus/${id}`;
 
   return axios
       .delete(req, requestOptions.headers())
@@ -77,6 +78,14 @@ function deleteCursus(id) {
 function getAllCursus() {
   return axios
     .get(`${END_POINT}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+
+function getPromotionsById(id) {
+  return axios
+    .get(`${END_POINT}/${id}/promotions`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

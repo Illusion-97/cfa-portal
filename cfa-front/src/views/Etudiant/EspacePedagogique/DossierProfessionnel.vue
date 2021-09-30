@@ -15,8 +15,8 @@
         </div>
 
         <br>
-        <table class="table table-bordered table-striped">
-          <thead class="thead-dark">
+        <table class="table table-striped table-hover text-center">
+          <thead>
             <tr>
               <th>Nom du fichier</th>
               <th>Action</th>

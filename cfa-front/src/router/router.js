@@ -161,6 +161,10 @@ import EntrepriseDetail from "@/views/Admin/Crud/Entreprise/EntrepriseDetail.vue
 import CursusList from "@/views/Admin/Crud/Cursus/CursusList.vue";
 import AddCursus from "@/views/Admin/Crud/Cursus/CursusCreate.vue";
 import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
+//CentreFormation
+import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreFormationList.vue";
+import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
+import CentreFormationDetail from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetail.vue";
 
 
 
@@ -237,7 +241,6 @@ const routes = [
 
   { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}, meta: { authorize: [Role.Referent] }},
   //Divers  
-  { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard, meta: { authorize: [Role.Referent] }},
   { path: "/referent/notes", name: "referent_notes", component: NotesR, meta: { authorize: [Role.Referent] }},
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.Referent] }},
   { path: "/referent/note-info/create", name: "NoteInfoR", component: NoteInfoR, meta: { authorize: [Role.Referent] }},
@@ -279,6 +282,7 @@ const routes = [
   { path: "/referent/examens/update/:id", name: "referent_examen_update", component: ExamenCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Referent] }},
   //Promo
+  { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard, meta: { authorize: [Role.Referent] } },
   { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/create", name: "referent_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
@@ -383,6 +387,11 @@ const routes = [
   { path: "/admin/groupes/create", name:"admin_groupe_create", component: GroupeCreate, meta: { authorize: [Role.Admin] }},
   { path: "/admin/groupes/update/:id", name:"admin_groupe_update", component: GroupeCreate, meta: { authorize: [Role.Admin] }},
   { path: "/admin/groupes/detail/:id", name:"admin_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.Admin] }},
+  //Centre Formation
+  {path: "/admin/centreFormations", name: "admin_centreFormation_list", component: CentreFormationList, meta: {authorize: [Role.Admin]}},
+  { path: "/admin/centreFormations/create", name:"admin_centreFormation_create", component: AddCentreFormation, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/centreFormations/update/:id", name:"admin_centreFormation_update", component: AddCentreFormation, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/centreFormations/detail/:id", name: "admin_centreFormation_detail", component: CentreFormationDetail, meta: { authorize: [Role.Admin] } },
    //Etudiant
    { path: "/admin/etudiants/fiche-salarie/detail/:id", name:"admin_etudiant_fiche_salarie_detail", component: EtudiantFicheSalarieDetail, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-poste/update/:id", name:"admin_etudiant_fiche_poste_update", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},

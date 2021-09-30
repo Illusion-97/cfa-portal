@@ -2,48 +2,39 @@
   <div class="container-fluid">
     <div class="header-list">
 
-      <div v-if="!isAction" class="row mt-3 mb-3">
-        <div class="text-align-left col-md-6 d-flex justify-content-between">
-          <label class="mr-3">Cursus</label>
-          <input
-            class="form-control"
-            type="text"
-            :value="cursus_input"
-            disabled="disabled"
-          />
-        </div>
-
-        <form class="col-md-6 d-flex justify-content-between float-right" @submit="submit">
-          <input
-            id="saisie"
-            name="saisie"
-            type="text"
-            class="form-control"
-            v-model="saisie"
-          />
-          <button class="btn btn-primary" type="submit">Recherche</button>
-        </form>
+      <div class="text-align-left" id="groupe-input" v-if="!isAction">
+        <label class="col-1">Cursus</label>
+        <input
+          class="col-9 form-control"
+          type="text"
+          :value="cursus_input"
+          disabled="disabled"
+        />
       </div>
+      
+      <form class="form-inline form" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="saisie"
+        />
+        <button class="btn btn-outline-secondary" type="submit">
+          Recherche
+        </button>
+      </form>
 
-      <div v-if="isAction">
-        <form class="form-inline form" @submit="submit">
-          <input
-            id="saisie"
-            name="saisie"
-            type="text"
-            class="form-control"
-            v-model="saisie"
-          />
-          <button class="btn btn-primary" type="submit">Recherche</button>
-        </form>
-
-        <router-link class="btn btn-info" :to="{ name: 'admin_conge_create' }"
-          >Ajouter</router-link
-        >
-      </div>
+      <router-link
+        class="btn btn-primary"
+        :to="{ name: 'admin_addCursus' }"
+        >Ajouter un cursus</router-link
+      >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+
+
+    <table class="table table-striped table-hover text-center">
+      <thead>
         <tr>
           <th>Id</th>
           <th>Titre</th>
@@ -61,17 +52,17 @@
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: '', params: { id: cursus.id } }"
+              :to="{ name: 'admin_cursus_detail', params: { id: cursus.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
-              class="btn btn-info"
-              :to="{ name: '', params: { id: cursus.id } }"
+              class="btn btn-success"
+              :to="{ name: 'admin_cursus_update', params: { id: cursus.id } }"
               >Update</router-link
             >
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteCursus(cursus.id)">
+            <button class="btn btn-danger" v-on:click="deleteCursus(cursus.id)">
               Delete
             </button>
           </td>
@@ -176,26 +167,5 @@ export default {
 };
 </script>
 
-<style scoped>  
-  .header-list > form{
-    width: 40%;
-  }
-  
-  #saisie{
-    width: 70%;
-    margin-right: 5%;
-  }
-  
-  #groupe-input{
-    width: 50%;
-  }
-  
-  .mon-tr:hover {
-    background-color: rgb(216, 213, 213) !important;
-    cursor: pointer;
-  }
-
-  .delete-input:hover{
-    cursor: pointer;
-  }
+<style scoped src="@/assets/styles/CrudListComponent.css">
 </style>
