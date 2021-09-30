@@ -114,9 +114,9 @@ export default {
       },
 
       types: [
-        { text: "maladie", value: "MALADIE" },
-        { text: "payé", value: "PAYE" },
-        { text: "sans solde", value: "SANS_SOLDE" },
+        { text: "Maladie", value: "MALADIE" },
+        { text: "Payé", value: "PAYE" },
+        { text: "Sans solde", value: "SANS_SOLDE" },
       ],
 
       conges: [],
