@@ -36,7 +36,6 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>Id</th>
           <th>Titre</th>
           <th v-if="isAction">Action</th>
         </tr>
@@ -47,7 +46,6 @@
           :key="cursus.id"
           v-on:click="clickList(cursus)"
         >
-          <td>{{ cursus.id }}</td>
           <td>{{ cursus.titre }}</td>
           <td v-if="isAction">
             <router-link
