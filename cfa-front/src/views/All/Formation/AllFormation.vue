@@ -1,14 +1,28 @@
 <template>
-  <div>
+  <section>
 
-    <!-- <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
+    <form class="d-flex" @submit="search">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="key"
+          placeholder="Rechercher une formation..."
+        />
+        <button class="btn-search" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
+    </form>
+    
+    <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
       Ajouter une nouvelle formation
     </router-link>
-    <small class="form-text info-text ml-1">
+    <small class="form-text info-text ml-1 mt-4">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
         Double-cliquez sur une formation ou cliquez sur l'icone pour plus d'info.
     </small>
-    <table class="table text-center">
+    <table class="table text-center table-striped">
       <thead>
         <tr>
           <th scope="col">Intitulé</th>
@@ -25,8 +39,8 @@
               :to="{ name: 'formation-detail', params: { id: formation.id } }"
             >
               <font-awesome-icon
-                :icon="['fas', 'external-link-alt']"
-                class="icon text-info"
+                :icon="['fas', 'info']"
+                class="icon"
               />
             </router-link>
           </td>
@@ -50,11 +64,11 @@
       :active-class="'active'"
     >
       >
-    </paginate> -->
+    </paginate>
 
-    <BodyTitle title="Liste des Formations" />
-    <FormationListComponent :isAction="true"/>
-  </div>
+    <!-- <BodyTitle title="Liste des Formations" />
+    <FormationListComponent :isAction="true"/> -->
+  </section>
 
   
 </template>
@@ -120,10 +134,10 @@ export default {
       return this.pageCount;
     },
     key: {
-      get: function() {
+      get() {
         return this.keyword;
       },
-      set: function(keyword) {
+      set(keyword) {
         this.keyword = keyword;
       },
     },
@@ -135,4 +149,36 @@ export default {
 tbody tr {
   cursor: pointer;
 }
+
+#saisie {
+  border-radius: 20px;
+  width: 300px;
+  /* margin-right: 1em; */
+}
+
+.btn-search{
+  /* border: 1px solid black; */
+  border: 0;
+  background-color: inherit;
+  border-radius: 100%;
+  width: 2.5em;
+  margin-left: -3em;
+}
+.icon {
+  color: brown;
+}
+.icon:hover {
+  font-size: 20px;
+}
+
+.button {
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: inherit;
+  text-decoration: none;
+  color: black;
+  padding: 1.5px 10px;
+  /* margin-bottom: 1em; */
+}
+
 </style>
