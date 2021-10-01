@@ -19,7 +19,9 @@
           v-model="key"
           placeholder="Rechercher une formation..."
         />
-        <button class="btn btn-primary" type="submit">Recherche</button>
+        <button class="btn-submit" type="submit">          
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
       </form>
 
       <router-link class="btn btn-info" :to="{ name: 'ajouter-formation' }" v-if="isAction">Ajouter</router-link>
