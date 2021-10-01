@@ -10,7 +10,8 @@
       <div
         id="note-information"
         class="mx-5 mt-2"
-        v-if="items.noteInfoPersonnel">
+        v-if="items.noteInfoPersonnel"
+      >
         <h4>Note d'information</h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
@@ -18,16 +19,22 @@
         <div class="card-header">
           <div class="float-right dropstart" v-if="isAdmin || isReferent">
             <a class="" href="#" id="navbardrop" data-toggle="dropdown">
-              <font-awesome-icon :icon="['fas', 'ellipsis-v']"
-                class="icon text-dark" />
+              <font-awesome-icon
+                :icon="['fas', 'ellipsis-v']"
+                class="icon text-dark"
+              />
             </a>
             <div class="dropdown-menu rounded-0">
-              <span v-on:click="modifierIntervention"
-                class="icon-link dropdown-item">
+              <span
+                v-on:click="modifierIntervention"
+                class="icon-link dropdown-item"
+              >
                 Modifier
               </span>
-              <span v-on:click="deleteIntervention(interventionId)"
-                class="icon-link dropdown-item">
+              <span
+                v-on:click="deleteIntervention(interventionId)"
+                class="icon-link dropdown-item"
+              >
                 Supprimer
               </span>
             </div>
@@ -126,7 +133,6 @@
               <td>{{ stud.nom }}</td>
               <td>{{ stud.prenom }}</td>
               <td>{{ stud.login }}</td>
-
             </tr>
           </tbody>
         </table>
@@ -142,7 +148,7 @@
               title="Cliquez pour plus de detail"
               class="text-dark"
             >
-            {{promotion.nom}}
+              {{ promotion.nom }}
             </router-link>
           </li>
         </ul>
@@ -225,13 +231,14 @@ export default {
       status,
 
       onglet: 1,
+      routeSplited :  this.$route.path.split("/").splice(1)
     };
   },
   computed: {
-    showAlert() {
-      if (this.status == 202) return "d-block";
-      return "d-none";
-    },
+    // showAlert() {
+    //   if (this.status == 202) return "d-block";
+    //   return "d-none";
+    // },
     showEtudiant() {
       if (this.onglet == 1) return true;
       else return false;
@@ -278,21 +285,40 @@ export default {
       });
     },
     modifierIntervention() {
-      const route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({name: "modifier-intervention",});
+      // const route = this.$route.path.split("/").splice(1);
+      if (this.routeSplited[0] == "admin") {
+        this.$router.push({
+          name: "modifier-intervention",
+        });
       } else {
-        this.$router.push({name: "referent_modifier_intervention",});
+        this.$router.push({
+          name: "referent_modifier_intervention",
+        });
       }
     },
     deleteIntervention(id) {
       interventionApi.deleteIntervention(id).then((response) => {
         this.status = response.status;
         if (this.status == 202) {
-          this.$router.push({
-            name: "all-intervention",
-          });
-          this.showAlert;
+          // const route = this.$route.path.split("/").splice(1);
+          // let routeData;
+          switch (this.routeSplited[0]) {
+            case "admin":
+              this.$router.push({
+                name: "all-intervention",
+              });
+              break;
+            case "referent":
+              this.$router.push({
+                name: "referent_intervention",
+              });
+              break;
+            case "formateur":
+              this.$router.push({
+                name: "formateur_intervention",
+              });
+              break;
+          }
         }
       });
     },
@@ -304,25 +330,31 @@ export default {
         .then(() => this.getAbsences());
     },
     goToStudentDetail(id) {
-      const route = this.$route.path.split("/").splice(1);
+      // const route = this.$route.path.split("/").splice(1);
       let routeData;
-      switch (route[0]) {
+      switch (this.routeSplited[0]) {
         case "admin":
           routeData = this.$router.resolve({
             name: "admin_etudiant_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
         case "referent":
           routeData = this.$router.resolve({
             name: "referent_etudiant_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
         case "formateur":
           routeData = this.$router.resolve({
             name: "formateur_etudiant_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
       }
@@ -335,25 +367,31 @@ export default {
         .then((data) => (this.assignements = data));
     },
     goToDevoirDetail(id) {
-      const route = this.$route.path.split("/").splice(1);
+      // const route = this.$route.path.split("/").splice(1);
       let routeData;
-      switch (route[0]) {
+      switch (this.routeSplited[0]) {
         case "admin":
           routeData = this.$router.resolve({
             name: "admin_devoir_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
         case "referent":
           routeData = this.$router.resolve({
             name: "referent_devoir_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
         case "formateur":
           routeData = this.$router.resolve({
             name: "formateur_devoir_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
       }
@@ -377,25 +415,31 @@ export default {
       }
     },
     goToAbsenceDetail(id) {
-      const route = this.$route.path.split("/").splice(1);
+      // const route = this.$route.path.split("/").splice(1);
       let routeData;
-      switch (route[0]) {
+      switch (this.routeSplited[0]) {
         case "admin":
           routeData = this.$router.resolve({
             name: "admin_absence_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
         case "referent":
           routeData = this.$router.resolve({
             name: "referent_absence_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
         case "formateur":
           routeData = this.$router.resolve({
             name: "formateur_absence_detail",
-            params: { id: id },
+            params: {
+              id: id,
+            },
           });
           break;
       }
@@ -403,14 +447,29 @@ export default {
     },
     // Promotion
     goToPromotionDetail(id) {
-      const route = this.$route.path.split("/").splice(1);
-      switch (route[0]) {
+      // const route = this.$route.path.split("/").splice(1);
+      switch (this.routeSplited[0]) {
         case "admin":
-          return { name: "admin_promotion_detail", params: { id: id } };
+          return {
+            name: "admin_promotion_detail",
+            params: {
+              id: id,
+            },
+          };
         case "referent":
-          return { name: "referent-promotion-detail", params: { id: id } };
+          return {
+            name: "referent-promotion-detail",
+            params: {
+              id: id,
+            },
+          };
         case "formateur":
-          return { name: "formateur_promotion_detail", params: { id: id } };
+          return {
+            name: "formateur_promotion_detail",
+            params: {
+              id: id,
+            },
+          };
       }
     },
     // Other

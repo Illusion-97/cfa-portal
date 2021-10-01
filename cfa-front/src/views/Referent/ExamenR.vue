@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Liste des Examens" />
-    <ExamenListeComponent :isAction="true"/>
+    <ExamenListeComponent :isAction="true" />
     <router-link
-      :to="{ name: 'referent_cours' }"
+      :to="{ name: 'referent_intervention' }"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
@@ -11,7 +11,6 @@
       Precedent
     </router-link>
   </div>
-  
 </template>
 
 <script>
@@ -27,5 +26,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
