@@ -64,7 +64,7 @@
       return {
         formateurReferent: {},
         promotions: [],
-        groupes: [],
+        groupes: [{nom:""}],
         manager: {},
       };
     },

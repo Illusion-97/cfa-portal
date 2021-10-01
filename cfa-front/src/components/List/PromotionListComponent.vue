@@ -28,6 +28,7 @@
       <router-link
         class="btn btn-primary"
         :to="{ name: 'admin_promotion_create' }"
+        v-if="isAction"
         >Ajouter une promotion</router-link
       >
     </div>

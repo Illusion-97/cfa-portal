@@ -22,7 +22,7 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'ajouter-formation' }" >Ajouter</router-link>
+      <router-link class="btn btn-info" :to="{ name: 'ajouter-formation' }" v-if="isAction">Ajouter</router-link>
     </div>
     <table
       class="table table-striped table-hover text-center"

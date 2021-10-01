@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-2" align="center">
         <div class="identite">
-          <p class="nom">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
+          <p class="nom">{{ etudiant.prenom }} {{ etudiant.nom }} </p>
           <p class="email">{{ etudiant.login }}</p>
         </div>
       </div>
@@ -76,24 +76,11 @@
           </div>
   </div>
   
-      <!-- <div class="btn-group " role="group" aria-label="Basic example">
-      <router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
-      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>
-      <button class="btn-hover color-1" v-on:click="createFicheSalarie(etudiant)">Ajouter une fiche salarié </button>
-      <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
-      <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
-      <button class="btn-hover color-9" v-on:click="editFicheSalarie(etudiant)">Modifier la fiche salarié </button>
-      <button class="btn-hover color-9" v-on:click="editFichePoste(etudiant)">Modifier la fiche de poste</button>
-      <button class="btn-hover color-9" v-on:click="editFicheEntreprise(etudiant)">Modifier la fiche d'entreprise </button>
-      <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
-      <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
-      <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
-      </div> -->
+    <br>
+    <br>
+    <br>
+    <br>
 
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="mon-container-tuile">
       <span
         :class="{
@@ -157,7 +144,7 @@
             v-for="promotion in etudiant.promotionsDto"
             :key="promotion.id"
             @dblclick="clickPromotion(promotion)"
-            class="mon-tr2"
+            class="mon-tr"
           >
             <td>{{ promotion.nom }}</td>
             <td>{{ promotion.dateDebut }}</td>
@@ -216,7 +203,7 @@
           >
             <td>
               <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span>
-              <span v-if="note.examenDto">{{note.examenDto.examenDto.enonce}}</span>
+              <!-- <span v-if="note.examenDto">{{note.examenDto.examenDto.enonce}}</span> -->
             </td>
             <td>{{ note.noteObtenu }}</td>
             <td>{{ note.observations }}</td>
@@ -498,7 +485,7 @@ export default {
       }
       /*else {
         this.$router.push({
-        name: "formateur_etudiant_edit_fiche_entreprise",
+        name: "formateur_etudiant_edit_fiche_entreprise",z
         
       });
       }
@@ -657,33 +644,32 @@ export default {
       });
       }*/
   },
-    clickPromotion() {
-      /*let route = this.$route.path.split("/").splice(1);
+    clickPromotion(promotion) {
+      let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
         this.$router.push({
         name: "admin_promotion_detail",
         params: { id: promotion.id },
       });
       }
-      else{
+      else if(route[0]== 'referent'){
         this.$router.push({
         name: "referent-promotion-detail",
         params: { id: promotion.id },
       });
-      }
-      
-      else if{
+      }      
+      else if(route[0]== 'formateur'){
         this.$router.push({
-        name: "formateur-promotion-detail",
+        name: "formateur_promotion_detail",
         params: { id: promotion.id },
       });
       }
-      else if{
+      else if(route[0]== 'cef'){
         this.$router.push({
-        name: "cef-promotion-detail",
+        name: "cef_promotion_detail",
         params: { id: promotion.id },
       });
-      }*/
+      }
     },
     clickGroupe(groupe) {
       let route = this.$route.path.split("/").splice(1);

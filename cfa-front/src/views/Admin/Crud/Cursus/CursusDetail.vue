@@ -12,6 +12,22 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Details</span>
+        <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon text-light"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span v-on:click="updateCursus()" class="icon-link dropdown-item">
+              Modifier
+            </span>
+            <span v-on:click="deleteCursus()" class="icon-link dropdown-item">
+              Supprimer
+            </span>
+          </div>
+        </div>
       </b-card-header>
 
       <b-card-text class="identity row ml-6">
@@ -76,6 +92,29 @@ export default {
   methods :{
     detail(id) {
       this.$router.push({ name: "admin_promotion_detail", params: { id: id } });
+    },
+    updateCursus() {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_cursus_update",
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_cursus_update",
+        });
+      } else if (route[0] == "formateur") {
+        this.$router.push({
+          name: "formateur_cursus_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_cursus_update",
+        });
+      }
+    },
+    deleteCursus() {
+      cursusApi.deleteCursus(this.$route.params.id).then(() => this.goBack());
     },
   }
 };

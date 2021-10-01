@@ -20,7 +20,7 @@
       <!--<router-link class="btn btn-info" :to="{ name: 'admin_examen_create' }" v-if="isAction"
         >Ajouter</router-link
       >-->
-      <button class="btn btn-info" v-on:click=ajouterExamen>
+      <button class="btn btn-info" v-on:click=ajouterExamen v-if="isAction">
               Ajouter 
             </button>
     </div>

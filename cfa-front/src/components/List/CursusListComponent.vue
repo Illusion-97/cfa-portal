@@ -28,6 +28,7 @@
       <router-link
         class="btn btn-primary"
         :to="{ name: 'admin_addCursus' }"
+        v-if="isAction"
         >Ajouter un cursus</router-link
       >
     </div>
