@@ -22,7 +22,7 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'ajouter-formation' }" >Ajouter</router-link>
+      <router-link class="btn btn-info" :to="{ name: 'ajouter-formation' }" v-if="isAction">Ajouter</router-link>
     </div>
     <table
       class="table table-striped table-hover text-center"
@@ -31,7 +31,7 @@
         <tr>
           <!-- <th>Id</th> -->
           <th class="text-center">Intitulé</th>
-          <th class="text-center">Description</th>
+          <th class="text-center" v-if="isDescription">Description</th>
           <th v-if="isAction" width="20%">Voir plus</th>
         </tr>
       </thead>
@@ -43,7 +43,7 @@
         >
           <!-- <td>{{ formation.id }}</td> -->
           <td>{{ formation.titre }}</td>
-          <td>{{formation.contenu}}</td>
+          <td  v-if="isDescription">{{formation.contenu}}</td>
           <td v-if="isAction">
             <router-link
               class="btn btn-info"
@@ -98,6 +98,10 @@ export default {
     isAction: {
       type: Boolean,
       default: false,
+    },
+    isDescription: {
+      type: Boolean,
+      default: true,
     },
     formationProp: {
       default: null,
