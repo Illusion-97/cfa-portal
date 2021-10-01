@@ -11,7 +11,7 @@
         <div class=" col-md-12 div-form">
           <form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group>
-              <FormationList @click-list="onClickChildFormation" :formationProp="formation_input" />
+              <FormationList @click-list="onClickChildFormation" :formationProp="formation_input" :isDescription="false"/>
             </b-form-group>
             <b-form-group>
               <div class="d-flex justify-content-around">
