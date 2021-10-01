@@ -16,6 +16,7 @@ import { Role } from '@/_helpers/role.js';
 //  - FORMATEUR
 //  - REFERENT
 //  - ADMIN
+//  - CEF
 
 
 //          #######################
@@ -166,6 +167,12 @@ import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreForm
 import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
 import CentreFormationDetail from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetail.vue";
 
+
+//#######################
+//#       CEF           #
+//#######################
+//CentreFormation
+import CentreFormation from "@/views/Cef/Crud/CentreFormation/CefCentreFormation.vue";
 
 
 
@@ -409,6 +416,18 @@ const routes = [
    { path: "/admin/absences/create", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/detail/:id", name:"admin_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Admin] }},
+
+
+   //#######################
+   //#       CEF           #
+   //#######################
+
+   { path: "/cef/", name: "cef_dashboard", redirect: {name: 'cef_centreFormation_list'}},
+   //Centre Formation
+  { path: "/cef/centreFormations", name: "cef_centreFormation_list", component: CentreFormation},
+  { path: "/cef/centreFormations/create", name:"cef_centreFormation_create", component: AddCentreFormation, meta: { authorize: [Role.Cef] }},
+  { path: "/cef/centreFormations/update/:id", name:"cef_centreFormation_update", component: AddCentreFormation, meta: { authorize: [Role.Cef] }},
+  { path: "/cef/centreFormations/detail/:id", name: "cef_centreFormation_detail", component: CentreFormationDetail, meta: { authorize: [Role.Cef] } },
 
 ];
 

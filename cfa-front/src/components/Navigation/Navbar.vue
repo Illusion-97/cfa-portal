@@ -72,6 +72,11 @@
                 Espace Administrateur
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" :to="{ name: 'cef_centreFormation_list' }" v-if="isCEF">
+                Espace Cef
+              </router-link>
+            </li>
             <li class="nav-item" id="on-responsive">
               <a @click="logout" class="nav-link logout" href="#">
                 Déconnexion
