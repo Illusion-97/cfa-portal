@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
-    <BodyTitle title="Liste des Examens" />
-    <ExamenListeComponent :isAction="true"/>
+    <BodyTitle title="Liste des Devoirs" />
+    <DevoirListComponent :isAction="true"/>
     <router-link
       :to="{ name: 'cef_cours' }"
       class="h5"
@@ -11,21 +11,19 @@
       Precedent
     </router-link>
   </div>
-  
 </template>
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import ExamenListeComponent from "@/components/List/ExamenListComponent.vue";
+import DevoirListComponent from "@/components/List/DevoirListComponent.vue";
 
 export default {
-  name: "ExamenListe",
+  name: "DevoirListe",
   components: {
     BodyTitle,
-    ExamenListeComponent,
+    DevoirListComponent,
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
