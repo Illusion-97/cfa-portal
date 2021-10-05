@@ -172,9 +172,17 @@
               id: etudiant.id,
             },
           });
-        } else {
+        } else if(route[0] == "referent") {
           this.$router.push({
             name: "referent_etudiant_detail",
+            params: {
+              id: etudiant.id,
+            },
+          });
+        }
+        else if(route[0] == "cef") {
+          this.$router.push({
+            name: "cef_etudiant_detail",
             params: {
               id: etudiant.id,
             },
@@ -190,9 +198,17 @@
               id: intervention.id,
             },
           });
-        } else {
+        } else if (route[0] == "referent") {
           this.$router.push({
             name: "referent-intervention-detail",
+            params: {
+              id: intervention.id,
+            },
+          });
+        }
+        else if (route[0] == "cef") {
+          this.$router.push({
+            name: "cef-intervention-detail",
             params: {
               id: intervention.id,
             },
@@ -205,9 +221,14 @@
           this.$router.push({
             name: "admin_promotion_update",
           });
-        } else {
+        } else if (route[0] == "referent"){
           this.$router.push({
             name: "referent_promotion_update",
+          });
+        }
+        else if (route[0] == "cef"){
+          this.$router.push({
+            name: "cef_promotion_update",
           });
         }
       },
@@ -220,9 +241,17 @@
               id: promo.id,
             },
           });
-        } else {
+        } else if (route[0] == "referent"){
           this.$router.push({
             name: "referent_promotion_update",
+            params: {
+              id: promo.id,
+            },
+          });
+        }
+        else if (route[0] == "cef"){
+          this.$router.push({
+            name: "cef_promotion_update",
             params: {
               id: promo.id,
             },

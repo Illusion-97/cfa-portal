@@ -23,12 +23,9 @@
         </button>
       </form>
 
-      <router-link
-        class="btn btn-primary"
-        :to="{ name: 'admin_centreFormation_create' }"
-        v-if="isAction"
-        >Ajouter un centre de formation</router-link
-      >
+      <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
+              Ajouter un centre de formation
+            </button>
     </div>
     <table class="table table-striped table-hover text-center">
       <thead>
@@ -56,23 +53,15 @@
             {{ centreFormation.adresseDto.codePostal }}
           </td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{
-                name: 'admin_centreFormation_detail',
-                params: { id: centreFormation.id },
-              }"
-              >Details</router-link
-            >
+            
+      <button class="btn btn-info" v-on:click="detailCentreFormation(centreFormation.id)" v-if="isAction">
+              Details
+            </button>
             &nbsp;
-            <router-link
-              class="btn btn-success"
-              :to="{
-                name: 'admin_centreFormation_update',
-                params: { id: centreFormation.id },
-              }"
-              >Modifier</router-link
-            >
+            
+      <button class="btn btn-success" v-on:click="editCentreFormation(centreFormation.id)" v-if="isAction">
+              Modifier
+            </button>
             &nbsp;
             <button
               class="btn btn-danger"
@@ -165,6 +154,53 @@ export default {
       centreFormationApi
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.centreFormations = response));
+    },
+    createCentreFormation(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_centreFormation_create",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_centreFormation_create",
+        
+      });
+      }
+    },
+    detailCentreFormation(id){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_centreFormation_detail",
+        params: { id: id }
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_centreFormation_detail",
+        params: { id: id }
+        
+      });
+      }
+    },
+    editCentreFormation(id){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_centreFormation_update",
+        params: {id :id}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_centreFormation_update",
+        params: { id: id }
+        
+      });
+      }
     },
     refreshList() {
       centreFormationApi
