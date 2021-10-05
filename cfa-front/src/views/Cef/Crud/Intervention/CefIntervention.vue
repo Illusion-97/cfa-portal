@@ -10,7 +10,7 @@
       :clickHandler="pageChange"
       :showBtn="true"
       btnTxt="Ajouter une intervention"
-      btnLink="CreateCoursR"
+      btnLink="cef_intervention_create"
       v-model="keyword"
       :onSubmit="search"
     />

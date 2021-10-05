@@ -177,6 +177,7 @@ import CentreFormation from "@/views/Cef/Crud/CentreFormation/CefCentreFormation
 import CefPromo from "@/views/Cef/Crud/Promo/CefPromo.vue";
 //Intervention
 import CefIntervention from "@/views/Cef/Crud/Intervention/CefIntervention.vue";
+import CefCreateCours from "@/views/Cef/Crud/Intervention/CefCreateIntervention.vue";
 //Etudiant
 import CefEtudiant from "@/views/Cef/Crud/Etudiant/CefEtudiant.vue";
 
@@ -449,7 +450,7 @@ const routes = [
   //Intervention
   { path: "/cef/interventions", name: "cef_cours", component: CefIntervention, meta: { authorize: [Role.CEF] }},
   { path: "/cef/interventions/:id", name: "cef-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.CEF] }},
-  { path: "/cef/interventions/create", name: "cef_intervention_create", component: CreateCoursR, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/interventions/create", name: "cef_intervention_create", component: CefCreateCours, meta: { authorize: [Role.CEF] }},
   { path: "/cef/interventions/update/:id", name: "cef_modifier_intervention", component: AjoutIntervention, meta: { authorize: [Role.CEF] }}, 
 
    //Cursus
