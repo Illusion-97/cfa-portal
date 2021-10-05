@@ -79,9 +79,15 @@ export default {
         
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_groupe_update",
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_groupe_update",
         
       });
       }

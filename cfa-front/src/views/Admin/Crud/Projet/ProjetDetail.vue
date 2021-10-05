@@ -12,13 +12,8 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="font-weight-bold">Projet : {{ projet.nom }}</span>
-        <router-link
-          class="btn btn-info"
-          :to="{ name: 'admin_projet_update', params: { id: projetId } }"
-          >Update</router-link
-        >
         <button class="btn btn-info" v-on:click=updateProjet>
-              Update 2
+              Update
             </button>
       </b-card-header>
 
@@ -174,9 +169,15 @@ export default {
         
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_projet_update",
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_projet_update",
         
       });
       }

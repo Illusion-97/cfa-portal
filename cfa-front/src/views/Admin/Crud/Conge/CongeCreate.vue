@@ -92,7 +92,7 @@ export default {
   created() {
     this.refreshList();
 
-    if (this.$route.name == "admin_conge_create" || this.$route.name == "referent_conge_create") {
+    if (this.$route.name == "admin_conge_create" || this.$route.name == "referent_conge_create" || this.$route.name == "cef_conge_create") {
       utilisateurApi.getById(this.$route.params.id).then(response => {
         this.form.utilisateurDto = response
         this.utilisateur_input = `${this.form.utilisateurDto.prenom} ${this.form.utilisateurDto.nom}`;

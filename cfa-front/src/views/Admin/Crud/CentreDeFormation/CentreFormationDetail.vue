@@ -1,13 +1,13 @@
 <template>
     <div class="container-fuild">
-    <router-link
-      :to="{ name: 'admin_centreFormation_list' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
 
     <b-card no-body id="my-card">
         <b-card-header>
@@ -86,6 +86,9 @@ export default {
           name: "cef_centreFormation_update",
         });
       }
+    },
+    goBack() {
+      this.$router.go(-1);
     },
     deleteCentre() {
       centreFormationApi.deleteCentreFormations(this.$route.params.id).then(() => this.goBack());

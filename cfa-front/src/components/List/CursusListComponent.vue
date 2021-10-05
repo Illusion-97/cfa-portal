@@ -25,11 +25,9 @@
         </button>
       </form>
 
-      <router-link
-        class="btn btn-primary"
-        :to="{ name: 'admin_addCursus' }"
-        >Ajouter un cursus</router-link
-      >
+      <button class="btn btn-primary" v-on:click="createCursus()">
+              Ajouter un cursus
+            </button>
     </div>
 
 
@@ -50,17 +48,13 @@
           <td>{{ cursus.id }}</td>
           <td>{{ cursus.titre }}</td>
           <td v-if="isAction">
-            <router-link
-              class="btn btn-info"
-              :to="{ name: 'admin_cursus_detail', params: { id: cursus.id } }"
-              >Detail</router-link
-            >
+            <button class="btn btn-info" v-on:click="detailCursus(cursus.id)">
+              Details
+            </button>
             &nbsp;
-            <router-link
-              class="btn btn-success"
-              :to="{ name: 'admin_cursus_update', params: { id: cursus.id } }"
-              >Update</router-link
-            >
+            <button class="btn btn-success" v-on:click="updateCursus(cursus.id)">
+              Update
+            </button>
             &nbsp;
             <button class="btn btn-danger" v-on:click="deleteCursus(cursus.id)">
               Delete
@@ -156,8 +150,58 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
+    detailCursus(id){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_cursus_detail",
+        params: { id: id }
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_cursus_detail",
+        params: { id: id }
+        
+      });
+      }
+    },
+    updateCursus(id){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_cursus_update",
+        params: {id :id}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_cursus_update",
+        params: { id: id }
+        
+      });
+      }
+    },
+    createCursus(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_addCursus",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_addCursus",
+        
+      });
+      }
+    },
     deleteCursus(cursusId) {
+       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if (res) {
       cursusApi.deleteCursus(cursusId).then(() => this.refreshList());
+      }
     },
     clickList(cursus) {
       this.cursus_input = cursus.titre;

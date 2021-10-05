@@ -62,7 +62,7 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      cursusApi.save(this.form).then(() => this.$router.push({ name: 'admin_cursus_list'}));
+      cursusApi.save(this.form).then(() => this.goBack());
     },
   },
   created() {

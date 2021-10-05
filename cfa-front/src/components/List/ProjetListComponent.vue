@@ -167,9 +167,15 @@ export default {
         params: {}
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_projet_create",
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_projet_create",
         
       });
       }
@@ -187,9 +193,16 @@ export default {
       this.$router.push({ 
         name: "admin_projet_detail", params: { id: id } });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_projet_detail",
+        params: { id: id }
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_projet_detail",
         params: { id: id }
         
       });
