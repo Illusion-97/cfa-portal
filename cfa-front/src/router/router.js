@@ -45,6 +45,7 @@ import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
 
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
+import ProfilUpdate from "@/views/Etudiant/EspaceAdministratif/ProfilUpdate.vue";
 import DepotFichier from "@/views/Etudiant/EspaceAdministratif/DepotFichier.vue";
 import DemandeConge from "@/views/Etudiant/EspaceAdministratif/DemandeConge.vue";
 import FicheSalarie from "@/views/Etudiant/EspaceAdministratif/FicheSalarie.vue"
@@ -197,6 +198,7 @@ const routes = [
   //Administratif 
   { path: "/etudiant/espace-administratif", name: "etudiant_administratif", redirect: { name: 'etudiant_profil' }, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/profil", name: "etudiant_profil", component: Profil, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-administratif/modifier-profil/:id", name: "etudiant_profil_update", component: ProfilUpdate, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/documents-administratifs", name: "etudiant_documents_administratifs", component: DepotFichier, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/demande-conge", name: "etudiant_conge", component: DemandeConge, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie", component: FicheSalarie, meta: { authorize: [Role.Etudiant] } },
