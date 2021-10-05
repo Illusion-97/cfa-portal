@@ -28,7 +28,7 @@
         v-if="isAction"
         >Ajouter</router-link
       >-->
-      <button class="btn btn-info" v-on:click=ajouterDevoir>
+      <button class="btn btn-primary" v-on:click=ajouterDevoir>
               Ajouter 
             </button>
     </div>
@@ -57,12 +57,12 @@
               Details 
             </button>
             &nbsp;
-            <button class="btn btn-info" v-on:click="updateDevoir(devoir)">
-              Update 
+            <button class="btn btn-success" v-on:click="updateDevoir(devoir)">
+              Modifier 
             </button>
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
-              Delete
+            <button class="btn btn-danger" v-on:click="deleteDevoir(devoir.id)">
+              Supprimer
             </button>
           </td>
         </tr>
@@ -163,7 +163,10 @@ export default {
         );
     },
     deleteDevoir(devoirId) {
+       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if (res) {
       devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
+      }
     },
     updateDevoir(devoir){
       let route = this.$route.path.split("/").splice(1);
@@ -173,9 +176,15 @@ export default {
         params: { id: devoir.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_devoir_update",
+        params: { id: devoir.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_devoir_update",
         params: { id: devoir.id },
       });
       }
@@ -188,9 +197,15 @@ export default {
         params: { id: devoir.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_devoir_detail",
+        params: { id: devoir.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_devoir_detail",
         params: { id: devoir.id },
       });
       }
@@ -203,9 +218,15 @@ export default {
         
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_devoir_create",
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_devoir_create",
         
       });
       }

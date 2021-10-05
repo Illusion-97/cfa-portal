@@ -18,8 +18,8 @@
     <div class="btn-group " role="group" aria-label="Basic example">
       <!--<router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
       <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>-->
-      <router-link class="btn-hover color-1" :to="{name: 'ExamenR'}">Voir la liste des examens</router-link>
-      <router-link class="btn-hover color-1" :to="{name: 'DevoirsR'}">Voir la liste des devoirs </router-link>
+      <router-link class="btn-hover color-1" :to="{name: 'cef_examen'}">Voir la liste des examens</router-link>
+      <router-link class="btn-hover color-1" :to="{name: 'cef_devoir'}">Voir la liste des devoirs </router-link>
     </div>
   </div>
   

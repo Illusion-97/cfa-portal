@@ -20,7 +20,7 @@
       <!--<router-link class="btn btn-info" :to="{ name: 'admin_examen_create' }" v-if="isAction"
         >Ajouter</router-link
       >-->
-      <button class="btn btn-info" v-on:click=ajouterExamen>
+      <button class="btn btn-primary" v-on:click=ajouterExamen>
               Ajouter 
             </button>
     </div>
@@ -43,12 +43,12 @@
               Details 
             </button>
             &nbsp;
-            <button class="btn btn-info" v-on:click="updateExamen(examen)">
-              Update 
+            <button class="btn btn-success" v-on:click="updateExamen(examen)">
+              Modifier 
             </button>
             &nbsp;
-            <button class="btn btn-info" v-on:click="deleteExamen(examen.id)">
-              Delete
+            <button class="btn btn-danger" v-on:click="deleteExamen(examen.id)">
+              Supprimer
             </button>
           </td>
         </tr>
@@ -146,7 +146,10 @@ export default {
         );
     },
     deleteExamen(examenId) {
+       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+      if (res) {
       examenApi.deleteExamen(examenId).then(() => this.refreshList());
+      }
     },
     updateExamen(examen){
       let route = this.$route.path.split("/").splice(1);
@@ -156,9 +159,15 @@ export default {
         params: { id: examen.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_examen_update",
+        params: { id: examen.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_examen_update",
         params: { id: examen.id },
       });
       }
@@ -171,9 +180,15 @@ export default {
         params: { id: examen.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_examen_detail",
+        params: { id: examen.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_examen_detail",
         params: { id: examen.id },
       });
       }
@@ -186,9 +201,15 @@ export default {
         
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_examen_create",
+        
+      });
+      }
+       else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_examen_create",
         
       });
       }

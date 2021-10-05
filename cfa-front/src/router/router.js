@@ -180,6 +180,10 @@ import CefIntervention from "@/views/Cef/Crud/Intervention/CefIntervention.vue";
 import CefCreateCours from "@/views/Cef/Crud/Intervention/CefCreateIntervention.vue";
 //Etudiant
 import CefEtudiant from "@/views/Cef/Crud/Etudiant/CefEtudiant.vue";
+//Examen
+import CefExamen from "@/views/Cef/Crud/Examen/CefExamen.vue";
+//Devoir
+import CefDevoir from "@/views/Cef/Crud/Devoir/CefDevoir.vue";
 
 
 
@@ -239,7 +243,7 @@ const routes = [
   //Promotion
   { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Formateur] } },
   //Devoir  
-  { path: "/formateur/devoirs/create/:id", name: "admin_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
+  { path: "/formateur/devoirs/create/:id", name: "formateur_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/devoirs/update/:id", name: "formateur_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },  
   { path: "/formateur/devoirs/detail/:id", name: "formateur_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Formateur] } },
   //Absence  
@@ -481,6 +485,16 @@ const routes = [
   { path: "/cef/projets/create", name:"cef_projet_create", component: ProjetCreate, meta: { authorize: [Role.CEF] }},
   { path: "/cef/projets/update/:id", name:"cef_projet_update", component: ProjetCreate, meta: { authorize: [Role.CEF] }},
   { path: "/cef/projets/detail/:id", name:"cef_projet_detail", component: ProjetDetail, meta: { authorize: [Role.CEF] }},
+  //Devoir
+  { path: "/cef/devoirs", name: "cef_devoir", component: CefDevoir, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/devoirs/create", name: "cef_devoir_create", component: DevoirCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/devoirs/update/:id", name: "cef_devoir_update", component: DevoirCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/devoirs/detail/:id", name: "cef_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.CEF] }},
+  //Examen
+  { path: "/cef/examens", name: "cef_examen", component: CefExamen, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/examens/create", name: "cef_examen_create", component: ExamenCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/examens/update/:id", name: "cef_examen_update", component: ExamenCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/examens/detail/:id", name: "cef_examen_detail", component: ExamenDetail, meta: { authorize: [Role.CEF] }},
 ];
 
 const router = new VueRouter({
