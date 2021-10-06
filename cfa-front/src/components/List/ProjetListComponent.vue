@@ -32,7 +32,7 @@
           <th>Nom</th>
           <th>Description</th>
           <th>Groupe</th>
-          <th v-if="isAction">Actions</th>
+          <!-- <th v-if="isAction">Actions</th> -->
         </tr>
       </thead>
       <tbody v-if="projetsComputed">
@@ -40,17 +40,17 @@
           v-for="projet in projetsComputed"
           :key="projet.id"
           v-on:click="clickList(projet)"
-          v-on:dblclick="detail(projet.id)"
+          v-on:dblclick="detail(projet)"
           class="mon-tr"
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
           <td>{{ projet.groupeDto.nom }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -180,21 +180,16 @@ export default {
         this.$emit("click-list", projet);
       }
     },
-    detail(id) {
-      if (this.isAction){
-        let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({ 
-        name: "admin_projet_detail", params: { id: id } });
-      }
-      else {
-        this.$router.push({
-        name: "referent_projet_detail",
-        params: { id: id }
-        
-      });
-      }
-    }
+    detail(projet) {
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_projet_detail', params: { id: projet.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_projet_detail', params: { id: projet.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_projet_detail', params: { id: projet.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_projet_detail', params: { id: projet.id }});
+
+      this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
     },
   },
 };

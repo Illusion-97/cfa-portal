@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       examenId: this.$route.params.id,
-      examen: {},
+      examen: {formationDto:{},cursusDto:{}},
       loading: false,
     };
   },

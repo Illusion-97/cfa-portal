@@ -6,7 +6,7 @@
           <img
             src="@/assets/img/institutionnel-logo.png"
             alt="logo"
-            style="width:50%"
+            class="mon-logo"
           />
         </router-link>
         <button

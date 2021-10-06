@@ -46,9 +46,8 @@
           v-for="promotion in promotionsComputed"
           :key="promotion.id"
           class="mon-tr"
-          v-on:dblclick="detail(promotion.id)"
           v-on:click="clickList(promotion)"
-        >
+          @dblclick="dblClick(promotion)">
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
           <td>{{ promotion.dateFin | formatDate }}</td>
@@ -165,12 +164,15 @@ export default {
       this.promotion_input = promotion.nom;
       this.$emit("click-list", promotion);
     },
-    detail(id) {
-      if (this.isAction)
-        this.$router.push({
-          name: "admin_promotion_detail",
-          params: { id: id },
-        });
+    dblClick(promotion){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_promotion_detail', params: { id: promotion.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_promotion_detail', params: { id: promotion.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_promotion_detail', params: { id: promotion.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_promotion_detail', params: { id: promotion.id }});
+      else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_promotion_detail', params: { id: promotion.id }});
+
     },
   },
 };

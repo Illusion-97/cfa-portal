@@ -22,7 +22,7 @@
         <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
-      <router-link class="btn btn-info" :to="{ name: 'ajouter-formation' }" v-if="isAction">Ajouter</router-link>
+      <router-link class="btn btn-info" :to="{ name: 'admin_formation_create' }" v-if="isAction">Ajouter</router-link>
     </div>
     <table
       class="table table-striped table-hover text-center"
@@ -32,28 +32,28 @@
           <!-- <th>Id</th> -->
           <th class="text-center">Intitulé</th>
           <th class="text-center" v-if="isDescription">Description</th>
-          <th v-if="isAction" width="20%">Voir plus</th>
+          <!-- <th v-if="isAction" width="20%">Voir plus</th> -->
         </tr>
       </thead>
       <tbody v-if="formationComputed">
         <tr
           v-for="formation in formationComputed"
-          :key="formation.id"
+          :key="formation.id" class="mon-tr"
           v-on:click="clickList(formation)"
-        >
+          @dblclick="dblClick(formation)">
           <!-- <td>{{ formation.id }}</td> -->
           <td>{{ formation.titre }}</td>
           <td v-if="isDescription">{{formation.contenu}}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
-              :to="{ name: 'formation-detail', params: { id: formation.id } }"
+              :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"
               >Detail</router-link
             >
             &nbsp;
             <router-link
               class="btn btn-success"
-              :to="{ name: 'modifier-formation', params: { id: formation.id } }"
+              :to="{ name: 'admin_formation_update', params: { id: formation.id } }"
               >Update</router-link
             >
             &nbsp;
@@ -63,7 +63,7 @@
             >
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -171,6 +171,16 @@ export default {
     clickList(formation) {
       this.formation_input = formation.titre;
       this.$emit("click-list", formation);
+    },
+    dblClick(formation){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_formation_detail', params: { id: formation.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_formation_detail', params: { id: formation.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_formation_detail', params: { id: formation.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_formation_detail', params: { id: formation.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_formation_detail', params: { id: formation.id }});
+
     },
   },
 };

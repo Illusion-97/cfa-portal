@@ -39,20 +39,22 @@
           <th>Date de Debut</th>
           <th>Date de Fin</th>
           <th>Intervention</th>
-          <th v-if="isAction">Actions</th>
+          <!-- <th v-if="isAction">Actions</th> -->
         </tr>
       </thead>
       <tbody v-if="devoirsComputed">
         <tr
           v-for="devoir in devoirsComputed"
           :key="devoir.id"
+          class="mon-tr"
           v-on:click="clickList(devoir)"
-        >
+          @dblclick="dblClick(devoir)">
+
           <td>{{ devoir.enonce }}</td>
           <td>{{ devoir.dateDebut }}</td>
           <td>{{ devoir.dateFin }}</td>
           <td>{{ devoir.interventionDto.formationDto.titre }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <button class="btn btn-info" v-on:click="detailsDevoir(devoir)">
               Details 
             </button>
@@ -64,7 +66,7 @@
             <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -213,6 +215,16 @@ export default {
     clickList(devoir) {
       this.devoir_input = devoir.enonce;
       this.$emit("click-list", devoir);
+    },
+    dblClick(devoir){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_devoir_detail', params: { id: devoir.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_devoir_detail', params: { id: devoir.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_devoir_detail', params: { id: devoir.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_devoir_detail', params: { id: devoir.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_devoir_detail', params: { id: devoir.id }});
+
     },
   },
 };

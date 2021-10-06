@@ -1,13 +1,13 @@
 <template>
     <div class="container-fluid">
-    <router-link
-      :to="{ name: 'admin_passageExamen_list' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
     
     <b-card no-body id="my-card">
       <b-card-header>
@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       passageExamenId: this.$route.params.id,
-      passageExamen: {},
+      passageExamen: {interventionDto:{formationDto:{}}, examenDto:{}},
       loading: false,
     };
   },
@@ -76,6 +76,9 @@ export default {
     passageExamenApi.getById(this.$route.params.id).then(response => this.passageExamen = response);
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     updatePassageExamen() {
       let route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {

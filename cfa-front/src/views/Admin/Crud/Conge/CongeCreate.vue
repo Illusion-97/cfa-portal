@@ -98,8 +98,6 @@ export default {
         this.utilisateur_input = `${this.form.utilisateurDto.prenom} ${this.form.utilisateurDto.nom}`;
       });
     } else {
-      console.log("this.route : ", this.$route);
-
       congeApi.getById(this.$route.params.id).then((response) => {
         this.form = response;
         this.vue_title = "Update d'un congé";

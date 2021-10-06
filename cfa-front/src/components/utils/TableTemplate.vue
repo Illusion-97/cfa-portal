@@ -33,7 +33,7 @@
 
               <template #cell(admin_interventions)="data">
                 <router-link :to="{
-                    name: 'intervention-detail',
+                    name: 'admin_intervention_detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
 
@@ -43,7 +43,7 @@
 
               <template #cell(referent_interventions)="data">
                 <router-link :to="{
-                    name: 'referent-intervention-detail',
+                    name: 'referent_intervention_detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
 
@@ -53,7 +53,7 @@
 
               <template #cell(formateur_interventions)="data">
                 <router-link :to="{
-                    name: 'formateur-intervention-detail',
+                    name: 'formateur_intervention_detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
 
@@ -63,7 +63,7 @@
 
               <template #cell(titre)="data">
                 <router-link :to="{
-                    name: 'formation-detail',
+                    name: 'admin_formation_detail',
                     params: { id: data.item.id },
                   }" style="color:black;">
                   {{ data.value | capitalize }}
@@ -151,7 +151,7 @@
               </template>
 
               <template #cell(modifierItv)="data">
-                <router-link :to="{ name: 'modifier-intervention',
+                <router-link :to="{ name: 'admin_intervention_update',
                     params: { id: data.item.id }, }">
                   <font-awesome-icon :icon="['fas', 'edit']" class="icon text-secondary" />
                 </router-link>

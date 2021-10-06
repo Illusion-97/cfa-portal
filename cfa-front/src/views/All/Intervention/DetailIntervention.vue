@@ -280,9 +280,9 @@ export default {
     modifierIntervention() {
       const route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {
-        this.$router.push({name: "modifier-intervention",});
+        this.$router.push({name: "admin_intervention_update",});
       } else {
-        this.$router.push({name: "referent_modifier_intervention",});
+        this.$router.push({name: "referent_intervention_update",});
       }
     },
     deleteIntervention(id) {
@@ -290,7 +290,7 @@ export default {
         this.status = response.status;
         if (this.status == 202) {
           this.$router.push({
-            name: "all-intervention",
+            name: "admin_intervention_list",
           });
           this.showAlert;
         }
@@ -408,7 +408,7 @@ export default {
         case "admin":
           return { name: "admin_promotion_detail", params: { id: id } };
         case "referent":
-          return { name: "referent-promotion-detail", params: { id: id } };
+          return { name: "referent_promotion_detail", params: { id: id } };
         case "formateur":
           return { name: "formateur_promotion_detail", params: { id: id } };
       }

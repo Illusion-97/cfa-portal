@@ -27,7 +27,7 @@
 
       <router-link
         class="btn btn-primary"
-        :to="{ name: 'admin_addCursus' }"
+        :to="{ name: 'admin_cursus_create' }"
         v-if="isAction"
         >Ajouter un cursus</router-link
       >
@@ -39,18 +39,20 @@
         <tr>
           <th>Id</th>
           <th>Titre</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="cursusComputed">
         <tr
           v-for="cursus in cursusComputed"
           :key="cursus.id"
+          class="mon-tr"
           v-on:click="clickList(cursus)"
-        >
+          @dblclick="dblClick(cursus)">
+        
           <td>{{ cursus.id }}</td>
           <td>{{ cursus.titre }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
               :to="{ name: 'admin_cursus_detail', params: { id: cursus.id } }"
@@ -66,7 +68,7 @@
             <button class="btn btn-danger" v-on:click="deleteCursus(cursus.id)">
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -163,6 +165,15 @@ export default {
     clickList(cursus) {
       this.cursus_input = cursus.titre;
       this.$emit("click-list", cursus);
+    },
+    dblClick(cursus){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_cursus_detail', params: { id: cursus.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_cursus_detail', params: { id: cursus.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_cursus_detail', params: { id: cursus.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_cursus_detail', params: { id: cursus.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_cursus_detail', params: { id: cursus.id }});
     },
   },
 };

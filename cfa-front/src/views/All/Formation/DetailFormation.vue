@@ -10,7 +10,7 @@
           <font-awesome-icon :icon="['fas', 'sliders-h']" class="icon text-light" />
         </a>
         <div class="dropdown-menu dropleft rounded-0">
-          <router-link :to="{name: 'modifier-formation',
+          <router-link :to="{name: 'admin_formation_update',
               params: { id: formationId },}" class="icon-link dropdown-item">
             Modifier
           </router-link>
@@ -18,7 +18,7 @@
             Supprimer
           </span>
           <div class="dropdown-divider"></div>
-          <router-link :to="{ name: 'ajouter-intervention'}" class="icon-link dropdown-item">
+          <router-link :to="{ name: 'admin_intervention_create'}" class="icon-link dropdown-item">
             Ajouter une intervention
           </router-link>
         </div>
@@ -115,7 +115,7 @@
       },
       getDetail(id) {
         this.$router.push({
-          name: "intervention-detail",
+          name: "admin_intervention_detail",
           params: {
             id: id
           }

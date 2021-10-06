@@ -37,15 +37,17 @@
           <th>Nom du centre</th>
           <th>Entreprise</th>
           <th>Adresse</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="centreFormationsComputed">
         <tr
           v-for="centreFormation in centreFormationsComputed"
           :key="centreFormation.id"
+          class="mon-tr"
           v-on:click="clickList(centreFormation)"
-        >
+          @dblclick="dblClick(centreFormation)">
+        
           <!-- <td>{{ centreFormation.id }}</td> -->
           <td>{{ centreFormation.nom }}</td>
           <td>{{ centreFormation.entrepriseDto.raisonSociale }}</td>
@@ -55,7 +57,7 @@
             {{ centreFormation.adresseDto.ville }},
             {{ centreFormation.adresseDto.codePostal }}
           </td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
               :to="{
@@ -80,7 +82,7 @@
             >
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -185,8 +187,17 @@ export default {
       }
     },
     clickList(centreFormation) {
-      this.centreFormation_input = centreFormation.id;
+      this.centreFormation_input = centreFormation.nom;
       this.$emit("click-list", centreFormation);
+    },
+    dblClick(centreFormation){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_centreFormation_detail', params: { id: centreFormation.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_centreFormation_detail', params: { id: centreFormation.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_centreFormation_detail', params: { id: centreFormation.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_centreFormation_detail', params: { id: centreFormation.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_centreFormation_detail', params: { id: centreFormation.id }});
     },
   },
 };

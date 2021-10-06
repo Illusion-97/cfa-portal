@@ -220,7 +220,7 @@ const routes = [
   { path: "/formateur", name: "formateur",  redirect: {name: 'formateur_intervention'}, meta: { authorize: [Role.Formateur] }},
   //Intervention
   { path: "/formateur/interventions", name: "formateur_intervention", component: Intervention, meta: { authorize: [Role.Formateur] }},
-  { path: "/formateur/interventions/detail/:id", name: "formateur-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/interventions/detail/:id", name: "formateur_intervention_detail", component: DetailIntervention, meta: { authorize: [Role.Formateur] }},
   //Etudiant
   { path: "/formateur/etudiants/detail/:id", name:"formateur_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Formateur] }},
   //Promotion
@@ -233,13 +233,22 @@ const routes = [
   { path: "/formateur/absences/create", name:"formateur_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Formateur] }},
   { path: "/formateur/absences/update/:id", name:"formateur_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Formateur] }},
   { path: "/formateur/absences/detail/:id", name:"formateur_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Formateur] }},  
-  
+  //Adresse
+  { path: "/formateur/adresses/detail/:id", name: "formateur_adresse_detail", component: AdresseDetail, meta: { authorize: [Role.Formateur] } },
+  //Examen
+  { path: "/formateur/examens/create", name: "formateur_examen_create", component: ExamenCreate, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/examens/update/:id", name: "formateur_examen_update", component: ExamenCreate, meta: { authorize: [Role.Formateur] }},
+  { path: "/formateur/examens/detail/:id", name: "formateur_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Formateur] }},
  
   //#######################
   //#       REFERENT      #
   //#######################
 
-  { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}, meta: { authorize: [Role.Referent] }},
+  //Adresse
+  { path: "/referent/adresses", name: "referent_adresse_list", component: AdresseList, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/adresses/create", name: "referent_adresse_create", component: AddAdresse, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/adresses/update/:id", name: "referent_adresse_update", component: AddAdresse, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/adresses/detail/:id", name: "referent_adresse_detail", component: AdresseDetail, meta: { authorize: [Role.Referent] } },
   //Divers  
   { path: "/referent/notes", name: "referent_notes", component: NotesR, meta: { authorize: [Role.Referent] }},
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.Referent] }},
@@ -263,10 +272,10 @@ const routes = [
   { path: "/referent/absence-retard", name: "referent_absence-retard", component: AbsenceRetard, meta: { authorize: [Role.Referent] }},
   { path: "/referent/absence-retard/create", name: "referent_create-absence-retard", component: CreateAbsenceRetard, meta: { authorize: [Role.Referent] }},
   //Intervention
-  { path: "/referent/interventions", name: "referent_cours", component: CoursR, meta: { authorize: [Role.Referent] }},
-  { path: "/referent/interventions/:id", name: "referent-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Referent] }},
-  { path: "/referent/interventions/create", name: "CreateCoursR", component: CreateCoursR, meta: { authorize: [Role.Referent] }},
-  { path: "/referent/interventions/update/:id", name: "referent_modifier_intervention", component: AjoutIntervention, meta: { authorize: [Role.Referent] }}, 
+  { path: "/referent/interventions", name: "referent_intervention_list", component: CoursR, meta: { authorize: [Role.Referent] }},  
+  { path: "/referent/interventions/create", name: "referent_intervention_create", component: CreateCoursR, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/interventions/update/:id", name: "referent_intervention_update", component: AjoutIntervention, meta: { authorize: [Role.Referent] }}, 
+  { path: "/referent/interventions/detail/:id", name: "referent_intervention_detail", component: DetailIntervention, meta: { authorize: [Role.Referent] }},
   //Devoir
   { path: "/referent/devoirs", name: "DevoirsR", component: DevoirsR, meta: { authorize: [Role.Referent] }},
   //{ path: "/referent/devoirs/create", name: "CreateDevoirR", component: CreateDevoirR},
@@ -283,7 +292,7 @@ const routes = [
   { path: "/referent/examens/detail/:id", name: "referent_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Referent] }},
   //Promo
   { path: "/referent/promotions", name: "referent_promotions", component: ReferentDashboard, meta: { authorize: [Role.Referent] } },
-  { path: "/referent/promotions/detail/:id", name: "referent-promotion-detail", component: PromotionDetail, meta: { authorize: [Role.Referent] }},
+  { path: "/referent/promotions/detail/:id", name: "referent_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/update/:id", name: "referent_promotion_update", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   { path: "/referent/promotions/create", name: "referent_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Referent] }},
   //Groupe
@@ -323,15 +332,15 @@ const routes = [
   { path: "/admin/utilisateurs/update/:id", name: "admin_user_update", component: AddUser, meta: { authorize: [Role.Admin] }},
   { path: "/admin/utilisateurs/detail/:id", name: "admin_user_detail", component: DetailUser, meta: { authorize: [Role.Admin] }},
    // Intervention
-   { path: "/admin/interventions", name: "all-intervention", component: AllInterventions, meta: { authorize: [Role.Admin] } },
-   { path: "/admin/interventions/create", name: "ajouter-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] }},
-   { path: "/admin/interventions/update/:id", name: "modifier-intervention", component: AjoutIntervention, meta: { authorize: [Role.Admin] } }, 
-   { path: "/admin/interventions/detail/:id", name: "intervention-detail", component: DetailIntervention, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/interventions", name: "admin_intervention_list", component: AllInterventions, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/interventions/create", name: "admin_intervention_create", component: AjoutIntervention, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/interventions/update/:id", name: "admin_intervention_update", component: AjoutIntervention, meta: { authorize: [Role.Admin] } }, 
+   { path: "/admin/interventions/detail/:id", name: "admin_intervention_detail", component: DetailIntervention, meta: { authorize: [Role.Admin] } },
    // Formation
-   { path: "/admin/formations", name: "all-formations", component: AllFormations, meta: { authorize: [Role.Admin] } },
-   { path: "/admin/formations/create", name: "ajouter-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
-   { path: "/admin/formations/update/:id", name: "modifier-formation", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
-   { path: "/admin/formations/detail/:id", name: "formation-detail", component: DetailFormation, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations", name: "admin_formation_list", component: AllFormations, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations/create", name: "admin_formation_create", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations/update/:id", name: "admin_formation_update", component: AjoutFormation, meta: { authorize: [Role.Admin] } },
+   { path: "/admin/formations/detail/:id", name: "admin_formation_detail", component: DetailFormation, meta: { authorize: [Role.Admin] } },
   //Promotion
   { path: "/admin/promotions", name: "admin_promotion_list", component: PromotionList, meta: { authorize: [Role.Admin] } },
   { path: "/admin/promotions/create", name: "admin_promotion_create", component: PromotionCreate, meta: { authorize: [Role.Admin] } },
@@ -364,7 +373,7 @@ const routes = [
   { path: "/admin/entreprises/detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail, meta: { authorize: [Role.Admin] }},
   //Cursus
   { path: "/admin/cursus", name:"admin_cursus_list", component: CursusList, meta: { authorize: [Role.Admin] }},
-  { path: "/admin/cursus/create", name:"admin_addCursus", component: AddCursus, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/cursus/create", name:"admin_cursus_create", component: AddCursus, meta: { authorize: [Role.Admin] }},
   { path: "/admin/cursus/update/:id", name:"admin_cursus_update", component: AddCursus, meta: { authorize: [Role.Admin] }},
   { path: "/admin/cursus/detail/:id", name:"admin_cursus_detail", component: CursusDetail, meta: { authorize: [Role.Admin] }},
   //Note

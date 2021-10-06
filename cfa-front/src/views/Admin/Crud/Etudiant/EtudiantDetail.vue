@@ -9,6 +9,23 @@
       Precedent
     </a>
 
+    <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span v-on:click="updateEtudiant()" class="icon-link dropdown-item">
+              Modifier
+            </span>
+            <span v-on:click="deleteEtudiant()" class="icon-link dropdown-item">
+              Supprimer
+            </span>
+          </div>
+        </div>
+
     <div class="row">
       <div class="col-md-2" align="center">
         <div class="identite">
@@ -368,6 +385,17 @@ export default {
      goBack() {
       this.$router.go(-1);
     },
+    updateEtudiant(){
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") this.$router.push({name: "admin_etudiant_update",});
+      else if (route[0] == "referent") this.$router.push({name: "referent_etudiant_update"});
+      else if (route[0] == "formateur") this.$router.push({name: "formateur_etudiant_update"});
+      else if (route[0] == "cef") this.$router.push({name: "cef_etudiant_update"});
+      
+    },
+    deleteEtudiant(){
+
+    },
     detailFicheSalarie(){
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
@@ -429,17 +457,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_etudiant_edit_fiche_salarie",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_etudiant_edit_fiche_salarie",
-      });
-      }*/
     },
     editFichePoste(){
       let route = this.$route.path.split("/").splice(1);
@@ -456,17 +473,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_etudiant_edit_fiche_poste",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_etudiant_edit_fiche_poste",
-      });
-      }*/
     },
     editFicheEntreprise(){
       let route = this.$route.path.split("/").splice(1);
@@ -483,17 +489,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_etudiant_edit_fiche_entreprise",z
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_etudiant_edit_fiche_entreprise",
-      });
-      }*/
     },
     createFicheSalarie(){
       let route = this.$route.path.split("/").splice(1);
@@ -510,17 +505,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
     },
     createFichePoste(){
       let route = this.$route.path.split("/").splice(1);
@@ -536,17 +520,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
     },
     createFicheEntreprise(){
       let route = this.$route.path.split("/").splice(1);
@@ -562,17 +535,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
     },
     createNote(etudiant){
       let route = this.$route.path.split("/").splice(1);
@@ -603,19 +565,7 @@ export default {
        
         
       });
-      }
-      /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
-      
+      }      
     },
     createAbsence(etudiant){
     let route = this.$route.path.split("/").splice(1);
@@ -632,17 +582,6 @@ export default {
         
       });
       }
-      /*else {
-        this.$router.push({
-        name: "formateur_absence_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_absence_create",
-      });
-      }*/
   },
     clickPromotion(promotion) {
       let route = this.$route.path.split("/").splice(1);
@@ -654,7 +593,7 @@ export default {
       }
       else if(route[0]== 'referent'){
         this.$router.push({
-        name: "referent-promotion-detail",
+        name: "referent_promotion_detail",
         params: { id: promotion.id },
       });
       }      
@@ -685,19 +624,6 @@ export default {
         params: { id: groupe.id },
       });
       }
-      /*
-      else if{
-        this.$router.push({
-        name: "formateur-groupe-detail",
-        params: { id: groupe.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-groupe-detail",
-        params: { id: groupe.id },
-      });
-      }*/
     },
     clickNote(note) {
       let route = this.$route.path.split("/").splice(1);
@@ -712,21 +638,7 @@ export default {
         name: "referent_note_detail",
         params: { id: note.id },
       });
-      }
-      /*
-      else if{
-        this.$router.push({
-        name: "formateur-note-detail",
-        params: { id: note.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-note-detail",
-        params: { id: note.id },
-      });
-      }*/
-      
+      }      
     },
     clickAbsence(absence) {
       let route = this.$route.path.split("/").splice(1);
@@ -742,19 +654,6 @@ export default {
         params: { id: absence.id },
       });
       }
-      /*
-      else if{
-        this.$router.push({
-        name: "formateur-absence-detail",
-        params: { id: absence.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-absence-detail",
-        params: { id: absence.id },
-      });
-      }*/
     },
     clickConge(conge) {
       let route = this.$route.path.split("/").splice(1);
@@ -770,20 +669,6 @@ export default {
         params: { id: conge.id },
       });
       }
-      /*
-      else if{
-        this.$router.push({
-        name: "formateur-conge-detail",
-        params: { id: conge.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-conge-detail",
-        params: { id: conge.id },
-      });
-      }*/
-
     },
     changementOnglet(onglet) {
       this.onglet = onglet;

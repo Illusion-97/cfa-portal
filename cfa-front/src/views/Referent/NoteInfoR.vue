@@ -41,7 +41,7 @@
       </form>
     </div>
      <router-link
-      :to="{ name: 'referent_cours' }"
+      :to="{ name: 'referent_intervention_list' }"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >

@@ -2,7 +2,7 @@
     <section>
         <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
         <!-- TODO : afficher ou non les boutons supprimer et modifier en fonction du role. ADMIN=> afficher:oui.REF => afficher:non  -->
-        <router-link :to="{ name: 'all-intervention' }" class="h5"
+        <router-link :to="{ name: 'admin_intervention_list' }" class="h5"
             style="cursor:pointer; color:black;text-decoration:none;">
             <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
             Precedent
@@ -135,7 +135,7 @@
                     if (data.status == 200) {
                         alert("UPDATE OK :)");
                         this.$router.push({
-                            name: "intervention-detail",
+                            name: "admin_intervention_detail",
                             params: {
                                 id: this.interventionId,
                             },

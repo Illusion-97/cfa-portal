@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       devoirId: this.$route.params.id,
-      devoir: {},
+      devoir: {interventionDto:{formationDto:{}}},
     };
   },
   methods: {

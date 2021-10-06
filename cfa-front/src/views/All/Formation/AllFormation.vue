@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <!-- <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
+    <!-- <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
       Ajouter une nouvelle formation
     </router-link>
     <small class="form-text info-text ml-1">
@@ -22,7 +22,7 @@
           <td>{{ formation.contenu }}</td>
           <td style="width:10em;">
             <router-link
-              :to="{ name: 'formation-detail', params: { id: formation.id } }"
+              :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"
             >
               <font-awesome-icon
                 :icon="['fas', 'external-link-alt']"
@@ -112,7 +112,7 @@ export default {
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     detailFormation(id) {
-      this.$router.push({name:"formation-detail",params:{id:id}})
+      this.$router.push({name:"admin_formation_detail",params:{id:id}})
     }
   },
   computed: {

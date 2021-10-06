@@ -28,21 +28,21 @@
           <th>Id</th>
           <th>Nom</th>
           <th>Etudiants</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="groupeComputed">
-        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe.id)" class="mon-tr">
+        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe)" class="mon-tr">
           <td>{{ groupe.id }}</td>
           <td>{{ groupe.nom }}</td>
           <td>
               <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
             </td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -160,21 +160,16 @@ export default {
       this.$emit('click-list',groupe);
       }
     },
-    detail(id) {
-      if (this.isAction){
-        let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({ 
-        name: "admin_groupe_detail", params: { id: id } });
-      }
-      else {
-        this.$router.push({
-        name: "referent_groupe_detail",
-        params: { id: id }
-        
-      });
-      }
-    }
+    detail(groupe) {
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_groupe_detail', params: { id: groupe.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_groupe_detail', params: { id: groupe.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_groupe_detail', params: { id: groupe.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_groupe_detail', params: { id: groupe.id }});
+
+      this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
     },
     delete_input(){
       this.groupe_input = "";

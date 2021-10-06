@@ -189,14 +189,14 @@ export default {
       let route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {
         this.$router.push({
-          name: "intervention-detail",
+          name: "admin_intervention_detail",
           params: {
             id: intervention.id,
           },
         });
       } else {
         this.$router.push({
-          name: "referent-intervention-detail",
+          name: "referent_intervention_detail",
           params: {
             id: intervention.id,
           },

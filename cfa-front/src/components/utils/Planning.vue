@@ -74,7 +74,7 @@
                     </p>
                   </div>
                   <router-link v-if="isFormateur"
-                    :to="{ name: 'formateur-intervention-detail',
+                    :to="{ name: 'formateur_intervention_detail',
                       params: { id: intervention.idIntervention },}">
                     <font-awesome-icon
                       :icon="['fas', 'external-link-alt']"

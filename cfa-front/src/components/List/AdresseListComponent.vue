@@ -29,20 +29,22 @@
           <th>Rue</th>
           <th>Ville</th>
           <th>Code Postal</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="adressesComputed">
         <tr v-for="adresse in adressesComputed" 
         :key="adresse.id" 
-        v-on:click="clickList(adresse)">
+        class="mon-tr"
+        v-on:click="clickList(adresse)"
+        @dblclick="dblClick(adresse)">
 
           <td>{{ adresse.id }}</td>
           <td>{{ adresse.numero }} </td>
           <td>{{ adresse.rue }}</td>
           <td>{{ adresse.ville }}</td>
           <td>{{ adresse.codePostal }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_adresse_detail', params: { id: adresse.id }}">Details</router-link>
             &nbsp;
             <router-link class="btn btn-success" :to="{name:'admin_adresse_update', params: { id: adresse.id }}">Modifier</router-link>
@@ -50,7 +52,7 @@
             <button class="btn btn-danger" v-on:click="deleteAdresse(adresse.id)">
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -154,8 +156,17 @@ export default {
     clickList(adresse){
       this.adresse_input = adresse.rue;
       this.$emit('click-list',adresse);
-    }
+    },
+    dblClick(adresse){
+      let route = this.$route.path.split("/").splice(1);
 
+      if(route[0]== 'admin') this.$router.push({name:'admin_adresse_detail', params: { id: adresse.id }});      
+      else if(route[0]== 'referent') this.$router.push({name:'referent_adresse_detail', params: { id: adresse.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_adresse_detail', params: { id: adresse.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_adresse_detail', params: { id: adresse.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_adresse_detail', params: { id: adresse.id }});
+      
+    },
   },
 };
 
