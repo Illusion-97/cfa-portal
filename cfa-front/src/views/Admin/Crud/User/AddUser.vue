@@ -109,12 +109,6 @@
       </div>
     </form>
 
-    <div class="card mt-5">
-      <pre class="m-0">
-        {{ form }}
-      </pre>
-    </div>
-
     <!-- <EntrepriseListComponent
         class="col-11"
         v-on:click-list="onClickChildEntrepriseList"

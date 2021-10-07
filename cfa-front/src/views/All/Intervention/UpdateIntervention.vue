@@ -73,14 +73,7 @@
                         </div>
                     </b-form>
 
-                    <div class="d-flex" v-if="!show">
-                        <b-card class="mt-3 col" header="Default form result">
-                            <pre class="m-0">{{ items }}</pre>
-                        </b-card>
-                        <b-card class="mt-3 col" header="Form Data Result">
-                            <pre class="m-0">{{ form }}</pre>
-                        </b-card>
-                    </div>
+                
                 </div>
             </div>
         </div>

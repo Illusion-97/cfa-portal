@@ -95,9 +95,7 @@
             </div>
           </form>
           <div id="error"></div>
-          <b-card class="mt-3" header="Form Data Result" v-if="!show">
-            <pre class="m-0">{{ form }}</pre>
-          </b-card>
+
         </div>
       </div>
     </div>
