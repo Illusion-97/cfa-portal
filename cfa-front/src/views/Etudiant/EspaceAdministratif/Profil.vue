@@ -1,42 +1,6 @@
 <template>
   <section>
-
     <div class="container-fluid">
-      <!-- <b-card no-body id="card-profil">
-        <b-card-header>
-          <span class="">Profil</span>
-          <router-link :to="{ name: 'home' }">
-            <font-awesome-icon :icon="['fas', 'edit']" class="text-white" />
-          </router-link>
-        </b-card-header>
-
-        <b-card-text class="identity row ml-5">
-          <span class="font-weight-bold col-md-2">Prenom :</span>
-          <span class="col-md-4">{{ utilisateur.prenom }}</span>
-          <span class="font-weight-bold col-md-2">Nom : </span>
-          <span class="col-md-4">{{ utilisateur.nom }}</span>
-        </b-card-text>
-
-        <b-card-text class="row ml-5">
-          <span class="font-weight-bold col-md-2">Adresse : </span>
-          <span class="col-md-10">{{ adresse.numero }} {{ adresse.rue }}</span>
-        </b-card-text>
-
-        <b-card-text class="row ml-5">
-          <span class="font-weight-bold col-md-2">Ville : </span>
-          <span class="col-md-4">{{ adresse.ville }}</span>
-          <span class="font-weight-bold col-md-2">Code Postal : </span>
-          <span class="col-md-4">{{ adresse.codePostal }}</span>
-        </b-card-text>
-
-        <b-card-text class="row ml-5">
-          <span class="font-weight-bold col-md-2">Email : </span>
-          <span class="col-md-4">{{ utilisateur.login }}</span> 
-          <span class="font-weight-bold col-md-2">Téléphone : </span>
-          <span class="col-md-4">{{utilisateur.telephone}}</span>
-        </b-card-text>
-      </b-card> -->
-
       <div class="row">
         <div class="card mb-3 custom-card">
           <div class="row no-gutters">
@@ -50,7 +14,7 @@
                   <b-icon icon="gear" />
                 </span>
                 <div class="dropdown-menu p-0 rounded-0">
-                  <router-link :to="{ name: 'etudiant_profil_update',params:{id:utilisateur.id} }"
+                  <router-link :to="{ name: 'etudiant_profil_update',params:{id:userId} }"
                     class="icon-link dropdown-item">
                     Modifier mes informations
                   </router-link>
@@ -119,17 +83,29 @@
     data() {
       return {
         adresse: {},
+        item:{},
+        userId : this.$store.getters.getUtilisateur.id
       };
+    },
+    methods:{
+      getUser(){
+        utilisateurApi.getById(this.userId)
+        .then(response => this.item = response)
+      },
+      getAdresse(){
+        utilisateurApi
+          .getAdresseById(this.userId)
+          .then((response) => (this.adresse = response));
+        }
     },
     computed: {
       utilisateur() {
-        return this.$store.getters.getUtilisateur;
+        return this.item
       },
     },
     created() {
-      utilisateurApi
-        .getAdresseById(this.$store.getters.getUtilisateur.id)
-        .then((response) => (this.adresse = response));
+      this.getAdresse();
+      this.getUser();
     },
   };
 </script>
