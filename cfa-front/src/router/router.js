@@ -243,16 +243,17 @@ const routes = [
   //#       REFERENT      #
   //#######################
 
-  //Adresse
-  { path: "/referent/adresses", name: "referent_adresse_list", component: AdresseList, meta: { authorize: [Role.Referent] } },
-  { path: "/referent/adresses/create", name: "referent_adresse_create", component: AddAdresse, meta: { authorize: [Role.Referent] } },
-  { path: "/referent/adresses/update/:id", name: "referent_adresse_update", component: AddAdresse, meta: { authorize: [Role.Referent] } },
-  { path: "/referent/adresses/detail/:id", name: "referent_adresse_detail", component: AdresseDetail, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/", name: "referent_dashboard", redirect: {name: 'referent_promotions'}, meta: { authorize: [Role.Referent] }},
   //Divers  
   { path: "/referent/notes", name: "referent_notes", component: NotesR, meta: { authorize: [Role.Referent] }},
   { path: "/referent/administratif", name: "referent_document-administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.Referent] }},
   { path: "/referent/note-info/create", name: "NoteInfoR", component: NoteInfoR, meta: { authorize: [Role.Referent] }},
   { path: "/referent/support-de-cours/create", name: "CreateSupportCoursR", component: CreateSupportCoursR, meta: { authorize: [Role.Referent] }},
+  //Adresse
+  { path: "/referent/adresses", name: "referent_adresse_list", component: AdresseList, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/adresses/create", name: "referent_adresse_create", component: AddAdresse, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/adresses/update/:id", name: "referent_adresse_update", component: AddAdresse, meta: { authorize: [Role.Referent] } },
+  { path: "/referent/adresses/detail/:id", name: "referent_adresse_detail", component: AdresseDetail, meta: { authorize: [Role.Referent] } },
   //Groupe/Projet
   { path: "/referent/groupe-projet", name: "referent_groupe-projet", component: GroupeProjet, meta: { authorize: [Role.Referent] }},
   //Projet
