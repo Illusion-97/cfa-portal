@@ -38,7 +38,7 @@
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
-          <th>Action</th>
+          <!-- <th>Action</th>  -->
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
@@ -51,14 +51,14 @@
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
           <td>{{ promotion.dateFin | formatDate }}</td>
-          <td>
+          <!-- <td>
             <button
               class="btn btn-danger"
               v-on:click="deletePromotion(promotion.id)"
             >
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>

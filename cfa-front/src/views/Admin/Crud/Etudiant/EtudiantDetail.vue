@@ -10,21 +10,21 @@
     </a>
 
     <div class="float-right mr-2" style="font-size:20px">
-          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
-            <font-awesome-icon
-              :icon="['fas', 'sliders-h']"
-              class="icon"
-            />
-          </a>
-          <div class="dropdown-menu dropleft rounded-0">
-            <span v-on:click="updateEtudiant()" class="icon-link dropdown-item">
-              Modifier
-            </span>
-            <span v-on:click="deleteEtudiant()" class="icon-link dropdown-item">
-              Supprimer
-            </span>
-          </div>
-        </div>
+      <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+        <font-awesome-icon
+          :icon="['fas', 'sliders-h']"
+          class="icon text-dark"
+        />
+      </a>
+      <div class="dropdown-menu dropleft rounded-0">
+        <!-- <span v-on:click="updateEtudiant()" class="icon-link dropdown-item">
+          Modifier
+        </span> -->
+        <span v-on:click="deleteEtudiant()" class="icon-link dropdown-item">
+          Supprimer
+        </span>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-md-2" align="center">

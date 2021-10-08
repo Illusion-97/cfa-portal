@@ -142,7 +142,7 @@
               <td>{{ intervention.formationDto.titre }}</td>
               <td>{{ intervention.dateDebut }}</td>
               <td>{{ intervention.dateFin }}</td>
-              <!-- <td>{{ intervention.formateursDto.prenom }} {{intervention.formateursDto.nom}}</td> -->
+              <td><div v-for="formateur in intervention.formateursDto" :key="formateur.id">{{ formateur.prenom }} {{formateur.nom}}</div></td>
             </tr>
           </tbody>
         </table>
@@ -223,7 +223,7 @@ export default {
         cefDto: { prenom: "", nom: "" },
         centreFormationDto: {},
         etudiantsDto: [],
-        interventionsDto: [],
+        interventionsDto: [{formateursDto: [],formationDto: {}}],
       },
 
       //CursusModal

@@ -9,7 +9,28 @@
       Precedent
     </a>
 
-    <BodyTitle :title="promotion.nom" />
+    <!-- <BodyTitle :title="promotion.nom" /> -->
+    
+    <h1>
+      {{ promotion.nom }}
+      <div class="float-right mr-2 mon-dropdown" style="font-size:20px">
+        <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+          <font-awesome-icon
+            :icon="['fas', 'sliders-h']"
+            class="icon text-dark"
+          />
+        </a>
+        <div class="dropdown-menu dropleft rounded-0">
+          <span v-on:click="updatePromotion()" class="icon-link dropdown-item">
+            Modifier
+          </span>
+          <span v-on:click="deletePromotion()" class="icon-link dropdown-item">
+            Supprimer
+          </span>
+        </div>
+      </div>
+    </h1>
+    
 
     <div class="row">
       <div class="col-md-3" align="center">
@@ -124,13 +145,13 @@
 </template>
 
 <script>
-import BodyTitle from "@/components/utils/BodyTitle.vue";
+// import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { promotionApi } from "@/_api/promotion.api.js";
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 export default {
   name: "PromoDetail",
   components: {
-    BodyTitle,
+    // BodyTitle,
   },
   data() {
     return {
@@ -203,42 +224,19 @@ export default {
         });
       }
     },
-    updatePromo() {
+    updatePromotion() {
       let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_promotion_update",
-        });
-      } else {
-        this.$router.push({
-          name: "referent_promotion_update",
-        });
-      }
+
+      if (route[0] == "admin") this.$router.push({name: "admin_promotion_update"});
+      else if (route[0] == "referent") this.$router.push({name: "referent_promotion_update"});
+      
     },
-    clickUpdatePromo(promo) {
-      let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_promotion_update",
-          params: {
-            id: promo.id,
-          },
-        });
-      } else {
-        this.$router.push({
-          name: "referent_promotion_update",
-          params: {
-            id: promo.id,
-          },
-        });
-      }
-    },
-    deletePromotion(promotionId) {
+    deletePromotion() {
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
       if (res) {
         promotionApi
-          .deletePromotion(promotionId)
-          .then(() => this.refreshList());
+          .deletePromotion(this.$route.params.id)
+          .then(() => this.goBack());
       }
     },
   },
@@ -259,6 +257,19 @@ export default {
   display: flex;
   justify-content: space-around;
 } */
+
+h1 {
+  /* border: 1px solid #6c757d; */
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  /* padding-left: 2em; */
+}
+
+.mon-dropdown{
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
 
 .mon-btn {
   height: 2.5em;

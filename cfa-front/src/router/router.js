@@ -138,7 +138,6 @@ import GroupeCreate from "@/views/Admin/Crud/Groupe/GroupeCreate.vue";
 import GroupeDetail from "@/views/Admin/Crud/Groupe/GroupeDetail.vue";
 //Etudiant
 import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
-import EtudiantCreate from "@/views/Admin/Crud/Etudiant/EtudiantCreate.vue";
 import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
 import EtudiantFicheSalarie from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarie.vue";
 import EtudiantFicheSalarieDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarieDetail.vue";
@@ -408,8 +407,6 @@ const routes = [
    { path: "/admin/etudiants/fiche-poste/detail/:id", name:"admin_etudiant_fiche_poste_detail", component: EtudiantFichePosteDetail, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-entreprise/detail/:id", name:"admin_etudiant_fiche_entreprise_detail", component: EtudiantFicheEntrepriseDetail, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants", name:"admin_etudiant_list", component: EtudiantList, meta: { authorize: [Role.Admin] }},
-   { path: "/admin/etudiants/create", name:"admin_etudiant_create", component: EtudiantCreate, meta: { authorize: [Role.Admin] }},
-   { path: "/admin/etudiants/update/:id", name:"admin_etudiant_update", component: EtudiantCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},

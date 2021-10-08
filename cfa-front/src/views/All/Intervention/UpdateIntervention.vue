@@ -1,12 +1,9 @@
 <template>
     <section>
-        <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
         <!-- TODO : afficher ou non les boutons supprimer et modifier en fonction du role. ADMIN=> afficher:oui.REF => afficher:non  -->
-        <router-link :to="{ name: 'admin_intervention_list' }" class="h5"
-            style="cursor:pointer; color:black;text-decoration:none;">
-            <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-            Precedent
-        </router-link>
+        <a @click="goBack()" class="h5" style="cursor:pointer; color:black;text-decoration:none;">
+            <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" /> Precedent
+        </a>
         <h1 class="text-center">Modifier une intervention</h1>
         <div class="container">
             <div class="row">
