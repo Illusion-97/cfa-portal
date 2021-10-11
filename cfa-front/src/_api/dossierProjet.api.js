@@ -35,16 +35,16 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
   }
-  function save(form) {
+  function save(form,id) {
     return axios
-      .post(`${END_POINT}`, form, requestOptions.headers())
+      .post(`${END_POINT}/save/${id}`, form, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
   
-  function deleteDossierProjet(id){
+  function deleteDossierProjet(id,idetudiant){
     return axios
-      .delete(`${END_POINT}/delete/${id}`, requestOptions.headers())
+      .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
