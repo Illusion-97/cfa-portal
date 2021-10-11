@@ -1,10 +1,9 @@
 <template>
   <div class="container-fluid">
-    <router-link :to="{ name: 'admin_dashboard' }" class="h5" style="cursor:pointer; color:black;text-decoration:none;">
+    <span class="h5" style="cursor:pointer; color:black;text-decoration:none;" @click="goBack">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
-
+    </span>
     <BodyTitle :title="vue_title" />
 
     <form @submit="submit">
@@ -64,33 +63,20 @@
       </div>
       <!-- Email -->
       <div class="d-flex justify-content-center">
-        <div class="form-group col-12">
+        <div class="form-group col-6">
           <label for="nom">Email</label>
           <input type="email" name="email" id="login" class="form-control" placeholder="jmichel@dawan.fr"
             v-model="form.login" autocomplete="email" />
           <!-- {{form.prenom[0]+form.nom | lowercase}} -->
         </div>
 
-        <!-- <div class="form-group col-6">
+        <div class="form-group col-6">
           <label for="nom">Mot de passe</label>
           <input type="password" name="password" class="form-control" placeholder="Mot de passe"
             v-model="form.password" autocomplete="new-password" @input="this.setCustomValidity('')"/>
-        </div> -->
+        </div>
       </div>
       <div class="d-flex">
-        <div class="form-group col-6">
-          <label for="">Roles : </label>
-          <a class="" @click="showModal()" href="#"> Ajouter un role</a>
-          <div class="mon-group d-flex" v-if="rolesComputed" id="role">
-            <div class="alert alert-secondary mr-2 py-1 px-2" role="alert" v-for="(role, index) in rolesComputed"
-              :key="role.id">
-              {{ role.intitule }}
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span class="close" @click="removeFromlist(index)">&times;</span>
-              </button>
-            </div>
-          </div>
-        </div>
         <div class="form-group col-6">
           <label for="">Adresse</label>
           <div class="d-flex justify-content-between">
@@ -105,7 +91,7 @@
         </div>
       </div>
       <div>
-        <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
+        <input type="submit" value="Envoyer" class="btn btn-outline-success float-right px-5" />
       </div>
     </form>
 
@@ -116,7 +102,6 @@
         :class="{ collapse: isEntrepriseNew }"
         /> -->
  
-    <RoleModal v-show="isModalVisible" @close="closeModal" :rolesProp="rolesComputed" v-on:close="onClickClose" />
   </div>
 </template>
 
@@ -247,7 +232,7 @@
         utilisateurApi
           .save(this.form)
           .then(() =>
-            this.$router.push({name: "admin_dashboard"}))
+            this.$router.push({name: "etudiant_profil"}))
           .catch((error) => {
             console.log(error.response.data);
             if (
@@ -297,15 +282,9 @@
       backEndDateFormat(date) {
         return moment(date, "DD/MM/YYYY").format("YYYY-MM-DD");
       },
-      // dateValidity(date){
-      //   const maxYear = new Date();
-      //   let dateInput = date.split("/");
-      //   if(dateInput[0] >= 1 && dateInput <=31 && dateInput[1]>=1 && dateInput[1]<=12 && dateInput[1]>=1950 && dateInput[1]<= maxYear.getFullYear.toString() ) {
-      //     console.log("OK");
-      //     console.log(date);
-      //     // date = this.backEndDateFormat(date);
-      //   }
-      // }
+      goBack(){
+        this.$router.go(-1)
+      }
     },
     created() {
       //Pour etre sur, dans le doute, on fait les 3 tests
@@ -315,7 +294,7 @@
         this.$route.params.id != 0
       ) {
         utilisateurApi.getById(this.$route.params.id).then((response) => {
-          this.vue_title = "Modifier l'utilisateur";
+          this.vue_title = "Modifier mes informations";
           this.btn_form_text = "Modifier";
           this.form = response;
 
@@ -347,12 +326,13 @@
     margin-right: 3em;
   }
 
-  #saisie {
-    width: 70%;
-    margin-right: 5%;
+  label {
+    font-weight: bold;
   }
 
-  .croix-delete:hover {
-    cursor: pointer;
+  .form-check label {
+    font-weight: inherit;
   }
+
+
 </style>

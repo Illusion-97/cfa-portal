@@ -102,7 +102,7 @@ export default {
 
       congeApi.getById(this.$route.params.id).then((response) => {
         this.form = response;
-        this.vue_title = "Update d'un congé";
+        this.vue_title = "Modifier un congé";
         this.utilisateur_input = `${response.utilisateurDto.prenom} ${response.utilisateurDto.nom}`;
         this.btn_form_text = "Update";
       });
@@ -110,7 +110,7 @@ export default {
   },
   data() {
     return {
-      vue_title: "Création d'un nouveau congé",
+      vue_title: "Nouveau congé",
       btn_form_text: "Ajouter",
 
       form: {
@@ -124,15 +124,15 @@ export default {
       utilisateur_input: "",
 
       types: [
-        { text: "maladie", value: "MALADIE" },
-        { text: "payé", value: "PAYE" },
-        { text: "sans solde", value: "SANS_SOLDE" },
+        { text: "Maladie", value: "MALADIE" },
+        { text: "Payé", value: "PAYE" },
+        { text: "Sans solde", value: "SANS_SOLDE" },
       ],
 
       status: [
-        { text: "confirmé", value: "CONFIRME" },
-        { text: "refusé", value: "REFUSE" },
-        { text: "en attente", value: "EN_ATTENTE" },
+        { text: "Confirmé", value: "CONFIRME" },
+        { text: "Refusé", value: "REFUSE" },
+        { text: "En attente", value: "EN_ATTENTE" },
       ],
 
       utilisateurs: [],

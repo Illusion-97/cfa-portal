@@ -25,7 +25,7 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn btn-primary" type="submit">Recherche</button>
+        <button class="btn-submit" type="submit">Recherche</button>
       </form>
 
       <router-link
