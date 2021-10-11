@@ -497,6 +497,8 @@ const routes = [
   { path: "/cef/examens/create", name: "cef_examen_create", component: ExamenCreate, meta: { authorize: [Role.CEF] }},
   { path: "/cef/examens/update/:id", name: "cef_examen_update", component: ExamenCreate, meta: { authorize: [Role.CEF] }},
   { path: "/cef/examens/detail/:id", name: "cef_examen_detail", component: ExamenDetail, meta: { authorize: [Role.CEF] }},
+  //Administratif
+  { path: "/cef/administratif", name: "cef_document_administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.CEF] }},
 ];
 
 const router = new VueRouter({

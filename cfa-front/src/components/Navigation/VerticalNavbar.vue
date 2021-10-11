@@ -68,26 +68,12 @@
 
       <nav class="mb-3">
         <b-nav vertical>
-          <router-link class="nav-item" :to="{ name: 'referent_promotions' }"
-            >Home</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_intervention' }"
-            >Intervention</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_etudiant' }"
-            >Etudiant</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_notes' }"
-            >Notes</router-link
-          >
-          <router-link
-            class="nav-item"
-            :to="{ name: 'referent_document-administratif' }"
-            >Administratif</router-link
-          >
-          <router-link class="nav-item" :to="{ name: 'referent_groupe-projet' }"
-            >Groupes / Projets</router-link
-          >
+          <router-link class="nav-item" :to="{name:'referent_promotions'}">Home</router-link>
+          <router-link class="nav-item" :to="{name:'referent_cours'}">Intervention</router-link>
+          <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
+          <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
+          <!-- <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link> -->
+          <router-link class="nav-item" :to="{name:'referent_groupe-projet'}">Groupes / Projets</router-link>
         </b-nav>
       </nav>
     </div>
@@ -141,6 +127,7 @@
             <router-link class="nav-item" :to="{name:'cef_cursus_list'}">Cursus</router-link>
             <router-link class="nav-item" :to="{name:'cef_projet_list'}">Projets</router-link>
             <router-link class="nav-item" :to="{name:'cef_groupe_list'}">Groupes</router-link>
+            <router-link class="nav-item" :to="{name:'cef_document_administratif'}">Administratif</router-link>
             <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
            
           </b-nav>

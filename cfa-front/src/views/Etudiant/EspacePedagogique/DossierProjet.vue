@@ -36,6 +36,7 @@
               <td>
                 <button>Visualiser</button>
                 <button v-on:click="download_file(file.nom)">Télécharger</button>
+                <button v-on:click="delete_file(file)">Supprimer</button>
               </td>
             </tr>
           </tbody>
@@ -50,7 +51,6 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
 import { fileApi } from "@/_api/file.api.js"
-import {etudiantApi} from "@/_api/etudiant.api.js"
 
 export default {
   name: "DossierPro",
@@ -62,7 +62,6 @@ export default {
       files: [],
       fileToSave : "",
       file: "",
-      etudiant: "",
 
       form:{
         nom : "",
@@ -87,21 +86,25 @@ export default {
     },
     submitFile() {    
       this.form.nom = this.fileToSave.name;
-      this.etudiant.dossierProjet.push(this.form)  
       fileApi.submitFileByDirectoryAndIdAndDirectory("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProjet", this.fileToSave);
-      etudiantApi.save(this.etudiant)
+      dossierProjetApi.save(this.form,this.$store.getters.getUtilisateur.id).then(()=>this.refreshList())
+      
     },
     download_file(fileName) {
-      fileApi.downloadByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, "DossierProfessionnel",fileName);
+      fileApi.downloadByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id, "DossierProjet",fileName);
+      
     },
-    delete_file(fileName) {
-      fileApi.deleteByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProfessionnel", fileName);
+    delete_file(file) {
+      dossierProjetApi.deleteDossierProjet(file.id,this.$store.getters.getUtilisateur.id).then(()=>this.refreshList());
+      fileApi.deleteByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProjet", file.nom);
+      
     },
     refreshList(){
     dossierProjetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
-    etudiantApi.getById(this.$store.getters.getUtilisateur.id).then(response => this.etudiant = response)
+  
   
     }
   }
 }
+
 </script>
