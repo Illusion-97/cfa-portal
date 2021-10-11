@@ -2,7 +2,6 @@
   <div class="container-fluid">
     
     <BodyTitle :title="vue_title" />
-    PAGE CEF ?
     <b-form class="form mb-5" @submit="submit">
 
       <b-form-group class="mb-5">
@@ -79,7 +78,7 @@ export default {
   },
   data() {
     return {
-      vue_title: "Demande de document administratifs",
+      vue_title: "Demande de documents administratifs",
       btn_form_text: "Envoyer",
 
       form: {
