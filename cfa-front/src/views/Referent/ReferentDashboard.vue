@@ -20,7 +20,6 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>#</th>
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
@@ -29,7 +28,7 @@
       </thead>
       <tbody v-if="promotionsComputed">
         <tr v-for="promotion in promotionsComputed" :key="promotion.id">
-          <td>{{ promotion.id }} </td>
+          <!-- <td>{{ promotion.id }} </td> -->
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut }}</td>
           <td>{{ promotion.dateFin }}</td>
