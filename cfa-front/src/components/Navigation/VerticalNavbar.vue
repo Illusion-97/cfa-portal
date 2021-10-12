@@ -40,7 +40,7 @@
 
       <nav class="mb-3">
         <b-nav vertical>
-          <router-link class="nav-item" :to="{name:'referent_promotions'}">Home</router-link>
+          <router-link class="nav-item" :to="{name:'referent_promotions'}">Promotions</router-link>
           <router-link class="nav-item" :to="{name:'referent_intervention'}">Intervention</router-link>
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
           <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
