@@ -12,7 +12,14 @@
         class="mx-5 mt-2"
         v-if="items.noteInfoPersonnel"
       >
-        <h4>Note d'information</h4>
+        <h4>
+          <span style="font-size:13px"> 
+          <font-awesome-icon
+                :icon="['far', 'sticky-note']"
+                class="icon text-dark"/>
+          </span> 
+            Note d'information
+        </h4>
         <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
       </div>
       <div class="card" id="card-detail">
