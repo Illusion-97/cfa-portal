@@ -519,7 +519,7 @@ export default {
   margin: 0 auto;
 }
 
-.ma_tuile {
+/* .ma_tuile {
   font-size: 18px;
   text-transform: uppercase;
   border-bottom: 1px solid black;
@@ -541,7 +541,7 @@ export default {
 .activ:hover {
   background-color: unset;
   cursor: default;
-}
+} */
 
 .icon-link {
   cursor: pointer;
