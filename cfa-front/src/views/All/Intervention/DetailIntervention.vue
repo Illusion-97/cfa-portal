@@ -157,6 +157,7 @@
               <th scope="col">Enonce</th>
               <th scope="col">Date de debut</th>
               <th scope="col">Date de fin</th>
+              <th><span @click="ajouterDevoir()">+</span></th>
             </tr>
           </thead>
           <tbody>
@@ -182,6 +183,7 @@
                 <th scope="col">Etudiant</th>
                 <th scope="col">Date debut</th>
                 <th scope="col">Date Fin</th>
+                <th><span @click="ajouterAbsence()">+</span></th>
               </tr>
             </thead>
             <tbody>
@@ -359,6 +361,26 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
+    ajouterDevoir(){
+      const route = this.$route.path.split("/").splice(1);
+      switch (route[0]) {
+        case "admin":
+          this.$router.push({
+            name: "admin_devoir_create",
+          });
+          break;
+        case "referent":
+           this.$router.push({
+            name: "referent_devoir_create",
+          });
+          break;
+        case "formateur":
+           this.$router.push({
+            name: "formateur_devoir_create",
+          });
+          break;
+      }
+    },
     // Formateur
     getTrainer() {
       interventionApi
@@ -400,6 +422,26 @@ export default {
           break;
       }
       window.open(routeData.href, "_blank");
+    },
+    ajouterAbsence(){
+      const route = this.$route.path.split("/").splice(1);
+      switch (route[0]) {
+        case "admin":
+          this.$router.push({
+            name: "admin_absence_create",
+          });
+          break;
+        case "referent":
+           this.$router.push({
+            name: "referent_absence_create",
+          });
+          break;
+        case "formateur":
+           this.$router.push({
+            name: "formateur_absence_create",
+          });
+          break;
+      }
     },
     // Promotion
     goToPromotionDetail(id) {

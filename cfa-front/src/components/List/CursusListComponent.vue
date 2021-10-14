@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="header-list">
 
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Cursus</label>
+      <div v-bind:class="{'text-align-left': true, 'mt-5 mb-2': isModal}" id="groupe-input" v-if="!isAction">
+        <label class="col-1" v-if="!isModal">Cursus</label>
         <input
           class="col-9 form-control"
           type="text"
@@ -12,7 +12,7 @@
         />
       </div>
       
-      <form class="form-inline form" @submit="submit">
+      <form v-bind:class="{'form form-inline': true, 'mt-5 mb-2': isModal}" @submit="submit">
         <input
           id="saisie"
           name="saisie"
@@ -35,7 +35,7 @@
 
 
     <table class="table table-striped table-hover text-center">
-      <thead>
+      <thead v-bind:class="{'thead-dark': isModal}">
         <tr>
           <th>Id</th>
           <th>Titre</th>
@@ -107,6 +107,10 @@ export default {
     cursusProp: {
       default: null,
     },
+    isModal: {
+      type: Boolean,
+      default: false,
+    }
   },
   watch: {
     cursusProp() {
@@ -179,5 +183,5 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+

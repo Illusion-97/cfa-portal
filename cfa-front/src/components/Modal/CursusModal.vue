@@ -9,6 +9,7 @@
         <CursusListComponent
           v-on:click-list="onClickChildInterventionList"
           :interventionProp="cursus"
+          :isModal="true"
         />
 
         <div class="modal-footer text-right">
@@ -41,7 +42,6 @@ export default {
   },
   watch: {
     cursusProp() {
-      console.log("prop : ", this.cursusProp);
       if (this.cursusProp != null) this.cursus = this.cursusProp;
     },
   },

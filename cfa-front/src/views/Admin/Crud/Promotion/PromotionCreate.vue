@@ -287,6 +287,7 @@ export default {
       this.isCursusModalVisible = false;
     },
     onClickCursusClose(cursus) {
+      console.log("cursus = ", cursus);
       this.form.cursusDto = cursus;
     },
 
@@ -312,8 +313,6 @@ export default {
       this.isUtilisateurModalVisible = false;
     },
     onClickUtilisateurClose(utilisateur) {
-      // console.log(utilisateur);
-
       switch (this.UtilisateurModal_role) {
         case "FORMATEUR":
           this.form.referentPedagogiqueDto = utilisateur;

@@ -225,7 +225,7 @@ const routes = [
   //Promotion
   { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Formateur] } },
   //Devoir  
-  { path: "/formateur/devoirs/create/:id", name: "admin_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
+  { path: "/formateur/devoirs/create/:id", name: "formateur_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/devoirs/update/:id", name: "formateur_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },  
   { path: "/formateur/devoirs/detail/:id", name: "formateur_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.Formateur] } },
   //Absence  
