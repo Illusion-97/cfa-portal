@@ -38,3 +38,8 @@ section {
 .navbar-brand{
     border-bottom: none;
 }
+
+.mon-logo{
+    width: 40%;
+    margin-left: 4.3em;
+}

@@ -38,15 +38,15 @@
           <th>Promotion</th>
           <th>Date de Debut</th>
           <th>Date de Fin</th>
-          <th v-if="isAction">Actions</th>
+          <!-- <th v-if="isAction">Actions</th> -->
         </tr>
       </thead>
       <tbody v-if="interventionsComputed">
         <tr
           v-for="intervention in interventionsComputed"
-          :key="intervention.id"
+          :key="intervention.id" class="mon-tr"
           v-on:click="clickList(intervention)"
-        >
+          @dblclick="dblClick(intervention)">
           <td>{{ intervention.formationDto.titre }}</td>
           <td>
             <div
@@ -58,7 +58,7 @@
           <td>{{ intervention.dateDebut }}</td>
           <td>{{ intervention.dateFin }}</td>
 
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
               :to="{
@@ -83,7 +83,7 @@
             >
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -187,6 +187,16 @@ export default {
     clickList(intervention) {
       this.intervention_input = intervention.formationDto.titre;
       this.$emit("click-list", intervention);
+    },
+    dblClick(intervention){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_intervention_detail', params: { id: intervention.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_intervention_detail', params: { id: intervention.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_intervention_detail', params: { id: intervention.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_formation_detail', params: { id: intervention.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_formation_detail', params: { id: intervention.id }});
+
     },
   },
 };

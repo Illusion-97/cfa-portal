@@ -62,7 +62,7 @@ export default {
   },
   data() {
     return {
-      devoirs: [],
+      devoirs: [{interventionDto: {formationDto: {}}}],
       perPage: 10,
       pageCount: 0,
 

@@ -19,9 +19,7 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
+        <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
       <!--<router-link
@@ -30,7 +28,7 @@
         v-if="isAction"
         >Ajouter</router-link
       >-->
-      <button class="btn btn-primary" v-on:click=ajouterDevoir>
+      <button class="btn btn-info" v-on:click=ajouterDevoir v-if="isAction">
               Ajouter 
             </button>
     </div>
@@ -41,32 +39,34 @@
           <th>Date de Debut</th>
           <th>Date de Fin</th>
           <th>Intervention</th>
-          <th v-if="isAction">Actions</th>
+          <!-- <th v-if="isAction">Actions</th> -->
         </tr>
       </thead>
       <tbody v-if="devoirsComputed">
         <tr
           v-for="devoir in devoirsComputed"
           :key="devoir.id"
+          class="mon-tr"
           v-on:click="clickList(devoir)"
-        >
+          @dblclick="dblClick(devoir)">
+
           <td>{{ devoir.enonce }}</td>
           <td>{{ devoir.dateDebut }}</td>
           <td>{{ devoir.dateFin }}</td>
           <td>{{ devoir.interventionDto.formationDto.titre }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <button class="btn btn-info" v-on:click="detailsDevoir(devoir)">
               Details 
             </button>
             &nbsp;
-            <button class="btn btn-success" v-on:click="updateDevoir(devoir)">
-              Modifier 
+            <button class="btn btn-info" v-on:click="updateDevoir(devoir)">
+              Update 
             </button>
             &nbsp;
-            <button class="btn btn-danger" v-on:click="deleteDevoir(devoir.id)">
-              Supprimer
+            <button class="btn btn-info" v-on:click="deleteDevoir(devoir.id)">
+              Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -165,10 +165,7 @@ export default {
         );
     },
     deleteDevoir(devoirId) {
-       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if (res) {
       devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
-      }
     },
     updateDevoir(devoir){
       let route = this.$route.path.split("/").splice(1);
@@ -178,15 +175,9 @@ export default {
         params: { id: devoir.id },
       });
       }
-      else if (route[0] == 'referent') {
+      else {
         this.$router.push({
         name: "referent_devoir_update",
-        params: { id: devoir.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_devoir_update",
         params: { id: devoir.id },
       });
       }
@@ -199,15 +190,9 @@ export default {
         params: { id: devoir.id },
       });
       }
-      else if (route[0] == 'referent') {
+      else {
         this.$router.push({
         name: "referent_devoir_detail",
-        params: { id: devoir.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_devoir_detail",
         params: { id: devoir.id },
       });
       }
@@ -220,15 +205,9 @@ export default {
         
       });
       }
-      else if (route[0] == 'referent') {
+      else {
         this.$router.push({
         name: "referent_devoir_create",
-        
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_devoir_create",
         
       });
       }
@@ -236,6 +215,16 @@ export default {
     clickList(devoir) {
       this.devoir_input = devoir.enonce;
       this.$emit("click-list", devoir);
+    },
+    dblClick(devoir){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_devoir_detail', params: { id: devoir.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_devoir_detail', params: { id: devoir.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_devoir_detail', params: { id: devoir.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_devoir_detail', params: { id: devoir.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_devoir_detail', params: { id: devoir.id }});
+
     },
   },
 };

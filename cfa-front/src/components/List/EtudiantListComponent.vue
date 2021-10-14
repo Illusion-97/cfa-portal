@@ -47,11 +47,9 @@
       <tbody v-if="etudiantsComputed">
         <tr
           v-for="etudiant in etudiantsComputed"
-          :key="etudiant.id"
+          :key="etudiant.id" class="mon-tr"
           v-on:click="clickList(etudiant)"
-          v-on:dblclick="detail(etudiant.id)"
-          class="mon-tr"
-        >
+          @dblclick="dblClick(etudiant)">
           <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
           <td>{{ etudiant.login }}</td>
           <td>
@@ -173,12 +171,14 @@ export default {
       this.etudiant_input = `${etudiant.prenom} ${etudiant.nom}`;
       this.$emit("click-list", etudiant);
     },
-    detail(id) {
-      if (this.isAction)
-        this.$router.push({
-          name: "admin_etudiant_detail",
-          params: { id: id },
-        });
+    dblClick(etudiant){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_etudiant_detail', params: { id: etudiant.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_etudiant_detail', params: { id: etudiant.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_etudiant_detail', params: { id: etudiant.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_etudiant_detail', params: { id: etudiant.id }});
+      else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_etudiant_detail', params: { id: etudiant.id }});
     },
     delete_input() {
       this.etudiant_input = "";

@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="header-list">
 
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Cursus</label>
+      <div v-bind:class="{'text-align-left': true, 'mt-5 mb-2': isModal}" id="groupe-input" v-if="!isAction">
+        <label class="col-1" v-if="!isModal">Cursus</label>
         <input
           class="col-9 form-control"
           type="text"
@@ -12,7 +12,7 @@
         />
       </div>
       
-      <form class="form-inline form" @submit="submit">
+      <form v-bind:class="{'form form-inline': true, 'mt-5 mb-2': isModal}" @submit="submit">
         <input
           id="saisie"
           name="saisie"
@@ -20,44 +20,55 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        <button class="btn btn-outline-secondary" type="submit">
+          Recherche
         </button>
       </form>
 
-      <button class="btn btn-primary" v-on:click="createCursus()">
-              Ajouter un cursus
-            </button>
+      <router-link
+        class="btn btn-primary"
+        :to="{ name: 'admin_cursus_create' }"
+        v-if="isAction"
+        >Ajouter un cursus</router-link
+      >
     </div>
 
 
     <table class="table table-striped table-hover text-center">
-      <thead>
+      <thead v-bind:class="{'thead-dark': isModal}">
         <tr>
+          <th>Id</th>
           <th>Titre</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="cursusComputed">
         <tr
           v-for="cursus in cursusComputed"
           :key="cursus.id"
+          class="mon-tr"
           v-on:click="clickList(cursus)"
-        >
+          @dblclick="dblClick(cursus)">
+        
+          <td>{{ cursus.id }}</td>
           <td>{{ cursus.titre }}</td>
-          <td v-if="isAction">
-            <button class="btn btn-info" v-on:click="detailCursus(cursus.id)">
-              Details
-            </button>
+          <!-- <td v-if="isAction">
+            <router-link
+              class="btn btn-info"
+              :to="{ name: 'admin_cursus_detail', params: { id: cursus.id } }"
+              >Detail</router-link
+            >
             &nbsp;
-            <button class="btn btn-success" v-on:click="updateCursus(cursus.id)">
-              Update
-            </button>
+            <router-link
+              class="btn btn-success"
+              :to="{ name: 'admin_cursus_update', params: { id: cursus.id } }"
+              >Update</router-link
+            >
             &nbsp;
             <button class="btn btn-danger" v-on:click="deleteCursus(cursus.id)">
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -96,6 +107,10 @@ export default {
     cursusProp: {
       default: null,
     },
+    isModal: {
+      type: Boolean,
+      default: false,
+    }
   },
   watch: {
     cursusProp() {
@@ -148,66 +163,25 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    detailCursus(id){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_cursus_detail",
-        params: { id: id }
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_cursus_detail",
-        params: { id: id }
-        
-      });
-      }
-    },
-    updateCursus(id){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_cursus_update",
-        params: {id :id}
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_cursus_update",
-        params: { id: id }
-        
-      });
-      }
-    },
-    createCursus(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_addCursus",
-        params: {}
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_addCursus",
-        
-      });
-      }
-    },
     deleteCursus(cursusId) {
-       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if (res) {
       cursusApi.deleteCursus(cursusId).then(() => this.refreshList());
-      }
     },
     clickList(cursus) {
       this.cursus_input = cursus.titre;
       this.$emit("click-list", cursus);
     },
+    dblClick(cursus){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_cursus_detail', params: { id: cursus.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_cursus_detail', params: { id: cursus.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_cursus_detail', params: { id: cursus.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_cursus_detail', params: { id: cursus.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_cursus_detail', params: { id: cursus.id }});
+    },
   },
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+

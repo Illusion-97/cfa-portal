@@ -33,7 +33,7 @@
           <td>{{ promotion.dateDebut | formatDate}}</td>
           <td>{{ promotion.dateFin | formatDate}}</td>
           <td>
-            <router-link class="btn btn-info" :to="{name:'referent-promotion-detail', params: { id: promotion.id }}">Détails</router-link>
+            <router-link class="btn btn-info" :to="{name:'referent_promotion_detail', params: { id: promotion.id }}">Détails</router-link>
             &nbsp;
           </td>
         </tr>

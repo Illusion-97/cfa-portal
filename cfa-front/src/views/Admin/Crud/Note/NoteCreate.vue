@@ -51,7 +51,7 @@
           :class="{
             btn: true,
             'btn-primary': true,
-            ma_tuile: true,
+            ma_tuile: false,
             activ: isExamen,
           }"
           @click="changementOnglet(1)"
@@ -62,7 +62,7 @@
           :class="{
             btn: true,
             'btn-primary': true,
-            ma_tuile: true,
+            ma_tuile: false,
             activ: isDevoir,
           }"
           @click="changementOnglet(2)"

@@ -1,13 +1,13 @@
 <template>
   <div class="container-fluid">
-    <router-link
-      :to="{ name: 'admin_adresse_list' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
 
     <b-card no-body id="my-card">
       <b-card-header>
@@ -70,6 +70,9 @@ export default {
       .then((response) => (this.adresse = response));
   },
   methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
     updateAdresse() {
       let route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {
@@ -90,7 +93,7 @@ export default {
         });
       }
     },
-    deleteAbsence() {
+    deleteAdresse() {
       adresseApi.deleteAdresse(this.$route.params.id).then(() => this.goBack());
     },
   },

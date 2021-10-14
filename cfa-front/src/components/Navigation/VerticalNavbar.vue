@@ -40,6 +40,7 @@
 
       <nav class="mb-3">
         <b-nav vertical>
+
           <router-link class="nav-item" :to="{name:'referent_promotions'}">Promotions</router-link>
           <!-- <router-link class="nav-item" :to="{name:'referent_intervention'}">Intervention</router-link> -->
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
@@ -56,6 +57,7 @@
 
         <nav class="mb-3">
           <b-nav vertical>
+
             <router-link class="nav-item" :to="{ name: 'admin_utilisateur' }">Utilisateurs</router-link>
             <router-link class="nav-item" :to="{ name: 'all-formations' }">Formations</router-link>
             <router-link class="nav-item" :to="{ name: 'admin_cursus_list' }">Cursus</router-link>
@@ -68,14 +70,12 @@
       </div>
     </div>
 
-
     <div v-if="table[0] == 'cef'" id="cef">
       <div>
         <h5>Espace Cef</h5>
 
         <nav class="mb-3">
           <b-nav vertical>
-
             <router-link class="nav-item" :to="{name:'cef_centreFormation_list'}">Centre de Formation</router-link>
             <router-link class="nav-item" :to="{name:'cef_promotions'}">Promotions</router-link>
             <router-link class="nav-item" :to="{name:'cef_etudiant'}">Etudiant</router-link>
@@ -84,7 +84,6 @@
             <router-link class="nav-item" :to="{name:'cef_groupe_list'}">Groupes</router-link>
             <router-link class="nav-item" :to="{name:'cef_document_administratif'}">Administratif</router-link>
             <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
-
           </b-nav>
         </nav>
       </div>

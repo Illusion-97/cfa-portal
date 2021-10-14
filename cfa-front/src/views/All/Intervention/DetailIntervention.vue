@@ -170,6 +170,7 @@
               <th scope="col">Enonce</th>
               <th scope="col">Date de debut</th>
               <th scope="col">Date de fin</th>
+              <th><span @click="ajouterDevoir()">+</span></th>
             </tr>
           </thead>
           <tbody>
@@ -195,6 +196,7 @@
                 <th scope="col">Etudiant</th>
                 <th scope="col">Date debut</th>
                 <th scope="col">Date Fin</th>
+                <th><span @click="ajouterAbsence()">+</span></th>
               </tr>
             </thead>
             <tbody>
@@ -292,40 +294,19 @@ export default {
       });
     },
     modifierIntervention() {
-      // const route = this.$route.path.split("/").splice(1);
-      if (this.routeSplited[0] == "admin") {
-        this.$router.push({
-          name: "modifier-intervention",
-        });
-      } else {
-        this.$router.push({
-          name: "referent_modifier_intervention",
-        });
+      const route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({name: "admin_intervention_update",});
+      } else  if (route[0] == "referent") {
+        this.$router.push({name: "referent_intervention_update",});
       }
     },
     deleteIntervention(id) {
       interventionApi.deleteIntervention(id).then((response) => {
         this.status = response.status;
         if (this.status == 202) {
-          // const route = this.$route.path.split("/").splice(1);
-          // let routeData;
-          switch (this.routeSplited[0]) {
-            case "admin":
-              this.$router.push({
-                name: "all-intervention",
-              });
-              break;
-            case "referent":
-              this.$router.push({
-                name: "referent_intervention",
-              });
-              break;
-            case "formateur":
-              this.$router.push({
-                name: "formateur_intervention",
-              });
-              break;
-          }
+          this.showAlert;          
+          this.goBack();
         }
       });
     },
@@ -404,6 +385,26 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
+    ajouterDevoir(){
+      const route = this.$route.path.split("/").splice(1);
+      switch (route[0]) {
+        case "admin":
+          this.$router.push({
+            name: "admin_devoir_create",
+          });
+          break;
+        case "referent":
+           this.$router.push({
+            name: "referent_devoir_create",
+          });
+          break;
+        case "formateur":
+           this.$router.push({
+            name: "formateur_devoir_create",
+          });
+          break;
+      }
+    },
     // Formateur
     getTrainer() {
       interventionApi
@@ -452,31 +453,36 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
+    ajouterAbsence(){
+      const route = this.$route.path.split("/").splice(1);
+      switch (route[0]) {
+        case "admin":
+          this.$router.push({
+            name: "admin_absence_create",
+          });
+          break;
+        case "referent":
+           this.$router.push({
+            name: "referent_absence_create",
+          });
+          break;
+        case "formateur":
+           this.$router.push({
+            name: "formateur_absence_create",
+          });
+          break;
+      }
+    },
     // Promotion
     goToPromotionDetail(id) {
       // const route = this.$route.path.split("/").splice(1);
       switch (this.routeSplited[0]) {
         case "admin":
-          return {
-            name: "admin_promotion_detail",
-            params: {
-              id: id,
-            },
-          };
+          return {name: "admin_promotion_detail",params: {id: id}};
         case "referent":
-          return {
-            name: "referent-promotion-detail",
-            params: {
-              id: id,
-            },
-          };
+          return { name: "referent_promotion_detail", params: { id: id } };
         case "formateur":
-          return {
-            name: "formateur_promotion_detail",
-            params: {
-              id: id,
-            },
-          };
+          return {name: "formateur_promotion_detail",params: {id: id}};
       }
     },
     // Other

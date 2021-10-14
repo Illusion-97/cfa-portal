@@ -1,6 +1,5 @@
 <template>
   <section class="mb-4">
-    <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
     <span @click="goBack" class="h5 previous d-block">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent

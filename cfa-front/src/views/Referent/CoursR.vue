@@ -8,8 +8,10 @@
       :pageCount="pageCount"
       :length="length"
       :clickHandler="pageChange"
-      :showBtn="false"
-      v-model="key"
+      :showBtn="true"
+      btnTxt="Ajouter une intervention"
+      btnLink="referent_intervention_create"
+      v-model="keyword"
       :onSubmit="search"
     />
   </div>
