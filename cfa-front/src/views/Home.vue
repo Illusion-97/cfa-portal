@@ -1,5 +1,6 @@
 <template>
   <section>
+    {{this.$store.getters.getUtilisateur.rolesDto}}
     <div v-if="isEtudiant">
       <HomeEtudiant />
     </div>

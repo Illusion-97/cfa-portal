@@ -32,14 +32,14 @@
       </div>
     </b-form>
 
-    <router-link
-      :to="{ name: 'admin_centreFormation_list' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
 
     </div>
 
@@ -88,12 +88,15 @@ export default {
     onClickChildEntrepriseList(entreprise) {
       this.form.entrepriseDto = entreprise;
     },
+    goBack() {
+      this.$router.go(-1);
+    },
     submit(e) {
       e.preventDefault();
 
       centreFormationApi
       .save(this.form)
-      .then(() => this.$router.push({ name: 'admin_centreFormation_list'}));
+      .then(() => this.goBack());
     },
   },
   created() {

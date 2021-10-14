@@ -10,9 +10,9 @@
       />
     </div>
     <div class="row">
-      <form class="form-inline form col-10 row" @submit="submit">
+      <form class="d-flex" @submit="submit">
         <select
-          class="form-control col-2"
+          class="custom-select mr-3"
           v-model="selected_role"
           aria-label="Default select example"
         >
@@ -28,16 +28,17 @@
           id="saisie"
           name="saisie"
           type="text"
-          class="form-control col-4 offset-1"
+          class="form-control"
+          placeholder="Rechercher"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary col-2" type="submit">
-          Recherche
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
         </button>
       </form>
 
       <router-link
-        class="btn btn-primary"
+        class="btn btn-outline-primary ml-auto mr-4 px-3"
         :to="{ name: 'admin_addUser' }"
         v-if="isAction"
         >Ajouter un utilisateur</router-link

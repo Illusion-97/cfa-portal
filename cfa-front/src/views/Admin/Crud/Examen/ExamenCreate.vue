@@ -90,9 +90,14 @@ export default {
                 
                 });
               }
-              else {
+              else if (route[0] == 'referent') {
               this.$router.push({
               name: "ExamenR",
+              });
+            }
+            else if (route[0] == 'cef') {
+              this.$router.push({
+              name: "cef_examen",
               });
             }
 

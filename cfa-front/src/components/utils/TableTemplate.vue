@@ -6,24 +6,22 @@
 
         <div class="row my-3">
           <div class="col-md-12">
-            <form action="" class="form form-inline float-right" @submit="onSubmit"
+            <form action="" class="form form-inline float-left" @submit="onSubmit"
               @input="$emit('input',$event.target.value)">
               <input type="search" name="search" id="keyword" class="form-control" v-bind:value="key"
                 placeholder="Rechercher.." />
               <!-- <input type="submit" value="Rechercher" class="btn btn-info" /> -->
-              <button class="btn btn-key btn-info" type="submit">
+              <button class="btn-key" type="submit">
                 <!-- <b-icon icon="search"></b-icon> -->
-                <font-awesome-icon :icon="['fas','search']"></font-awesome-icon>
+                <font-awesome-icon :icon="['fas','search']" class="icon"></font-awesome-icon>
               </button>
             </form>
           </div>
         </div>
-        <div class="row d-flex justify-content-between">
-          <div v-if="showBtn == true" id="show-btn" class="col-md-12">
-            <router-link :to="{ name: btnLink }" class="button">
+        <div class="row">
+          <router-link :to="{ name: btnLink }" class="button ml-auto" v-if="showBtn == true" id="show-btn">
               {{ btnTxt }}
-            </router-link>
-          </div>
+          </router-link>
         </div>
 
         <div class="row">
@@ -278,17 +276,24 @@
   #my-table {
     text-align: center;
   }
-
+/* 
   #show-btn {
     margin-bottom: 2em;
-  }
+    float: right;
+  } */
 
   #keyword {
-    border-radius: 100px 0 0 100px;
+    width: 300px;
+    border-radius: 100px;
   }
 
   .btn-key {
-    border-radius: 0 100px 100px 0;
+    border: 0;
+    background-color: inherit;
+    border-radius: 100%;
+    width: 2.5em;
+    margin-left: -3em;
+    color: brown;
   }
 
   .button {
@@ -299,6 +304,7 @@
     color: black;
     padding: 1.5px 10px;
     margin-bottom: 1em;
+    float: right;
   }
 
   .opts,

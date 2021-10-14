@@ -267,9 +267,14 @@ export default {
                 
                 });
               }
-              else {
+              else if (route[0] == 'referent'){
               this.$router.push({
               name: "referent_promotions",
+              });
+            }
+            else if (route[0] == 'cef'){
+              this.$router.push({
+              name: "cef_promotions",
               });
             }
         

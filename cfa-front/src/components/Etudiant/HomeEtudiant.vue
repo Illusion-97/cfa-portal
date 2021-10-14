@@ -1,18 +1,26 @@
 <template>
-
   <div id="grid-container">
+ 
 
+    <div id="grid-container2">  
     <ul id="list-lien">
-      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_cursus'}">Mon cursus</router-link></li>
-      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_devoirs'}">Devoirs</router-link></li>
-      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_notes'}">Bulletin de notes</router-link></li>
-      <li><router-link class="nav-item" :to="{name:'etudiant_espace-peda_absences'}">Absences / Retards</router-link></li>
+      <li>
+        <router-link class="nav-item first" :to="{ name: 'etudiant_espace-peda_cursus' }">Cursus</router-link>
+      </li>
+      <li>
+        <router-link class="nav-item border-right-0" :to="{ name: 'etudiant_espace-peda_devoirs' }">Devoirs</router-link>
+      </li>
+      <li>
+        <router-link class="nav-item border-right-0" :to="{ name: 'etudiant_espace-peda_notes' }">Bulletin de notes</router-link>
+      </li>
+      <li>
+        <router-link class="nav-item last" :to="{ name: 'etudiant_espace-peda_absences' }">Absences / Retards</router-link>
+      </li>
     </ul>
-
-    <div class="identite"> 
-      <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-      <p class="">{{promotionComputed.nom}}</p>  
-      <p class="">{{groupesComputed.nom}}</p> 
+      <div id="identite">
+        <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+        <p class="email">{{ utilisateur.login }}</p>
+      </div>
     </div>
 
     <div id="student-info">
@@ -43,6 +51,21 @@
       </div>
     </div>
 
+    <div id="student-info_bis">
+      <div class="card py-0 px-3 mr-3">
+        <div class="card-header">
+          Information bis
+        </div>
+        <div class="promo text-center">
+          <p class="font-weight-bold h5">Promotion actuelle :</p>
+          <p class="my-1">{{ promotionComputed.nom }}</p>
+        </div>
+        <div class="groupe text-center">
+          <p class="font-weight-bold h5">Groupe projet actuel :</p>
+          <p class="my-2">{{ groupesComputed[0].nom }}</p>
+        </div>
+      </div>
+    </div>
     <div id="student-planning">
       <Planning />
     </div>
@@ -64,7 +87,10 @@
       return {
         formateurReferent: {},
         promotions: [],
-        groupes: [{nom:""}],
+        groupes: [{
+          id: "",
+          nom: ""
+        }],
         manager: {},
       };
     },
@@ -73,18 +99,23 @@
         return this.$store.getters.getUtilisateur;
       },
       promotionComputed() {
-        let promotion = {referentPedagogiqueDto: ""};
-        for(let i=0; i<this.promotions.length; i++){
-          let dateDebut = new Date(this.promotions[i].dateDebut)
-          let dateFin = new Date(this.promotions[i].dateFin)
-          if(dateDebut.getTime() <= Date.now() && dateFin.getTime() >= Date.now()){
+        let promotion = {
+          referentPedagogiqueDto: "",
+        };
+        for (let i = 0; i < this.promotions.length; i++) {
+          let dateDebut = new Date(this.promotions[i].dateDebut);
+          let dateFin = new Date(this.promotions[i].dateFin);
+          if (
+            dateDebut.getTime() <= Date.now() &&
+            dateFin.getTime() >= Date.now()
+          ) {
             promotion = this.promotions[i];
           }
         }
         return promotion;
       },
-      groupesComputed(){
-        return this.groupes[0];
+      groupesComputed() {
+        return this.groupes;
       },
       formateurReferentComputed() {
         return this.formateurReferent;
@@ -96,7 +127,7 @@
         .then((data) => (this.formateurReferent = data));
       etudiantApi
         .getPromotions(this.$store.getters.getUtilisateur.id)
-        .then((data) => this.promotions = data);
+        .then((data) => (this.promotions = data));
       etudiantApi
         .getManager(this.$store.getters.getUtilisateur.id)
         .then((data) => (this.manager = data));
@@ -111,66 +142,93 @@
 <style scoped>
   #grid-container {
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 5fr 1fr;
     grid-template-rows: 55vh 2fr;
     row-gap: 2em;
   }
 
-  #list-lien{
-    grid-column: 2;
+  #grid-container2,
+  #student-info,
+  #student-info_bis {
+    background-color: #d0d0d0c4;
+  }
+
+  #list-lien {
+    /* grid-column: 2; */
     grid-row: 1;
-    list-style:none;
+    list-style: none;
     display: flex;
     justify-content: center;
-    z-index: 0;
+    margin-top: 1em;
+  /* z-index: 1; */
   }
 
-  #list-lien>li{
-    display:inline;
-    width: 10em;
-    margin: 2em;
-    display: flex;
-    justify-content: center;
+  #list-lien .nav-item {
+    /* text-transform: uppercase; */
+    font-style: italic !important;
+    color: black;
+    padding: 0.1em 4em;
+    /* border: 1px solid black; */
+    background: #fff; 
   }
 
-  .nav-item{   
-    color:black;
+  #list-lien .nav-item:hover {
+    text-decoration: none;
+    background: #c000009a;
   }
 
-  .nav-item:hover{   
-    color:brown;
+  #list-lien .first {
+    border-radius: 20px 0 0 20px;
+    border-right: 0;
   }
 
-  .identite {
+  #list-lien .last {
+    border-radius: 0 20px 20px 0;
+  }
+
+  #grid-container2 {
+    grid-row: 1;
+    grid-column: 2;
+    display: grid;
+    grid-template-rows: 0.5fr 3fr;
+  }
+  #identite {
     text-align: center;
-    grid-column: 2;
-    grid-row: 1;
+    /* grid-column: 2; */
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    /* margin-left: 5em; */
-    /* margin-bottom: 7em; */
+    /* border: 1px solid black; */
   }
 
-  .identite>.nom {
-    font-size: 25px;
+  #identite>.nom {
+    font-size: 35px;
     text-transform: uppercase;
   }
 
-  .identite>.email {
-    font-size: 25px;
-  }
-
-  .identite,
-  #student-info{
-    background-color: #d0d0d0c4;
+  #identite>.email {
+    font-size: 20px;
   }
 
   #student-info {
     grid-column: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+  }
+
+  #student-info_bis {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #student-planning {
+    grid-row: 2;
+    grid-column: 1 / span 3;
+    display: flex;
     justify-content: center;
   }
 
@@ -191,12 +249,5 @@
 
   .card-text {
     font-size: 1.2em;
-  }
-
-  #student-planning {
-    grid-row: 2;
-    grid-column: 1 / span 2;
-    display: flex;
-    justify-content: center;
   }
 </style>

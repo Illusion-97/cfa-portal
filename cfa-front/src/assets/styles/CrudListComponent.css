@@ -9,8 +9,21 @@
 }
 
 #saisie {
-  width: 70%;
-  margin-right: 5%;
+  border-radius: 20px;
+  width: 400px;
+  /* background: #000; */
+}
+
+.btn-submit {
+  border: 0;
+  background-color: inherit;
+  border-radius: 100%;
+  width: 2.5em;
+  margin-left: -3em;
+}
+
+.icon {
+  color: brown;
 }
 
 #groupe-input {
@@ -26,13 +39,6 @@
   cursor: pointer;
 }
 
-.icon {
-  font-size: x-large;
-}
-.icon:hover {
-  margin: auto 0;
-  color: black;
-}
 .delete-input:hover {
   cursor: pointer;
 }

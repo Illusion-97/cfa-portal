@@ -19,7 +19,9 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn btn-primary" type="submit">Recherche</button>
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
       </form>
 
       <router-link

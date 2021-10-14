@@ -190,45 +190,21 @@ export default {
     },
     clickEtudiant(etudiant) {
       let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_etudiant_detail",
-          params: {
-            id: etudiant.id,
-          },
-        });
-      } else {
-        this.$router.push({
-          name: "referent_etudiant_detail",
-          params: {
-            id: etudiant.id,
-          },
-        });
-      }
+      if (route[0] == "admin") this.$router.push({name: "admin_etudiant_detail",params: {id: etudiant.id,},});
+      else this.$router.push({name: "referent_etudiant_detail",params: {id: etudiant.id}});      
     },
     clickIntervention(intervention) {
       let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_intervention_detail",
-          params: {
-            id: intervention.id,
-          },
-        });
-      } else {
-        this.$router.push({
-          name: "referent_intervention_detail",
-          params: {
-            id: intervention.id,
-          },
-        });
-      }
+      if (route[0] == "admin") this.$router.push({name: "admin_intervention_detail",params: {id: intervention.id}});
+      else this.$router.push({name: "referent_intervention_detail",params: {id: intervention.id}});
+      
     },
     updatePromotion() {
       let route = this.$route.path.split("/").splice(1);
 
       if (route[0] == "admin") this.$router.push({name: "admin_promotion_update"});
       else if (route[0] == "referent") this.$router.push({name: "referent_promotion_update"});
+      else if (route[0] == "cef") this.$router.push({name: "cef_promotion_update"});
       
     },
     deletePromotion() {

@@ -15,22 +15,9 @@
           <span class="mon-label">Groupe : </span>
           <span class="group-nom">{{ groupe.nom }}</span>
         </div>
-        <div class="float-right mr-2" style="font-size:20px">
-          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
-            <font-awesome-icon
-              :icon="['fas', 'sliders-h']"
-              class="icon text-light"
-            />
-          </a>
-          <div class="dropdown-menu dropleft rounded-0">
-            <span v-on:click="updateGroupe()" class="icon-link dropdown-item">
-              Modifier
-            </span>
-            <span v-on:click="deleteGroupe()" class="icon-link dropdown-item">
-              Supprimer
-            </span>
-          </div>
-        </div>
+        <button class="btn btn-info" v-on:click=updateGroupe>
+              Update 
+            </button>
       </b-card-header>
 
       <div class="offset-1 col-10">
@@ -84,28 +71,37 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-   updateGroupe() {
+    updateGroupe(){
       let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_groupe_update",
-        });
-      } else if (route[0] == "referent") {
-        this.$router.push({
-          name: "referent_groupe_update",
-        });
-      } else if (route[0] == "formateur") {
-        this.$router.push({
-          name: "formateur_groupe_update",
-        });
-      } else if (route[0] == "cef") {
-        this.$router.push({
-          name: "cef_groupe_update",
-        });
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_groupe_update",
+        
+      });
       }
-    },
-    deleteGroupe() {
-      groupeApi.deleteGroupe(this.$route.params.id).then(() => this.goBack());
+      else if (route[0] == 'referent') {
+        this.$router.push({
+        name: "referent_groupe_update",
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_groupe_update",
+        
+      });
+      }
+      /*else {
+        this.$router.push({
+        name: "formateur_groupe_update",
+        
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_groupe_update",
+      });
+      }*/
     },
     refreshList() {
       groupeApi
