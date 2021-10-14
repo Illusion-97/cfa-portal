@@ -1,7 +1,7 @@
 <template>
   <section>
 
-    <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
+    <router-link :to="{ name: 'admin_formation_create' }" class="button float-right"/>
     <form class="d-flex" @submit="search">
         <input
           id="saisie"
