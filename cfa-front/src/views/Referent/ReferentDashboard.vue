@@ -20,7 +20,6 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>#</th>
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
@@ -29,10 +28,10 @@
       </thead>
       <tbody v-if="promotionsComputed">
         <tr v-for="promotion in promotionsComputed" :key="promotion.id">
-          <td>{{ promotion.id }} </td>
+          <!-- <td>{{ promotion.id }} </td> -->
           <td>{{ promotion.nom }}</td>
-          <td>{{ promotion.dateDebut }}</td>
-          <td>{{ promotion.dateFin }}</td>
+          <td>{{ promotion.dateDebut | formatDate}}</td>
+          <td>{{ promotion.dateFin | formatDate}}</td>
           <td>
             <router-link class="btn btn-info" :to="{name:'referent_promotion_detail', params: { id: promotion.id }}">Détails</router-link>
             &nbsp;
@@ -48,7 +47,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"

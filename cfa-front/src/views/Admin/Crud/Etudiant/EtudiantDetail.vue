@@ -43,57 +43,68 @@
         </div>
       </div>
     </div>
-    <div class="row">
-    <div class="col-9">
-      <div id="menu">
-            <ul>
-              <li class="menuAbout">
-                <button class="btn-hover color-3 btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
-                  Manipuler fiches
-                </button>
-                <div id="subAbout">
-                          <ul>
-                            <li class="li_first">
-                              <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
-                            </li>
-                            <li>
-                                <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
-                            </li>
-                            <li>
-                              <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
-                            </li>
-                            <li>
-                              <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
-                            </li>
-                            <li class="li_last">
-                              <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
-                            </li>
-                          </ul>
-                          </div>
-                      </li>
-                  </ul>
-            </div>
-          </div>
-  </div>
-  
-      <!-- <div class="btn-group " role="group" aria-label="Basic example">
-      <router-link class="btn btn-secondary" :to="{name: 'NoteInfoR'}">Rédiger une note d'information optionnelle </router-link>
-      <router-link class="btn btn-secondary" :to="{name: 'CreateSupportCoursR'}">Enregistrer un support de cours</router-link>
-      <button class="btn-hover color-1" v-on:click="createFicheSalarie(etudiant)">Ajouter une fiche salarié </button>
-      <button class="btn-hover color-1" v-on:click="createFichePoste(etudiant)">Ajouter une fiche de poste</button>
-      <button class="btn-hover color-1" v-on:click="createFicheEntreprise(etudiant)">Ajouter une fiche entreprise </button>
-      <button class="btn-hover color-9" v-on:click="editFicheSalarie(etudiant)">Modifier la fiche salarié </button>
-      <button class="btn-hover color-9" v-on:click="editFichePoste(etudiant)">Modifier la fiche de poste</button>
-      <button class="btn-hover color-9" v-on:click="editFicheEntreprise(etudiant)">Modifier la fiche d'entreprise </button>
-      <button class="btn-hover color-9" v-on:click="detailFicheSalarie(etudiant)">Details fiche salarie</button>
-      <button class="btn-hover color-9" v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
-      <button class="btn-hover color-9" v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
-      </div> -->
+    <!-- <div class="row">
+      <div class="col-9">
+        <div id="menu">
+          <ul>
+            <li class="menuAbout">
+              <button
+                class="btn-hover color-3 btn-lg dropdown-toggle"
+                type="button"
+                data-toggle="dropdown"
+              >
+                Manipuler fiches
+              </button>
+              <div id="subAbout">
+                <ul>
+                  <li class="li_first">
+                    <button
+                      class="btn-hover color-1"
+                      v-on:click="createFichePoste(etudiant)"
+                    >
+                      Ajouter une fiche de poste
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="btn-hover color-1"
+                      v-on:click="createFicheEntreprise(etudiant)"
+                    >
+                      Ajouter une fiche entreprise
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="btn-hover color-9"
+                      v-on:click="detailFicheSalarie(etudiant)"
+                    >
+                      Details fiche salarie
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="btn-hover color-9"
+                      v-on:click="detailFichePoste(etudiant)"
+                    >
+                      Details fiche poste
+                    </button>
+                  </li>
+                  <li class="li_last">
+                    <button
+                      class="btn-hover color-9"
+                      v-on:click="detailFicheEntreprise(etudiant)"
+                    >
+                      Details fiche entreprise
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
 
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="mon-container-tuile">
       <span
         :class="{
@@ -201,9 +212,12 @@
             <th>Note</th>
             <th>Observations</th>
             <th>
-              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click="createNote(etudiant)">
-              +
-            </button>
+              <button
+                class="btn btn-primary font-weight-bold mon-plus"
+                v-on:click="createNote(etudiant)"
+              >
+                +
+              </button>
             </th>
           </tr>
         </thead>
@@ -216,7 +230,9 @@
           >
             <td>
               <span v-if="note.devoirDto">{{ note.devoirDto.enonce }}</span>
-              <span v-if="note.examenDto">{{note.examenDto.examenDto.enonce}}</span>
+              <span v-if="note.examenDto">{{
+                note.examenDto.examenDto.enonce
+              }}</span>
             </td>
             <td>{{ note.noteObtenu }}</td>
             <td>{{ note.observations }}</td>
@@ -237,9 +253,12 @@
             <th>Date de fin</th>
             <th>Raison</th>
             <th>
-              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click="createAbsence(etudiant)">
-              + 
-            </button>
+              <button
+                class="btn btn-primary font-weight-bold mon-plus"
+                v-on:click="createAbsence(etudiant)"
+              >
+                +
+              </button>
             </th>
           </tr>
         </thead>
@@ -262,7 +281,6 @@
         </tbody>
       </table>
     </div>
-
     <!-- Congés -->
     <div :class="{ ma_fenetre: true, collapse: !isConge }">
       <table class="table">
@@ -274,9 +292,12 @@
             <th>Type</th>
             <th>Status</th>
             <th>
-              <button class="btn btn-primary font-weight-bold mon-plus" v-on:click=createConge>
-              + 
-            </button>
+              <button
+                class="btn btn-primary font-weight-bold mon-plus"
+                v-on:click="createConge"
+              >
+                +
+              </button>
             </th>
           </tr>
         </thead>
@@ -300,10 +321,8 @@
           </tr>
         </tbody>
       </table>
-
-      
-      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -336,9 +355,15 @@ export default {
   },
   data() {
     return {
-      etudiant: { formateurReferentDto: {}, managerDto: {}, groupesDto: {} },
-
-      notes: [{devoirDto: {}, examenDto: {examenDto: {}}}],
+      etudiant: {
+        formateurReferentDto: {},
+        managerDto: {},
+        groupesDto: {},
+      },
+      notes: {
+        devoirDto: {},
+        examenDto: {},
+      },
       absences: [],
       conges: [],
 
@@ -378,527 +403,489 @@ export default {
     },
   },
   methods: {
-     goBack() {
+    goBack() {
       this.$router.go(-1);
     },
-    detailFicheSalarie(){
+    detailFicheSalarie() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_salarie_detail",
-        params: {}
-      });
-      }
-      else if (route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_salarie_detail",
-       
-      });
-      }
-      else if (route[0] == 'cef') {
+          name: "admin_etudiant_fiche_salarie_detail",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_salarie_detail",
-       
-      });
+          name: "referent_etudiant_fiche_salarie_detail",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_salarie_detail",
+        });
       }
     },
-    detailFicheEntreprise(){
+    detailFicheEntreprise() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_entreprise_detail",
-        params: {}
-      });
-      }
-      else if (route[0] == 'referent'){
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_entreprise_detail",
-       
-      });
-      }
-      else if (route[0] == 'cef'){
+          name: "admin_etudiant_fiche_entreprise_detail",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_entreprise_detail",
-       
-      });
+          name: "referent_etudiant_fiche_entreprise_detail",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_entreprise_detail",
+        });
       }
     },
-    detailFichePoste(){
+    detailFichePoste() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_poste_detail",
-        params: {}
-      });
-      }
-      else if (route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_poste_detail",
-       
-      });
-      }
-      else if (route[0] == 'cef') {
+          name: "admin_etudiant_fiche_poste_detail",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_poste_detail",
-       
-      });
+          name: "referent_etudiant_fiche_poste_detail",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_poste_detail",
+        });
       }
-
     },
-    editFicheSalarie(){
+    editFicheSalarie() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_edit_fiche_salarie",
-        params: {}
-      });
-      }
-      else if (route[0] == "referent") {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_edit_fiche_salarie",
-       
-        
-      });
-      }
-      else if (route[0] == "cef") {
+          name: "admin_etudiant_edit_fiche_salarie",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_edit_fiche_salarie",
-       
-        
-      });
+          name: "referent_etudiant_edit_fiche_salarie",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_edit_fiche_salarie",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_etudiant_edit_fiche_salarie",
-        
-      });
-      }
-      */
+            this.$router.push({
+            name: "formateur_etudiant_edit_fiche_salarie",
+            
+          });
+          }
+          */
     },
-    editFichePoste(){
+    editFichePoste() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_poste_update",
-        params: {}
-      });
-      }
-      else if (route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_poste_update",
-       
-        
-      });
-      }
-      else if (route[0] == 'cef') {
+          name: "admin_etudiant_fiche_poste_update",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_poste_update",
-       
-        
-      });
+          name: "referent_etudiant_fiche_poste_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_poste_update",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_etudiant_edit_fiche_poste",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_etudiant_edit_fiche_poste",
-      });
-      }*/
+            this.$router.push({
+            name: "formateur_etudiant_edit_fiche_poste",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_etudiant_edit_fiche_poste",
+          });
+          }*/
     },
-    editFicheEntreprise(){
+    editFicheEntreprise() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_entreprise_update",
-        params: {}
-      });
-      }
-      else if (route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_entreprise_update",
-       
-        
-      });
-      }
-
-       else if (route[0] == 'cef') {
+          name: "admin_etudiant_fiche_entreprise_update",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_entreprise_update",
-       
-        
-      });
+          name: "referent_etudiant_fiche_entreprise_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_entreprise_update",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_etudiant_edit_fiche_entreprise",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_etudiant_edit_fiche_entreprise",
-      });
-      }*/
+            this.$router.push({
+            name: "formateur_etudiant_edit_fiche_entreprise",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_etudiant_edit_fiche_entreprise",
+          });
+          }*/
     },
-    createFicheSalarie(){
+    createFicheSalarie() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_salarie",
-        params: {}
-      });
-      }
-      else if (route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_salarie",
-       
-        
-      });
-      }
-      else if (route[0] == 'cef') {
+          name: "admin_etudiant_fiche_salarie",
+          params: {},
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_salarie",
-       
-        
-      });
+          name: "referent_etudiant_fiche_salarie",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_salarie",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
+            this.$router.push({
+            name: "formateur_conge_create",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_conge_create",
+          });
+          }*/
     },
-    createFichePoste(){
+    createFichePoste() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_poste",
-      });
-      }
-      else if (route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_poste",
-       
-        
-      });
-      }
-      else if (route[0] == 'cef') {
+          name: "admin_etudiant_fiche_poste",
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_poste",
-       
-        
-      });
+          name: "referent_etudiant_fiche_poste",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_poste",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
+            this.$router.push({
+            name: "formateur_conge_create",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_conge_create",
+          });
+          }*/
     },
-    createFicheEntreprise(){
+    createFicheEntreprise() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_etudiant_fiche_entreprise",
-      });
-      }
-      else if(route[0] == 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_etudiant_fiche_entreprise",
-       
-        
-      });
-      }
-      else if(route[0] == 'cef') {
+          name: "admin_etudiant_fiche_entreprise",
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_etudiant_fiche_entreprise",
-       
-        
-      });
+          name: "referent_etudiant_fiche_entreprise",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_fiche_entreprise",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
+            this.$router.push({
+            name: "formateur_conge_create",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_conge_create",
+          });
+          }*/
     },
-    createNote(etudiant){
+    createNote(etudiant) {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_note_create",
-        params: { id : etudiant.id},
-        
-      });
-      }
-      else if(route[0]== 'referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_note_create",
-         params: { id : etudiant.id},
-      });
-      }
-      else if(route[0]== 'cef') {
+          name: "admin_note_create",
+          params: {
+            id: etudiant.id,
+          },
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_note_create",
-         params: { id : etudiant.id},
-      });
+          name: "referent_note_create",
+          params: {
+            id: etudiant.id,
+          },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_note_create",
+          params: {
+            id: etudiant.id,
+          },
+        });
       }
     },
-    createConge(){
+    createConge() {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_conge_create",
-      });
-      }
-      else if (route[0] =='referent') {
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_conge_create",
-       
-        
-      });
-      }
-      else if (route[0] =='cef') {
+          name: "admin_conge_create",
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_conge_create",
-       
-        
-      });
+          name: "referent_conge_create",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_conge_create",
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_conge_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_conge_create",
-      });
-      }*/
-      
+            this.$router.push({
+            name: "formateur_conge_create",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_conge_create",
+          });
+          }*/
     },
-    createAbsence(etudiant){
-    let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_absence_create",
-        params: {id : etudiant.id}
-      });
-      }
-      else if (route[0] == 'referent') {
+    createAbsence(etudiant) {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "referent_absence_create",
-        params: {id : etudiant.id}
-        
-      });
-      }
-      else if (route[0] == 'cef') {
+          name: "admin_absence_create",
+          params: {
+            id: etudiant.id,
+          },
+        });
+      } else if (route[0] == "referent") {
         this.$router.push({
-        name: "cef_absence_create",
-        params: {id : etudiant.id}
-        
-      });
+          name: "referent_absence_create",
+          params: {
+            id: etudiant.id,
+          },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_absence_create",
+          params: {
+            id: etudiant.id,
+          },
+        });
       }
       /*else {
-        this.$router.push({
-        name: "formateur_absence_create",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_absence_create",
-      });
-      }*/
-  },
+            this.$router.push({
+            name: "formateur_absence_create",
+            
+          });
+          }
+          else {
+            this.$router.push({
+            name: "cef_absence_create",
+          });
+          }*/
+    },
     clickPromotion() {
       /*let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-        this.$router.push({
-        name: "admin_promotion_detail",
-        params: { id: promotion.id },
-      });
-      }
-      else{
-        this.$router.push({
-        name: "referent-promotion-detail",
-        params: { id: promotion.id },
-      });
-      }
-      
-      else if{
-        this.$router.push({
-        name: "formateur-promotion-detail",
-        params: { id: promotion.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-promotion-detail",
-        params: { id: promotion.id },
-      });
-      }*/
+          if(route[0]== 'admin'){
+            this.$router.push({
+            name: "admin_promotion_detail",
+            params: { id: promotion.id },
+          });
+          }
+          else{
+            this.$router.push({
+            name: "referent-promotion-detail",
+            params: { id: promotion.id },
+          });
+          }
+          
+          else if{
+            this.$router.push({
+            name: "formateur-promotion-detail",
+            params: { id: promotion.id },
+          });
+          }
+          else if{
+            this.$router.push({
+            name: "cef-promotion-detail",
+            params: { id: promotion.id },
+          });
+          }*/
     },
     clickGroupe(groupe) {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
+      if (route[0] == "admin") {
         this.$router.push({
-        name: "admin_groupe_detail",
-        params: { id: groupe.id },
-      });
-      }
-      else if (route[0] == 'referent') {
-      this.$router.push({
-        name: "referent_groupe_detail",
-        params: { id: groupe.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-      this.$router.push({
-        name: "cef_groupe_detail",
-        params: { id: groupe.id },
-      });
+          name: "admin_groupe_detail",
+          params: {
+            id: groupe.id,
+          },
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_groupe_detail",
+          params: {
+            id: groupe.id,
+          },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_groupe_detail",
+          params: {
+            id: groupe.id,
+          },
+        });
       }
       /*
-      else if{
-        this.$router.push({
-        name: "formateur-groupe-detail",
-        params: { id: groupe.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-groupe-detail",
-        params: { id: groupe.id },
-      });
-      }*/
+          else if{
+            this.$router.push({
+            name: "formateur-groupe-detail",
+            params: { id: groupe.id },
+          });
+          }
+          else if{
+            this.$router.push({
+            name: "cef-groupe-detail",
+            params: { id: groupe.id },
+          });
+          }*/
     },
     clickNote(note) {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]=='admin'){
-      this.$router.push({
-        name: "admin_note_detail",
-        params: { id: note.id },
-      });
-      }
-       else if (route[0] == 'referent') {
-      this.$router.push({
-        name: "referent_note_detail",
-        params: { id: note.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-      this.$router.push({
-        name: "cef_note_detail",
-        params: { id: note.id },
-      });
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_note_detail",
+          params: {
+            id: note.id,
+          },
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_note_detail",
+          params: {
+            id: note.id,
+          },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_note_detail",
+          params: {
+            id: note.id,
+          },
+        });
       }
       /*
-      else if{
-        this.$router.push({
-        name: "formateur-note-detail",
-        params: { id: note.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-note-detail",
-        params: { id: note.id },
-      });
-      }*/
-      
+          else if{
+            this.$router.push({
+            name: "formateur-note-detail",
+            params: { id: note.id },
+          });
+          }
+          else if{
+            this.$router.push({
+            name: "cef-note-detail",
+            params: { id: note.id },
+          });
+          }*/
     },
     clickAbsence(absence) {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]=='admin'){
-      this.$router.push({
-        name: "admin_absence_detail",
-        params: { id: absence.id },
-      });
-      }
-       else if (route[0] == 'referent') {
-      this.$router.push({
-        name: "referent_absence_detail",
-        params: { id: absence.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-      this.$router.push({
-        name: "cef_absence_detail",
-        params: { id: absence.id },
-      });
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_absence_detail",
+          params: {
+            id: absence.id,
+          },
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_absence_detail",
+          params: {
+            id: absence.id,
+          },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_absence_detail",
+          params: {
+            id: absence.id,
+          },
+        });
       }
       /*
-      else if{
-        this.$router.push({
-        name: "formateur-absence-detail",
-        params: { id: absence.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-absence-detail",
-        params: { id: absence.id },
-      });
-      }*/
+          else if{
+            this.$router.push({
+            name: "formateur-absence-detail",
+            params: { id: absence.id },
+          });
+          }
+          else if{
+            this.$router.push({
+            name: "cef-absence-detail",
+            params: { id: absence.id },
+          });
+          }*/
     },
     clickConge(conge) {
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]=='admin'){
-      this.$router.push({
-        name: "admin_conge_detail",
-        params: { id: conge.id },
-      });
-      }
-      else if (route[0] == 'referent') {
-      this.$router.push({
-        name: "referent_conge_detail",
-        params: { id: conge.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-      this.$router.push({
-        name: "cef_conge_detail",
-        params: { id: conge.id },
-      });
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_conge_detail",
+          params: {
+            id: conge.id,
+          },
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_conge_detail",
+          params: {
+            id: conge.id,
+          },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_conge_detail",
+          params: {
+            id: conge.id,
+          },
+        });
       }
       /*
-      else if{
-        this.$router.push({
-        name: "formateur-conge-detail",
-        params: { id: conge.id },
-      });
-      }
-      else if{
-        this.$router.push({
-        name: "cef-conge-detail",
-        params: { id: conge.id },
-      });
-      }*/
-
+          else if{
+            this.$router.push({
+            name: "formateur-conge-detail",
+            params: { id: conge.id },
+          });
+          }
+          else if{
+            this.$router.push({
+            name: "cef-conge-detail",
+            params: { id: conge.id },
+          });
+          }*/
     },
     changementOnglet(onglet) {
       this.onglet = onglet;
@@ -940,4 +927,5 @@ export default {
 };
 </script>
 <style src="@/assets/styles/Onglet.css"></style>
-<style scoped src="@/assets/styles/EtudiantDetail.css"/>
+<!--
+<style scoped src="@/assets/styles/EtudiantDetail.css" /> -->

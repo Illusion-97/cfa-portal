@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1 class="text-center">Affichage des interventions</h1>
     <TableTemplate
       :items="items"
       :fields="fields"
       :currentPage="currentPage"
       :perPage="perPage"
-      :length="nbPageComputed"
+      :pageCount="pageCount"
+      :length="length"
       :clickHandler="pageChange"
       :showBtn="false"
-      v-model="keyword"
+      v-model="key"
       :onSubmit="search"
     />
   </div>
@@ -20,7 +20,10 @@ import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
 export default {
-  name: "Cours",
+  name: "Intervention-Formateur",
+  components: {
+    TableTemplate,
+  },
   data() {
     return {
       items: [],
@@ -29,11 +32,9 @@ export default {
       perPage: 5,
       pageCount: 0,
       keyword: "",
+      length: 0,
+      userId: this.$store.getters.getUtilisateur.id,
     };
-  },
-  components: {
-    TableTemplate,
-    // BodyTitle,
   },
   created() {
     this.fillList();
@@ -42,56 +43,49 @@ export default {
     fillList() {
       formateurApi
         .getInterventionsByFormateurId(
-          this.utilisateur.id,
+          this.utilisateurId,
           this.currentPage,
           this.perPage,
           this.key
         )
         .then((data) => (this.items = data));
-      this.countFormation();
+      this.countIntervention();
     },
-    countFormation() {
+    countIntervention() {
       formateurApi
-        .countInterventionsByFormateurId(this.utilisateur.id, this.key)
+        .countInterventionsByFormateurId(this.utilisateurId, this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     pageChange(page) {
       formateurApi
         .getInterventionsByFormateurId(
-          this.utilisateur.id,
+          this.utilisateurId,
           page,
           this.perPage,
           this.key
         )
         .then((data) => (this.items = data));
     },
-    search(evt) {
-      evt.preventDefault();
+    lenghtItv() {
       formateurApi
-        .getInterventionsByFormateurId(
-          this.utilisateur.id,
-          this.currentPage,
-          this.perPage,
-          this.key
-        )
-        .then((data) => (this.items = data));
-      formateurApi
-        .countInterventionsByFormateurId(this.utilisateur.id, this.key)
-        .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
+        .countInterventionsByFormateurId(this.utilisateurId, this.key)
+        .then((data) => (this.length = data));
     },
+    search(evt){
+      evt.preventDefault();
+      this.fillList();
+      this.countIntervention();
+    }
   },
   computed: {
-    utilisateur() {
-      return this.$store.getters.getUtilisateur;
-    },
-    nbPageComputed() {
-      return this.pageCount;
+    utilisateurId() {
+      return this.userId;
     },
     key: {
-      get: function() {
+      get() {
         return this.keyword;
       },
-      set: function(keyword) {
+      set(keyword) {
         this.keyword = keyword;
       },
     },

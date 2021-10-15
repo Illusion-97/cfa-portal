@@ -162,12 +162,13 @@ export default {
             .then((response) => (this.conges = response))
             //Si pas d'erreur, on post le fichier
             .then(() => {
-              fileApi
-                .submitFileByDirectoryAndId(
-                  "utilisateurs",
-                  this.$store.getters.getUtilisateur.id,
-                  this.file
-                );
+              if(this.file != "")
+                fileApi
+                  .submitFileByDirectoryAndId(
+                    "utilisateurs",
+                    this.$store.getters.getUtilisateur.id,
+                    this.file
+                  );
             })
         );
     },

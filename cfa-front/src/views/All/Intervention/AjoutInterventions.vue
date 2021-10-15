@@ -129,6 +129,8 @@
         items: [],
         interventionId: this.$route.params.id,
         show: true,
+        routeSplited :  this.$route.path.split("/").splice(1)
+
       };
     },
     components: {
@@ -147,7 +149,12 @@
           .insertIntervention(this.form)
           .then((data) => {
             if (data.status == 200) {
-              this.goBack();
+              // this.goBack();
+              if(this.routeSplited[0] == 'admin')
+                this.$router.push({name:'all-intervention'})
+              else
+                this.$router.push({name:'referent_intervention'})
+
               alert('ok')
             } 
           })

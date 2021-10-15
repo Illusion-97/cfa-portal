@@ -40,8 +40,9 @@
 
       <nav class="mb-3">
         <b-nav vertical>
-          <router-link class="nav-item" :to="{name:'referent_promotions'}">Home</router-link>
-          <router-link class="nav-item" :to="{name:'referent_intervention_list'}">Intervention</router-link>
+
+          <router-link class="nav-item" :to="{name:'referent_promotions'}">Promotions</router-link>
+          <!-- <router-link class="nav-item" :to="{name:'referent_intervention'}">Intervention</router-link> -->
           <router-link class="nav-item" :to="{name:'referent_etudiant'}">Etudiant</router-link>
           <router-link class="nav-item" :to="{name:'referent_notes'}">Notes</router-link>
           <!-- <router-link class="nav-item" :to="{name:'referent_document-administratif'}">Administratif</router-link> -->
@@ -56,13 +57,14 @@
 
         <nav class="mb-3">
           <b-nav vertical>
-            <router-link class="nav-item" :to="{name:'admin_utilisateur'}">Utilisateurs</router-link>
-            <router-link class="nav-item" :to="{name:'admin_formation_list'}">Formations</router-link>
-            <router-link class="nav-item" :to="{name:'admin_cursus_list'}">Cursus</router-link>
-            <router-link class="nav-item" :to="{name:'admin_promotion_list'}">Promotions</router-link>
-            <!-- <router-link class="nav-item" :to="{name:'admin_intervention_list'}">Interventions</router-link> -->
-            <router-link class="nav-item" :to="{name:'admin_entreprise_list'}">Entreprise</router-link>
-            <router-link class="nav-item" :to="{name:'admin_centreFormation_list'}">Centre de Formation</router-link>
+
+            <router-link class="nav-item" :to="{ name: 'admin_utilisateur' }">Utilisateurs</router-link>
+            <router-link class="nav-item" :to="{ name: 'all-formations' }">Formations</router-link>
+            <router-link class="nav-item" :to="{ name: 'admin_cursus_list' }">Cursus</router-link>
+            <router-link class="nav-item" :to="{ name: 'admin_promotion_list' }">Promotions</router-link>
+            <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
+            <router-link class="nav-item" :to="{ name: 'admin_entreprise_list' }">Entreprise</router-link>
+            <router-link class="nav-item" :to="{ name: 'admin_centreFormation_list' }">Centre de Formation</router-link>
           </b-nav>
         </nav>
       </div>
@@ -76,7 +78,6 @@
           <b-nav vertical>
             <router-link class="nav-item" :to="{name:'cef_centreFormation_list'}">Centre de Formation</router-link>
             <router-link class="nav-item" :to="{name:'cef_promotions'}">Promotions</router-link>
-            <router-link class="nav-item" :to="{name:'cef_cours'}">Intervention</router-link>
             <router-link class="nav-item" :to="{name:'cef_etudiant'}">Etudiant</router-link>
             <router-link class="nav-item" :to="{name:'cef_cursus_list'}">Cursus</router-link>
             <router-link class="nav-item" :to="{name:'cef_projet_list'}">Projets</router-link>
