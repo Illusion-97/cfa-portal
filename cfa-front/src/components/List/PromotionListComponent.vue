@@ -28,6 +28,7 @@
       <router-link
         class="btn btn-primary"
         :to="{ name: 'admin_promotion_create' }"
+        v-if="isAction"
         >Ajouter une promotion</router-link
       >
     </div>
@@ -37,7 +38,7 @@
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
-          <th>Action</th>
+          <!-- <th>Action</th>  -->
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
@@ -45,20 +46,19 @@
           v-for="promotion in promotionsComputed"
           :key="promotion.id"
           class="mon-tr"
-          v-on:dblclick="detail(promotion.id)"
           v-on:click="clickList(promotion)"
-        >
+          @dblclick="dblClick(promotion)">
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
           <td>{{ promotion.dateFin | formatDate }}</td>
-          <td>
+          <!-- <td>
             <button
               class="btn btn-danger"
               v-on:click="deletePromotion(promotion.id)"
             >
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -164,12 +164,15 @@ export default {
       this.promotion_input = promotion.nom;
       this.$emit("click-list", promotion);
     },
-    detail(id) {
-      if (this.isAction)
-        this.$router.push({
-          name: "admin_promotion_detail",
-          params: { id: id },
-        });
+    dblClick(promotion){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_promotion_detail', params: { id: promotion.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_promotion_detail', params: { id: promotion.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_promotion_detail', params: { id: promotion.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_promotion_detail', params: { id: promotion.id }});
+      else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_promotion_detail', params: { id: promotion.id }});
+
     },
   },
 };

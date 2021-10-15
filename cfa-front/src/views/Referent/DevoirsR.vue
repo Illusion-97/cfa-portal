@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <BodyTitle title="Liste des Devoirs" />
-    <DevoirListComponent :isAction="true" />
+    <DevoirListComponent :isAction="true"/>
     <router-link
-      :to="{ name: 'referent_intervention' }"
+      :to="{ name: 'referent_intervention_list' }"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >

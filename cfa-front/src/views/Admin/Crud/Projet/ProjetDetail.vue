@@ -12,9 +12,22 @@
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="font-weight-bold">Projet : {{ projet.nom }}</span>
-        <button class="btn btn-info" v-on:click=updateProjet>
-              Update
-            </button>
+        <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon text-light"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span v-on:click="updateProjet()" class="icon-link dropdown-item">
+              Modifier
+            </span>
+            <span v-on:click="deleteProjet()" class="icon-link dropdown-item">
+              Supprimer
+            </span>
+          </div>
+        </div>
       </b-card-header>
 
       <div class="offset-1 col-10 mb-5">
@@ -137,6 +150,29 @@ export default {
         .getEtudiants(id)
         .then((response) => (this.etudiants = response));
     },
+    updateProjet() {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_projet_update",
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_projet_update",
+        });
+      } else if (route[0] == "formateur") {
+        this.$router.push({
+          name: "formateur_projet_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_projet_update",
+        });
+      }
+    },
+    deleteProjet() {
+      projetApi.deleteProjet(this.$route.params.id).then(() => this.goBack());
+    },
 
     //Pour la piece jointe
     handleFileUpload() {
@@ -160,38 +196,6 @@ export default {
       fileApi
         .deleteByDirectoryAndIdAndFilename("projets", id, fileName)
         .then(() => this.refreshListFiles(id));
-    },
-    updateProjet(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_projet_update",
-        
-      });
-      }
-      else if (route[0] == 'referent') {
-        this.$router.push({
-        name: "referent_projet_update",
-        
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_projet_update",
-        
-      });
-      }
-      /*else {
-        this.$router.push({
-        name: "formateur_groupe_update",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_groupe_update",
-      });
-      }*/
     },
   },
   created() {

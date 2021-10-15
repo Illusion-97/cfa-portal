@@ -54,15 +54,15 @@
           <!-- <th>Adresse</th> -->
           <!-- <th>Entreprise</th> -->
           <th>Rôle</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="usersComputed">
         <tr
           v-for="user in usersComputed"
-          :key="user.id"
+          :key="user.id" class="mon-tr"
           v-on:click="clickList(user)"
-        >
+          @dblclick="dblClick(user)">
           <td>{{ user.prenom }}</td>
           <td>{{ user.nom }}</td>
           <td>{{ user.login }}</td>
@@ -75,26 +75,24 @@
           <!-- <td>{{ user.adresseDto.rue}}</td> -->
           <!-- <td>{{ user.entrepriseDto.raisonSociale}}</td> -->
 
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <button
               class="btn btn-info"
-              v-on:click="detailUtilisateur(user.id)"
+              v-on:click="dblClick(user.id)"
               >Details</button
             >
-            <!-- &nbsp; -->
             <router-link
               class="btn btn-success mx-2"
               :to="{ name: 'admin_user_update', params: { id: user.id } }"
               >Modifier</router-link
             >
-            <!-- &nbsp; -->
             <button
               class="btn btn-danger"
               v-on:click="deleteUtilisateur(user.id)"
             >
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -190,14 +188,24 @@ export default {
         utilisateurApi.deleteUtilisateur(userId).then(() => this.refreshList());
       }
     },
-    detailUtilisateur(id) {
+    dblClick(utilisateur) {
+      let route = this.$route.path.split("/").splice(1);
+      
       switch (this.selected_role) {
-        case "":
-          this.$router.push({ name: "admin_user_detail", params: { id: id }});
-          break;
         case "ETUDIANT":
-           this.$router.push({ name: "admin_etudiant_detail", params: { id: id }});
-          break;
+            if(route[0]== 'admin') this.$router.push({name:'admin_etudiant_detail', params: { id: utilisateur.id }}); 
+            else if(route[0]== 'referent')  this.$router.push({name:'referent_etudiant_detail', params: { id: utilisateur.id }});
+            else if(route[0]== 'formateur') this.$router.push({name:'formateur_etudiant_detail', params: { id: utilisateur.id }});
+            else if(route[0]== 'cef') this.$router.push({name:'cef_etudiant_detail', params: { id: utilisateur.id }});
+            else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_etudiant_detail', params: { id: utilisateur.id }});
+            break;
+        case "":
+            if(route[0]== 'admin') this.$router.push({name:'admin_user_detail', params: { id: utilisateur.id }}); 
+            else if(route[0]== 'referent')  this.$router.push({name:'referent_user_detail', params: { id: utilisateur.id }});
+            else if(route[0]== 'formateur') this.$router.push({name:'formateur_user_detail', params: { id: utilisateur.id }});
+            else if(route[0]== 'cef') this.$router.push({name:'cef_user_detail', params: { id: utilisateur.id }});
+            else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_user_detail', params: { id: utilisateur.id }});
+            break;        
         // case "FORMATEUR":
         //   console.log("pas de page detail pour formateur")
         //   break;

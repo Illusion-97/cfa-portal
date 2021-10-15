@@ -1,17 +1,33 @@
 <template>
     <div class="container-fluid">
-    <router-link
-      :to="{ name: 'admin_passageExamen_list' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
     
     <b-card no-body id="my-card">
       <b-card-header>
         <span class="">Detail</span>
+        <div class="float-right mr-2" style="font-size:20px">
+          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+            <font-awesome-icon
+              :icon="['fas', 'sliders-h']"
+              class="icon text-light"
+            />
+          </a>
+          <div class="dropdown-menu dropleft rounded-0">
+            <span v-on:click="updatePassageExamen()" class="icon-link dropdown-item">
+              Modifier
+            </span>
+            <span v-on:click="deletePassageExamen()" class="icon-link dropdown-item">
+              Supprimer
+            </span>
+          </div>
+        </div>
       </b-card-header>
 
       <b-card-text class="identity row ml-5">
@@ -52,13 +68,41 @@ export default {
   data() {
     return {
       passageExamenId: this.$route.params.id,
-      passageExamen: {},
+      passageExamen: {interventionDto:{formationDto:{}}, examenDto:{}},
       loading: false,
     };
   },
   created() {
     passageExamenApi.getById(this.$route.params.id).then(response => this.passageExamen = response);
   },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+    updatePassageExamen() {
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_passage-examen_update",
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_passage-examen_update",
+        });
+      } else if (route[0] == "formateur") {
+        this.$router.push({
+          name: "formateur_passage-examen_update",
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_passage-examen_update",
+        });
+      }
+    },
+    deletePassageExamen() {
+      passageExamenApi.deletePassageExamen(this.$route.params.id).then(() => this.goBack());
+    },
+  }
 };
 </script>
 

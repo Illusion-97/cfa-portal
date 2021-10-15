@@ -14,15 +14,13 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
+        <button class="btn btn-primary" type="submit">Recherche</button>
       </form>
 
       <!--<router-link class="btn btn-info" :to="{ name: 'admin_examen_create' }" v-if="isAction"
         >Ajouter</router-link
       >-->
-      <button class="btn btn-primary" v-on:click=ajouterExamen>
+      <button class="btn btn-info" v-on:click="ajouterExamen()" v-if="isAction">
               Ajouter 
             </button>
     </div>
@@ -32,27 +30,29 @@
           <th>Enonce</th>
           <th>Formation</th>
           <th>Cursus</th>
-          <th v-if="isAction">Actions</th>
+          <!-- <th v-if="isAction">Actions</th> -->
         </tr>
       </thead>
       <tbody v-if="examensComputed">
-        <tr v-for="examen in examensComputed" :key="examen.id" v-on:click="clickList(examen)">
+        <tr v-for="examen in examensComputed" :key="examen.id" class="mon-tr"
+          v-on:click="clickList(examen)"
+          @dblclick="dblClick(examen)">
           <td>{{ examen.enonce }}</td>
           <td>{{ examen.formationDto.titre }}</td>
           <td>{{ examen.cursusDto.titre }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <button class="btn btn-info" v-on:click="detailsExamen(examen)">
               Details 
             </button>
             &nbsp;
-            <button class="btn btn-success" v-on:click="updateExamen(examen)">
-              Modifier 
+            <button class="btn btn-info" v-on:click="updateExamen(examen)">
+              Update 
             </button>
             &nbsp;
-            <button class="btn btn-danger" v-on:click="deleteExamen(examen.id)">
-              Supprimer
+            <button class="btn btn-info" v-on:click="deleteExamen(examen.id)">
+              Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -148,10 +148,7 @@ export default {
         );
     },
     deleteExamen(examenId) {
-       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if (res) {
       examenApi.deleteExamen(examenId).then(() => this.refreshList());
-      }
     },
     updateExamen(examen){
       let route = this.$route.path.split("/").splice(1);
@@ -161,15 +158,9 @@ export default {
         params: { id: examen.id },
       });
       }
-      else if (route[0] == 'referent') {
+      else {
         this.$router.push({
         name: "referent_examen_update",
-        params: { id: examen.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_examen_update",
         params: { id: examen.id },
       });
       }
@@ -182,43 +173,32 @@ export default {
         params: { id: examen.id },
       });
       }
-      else if (route[0] == 'referent') {
+      else {
         this.$router.push({
         name: "referent_examen_detail",
-        params: { id: examen.id },
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_examen_detail",
         params: { id: examen.id },
       });
       }
     },
     ajouterExamen(){
       let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_examen_create",
-        
-      });
-      }
-      else if (route[0] == 'referent') {
-        this.$router.push({
-        name: "referent_examen_create",
-        
-      });
-      }
-       else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_examen_create",
-        
-      });
-      }
+      if(route[0]== 'admin') this.$router.push({name: "admin_examen_create"});
+      else if(route[0]== 'referent') this.$router.push({name: "referent_examen_create"});
+      else if(route[0]== 'formateur') this.$router.push({name: "formateur_examen_create"});
     },
     clickList(examen) {
       this.examen_input = examen.enonce;
       this.$emit('click-list',examen);
+    },
+    dblClick(examen){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_examen_detail', params: { id: examen.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_examen_detail', params: { id: examen.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_examen_detail', params: { id: examen.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_examen_detail', params: { id: examen.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_examen_detail', params: { id: examen.id }});
+
     },
   },
 };

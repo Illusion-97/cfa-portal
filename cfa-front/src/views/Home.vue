@@ -1,6 +1,5 @@
 <template>
   <section>
-    {{this.$store.getters.getUtilisateur.rolesDto}}
     <div v-if="isEtudiant">
       <HomeEtudiant />
     </div>
@@ -40,7 +39,9 @@ export default {
       .then((response) => this.$store.dispatch("setPlanning", response));
 
       if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
-        this.$router.push();
+        this.$router.push({
+          name: "admin_dashboard",
+        });
       }
   },
 };

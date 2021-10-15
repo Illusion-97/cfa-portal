@@ -30,16 +30,18 @@
           <th>Date de Debut</th>
           <th>Date de Fin</th>
           <th>Intervention</th>
-          <th v-if="isAction">Actions</th>
+          <!-- <th v-if="isAction">Actions</th> -->
         </tr>
       </thead>
       <tbody v-if="passageExamensComputed">
-        <tr v-for="passageExamen in passageExamensComputed" :key="passageExamen.id" v-on:click="clickList(passageExamen)">
+        <tr v-for="passageExamen in passageExamensComputed" :key="passageExamen.id" class="mon-tr"
+          v-on:click="clickList(passageExamen)"
+          @dblclick="dblClick(passageExamen)">
           <td>{{ passageExamen.examenDto.enonce }}</td>
           <td>{{ passageExamen.dateDebut }}</td>
           <td>{{ passageExamen.dateFin }}</td>
           <td>{{ passageExamen.interventionDto.formationDto.titre }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
               :to="{ name: 'admin_passage-examen_detail', params: { id: passageExamen.id } }"
@@ -55,7 +57,7 @@
             <button class="btn btn-info" v-on:click="deletePassageExamen(passageExamen.id)">
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -93,12 +95,14 @@ export default {
       default: false,
     },
     passageExamenProp: {
-      default: {examenDto: {}},
+      default(){
+        return {examenDto: {}}
+        },
     }
   },
   watch: {
     passageExamenProp(){      
-      if (this.passageExamenProp != null) 
+      if (this.passageExamenProp != {examenDto: {}}) 
         if(this.passageExamenProp.examenDto.enonce)
           this.passageExamen_input = `${this.passageExamenProp.examenDto.enonce}`;
         else this.passageExamen_input = "";
@@ -159,6 +163,15 @@ export default {
     clickList(passageExamen) {
       this.passageExamen_input = passageExamen.examenDto.enonce;
       this.$emit('click-list',passageExamen);
+    },
+    dblClick(passageExamen){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_passage-examen_detail', params: { id: passageExamen.id }}); 
+      else if(route[0]== 'referent')  this.$router.push({name:'referent_passage-examen_detail', params: { id: passageExamen.id }});
+      else if(route[0]== 'formateur') this.$router.push({name:'formateur_passage-examen_detail', params: { id: passageExamen.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_passage-examen_detail', params: { id: passageExamen.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_passage-examen_detail', params: { id: passageExamen.id }});
     },
   },
 };

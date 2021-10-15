@@ -1,7 +1,7 @@
 <template>
     <section>
         <!-- TODO : changer le chemin de retour en fonction du role. Si ADMIN => lst ADMIN sinn Si REF => lst REF -->
-        <router-link :to="{ name: 'all-formations' }" class="h5"
+        <router-link :to="{ name: 'admin_formation_list' }" class="h5"
             style="cursor:pointer; color:black;text-decoration:none;">
             <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
             Precedent
@@ -66,7 +66,7 @@
                     .insertFormation(this.form)
                     .then((data) => {
                         if (data.status === 200)
-                            this.$router.push({ name: "all-formations" });
+                            this.$router.push({ name: "admin_formation_list" });
                     });
             },
             onReset(event) {

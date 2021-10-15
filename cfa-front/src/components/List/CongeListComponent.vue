@@ -32,11 +32,13 @@
           <th>Motif</th>
           <th>Type de congé</th>
           <th>Status</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="congesComputed">
-        <tr v-for="conge in congesComputed" :key="conge.id" v-on:click="clickList(conge)">
+        <tr v-for="conge in congesComputed" :key="conge.id" class="mon-tr"
+          v-on:click="clickList(conge)"
+          @dblclick="dblClick(conge)">
           <td>
             {{ conge.utilisateurDto.prenom }} {{ conge.utilisateurDto.nom }}
           </td>
@@ -45,7 +47,7 @@
           <td>{{ conge.motif }}</td>
           <td>{{ conge.type }}</td>
           <td>{{ conge.status }}</td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_conge_detail', params: { id: conge.id }}">Detail</router-link>
             &nbsp;
             <router-link class="btn btn-info" :to="{name:'admin_conge_update', params: { id: conge.id }}">Update</router-link>
@@ -53,7 +55,7 @@
             <button class="btn btn-info" v-on:click="deleteConge(conge.id)">
               Delete
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -155,8 +157,17 @@ export default {
       congeApi.deleteConge(congeId).then(() => this.refreshList());
     },
     clickList(conge) {
-      this.conge_input = `${conge.utilisateurDto.prenom} ${conge.utilisateurDto.nom} du ${conge.dateDebut} au ${conge.dateFin}`;
-      this.$emit('click-list',conge);
+      this.conge_input = conge.motif;
+      this.$emit("click-list", conge);
+    },
+    dblClick(conge){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_conge_detail', params: { id: conge.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_conge_detail', params: { id: conge.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_conge_detail', params: { id: conge.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_conge_detail', params: { id: conge.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_conge_detail', params: { id: conge.id }});
     },
   },
 };

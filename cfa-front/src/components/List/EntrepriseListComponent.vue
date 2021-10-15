@@ -30,18 +30,19 @@
           <!-- <th>#</th> -->
           <th>Raison Sociale</th>
           <th>Adresse</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="entreprisesComputed">
         <tr v-for="entreprise in entreprisesComputed" 
-        :key="entreprise.id"
-        v-on:click="clickList(entreprise)">
+          :key="entreprise.id" class="mon-tr"
+          v-on:click="clickList(entreprise)"
+          @dblclick="dblClick(entreprise)">
         
           <!-- <td>{{ entreprise.id }}</td> -->
           <td>{{ entreprise.raisonSociale }} </td>
           <td>{{ entreprise.adresseSiegeDto.numero }},{{ entreprise.adresseSiegeDto.rue}}, {{ entreprise.adresseSiegeDto.ville }}, {{ entreprise.adresseSiegeDto.codePostal }}  </td>
-          <td v-if="isAction">
+          <!-- <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_entreprise_detail', params: { id: entreprise.id }}">Details</router-link>
             &nbsp;
             <router-link class="btn btn-success" :to="{name:'admin_entreprise_update', params: { id: entreprise.id }}">Modifier</router-link>
@@ -49,7 +50,7 @@
             <button class="btn btn-danger" v-on:click="deleteEntreprise(entreprise.id)">
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -154,7 +155,16 @@ export default {
       this.entreprise_input = entreprise.raisonSociale;
       this.$emit('click-list',entreprise);
     },
+    dblClick(entreprise){
+      let route = this.$route.path.split("/").splice(1);
 
+      if(route[0]== 'admin') this.$router.push({name:'admin_entreprise_detail', params: { id: entreprise.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_entreprise_detail', params: { id: entreprise.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_entreprise_detail', params: { id: entreprise.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_entreprise_detail', params: { id: entreprise.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_entreprise_detail', params: { id: entreprise.id }});
+
+    },
   },
 };
 </script>

@@ -1,6 +1,7 @@
 <template>
   <section>
 
+    <router-link :to="{ name: 'admin_formation_create' }" class="button float-right"/>
     <form class="d-flex" @submit="search">
         <input
           id="saisie"
@@ -36,7 +37,7 @@
           <td>{{ formation.contenu }}</td>
           <td style="width:10em;">
             <router-link
-              :to="{ name: 'formation-detail', params: { id: formation.id } }"
+              :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"
             >
               <font-awesome-icon
                 :icon="['fas', 'info']"
@@ -77,14 +78,14 @@
 //import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import { formationFields } from "@/assets/js/fields.js";
-import BodyTitle from "@/components/utils/BodyTitle.vue";
-import FormationListComponent from "@/components/List/FormationListComponent.vue";
+// import BodyTitle from "@/components/utils/BodyTitle.vue";
+// import FormationListComponent from "@/components/List/FormationListComponent.vue";
 export default {
   name: "Formation",
   components: {
     //TableTemplate,
-    BodyTitle,
-    FormationListComponent,
+    // BodyTitle,
+    // FormationListComponent,
   },
   data() {
     return {
@@ -126,7 +127,7 @@ export default {
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     detailFormation(id) {
-      this.$router.push({name:"formation-detail",params:{id:id}})
+      this.$router.push({name:"admin_formation_detail",params:{id:id}})
     }
   },
   computed: {

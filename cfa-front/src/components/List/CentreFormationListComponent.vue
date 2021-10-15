@@ -18,14 +18,17 @@
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        <button class="btn btn-outline-secondary" type="submit">
+          Recherche
         </button>
       </form>
 
-      <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
-              Ajouter un centre de formation
-            </button>
+      <router-link
+        class="btn btn-primary"
+        :to="{ name: 'admin_centreFormation_create' }"
+        v-if="isAction"
+        >Ajouter un centre de formation</router-link
+      >
     </div>
     <table class="table table-striped table-hover text-center">
       <thead>
@@ -34,15 +37,17 @@
           <th>Nom du centre</th>
           <th>Entreprise</th>
           <th>Adresse</th>
-          <th v-if="isAction">Action</th>
+          <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="centreFormationsComputed">
         <tr
           v-for="centreFormation in centreFormationsComputed"
           :key="centreFormation.id"
+          class="mon-tr"
           v-on:click="clickList(centreFormation)"
-        >
+          @dblclick="dblClick(centreFormation)">
+        
           <!-- <td>{{ centreFormation.id }}</td> -->
           <td>{{ centreFormation.nom }}</td>
           <td>{{ centreFormation.entrepriseDto.raisonSociale }}</td>
@@ -52,16 +57,24 @@
             {{ centreFormation.adresseDto.ville }},
             {{ centreFormation.adresseDto.codePostal }}
           </td>
-          <td v-if="isAction">
-            
-      <button class="btn btn-info" v-on:click="detailCentreFormation(centreFormation.id)" v-if="isAction">
-              Details
-            </button>
+          <!-- <td v-if="isAction">
+            <router-link
+              class="btn btn-info"
+              :to="{
+                name: 'admin_centreFormation_detail',
+                params: { id: centreFormation.id },
+              }"
+              >Details</router-link
+            >
             &nbsp;
-            
-      <button class="btn btn-success" v-on:click="editCentreFormation(centreFormation.id)" v-if="isAction">
-              Modifier
-            </button>
+            <router-link
+              class="btn btn-success"
+              :to="{
+                name: 'admin_centreFormation_update',
+                params: { id: centreFormation.id },
+              }"
+              >Modifier</router-link
+            >
             &nbsp;
             <button
               class="btn btn-danger"
@@ -69,7 +82,7 @@
             >
               Supprimer
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -155,53 +168,6 @@ export default {
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.centreFormations = response));
     },
-    createCentreFormation(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_centreFormation_create",
-        params: {}
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_centreFormation_create",
-        
-      });
-      }
-    },
-    detailCentreFormation(id){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_centreFormation_detail",
-        params: { id: id }
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_centreFormation_detail",
-        params: { id: id }
-        
-      });
-      }
-    },
-    editCentreFormation(id){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
-      this.$router.push({
-        name: "admin_centreFormation_update",
-        params: {id :id}
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_centreFormation_update",
-        params: { id: id }
-        
-      });
-      }
-    },
     refreshList() {
       centreFormationApi
         .getAllByPage(0, this.perPage)
@@ -221,8 +187,17 @@ export default {
       }
     },
     clickList(centreFormation) {
-      this.centreFormation_input = centreFormation.id;
+      this.centreFormation_input = centreFormation.nom;
       this.$emit("click-list", centreFormation);
+    },
+    dblClick(centreFormation){
+      let route = this.$route.path.split("/").splice(1);
+
+      if(route[0]== 'admin') this.$router.push({name:'admin_centreFormation_detail', params: { id: centreFormation.id }}); 
+      // else if(route[0]== 'referent')  this.$router.push({name:'referent_centreFormation_detail', params: { id: centreFormation.id }});
+      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_centreFormation_detail', params: { id: centreFormation.id }});
+      // else if(route[0]== 'cef') this.$router.push({name:'cef_centreFormation_detail', params: { id: centreFormation.id }});
+      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_centreFormation_detail', params: { id: centreFormation.id }});
     },
   },
 };
