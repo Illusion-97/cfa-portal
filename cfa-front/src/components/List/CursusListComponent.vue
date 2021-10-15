@@ -18,10 +18,11 @@
           name="saisie"
           type="text"
           class="form-control"
+          placeholder="Rechercher"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary" type="submit">
-          Recherche
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
         </button>
       </form>
 
@@ -37,8 +38,7 @@
     <table class="table table-striped table-hover text-center">
       <thead v-bind:class="{'thead-dark': isModal}">
         <tr>
-          <th>Id</th>
-          <th>Titre</th>
+          <th>Nom du cursus</th>
           <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
@@ -50,7 +50,6 @@
           v-on:click="clickList(cursus)"
           @dblclick="dblClick(cursus)">
         
-          <td>{{ cursus.id }}</td>
           <td>{{ cursus.titre }}</td>
           <!-- <td v-if="isAction">
             <router-link
@@ -80,7 +79,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"

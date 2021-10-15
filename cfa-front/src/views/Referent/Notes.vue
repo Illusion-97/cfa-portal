@@ -11,30 +11,34 @@
           name="saisie"
           type="text"
           class="form-control"
+          placeholder="Rechercher"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
       </form>
 
     </div>
+    <small class="form-text info-text ml-1">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur une note pour plus d'info.
+    </small>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Note obtenu</th>
+          <th style="width:150px">Note obtenu</th>
           <th>Observations</th>
-          <th>Action</th>
         </tr>
       </thead>
       <tbody v-if="notesComputed">
-        <tr v-for="note in notesComputed" :key="note.id">
-          <td>{{ note.id }} </td>
+        <tr v-for="note in notesComputed" :key="note.id" @dblclick="detailNote(note.id)" style="cursor:pointer;">
           <td>{{ note.noteObtenu }}</td>
           <td>{{ note.observations }}</td>
-          <td>
+          <!-- <td>
             <router-link class="btn btn-info" :to="{name:'referent_note_detail', params: { id: note.id }}">Détails</router-link>
             &nbsp;
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -46,7 +50,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"
@@ -118,24 +122,12 @@ export default {
     deleteNote(noteId) {
       noteApi.deleteNote(noteId).then(() => this.refreshList());
     },
-
+    detailNote(id){
+      this.$router.push({name:'referent_note_detail', params: { id: id }})
+    }
   },
 };
 </script>
-<style scoped>
-.header-list{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
+<style scoped src="@/assets/styles/CrudListComponent.css">
 
-.header-list > form{
-  width: 40%;
-}
-
-#saisie{
-  width: 70%;
-  margin-right: 5%;
-}
-</style>
 

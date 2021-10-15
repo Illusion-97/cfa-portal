@@ -1,7 +1,6 @@
 <template>
   <section>
 
-    <router-link :to="{ name: 'admin_formation_create' }" class="button float-right"/>
     <form class="d-flex" @submit="search">
         <input
           id="saisie"
@@ -16,26 +15,26 @@
         </button>
     </form>
     
-    <router-link :to="{ name: 'ajouter-formation' }" class="button float-right">
+    <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
       Ajouter une nouvelle formation
     </router-link>
     <small class="form-text info-text ml-1 mt-4">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
-        Double-cliquez sur une formation ou cliquez sur l'icone pour plus d'info.
+        Double-cliquez sur une formation pour plus d'info.vf
     </small>
     <table class="table text-center table-striped">
       <thead>
         <tr>
           <th scope="col">Intitulé</th>
           <th scope="col">Description</th>
-          <th scope="col">Voir plus</th>
+          <!-- <th scope="col">Voir plus</th> -->
         </tr>
       </thead>
       <tbody>
         <tr v-for="formation in items" :key="formation.id" @dblclick="detailFormation(formation.id)">
           <td style="width:15em">{{ formation.titre }}</td>
           <td>{{ formation.contenu }}</td>
-          <td style="width:10em;">
+          <!-- <td style="width:10em;">
             <router-link
               :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"
             >
@@ -44,7 +43,7 @@
                 class="icon"
               />
             </router-link>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>

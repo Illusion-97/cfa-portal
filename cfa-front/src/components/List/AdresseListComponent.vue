@@ -11,6 +11,7 @@
           name="saisie"
           type="text"
           class="form-control"
+          placeholder="Rechercher"
           v-model="saisie"
         />
         <button class="btn-submit" type="submit">
@@ -26,7 +27,6 @@
     <table class="table table-bordered table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th>#</th>
           <th>Numero</th>
           <th>Rue</th>
           <th>Ville</th>
@@ -41,7 +41,6 @@
         v-on:click="clickList(adresse)"
         @dblclick="dblClick(adresse)">
 
-          <td>{{ adresse.id }}</td>
           <td>{{ adresse.numero }} </td>
           <td>{{ adresse.rue }}</td>
           <td>{{ adresse.ville }}</td>
@@ -66,7 +65,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"

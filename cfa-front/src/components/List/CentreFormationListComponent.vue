@@ -15,11 +15,12 @@
           id="saisie"
           name="saisie"
           type="text"
+          placeholder="Rechercher"
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary" type="submit">
-          Recherche
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
         </button>
       </form>
 
@@ -94,7 +95,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"

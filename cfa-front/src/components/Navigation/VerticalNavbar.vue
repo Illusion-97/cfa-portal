@@ -59,7 +59,7 @@
           <b-nav vertical>
 
             <router-link class="nav-item" :to="{ name: 'admin_utilisateur' }">Utilisateurs</router-link>
-            <router-link class="nav-item" :to="{ name: 'all-formations' }">Formations</router-link>
+            <router-link class="nav-item" :to="{ name: 'admin_formation_list' }">Formations</router-link>
             <router-link class="nav-item" :to="{ name: 'admin_cursus_list' }">Cursus</router-link>
             <router-link class="nav-item" :to="{ name: 'admin_promotion_list' }">Promotions</router-link>
             <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->

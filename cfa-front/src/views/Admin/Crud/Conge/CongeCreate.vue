@@ -171,7 +171,7 @@ export default {
       congeApi.save(this.form).then(() => this.goBack());
     },
     pageChange(pageNum) {
-      console.log("pageNum : ", pageNum);
+      // console.log("pageNum : ", pageNum);
       utilisateurApi
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.utilisateurs = response));

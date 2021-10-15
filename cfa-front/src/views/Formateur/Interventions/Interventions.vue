@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="text-center">Mes interventions</h1>
     <TableTemplate
       :items="items"
       :fields="fields"

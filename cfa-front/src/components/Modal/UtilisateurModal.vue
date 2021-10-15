@@ -152,7 +152,7 @@ export default {
   computed: {
     utilisateurChoisi_input() {
       if (this.utilisateurChoisi != {} && this.utilisateurChoisi != null){
-        console.log("utilisateurChoisi : ", this.utilisateurChoisi);
+        // console.log("utilisateurChoisi : ", this.utilisateurChoisi);
         return `${this.utilisateurChoisi.prenom} ${this.utilisateurChoisi.nom}`;
       }
       else return "";

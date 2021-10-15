@@ -222,7 +222,7 @@
           this.adresseEntreprise.codePostal != ""
         ) {
           // this.form.entrepriseDto.adresseSiegeDto = this.adresseEntreprise;
-          console.log("j'ai une entreprise");
+          // console.log("j'ai une entreprise");
         }
 
         // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj
@@ -234,7 +234,7 @@
           .then(() =>
             this.$router.push({name: "etudiant_profil"}))
           .catch((error) => {
-            console.log(error.response.data);
+            // console.log(error.response.data);
             if (
               error.response.data ==
               "Un utilisateur utilise déjà cette adresse mail"
@@ -273,7 +273,7 @@
         const regex = new RegExp(
           "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"
         );
-        console.log("regex.test() : ", regex.test(password));
+        // console.log("regex.test() : ", regex.test(password));
         return regex.test(password);
       },
       frontEndDateFormat(date) {

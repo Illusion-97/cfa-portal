@@ -92,7 +92,7 @@ export default {
       authenticationApi.login(this.email,this.password)
         .then(()=>this.$router.push({name: 'home'}))
         .catch(error => {
-          console.log(error);
+          // console.log(error);
           if(error.response.data.message == "Erreur : identifiants incorrects !"){
             this.isInvalid = true;
             this.isInvalidInput = true;

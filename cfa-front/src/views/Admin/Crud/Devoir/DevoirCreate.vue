@@ -151,7 +151,7 @@ export default {
       this.$route.params.id != 0
     ){
       interventionApi.getById(this.$route.params.id).then( response => {
-        console.log(response);
+        // console.log(response);
         this.intervention = response;
       })
     }

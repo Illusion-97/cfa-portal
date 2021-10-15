@@ -292,7 +292,7 @@ export default {
       this.isCursusModalVisible = false;
     },
     onClickCursusClose(cursus) {
-      console.log("cursus = ", cursus);
+      // console.log("cursus = ", cursus);
       this.form.cursusDto = cursus;
     },
 

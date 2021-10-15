@@ -61,12 +61,8 @@
 </template>
 <script src="@/assets/js/script.js"></script>
 <script>
-  import {
-    authenticationApi
-  } from "@/_api/authentication.api.js";
-  import {
-    utilisateurService
-  } from "@/_services/utilisateur.service.js";
+  import { authenticationApi } from "@/_api/authentication.api.js";
+  import { utilisateurService } from "@/_services/utilisateur.service.js";
 
   export default {
     name: "navbar",

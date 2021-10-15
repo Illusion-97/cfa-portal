@@ -13,9 +13,12 @@
           name="saisie"
           type="text"
           class="form-control"
+          placeholder="Rechercher"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
       </form>
 
       <button class="btn btn-primary" v-on:click="createGroupe()" v-if="isAction">
@@ -25,7 +28,6 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>Id</th>
           <th>Nom</th>
           <th>Etudiants</th>
           <!-- <th v-if="isAction">Action</th> -->
@@ -33,7 +35,6 @@
       </thead>
       <tbody v-if="groupeComputed">
         <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe)" class="mon-tr">
-          <td>{{ groupe.id }}</td>
           <td>{{ groupe.nom }}</td>
           <td>
               <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
@@ -54,7 +55,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"

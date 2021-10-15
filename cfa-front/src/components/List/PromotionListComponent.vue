@@ -16,6 +16,7 @@
         <input
           id="saisie"
           name="saisie"
+          placeholder="Rechercher"
           type="text"
           class="form-control"
           v-model="saisie"
@@ -70,7 +71,7 @@
       :click-handler="pageChange"
       :prev-text="'Prev'"
       :next-text="'Next'"
-      :container-class="'pagination'"
+      :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
       :prev-class="'page-item'"
