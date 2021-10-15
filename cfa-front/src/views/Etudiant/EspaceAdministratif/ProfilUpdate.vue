@@ -282,9 +282,6 @@
       backEndDateFormat(date) {
         return moment(date, "DD/MM/YYYY").format("YYYY-MM-DD");
       },
-      goBack(){
-        this.$router.go(-1)
-      }
     },
     created() {
       //Pour etre sur, dans le doute, on fait les 3 tests
