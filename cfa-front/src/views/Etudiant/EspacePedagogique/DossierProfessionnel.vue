@@ -30,7 +30,6 @@
                 {{file.nom}}
               </td>
               <td>
-                <button>Visualiser</button>
                 <button v-on:click="download_file(file.nom)">Télécharger</button>
                 <button v-on:click="delete_file(file)">Supprimer</button>
               </td>
@@ -58,6 +57,7 @@ export default {
       fileToSave : "",
       file: "",
       etudiant: "",
+      url:"",
 
       form:{
         nom : "",
@@ -78,10 +78,11 @@ export default {
   },
   methods:{
 
-      handleFileUpload() {
+    handleFileUpload() {
       this.fileToSave = this.$refs.file.files[0];
     },
-    submitFile() {    
+   
+    submitFile(){    
       this.form.nom = this.fileToSave.name;
       fileApi.submitFileByDirectoryAndIdAndDirectory("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProfessionnel", this.fileToSave);
       dossierProfessionnelApi.save(this.form,this.$store.getters.getUtilisateur.id).then(()=>this.refreshList());

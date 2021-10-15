@@ -17,6 +17,24 @@
           />
           <button v-on:click="submitFile()" class="btn btn-primary">Ajouter</button>
         </div>
+        <br>
+        <div class="mon-group">
+            <label class="form-label"
+              >Selectionner un projet pour le dossier Projet :
+            </label>
+            <select
+              class="custom-select"
+              v-model="selected"
+              @change="onSelected()"
+            >
+              <option
+                v-for="projet in projets_computed"
+                :key="projet.id"
+                :value="projet"
+                >{{ projet.nom }}</option
+              >
+            </select>
+        </div>
 
        <br>
        <table class="table table-striped table-hover text-center">
@@ -34,7 +52,6 @@
                 {{file.nom}}
               </td>
               <td>
-                <button>Visualiser</button>
                 <button v-on:click="download_file(file.nom)">Télécharger</button>
                 <button v-on:click="delete_file(file)">Supprimer</button>
               </td>
@@ -51,6 +68,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
 import { fileApi } from "@/_api/file.api.js"
+import {projetApi} from "@/_api/projet.api.js"
 
 export default {
   name: "DossierPro",
@@ -62,7 +80,8 @@ export default {
       files: [],
       fileToSave : "",
       file: "",
-
+      projets: [],
+      selected: null,
       form:{
         nom : "",
         projetDto :null
@@ -79,8 +98,14 @@ export default {
     files_computed(){
       return this.files;
     },
+    projets_computed(){
+      return this.projets
+    }
   },
   methods:{
+    onSelected() {
+      this.form.projetDto = this.selected;
+    },
       handleFileUpload() {
       this.fileToSave = this.$refs.file.files[0];
     },
@@ -101,7 +126,7 @@ export default {
     },
     refreshList(){
     dossierProjetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
-  
+    projetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.projets= response)
   
     }
   }
