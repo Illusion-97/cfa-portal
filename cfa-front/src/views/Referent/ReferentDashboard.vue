@@ -10,32 +10,39 @@
           id="saisie"
           name="saisie"
           type="text"
+          placeholder="Rechercher"
           class="form-control"
           v-model="saisie"
         />
-        <button class="btn btn-outline-secondary" type="submit">Recherche</button>
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
       </form>
 
     </div>
+        <small class="form-text info-text ml-1 mt-4">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur une promotion pour plus d'info
+    </small>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
-          <th>Action</th>
+          <!-- <th>Action</th> -->
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
-        <tr v-for="promotion in promotionsComputed" :key="promotion.id">
+        <tr v-for="promotion in promotionsComputed" :key="promotion.id" @dblclick="promotionDetail(promotion.id)" style="cursor:pointer;">
           <!-- <td>{{ promotion.id }} </td> -->
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut | formatDate}}</td>
           <td>{{ promotion.dateFin | formatDate}}</td>
-          <td>
+          <!-- <td>
             <router-link class="btn btn-info" :to="{name:'referent_promotion_detail', params: { id: promotion.id }}">Détails</router-link>
             &nbsp;
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -116,6 +123,9 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
+    promotionDetail(id){
+      this.$router.push({name:'referent_promotion_detail', params: { id: id }})
+    },
     deletePromotion(promotionId) {
       promotionApi.deletePromotion(promotionId).then(() => this.refreshList());
     },
@@ -123,8 +133,10 @@ export default {
   },
 };
 </script>
-<style scoped>
-.header-list{
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+
+<style scoped >
+/* .header-list{
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5%;
@@ -137,6 +149,6 @@ export default {
 #saisie{
   width: 70%;
   margin-right: 5%;
-}
+} */
 </style>
 

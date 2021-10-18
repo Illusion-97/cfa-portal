@@ -20,7 +20,7 @@
     </router-link>
     <small class="form-text info-text ml-1 mt-4">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
-        Double-cliquez sur une formation pour plus d'info.vf
+        Double-cliquez sur une formation pour plus d'info
     </small>
     <table class="table text-center table-striped">
       <thead>
