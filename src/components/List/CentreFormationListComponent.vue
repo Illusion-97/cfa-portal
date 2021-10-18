@@ -24,12 +24,10 @@
         </button>
       </form>
 
-      <router-link
-        class="btn btn-primary"
-        :to="{ name: 'admin_centreFormation_create' }"
-        v-if="isAction"
-        >Ajouter un centre de formation</router-link
-      >
+      <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
+              Ajouter un centre de formation
+            </button>
+
     </div>
     <table class="table table-striped table-hover text-center">
       <thead>
@@ -169,6 +167,22 @@ export default {
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.centreFormations = response));
     },
+    createCentreFormation(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_centreFormation_create",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_centreFormation_create",
+        
+      });
+      }
+    },
+
     refreshList() {
       centreFormationApi
         .getAllByPage(0, this.perPage)
