@@ -2,16 +2,37 @@ stages:
   - build
   - test
   - deploy
+  
+variables:
+  PROJECT_NAME: cfa
 
 build:
+  image: node:lts-alpine
   stage: build
   tags:
     # - dind
     - runner-java
+  before_script:
+    - npm cache clean --force
+    - echo "before install"
+    - ls -la
+    - npm install
+    - echo "after install"
+    - ls -la
   script:
-    - echo "UP TO YOU"
+    - echo "before build"
+    - ls -la
+    - npm run build
+    - echo "after build"
+    - ls -la
 
-.archive:
+  artifacts:
+    name: $PROJECT_NAME
+    expire_in: 1 hour
+    paths:
+      - planning
+
+archive:
   image: lgatica/openssh-client
   stage: deploy
   tags:
