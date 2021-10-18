@@ -47,9 +47,9 @@ import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
 import DepotFichier from "@/views/Etudiant/EspaceAdministratif/DepotFichier.vue";
 import DemandeConge from "@/views/Etudiant/EspaceAdministratif/DemandeConge.vue";
-import FicheSalarie from "@/views/Etudiant/EspaceAdministratif/FicheSalarie.vue"
-import FichePoste from "@/views/Etudiant/EspaceAdministratif/FichePoste.vue"
-import FicheEntreprise from "@/views/Etudiant/EspaceAdministratif/FicheEntreprise.vue"
+import FicheSalarie from "@/views/Etudiant/EspaceAdministratif/FicheSalarie.vue";
+import FichePoste from "@/views/Etudiant/EspaceAdministratif/FichePoste.vue";
+import FicheEntreprise from "@/views/Etudiant/EspaceAdministratif/FicheEntreprise.vue";
 //Etudiant Pedagogique
 // import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
 import CursusDetails from "@/views/Etudiant/EspacePedagogique/CursusDetails.vue";
