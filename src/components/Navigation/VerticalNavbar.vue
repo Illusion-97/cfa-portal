@@ -78,12 +78,14 @@
           <b-nav vertical>
             <router-link class="nav-item" :to="{name:'cef_centreFormation_list'}">Centre de Formation</router-link>
             <router-link class="nav-item" :to="{name:'cef_promotions'}">Promotions</router-link>
+            <router-link class="nav-item" :to="{name:'cef_cours'}">Intervention</router-link>
             <router-link class="nav-item" :to="{name:'cef_etudiant'}">Etudiant</router-link>
             <router-link class="nav-item" :to="{name:'cef_cursus_list'}">Cursus</router-link>
             <router-link class="nav-item" :to="{name:'cef_projet_list'}">Projets</router-link>
             <router-link class="nav-item" :to="{name:'cef_groupe_list'}">Groupes</router-link>
             <router-link class="nav-item" :to="{name:'cef_document_administratif'}">Administratif</router-link>
             <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
+
           </b-nav>
         </nav>
       </div>
