@@ -54,7 +54,7 @@
     <div id="student-info_bis">
       <div class="card py-0 px-3 mr-3">
         <div class="card-header">
-          Information bis
+          Information cursus
         </div>
         <div class="promo text-center">
           <p class="font-weight-bold h5">Promotion actuelle :</p>
