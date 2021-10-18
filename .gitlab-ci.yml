@@ -30,7 +30,7 @@ build:
     name: $PROJECT_NAME
     expire_in: 1 hour
     paths:
-      - planning
+      - cfa
 
 archive:
   image: lgatica/openssh-client
