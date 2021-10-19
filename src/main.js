@@ -22,7 +22,7 @@ Vue.config.productionTip = false
 Vue.component('paginate', Paginate)
 
 // axios.defaults.baseURL = "http://localhost:8080/AppliCFABack/";
-// Commenter la ligne 25 ou 26 si vous etes en prod ou en local
+// Commenter la ligne 27 ou 29 si vous etes en prod ou en local
 // local URL
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 // prod URL
