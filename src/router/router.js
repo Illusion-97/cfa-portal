@@ -27,6 +27,7 @@ import { Role } from '@/_helpers/role.js';
 //#######################
 //#       GLOBAL        #
 //#######################
+import Public from "@views/Public.vue";
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 // import secure from '@/components/secure.vue'
@@ -202,7 +203,8 @@ const routes = [
   //#######################
   //#       GLOBAL        #
   //#######################
-
+  
+  { path: "/public", name: "public", component: Public, },
   { path: "/home", name: "home", component: Home, },
   { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},

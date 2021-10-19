@@ -67,6 +67,8 @@
         </div>
       </div>
     </form>
+
+    <router-link class="nav-link" :to="{ name: 'public' }" v-if="isReferent">Public</router-link>
   </div>
 </template>
 
