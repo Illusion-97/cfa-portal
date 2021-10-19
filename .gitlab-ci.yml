@@ -34,7 +34,7 @@ build:
     - npm cache clean --force
   script:
     - npm run build
-    - cd planning
+    - cd $ARCHIVE_NAME
     - tar -cJf "../$ARCHIVE_NAME.tar.xz" ./*  
   artifacts:
     expire_in: 1 hour
