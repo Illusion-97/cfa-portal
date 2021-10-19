@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <BodyTitle title="Cursus" />
+    <BodyTitle title="Mes Cursus" />
     
     <table class="table table-striped table-hover text-center">
       <thead>
@@ -22,7 +22,7 @@
       </tbody>
     </table>
 
-    <!-- <paginate
+    <paginate
       :page-count="pageCount"
       :page-range="1"
       :margin-pages="2"
@@ -39,7 +39,7 @@
       :active-class="'active'"
     >
       
-    </paginate> -->
+    </paginate>
   </div>
 </template>
 
@@ -87,20 +87,20 @@ export default {
         .getByIdEtudiant(this.$store.getters.getUtilisateur.id)
         .then((response) => (this.cursus = response));
     },
-    // pageChange(pageNum) {
-    //   formationApi
-    //     .getFormationByPromoId(this.selected.id,pageNum - 1, this.perPage)
-    //     .then((response) => (this.formations = response));
-    // },
+    pageChange(pageNum) {
+     cursusApi
+        .getByIdEtudiant(this.$store.getters.getUtilisateur.id,pageNum-1,this.perPage)
+        .then((response) => (this.cursus = response));
+    },
     refreshList() {
      cursusApi
-        .getByIdEtudiant(this.$store.getters.getUtilisateur.id)
+        .getByIdEtudiant(this.$store.getters.getUtilisateur.id,this.pageCount,this.perPage)
         .then((response) => (this.cursus = response));
-      // formationApi
-      //   .countFormation()
-      //   .then(
-      //     (response) => (this.pageCount = Math.ceil(response / this.perPage))
-      //   );
+      cursusApi
+        .getCount()
+        .then(
+          (response) => (this.pageCount = Math.ceil(response / this.perPage))
+        );
     },
   },
 };

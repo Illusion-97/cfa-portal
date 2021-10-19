@@ -158,9 +158,15 @@ export default {
         params: { id: examen.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_examen_update",
+        params: { id: examen.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_examen_update",
         params: { id: examen.id },
       });
       }
@@ -173,9 +179,15 @@ export default {
         params: { id: examen.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_examen_detail",
+        params: { id: examen.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_examen_detail",
         params: { id: examen.id },
       });
       }
@@ -185,6 +197,9 @@ export default {
       if(route[0]== 'admin') this.$router.push({name: "admin_examen_create"});
       else if(route[0]== 'referent') this.$router.push({name: "referent_examen_create"});
       else if(route[0]== 'formateur') this.$router.push({name: "formateur_examen_create"});
+      else if (route[0] == 'cef') { this.$router.push({name: "cef_examen_create",});
+      }
+
     },
     clickList(examen) {
       this.examen_input = examen.enonce;
@@ -196,7 +211,7 @@ export default {
       if(route[0]== 'admin') this.$router.push({name:'admin_examen_detail', params: { id: examen.id }}); 
       else if(route[0]== 'referent')  this.$router.push({name:'referent_examen_detail', params: { id: examen.id }});
       else if(route[0]== 'formateur') this.$router.push({name:'formateur_examen_detail', params: { id: examen.id }});
-      // else if(route[0]== 'cef') this.$router.push({name:'cef_examen_detail', params: { id: examen.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_examen_detail', params: { id: examen.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_examen_detail', params: { id: examen.id }});
 
     },

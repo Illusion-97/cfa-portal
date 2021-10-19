@@ -167,7 +167,7 @@ export default {
     deleteDevoir(devoirId) {
       devoirApi.deleteDevoir(devoirId).then(() => this.refreshList());
     },
-    updateDevoir(devoir){
+    uupdateDevoir(devoir){
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
       this.$router.push({
@@ -175,9 +175,15 @@ export default {
         params: { id: devoir.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_devoir_update",
+        params: { id: devoir.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_devoir_update",
         params: { id: devoir.id },
       });
       }
@@ -190,9 +196,15 @@ export default {
         params: { id: devoir.id },
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_devoir_detail",
+        params: { id: devoir.id },
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_devoir_detail",
         params: { id: devoir.id },
       });
       }
@@ -205,9 +217,15 @@ export default {
         
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_devoir_create",
+        
+      });
+      }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_devoir_create",
         
       });
       }
@@ -222,7 +240,7 @@ export default {
       if(route[0]== 'admin') this.$router.push({name:'admin_devoir_detail', params: { id: devoir.id }}); 
       else if(route[0]== 'referent')  this.$router.push({name:'referent_devoir_detail', params: { id: devoir.id }});
       else if(route[0]== 'formateur') this.$router.push({name:'formateur_devoir_detail', params: { id: devoir.id }});
-      // else if(route[0]== 'cef') this.$router.push({name:'cef_devoir_detail', params: { id: devoir.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_devoir_detail', params: { id: devoir.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_devoir_detail', params: { id: devoir.id }});
 
     },

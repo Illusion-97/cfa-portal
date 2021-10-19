@@ -26,12 +26,10 @@
         </button>
       </form>
 
-      <router-link
-        class="btn btn-primary"
-        :to="{ name: 'admin_cursus_create' }"
-        v-if="isAction"
-        >Ajouter un cursus</router-link
-      >
+      <button class="btn btn-primary" v-on:click="createCursus()">
+              Ajouter un cursus
+            </button>
+
     </div>
 
 
@@ -152,6 +150,22 @@ export default {
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.cursus = response));
     },
+    createCursus(){
+      let route = this.$route.path.split("/").splice(1);
+      if(route[0]== 'admin'){
+      this.$router.push({
+        name: "admin_addCursus",
+        params: {}
+      });
+      }
+      else {
+        this.$router.push({
+        name: "cef_addCursus",
+        
+      });
+      }
+    },
+
     refreshList() {
       cursusApi
         .getAllByPage(0, this.perPage)
@@ -175,7 +189,7 @@ export default {
       if(route[0]== 'admin') this.$router.push({name:'admin_cursus_detail', params: { id: cursus.id }}); 
       // else if(route[0]== 'referent')  this.$router.push({name:'referent_cursus_detail', params: { id: cursus.id }});
       // else if(route[0]== 'formateur') this.$router.push({name:'formateur_cursus_detail', params: { id: cursus.id }});
-      // else if(route[0]== 'cef') this.$router.push({name:'cef_cursus_detail', params: { id: cursus.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_cursus_detail', params: { id: cursus.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_cursus_detail', params: { id: cursus.id }});
     },
   },
