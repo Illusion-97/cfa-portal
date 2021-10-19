@@ -34,20 +34,20 @@ build:
     - npm cache clean --force
   script:
     - npm run build
-    - ls -al
-    #- cd $ARCHIVE_NAME
-    #- tar -cJf "../$ARCHIVE_NAME.tar.xz" ./*  
-  #artifacts:
-  #  expire_in: 1 hour
-  #  paths:
-  #    - "$ARCHIVE_NAME.tar.xz"
+    - mv dist $ARCHIVE_NAME
+    - cd $ARCHIVE_NAME
+    - tar -cJf "../$ARCHIVE_NAME.tar.xz" ./*  
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - "$ARCHIVE_NAME.tar.xz"
   cache:
     key: node_modules
     untracked: true
     policy: pull
 
 
-.archive:
+archive:
   image: lgatica/openssh-client
   stage: deploy
   tags:
