@@ -27,7 +27,7 @@ import { Role } from '@/_helpers/role.js';
 //#######################
 //#       GLOBAL        #
 //#######################
-import Public from "@views/Public.vue";
+import Public from "@/views/Public.vue";
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 // import secure from '@/components/secure.vue'
@@ -521,7 +521,7 @@ router.beforeEach((to, from, next) => {
   const { authorize } = to.meta;
   const currentUser = store.getters.getUtilisateur;
 
-  if (to.path !== "/login") {
+  if (to.path !== "/login" && to.path !== "/public" ) {
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn)
