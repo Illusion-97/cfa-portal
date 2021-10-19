@@ -1,7 +1,5 @@
 <template>
   <div id="grid-container">
- 
-
     <div id="grid-container2">  
     <ul id="list-lien">
       <li>
@@ -123,16 +121,16 @@
     },
     created() {
       etudiantApi
-        .getFormateurReferent(this.$store.getters.getUtilisateur.id)
+        .getFormateurReferent(this.$store.getters.getUtilisateur.etudiantDto.id)
         .then((data) => (this.formateurReferent = data));
       etudiantApi
-        .getPromotions(this.$store.getters.getUtilisateur.id)
+        .getPromotions(this.$store.getters.getUtilisateur.etudiantDto.id)
         .then((data) => (this.promotions = data));
       etudiantApi
-        .getManager(this.$store.getters.getUtilisateur.id)
+        .getManager(this.$store.getters.getUtilisateur.etudiantDto.id)
         .then((data) => (this.manager = data));
       etudiantApi
-        .getGroupes(this.$store.getters.getUtilisateur.id)
+        .getGroupes(this.$store.getters.getUtilisateur.etudiantDto.id)
         .then((response) => (this.groupes = response));
     },
     methods: {},

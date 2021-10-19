@@ -1,5 +1,6 @@
 <template>
   <section>
+    
     <div v-if="isEtudiant">
       <HomeEtudiant />
     </div>
