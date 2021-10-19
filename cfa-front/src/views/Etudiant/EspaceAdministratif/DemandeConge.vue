@@ -159,7 +159,10 @@ export default {
         .then(() =>
           congeApi
             .getCongesByUtilisateurId(this.utilisateur.id)
-            .then((response) => (this.conges = response))
+            .then((response) => {
+              (this.conges = response)              
+              console.log("ok 1");
+            })
             //Si pas d'erreur, on post le fichier
             .then(() => {
               if(this.file != "")

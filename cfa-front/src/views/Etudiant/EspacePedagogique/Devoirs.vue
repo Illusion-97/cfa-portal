@@ -86,12 +86,12 @@ export default {
   methods: {
     pageChange(pageNum) {
       etudiantApi
-        .getDevoirsById(this.$store.getters.getUtilisateur.id,pageNum - 1, this.perPage)
+        .getDevoirsById(this.$store.getters.getUtilisateur.etudiantDto.id,pageNum - 1, this.perPage)
         .then((response) => (this.devoirs = response));
     },
     refreshList() {
       etudiantApi
-        .getDevoirsById(this.$store.getters.getUtilisateur.id,this.pageCount, this.perPage)
+        .getDevoirsById(this.$store.getters.getUtilisateur.etudiantDto.id,this.pageCount, this.perPage)
         .then((response) => (this.devoirs = response));
       etudiantApi
         .getCountDevoirs()

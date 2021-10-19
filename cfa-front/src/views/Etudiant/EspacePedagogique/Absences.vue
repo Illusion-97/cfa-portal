@@ -89,12 +89,12 @@ export default {
   methods: {
     pageChange(pageNum) {
      etudiantApi
-        .getAbsencesById(this.$store.getters.getUtilisateur.id,pageNum - 1, this.perPage)
+        .getAbsencesById(this.$store.getters.getUtilisateur.etudiantDto.id,pageNum - 1, this.perPage)
         .then((response) => (this.absences = response));
     },
      refreshList() {
       etudiantApi
-        .getAbsencesById(this.$store.getters.getUtilisateur.id,this.pageCount, this.perPage)
+        .getAbsencesById(this.$store.getters.getUtilisateur.etudiantDto.id,this.pageCount, this.perPage)
         .then((response) => (this.absences = response));
       etudiantApi
         .getCountAbsence()

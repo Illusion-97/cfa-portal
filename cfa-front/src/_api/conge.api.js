@@ -66,7 +66,10 @@ function save(form) {
 
     return axios
         .post(req, form, requestOptions.headers())
-        .then((response) => response)
+        .then((response) => {
+            console.log("ok 0");
+            return response;
+        })
         .catch((error) => console.log(error));
 
 }

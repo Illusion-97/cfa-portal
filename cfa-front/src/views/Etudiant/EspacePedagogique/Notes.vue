@@ -98,12 +98,12 @@ export default {
   methods: {
     pageChange(pageNum) {
       etudiantApi
-        .getNotesById(this.$store.getters.getUtilisateur.id,pageNum - 1, this.perPage)
+        .getNotesById(this.$store.getters.getUtilisateur.etudaintDto.id,pageNum - 1, this.perPage)
         .then((response) => (this.notes = response));
     },
     refreshList() {
       etudiantApi
-        .getNotesById(this.$store.getters.getUtilisateur.id,this.pageCount, this.perPage)
+        .getNotesById(this.$store.getters.getUtilisateur.etudiantDto.id,this.pageCount, this.perPage)
         .then((response) => (this.notes = response));
       etudiantApi
         .getCountNotes()
