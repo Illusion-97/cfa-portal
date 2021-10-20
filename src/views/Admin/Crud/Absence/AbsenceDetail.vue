@@ -43,7 +43,7 @@
         <div class="font-weight-bold col-2">Etudiant :</div>
         <div class="col-4">
           <div v-if="absence.etudiantDto">
-            {{ absence.etudiantDto.prenom }} {{ absence.etudiantDto.nom }}
+            {{ absence.etudiantDto.utilisateurDto.prenom }} {{ absence.etudiantDto.utilisateurDto.nom }}
           </div>
         </div>
       </b-card-text>

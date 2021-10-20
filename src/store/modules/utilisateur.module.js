@@ -9,9 +9,9 @@ export const utilisateur = {
             prenom: null,
             entrepriseDto: null,
             rolesDto: [],
-            etudiantDto: {},
-            formateurDto: {},
-            cefDto: {},
+            etudiantDto: null,
+            formateurDto: null,
+            cefDto: null,
         },
     },
     getters: {

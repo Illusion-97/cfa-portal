@@ -37,7 +37,7 @@
         <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe)" class="mon-tr">
           <td>{{ groupe.nom }}</td>
           <td>
-              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.prenom}} {{etudiant.nom}}</span>
+              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.utilisateurDto.prenom}} {{etudiant.utilisateurDto.nom}}</span>
             </td>
           <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">

@@ -20,7 +20,6 @@
         <p class="email">{{ utilisateur.login }}</p>
       </div>
     </div>
-
     <div id="student-info">
       <div class="card py-0 px-3 ml-3">
         <div class="card-header">

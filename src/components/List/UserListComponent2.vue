@@ -15,6 +15,7 @@
           class="custom-select mr-3"
           v-model="selected_role"
           aria-label="Default select example"
+          @change="refreshList()"
         >
           <option value="">Tous les roles</option>
           <option :value="role.intitule" v-for="role in rolesComputed" :key="role.id">
@@ -226,12 +227,10 @@ export default {
           });
           break;
         case "ETUDIANT":
-          this.$router.push({
-            name: "admin_etudiant_detail",
-            params: {
-              id: id,
-            },
-          });
+
+          utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_etudiant_detail",params: {id: response.etudiantDto.id}}))         
           break;
         // case "FORMATEUR":
         //   console.log("pas de page detail pour formateur")

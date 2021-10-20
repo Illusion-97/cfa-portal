@@ -32,7 +32,7 @@ function login(login, password) {
     return axios
         .post(req,{login: login, password: password})
         //.then(handleResponse)
-        .then((response) =>store.dispatch('login',response.data['token']))
+        .then((response) => store.dispatch('login',response.data['token']))
         .then(() =>  utilisateurApi.getByLogin(login).then(response => store.dispatch('setUtilisateur', response)))
         .catch((error) => {
             console.log(error)

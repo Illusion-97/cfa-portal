@@ -1,10 +1,14 @@
 <template>
   <section>
     <!-- <h1>Detail Intervention</h1> -->
-    <span @click="goBack" class="h5 icon-link d-block">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </span>
+    </a>
 
     <div id="grid-container">
       <div
@@ -76,7 +80,7 @@
                 <th>Formateurs affecté</th>
                 <td v-if="trainers.length > 0">
                   <ul class="list-style-none" v-for="t in trainers" :key="t.id">
-                    <li>{{ t.nom }} {{ t.prenom }}</li>
+                    <li>{{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}</li>
                   </ul>
                 </td>
                 <td v-else>
@@ -137,9 +141,9 @@
               @click="goToStudentDetail(stud.id)"
               title="Cliquez pour plus de detail"
             >
-              <td>{{ stud.nom }}</td>
-              <td>{{ stud.prenom }}</td>
-              <td>{{ stud.login }}</td>
+              <td>{{ stud.utilisateurDto.nom }}</td>
+              <td>{{ stud.utilisateurDto.prenom }}</td>
+              <td>{{ stud.utilisateurDto.login }}</td>
             </tr>
           </tbody>
         </table>
@@ -207,7 +211,7 @@
                 title="Cliquez pour plus de detail"
               >
                 <td>
-                  {{ absence.etudiantDto.prenom }} {{ absence.etudiantDto.nom }}
+                  {{ absence.etudiantDto.utilisateurDto.prenom }} {{ absence.etudiantDto.utilisateurDto.nom }}
                 </td>
                 <td>{{ absence.dateDebut | formatDate }}</td>
                 <td>{{ absence.dateFin | formatDate }}</td>

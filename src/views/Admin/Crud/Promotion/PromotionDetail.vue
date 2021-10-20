@@ -61,10 +61,10 @@
             <b-card header="Conseillé emploi formation">
               <div>
                 <p>
-                  {{ promotion.cefDto.prenom }}
-                  {{ promotion.cefDto.nom }}
+                  {{ promotion.cefDto.utilisateurDto.prenom }}
+                  {{ promotion.cefDto.utilisateurDto.nom }}
                 </p>
-                <p>{{ promotion.cefDto.login }}</p>
+                <p>{{ promotion.cefDto.utilisateurDto.login }}</p>
               </div>
             </b-card>
           </div>
@@ -105,8 +105,8 @@
             @dblclick="clickEtudiant(etudiant)"
             class="mon-tr"
           >
-            <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-            <td>{{ etudiant.login }}</td>
+            <td>{{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}</td>
+            <td>{{ etudiant.utilisateurDto.login }}</td>
             <td>
               <div v-for="groupe in etudiant.groupesDto" :key="groupe.id">
                 {{ groupe.nom }}
@@ -159,12 +159,9 @@ export default {
       promotion: {
         cursusDto: {},
         referentPedagogiqueDto: {},
-        cefDto: {},
-        interventionsDto: [
-          {
-            formationDto: {},
-          },
-        ],
+        cefDto: {utilisateurDto:{}},
+        interventionsDto: [{formationDto: {}}],
+        etudiantDto: [{utilisateurDto: {}}]
       },
       ville: "",
       onglet: 1,

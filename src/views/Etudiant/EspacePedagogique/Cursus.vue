@@ -84,7 +84,7 @@ export default {
   methods: {
     onSelected() {
      cursusApi
-        .getByIdEtudiant(this.$store.getters.getUtilisateur.id)
+        .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
         .then((response) => (this.cursus = response));
     },
     pageChange(pageNum) {

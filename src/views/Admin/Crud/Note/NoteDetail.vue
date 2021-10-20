@@ -19,7 +19,7 @@
 
       <b-card-text class="identity row ml-5">
         <span class="font-weight-bold col-md-2">Etudiant :</span>
-        <span class="col-md-4">{{ note.etudiantDto.prenom }} {{ note.etudiantDto.nom }}</span>
+        <span class="col-md-4">{{ note.etudiantDto.utilisateurDto.prenom }} {{ note.etudiantDto.utilisateurDto.nom }}</span>
       </b-card-text>
 
       <b-card-text class="identity row ml-5">

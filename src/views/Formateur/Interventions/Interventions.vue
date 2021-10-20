@@ -34,7 +34,6 @@ export default {
       pageCount: 0,
       keyword: "",
       length: 0,
-      userId: this.$store.getters.getUtilisateur.id,
     };
   },
   created() {
@@ -44,7 +43,7 @@ export default {
     fillList() {
       formateurApi
         .getInterventionsByFormateurId(
-          this.utilisateurId,
+          this.$store.getters.getUtilisateur.formateurDto.id,
           this.currentPage,
           this.perPage,
           this.key
@@ -54,13 +53,13 @@ export default {
     },
     countIntervention() {
       formateurApi
-        .countInterventionsByFormateurId(this.utilisateurId, this.key)
+        .countInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     pageChange(page) {
       formateurApi
         .getInterventionsByFormateurId(
-          this.utilisateurId,
+          this.$store.getters.getUtilisateur.formateurDto.id,
           page,
           this.perPage,
           this.key
@@ -69,7 +68,7 @@ export default {
     },
     lenghtItv() {
       formateurApi
-        .countInterventionsByFormateurId(this.utilisateurId, this.key)
+        .countInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, this.key)
         .then((data) => (this.length = data));
     },
     search(evt){
@@ -79,9 +78,6 @@ export default {
     }
   },
   computed: {
-    utilisateurId() {
-      return this.userId;
-    },
     key: {
       get() {
         return this.keyword;

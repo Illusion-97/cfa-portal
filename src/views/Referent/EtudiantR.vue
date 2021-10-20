@@ -38,8 +38,8 @@
                   v-on:dblclick="detail(etudiant.id)"
                   class="mon-tr"
                 >
-                  <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-                  <td>{{ etudiant.login }}</td>
+                  <td>{{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}</td>
+                  <td>{{ etudiant.utilisateurDto.login }}</td>
                   <td>
                     <ul class="text-left list-style-none">
                       <li v-for="promotion in etudiant.promotionsDto"

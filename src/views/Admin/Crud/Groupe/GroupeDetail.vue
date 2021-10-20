@@ -32,8 +32,8 @@
           </thead>
           <tbody v-if="etudiantsComputed">
             <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
-              <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-              <td>{{ etudiant.login }}</td>
+              <td>{{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}</td>
+              <td>{{ etudiant.utilisateurDto.login }}</td>
               <td>
                 <div
                   v-for="promotion in etudiant.promotionsDto"

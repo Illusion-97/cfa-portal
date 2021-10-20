@@ -12,8 +12,8 @@
     <div class="row">
       <div class="col-md-2" align="center">
         <div class="identite">
-          <p class="nom">{{ etudiant.prenom }} {{ etudiant.nom }}</p>
-          <p class="email">{{ etudiant.login }}</p>
+          <p class="nom">{{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}</p>
+          <p class="email">{{ etudiant.utilisateurDto.login }}</p>
         </div>
       </div>
 
@@ -43,67 +43,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-9">
-        <div id="menu">
-          <ul>
-            <li class="menuAbout">
-              <button
-                class="btn-hover color-3 btn-lg dropdown-toggle"
-                type="button"
-                data-toggle="dropdown"
-              >
-                Manipuler fiches
-              </button>
-              <div id="subAbout">
-                <ul>
-                  <li class="li_first">
-                    <button
-                      class="btn-hover color-1"
-                      v-on:click="createFichePoste(etudiant)"
-                    >
-                      Ajouter une fiche de poste
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      class="btn-hover color-1"
-                      v-on:click="createFicheEntreprise(etudiant)"
-                    >
-                      Ajouter une fiche entreprise
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      class="btn-hover color-9"
-                      v-on:click="detailFicheSalarie(etudiant)"
-                    >
-                      Details fiche salarie
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      class="btn-hover color-9"
-                      v-on:click="detailFichePoste(etudiant)"
-                    >
-                      Details fiche poste
-                    </button>
-                  </li>
-                  <li class="li_last">
-                    <button
-                      class="btn-hover color-9"
-                      v-on:click="detailFicheEntreprise(etudiant)"
-                    >
-                      Details fiche entreprise
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div> -->
 
     <div class="mon-container-tuile">
       <span
@@ -189,14 +128,15 @@
         </thead>
         <tbody>
           <tr
-            v-for="groupe in etudiant.groupesDto"
+            v-for="groupe in groupeComputed"
             :key="groupe.id"
             @dblclick="clickGroupe(groupe)"
             class="mon-tr"
           >
             <td>{{ groupe.nom }}</td>
+            <!-- ATTENTION ici bug console => prenom -->
             <td v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">
-              {{ etudiant.prenom }} {{ etudiant.nom }}
+              {{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}
             </td>
           </tr>
         </tbody>
@@ -339,7 +279,16 @@ export default {
   created() {
     etudiantApi
       .getById(this.$route.params.id)
-      .then((response) => (this.etudiant = response));
+      .then((response) => (this.etudiant = response))
+      .then(() =>
+        congeApi
+          .getAllByIdEtudiant(this.etudiant.utilisateurDto.id)
+          .then((response) => (this.conges = response))
+      )
+
+    etudiantApi
+      .getGroupes(this.$route.params.id)
+      .then((response) => (this.groupe = response));
 
     noteApi
       .getAllByIdEtudiant(this.$route.params.id)
@@ -349,9 +298,7 @@ export default {
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => (this.absences = response));
 
-    congeApi
-      .getAllByIdEtudiant(this.$route.params.id)
-      .then((response) => (this.conges = response));
+    
   },
   data() {
     return {
@@ -359,6 +306,7 @@ export default {
         formateurReferentDto: {},
         managerDto: {},
         groupesDto: {},
+        utilisateurDto: {},
       },
       notes: {
         devoirDto: {},
@@ -366,8 +314,9 @@ export default {
       },
       absences: [],
       conges: [],
+      groupe: [{etudiantsDto: {utilisateurDto: {prenom: "", nom: ""}}}],
 
-      onglet: 0,
+      onglet: 1,
     };
   },
   computed: {
@@ -401,6 +350,9 @@ export default {
       if (this.onglet == 5) return true;
       else return false;
     },
+    groupeComputed(){
+      return this.groupe;
+    }
   },
   methods: {
     goBack() {
@@ -928,4 +880,20 @@ export default {
 </script>
 <style src="@/assets/styles/Onglet.css"></style>
 <!--
-<style scoped src="@/assets/styles/EtudiantDetail.css" /> -->
+<style scoped src="@/assets/styles/EtudiantDetail.css" /> 
+-->
+
+<style scoped>
+.identite {
+    margin-top: 4em;
+    margin-bottom: 7em;
+  }
+  
+  .identite > .nom {
+    font-size: 1.5em;
+  }
+  
+  .identite > .email {
+    font-size: 1.2em;
+  }
+</style>
