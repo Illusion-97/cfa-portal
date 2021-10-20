@@ -4,15 +4,13 @@
     <section>
       <div class="container-fluid">
 
-        <div class="row my-3">
+        <div class="row my-3" v-if="showSearchBar == true">
           <div class="col-md-12">
             <form action="" class="form form-inline float-left" @submit="onSubmit"
               @input="$emit('input',$event.target.value)">
               <input type="search" name="search" id="keyword" class="form-control" v-bind:value="key"
                 placeholder="Rechercher.." />
-              <!-- <input type="submit" value="Rechercher" class="btn btn-info" /> -->
               <button class="btn-key" type="submit">
-                <!-- <b-icon icon="search"></b-icon> -->
                 <font-awesome-icon :icon="['fas','search']" class="icon"></font-awesome-icon>
               </button>
             </form>
@@ -239,9 +237,14 @@
         required: false,
         default: () => null
       },
-      isPaginate: {
+      isPaginate: { // affiche ou non la pagination
         type: Boolean,
         default: true,
+      },
+      showSearchBar:{ // affiche ou non la barre de recherche
+         type : Boolean,
+         default : true,
+         required : false
       }
     },
     data() {
