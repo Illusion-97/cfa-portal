@@ -63,10 +63,15 @@
           <div class="foot-lnk">
             <a href="LoginPage">Mot de Passe oublié ?</a>
           </div>
-          -->
+          -->    
+          
+          <button class="btn btn-success" @click="toPublicPage()">Public</button>        
         </div>
-      </div>
+      </div>    
+      
     </form>
+
+    
   </div>
 </template>
 
@@ -99,6 +104,9 @@ export default {
           }
         });
     },
+    toPublicPage(){
+      this.$router.push({name: "public"});
+    }
   },
 };
 </script>

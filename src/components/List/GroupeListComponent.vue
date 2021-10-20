@@ -148,13 +148,20 @@ export default {
         params: {}
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_groupe_create",
         
       });
       }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_groupe_create",
+        
+      });
+      }
     },
+
     clickList(groupe) {
       if (!this.isAction) {
       this.groupe_input = groupe.nom;
@@ -167,10 +174,10 @@ export default {
       if(route[0]== 'admin') this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
       else if(route[0]== 'referent')  this.$router.push({name:'referent_groupe_detail', params: { id: groupe.id }});
       else if(route[0]== 'formateur') this.$router.push({name:'formateur_groupe_detail', params: { id: groupe.id }});
-      // else if(route[0]== 'cef') this.$router.push({name:'cef_groupe_detail', params: { id: groupe.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_groupe_detail', params: { id: groupe.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_groupe_detail', params: { id: groupe.id }});
 
-      this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
+      //this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
     },
     delete_input(){
       this.groupe_input = "";

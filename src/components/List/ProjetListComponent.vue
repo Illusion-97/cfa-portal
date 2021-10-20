@@ -170,13 +170,20 @@ export default {
         params: {}
       });
       }
-      else {
+      else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_projet_create",
         
       });
       }
+      else if (route[0] == 'cef') {
+        this.$router.push({
+        name: "cef_projet_create",
+        
+      });
+      }
     },
+
     clickList(projet) {
       if (!this.isAction) {
         this.projet_input = projet.enonce;
@@ -189,10 +196,10 @@ export default {
       if(route[0]== 'admin') this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
       else if(route[0]== 'referent')  this.$router.push({name:'referent_projet_detail', params: { id: projet.id }});
       // else if(route[0]== 'formateur') this.$router.push({name:'formateur_projet_detail', params: { id: projet.id }});
-      // else if(route[0]== 'cef') this.$router.push({name:'cef_projet_detail', params: { id: projet.id }});
+      else if(route[0]== 'cef') this.$router.push({name:'cef_projet_detail', params: { id: projet.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_projet_detail', params: { id: projet.id }});
 
-      this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
+      //this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
     },
   },
 };

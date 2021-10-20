@@ -16,6 +16,7 @@ import { Role } from '@/_helpers/role.js';
 //  - FORMATEUR
 //  - REFERENT
 //  - ADMIN
+//  - CEF
 
 
 //          #######################
@@ -26,6 +27,7 @@ import { Role } from '@/_helpers/role.js';
 //#######################
 //#       GLOBAL        #
 //#######################
+import Public from "@/views/Public.vue";
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 // import secure from '@/components/secure.vue'
@@ -166,6 +168,24 @@ import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreForma
 import CentreFormationDetail from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetail.vue";
 
 
+//#######################
+//#       CEF           #
+//#######################
+//CentreFormation
+import CentreFormation from "@/views/Cef/Crud/CentreFormation/CefCentreFormation.vue";
+//Promo
+import CefPromo from "@/views/Cef/Crud/Promo/CefPromo.vue";
+//Intervention
+import CefIntervention from "@/views/Cef/Crud/Intervention/CefIntervention.vue";
+import CefCreateCours from "@/views/Cef/Crud/Intervention/CefCreateIntervention.vue";
+//Etudiant
+import CefEtudiant from "@/views/Cef/Crud/Etudiant/CefEtudiant.vue";
+//Examen
+import CefExamen from "@/views/Cef/Crud/Examen/CefExamen.vue";
+//Devoir
+import CefDevoir from "@/views/Cef/Crud/Devoir/CefDevoir.vue";
+
+
 
 
 
@@ -183,7 +203,8 @@ const routes = [
   //#######################
   //#       GLOBAL        #
   //#######################
-
+  
+  { path: "/public", name: "public", component: Public, },
   { path: "/home", name: "home", component: Home, },
   { path: "/login", name: "login", component: LoginPage },
   // { path: '/secure', name: 'secure', component: secure},
@@ -417,6 +438,76 @@ const routes = [
    { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/detail/:id", name:"admin_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Admin] }},
 
+   //#######################
+   //#       CEF           #
+   //#######################
+
+   { path: "/cef/", name: "cef_dashboard", redirect: {name: 'cef_centreFormation_list'}, meta: { authorize: [Role.CEF] }},
+   //Centre Formation
+  { path: "/cef/centreFormations", name: "cef_centreFormation_list", component: CentreFormation, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/centreFormations/create", name:"cef_centreFormation_create", component: AddCentreFormation, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/centreFormations/update/:id", name:"cef_centreFormation_update", component: AddCentreFormation, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/centreFormations/detail/:id", name: "cef_centreFormation_detail", component: CentreFormationDetail, meta: { authorize: [Role.CEF] } },
+  //Promo
+  { path: "/cef/promotions", name: "cef_promotions", component: CefPromo, meta: { authorize: [Role.CEF] } },
+  { path: "/cef/promotions/detail/:id", name: "cef-promotion-detail", component: PromotionDetail, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/promotions/update/:id", name: "cef_promotion_update", component: PromotionCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/promotions/create", name: "cef_promotion_create", component: PromotionCreate, meta: { authorize: [Role.CEF] }},
+
+  //Etudiant
+  { path: "/cef/etudiants", name: "cef_etudiant", component: CefEtudiant, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/etudiants/detail/:id", name:"cef_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/etudiants/fiche-salarie", name:"cef_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/etudiants/fiche-poste", name:"cef_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/etudiants/fiche-entreprise", name:"cef_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.CEF] }},
+
+  //Intervention
+  { path: "/cef/interventions", name: "cef_cours", component: CefIntervention, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/interventions/:id", name: "cef-intervention-detail", component: DetailIntervention, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/interventions/create", name: "cef_intervention_create", component: CefCreateCours, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/interventions/update/:id", name: "cef_modifier_intervention", component: AjoutIntervention, meta: { authorize: [Role.CEF] }}, 
+
+   //Cursus
+   { path: "/cef/cursus", name:"cef_cursus_list", component: CursusList, meta: { authorize: [Role.CEF] }},
+   { path: "/cef/cursus/create", name:"cef_addCursus", component: AddCursus, meta: { authorize: [Role.CEF] }},
+   { path: "/cef/cursus/update/:id", name:"cef_cursus_update", component: AddCursus, meta: { authorize: [Role.CEF] }},
+   { path: "/cef/cursus/detail/:id", name:"cef_cursus_detail", component: CursusDetail, meta: { authorize: [Role.CEF] }},
+
+   //Note
+  { path: "/cef/notes/detail/:id", name:"cef_note_detail", component: NoteDetail, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/notes/update/:id", name:"cef_note_update", component: NoteCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/notes/create/:id", name:"cef_note_create", component: NoteCreate, meta: { authorize: [Role.CEF] }},
+  //Absence
+  { path: "/cef/absences/detail/:id", name:"cef_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/absences/create/:id", name:"cef_absence_create", component: AbsenceCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/absences/update/:id", name:"cef_absence_update", component: AbsenceCreate, meta: { authorize: [Role.CEF] }},
+  //Conge
+  { path: "/cef/conges/detail/:id", name:"cef_conge_detail", component: CongeDetail, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/conges/create/:id", name:"cef_conge_create", component: CongeCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/conges/update/:id", name:"cef_conge_update", component: CongeCreate, meta: { authorize: [Role.CEF] }},
+  //Groupe
+  { path: "/cef/groupes", name:"cef_groupe_list", component: GroupeList, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/groupes/create", name:"cef_groupe_create", component: GroupeCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/groupes/update/:id", name:"cef_groupe_update", component: GroupeCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/groupes/detail/:id", name:"cef_groupe_detail", component: GroupeDetail, meta: { authorize: [Role.CEF] }},
+  //Projet
+  { path: "/cef/projets", name:"cef_projet_list", component: ProjetList, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/projets/create", name:"cef_projet_create", component: ProjetCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/projets/update/:id", name:"cef_projet_update", component: ProjetCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/projets/detail/:id", name:"cef_projet_detail", component: ProjetDetail, meta: { authorize: [Role.CEF] }},
+  //Devoir
+  { path: "/cef/devoirs", name: "cef_devoir", component: CefDevoir, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/devoirs/create", name: "cef_devoir_create", component: DevoirCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/devoirs/update/:id", name: "cef_devoir_update", component: DevoirCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/devoirs/detail/:id", name: "cef_devoir_detail", component: DevoirDetail, meta: { authorize: [Role.CEF] }},
+  //Examen
+  { path: "/cef/examens", name: "cef_examen", component: CefExamen, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/examens/create", name: "cef_examen_create", component: ExamenCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/examens/update/:id", name: "cef_examen_update", component: ExamenCreate, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/examens/detail/:id", name: "cef_examen_detail", component: ExamenDetail, meta: { authorize: [Role.CEF] }},
+  //Administratif
+  { path: "/cef/administratif", name: "cef_document_administratif", component: AskDocumentAdministratif, meta: { authorize: [Role.CEF] }},
+
 ];
 
 const router = new VueRouter({
@@ -430,7 +521,7 @@ router.beforeEach((to, from, next) => {
   const { authorize } = to.meta;
   const currentUser = store.getters.getUtilisateur;
 
-  if (to.path !== "/login") {
+  if (to.path !== "/login" && to.path !== "/public" ) {
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn)

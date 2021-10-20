@@ -21,8 +21,11 @@ global.jQuery = jQuery
 Vue.config.productionTip = false
 Vue.component('paginate', Paginate)
 
-// axios.defaults.baseURL = "http://localhost:8080/AppliCFABack/";
-axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+// Commentez la ligne 27 ou 29 si vous etes en prod ou en local
+// local URL
+// axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+// prod URL
+axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
 
 // Vue.use(VueCookies)
 
@@ -31,4 +34,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-  
