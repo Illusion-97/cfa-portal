@@ -125,8 +125,8 @@ export default {
       
     },
     refreshList(){
-    dossierProjetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
-    projetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.projets= response)
+    dossierProjetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id).then(response => this.files = response)
+    projetApi.getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id).then(response => this.projets= response)
   
     }
   }
