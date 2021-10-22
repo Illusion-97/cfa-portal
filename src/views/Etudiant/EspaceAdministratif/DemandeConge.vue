@@ -94,12 +94,6 @@
     >
       Demande de congé envoyé
     </div>
-    <!-- <div class="alert alert-danger" role="alert" v-if="errorAlert == true" style="position:absolute;top:1em;right:1em">
-      Erreur
-    </div> -->
-    <pre class="m-0">
-      {{ form }}
-    </pre>
     <TableTemplate
       :perPage="perPage"
       :items="congesComputed"
@@ -156,7 +150,6 @@ export default {
       fields: leaveFields,
       perPage: 20,
       successAlert: false,
-      // errorAlert: false,
       tableConge: [],
     };
   },
@@ -190,15 +183,11 @@ export default {
       congeApi
         .save(this.form)
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
             //affiche une alerte si le formulaire est bien envoyé
             this.successAlert = true;
             setTimeout(() => (this.successAlert = false), 2000);
           }
-          // else {
-          //   this.errorAlert = true
-          // }
         })
         //Quand on a ajouté le congé, on recharge la liste
         .then(() =>
