@@ -24,6 +24,8 @@
           <b-form-datepicker
             locale="fr"
             v-model="form.dateDebut"
+            :date-disabled-fn="dateDisabled"
+            :start-weekday="1"
             placeholder="Aucune date selectionné"
             required
           >
@@ -34,6 +36,8 @@
           <b-form-datepicker
             locale="fr"
             v-model="form.dateFin"
+            :date-disabled-fn="dateDisabled"
+            :start-weekday="1"
             placeholder="Aucune date selectionné"
             required
           >
@@ -82,12 +86,20 @@
         />
       </div>
     </form>
-    <div class="alert alert-success" role="alert" v-if="successAlert == true" style="position:absolute;top:1em;right:1em">
+    <div
+      class="alert alert-success"
+      role="alert"
+      v-if="successAlert == true"
+      style="position:absolute;top:1em;right:1em"
+    >
       Demande de congé envoyé
     </div>
     <!-- <div class="alert alert-danger" role="alert" v-if="errorAlert == true" style="position:absolute;top:1em;right:1em">
       Erreur
     </div> -->
+    <pre class="m-0">
+      {{ form }}
+    </pre>
     <TableTemplate
       :perPage="perPage"
       :items="congesComputed"
@@ -119,11 +131,12 @@ export default {
         dateFin: "",
         motif: "",
         type: "",
+        utilisateurDto: {
+          id: this.$store.getters.getUtilisateur.id,
+        },
         status: "EN_ATTENTE",
-        utilisateurDto: this.$store.getters.getUtilisateur,
-        justificatif: "",
+        justificatif: null,
       },
-
       types: [
         {
           text: "Maladie",
@@ -177,10 +190,11 @@ export default {
       congeApi
         .save(this.form)
         .then((response) => {
-          if (response.status == 200) { 
+          console.log(response);
+          if (response.status == 200) {
             //affiche une alerte si le formulaire est bien envoyé
             this.successAlert = true;
-            setTimeout(() => this.successAlert = false,2000)
+            setTimeout(() => (this.successAlert = false), 2000);
           }
           // else {
           //   this.errorAlert = true
@@ -203,6 +217,12 @@ export default {
                 );
             })
         );
+    },
+    dateDisabled(ymd, date) {
+      // Disable weekends (Sunday = `0`, Saturday = `6`) and
+      const weekday = date.getDay();
+      // Return `true` if the date should be disabled
+      return weekday === 0 || weekday === 6;
     },
   },
 };
