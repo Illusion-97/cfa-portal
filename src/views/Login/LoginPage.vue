@@ -57,15 +57,7 @@
               type="submit"
               value="Se connecter"
             />
-          </div>
-          <!-- <hr /> -->
-          <!--
-          <div class="foot-lnk">
-            <a href="LoginPage">Mot de Passe oublié ?</a>
-          </div>
-          -->    
-          
-          <button class="btn btn-success" @click="toPublicPage()">Public</button>        
+          </div>    
         </div>
       </div>    
       
