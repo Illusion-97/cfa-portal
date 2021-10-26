@@ -10,40 +10,51 @@
       />
     </div>
     <div class="row">
-      <form class="d-flex" @submit="submit">
+      <div class="d-flex justify-content-start">
         <select
           class="custom-select mr-3"
           v-model="selected_role"
           aria-label="Default select example"
+          @change="refreshList()"
         >
-          <option value="">All</option>
-          <option value="ETUDIANT">Etudiants</option>
-          <option value="FORMATEUR">Formateurs</option>
-          <option value="REFERENT">Referents</option>
-          <option value="CEF">CEFs</option>
-          <option value="ADMIN">Admins</option>
+          <option value="">Tous les roles</option>
+          <option :value="role.intitule" v-for="role in rolesComputed" :key="role.id">
+            {{ role.intitule  | lowercase | capitalize}}
+          </option>
+          <!-- <option value="ETUDIANT">Etudiants</option>
+        <option value="FORMATEUR">Formateurs</option>
+        <option value="REFERENT">Referents</option>
+        <option value="CEF">CEFs</option>
+        <option value="ADMIN">Admins</option> -->
         </select>
-
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          placeholder="Rechercher"
-          v-model="saisie"
-        />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
-      </form>
-
+        <form class="form-inline" @submit="submit">
+          <input
+            id="saisie"
+            name="saisie"
+            type="text"
+            class="form-control"
+            placeholder="Rechercher"
+            v-model="saisie"
+            @change="onSelected"
+          />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+          </button>
+        </form>
+      </div>
+      <div class="ml-auto d-flex justify-content-around">
+      <span class="btn btn-outline-success"  data-toggle="modal" data-target="#usrimprt">Importer des utilisateurs </span>
+      <!-- <input type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload"> -->
+      <UploadUserModal idName="usrimprt"/>
       <router-link
-        class="btn btn-outline-primary ml-auto mr-4 px-3"
+        class="btn btn-outline-primary px-3 mx-3"
         :to="{ name: 'admin_addUser' }"
         v-if="isAction"
         >Ajouter un utilisateur</router-link
       >
     </div>
+      </div>
+
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -54,15 +65,14 @@
           <!-- <th>Adresse</th> -->
           <!-- <th>Entreprise</th> -->
           <th>Rôle</th>
-          <!-- <th v-if="isAction">Action</th> -->
+          <th v-if="isAction">Action</th>
         </tr>
       </thead>
       <tbody v-if="usersComputed">
         <tr
           v-for="user in usersComputed"
-          :key="user.id" class="mon-tr"
-          v-on:click="clickList(user)"
-          @dblclick="dblClick(user)">
+          :key="user.id"
+          v-on:click="clickList(user)">
           <td>{{ user.prenom }}</td>
           <td>{{ user.nom }}</td>
           <td>{{ user.login }}</td>
@@ -75,24 +85,28 @@
           <!-- <td>{{ user.adresseDto.rue}}</td> -->
           <!-- <td>{{ user.entrepriseDto.raisonSociale}}</td> -->
 
-          <!-- <td v-if="isAction">
+          <td v-if="isAction">
             <button
               class="btn btn-info"
-              v-on:click="dblClick(user.id)"
-              >Details</button
+              v-on:click="detailUtilisateur(user.id)"
             >
+              Details
+            </button>
+            <!-- &nbsp; -->
             <router-link
               class="btn btn-success mx-2"
               :to="{ name: 'admin_user_update', params: { id: user.id } }"
-              >Modifier</router-link
             >
+              Modifier</router-link
+            >
+            <!-- &nbsp; -->
             <button
               class="btn btn-danger"
               v-on:click="deleteUtilisateur(user.id)"
             >
               Supprimer
             </button>
-          </td> -->
+          </td>
         </tr>
       </tbody>
     </table>
@@ -119,9 +133,11 @@
 
 <script>
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
+import UploadUserModal from "@/components/Modal/UploadUserModal.vue"
 export default {
   name: "UserListComponent",
-  components: {},
+  components: {UploadUserModal},
   props: {
     isAction: {
       type: Boolean,
@@ -140,13 +156,14 @@ export default {
   data() {
     return {
       users: [],
+      roles: [],
       perPage: 10,
       pageCount: 0,
       saisie: "",
 
       utilisateur_input: "",
-
       selected_role: "",
+      file_imported:""
     };
   },
   computed: {
@@ -156,19 +173,39 @@ export default {
     nbPageComputed() {
       return this.pageCount;
     },
+    rolesComputed() {
+      return this.roles;
+    },
   },
   created() {
     this.refreshList();
+    this.getRoles();
   },
 
   methods: {
+    handleFileUpload(e) {
+      this.file_imported = e.target.files[0];
+      // utilisateurApi.uploadUser().then(res => console.log(res))
+      // console.log(this.file_imported);
+    },
+    getRoles() {
+      utilisateursRoleApi.getAll().then((data) => (this.roles = data));
+    },
+    onSelected(){
+      utilisateursRoleApi.getById(this.selected_role.id).then(data => this.selected_role = data);
+    },
     submit(e) {
       e.preventDefault();
       this.refreshList();
     },
     pageChange(pageNum) {
       utilisateurApi
-        .getByRoleByPage(this.selected_role, pageNum - 1, this.perPage, this.saisie)
+        .getByRoleByPage(
+          this.selected_role,
+          pageNum - 1,
+          this.perPage,
+          this.saisie
+        )
         .then((response) => (this.users = response));
     },
     refreshList() {
@@ -188,24 +225,22 @@ export default {
         utilisateurApi.deleteUtilisateur(userId).then(() => this.refreshList());
       }
     },
-    dblClick(utilisateur) {
-      let route = this.$route.path.split("/").splice(1);
-      
+    detailUtilisateur(id) {
       switch (this.selected_role) {
-        case "ETUDIANT":
-            if(route[0]== 'admin') this.$router.push({name:'admin_etudiant_detail', params: { id: utilisateur.id }}); 
-            else if(route[0]== 'referent')  this.$router.push({name:'referent_etudiant_detail', params: { id: utilisateur.id }});
-            else if(route[0]== 'formateur') this.$router.push({name:'formateur_etudiant_detail', params: { id: utilisateur.id }});
-            else if(route[0]== 'cef') this.$router.push({name:'cef_etudiant_detail', params: { id: utilisateur.id }});
-            else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_etudiant_detail', params: { id: utilisateur.id }});
-            break;
         case "":
-            if(route[0]== 'admin') this.$router.push({name:'admin_user_detail', params: { id: utilisateur.id }}); 
-            else if(route[0]== 'referent')  this.$router.push({name:'referent_user_detail', params: { id: utilisateur.id }});
-            else if(route[0]== 'formateur') this.$router.push({name:'formateur_user_detail', params: { id: utilisateur.id }});
-            else if(route[0]== 'cef') this.$router.push({name:'cef_user_detail', params: { id: utilisateur.id }});
-            else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_user_detail', params: { id: utilisateur.id }});
-            break;        
+          this.$router.push({
+            name: "admin_user_detail",
+            params: {
+              id: id,
+            },
+          });
+          break;
+        case "ETUDIANT":
+
+          utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_etudiant_detail",params: {id: response.etudiantDto.id}}))         
+          break;
         // case "FORMATEUR":
         //   console.log("pas de page detail pour formateur")
         //   break;
