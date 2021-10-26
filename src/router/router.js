@@ -52,6 +52,7 @@ import DemandeConge from "@/views/Etudiant/EspaceAdministratif/DemandeConge.vue"
 import FicheSalarie from "@/views/Etudiant/EspaceAdministratif/FicheSalarie.vue";
 import FichePoste from "@/views/Etudiant/EspaceAdministratif/FichePoste.vue";
 import FicheEntreprise from "@/views/Etudiant/EspaceAdministratif/FicheEntreprise.vue";
+import ProfilUpdate from "@/views/Etudiant/EspaceAdministratif/ProfilUpdate.vue";
 //Etudiant Pedagogique
 // import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
 import CursusDetails from "@/views/Etudiant/EspacePedagogique/CursusDetails.vue";
@@ -222,6 +223,8 @@ const routes = [
   { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie", component: FicheSalarie, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste", component: FichePoste, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise", component: FicheEntreprise, meta: { authorize: [Role.Etudiant] } },
+  { path: "/etudiant/espace-administratif/profil/update/:id", name: "etudiant_profil_update", component: ProfilUpdate, meta: { authorize: [Role.Etudiant] } },
+  
   //Etudiant Pedagogique
   { path: "/etudiant/espace-pedagogique", name: "etudiant_espace-peda_accueil", redirect: { name: 'etudiant_espace-peda_cursus' }, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-pedagogique/cursus", name: "etudiant_espace-peda_cursus", component: Cursus, meta: { authorize: [Role.Etudiant] } },

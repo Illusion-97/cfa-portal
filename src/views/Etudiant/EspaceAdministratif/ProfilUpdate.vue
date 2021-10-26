@@ -111,7 +111,7 @@
   import BodyTitle from "@/components/utils/BodyTitle.vue";
   // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
   // import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
-  import RoleModal from "@/components/Modal/RoleModal.vue";
+  //import RoleModal from "@/components/Modal/RoleModal.vue";
 
   export default {
     name: "AddUser",
@@ -119,7 +119,7 @@
       BodyTitle,
       // AdresseListComponent,
       // EntrepriseListComponent,
-      RoleModal,
+      //RoleModal,
     },
     data() {
       return {
