@@ -108,13 +108,13 @@
         <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
       </div>
     </form>
-
-    <!-- <EntrepriseListComponent
+  
+    <EntrepriseListComponent
         class="col-11"
         v-on:click-list="onClickChildEntrepriseList"
         :entrepriseProp="entreprise_input"
         :class="{ collapse: isEntrepriseNew }"
-        /> -->
+        />
  
     <RoleModal v-show="isModalVisible" @close="closeModal" :rolesProp="rolesComputed" v-on:close="onClickClose" />
   </div>
@@ -158,17 +158,17 @@
             ville: "",
             codePostal: "",
           },
-          // entrepriseDto: {
-          //   id: null,
-          //   raisonSociale: "",
-          //   adresseSiegeDto: {
-          //     id: null,
-          //     numero: "",
-          //     rue: "",
-          //     ville: "",
-          //     codePostal: "",
-          //   },
-          // },
+          entrepriseDto: {
+            id: null,
+            raisonSociale: "",
+            adresseSiegeDto: {
+              id: null,
+              numero: "",
+              rue: "",
+              ville: "",
+              codePostal: "",
+            },
+          },
         },
 
         //On a des soucis si l'adresse de l'entreprise est null
@@ -310,8 +310,8 @@
     created() {
       //Pour etre sur, dans le doute, on fait les 3 tests
       if (
-        this.$route.params.id != null &&
-        this.$route.params.id != "" &&
+        this.$route.params.id != null ||
+        this.$route.params.id != "" ||
         this.$route.params.id != 0
       ) {
         utilisateurApi.getById(this.$route.params.id).then((response) => {
