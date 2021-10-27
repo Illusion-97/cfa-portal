@@ -143,6 +143,10 @@
             ville: "",
             codePostal: "",
           },
+          etudiantDto:{},
+          formateurDto:{},
+          cefDto:{},
+          maitreApprentissageDto:{},
           // entrepriseDto: {
           //   id: null,
           //   raisonSociale: "",
@@ -158,13 +162,13 @@
 
         //On a des soucis si l'adresse de l'entreprise est null
         //D'ou l'utilisation de cet objet
-        adresseEntreprise: {
-          id: null,
-          numero: "",
-          rue: "",
-          ville: "",
-          codePostal: "",
-        },
+        // adresseEntreprise: {
+        //   id: null,
+        //   numero: "",
+        //   rue: "",
+        //   ville: "",
+        //   codePostal: "",
+        // },
 
         isModalVisible: false,
 
@@ -215,15 +219,15 @@
         // if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
 
         //Si on renseigne l'adresse de l'entreprise
-        if (
-          this.adresseEntreprise.numero != "" ||
-          this.adresseEntreprise.rue != "" ||
-          this.adresseEntreprise.ville != "" ||
-          this.adresseEntreprise.codePostal != ""
-        ) {
+        // if (
+        //   this.adresseEntreprise.numero != "" ||
+        //   this.adresseEntreprise.rue != "" ||
+        //   this.adresseEntreprise.ville != "" ||
+        //   this.adresseEntreprise.codePostal != ""
+        // ) {
           // this.form.entrepriseDto.adresseSiegeDto = this.adresseEntreprise;
           // console.log("j'ai une entreprise");
-        }
+        // }
 
         // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj
         this.form.dateDeNaissance = this.backEndDateFormat(
@@ -298,8 +302,8 @@
           // Si id existant => conversion aaaa-mm-jj vers jj/mm/aaaa
           this.form.dateDeNaissance = this.frontEndDateFormat(response.dateDeNaissance);
 
-          if (response.entrepriseDto.adresseSiegeDto != null)
-            this.adresseEntreprise = response.entrepriseDto.adresseSiegeDto;
+          // if (response.entrepriseDto.adresseSiegeDto != null)
+          //   this.adresseEntreprise = response.entrepriseDto.adresseSiegeDto;
         });
       }
     },
