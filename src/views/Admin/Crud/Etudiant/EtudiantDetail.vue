@@ -23,10 +23,10 @@
             <b-card header="Formateur Référent">
               <div>
                 <p>
-                  {{ etudiant.formateurReferentDto.prenom }}
-                  {{ etudiant.formateurReferentDto.nom }}
+                  {{ maitreApprentissage.prenom }}
+                  {{ maitreApprentissage.nom }}
                 </p>
-                <p>{{ etudiant.formateurReferentDto.login }}</p>
+                <p>{{ maitreApprentissage.login }}</p>
               </div>
             </b-card>
           </div>
@@ -298,15 +298,16 @@ export default {
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => (this.absences = response));
 
-    
+    etudiantApi
+    .getFormateurReferent(this.$route.params.id)
+    .then(response => this.maitreApprentissage = response);
   },
   data() {
     return {
-      etudiant: {
-        formateurReferentDto: {},
-        managerDto: {},
+      etudiant: {        
+        managerDto: {prenom: "", nom:"", login: ""},
         groupesDto: {},
-        utilisateurDto: {},
+        utilisateurDto: {prenom: "", nom:"", login: ""},
       },
       notes: {
         devoirDto: {},
@@ -315,6 +316,8 @@ export default {
       absences: [],
       conges: [],
       groupe: [{etudiantsDto: {utilisateurDto: {prenom: "", nom: ""}}}],
+
+      maitreApprentissage: {prenom: "", nom:"", login: ""},
 
       onglet: 1,
     };
