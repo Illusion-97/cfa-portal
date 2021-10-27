@@ -226,23 +226,30 @@ export default {
             },
           });
           break;
-        case "ETUDIANT":
-
-          utilisateurApi
-            .getById(id)
-            .then((response) =>  this.$router.push({name: "admin_etudiant_detail",params: {id: response.etudiantDto.id}}))         
-          break;
+        // case "ETUDIANT":
+        //   utilisateurApi
+        //     .getById(id)
+        //     .then((response) =>  this.$router.push({name: "admin_etudiant_detail",params: {id: response.etudiantDto.id}}))         
+        //   break;
         // case "FORMATEUR":
-        //   console.log("pas de page detail pour formateur")
+        //   utilisateurApi
+        //     .getById(id)
+        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))      
         //   break;
         // case "REFERENT":
-        //   console.log("pas de page detail pour referent")
+        //   utilisateurApi
+        //     .getById(id)
+        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
         //   break;
         // case "CEF":
-        //   console.log("pas de page detail pour cef")
+        //    utilisateurApi
+        //     .getById(id)
+        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
         //   break;
         // case "ADMIN":
-        //   console.log("pas de page detail pour admin")
+        //    utilisateurApi
+        //     .getById(id)
+        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
         //   break;
       }
     },

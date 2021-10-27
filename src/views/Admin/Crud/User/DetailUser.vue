@@ -113,7 +113,7 @@ export default {
     },
   },
   created() {
-    utilisateurApi.getById(this.$route.params.id).then(response => {this.user = response; this.adresseDto = this.user.adresseDto; this.entrepriseDto = this.user.entrepriseDto});
+    utilisateurApi.getById(this.$route.params.id).then(response => {this.user = response; this.adresseDto = this.user.adresseDto;});
   },
 };
 </script>
