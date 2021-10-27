@@ -30,7 +30,7 @@ export const interventionApi = {
 function getIntervention(page, size, keyword = "") {
     const url = `${process.env.VUE_APP_API_URL}/${END_POINT}/${page - 1}/${size}/${keyword}`
     return axios
-        .get(url)
+        .get(url, requestOptions.headers())
         .then(response => response.data)
         .catch(err => console.error(err));
 }
@@ -113,7 +113,7 @@ function findStudentsByPromoInterventionId(id) {
     const url = `${END_POINT}/${id}/etudiants-promotion`
     // console.log(url);
     return axios
-        .get(url)
+        .get(url, requestOptions.headers())
         .then(response => response.data)
         .catch(err => console.error(err))
 }
@@ -121,7 +121,7 @@ function findStudentsByPromoInterventionId(id) {
 function findPromoByInterventionId(id) {
     const url = `${END_POINT}/${id}/promotions`
     return axios
-        .get(url)
+        .get(url, requestOptions.headers())
         .then(response => response.data)
         .catch(err => console.error(err))
 }
@@ -129,7 +129,7 @@ function findPromoByInterventionId(id) {
 function findAssignementByInterventionId(id) {
     const url = `${END_POINT}/${id}/devoirs`
     return axios
-        .get(url)
+        .get(url, requestOptions.headers())
         .then(response => response.data)
         .catch(err => console.error(err))
 }
@@ -137,7 +137,7 @@ function findAssignementByInterventionId(id) {
 function findTrainerByInterventionId(id) {
     const url = `${END_POINT}/${id}/formateurs`
     return axios
-        .get(url)
+        .get(url, requestOptions.headers())
         .then(response => response.data)
         .catch(err => console.error(err))
 }
@@ -145,7 +145,7 @@ function findTrainerByInterventionId(id) {
 function findAllSupportByInterventionId(id) {
     const url = `${END_POINT}/${id}/supports`
     return axios
-        .get(url)
+        .get(url, requestOptions.headers())
         .then(response => response.data)
         .catch(err => console.error(err))
 }

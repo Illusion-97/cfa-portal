@@ -135,9 +135,11 @@
           >
             <td>{{ groupe.nom }}</td>
             <!-- ATTENTION ici bug console => prenom -->
-            <td v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">
-              {{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}
-            </td>
+            <!-- <div v-if="groupe.length"> -->
+              <td v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">
+                {{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}
+              </td>
+            <!-- </div> -->
           </tr>
         </tbody>
       </table>

@@ -226,31 +226,31 @@ export default {
             },
           });
           break;
-        // case "ETUDIANT":
-        //   utilisateurApi
-        //     .getById(id)
-        //     .then((response) =>  this.$router.push({name: "admin_etudiant_detail",params: {id: response.etudiantDto.id}}))         
-        //   break;
-        // case "FORMATEUR":
-        //   utilisateurApi
-        //     .getById(id)
-        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))      
-        //   break;
-        // case "REFERENT":
-        //   utilisateurApi
-        //     .getById(id)
-        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
-        //   break;
-        // case "CEF":
-        //    utilisateurApi
-        //     .getById(id)
-        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
-        //   break;
-        // case "ADMIN":
-        //    utilisateurApi
-        //     .getById(id)
-        //     .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
-        //   break;
+        case "ETUDIANT":
+          utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_etudiant_detail",params: {id: response.etudiantDto.id}}))         
+          break;
+        case "FORMATEUR":
+          utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))      
+          break;
+        case "REFERENT":
+          utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
+          break;
+        case "CEF":
+           utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
+          break;
+        case "ADMIN":
+           utilisateurApi
+            .getById(id)
+            .then((response) =>  this.$router.push({name: "admin_user_detail",params: {id: response.id}}))   
+          break;
       }
     },
     clickList(utilisateur) {

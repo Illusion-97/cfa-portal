@@ -18,7 +18,7 @@ export const formationApi = {
 
 function getAll() {
   return axios
-    .get("/formations")
+    .get("/formations", requestOptions.headers())
     .then(response => response.data)
     .catch(err => console.error(err))
 }
