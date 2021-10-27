@@ -109,12 +109,12 @@
       </div>
     </form>
   
-    <EntrepriseListComponent
+    <!-- <EntrepriseListComponent v-if="form.rolesDto"
         class="col-11"
         v-on:click-list="onClickChildEntrepriseList"
         :entrepriseProp="entreprise_input"
         :class="{ collapse: isEntrepriseNew }"
-        />
+        /> -->
  
     <RoleModal v-show="isModalVisible" @close="closeModal" :rolesProp="rolesComputed" v-on:close="onClickClose" />
   </div>
@@ -125,7 +125,7 @@
   import { utilisateurApi } from "@/_api/utilisateur.api.js";
   import BodyTitle from "@/components/utils/BodyTitle.vue";
   // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
-  // import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+  //import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
   import RoleModal from "@/components/Modal/RoleModal.vue";
 
   export default {
@@ -133,7 +133,7 @@
     components: {
       BodyTitle,
       // AdresseListComponent,
-      // EntrepriseListComponent,
+      //EntrepriseListComponent,
       RoleModal,
     },
     data() {
@@ -158,28 +158,21 @@
             ville: "",
             codePostal: "",
           },
-          entrepriseDto: {
-            id: null,
-            raisonSociale: "",
-            adresseSiegeDto: {
-              id: null,
-              numero: "",
-              rue: "",
-              ville: "",
-              codePostal: "",
-            },
-          },
+          etudiantDto:{},
+          formateurDto:{},
+          cefDto:{},
+          maitreApprentissageDto:{},
         },
 
         //On a des soucis si l'adresse de l'entreprise est null
         //D'ou l'utilisation de cet objet
-        adresseEntreprise: {
-          id: null,
-          numero: "",
-          rue: "",
-          ville: "",
-          codePostal: "",
-        },
+        // adresseEntreprise: {
+        //   id: null,
+        //   numero: "",
+        //   rue: "",
+        //   ville: "",
+        //   codePostal: "",
+        // },
 
         isModalVisible: false,
 
