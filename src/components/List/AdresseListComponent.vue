@@ -24,8 +24,8 @@
         >Ajouter une adresse</router-link
       >
     </div>
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped table-hover table-hover">
+      <thead>
         <tr>
           <th>Numero</th>
           <th>Rue</th>

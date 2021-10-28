@@ -30,6 +30,8 @@
         <tr>
           <!-- <th>#</th> -->
           <th>Raison Sociale</th>
+          <th>Siret</th>
+          <th>NAF</th>
           <th>Adresse</th>
           <!-- <th v-if="isAction">Action</th> -->
         </tr>
@@ -42,6 +44,8 @@
         
           <!-- <td>{{ entreprise.id }}</td> -->
           <td>{{ entreprise.raisonSociale }} </td>
+          <td>{{ entreprise.siret }} </td>
+          <td>{{ entreprise.naf }} </td>
           <td>{{ entreprise.adresseSiegeDto.numero }},{{ entreprise.adresseSiegeDto.rue}}, {{ entreprise.adresseSiegeDto.ville }}, {{ entreprise.adresseSiegeDto.codePostal }}  </td>
           <!-- <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_entreprise_detail', params: { id: entreprise.id }}">Details</router-link>

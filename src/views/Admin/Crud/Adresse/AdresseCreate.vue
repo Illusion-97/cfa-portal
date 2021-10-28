@@ -9,7 +9,7 @@
         <b-form-row class="text-align-left">
           <label class="col-1">Numero</label>
           <div class="col-5 pr-5">
-            <b-form-input
+            <b-form-input type="number" min="0" placeholder="0"
               v-model="form.numero"
               required
             ></b-form-input>
@@ -46,7 +46,7 @@
           <label class="col-1">Code Postal</label>
           <div class="col-5 pr-5">
             <b-form-input
-              v-model="form.codePostal"
+              v-model="form.codePostal" type="number" min="0" placeholder="01"
               required
             ></b-form-input>
           </div>
