@@ -20,6 +20,9 @@
         <label for="" class="col-2">Raison Sociale :</label>
         <input type="text" class="form-control col-3" v-model="form.raisonSociale" required />
       </div>
+       <router-link :to="{ name: 'admin_addEntreprise_adresse' }" class="btn btn-outline-primary float-right px-5">
+        Ajouter une Adresse
+      </router-link>
       <div class="form-group row">
         <label for="" class="col-1">Adresse :</label>
         <AdresseListComponent v-on:click-list="onClickChildAdresseList" :adresseProp="adresse_input" class="col-11" />

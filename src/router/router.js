@@ -158,6 +158,7 @@ import AdresseDetail from "@/views/Admin/Crud/Adresse/AdresseDetail.vue";
 import EntrepriseList from "@/views/Admin/Crud/Entreprise/EntrepriseList.vue";
 import AddEntreprise from "@/views/Admin/Crud/Entreprise/EntrepriseCreate.vue";
 import EntrepriseDetail from "@/views/Admin/Crud/Entreprise/EntrepriseDetail.vue";
+import AddEntrepriseAdresse from "@/views/Admin/Crud/Entreprise/EntrepriseAddAdresse.vue";
 //Cursus
 import CursusList from "@/views/Admin/Crud/Cursus/CursusList.vue";
 import AddCursus from "@/views/Admin/Crud/Cursus/CursusCreate.vue";
@@ -392,6 +393,7 @@ const routes = [
   //Entreprise
   { path: "/admin/entreprises", name:"admin_entreprise_list", component: EntrepriseList, meta: { authorize: [Role.Admin] }},
   { path: "/admin/entreprises/create", name:"admin_addEntreprise", component: AddEntreprise, meta: { authorize: [Role.Admin] }},
+  { path: "/admin/entreprises/createAdresse", name:"admin_addEntreprise_adresse", component: AddEntrepriseAdresse, meta: { authorize: [Role.Admin] }},
   { path: "/admin/entreprises/update/:id", name:"admin_entreprise_update", component: AddEntreprise, meta: { authorize: [Role.Admin] }},  
   { path: "/admin/entreprises/detail/:id", name:"admin_entreprise_detail", component: EntrepriseDetail, meta: { authorize: [Role.Admin] }},
   //Cursus
