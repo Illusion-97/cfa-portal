@@ -20,6 +20,22 @@
         <label for="" class="col-2">Raison Sociale :</label>
         <input type="text" class="form-control col-3" v-model="form.raisonSociale" required />
       </div>
+      <div class="form-group row">
+        <label for="" class="col-2">Siret :</label>
+        <input type="text" class="form-control col-3" v-model="form.siret" required />
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-2">NAF :</label>
+        <input type="text" class="form-control col-3" v-model="form.naf" required />
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-2">Effectif Total :</label>
+        <input type="text" class="form-control col-3" v-model="form.effectifTotal" required />
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-2">Type d'employeur :</label>
+        <input type="text" class="form-control col-3" v-model="form.employeurType" required />
+      </div>
        <router-link :to="{ name: 'admin_addEntreprise_adresse' }" class="btn btn-outline-primary float-right px-5">
         Ajouter une Adresse
       </router-link>
@@ -53,6 +69,10 @@
         form: {
           id: null,
           raisonSociale: "",
+          siret: "",
+          naf: "",
+          effectifTotal: "",
+          employeurType: "",
           adresseSiegeDto: {},
         },
         adresse: null,

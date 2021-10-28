@@ -32,11 +32,31 @@
 
         <b-card-text class="identity row ml-6">
           <span class="font-weight-bold col-md-2">Id :</span>
-          <span class="col-md-10">{{ entreprise.id }}</span>
-          <span class="font-weight-bold col-md-2">Raison Sociale : </span>
-          <span class="col-md-10">{{ entreprise.raisonSociale }}</span>
+          <span class="col-md-9">{{ entreprise.id }}</span>
+        </b-card-text>
+        <b-card-text class="identity row ml-6">
+          <span class="font-weight-bold col-md-3">Raison Sociale : </span>
+          <span class="col-md-9">{{ entreprise.raisonSociale }}</span>
+        </b-card-text>
+        <b-card-text class="identity row ml-6">  
+          <span class="font-weight-bold col-md-2">Siret : </span>
+          <span class="col-md-9">{{ entreprise.siret }}</span>
+        </b-card-text>
+        <b-card-text class="identity row ml-6">
+          <span class="font-weight-bold col-md-2">NAF : </span>
+          <span class="col-md-9">{{ entreprise.naf }}</span>
+        </b-card-text>
+        <b-card-text class="identity row ml-6">
+          <span class="font-weight-bold col-md-2">Effectif Total : </span>
+          <span class="col-md-9">{{ entreprise.effectifTotal }}</span>
+        </b-card-text>
+        <b-card-text class="identity row ml-6">
+          <span class="font-weight-bold col-md-3">Type d'employeur : </span>
+          <span class="col-md-9">{{ entreprise.employeurType }}</span>
+        </b-card-text>
+        <b-card-text class="identity row ml-6">
           <span class="font-weight-bold col-md-2">Adresse : </span>
-          <span class="col-md-10">{{ adresseSiegeDto.numero}} {{adresseSiegeDto.rue }}, {{adresseSiegeDto.codePostal }}, {{adresseSiegeDto.ville }}</span>
+          <span class="col-md-9">{{ adresseSiegeDto.numero}} {{adresseSiegeDto.rue }}, {{adresseSiegeDto.codePostal }}, {{adresseSiegeDto.ville }}</span>
         </b-card-text>
 
     </b-card>
@@ -84,6 +104,9 @@ export default {
     },
     deleteEntreprise() {
       entrepriseApi.deleteEntreprise(this.$route.params.id).then(() => this.goBack());
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   }
 };
