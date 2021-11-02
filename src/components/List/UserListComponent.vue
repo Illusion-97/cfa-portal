@@ -25,9 +25,9 @@
         <button class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
-        <form action="POST" enctype="multipart/form-data" @change="makeToast(true)">
-          <input id="file" type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload"
-            style="display:none" accept=".csv" />
+        <form action="POST" class="d-flex" enctype="multipart/form-data">
+          <input id="file" type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload" accept="*" />
+          <button class="btn btn-secondary rounded-sm" @click="makeToast(variant)" type="button" id="btn-import">Importer</button>
         </form>
         <!-- <UploadUserModal idName="usrimprt"/> -->
         <router-link class="btn btn-outline-primary px-3 mx-3" :to="{ name: 'admin_addUser' }" v-if="isAction">Ajouter
@@ -81,8 +81,12 @@
 </template>
 
 <script>
-  import { utilisateurApi } from "@/_api/utilisateur.api.js";
-  import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
+  import {
+    utilisateurApi
+  } from "@/_api/utilisateur.api.js";
+  import {
+    utilisateursRoleApi
+  } from "@/_api/utilisateurRole.api.js";
   // import UploadUserModal from "@/components/Modal/UploadUserModal.vue";
   export default {
     name: "UserListComponent",
@@ -114,8 +118,10 @@
 
         utilisateur_input: "",
         selected_role: "",
+        // Gestion de l'import de fichier
         file_imported: "",
-        successMsg: ""
+        toast_message: "",
+        variant: ""
       };
     },
     computed: {
@@ -135,20 +141,33 @@
     },
 
     methods: {
-      makeToast(append = false) {
+      makeToast(variant) {
         utilisateurApi.uploadUser(this.formData)
           .then((res) => {
-            this.successMsg = res
-            this.file_imported = ""
-            this.formData = null
+            this.variant = variant;
+            this.toast_message = res;
+            res.status == 200 ? this.variant = "success" : this.variant = "danger"; // if else ternaire
           }).then(() => {
-            this.$bvToast.toast(this.successMsg.data, {
+            if (this.file_imported == "") {
+              this.$bvToast.toast("Fichier introuvable", {
+                title: 'Import des utilisateurs',
+                autoHideDelay: 5000,
+                variant: this.variant
+                // appendToast: append
+              })
+            }
+            this.$bvToast.toast(this.toast_message.data, {
               title: 'Import des utilisateurs',
               autoHideDelay: 5000,
-              appendToast: append
+              variant: this.variant
+              // appendToast: append
             })
           })
-          .then(() => this.refreshList());
+          .then(() => {
+            this.refreshList();
+            document.getElementById("file").value = "";
+            this.formData = null;
+          })
 
       },
       handleFileUpload(e) {
@@ -168,6 +187,8 @@
         e.preventDefault();
         document.getElementById("toggle").style.display = "none";
         document.getElementById("file").style.display = "block";
+        document.getElementById("btn-import").style.display = "block";
+
       },
       getRoles() {
         utilisateursRoleApi.getAll().then((data) => (this.roles = data));
@@ -252,3 +273,11 @@
   };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<style scoped lang="css">
+  #file,
+  #btn-import {
+    display: none;
+  }
+</style>>
+
+</style>
