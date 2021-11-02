@@ -229,5 +229,5 @@ function isReferent(id) {
 function uploadUser(file) {
   return axios.post(`${END_POINT}/upload-file`, file, requestOptions.headers())
     .then(response => response)
-    .catch(err => console.error(err))
+    .catch(err => err.response)
 }
