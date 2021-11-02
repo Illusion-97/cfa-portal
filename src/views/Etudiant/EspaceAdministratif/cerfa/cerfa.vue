@@ -1,7 +1,7 @@
 <template>
 <div>
 <div>
-<!-- <div><img src="image/background1.jpg" width=595 height=841></div> -->
+<div><img src="@/assets/img/background1.jpg" width=595 height=841></div>
 <div  class="cls_002"><span class="cls_002">Contrat d’apprentissage</span></div>
 <div  class="cls_003"><span class="cls_003">(art. L6211-1 et suivants du code du travail)</span></div>
 <div class="cls_006"><span class="cls_006">(Lire ATTENTIVEMENT la notice Cerfa de remplir ce document)</span></div>
@@ -85,7 +85,7 @@
 <div class="cls_020"><span class="cls_020">L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</span></div>
 </div>
 
-<!--<div><img src="image/background2.jpg" width=595 height=841></div> -->
+<!--<div><img src="@/assets/img/background2.jpg" width=595 height=841></div> -->
 <div class="cls_010"><span class="cls_010">LE CONTRAT</span></div>
 <div class="cls_013"><span class="cls_013">Type de contrat ou d’avenant :</span></div>
 <div class="cls_013"><span class="cls_013">Type de dérogation</span><span class="cls_007"> :</span></div>
