@@ -9,8 +9,8 @@
         <b-form-row class="text-align-left">
           <label class="col-1">Numero</label>
           <div class="col-5 pr-5">
-            <b-form-input type="number" min="0" placeholder="0"
-              v-model="form.numero"
+            <b-form-input
+              v-model="form.numero" type="number" min="0" placeholder="0"
               required
             ></b-form-input>
           </div>
@@ -59,14 +59,14 @@
       </div>
     </b-form>
 
-    <router-link
-      :to="{ name: 'admin_adresse_list' }"
+    <a
+      @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </router-link>
+    </a>
 
     </div>
 
@@ -100,7 +100,10 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      adresseApi.save(this.form).then(() => this.$router.push({ name: 'admin_adresse_list'}));
+      adresseApi.save(this.form).then(() => this.goBack());
+    },
+    goBack() {
+      this.$router.go(-1);
     },
   },
   created() {

@@ -65,6 +65,7 @@
             <!-- <router-link class="nav-item" :to="{name:'all-intervention'}">Interventions</router-link> -->
             <router-link class="nav-item" :to="{ name: 'admin_entreprise_list' }">Entreprise</router-link>
             <router-link class="nav-item" :to="{ name: 'admin_centreFormation_list' }">Centre de Formation</router-link>
+            <router-link class="nav-item" :to="{ name: 'admin_adresse_list' }">Adresse</router-link>
           </b-nav>
         </nav>
       </div>
