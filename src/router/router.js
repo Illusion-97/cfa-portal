@@ -52,7 +52,6 @@ import DemandeConge from "@/views/Etudiant/EspaceAdministratif/DemandeConge.vue"
 import FicheSalarie from "@/views/Etudiant/EspaceAdministratif/FicheSalarie.vue";
 import FichePoste from "@/views/Etudiant/EspaceAdministratif/FichePoste.vue";
 import FicheEntreprise from "@/views/Etudiant/EspaceAdministratif/FicheEntreprise.vue";
-import ProfilUpdate from "@/views/Etudiant/EspaceAdministratif/ProfilUpdate.vue";
 import Cerfa from "@/views/Etudiant/EspaceAdministratif/cerfa/cerfa.vue"
 //Etudiant Pedagogique
 // import Acceuil from "@/views/Etudiant/EspacePedagogique/Acceuil.vue";
