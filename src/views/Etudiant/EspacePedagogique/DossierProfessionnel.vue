@@ -95,8 +95,8 @@ export default {
       fileApi.deleteByDirectoryAndIdAndDirectoryAndFilename("utilisateurs", this.$store.getters.getUtilisateur.id,"DossierProfessionnel", file.nom);
     },
      refreshList() {
-    cursusApi.getCurrentCursusByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.form.cursusDto = response)
-    dossierProfessionnelApi.getByIdEtudiant(this.$store.getters.getUtilisateur.id).then(response => this.files = response)
+    cursusApi.getCurrentCursusByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id).then(response => this.form.cursusDto = response)
+    dossierProfessionnelApi.getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id).then(response => this.files = response)
      }
   }
 }

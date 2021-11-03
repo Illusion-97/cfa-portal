@@ -1,9 +1,11 @@
 import axios from "axios";
-import { requestOptions } from "@/_helpers/request-options.js";
+import {
+  requestOptions
+} from "@/_helpers/request-options.js";
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const utilisateurApi = {
-  
+
   getById,
   getByLogin,
   getAllByPage,
@@ -21,9 +23,10 @@ export const utilisateurApi = {
   updateUtilisateur,
   deleteUtilisateur,
   getAllUsersByName,
-  save, 
+  save,
 
   isReferent,
+  uploadUser,
 
 };
 
@@ -39,76 +42,76 @@ function getById(id) {
 }
 */
 
-function getAllByPage(page, size, search = ""){
+function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
-function getCount(search = ""){
+function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
 
-  return  axios 
-      .get(req, requestOptions.headers())
-      .then(response => response.data["nb"])
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
 }
 
-function getByRoleByPage(role = "", page, size, search = ""){
+function getByRoleByPage(role = "", page, size, search = "") {
   let req = "";
 
-  if(role == ""){
-    if(search == "") req = `/${END_POINT}/${page}/${size}`;
-    else req = `/${END_POINT}/${page}/${size}?search=${search}`;    
-  }else{
-    if(search == "") req = `/${END_POINT}/${page}/${size}?role=${role}`;
+  if (role == "") {
+    if (search == "") req = `/${END_POINT}/${page}/${size}`;
+    else req = `/${END_POINT}/${page}/${size}?search=${search}`;
+  } else {
+    if (search == "") req = `/${END_POINT}/${page}/${size}?role=${role}`;
     else req = `/${END_POINT}/${page}/${size}?role=${role}&search=${search}`;
   }
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
-function getCountByRole(role, search = ""){
+function getCountByRole(role, search = "") {
   let req = "";
 
-  if(role == ""){
-    if(search == "") req = `/${END_POINT}/count`;
-    else req = `/${END_POINT}/count?search=${search}`;    
-  }else{
-    if(search == "") req = `/${END_POINT}/count?role=${role}`;
+  if (role == "") {
+    if (search == "") req = `/${END_POINT}/count`;
+    else req = `/${END_POINT}/count?search=${search}`;
+  } else {
+    if (search == "") req = `/${END_POINT}/count?role=${role}`;
     else req = `/${END_POINT}/count?role=${role}&search=${search}`;
   }
 
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data["nb"])
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
 }
 
 
-function getById(id){
+function getById(id) {
   let req = `/utilisateurs/${id}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
-function getByLogin(login){
+function getByLogin(login) {
   let req = `/utilisateurs/email=${login}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
 
@@ -157,12 +160,12 @@ function getAllUtilisateurs() {
 }
 
 
-  async function getAllUsersByName(name) {
-    let users = [];
-    const response = await axios.get(`$/admin/userList?name=${name}`, requestOptions.headers());
-    users = response.data;
-    return users;
-  }
+async function getAllUsersByName(name) {
+  let users = [];
+  const response = await axios.get(`$/admin/userList?name=${name}`, requestOptions.headers());
+  users = response.data;
+  return users;
+}
 
 
 
@@ -195,18 +198,18 @@ function updateUtilisateur(Utilisateur) {
 }
 
 function save(form) {
-  let req =  "utilisateurs";
+  let req = "utilisateurs";
 
   return axios
-      .post(req, form, requestOptions.headers())
-      .then((response) => {
-        console.log("response : ", response);
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error)
-        throw error;
-      });
+    .post(req, form, requestOptions.headers())
+    .then((response) => {
+      console.log("response : ", response);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error)
+      throw error;
+    });
 
 }
 
@@ -225,3 +228,8 @@ function isReferent(id) {
     .catch((error) => console.log(error));
 }
 
+function uploadUser(id,file) {
+  return axios.post(`${END_POINT}/${id}/upload-file`, file, requestOptions.headers())
+    .then(response => response)
+    .catch(err => err.response)
+}
