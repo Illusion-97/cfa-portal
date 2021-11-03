@@ -50,7 +50,7 @@ function getCount(search = ""){
 
 function save(entreprise) {
   return axios
-    .post(`${END_POINT}`, entreprise, requestOptions.headers())
+    .post(`/${END_POINT}`, entreprise, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

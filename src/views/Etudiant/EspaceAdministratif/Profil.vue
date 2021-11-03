@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
           <router-link class="link" :to="{ name: 'fiche-salarie' }">
             <b-card class="card-btn" header="Fiche Salarié">
               <span class="font-weight-bold" style="font-size:16px">Description : </span>
@@ -49,7 +49,7 @@
             </b-card>
           </router-link>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <router-link class="link" :to="{ name: 'fiche-poste' }">
             <b-card header="Fiche de Poste" class="card-btn">
               <span class="font-weight-bold" style="font-size:16px">Description : </span>
@@ -59,7 +59,7 @@
             </b-card>
           </router-link>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <router-link class="link" :to="{ name: 'fiche-entreprise' }">
             <b-card class="card-btn" header="Fiche Entreprise">
               <span class="font-weight-bold" style="font-size:16px">Description : </span>
@@ -67,6 +67,15 @@
                 Regroupe les caractéristique de l'entreprise, les risques
                 professionnels et les actions tendant à leur
                 réduction</b-card-text>
+            </b-card>
+          </router-link>
+        </div>
+        <div class="col-3">
+          <router-link class="link" :to="{ name: 'etudiant_cerfa' }">
+            <b-card class="card-btn" header="Cerfa">
+              <span class="font-weight-bold" style="font-size:16px">Description : </span>
+              <b-card-text>
+              Contrat de l'étudiant</b-card-text>
             </b-card>
           </router-link>
         </div>
