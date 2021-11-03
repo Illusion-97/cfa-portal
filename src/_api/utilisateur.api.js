@@ -1,5 +1,7 @@
 import axios from "axios";
-import { requestOptions } from "@/_helpers/request-options.js";
+import {
+  requestOptions
+} from "@/_helpers/request-options.js";
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const utilisateurApi = {
@@ -226,8 +228,8 @@ function isReferent(id) {
     .catch((error) => console.log(error));
 }
 
-function uploadUser(file) {
-  return axios.post(`${END_POINT}/upload-file`, file, requestOptions.headers())
+function uploadUser(id,file) {
+  return axios.post(`${END_POINT}/${id}/upload-file`, file, requestOptions.headers())
     .then(response => response)
     .catch(err => err.response)
 }
