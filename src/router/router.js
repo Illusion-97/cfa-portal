@@ -225,7 +225,6 @@ const routes = [
   { path: "/etudiant/espace-administratif/fiche-salarie", name: "fiche-salarie", component: FicheSalarie, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/fiche-poste", name: "fiche-poste", component: FichePoste, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/fiche-entreprise", name: "fiche-entreprise", component: FicheEntreprise, meta: { authorize: [Role.Etudiant] } },
-  { path: "/etudiant/espace-administratif/profil/update/:id", name: "etudiant_profil_update", component: ProfilUpdate, meta: { authorize: [Role.Etudiant] } },
   { path: "/etudiant/espace-administratif/cerfa", name: "etudiant_cerfa", component: Cerfa, meta: { authorize: [Role.Etudiant] } },
   
   //Etudiant Pedagogique
