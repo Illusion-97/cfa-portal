@@ -26,10 +26,10 @@
           utilisateurs
         </button>
         <form action="POST" class="d-flex" enctype="multipart/form-data">
-          <input id="file" type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload" accept="*" />
-          <button class="btn btn-secondary rounded-sm" @click="makeToast(variant)" type="button" id="btn-import">Importer</button>
+          <input id="file" type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload" accept=".csv" />
+          <button class="btn btn-secondary rounded-sm" @click="makeToast(variant)" type="button"
+            id="btn-import">Importer</button>
         </form>
-        <!-- <UploadUserModal idName="usrimprt"/> -->
         <router-link class="btn btn-outline-primary px-3 mx-3" :to="{ name: 'admin_addUser' }" v-if="isAction">Ajouter
           un utilisateur</router-link>
       </div>
@@ -60,10 +60,8 @@
             <button class="btn btn-info" v-on:click="detailUtilisateur(user.id)">
               Details
             </button>
-            <!-- &nbsp; -->
             <router-link class="btn btn-success mx-2" :to="{ name: 'admin_user_update', params: { id: user.id } }">
               Modifier</router-link>
-            <!-- &nbsp; -->
             <button class="btn btn-danger" v-on:click="deleteUtilisateur(user.id)">
               Supprimer
             </button>
@@ -81,18 +79,10 @@
 </template>
 
 <script>
-  import {
-    utilisateurApi
-  } from "@/_api/utilisateur.api.js";
-  import {
-    utilisateursRoleApi
-  } from "@/_api/utilisateurRole.api.js";
-  // import UploadUserModal from "@/components/Modal/UploadUserModal.vue";
+  import { utilisateurApi } from "@/_api/utilisateur.api.js";
+  import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
   export default {
     name: "UserListComponent",
-    components: {
-      // UploadUserModal
-    },
     props: {
       isAction: {
         type: Boolean,
@@ -111,6 +101,7 @@
     data() {
       return {
         users: [],
+        userId : this.$store.getters.getUtilisateur.id,
         roles: [],
         perPage: 10,
         pageCount: 0,
@@ -121,7 +112,8 @@
         // Gestion de l'import de fichier
         file_imported: "",
         toast_message: "",
-        variant: ""
+        variant: "",
+        formData : null
       };
     },
     computed: {
@@ -141,36 +133,28 @@
     },
 
     methods: {
-      makeToast(variant) {
-        utilisateurApi.uploadUser(this.formData)
+      makeToast(variant) { // genere une notif si l'import du fichier est reussi ou non
+        utilisateurApi.uploadUser(this.userId,this.formData) // appel du service pour l'upload
           .then((res) => {
             this.variant = variant;
             this.toast_message = res;
-            res.status == 200 ? this.variant = "success" : this.variant = "danger"; // if else ternaire
-          }).then(() => {
-            if (this.file_imported == "") {
-              this.$bvToast.toast("Fichier introuvable", {
-                title: 'Import des utilisateurs',
-                autoHideDelay: 5000,
-                variant: this.variant
-                // appendToast: append
-              })
-            }
+            res.status == 200 ? this.variant = "success" : this.variant = "danger"; // change la couleur du toast en fonction du statuscode
+            this.file_imported != "" ? this.toast_message = res : this.toast_message.data = "Fichier introuvable";
+          }).then(() => { // genere le toast
             this.$bvToast.toast(this.toast_message.data, {
               title: 'Import des utilisateurs',
               autoHideDelay: 5000,
               variant: this.variant
-              // appendToast: append
             })
           })
-          .then(() => {
+          .then(() => { // une fois l'upload reussi => on met à jour la liste
             this.refreshList();
             document.getElementById("file").value = "";
             this.formData = null;
           })
 
       },
-      handleFileUpload(e) {
+      handleFileUpload() { // recupere les donnée du fichier uploadé
         this.file_imported = this.$refs.file.files[0];
         this.formData = new FormData();
         this.formData.append("file", this.file_imported);
