@@ -137,11 +137,11 @@
         utilisateurApi.uploadUser(this.userId,this.formData) // appel du service pour l'upload
           .then((res) => {
             this.variant = variant;
-            this.toast_message = res;
+            // this.toast_message = res.data;
+            this.file_imported != "" ? this.toast_message = res.data : this.toast_message = "Fichier introuvable";
             res.status == 200 ? this.variant = "success" : this.variant = "danger"; // change la couleur du toast en fonction du statuscode
-            this.file_imported != "" ? this.toast_message = res : this.toast_message.data = "Fichier introuvable";
           }).then(() => { // genere le toast
-            this.$bvToast.toast(this.toast_message.data, {
+            this.$bvToast.toast(this.toast_message, {
               title: 'Import des utilisateurs',
               autoHideDelay: 5000,
               variant: this.variant
