@@ -29,6 +29,8 @@ import { Role } from '@/_helpers/role.js';
 //#######################
 import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
+import NotFound from "@/views/NotFound.vue";
+
 // import secure from '@/components/secure.vue'
 // Global -> Intervention
 import AllInterventions from "@/views/All/Intervention/AllInterventions.vue";
@@ -200,8 +202,7 @@ Vue.use(VueRouter);
 
 const routes = [
 
-  { path: '*', redirect: '/home' },
-
+  
   //#######################
   //#       GLOBAL        #
   //#######################
@@ -209,6 +210,7 @@ const routes = [
   
   { path: "/home", name: "home", component: Home, },
   { path: "/login", name: "login", component: LoginPage },
+  { path: '*', component: NotFound },
   // { path: '/secure', name: 'secure', component: secure},
 
 
