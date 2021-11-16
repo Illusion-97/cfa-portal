@@ -87,7 +87,7 @@ export default {
       e.preventDefault();
 
       authenticationApi.login(this.email,this.password)
-        .then(()=>this.$router.push({name: 'home'}))
+        // .then(()=>this.$router.push({name: 'home'}))
         .catch(error => {
           // console.log(error);
           if(error.response.data.message == "Erreur : identifiants incorrects !"){

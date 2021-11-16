@@ -222,21 +222,11 @@
         //Si on ne donne pas d'entreprise, on la set a null pour ne rien save dans le back
         // if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
 
-        //Si on renseigne l'adresse de l'entreprise
-        if (
-          this.adresseEntreprise.numero != "" ||
-          this.adresseEntreprise.rue != "" ||
-          this.adresseEntreprise.ville != "" ||
-          this.adresseEntreprise.codePostal != ""
-        ) {
-          // this.form.entrepriseDto.adresseSiegeDto = this.adresseEntreprise;
-          // console.log("j'ai une entreprise");
-        }
-
         // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj
         this.form.dateDeNaissance = this.backEndDateFormat(
           this.form.dateDeNaissance
         );
+        
         utilisateurApi
           .save(this.form)
           .then(() =>
@@ -314,9 +304,6 @@
 
           // Si id existant => conversion aaaa-mm-jj vers jj/mm/aaaa
           this.form.dateDeNaissance = this.frontEndDateFormat(response.dateDeNaissance);
-
-          if (response.entrepriseDto.adresseSiegeDto != null)
-            this.adresseEntreprise = response.entrepriseDto.adresseSiegeDto;
         });
       }
     },
