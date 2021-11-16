@@ -262,6 +262,4 @@
   #btn-import {
     display: none;
   }
-</style>>
-
 </style>
