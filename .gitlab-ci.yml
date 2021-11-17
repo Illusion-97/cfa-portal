@@ -20,8 +20,8 @@ npm_cache:
     paths:
       - node_modules/
     policy: push
-  only:
-    - dev-kanha
+#  rules:
+#    - changes: package.json
 
 
 build:
@@ -65,5 +65,5 @@ archive:
       -o StrictHostKeyChecking=no
       -b archive_batch
       $ARCHIVE_USER@$ARCHIVE_HOST
-  only:
-    - dev
+  rules:
+    -if: $CI_COMMIT_BRANCH == "dev"
