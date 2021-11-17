@@ -8,6 +8,7 @@ stages:
   
 variables:
   ARCHIVE_NAME: cfa
+  TRIGGER_CACHE: "off"
 
 npm_cache:
   stage: init
@@ -20,8 +21,9 @@ npm_cache:
     paths:
       - node_modules/
     policy: push
-#  rules:
-#    - changes: package.json
+    rules:
+     - changes: package.json
+     - if: $TRIGGER_CACHE == "on"
 
 
 build:
