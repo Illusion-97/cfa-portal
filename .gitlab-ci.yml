@@ -66,4 +66,4 @@ archive:
       -b archive_batch
       $ARCHIVE_USER@$ARCHIVE_HOST
   rules:
-    -if: $CI_COMMIT_BRANCH == "dev"
+    - if: $CI_COMMIT_BRANCH == "dev"
