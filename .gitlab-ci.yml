@@ -22,7 +22,8 @@ npm_cache:
       - node_modules/
     policy: push
   rules:
-    - changes: package.json
+    - changes: 
+        - package.json
     - if: $TRIGGER_CACHE == "on"
 
 
