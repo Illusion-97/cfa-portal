@@ -21,9 +21,9 @@ npm_cache:
     paths:
       - node_modules/
     policy: push
-    rules:
-     - changes: package.json
-     - if: $TRIGGER_CACHE == "on"
+  rules:
+    - changes: package.json
+    - if: $TRIGGER_CACHE == "on"
 
 
 build:
