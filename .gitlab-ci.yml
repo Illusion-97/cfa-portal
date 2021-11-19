@@ -8,6 +8,7 @@ stages:
   
 variables:
   ARCHIVE_NAME: cfa
+  TRIGGER_CACHE: "off"
 
 npm_cache:
   stage: init
@@ -20,8 +21,10 @@ npm_cache:
     paths:
       - node_modules/
     policy: push
-  only:
-    - dev-kanha
+  rules:
+    - changes: 
+        - package.json
+    - if: $TRIGGER_CACHE == "on"
 
 
 build:
@@ -65,5 +68,5 @@ archive:
       -o StrictHostKeyChecking=no
       -b archive_batch
       $ARCHIVE_USER@$ARCHIVE_HOST
-  only:
-    - dev
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
