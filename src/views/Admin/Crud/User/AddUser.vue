@@ -68,14 +68,9 @@
           <label for="nom">Email</label>
           <input type="email" name="email" id="login" class="form-control" placeholder="jmichel@dawan.fr"
             v-model="form.login" autocomplete="email" />
-          <!-- {{form.prenom[0]+form.nom | lowercase}} -->
         </div>
 
-        <!-- <div class="form-group col-6">
-          <label for="nom">Mot de passe</label>
-          <input type="password" name="password" class="form-control" placeholder="Mot de passe"
-            v-model="form.password" autocomplete="new-password" @input="this.setCustomValidity('')"/>
-        </div> -->
+
       </div>
       <div class="d-flex">
         <div class="form-group col-6">
@@ -108,14 +103,7 @@
         <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
       </div>
     </form>
-  
-    <!-- <EntrepriseListComponent v-if="form.rolesDto"
-        class="col-11"
-        v-on:click-list="onClickChildEntrepriseList"
-        :entrepriseProp="entreprise_input"
-        :class="{ collapse: isEntrepriseNew }"
-        /> -->
- 
+   
     <RoleModal v-show="isModalVisible" @close="closeModal" :rolesProp="rolesComputed" v-on:close="onClickClose" />
   </div>
 </template>
@@ -293,9 +281,9 @@
     created() {
       //Pour etre sur, dans le doute, on fait les 3 tests
       if (
-        this.$route.params.id != null ||
-        this.$route.params.id != "" ||
-        this.$route.params.id != 0
+        this.$route.params.id != null &&
+        this.$route.params.id != "" &&
+        this.$route.params.id != 0 
       ) {
         utilisateurApi.getById(this.$route.params.id).then((response) => {
           this.vue_title = "Modifier l'utilisateur";
