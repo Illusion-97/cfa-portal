@@ -150,6 +150,7 @@ import EtudiantFichePoste from "@/views/Admin/Crud/Etudiant/EtudiantFichePoste.v
 import EtudiantFichePosteDetail from "@/views/Admin/Crud/Etudiant/EtudiantFichePosteDetail.vue";
 import EtudiantFicheEntreprise from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntreprise.vue";
 import EtudiantFicheEntrepriseDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntrepriseDetail.vue";
+import CerfaAdmin from "@/views/Admin/Crud/Etudiant/EtudiantCerfa.vue"
 //Absence
 import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
 import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
@@ -430,31 +431,32 @@ const routes = [
   { path: "/admin/centreFormations/create", name: "admin_centreFormation_create", component: AddCentreFormation, meta: { authorize: [Role.Admin] } },
   { path: "/admin/centreFormations/update/:id", name: "admin_centreFormation_update", component: AddCentreFormation, meta: { authorize: [Role.Admin] } },
   { path: "/admin/centreFormations/detail/:id", name: "admin_centreFormation_detail", component: CentreFormationDetail, meta: { authorize: [Role.Admin] } },
-  //Etudiant
-  { path: "/admin/etudiants/fiche-salarie/detail/:id", name: "admin_etudiant_fiche_salarie_detail", component: EtudiantFicheSalarieDetail, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-poste/update/:id", name: "admin_etudiant_fiche_poste_update", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-entreprise/update/:id", name: "admin_etudiant_fiche_entreprise_update", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-poste/detail/:id", name: "admin_etudiant_fiche_poste_detail", component: EtudiantFichePosteDetail, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-entreprise/detail/:id", name: "admin_etudiant_fiche_entreprise_detail", component: EtudiantFicheEntrepriseDetail, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants", name: "admin_etudiant_list", component: EtudiantList, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/detail/:id", name: "admin_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-salarie", name: "admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-poste", name: "admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/etudiants/fiche-entreprise", name: "admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] } },
-  //Absence
-  { path: "/admin/absences/create", name: "admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/absences/update/:id", name: "admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] } },
-  { path: "/admin/absences/detail/:id", name: "admin_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Admin] } },
+   //Etudiant
+   { path: "/admin/etudiants/fiche-salarie/detail/:id", name:"admin_etudiant_fiche_salarie_detail", component: EtudiantFicheSalarieDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste/update/:id", name:"admin_etudiant_fiche_poste_update", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise/update/:id", name:"admin_etudiant_fiche_entreprise_update", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste/detail/:id", name:"admin_etudiant_fiche_poste_detail", component: EtudiantFichePosteDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise/detail/:id", name:"admin_etudiant_fiche_entreprise_detail", component: EtudiantFicheEntrepriseDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants", name:"admin_etudiant_list", component: EtudiantList, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/detail/:id", name:"admin_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/cerfa", name:"admin_etudiant_cerfa", component: CerfaAdmin, meta: { authorize: [Role.Admin] }},
+   //Absence
+   { path: "/admin/absences/create", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/absences/detail/:id", name:"admin_absence_detail", component: AbsenceDetail, meta: { authorize: [Role.Admin] }},
 
-  //#######################
-  //#       CEF           #
-  //#######################
+   //#######################
+   //#       CEF           #
+   //#######################
 
-  { path: "/cef/", name: "cef_dashboard", redirect: { name: 'cef_centreFormation_list' }, meta: { authorize: [Role.CEF] } },
-  //Centre Formation
-  { path: "/cef/centreFormations", name: "cef_centreFormation_list", component: CentreFormation, meta: { authorize: [Role.CEF] } },
-  { path: "/cef/centreFormations/create", name: "cef_centreFormation_create", component: AddCentreFormation, meta: { authorize: [Role.CEF] } },
-  { path: "/cef/centreFormations/update/:id", name: "cef_centreFormation_update", component: AddCentreFormation, meta: { authorize: [Role.CEF] } },
+   { path: "/cef/", name: "cef_dashboard", redirect: {name: 'cef_centreFormation_list'}, meta: { authorize: [Role.CEF] }},
+   //Centre Formation
+  { path: "/cef/centreFormations", name: "cef_centreFormation_list", component: CentreFormation, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/centreFormations/create", name:"cef_centreFormation_create", component: AddCentreFormation, meta: { authorize: [Role.CEF] }},
+  { path: "/cef/centreFormations/update/:id", name:"cef_centreFormation_update", component: AddCentreFormation, meta: { authorize: [Role.CEF] }},
   { path: "/cef/centreFormations/detail/:id", name: "cef_centreFormation_detail", component: CentreFormationDetail, meta: { authorize: [Role.CEF] } },
   //Promo
   { path: "/cef/promotions", name: "cef_promotions", component: CefPromo, meta: { authorize: [Role.CEF] } },
