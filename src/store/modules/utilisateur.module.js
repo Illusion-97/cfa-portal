@@ -45,7 +45,7 @@ export const utilisateur = {
                             router.push({ name: "cef_dashboard" });
                             break;
                         default:
-                            router.push("/");
+                            router.push({ name: "home" });
                             break;
                     }
                 }
