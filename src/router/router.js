@@ -150,6 +150,7 @@ import EtudiantFichePoste from "@/views/Admin/Crud/Etudiant/EtudiantFichePoste.v
 import EtudiantFichePosteDetail from "@/views/Admin/Crud/Etudiant/EtudiantFichePosteDetail.vue";
 import EtudiantFicheEntreprise from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntreprise.vue";
 import EtudiantFicheEntrepriseDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheEntrepriseDetail.vue";
+import CerfaAdmin from "@/views/Admin/Crud/Etudiant/EtudiantCerfa.vue"
 //Absence
 import AbsenceCreate from "@/views/Admin/Crud/Absence/AbsenceCreate.vue";
 import AbsenceDetail from "@/views/Admin/Crud/Absence/AbsenceDetail.vue";
@@ -441,6 +442,7 @@ const routes = [
    { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/cerfa", name:"admin_etudiant_cerfa", component: CerfaAdmin, meta: { authorize: [Role.Admin] }},
    //Absence
    { path: "/admin/absences/create", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
