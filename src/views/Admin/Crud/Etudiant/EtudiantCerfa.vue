@@ -830,3 +830,135 @@
 
 </div>
 </template>
+
+<script>
+import BodyTitle from "@/components/utils/BodyTitle.vue";
+import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
+import { projetApi } from "@/_api/projet.api.js";
+import { fileApi } from "@/_api/file.api.js";
+import { fileFields } from "@/assets/js/fields.js";
+
+export default {
+  name: "projetCreate",
+  components: {
+    BodyTitle,
+    GroupeListComponent,
+  },
+  data() {
+    return {
+      
+
+      form: {
+	       employeurPriveOuPublic:"",
+	       nomEmployeur:"",
+	       prenomEmployeur:"",
+	       adresseEmployeur:"",
+	       telEmployeur:"",
+	       emailEmployeur:"",
+	       siretEtablissement:"",
+	       employeurSpecifique:"",
+	       naf:"",
+	       effectifEntreprise:"",
+	       conventionCollectiveApplicable:"",
+	       codeIdccConvention:"",
+	       nomNaissanceApprenti:"",
+	       prenomApprenti:"",
+	       nirApprenti:"",
+	       dateDeNaissance:"",
+	       sexe:"",
+	       adresseApprenti:"",
+	       departementNaissance:"",
+	       communeNaissance:"",
+	       telApprenti:"",
+	       emailApprenti:"",
+	       nationalite:"",
+	       regimeSocial:"",
+	       sportifs:"",
+	       handicape:"",
+	       situationAvantContrat:"",
+	       dernierDiplome:"",
+	       derniereClasseSuivi:"",
+	       intitulePrecisDernierDiplome:"",
+	       diplomeLePlusEleveObtenu:"",
+	       nomRepresentant:"",
+	       prenomRepresentant:"",
+	       adresseRepresentant:"",
+	       nomPremierTuteur:"",
+	       prenomPremierTuteur:"",
+	       dateDeNaissancePremierTuteur:"",
+	       nomDeuxiemeTuteur:"",
+	       prenomDeuxiemeTuteur:"",
+	       dateDeNaissanceDeuxiemeTuteur:"",
+	       contratType:"",
+	       derogationType:"",
+	       contratNum:"",
+	       dateConclusion:"",
+	       dateDebutContrat:"",
+	       dateAvenant:"",
+	       dateFinContrat:"",
+           heureTravail:"",
+	       minuteTravail:"",
+	       machineRisque:"",
+	       remuneration1:"",
+	       remuneration2:"",
+	       remuneration3:"",
+	       remuneration4:"",
+	       salaireBrut:"",
+	       caisseDeRetraite:"",
+	       nourriture:"",
+	       logement:"",
+	       autre:"",
+	       cfaEntreprise:"",
+	       cfaResponsable:"",
+	       diplomeVise:"",
+	       intitulePrecisDiplomeVise:"",
+	       cfaUai:"",
+	       cfaSiret:"",
+	       diplomeCode:"",
+	       codeRncp:"",
+	       adresseResponsable:"",
+	       dateDebutFormation:"",
+	       dateExamen:"",
+	       formationDuree:"",
+	       validationEmployeur:"",
+	       nomOrganisme:"",
+	       siretOrganisme:"",
+	       receptionDossier:"",
+	       dateDecision:"",
+	       numDepot:"",
+	       numAvenant:"",
+	       etudiantDto:"",
+        
+      },
+    etudiant: null,
+    adresse: null,
+      
+  };
+  },
+};
+</script>
+
+<style scoped>
+.header-list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5%;
+}
+
+.header-list > form {
+  width: 40%;
+}
+
+.mon-btn {
+  width: 80%;
+}
+
+.mon-label {
+  margin-left: 2.2em;
+  width: 9.7em;
+}
+
+.mon-input {
+  width: 32em;
+}
+</style>
