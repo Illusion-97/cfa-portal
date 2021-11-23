@@ -46,7 +46,7 @@
 
     </div>
     <div class="col col-lg-2">
-        <input type="text" name="mode" class="form-control col-3" placeholder="N°" 
+        <input type="text" name="mode" class="form-control col-3" placeholder="N°" v-model="form.modeContractuelApprentissage"
                />
     </div>
 </div>
@@ -74,7 +74,8 @@
  </b-card-header>
 <div class="row">
     <div class="col-6"><b>Nom et prénom ou dénomination :</b>
-    <input class="form-control input-sm" id="inputsm" type="text">
+    <input class="form-control input-sm col-5" id="inputsm" type="text" v-model="form.nomEmployeur"><br>
+    <input class="form-control input-sm col-5" id="inputsm" type="text" v-model="form.prenomEmployeur">
     </div>
     <div class="col"><b>N°SIRET</b> de l’établissement d’exécution du contrat :
     <input class="form-control input-sm" id="inputsm" type="text" v-model="form.siretEtablissement">
@@ -88,7 +89,7 @@
                /></div> -->
     <div class="col-sm-6">Adresse de l’établissement d’exécution du contrat :</div>
   <div class="col-sm-2">Type d’employeur : </div>
-  <div class="col-sm"><input type="text" name="mode" class="form-control col-2" placeholder=""
+  <div class="col-sm"><input type="text" name="mode" class="form-control col-2" placeholder="" v-model="form.employeurType"
                /></div>
 </div>
 
@@ -108,7 +109,7 @@
 
 <div class="row">
     <div class="col-sm-2">Complément :</div>
-    <div class="col-sm-4"><input type="text" name="mode" class="form-control col" placeholder=""
+    <div class="col-sm-4"><input type="text" name="mode" class="form-control col" placeholder="" v-model="form.complementEmployeur"
                /></div>
     <div class="col-sm-3">Code activité de l’entreprise (NAF) :</div>
     <div class="col-sm-1"><input type="text" name="mode" class="form-control col" placeholder="" v-model="form.NAF"
@@ -166,7 +167,7 @@
     <span class="cls_016"><b>*Pour les employeurs du secteur public,</b> </span>
     <span class="cls_007">adhésion de l’apprenti au régime spécifique d’assurance chômage :</span>
 </div>
-<div class="col-sm-2"><input type="text" name="mode" class="form-control col-2" placeholder=""
+<div class="col-sm-2"><input type="text" name="mode" class="form-control col-2" placeholder="" v-model="form.assuranceChomage"
                /></div>
                </div>
 <b-card-header>
@@ -241,7 +242,7 @@
 </div>
 <div class="row">
 <div class="col-2"><span class="cls_013">Complément :</span></div>
-<div class="col-4"><input type="text" name="mode" class="form-control " placeholder=""
+<div class="col-4"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.complementApprentit"
                /></div>
 </div>
 
@@ -330,7 +331,7 @@
     <div class="col-2">Dernier diplôme ou titre préparé :</div>
     <div class="col">
     <input type="text" id="" name=""
-       class="form-control col-2" v-model="form.diplomeCode" required>
+       class="form-control col-2" v-model="form.dernierDiplome" required>
     </div>
 </div>
 <br>
@@ -355,7 +356,7 @@
 </div>
 <div class="row">
 <div class="col-sm-2"><span class="cls_013">Complément :</span></div>
-<div class="col-sm-4"><input type="text" name="mode" class="form-control " placeholder=""
+<div class="col-sm-4"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.complementRepresentant"
                /></div>
 </div>
 <div class="row">
@@ -421,7 +422,7 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-sm-2"><input type="text" name="mode" class="form-control col-3" placeholder=""
+    <div class="col-sm-2"><input type="text" name="mode" class="form-control col-3" placeholder="" v-model="form.eligibiliteFonction"
                /></div>
     <div class="col-10"><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b></div>
 </div>
@@ -713,7 +714,7 @@
 </div>
 <div class="row">
 <div class="col-2"><span class="cls_013">Complément :</span></div>
-<div class="col-5"><input type="text" name="mode" class="form-control col-6" placeholder=""
+<div class="col-5"><input type="text" name="mode" class="form-control col-6" placeholder="" v-model="form.complementResponsable"
                /></div>
 </div>
 
@@ -754,7 +755,7 @@
 </div>
 <div class="row">
 <div class="col-1"><span class="cls_013">Fait à :</span></div>
-<div class="col"><input type="text" name="mode" class="form-control " placeholder=""
+<div class="col"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.faitA"
                /></div>
 </div>
 <br>
@@ -845,6 +846,15 @@ export default {
       
 
       form: {
+        modeContractuelApprentissage : "",
+        complementEmployeur: "",
+        employeurType:"",
+        assuranceChomage:"",
+        complementApprentit:"",
+        complementRepresentant:"",
+        egilibiliteFonction:"",
+        complementResponsable:"",
+        faitA:"",
 	       employeurPriveOuPublic:"",
 	       nomEmployeur:"",
 	       prenomEmployeur:"",
