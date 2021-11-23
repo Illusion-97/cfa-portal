@@ -962,6 +962,7 @@ export default {
     },
     goBack() {
       this.$router.go(-1);
+      //Ouais le sang
     },
   },
 };
