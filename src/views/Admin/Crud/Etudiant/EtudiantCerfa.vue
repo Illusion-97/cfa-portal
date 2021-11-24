@@ -359,7 +359,9 @@
   <div class="col-2">Nom de naissance et prénom :</div>
   <div class="col-4">
   <input type="text" id="" name=""
-      class="form-control " v-model="form.nomRepresentant.prenomRepresentant">
+      class="form-control " v-model="form.nomRepresentant">
+      <input type="text" id="" name=""
+      class="form-control " v-model="form.prenomRepresentant">
   </div>
   <div class="col-2">Dernier diplôme ou titre préparé :</div>
   <div class="col">
