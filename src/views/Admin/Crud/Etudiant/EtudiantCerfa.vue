@@ -290,7 +290,7 @@
   <div class="col-sm-1">Téléphone : </div>
   <div class="col-sm-5">
   <input type="tel" id="phone" name="phone"
-      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+      
       class="form-control col-5" placeholder="01 23 45 67 89" v-model="form.telApprenti">
   </div>
   <div class="col-sm-1">
@@ -948,6 +948,14 @@
     <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
 </div>
 </form>
+ <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
 </div>
 </template>
 
