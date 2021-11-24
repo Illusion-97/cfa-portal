@@ -62,8 +62,8 @@
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" v-model="form.employeurPriveOuPublic">
-              <label class="form-check-label" for="inlineCheckbox1"><b>employeur privé</b></label>
+              <input class="form-check-input" type="radio" id="employeurPrive" value="option1" v-model="form.employeurPriveOuPublic">
+              <label class="form-check-label" for="employeurPrive"><b>employeur privé</b></label>
       </div>
   </div>
   <div class="col col-lg-2">
@@ -71,8 +71,8 @@
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" v-model="form.employeurPriveOuPublic">
-    <label class="form-check-label" for="inlineCheckbox2"><b>employeur « public »*</b></label>
+    <input class="form-check-input" type="radio" id="employeurPublic" value="option2" v-model="form.employeurPriveOuPublic">
+    <label class="form-check-label" for="employeurPublic"><b>employeur « public »*</b></label>
   </div>
     
   </div>
