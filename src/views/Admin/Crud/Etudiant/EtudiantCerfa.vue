@@ -1,5 +1,6 @@
 <template>
 <div>
+<form @submit="submit">
 <div>
 <div class="row justify-content-md-center">
   <div class="col col-lg-2">
@@ -62,7 +63,7 @@
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" id="employeurPrive" value="option1" v-model="form.employeurPriveOuPublic">
+              <input class="form-check-input" type="radio" id="employeurPrive" value="employeurPrive" v-model="form.employeurPriveOuPublic">
               <label class="form-check-label" for="employeurPrive"><b>employeur privé</b></label>
       </div>
   </div>
@@ -71,7 +72,7 @@
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-    <input class="form-check-input" type="radio" id="employeurPublic" value="option2" v-model="form.employeurPriveOuPublic">
+    <input class="form-check-input" type="radio" id="employeurPublic" value="employeurPublic" v-model="form.employeurPriveOuPublic">
     <label class="form-check-label" for="employeurPublic"><b>employeur « public »*</b></label>
   </div>
     
@@ -141,8 +142,8 @@
   <div class="col-sm-2">Téléphone :</div>
   <div class="col-sm-4">
   <input type="tel" id="phone" name="phone"
-      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-      class="form-control col-5" placeholder="01 23 45 67 89" v-model="form.telEmployeur" required>
+      
+      class="form-control col-5" placeholder="01 23 45 67 89" v-model="form.telEmployeur" >
   </div>  
   <div class="col-3">Convention collective applicable :</div>
   
@@ -153,7 +154,7 @@
   <div class="col-sm-4">
   </div>  
   <div class="col-3"><textarea type="text" id="Convention" name="Convention"
-      class="form-control col-12" placeholder="...." v-model="form.conventionCollectiveApplicable" required/></div>
+      class="form-control col-12" placeholder="...." v-model="form.conventionCollectiveApplicable" /></div>
 </div>
 
 <div class="cls_013"><span class="cls_013">Courriel :</span></div>
@@ -208,7 +209,7 @@
   <div class="col-4"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.nirApprenti"
               /></div>
   <div class="col-2">Date de naissance :</div>
-  <div class="col"><input type="text" name="birthdate" id="birth" class="form-control col-4" placeholder="jj/mm/aaaa"
+  <div class="col"><input type="date" name="birthdate" id="birth" class="form-control col-6" placeholder="jj/mm/aaaa"
             pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" autocomplete="bday" v-model="form.dateDeNaissance" /></div>
 </div>
 
@@ -218,12 +219,12 @@
   <div class="col-6"><i>du code du travail</i></div>
   <div class="col-1">Sexe :</div>
 <div class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" v-model="form.sexe">
-<label class="form-check-label" for="inlineRadio1">M</label>
+<input class="form-check-input" type="radio" name="sexe" id="monsieur" value="M" v-model="form.sexe">
+<label class="form-check-label" for="monsieur">M</label>
 </div>
 <div class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" v-model="form.sexe">
-<label class="form-check-label" for="inlineRadio2">F</label>
+<input class="form-check-input" type="radio" name="sexe" id="madame" value="F" v-model="form.sexe">
+<label class="form-check-label" for="madame">F</label>
 </div>
 </div>
 
@@ -290,18 +291,18 @@
   <div class="col-sm-5">
   <input type="tel" id="phone" name="phone"
       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-      class="form-control col-5" placeholder="01 23 45 67 89" v-model="form.telApprenti" required>
+      class="form-control col-5" placeholder="01 23 45 67 89" v-model="form.telApprenti">
   </div>
   <div class="col-sm-1">
   
   </div>    
   <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" v-model="form.sportifs">
-<label class="form-check-label" for="inlineRadio1">oui</label>
+<input class="form-check-input" type="radio" name="sportifs" id="ouiSportifs" value="ouiSportifs" v-model="form.sportifs">
+<label class="form-check-label" for="ouiSportifs">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" v-model="form.sportifs">
-<label class="form-check-label" for="inlineRadio2">non</label>
+<input class="form-check-input" type="radio" name="sportifs" id="nonSportifs" value="nonSportifs" v-model="form.sportifs">
+<label class="form-check-label" for="nonSportifs">non</label>
 </div>
 </div>
 
@@ -316,12 +317,12 @@
   <div class="col-1">handicapé :</div>
   
   <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" v-model="form.handicape">
-<label class="form-check-label" for="inlineRadio1">oui</label>
+<input class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHanficape" v-model="form.handicape">
+<label class="form-check-label" for="ouiHanficape">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" v-model="form.handicape">
-<label class="form-check-label" for="inlineRadio2">non</label>
+<input class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHanficape" v-model="form.handicape">
+<label class="form-check-label" for="nonHanficape">non</label>
 </div>
 </div>
 
@@ -358,7 +359,7 @@
   <div class="col-2">Nom de naissance et prénom :</div>
   <div class="col-4">
   <input type="text" id="" name=""
-      class="form-control " v-model="form.nomRepresentant.prenomRepresentant" required>
+      class="form-control " v-model="form.nomRepresentant.prenomRepresentant">
   </div>
   <div class="col-2">Dernier diplôme ou titre préparé :</div>
   <div class="col">
@@ -539,7 +540,7 @@
       
     </div>
         
-  <div class="col-9"><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..." v-model="form.eligibiliteFonction"><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b></div>
+  <div class="col-9"><input class="form-check-input" type="checkbox" id="checkboxEgibilite" value="" aria-label="..." v-model="form.eligibiliteFonction"><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b></div>
 </div>
 <br>
 
@@ -637,12 +638,12 @@
 <div class="row">
   <div class="col-5">Travail sur machines dangereuses ou exposition à des risques particuliers :</div>
   <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" v-model="form.machineRisque">
-<label class="form-check-label" for="inlineRadio1">oui</label>
+<input class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" v-model="form.machineRisque">
+<label class="form-check-label" for="ouiMachineRisque">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" v-model="form.machineRisque">
-<label class="form-check-label" for="inlineRadio2">non</label>
+<input class="form-check-input" type="radio" name="machine" id="nonMachineRisque" value="nonMachineRisque" v-model="form.machineRisque">
+<label class="form-check-label" for="nonMachineRisque">non</label>
 </div>
 </div>
 
@@ -761,12 +762,12 @@
               /></div>
   <div class="col-3">non</div> -->
   <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" v-model="form.cfaEntreprise">
-<label class="form-check-label" for="inlineRadio1">oui</label>
+<input class="form-check-input" type="radio" name="cfaentreprise" id="ouiCfaEntreprise" value="ouiCfaEntreprise" v-model="form.cfaEntreprise">
+<label class="form-check-label" for="ouiCfaEntreprise">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" v-model="form.cfaEntreprise">
-<label class="form-check-label" for="inlineRadio2">non</label>
+<input class="form-check-input" type="radio" name="cfaentreprise" id="nonCfaEntreprise" value="nonCfaEntreprise" v-model="form.cfaEntreprise">
+<label class="form-check-label" for="nonCfaEntreprise">non</label>
 </div>
   <div class="col-3">Diplôme ou titre visé par l’apprenti :</div>
   <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.diplomeVise"
@@ -864,7 +865,7 @@
 <br>
 <div class="row">
 <div class="col-2"></div>
-<center><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..." v-model="form.validationEmployeur"><b><i>L’employeur atteste disposer de l’ensemble des pièces justificatives nécessaires au dépôt du contrat</i></b></center>
+<center><input class="form-check-input" type="checkbox" id="checkboxValidation" value="" aria-label="..." v-model="form.validationEmployeur"><b><i>L’employeur atteste disposer de l’ensemble des pièces justificatives nécessaires au dépôt du contrat</i></b></center>
 </div>
 <br>
 <div class="row">
@@ -943,6 +944,10 @@
 
 <center><b><i>Pour remplir le contrat et pour plus d’informations sur le traitement des données  reportez-vous à la notice FA 14</i></b></center>
 
+<div>
+    <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
+</div>
+</form>
 </div>
 </template>
 
