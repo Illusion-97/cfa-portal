@@ -31,8 +31,9 @@ function getById(id){
   }
 
 function save(cerfa) {
+  let req =`${END_POINT}`
   return axios
-    .post(cerfa, requestOptions.headers())
+    .post(req,cerfa, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
