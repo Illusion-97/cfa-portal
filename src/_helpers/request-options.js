@@ -9,7 +9,7 @@ function headers() {
     return {
         headers: {
             ...authHeader,
-            'Content-Type': ['application/json', 'multipart/form-data']
+            'Content-Type': 'application/json',
         }
     }
 }

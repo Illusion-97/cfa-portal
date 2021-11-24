@@ -146,10 +146,10 @@
             ville: "",
             codePostal: "",
           },
-          etudiantDto:{},
-          formateurDto:{},
-          cefDto:{},
-          maitreApprentissageDto:{},
+          etudiantDto:null,
+          formateurDto:null,
+          cefDto:null,
+          maitreApprentissageDto:null,
         },
 
         //On a des soucis si l'adresse de l'entreprise est null
@@ -215,6 +215,8 @@
           this.form.dateDeNaissance
         );
         
+        console.log("form : ", this.form);
+
         utilisateurApi
           .save(this.form)
           .then(() =>
