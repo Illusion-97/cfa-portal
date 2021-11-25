@@ -68,14 +68,9 @@
           <label for="nom">Email</label>
           <input type="email" name="email" id="login" class="form-control" placeholder="jmichel@dawan.fr"
             v-model="form.login" autocomplete="email" />
-          <!-- {{form.prenom[0]+form.nom | lowercase}} -->
         </div>
 
-        <!-- <div class="form-group col-6">
-          <label for="nom">Mot de passe</label>
-          <input type="password" name="password" class="form-control" placeholder="Mot de passe"
-            v-model="form.password" autocomplete="new-password" @input="this.setCustomValidity('')"/>
-        </div> -->
+
       </div>
       <div class="d-flex">
         <div class="form-group col-6">
@@ -108,14 +103,7 @@
         <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
       </div>
     </form>
-  
-    <!-- <EntrepriseListComponent v-if="form.rolesDto"
-        class="col-11"
-        v-on:click-list="onClickChildEntrepriseList"
-        :entrepriseProp="entreprise_input"
-        :class="{ collapse: isEntrepriseNew }"
-        /> -->
- 
+   
     <RoleModal v-show="isModalVisible" @close="closeModal" :rolesProp="rolesComputed" v-on:close="onClickClose" />
   </div>
 </template>
@@ -158,10 +146,10 @@
             ville: "",
             codePostal: "",
           },
-          etudiantDto:{},
-          formateurDto:{},
-          cefDto:{},
-          maitreApprentissageDto:{},
+          etudiantDto:null,
+          formateurDto:null,
+          cefDto:null,
+          maitreApprentissageDto:null,
         },
 
         //On a des soucis si l'adresse de l'entreprise est null
@@ -222,21 +210,13 @@
         //Si on ne donne pas d'entreprise, on la set a null pour ne rien save dans le back
         // if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
 
-        //Si on renseigne l'adresse de l'entreprise
-        if (
-          this.adresseEntreprise.numero != "" ||
-          this.adresseEntreprise.rue != "" ||
-          this.adresseEntreprise.ville != "" ||
-          this.adresseEntreprise.codePostal != ""
-        ) {
-          // this.form.entrepriseDto.adresseSiegeDto = this.adresseEntreprise;
-          // console.log("j'ai une entreprise");
-        }
-
         // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj
         this.form.dateDeNaissance = this.backEndDateFormat(
           this.form.dateDeNaissance
         );
+        
+        console.log("form : ", this.form);
+
         utilisateurApi
           .save(this.form)
           .then(() =>
@@ -303,9 +283,9 @@
     created() {
       //Pour etre sur, dans le doute, on fait les 3 tests
       if (
-        this.$route.params.id != null ||
-        this.$route.params.id != "" ||
-        this.$route.params.id != 0
+        this.$route.params.id != null &&
+        this.$route.params.id != "" &&
+        this.$route.params.id != 0 
       ) {
         utilisateurApi.getById(this.$route.params.id).then((response) => {
           this.vue_title = "Modifier l'utilisateur";
@@ -314,9 +294,6 @@
 
           // Si id existant => conversion aaaa-mm-jj vers jj/mm/aaaa
           this.form.dateDeNaissance = this.frontEndDateFormat(response.dateDeNaissance);
-
-          if (response.entrepriseDto.adresseSiegeDto != null)
-            this.adresseEntreprise = response.entrepriseDto.adresseSiegeDto;
         });
       }
     },

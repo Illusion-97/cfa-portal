@@ -3,11 +3,7 @@
     <nav class="navbar navbar-expand-lg" id="mainNav">
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/home">
-          <img
-            src="@/assets/img/institutionnel-logo.png"
-            alt="logo"
-            class="mon-logo"
-          />
+          <img src="@/assets/img/institutionnel-logo.png" alt="logo" class="mon-logo" />
 
         </router-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -18,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase mx-auto py-4 py-lg-0">
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'home' }" :class="{ 'router-link-active': false }">Accueil
+              <router-link class="nav-link" :to="{ name: 'home' }" :class="{ 'router-link-active': false }" v-if="hideHome()">Accueil
               </router-link>
             </li>
             <li class="nav-item">
@@ -91,6 +87,10 @@
             name: "login"
           }));
       },
+      hideHome() { // si admin ou cef => menu Accueil caché
+        if (this.isAdmin || this.isCEF) return false
+        else return true
+      }
     },
   };
 </script>
