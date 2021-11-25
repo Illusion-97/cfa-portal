@@ -600,7 +600,7 @@
   </div>
   
   <div class="col-4">contrat :
-      <input type="text" name="mode" class="form-control " placeholder="" v-model="form.dateDebutContrat"
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.dateDebutContrat"
               />
   </div>
   <div class="col-4">date d’effet :  
@@ -718,10 +718,11 @@
 <div class="row">
   <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.salaireBrut"
               /></div>
-  <div class="">,</div>
-  <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.caisseDeRetraite"
-              /></div>
   <div class="col-sm-1">€</div>
+  <div class="col-4"></div>
+  <div class="col-5"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.caisseDeRetraite"
+              /></div>
+  
 </div>
 
 <div class="row">
@@ -1046,10 +1047,10 @@ data() {
         heureTravail:"",
         minuteTravail:"",
         machineRisque:"",
-        remuneration1:"",
-        remuneration2:"",
-        remuneration3:"",
-        remuneration4:"",
+        remuneration1:null,
+        remuneration2:null,
+        remuneration3:null,
+        remuneration4:null,
         salaireBrut:"",
         caisseDeRetraite:"",
         nourriture:"",
