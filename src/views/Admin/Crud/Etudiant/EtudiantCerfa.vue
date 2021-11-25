@@ -655,7 +655,7 @@
 </div>
 
 <div class="row">
-  <div class="col-2">1re année, du </div>
+  <div class="col-2">1<sup>re</sup> année, du </div>
   <!-- <div class="col-sm-1"> 
       <input type="text" name="mode" class="form-control " placeholder=""
               />
@@ -725,16 +725,10 @@
 </div>
 
 <div class="row">
-  <div class="col">Avantages en nature, le cas échéant : Nourriture :</div>
+  <div class="col-4">Avantages en nature, le cas échéant : Nourriture :</div>
   <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.nourriture"
               /></div>
-  <div class="">,</div>
-  <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.nourriture"
-              /></div>
-  <div class="col">€ / repas   Logement :</div>
-  <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.logement"
-              /></div>
-  <div class="">,</div>
+  <div class="col-2">€ / repas   Logement :</div>
   <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.logement"
               /></div>
   <div class="col-2">€ / mois     Autre :</div>
@@ -1069,7 +1063,13 @@ data() {
         cfaSiret:"",
         diplomeCode:"",
         codeRncp:"",
-        adresseResponsable:"",
+        adresseResponsable:{
+          id: null,
+          numero: "",
+          rue: "",
+          ville: "",
+          codePostal: "",
+        },
         dateDebutFormation:"",
         dateExamen:"",
         formationDuree:"",
