@@ -600,7 +600,7 @@
   </div>
   
   <div class="col-4">contrat :
-      <input type="text" name="mode" class="form-control " placeholder="" v-model="form.dateDebutContrat"
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.dateDebutContrat"
               />
   </div>
   <div class="col-4">date d’effet :  
@@ -656,58 +656,130 @@
 
 <div class="row">
   <div class="col-2">1<sup>re</sup> année, du </div>
-  <!-- <div class="col-sm-1"> 
-      <input type="text" name="mode" class="form-control " placeholder=""
+   <div class="col-sm-2"> 
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration1.dateDebut"
               />
-  </div> -->
+    </div> 
   <div class="col-1">au</div>
-
-  <div class="col-2">:</div>
-
+    <div class="col-sm-2"> 
+       <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration1.dateFin"
+              />
+    </div>
+  <div class="col-1">:</div>
+    <div class="col-sm-1"> 
+      <input type="text" name="mode" class="form-control " placeholder="" v-model="form.remuneration1.pourcentage"
+              />
+    </div>
   <div class="col-1">% du</div>
-
-  <div class="col-2">* ; du</div>
-
-  <div class="col-1">au</div>
+    <div class="col-sm-1"> 
+      <div class="form-group">
+            <select class="form-control" id="smicSmc1" v-model="form.remuneration1.smicOuSmc">
+              <option>SMIC</option>
+              <option>SMC</option>
+            </select>
+          </div>
+    </div>
+  <div class="col">*</div>
+  <!-- <div class="col-1">au</div>
   <div class="col-">:</div>
   <div class="col-1">% du</div>
-  <div class="col-1">*</div>
+  <div class="col-1">*</div> -->
 </div>
 
 <div class="row">
-  <div class="col-2">2<sup>ème </sup> année, du </div>
+  <div class="col-sm-2">2<sup>ème </sup> année, du </div>
+  <div class="col-sm-2"> 
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration2.dateDebut"
+              />
+    </div> 
   <div class="col-1">au</div>
-  <div class="col-2">:</div>
+  <div class="col-sm-2"> 
+       <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration2.dateFin"
+              />
+    </div>
+  <div class="col-1">:</div>
+  <div class="col-sm-1"> 
+      <input type="text" name="mode" class="form-control " placeholder="" v-model="form.remuneration2.pourcentage"
+              />
+    </div>
   <div class="col-1">% du</div>
-  <div class="col-2">* ; du</div>
-  <div class="col-1">au</div>
+  <div class="col-sm-1"> 
+      <div class="form-group">
+            <select class="form-control" id="smicSmc2" v-model="form.remuneration2.smicOuSmc">
+              <option>SMIC</option>
+              <option>SMC</option>
+            </select>
+          </div>
+    </div>
+  <div class="col">*</div>
+  <!-- <div class="col-1">au</div>
   <div class="col-">:</div>
   <div class="col-1">% du</div>
-  <div class="col-1">*</div>
+  <div class="col-1">*</div> -->
 </div>
 
 <div class="row">
   <div class="col-2">3<sup>ème </sup> année, du </div>
+  <div class="col-sm-2"> 
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration3.dateDebut"
+              />
+    </div> 
   <div class="col-1">au</div>
-  <div class="col-2">:</div>
+  <div class="col-sm-2"> 
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration3.dateFin"
+              />
+    </div> 
+  <div class="col-1">:</div>
+  <div class="col-sm-1"> 
+      <input type="text" name="mode" class="form-control " placeholder="" v-model="form.remuneration3.pourcentage"
+              />
+    </div>
   <div class="col-1">% du</div>
-  <div class="col-2">* ; du</div>
-  <div class="col-1">au</div>
+  <div class="col-sm-1"> 
+      <div class="form-group">
+            <select class="form-control" id="smicSmc3" v-model="form.remuneration3.smicOuSmc">
+              <option>SMIC</option>
+              <option>SMC</option>
+            </select>
+          </div>
+    </div>
+  <div class="col-1">*</div>
+  <!-- <div class="col-1">au</div>
   <div class="col-">:</div>
   <div class="col-1">% du</div>
-  <div class="col-1">*</div>
+  <div class="col-1">*</div> -->
 </div>
 
 <div class="row">
   <div class="col-2">4<sup>ème </sup> année, du </div>
+  <div class="col-sm-2"> 
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration4.dateDebut"
+              />
+    </div> 
   <div class="col-1">au</div>
-  <div class="col-2">:</div>
+  <div class="col-sm-2"> 
+      <input type="date" name="mode" class="form-control " placeholder="" v-model="form.remuneration4.dateFin"
+              />
+    </div> 
+  <div class="col-1">:</div>
+  <div class="col-sm-1"> 
+      <input type="text" name="mode" class="form-control " placeholder="" v-model="form.remuneration4.pourcentage"
+              />
+    </div>
   <div class="col-1">% du</div>
-  <div class="col-2">* ; du</div>
-  <div class="col-1">au</div>
+  <div class="col-sm-1"> 
+      <div class="form-group">
+            <select class="form-control" id="smicSmc4" v-model="form.remuneration4.smicOuSmc">
+              <option>SMIC</option>
+              <option>SMC</option>
+            </select>
+          </div>
+    </div>
+  <div class="col-1">*</div>
+  <!-- <div class="col-1">au</div>
   <div class="col-">:</div>
   <div class="col-1">% du</div>
-  <div class="col-1">*</div>
+  <div class="col-1">*</div> -->
 </div>
 
 <div class="row">
@@ -718,10 +790,11 @@
 <div class="row">
   <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.salaireBrut"
               /></div>
-  <div class="">,</div>
-  <div class="col-1"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.caisseDeRetraite"
-              /></div>
   <div class="col-sm-1">€</div>
+  <div class="col-4"></div>
+  <div class="col-5"><input type="text" name="mode" class="form-control " placeholder="" v-model="form.caisseDeRetraite"
+              /></div>
+  
 </div>
 
 <div class="row">
@@ -1046,10 +1119,30 @@ data() {
         heureTravail:"",
         minuteTravail:"",
         machineRisque:"",
-        remuneration1:"",
-        remuneration2:"",
-        remuneration3:"",
-        remuneration4:"",
+        remuneration1: {
+         dateDebut: "",
+	       dateFin:"",
+	       pourcentage:"",
+         smicOuSmc:"",
+        },
+        remuneration2: {
+         dateDebut: "",
+	       dateFin:"",
+	       pourcentage:"",
+         smicOuSmc:"",
+        },
+        remuneration3: {
+         dateDebut: "",
+	       dateFin:"",
+	       pourcentage:"",
+         smicOuSmc:"",
+        },
+        remuneration4: {
+         dateDebut: "",
+	       dateFin:"",
+	       pourcentage:"",
+         smicOuSmc:"",
+        },
         salaireBrut:"",
         caisseDeRetraite:"",
         nourriture:"",
@@ -1106,7 +1199,7 @@ methods: {
 },
 };
 </script>
-
+/* eslint-disable */
 <style scoped>
 .header-list {
 display: flex;
