@@ -28,7 +28,6 @@
         <div class="col-3">
             <input name="sexe" type="radio"/> Mr 
             <input name= "sexe" type="radio"/> Mme
-            <input name= "sexe" type="radio"/> Mlle
         </div>
 
         <!-- Nom de naissance -->
@@ -203,7 +202,7 @@
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 export default {
-  name: "AddUser",
+  name: "FicheSalarieCreate",
   components: {
     BodyTitle,
   },

@@ -10,35 +10,35 @@
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Nom :</span>
-          <span class="col-md-4"> {{ utilisateur.nom }} </span>
+          <span class="col-md-4"> {{ etudiant.utilisateurDto.nom }} </span>
           <span class="font-weight-bold col-md-2">Prenom : </span>
-          <span class="col-md-4">{{ utilisateur.prenom }} </span>
+          <span class="col-md-4">{{ etudiant.utilisateurDto.prenom }} </span>
         </b-card-text>
 
         <b-card-text class="identity row ml-5">
           <span class="font-weight-bold col-md-2">Civilité :</span>
-          <span class="col-md-4"> {{ utilisateur.civilite }} </span>
+          <span class="col-md-4"> {{ etudiant.utilisateurDto.civilite }} </span>
           <span class="font-weight-bold col-md-2">Adresse : </span>
-          <span class="col-md-4"> {{ adresse.numero }} {{ adresse.rue }} </span>
+          <span class="col-md-4"> {{ etudiant.utilisateurDto.adresseDto.numero }} {{ etudiant.utilisateurDto.adresseDto.rue }} </span>
         </b-card-text>
 
         <b-card-text class="row ml-5">
           <span class="font-weight-bold col-md-2">Ville : </span>
-          <span class="col-md-4">{{ adresse.ville }}</span>
+          <span class="col-md-4">{{ etudiant.utilisateurDto.adresseDto.ville }}</span>
           <span class="font-weight-bold col-md-2">Code Postal : </span>
-          <span class="col-md-4">{{ adresse.codePostal }}</span>
+          <span class="col-md-4">{{ etudiant.utilisateurDto.adresseDto.codePostal }}</span>
         </b-card-text>
 
         <b-card-text class="row ml-5">
           <span class="font-weight-bold col-md-2">Naissance le : </span>
-          <span class="col-md-4">{{ utilisateur.dateDeNaissance }}</span>
+          <span class="col-md-4">{{ etudiant.utilisateurDto.dateDeNaissance }}</span>
           <span class="font-weight-bold col-md-2">Email : </span>
-          <span class="col-md-4">{{ utilisateur.login }}</span> 
+          <span class="col-md-4">{{ etudiant.utilisateurDto.login }}</span> 
         </b-card-text>
 
         <b-card-text class="row ml-5">
           <span class="font-weight-bold col-md-2">Téléphone : </span>
-          <span class="col-md-10">{{ utilisateur.telephone }}</span>
+          <span class="col-md-10">{{ etudiant.utilisateurDto.telephone }}</span>
         </b-card-text>
       </b-card>
 
@@ -101,7 +101,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
+//import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
     name: "FicheSalarieDetail",
     components: {
@@ -109,8 +110,15 @@ export default {
     },
 data() {
     return {
-      utilisateur: { etudiantDto: {}},
-      adresse: {etudiantDto: {}},
+      etudiant: { utilisateurDto: {adresseDto: {
+          id: null,
+          numero: "",
+          rue: "",
+          ville: "",
+          codePostal: "",
+        }
+        }},
+      adresseDto: {},
       loading: false,
     };
   },
@@ -125,8 +133,8 @@ data() {
   created() {
     //fichePosteApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.fichePoste = response));
     //fichePosteApi.getByIdEtudiant(this.$route.params.id).then((response) => (this.fichePoste = response));
-    utilisateurApi.getById(this.$route.params.id).then((response) => (this.utilisateur = response));
-    utilisateurApi.getAdresseById(this.$route.params.id).then((response) => (this.adresse = response));
+    etudiantApi.getById(this.$route.params.id).then((response) => (this.etudiant = response));
+    //utilisateurApi.getAdresseById(this.etudiant.utilisateurDto.id).then((response) => (this.adresseDto = response));
   },
 };
 </script>
