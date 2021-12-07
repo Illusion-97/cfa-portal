@@ -1,5 +1,6 @@
 <template>
 <div>
+    <router-link class="router-link" :to="{name:'etudiant_profil'}"> <font-awesome-icon :icon="['fas', 'angle-left']" />  Retour au Profil</router-link>
 <div>
 <!-- <div><img src="@/assets/img/background1.jpg" width=595 height=841></div> -->
 <div class="row justify-content-md-center">
@@ -719,3 +720,9 @@
 
 </div>
 </template>
+
+<style scoped>
+.router-link{
+    color: black;
+}
+</style>

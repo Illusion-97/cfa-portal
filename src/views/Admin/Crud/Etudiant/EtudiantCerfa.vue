@@ -1030,7 +1030,7 @@
 
 <script>
 import { cerfaApi } from "@/_api/cerfa.api.js";
-
+//import { etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
 name: "cerfaCreate",
@@ -1194,7 +1194,13 @@ methods: {
   },
   goBack() {
     this.$router.go(-1);
-    //Ouais le sang
+  },
+  created() {
+      // console.log(this.$route.params.id);
+      cerfaApi.getByIdEtudiant(this.$route.params.id).then((response) => {
+        this.form.etudiantDto.prenomApprenti = response.etudiant.prenom
+        this.form.etudiantDto.nom = response.nomNaissanceApprenti
+      });
   },
 },
 };
