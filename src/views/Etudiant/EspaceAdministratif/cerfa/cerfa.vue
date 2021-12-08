@@ -66,7 +66,7 @@
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-              <span class="form-check-input" type="radio" id="employeurPrive" value="employeurPrive" >{{ cerfa.employeurPriveOuPublic}}</span>
+              <input class="form-check-input" type="radio" id="employeurPrive" value="employeurPrive" v-model="cerfa.employeurPriveOuPublic">
               <label class="form-check-label" for="employeurPrive"><b>employeur privé</b></label>
       </div>
   </div>
@@ -75,7 +75,7 @@
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-    <span class="form-check-input" type="radio" id="employeurPublic" value="employeurPublic" >{{ cerfa.employeurPriveOuPublic}}</span>
+    <input class="form-check-input" type="radio" id="employeurPublic" value="employeurPublic" v-model="cerfa.employeurPriveOuPublic">
     <label class="form-check-label" for="employeurPublic"><b>employeur « public »*</b></label>
   </div>
     
@@ -208,11 +208,11 @@
   <div class="col-6"><i>du code du travail</i></div>
   <div class="col-1">Sexe :</div>
 <div class="form-check form-check-inline">
-<span class="form-check-input" type="radio" name="sexe" id="monsieur" value="M" >{{ cerfa.sexe}}</span>
+<input class="form-check-input" type="radio" name="sexe" id="monsieur" value="M" v-model="cerfa.sexe">
 <label class="form-check-label" for="monsieur">M</label>
 </div>
 <div class="form-check form-check-inline">
-<span class="form-check-input" type="radio" name="sexe" id="madame" value="F" >{{ cerfa.sexe}}</span>
+<input class="form-check-input" type="radio" name="sexe" id="madame" value="F" v-model="cerfa.sexe">
 <label class="form-check-label" for="madame">F</label>
 </div>
 </div>
@@ -272,11 +272,11 @@
   
   </div>    
   <div class="form-check form-check-inline ">
-<span class="form-check-input" type="radio" name="sportifs" id="ouiSportifs" value="ouiSportifs" >{{ cerfa.sportifs}}</span>
+<input class="form-check-input" type="radio" name="sportifs" id="ouiSportifs" value="ouiSportifs" v-model="cerfa.sportifs">
 <label class="form-check-label" for="ouiSportifs">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<span class="form-check-input" type="radio" name="sportifs" id="nonSportifs" value="nonSportifs" >{{ cerfa.sportifs}}</span>
+<input class="form-check-input" type="radio" name="sportifs" id="nonSportifs" value="nonSportifs" v-model="cerfa.sportifs">
 <label class="form-check-label" for="nonSportifs">non</label>
 </div>
 </div>
@@ -292,11 +292,11 @@
   <div class="col-1">handicapé :</div>
   
   <div class="form-check form-check-inline ">
-<span class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHanficape" >{{ cerfa.handicape}}</span>
+<input class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHanficape" v-model="cerfa.handicape">
 <label class="form-check-label" for="ouiHanficape">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<span class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHanficape" >{{ cerfa.handicape}}</span>
+<input class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHanficape" v-model="cerfa.handicape">
 <label class="form-check-label" for="nonHanficape">non</label>
 </div>
 </div>
@@ -415,7 +415,7 @@
       
     </div>
         
-  <div class="col-9"><span class="form-check-input" type="checkbox" id="checkboxEgibilite" value="" aria-label="..." >{{ cerfa.eligibiliteFonction}}</span><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b></div>
+   <div class="col-9"><input class="form-check-input" type="checkbox" id="checkboxEgibilite" value="" aria-label="..." v-model="cerfa.eligibiliteFonction"><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b></div>
 </div>
 <br>
 
@@ -504,11 +504,11 @@
 <div class="row">
   <div class="col-5">Travail sur machines dangereuses ou exposition à des risques particuliers :</div>
   <div class="form-check form-check-inline ">
-<span class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" >{{ cerfa.machineRisque}}</span>
+<input class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" v-model="cerfa.machineRisque">
 <label class="form-check-label" for="ouiMachineRisque">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<span class="form-check-input" type="radio" name="machine" id="nonMachineRisque" value="nonMachineRisque" >{{ cerfa.machineRisque}}</span>
+<input class="form-check-input" type="radio" name="machine" id="nonMachineRisque" value="nonMachineRisque" v-model="cerfa.machineRisque">
 <label class="form-check-label" for="nonMachineRisque">non</label>
 </div>
 </div>
@@ -660,11 +660,11 @@
               /></div>
   <div class="col-3">non</div> -->
   <div class="form-check form-check-inline ">
-<span class="form-check-input" type="radio" name="cfaentreprise" id="ouiCfaEntreprise" value="ouiCfaEntreprise" >{{ cerfa.cfaEntreprise}}</span>
+<input class="form-check-input" type="radio" name="cfaentreprise" id="ouiCfaEntreprise" value="ouiCfaEntreprise" v-model="cerfa.cfaEntreprise">
 <label class="form-check-label" for="ouiCfaEntreprise">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<span class="form-check-input" type="radio" name="cfaentreprise" id="nonCfaEntreprise" value="nonCfaEntreprise" >{{ cerfa.cfaEntreprise}}</span>
+<input class="form-check-input" type="radio" name="cfaentreprise" id="nonCfaEntreprise" value="nonCfaEntreprise" v-model="cerfa.cfaEntreprise">
 <label class="form-check-label" for="nonCfaEntreprise">non</label>
 </div>
   <div class="col-3">Diplôme ou titre visé par l’apprenti :</div>
@@ -749,7 +749,7 @@
 <br>
 <div class="row">
 <div class="col-2"></div>
-<center><span class="form-check-input" type="checkbox" id="checkboxValidation" value="" aria-label="..." >{{ cerfa.validationEmployeur}}</span><b><i>L’employeur atteste disposer de l’ensemble des pièces justificatives nécessaires au dépôt du contrat</i></b></center>
+<center><input class="form-check-input" type="checkbox" id="checkboxValidation" value="" aria-label="..." v-model="cerfa.validationEmployeur"><b><i>L’employeur atteste disposer de l’ensemble des pièces justificatives nécessaires au dépôt du contrat</i></b></center>
 </div>
 <br>
 <div class="row">
