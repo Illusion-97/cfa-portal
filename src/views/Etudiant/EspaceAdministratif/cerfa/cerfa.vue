@@ -539,7 +539,7 @@
 
 <div class="row">
   <div class="col-5">Travail sur machines dangereuses ou exposition à des risques particuliers :</div>
-  <div class="form-check form-check-inline " v-if="cerf.machineRisque=='ouiMachineRisque'">
+  <div class="form-check form-check-inline " v-if="cerfa.machineRisque=='ouiMachineRisque'">
     <input class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" v-model="cerfa.machineRisque" disabled checked>
     <label class="form-check-label" for="ouiMachineRisque">oui</label>
   </div>
