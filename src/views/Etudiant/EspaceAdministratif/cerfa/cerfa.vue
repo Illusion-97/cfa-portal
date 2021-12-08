@@ -48,9 +48,9 @@
     <b>Mode contractuel de l’apprentissage</b>
   </div>
   <div class="col col-lg-2">
-      <!-- <span     class="form-control col-3" placeholder="N°" >{{ cerfa.modeContractuelApprentissage"
+      <!-- <span     class=" col-3" placeholder="N°" >{{ cerfa.modeContractuelApprentissage"
               /> -->
-      <span class="form-control col-3">{{ cerfa.modeContractuelApprentissage}}</span>      
+      <span class="col-3">{{ cerfa.modeContractuelApprentissage}}</span>      
   </div>
 </div>
 
@@ -60,7 +60,7 @@
     <b>L’EMPLOYEUR</b>
   </div>
   <div class="col col-lg-2">
-      <!-- <span     class="form-control col-2"    
+      <!-- <span     class=" col-2"    
               /> -->
               
   </div>
@@ -84,60 +84,60 @@
 </b-card-header>
 <div class="row">
   <div class="col-6"><b>Nom et prénom ou dénomination :</b>
-  <span class="form-control input-sm col-5">{{ cerfa.nomEmployeur }}</span><br>
-  <span class="form-control input-sm col-5" id="inputsm"   >{{ cerfa.prenomEmployeur}}</span>
+  <span class=" col-5">{{ cerfa.nomEmployeur }}</span><br>
+  <span class=" col-5" id=""   >{{ cerfa.prenomEmployeur}}</span>
   </div>
   <div class="col"><b>N°SIRET</b> de l’établissement d’exécution du contrat :
-  <span class="form-control input-sm" id="inputsm"   >{{ cerfa.siretEtablissement}}</span>
+  <span class="" id=""   >{{ cerfa.siretEtablissement}}</span>
   </div>
 </div>
 
 <br>
 <div class="row">
   <!-- <div class="col">Adresse de l’établissement d’exécution du contrat :</div>
-  <div class="col">Type d’employeur :<span     class="form-control col-1"   
+  <div class="col">Type d’employeur :<span     class=" col-1"   
               /></div> -->
   <div class="col-sm-6">Adresse de l’établissement d’exécution du contrat :</div>
 <div class="col-sm-2">Type d’employeur : </div>
-<div class="col-sm"><span class="form-control col-2"    >{{ cerfa.employeurType}}</span></div>
+<div class="col-sm"><span class=" col-2"    >{{ cerfa.employeurType}}</span></div>
 </div>
 
 
 <div class="row">
 
 <div class="col-sm-1">N° :</div>
-<div class="col-sm-2"><span     class="form-control col"    >{{ cerfa.adresseEmployeur.numero }}</span></div>
+<div class="col-sm-2"><span     class=" col"    >{{ cerfa.adresseEmployeur.numero }}</span></div>
 <div class="col-sm-1">Voie :</div>
-<div class="col-sm-2"><span     class="form-control col"    >{{ cerfa.adresseEmployeur.rue }}</span></div>
+<div class="col-sm-2"><span     class=" col"    >{{ cerfa.adresseEmployeur.rue }}</span></div>
 <div class="col-sm-2">Employeur spécifique :</div>
-<div class="col-sm-2"><span     class="form-control col-2"    >{{ cerfa.employeurSpecifique}}</span></div>
+<div class="col-sm-2"><span     class=" col-2"    >{{ cerfa.employeurSpecifique}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-sm-2">Complément :</div>
-  <div class="col-sm-4"><span     class="form-control col"    >{{ cerfa.complementEmployeur}}</span></div>
+  <div class="col-sm-4"><span     class=" col"    >{{ cerfa.complementEmployeur}}</span></div>
   <div class="col-sm-3">Code activité de l’entreprise (NAF) :</div>
-  <div class="col-sm-1"><span     class="form-control col"    >{{ cerfa.NAF}}</span></div>
+  <div class="col-sm-1"><span     class=" col"    >{{ cerfa.NAF}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-sm-2">Code postal :</div>
-  <div class="col-sm-4"><span     class="form-control col-4"    >{{ cerfa.adresseEmployeur.codePostal}}</span></div>
+  <div class="col-sm-4"><span     class=" col-4"    >{{ cerfa.adresseEmployeur.codePostal}}</span></div>
   <div class="col-sm-3">Effectif total salariés de l’entreprise :
-      <span     class="form-control col-4"    >{{ cerfa.effectifEntreprise}}</span>
+      <span     class=" col-4"    >{{ cerfa.effectifEntreprise}}</span>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-2">Commune :</div>
-  <div class="col-sm-9"><span     class="form-control col-5"    >{{ cerfa.adresseEmployeur.ville}}</span></div>
+  <div class="col-sm-9"><span     class=" col-5"    >{{ cerfa.adresseEmployeur.ville}}</span></div>
 </div>
 <div class="row">
   <div class="col-sm-2">Téléphone :</div>
   <div class="col-sm-4">
   <span type="tel" id="phone" name="phone"
       
-      class="form-control col-5" placeholder="01 23 45 67 89" >{{ cerfa.telEmployeur}}</span>
+      class=" col-5" placeholder="01 23 45 67 89" >{{ cerfa.telEmployeur}}</span>
   </div>  
   <div class="col-3">Convention collective applicable :</div>
   
@@ -148,26 +148,26 @@
   <div class="col-sm-4">
   </div>  
   <div class="col-3"><span   id="Convention" name="Convention"
-      class="form-control col-12" placeholder="...." >{{ cerfa.conventionCollectiveApplicable}}</span></div>
+      class=" col-12" placeholder="...." >{{ cerfa.conventionCollectiveApplicable}}</span></div>
 </div>
 
 <div class="cls_013"><span class="cls_013">Courriel :</span></div>
 <div class="row">
-<div class="col-md-3 offset-md-2"><span type="email" name="email" id="login" class="form-control" placeholder="jmichel@dawan.fr"
+<div class="col-md-3 offset-md-2"><span type="email" name="email" id="login"  placeholder="jmichel@dawan.fr"
             autocomplete="email" >{{ cerfa.emailEmployeur}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-6"></div>
   <div class="col-sm-2">Code IDCC de la convention :</div>
-  <div class="col-sm-1"><span     class="form-control "    >{{ cerfa.codeIdccConvention}}</span></div>
+  <div class="col-sm-1"><span class="">{{ cerfa.codeIdccConvention}}</span></div>
 </div>
 <div class="row">
 <div class="col-sm-7">
   <span class="cls_016"><b>*Pour les employeurs du secteur public,</b> </span>
   <span class="cls_007">adhésion de l’apprenti au régime spécifique d’assurance chômage :</span>
 </div>
-<div class="col-sm-2"><span     class="form-control col-2"    >{{ cerfa.assuranceChomage}}</span></div>
+<div class="col-sm-2"><span class=" col-2">{{ cerfa.assuranceChomage}}</span></div>
               </div>
 <b-card-header>
 
@@ -187,18 +187,18 @@
 
 <div class="row">
 <div class="col-sm-3"><b>Nom de naissance de l’apprenti(e)</b> :</div>
-<div class="col"><span     class="form-control "    >{{ cerfa.nomNaissanceApprenti}}</span></div>
+<div class="col"><span     class=" "    >{{ cerfa.nomNaissanceApprenti}}</span></div>
 </div>
 
 <div class="row">
 <div class="col-sm-3"><b>Prénom de l’apprenti(e)</b> :</div>
-  <div class="col"><span     class="form-control "    >{{ cerfa.prenomApprenti}}</span></div>
+  <div class="col"><span     class=" "    >{{ cerfa.prenomApprenti}}</span></div>
 </div>
 <div class="row">
   <div class="col-3">NIR de l’apprenti(e)* :</div>
-  <div class="col-4"><span     class="form-control "    >{{ cerfa.nirApprenti}}</span></div>
+  <div class="col-4"><span     class=" "    >{{ cerfa.nirApprenti}}</span></div>
   <div class="col-2">Date de naissance :</div>
-  <div class="col"><span type="date" name="birthdate" id="birth" class="form-control col-6" placeholder="jj/mm/aaaa"
+  <div class="col"><span type="date" name="birthdate" id="birth" class=" col-6" placeholder="jj/mm/aaaa"
             pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" autocomplete="bday" >{{ cerfa.dateDeNaissance}}</span></div>
 </div>
 
@@ -220,39 +220,39 @@
 <div class="row">
   <div class="col-6"><b>Adresse de l’apprenti(e) :</b></div>
   <div class="col-2">Département de naissance :</div>
-  <div class="col"><span     class="form-control col-2"    >{{ cerfa.departementNaissance}}</span></div>
+  <div class="col"><span     class=" col-2"    >{{ cerfa.departementNaissance}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-sm-1">N°</div>
-  <div class="col-sm-1"><span     class="form-control "    >{{ cerfa.adresseApprenti.numero}}</span></div>
+  <div class="col-sm-1"><span     class=" "    >{{ cerfa.adresseApprenti.numero}}</span></div>
   <div class="col-sm-1">Voie :</div>
-  <div class="col-sm-3"><span     class="form-control "    >{{ cerfa.adresseApprenti.rue}}</span></div>
+  <div class="col-sm-3"><span     class=" "    >{{ cerfa.adresseApprenti.rue}}</span></div>
   <div class="col-2">Commune de naissance :</div>
-  <div class="col"><span     class="form-control "    >{{ cerfa.communeNaissance}}</span></div>
+  <div class="col"><span     class=" "    >{{ cerfa.communeNaissance}}</span></div>
 
 </div>
 <div class="row">
 <div class="col-2"><span class="cls_013">Complément :</span></div>
-<div class="col-4"><span     class="form-control "    >{{ cerfa.complementApprentit}}</span></div>
+<div class="col-4"><span     class=" "    >{{ cerfa.complementApprentit}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-2">Code Postal :</div>
-  <div class="col-4"><span     class="form-control col-3"    >{{ cerfa.adresseApprenti.codePostal}}</span></div>
+  <div class="col-4"><span     class=" col-3"    >{{ cerfa.adresseApprenti.codePostal}}</span></div>
   <div class="col-1">Nationalité :</div>
-    <div class="col-1"><span     class="form-control "    >{{ cerfa.nationalite}}</span> 
+    <div class="col-1"><span     class=" "    >{{ cerfa.nationalite}}</span> 
               
           
           </div>
   </div>
   <div class="col-2">Régime social :</div>
-  <div class="col-1"><span     class="form-control "    >{{ cerfa.regimeSocial}}</span></div>
+  <div class="col-1"><span     class=" "    >{{ cerfa.regimeSocial}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-2">Commune : </div>
-  <div class="col-4"><span     class="form-control "    >{{ cerfa.adresseApprenti.ville}}</span></div>
+  <div class="col-4"><span     class=" "    >{{ cerfa.adresseApprenti.ville}}</span></div>
   <div class="col-3">Déclare être inscrit sur la liste des sportifs,</div>
 </div>
 
@@ -266,7 +266,7 @@
   <div class="col-sm-5">
   <span type="tel" id="phone" name="phone"
       
-      class="form-control col-5" placeholder="01 23 45 67 89" >{{ cerfa.telApprenti}}</span>
+      class=" col-5" placeholder="01 23 45 67 89" >{{ cerfa.telApprenti}}</span>
   </div>
   <div class="col-sm-1">
   
@@ -287,7 +287,7 @@
 </div>
 
 <div class="row">
-<div class="col-md-4 offset-md-2"><span type="email" name="email" id="login" class="form-control" placeholder="jmichel@dawan.fr"
+<div class="col-md-4 offset-md-2"><span type="email" name="email" id="login" class="" placeholder="jmichel@dawan.fr"
             autocomplete="email" >{{ cerfa.emailApprenti}}</span></div>
   <div class="col-1">handicapé :</div>
   
@@ -316,9 +316,9 @@
   <div class="col-2">Nom de naissance et prénom :</div>
   <div class="col-4">
   <span   id="" name=""
-      class="form-control " >{{ cerfa.nomRepresentant}}</span>
+      class=" " >{{ cerfa.nomRepresentant}}</span>
       <span   id="" name=""
-      class="form-control " >{{ cerfa.prenomRepresentant}}</span>
+      class=" " >{{ cerfa.prenomRepresentant}}</span>
   </div>
   <div class="col-2">Dernier diplôme ou titre préparé :</div>
   <div class="col">
@@ -337,9 +337,9 @@
 
 <div class="row">
   <div class="col-sm-1">N°</div>
-  <div class="col-sm-1"><span     class="form-control "    >{{ cerfa.adresseRepresentant.numero}}</span></div>
+  <div class="col-sm-1"><span     class=" "    >{{ cerfa.adresseRepresentant.numero}}</span></div>
   <div class="col-sm-1">Voie :</div>
-  <div class="col-sm-3"><span     class="form-control "    >{{ cerfa.adresseRepresentant.rue}}</span></div>
+  <div class="col-sm-3"><span     class=" "    >{{ cerfa.adresseRepresentant.rue}}</span></div>
   <div class="col-4">Intitulé précis du dernier diplôme ou titre préparé :</div>
   <div class="col">
               <span class="form-group">
@@ -349,17 +349,17 @@
 </div>
 <div class="row">
 <div class="col-sm-2"><span class="cls_013">Complément :</span></div>
-<div class="col-sm-4"><span     class="form-control "    >{{ cerfa.complementRepresentant}}</span></div>
+<div class="col-sm-4"><span     class=" "    >{{ cerfa.complementRepresentant}}</span></div>
 </div>
 <div class="row">
   <div class="col-2">Code postal :</div>
-  <div class="col-sm-4"><span     class="form-control col-3"    >{{ cerfa.adresseRepresentant.codePostal}}</span></div>
+  <div class="col-sm-4"><span     class=" col-3"    >{{ cerfa.adresseRepresentant.codePostal}}</span></div>
   <div class="col-3">Diplôme ou titre le plus élevé obtenu :</div>
-  <div class="col-sm-3"><span     class="form-control col-2"    >{{ cerfa.diplomeLePlusEleveObtenu}}</span></div>
+  <div class="col-sm-3"><span     class=" col-2"    >{{ cerfa.diplomeLePlusEleveObtenu}}</span></div>
 </div>
 <div class="row">
 <div class="col-2"><span class="cls_013">Commune :</span></div>
-<div class="col-sm-4"><span     class="form-control col-4"    >{{ cerfa.adresseRepresentant.ville}}</span></div>
+<div class="col-sm-4"><span     class=" col-4"    >{{ cerfa.adresseRepresentant.ville}}</span></div>
 </div>
 <b-card-header>
   
@@ -384,28 +384,28 @@
 
 <div class="row">
   <div class="col-6"><b>Nom de naissance :</b>
-  <span class="form-control input-sm" id="inputsm"   >{{ cerfa.nomPremierTuteur}}</span>
+  <span class=" input-sm" id="inputsm"   >{{ cerfa.nomPremierTuteur}}</span>
   </div>
   <div class="col-6"><b>Nom de naissance :</b>
-  <span class="form-control input-sm" id="inputsm"   >{{ cerfa.nomDeuxiemeTuteur}}</span>
+  <span class=" input-sm" id="inputsm"   >{{ cerfa.nomDeuxiemeTuteur}}</span>
   </div>
 </div>
 <br>
 
 <div class="row">
   <div class="col-6"><b>Prénom :</b>
-  <span class="form-control input-sm" id="inputsm"   >{{ cerfa.prenomPremierTuteur}}</span>
+  <span class=" input-sm" id="inputsm"   >{{ cerfa.prenomPremierTuteur}}</span>
   </div>
   <div class="col-6"><b>Prénom :</b>
-  <span class="form-control input-sm" id="inputsm"   >{{ cerfa.prenomDeuxiemeTuteur}}</span>
+  <span class=" input-sm" id="inputsm"   >{{ cerfa.prenomDeuxiemeTuteur}}</span>
   </div>
 </div>
 <br>
 <div class="row">
   <div class="col-2">Date de naissance :</div>
-  <div class="col-sm-4"><span type="date"   class="form-control col-4"    >{{ cerfa.dateDeNaissancePremierTuteur}}</span></div>
+  <div class="col-sm-4"><span type="date"   class=" col-4"    >{{ cerfa.dateDeNaissancePremierTuteur}}</span></div>
   <div class="col-2">Date de naissance :</div>
-  <div class="col-sm-4"><span type="date"   class="form-control col-4"    >{{ cerfa.dateDeNaissanceDeuxiemeTuteur}}</span></div>
+  <div class="col-sm-4"><span type="date"   class=" col-4"    >{{ cerfa.dateDeNaissanceDeuxiemeTuteur}}</span></div>
 </div>
 <br>
 <div class="row">
@@ -439,9 +439,9 @@
 
 <div class="row">
   <div class="col-3">Type de contrat ou d’avenant :</div>
-  <div class="col-sm-3"><span     class="form-control col-2"    >{{ cerfa.contratType}}</span></div>
+  <div class="col-sm-3"><span     class=" col-2"    >{{ cerfa.contratType}}</span></div>
   <div class="col-1">Type de dérogation :</div>
-  <div class="col-2"><span     class="form-control col-3"    >{{ cerfa.derogationType}}</span></div>
+  <div class="col-2"><span     class=" col-3"    >{{ cerfa.derogationType}}</span></div>
   <div class="col-3"><i>à renseigner si une dérogation</i></div>
 </div>
 <div class="row">
@@ -450,7 +450,7 @@
 </div>
 <div class="row">
 <div class="col-5"><span class="cls_013">Numéro du contrat précédent ou du contrat sur lequel porte l’avenant :</span></div>
-<div class="col-6"><span     class="form-control "    >{{ cerfa.contratNum}}</span></div>
+<div class="col-6"><span     class=" "    >{{ cerfa.contratNum}}</span></div>
 </div>
 <div class="row">
   <div class="col-4">Date de conclusion :
@@ -465,14 +465,14 @@
 
 <div class="row">
   <div class="col-4">(Date de signature du présent contrat)
-      <span type="date"   class="form-control "    >{{ cerfa.dateConclusion}}</span>
+      <span type="date"   class=" "    >{{ cerfa.dateConclusion}}</span>
   </div>
   
   <div class="col-4">contrat :
-      <span type="date"   class="form-control "    >{{ cerfa.dateDebutContrat}}</span>
+      <span type="date"   class=" "    >{{ cerfa.dateDebutContrat}}</span>
   </div>
   <div class="col-4">date d’effet :  
-      <span type="date"   class="form-control "    >{{ cerfa.dateAvenant}}</span>
+      <span type="date"   class=" "    >{{ cerfa.dateAvenant}}</span>
   </div>
 </div>
 
@@ -487,15 +487,15 @@
 <div class="row">
   <div class="col-2">d’apprentissage :</div>
   <div class="col-4"> 
-      <span type="date"   class="form-control "    >{{ cerfa.dateFinContrat}}</span>
+      <span type="date"   class=" "    >{{ cerfa.dateFinContrat}}</span>
   </div>
   <div class="col-sm-1"> 
-      <span     class="form-control "    >{{ cerfa.heureTravail}}</span>
+      <span     class=" "    >{{ cerfa.heureTravail}}</span>
   </div>
 
   <div class="col-sm-1">heures</div>
   <div class="col-sm-1"> 
-      <span     class="form-control "    >{{ cerfa.minuteTravail}}</span>
+      <span     class=" "    >{{ cerfa.minuteTravail}}</span>
   </div>
   <div class="col">minutes</div>
 </div>
@@ -521,19 +521,19 @@
 <div class="row">
   <div class="col-2">1<sup>re</sup> année, du </div>
    <div class="col-sm-2"> 
-      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration1.dateDebut}}</span> -->
+      <!-- <span type="date"   class=" "    >{{ cerfa.remuneration1.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
     <div class="col-sm-2"> 
-       <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration1.dateFin}}</span> -->
+       <!-- <span type="date"   class=" "    >{{ cerfa.remuneration1.dateFin}}</span> -->
     </div>
   <div class="col-1">:</div>
     <div class="col-sm-1"> 
-      <span     class="form-control "    >{{ cerfa.remuneration1.pourcentage}}</span>
+      <span     class=" "    >{{ cerfa.remuneration1.pourcentage}}</span>
     </div>
   <div class="col-1">% du</div>
     <div class="col-sm-1"> 
-      <span class="form-control">{{cerfa.remuneration1.smicOuSmc}}</span>
+      <span class="">{{cerfa.remuneration1.smicOuSmc}}</span>
     </div>
   <div class="col">*</div>
   <!-- <div class="col-1">au</div>
@@ -545,15 +545,15 @@
 <div class="row">
   <div class="col-sm-2">2<sup>ème </sup> année, du </div>
   <div class="col-sm-2"> 
-      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration2.dateDebut}}</span> -->
+      <!-- <span type="date"   class=" "    >{{ cerfa.remuneration2.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
   <div class="col-sm-2"> 
-       <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration2.dateFin}}</span> -->
+       <!-- <span type="date"   class=" "    >{{ cerfa.remuneration2.dateFin}}</span> -->
     </div>
   <div class="col-1">:</div>
   <div class="col-sm-1"> 
-      <span     class="form-control "    >{{ cerfa.remuneration2.pourcentage}}</span>
+      <span     class=" "    >{{ cerfa.remuneration2.pourcentage}}</span>
     </div>
   <div class="col-1">% du</div>
   <div class="col-sm-1"> 
@@ -569,19 +569,19 @@
 <div class="row">
   <div class="col-2">3<sup>ème </sup> année, du </div>
   <div class="col-sm-2"> 
-      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration3.dateDebut}}</span> -->
+      <!-- <span type="date"   class=" "    >{{ cerfa.remuneration3.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
   <div class="col-sm-2"> 
-      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration3.dateFin}}</span> -->
+      <!-- <span type="date"   class=" "    >{{ cerfa.remuneration3.dateFin}}</span> -->
     </div> 
   <div class="col-1">:</div>
   <div class="col-sm-1"> 
-      <span     class="form-control "    >{{ cerfa.remuneration3.pourcentage}}</span>
+      <span     class=" "    >{{ cerfa.remuneration3.pourcentage}}</span>
     </div>
   <div class="col-1">% du</div>
   <div class="col-sm-1"> 
-      <span class="form-control">{{cerfa.remuneration3.smicOuSmc}}</span>
+      <span class="">{{cerfa.remuneration3.smicOuSmc}}</span>
     </div>
   <div class="col-1">*</div>
   <!-- <div class="col-1">au</div>
@@ -593,21 +593,21 @@
 <div class="row">
   <div class="col-2">4<sup>ème </sup> année, du </div>
   <div class="col-sm-2"> 
-      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration4.dateDebut}}</span> -->
+      <!-- <span type="date"   class=" "    >{{ cerfa.remuneration4.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
   <div class="col-sm-2"> 
-      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration4.dateFin}}</span> -->
+      <!-- <span type="date"   class=" "    >{{ cerfa.remuneration4.dateFin}}</span> -->
           
     </div> 
   <div class="col-1">:</div>
   <div class="col-sm-1"> 
-      <span     class="form-control "    >{{ cerfa.remuneration4.pourcentage}}</span>
+      <span     class=" "    >{{ cerfa.remuneration4.pourcentage}}</span>
               
     </div>
   <div class="col-1">% du</div>
   <div class="col-sm-1"> 
-      <span class="form-control">{{cerfa.remuneration4.smicOuSmc}}</span>
+      <span class="">{{cerfa.remuneration4.smicOuSmc}}</span>
     </div>
   <div class="col-1">*</div>
   <!-- <div class="col-1">au</div>
@@ -622,20 +622,20 @@
 </div>
 
 <div class="row">
-  <div class="col-1"><span     class="form-control "    >{{ cerfa.salaireBrut}}</span></div>
+  <div class="col-1"><span     class=" "    >{{ cerfa.salaireBrut}}</span></div>
   <div class="col-sm-1">€</div>
   <div class="col-4"></div>
-  <div class="col-5"><span     class="form-control "    >{{ cerfa.caisseDeRetraite}}</span></div>
+  <div class="col-5"><span     class=" "    >{{ cerfa.caisseDeRetraite}}</span></div>
   
 </div>
 
 <div class="row">
   <div class="col-4">Avantages en nature, le cas échéant : Nourriture :</div>
-  <div class="col-1"><span     class="form-control "    >{{ cerfa.nourriture}}</span></div>
+  <div class="col-1"><span     class=" "    >{{ cerfa.nourriture}}</span></div>
   <div class="col-2">€ / repas   Logement :</div>
-  <div class="col-1"><span     class="form-control "    >{{ cerfa.logement}}</span></div>
+  <div class="col-1"><span     class=" "    >{{ cerfa.logement}}</span></div>
   <div class="col-2">€ / mois     Autre :</div>
-  <div class="col-1"><span     class="form-control "    >{{ cerfa.autre}}</span></div>
+  <div class="col-1"><span     class=" "    >{{ cerfa.autre}}</span></div>
 </div>
 
 <b-card-header>
@@ -653,10 +653,10 @@
 
 <div class="row">
   <div class="col-2">CFA d’entreprise  :</div>
-  <!-- <div class="col-1"><span     class="form-control "   
+  <!-- <div class="col-1"><span     class=" "   
               /></div>
   <div class="col-1">oui</div>
-  <div class="col-1"><span     class="form-control "   
+  <div class="col-1"><span     class=" "   
               /></div>
   <div class="col-3">non</div> -->
   <div class="form-check form-check-inline ">
@@ -668,16 +668,16 @@
 <label class="form-check-label" for="nonCfaEntreprise">non</label>
 </div>
   <div class="col-3">Diplôme ou titre visé par l’apprenti :</div>
-  <div class="col-1"><span     class="form-control "    >{{ cerfa.diplomeVise}}</span></div>
+  <div class="col-1"><span     class=" "    >{{ cerfa.diplomeVise}}</span></div>
 </div>
 
 
 <div class="row">
   <div class="col-6">Dénomination du CFA responsable :
-  <span     class="form-control "    >{{ cerfa.cfaResponsable}}</span>
+  <span     class=" "    >{{ cerfa.cfaResponsable}}</span>
   </div>
   <div class="col-6">Intitulé précis :
-      <span     class="form-control "    >{{ cerfa.intitulePrecisDiplomeVise}}</span>
+      <span     class=" "    >{{ cerfa.intitulePrecisDiplomeVise}}</span>
               
   </div>
   
@@ -686,16 +686,16 @@
 
 <div class="row">
   <div class="col-2">N° UAI du CFA :</div>
-  <div class="col-4"><span     class="form-control col-5"    >{{ cerfa.UAI}}</span></div>
+  <div class="col-4"><span     class=" col-5"    >{{ cerfa.UAI}}</span></div>
   <div class="col-2">Code du diplôme :</div>
-  <div class="col-4"><span     class="form-control col-4"    >{{ cerfa.diplomeCode}}</span></div>
+  <div class="col-4"><span     class=" col-4"    >{{ cerfa.diplomeCode}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-2">N° SIRET CFA :</div>
-  <div class="col-4"><span     class="form-control col-6"    >{{ cerfa.cfaSiret}}</span></div>
+  <div class="col-4"><span     class=" col-6"    >{{ cerfa.cfaSiret}}</span></div>
   <div class="col-2">Code RNCP :</div>
-  <div class="col-4"><span     class="form-control col-3"    >{{ cerfa.RNCP}}</span></div>
+  <div class="col-4"><span     class=" col-3"    >{{ cerfa.RNCP}}</span></div>
 </div>
 
 
@@ -708,35 +708,35 @@
 
 <div class="row">
   <div class="col-sm-1">N° :</div>
-<div class="col-sm-2"><span     class="form-control col-3"    >{{ cerfa.adresseResponsable.numero}}</span></div>
+<div class="col-sm-2"><span     class=" col-3"    >{{ cerfa.adresseResponsable.numero}}</span></div>
 <div class="col-sm-1">Voie :</div>
-<div class="col-sm-2"><span     class="form-control col-7"    >{{ cerfa.adresseResponsable.rue}}</span></div>
+<div class="col-sm-2"><span     class=" col-7"    >{{ cerfa.adresseResponsable.rue}}</span></div>
   <div class="col-sm-2">Date de début du cycle de formation :</div>
-  <div class="col-3"><span type="date"   class="form-control col-5"    >{{ cerfa.dateDebutFormation}}</span></div>
+  <div class="col-3"><span type="date"   class=" col-5"    >{{ cerfa.dateDebutFormation}}</span></div>
 
 </div>
 <div class="row">
 <div class="col-2"><span class="cls_013">Complément :</span></div>
-<div class="col-5"><span     class="form-control col-6"    >{{ cerfa.complementResponsable}}</span></div>
+<div class="col-5"><span     class=" col-6"    >{{ cerfa.complementResponsable}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-2">Code postal :</div>
-  <div class="col-4"><span     class="form-control col-3"    >{{ cerfa.adresseResponsable.codePostal}}</span></div>
+  <div class="col-4"><span     class=" col-3"    >{{ cerfa.adresseResponsable.codePostal}}</span></div>
   <div class="col-6">Date prévue de fin des épreuves ou examens :
-      <span type="date"   class="form-control col-3"    >{{ cerfa.dateExamen}}</span>
+      <span type="date"   class=" col-3"    >{{ cerfa.dateExamen}}</span>
   </div>
 </div>
 
 <div class="row">
 <div class="col-2"><span class="cls_013">Commune :</span></div>
-<div class="col-4"><span     class="form-control col-6"    >{{ cerfa.adresseResponsable.ville}}</span></div>
+<div class="col-4"><span     class=" col-6"    >{{ cerfa.adresseResponsable.ville}}</span></div>
 </div>
 
 <div class="row">
   <div class="col-6"></div>
   <div class="col-2">Durée de la formation :</div>
-  <div class="col-2"><span     class="form-control col-6"    >{{ cerfa.formationDuree}}</span></div>
+  <div class="col-2"><span     class=" col-6"    >{{ cerfa.formationDuree}}</span></div>
   <div class="col">heures</div>
   
 </div>
@@ -754,7 +754,7 @@
 <br>
 <div class="row">
 <div class="col-1"><span class="cls_013">Fait à :</span></div>
-<div class="col"><span     class="form-control "    >{{ cerfa.faitA}}</span></div>
+<div class="col"><span     class=" "    >{{ cerfa.faitA}}</span></div>
 </div>
 <br>
 
@@ -790,10 +790,10 @@
 
 <div class="row">
   <div class="col-6"><b>Nom de l’organisme :</b>
-  <span     class="form-control "    >{{ cerfa.nomOrganisme }}</span>
+  <span     class=" "    >{{ cerfa.nomOrganisme }}</span>
               </div>
   <div class="col-6"><b>N° SIRET de l’organisme :</b>
-  <span     class="form-control "    >{{ cerfa.siretOrganisme }}</span>
+  <span     class=" "    >{{ cerfa.siretOrganisme }}</span>
               </div>
 </div>
 <br>
@@ -801,11 +801,11 @@
 
 <div class="row">
   <div class="col-6">Date de réception du dossier complet :
-      <span type="date"   class="form-control col-6"    >{{ cerfa.receptionDossier}}</span>
+      <span type="date"   class=" col-6"    >{{ cerfa.receptionDossier}}</span>
               
   </div>
   <div class="col-6">Date de la décision :
-      <span type="date"   class="form-control col-6"    >{{ cerfa.dateDecision}}</span>
+      <span type="date"   class=" col-6"    >{{ cerfa.dateDecision}}</span>
               
   </div>
 </div>
@@ -814,10 +814,10 @@
 
 <div class="row">
   <div class="col-2">N° de dépôt :</div>
-  <div class="col"><span     class="form-control col-7"    >{{ cerfa.numDepot}}</span>
+  <div class="col"><span     class=" col-7"    >{{ cerfa.numDepot}}</span>
               </div>
   <div class="col-2">Numéro d’avenant :</div>
-  <div class="col"><span  class="form-control col-5">{{ cerfa.numAvenant}}</span>
+  <div class="col"><span  class=" col-5">{{ cerfa.numAvenant}}</span>
               </div>
 </div>
 <br>
