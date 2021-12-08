@@ -521,11 +521,11 @@
 <div class="row">
   <div class="col-2">1<sup>re</sup> année, du </div>
    <div class="col-sm-2"> 
-      <span type="date"   class="form-control "    >{{ cerfa.remuneration1.dateDebut}}</span>
+      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration1.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
     <div class="col-sm-2"> 
-       <span type="date"   class="form-control "    >{{ cerfa.remuneration1.dateFin}}</span>
+       <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration1.dateFin}}</span> -->
     </div>
   <div class="col-1">:</div>
     <div class="col-sm-1"> 
@@ -533,7 +533,7 @@
     </div>
   <div class="col-1">% du</div>
     <div class="col-sm-1"> 
-      <span class="form-control">cerfa.remuneration1.smicOuSmc</span>
+      <span class="form-control">{{cerfa.remuneration1.smicOuSmc}}</span>
     </div>
   <div class="col">*</div>
   <!-- <div class="col-1">au</div>
@@ -545,11 +545,11 @@
 <div class="row">
   <div class="col-sm-2">2<sup>ème </sup> année, du </div>
   <div class="col-sm-2"> 
-      <span type="date"   class="form-control "    >{{ cerfa.remuneration2.dateDebut}}</span>
+      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration2.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
   <div class="col-sm-2"> 
-       <span type="date"   class="form-control "    >{{ cerfa.remuneration2.dateFin}}</span>
+       <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration2.dateFin}}</span> -->
     </div>
   <div class="col-1">:</div>
   <div class="col-sm-1"> 
@@ -557,7 +557,7 @@
     </div>
   <div class="col-1">% du</div>
   <div class="col-sm-1"> 
-      <span class="from-group">cerfa.remuneration2.smicOuSmc</span>
+      <span class="from-group">{{cerfa.remuneration2.smicOuSmc}}</span>
     </div>
   <div class="col">*</div>
   <!-- <div class="col-1">au</div>
@@ -569,11 +569,11 @@
 <div class="row">
   <div class="col-2">3<sup>ème </sup> année, du </div>
   <div class="col-sm-2"> 
-      <span type="date"   class="form-control "    >{{ cerfa.remuneration3.dateDebut}}</span>
+      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration3.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
   <div class="col-sm-2"> 
-      <span type="date"   class="form-control "    >{{ cerfa.remuneration3.dateFin}}</span>
+      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration3.dateFin}}</span> -->
     </div> 
   <div class="col-1">:</div>
   <div class="col-sm-1"> 
@@ -581,7 +581,7 @@
     </div>
   <div class="col-1">% du</div>
   <div class="col-sm-1"> 
-      <span class="form-control">cerfa.remuneration3.smicOuSmc</span>
+      <span class="form-control">{{cerfa.remuneration3.smicOuSmc}}</span>
     </div>
   <div class="col-1">*</div>
   <!-- <div class="col-1">au</div>
@@ -593,11 +593,11 @@
 <div class="row">
   <div class="col-2">4<sup>ème </sup> année, du </div>
   <div class="col-sm-2"> 
-      <span type="date"   class="form-control "    >{{ cerfa.remuneration4.dateDebut}}</span>
+      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration4.dateDebut}}</span> -->
     </div> 
   <div class="col-1">au</div>
   <div class="col-sm-2"> 
-      <span type="date"   class="form-control "    >{{ cerfa.remuneration4.dateFin}}</span>
+      <!-- <span type="date"   class="form-control "    >{{ cerfa.remuneration4.dateFin}}</span> -->
           
     </div> 
   <div class="col-1">:</div>
@@ -607,7 +607,7 @@
     </div>
   <div class="col-1">% du</div>
   <div class="col-sm-1"> 
-      <span class="form-control">cerfa.remuneration4.smicOuSmc</span>
+      <span class="form-control">{{cerfa.remuneration4.smicOuSmc}}</span>
     </div>
   <div class="col-1">*</div>
   <!-- <div class="col-1">au</div>
@@ -827,25 +827,157 @@
 </template>
 
 <script>
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { cerfaApi } from "@/_api/cerfa.api.js";
 export default {
     name: "FicheEntreprise",
     components: {
-        BodyTitle,
     },
     data() {
-    return {
-      cerfa: {},
-    };
-  },
+      return {
+        cerfa: {
+      modeContractuelApprentissage :null,
+      complementEmployeur:null,
+      employeurType:null,
+      assuranceChomage:null,
+      complementApprentit:null,
+      complementRepresentant:null,
+      egilibiliteFonction:null,
+      complementResponsable:null,
+      faitA:null,
+        employeurPriveOuPublic:null,
+        nomEmployeur:null,
+        prenomEmployeur:null,
+        adresseEmployeur:{
+          id:null,
+          numero:null,
+          rue:null,
+          ville:null,
+          codePostal:null,
+        },
+        telEmployeur:null,
+        emailEmployeur:null,
+        siretEtablissement:null,
+        employeurSpecifique:null,
+        naf:null,
+        effectifEntreprise:null,
+        conventionCollectiveApplicable:null,
+        codeIdccConvention:null,
+        nomNaissanceApprenti:null,
+        prenomApprenti:null,
+        nirApprenti:null,
+        dateDeNaissance:null,
+        sexe:null,
+        adresseApprenti: {
+          id:null,
+          numero:null,
+          rue:null,
+          ville:null,
+          codePostal:null,
+        },
+        departementNaissance:null,
+        communeNaissance:null,
+        telApprenti:null,
+        emailApprenti:null,
+        nationalite:null,
+        regimeSocial:null,
+        sportifs:null,
+        handicape:null,
+        situationAvantContrat:null,
+        dernierDiplome:null,
+        derniereClasseSuivi:null,
+        intitulePrecisDernierDiplome:null,
+        diplomeLePlusEleveObtenu:null,
+        nomRepresentant:null,
+        prenomRepresentant:null,
+        adresseRepresentant: {
+          id:null,
+          numero:null,
+          rue:null,
+          ville:null,
+          codePostal:null,
+        },
+        nomPremierTuteur:null,
+        prenomPremierTuteur:null,
+        dateDeNaissancePremierTuteur:null,
+        nomDeuxiemeTuteur:null,
+        prenomDeuxiemeTuteur:null,
+        dateDeNaissanceDeuxiemeTuteur:null,
+        contratType:null,
+        derogationType:null,
+        contratNum:null,
+        dateConclusion:null,
+        dateDebutContrat:null,
+        dateAvenant:null,
+        dateFinContrat:null,
+        heureTravail:null,
+        minuteTravail:null,
+        machineRisque:null,
+        remuneration1: {
+         dateDebut:null,
+        dateFin:null,
+         pourcentage:null,
+         smicOuSmc:null,
+        },
+        remuneration2: {
+         dateDebut:null,
+         dateFin:null,
+         pourcentage:null,
+         smicOuSmc:null,
+        },
+        remuneration3: {
+         dateDebut:null,
+         dateFin:null,
+         pourcentage:null,
+         smicOuSmc:null,
+        },
+        remuneration4: {
+         dateDebut:null,
+         dateFin:null,
+         pourcentage:null,
+         smicOuSmc:null,
+        },
+        salaireBrut:null,
+        caisseDeRetraite:null,
+        nourriture:null,
+        logement:null,
+        autre:null,
+        cfaEntreprise:null,
+        cfaResponsable:null,
+        diplomeVise:null,
+        intitulePrecisDiplomeVise:null,
+        cfaUai:null,
+        cfaSiret:null,
+        diplomeCode:null,
+        codeRncp:null,
+        adresseResponsable:{
+          id: null,
+          numero: null,
+          rue: null,
+          ville: null,
+          codePostal: null,
+        },
+        dateDebutFormation:null,
+        dateExamen:null,
+        formationDuree:null,
+        validationEmployeur:null,
+        nomOrganisme:null,
+        siretOrganisme:null,
+        receptionDossier:null,
+        dateDecision:null,
+        numDepot:null,
+        numAvenant:null,
+        etudiant:null,
+        },
+      };
+    },
   computed: {
     
   },
   methods: {
   },
   created() {
-    cerfaApi.getById(this.$store.getters.getUtilisateur.id).then((response) => (this.cerfa = response));
+    cerfaApi.getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id).then((response) => (this.cerfa = response));
+    console.log(this.cerfa)
   },
 };
 </script>

@@ -368,28 +368,28 @@
       <div class="form-group">
             <select class="form-control" id="sel2" v-model="form.dernierDiplome">
               <option>80 Doctorat</option>
-              <option>71 Master professionnel/DESS</option>
-              <option>72 Master recherche/DEA</option>
-              <option>73 Master indifférencié</option>
-              <option>74 Diplôme d'ingénieur, diplôme d'école de commerce </option>
+              <option>71 Master professionnel/DESS</option>
+              <option>72 Master recherche/DEA</option>
+              <option>73 Master indifférencié</option>
+              <option>74 Diplôme d'ingénieur, diplôme d'école de commerce </option>
               <option>79 Autre diplôme ou titre de niveau bac+5 ou plus</option>
-              <option>61 1ère année de Master</option>
-              <option>62 Licence professionnelle</option>
-              <option>63 Licence générale</option>
+              <option>61 1ère année de Master</option>
+              <option>62 Licence professionnelle</option>
+              <option>63 Licence générale</option>
               <option>69 Autre diplôme ou titre de niveau bac +3 ou 4 </option>
-              <option>54 Brevet de Technicien Supérieur</option>
-              <option>55 Diplôme Universitaire de technologie</option>
+              <option>54 Brevet de Technicien Supérieur</option>
+              <option>55 Diplôme Universitaire de technologie</option>
               <option>58 Autre diplôme ou titre de niveau bac+2</option> 
-              <option>41 Baccalauréat professionnel</option>
-              <option>42 Baccalauréat général</option>
-              <option>43 Baccalauréat technologique</option>
+              <option>41 Baccalauréat professionnel</option>
+              <option>42 Baccalauréat général</option>
+              <option>43 Baccalauréat technologique</option>
               <option>49 Autre diplôme ou titre de niveau bac</option>  
               <option>33 CAP</option>
-              <option>34 BEP</option>
-              <option>35 Mention complémentaire</option>
+              <option>34 BEP</option>
+              <option>35 Mention complémentaire</option>
               <option>38 Autre diplôme ou titre de niveau CAP/BEP</option> 
-              <option>25 Diplôme national du Brevet</option>
-              <option>26 Certificat de formation générale</option>
+              <option>25 Diplôme national du Brevet</option>
+              <option>26 Certificat de formation générale</option>
               <option>13 Aucun diplôme ni titre professionnel</option>
             </select>
           </div>
@@ -406,23 +406,23 @@
             <select class="form-control" id="sel2" v-model="form.derniereClasseSuivi">
               <option>01 l’apprenti a suivi la dernière année du cycle de formation et a obtenu le diplôme ou titre
               </option>
-              <option>11 l’apprenti a suivi la 1ère année du cycle et l’a validée (examens réussis mais année non diplômante)
+              <option>11 l’apprenti a suivi la 1ère année du cycle et l’a validée (examens réussis mais année non diplômante)
               </option>
-              <option>12 l’apprenti a suivi la 1ère année du cycle mais ne l’a pas validée (échec aux examens, interruption ou abandon de formation)
+              <option>12 l’apprenti a suivi la 1ère année du cycle mais ne l’a pas validée (échec aux examens, interruption ou abandon de formation)
               </option>
-              <option>21 l’apprenti a suivi la 2è année du cycle et l’a validée (examens réussis mais année non diplômante)
+              <option>21 l’apprenti a suivi la 2è année du cycle et l’a validée (examens réussis mais année non diplômante)
               </option>
-              <option>22 l’apprenti a suivi la 2è année du cycle mais ne l’a pas validée (échec aux examens, interruption ou abandon de formation)
+              <option>22 l’apprenti a suivi la 2è année du cycle mais ne l’a pas validée (échec aux examens, interruption ou abandon de formation)
               </option>
               <option>31 l’apprenti a suivi la 3è année du cycle et l’a validée (examens réussis mais année non diplômante, cycle adaptés)
               </option>
               <option>32 l'apprenti a suivi la 3è année du cycle mais ne l'a pas validée (échec aux examens, interruption ou abandon de formation)
               </option>
-              <option>40 l’apprenti a achevé le 1er cycle de l’enseignement secondaire (collège)
+              <option>40 l’apprenti a achevé le 1er cycle de l’enseignement secondaire (collège)
               </option>
-              <option>41 l’apprenti a interrompu ses études en classe de 3è
+              <option>41 l’apprenti a interrompu ses études en classe de 3è
               </option>
-              <option>42 l’apprenti a interrompu ses études en classe de 4è 
+              <option>42 l’apprenti a interrompu ses études en classe de 4è 
               </option>
             </select>
           </div>
@@ -441,28 +441,28 @@
               <div class="form-group">
               <select class="form-control" id="sel2" v-model="form.intitulePrecisDernierDiplome">
               <option>80 Doctorat</option>
-              <option>71 Master professionnel/DESS</option>
-              <option>72 Master recherche/DEA</option>
-              <option>73 Master indifférencié</option>
-              <option>74 Diplôme d'ingénieur, diplôme d'école de commerce </option>
+              <option>71 Master professionnel/DESS</option>
+              <option>72 Master recherche/DEA</option>
+              <option>73 Master indifférencié</option>
+              <option>74 Diplôme d'ingénieur, diplôme d'école de commerce </option>
               <option>79 Autre diplôme ou titre de niveau bac+5 ou plus</option>
-              <option>61 1ère année de Master</option>
-              <option>62 Licence professionnelle</option>
-              <option>63 Licence générale</option>
+              <option>61 1ère année de Master</option>
+              <option>62 Licence professionnelle</option>
+              <option>63 Licence générale</option>
               <option>69 Autre diplôme ou titre de niveau bac +3 ou 4 </option>
-              <option>54 Brevet de Technicien Supérieur</option>
-              <option>55 Diplôme Universitaire de technologie</option>
+              <option>54 Brevet de Technicien Supérieur</option>
+              <option>55 Diplôme Universitaire de technologie</option>
               <option>58 Autre diplôme ou titre de niveau bac+2</option> 
-              <option>41 Baccalauréat professionnel</option>
-              <option>42 Baccalauréat général</option>
-              <option>43 Baccalauréat technologique</option>
+              <option>41 Baccalauréat professionnel</option>
+              <option>42 Baccalauréat général</option>
+              <option>43 Baccalauréat technologique</option>
               <option>49 Autre diplôme ou titre de niveau bac</option>  
               <option>33 CAP</option>
-              <option>34 BEP</option>
-              <option>35 Mention complémentaire</option>
+              <option>34 BEP</option>
+              <option>35 Mention complémentaire</option>
               <option>38 Autre diplôme ou titre de niveau CAP/BEP</option> 
-              <option>25 Diplôme national du Brevet</option>
-              <option>26 Certificat de formation générale</option>
+              <option>25 Diplôme national du Brevet</option>
+              <option>26 Certificat de formation générale</option>
               <option>13 Aucun diplôme ni titre professionnel</option>
             </select>
           </div>
@@ -1030,7 +1030,7 @@
 
 <script>
 import { cerfaApi } from "@/_api/cerfa.api.js";
-//import { etudiantApi} from "@/_api/etudiant.api.js";
+import { etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
 name: "cerfaCreate",
@@ -1121,26 +1121,26 @@ data() {
         machineRisque:"",
         remuneration1: {
          dateDebut: "",
-	       dateFin:"",
-	       pourcentage:"",
+        dateFin:"",
+         pourcentage:"",
          smicOuSmc:"",
         },
         remuneration2: {
          dateDebut: "",
-	       dateFin:"",
-	       pourcentage:"",
+         dateFin:"",
+         pourcentage:"",
          smicOuSmc:"",
         },
         remuneration3: {
          dateDebut: "",
-	       dateFin:"",
-	       pourcentage:"",
+         dateFin:"",
+         pourcentage:"",
          smicOuSmc:"",
         },
         remuneration4: {
          dateDebut: "",
-	       dateFin:"",
-	       pourcentage:"",
+         dateFin:"",
+         pourcentage:"",
          smicOuSmc:"",
         },
         salaireBrut:"",
@@ -1173,9 +1173,8 @@ data() {
         dateDecision:"",
         numDepot:"",
         numAvenant:"",
-        etudiantDto: null,
+        etudiant: null,
     },
-  etudiant: null,
   adresse: null,
     
 };
@@ -1197,10 +1196,9 @@ methods: {
   },
   created() {
       // console.log(this.$route.params.id);
-      cerfaApi.getByIdEtudiant(this.$route.params.id).then((response) => {
-        this.form.etudiantDto.prenomApprenti = response.etudiant.prenom
-        this.form.etudiantDto.nom = response.nomNaissanceApprenti
-      });
+    
+      etudiantApi.getById(this.$route.params.id)
+        .then(response => this.form.etudiant = response)
   },
 },
 };
