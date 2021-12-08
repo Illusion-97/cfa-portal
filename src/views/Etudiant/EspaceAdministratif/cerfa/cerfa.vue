@@ -65,19 +65,29 @@
               
   </div>
   <div class="col">
-    <div class="form-check form-check-inline">
+    <div class="form-check form-check-inline" v-if="cerfa.employeurPriveOuPublic=='employeurPrive'">
+              <input class="form-check-input" type="radio" id="employeurPrive" value="employeurPrive" v-model="cerfa.employeurPriveOuPublic" disabled checked>
+              <label class="form-check-label" for="employeurPrive"><b>employeur privé</b></label>
+    </div>
+    <div class="form-check form-check-inline" v-else>
               <input class="form-check-input" type="radio" id="employeurPrive" value="employeurPrive" v-model="cerfa.employeurPriveOuPublic" disabled>
               <label class="form-check-label" for="employeurPrive"><b>employeur privé</b></label>
-      </div>
+    </div>
+
+  
   </div>
   <div class="col col-lg-2">
       
   </div>
   <div class="col">
-    <div class="form-check form-check-inline">
+    <div class="form-check form-check-inline" v-if="cerfa.employeurPriveOuPublic=='employeurPublic'">
+    <input class="form-check-input" type="radio" id="employeurPublic" value="employeurPublic" v-model="cerfa.employeurPriveOuPublic" disabled checked>
+    <label class="form-check-label" for="employeurPublic"><b>employeur « public »*</b></label>
+    </div>
+    <div class="form-check form-check-inline" v-else>
     <input class="form-check-input" type="radio" id="employeurPublic" value="employeurPublic" v-model="cerfa.employeurPriveOuPublic" disabled>
     <label class="form-check-label" for="employeurPublic"><b>employeur « public »*</b></label>
-  </div>
+    </div>
     
   </div>
 </div>
@@ -207,13 +217,21 @@
 <div class="row">
   <div class="col-6"><i>du code du travail</i></div>
   <div class="col-1">Sexe :</div>
-<div class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="sexe" id="monsieur" value="M" v-model="cerfa.sexe" disabled>
-<label class="form-check-label" for="monsieur">M</label>
+<div class="form-check form-check-inline" v-if="cerfa.sexe=='M'">
+  <input class="form-check-input" type="radio" name="sexe" id="monsieur" value="M" v-model="cerfa.sexe" disabled checked>
+  <label class="form-check-label" for="monsieur">M</label>
 </div>
-<div class="form-check form-check-inline">
-<input class="form-check-input" type="radio" name="sexe" id="madame" value="F" v-model="cerfa.sexe" disabled>
-<label class="form-check-label" for="madame">F</label>
+<div class="form-check form-check-inline" v-else>
+  <input class="form-check-input" type="radio" name="sexe" id="monsieur" value="M" v-model="cerfa.sexe" disabled>
+  <label class="form-check-label" for="monsieur">M</label>
+</div>
+<div class="form-check form-check-inline" v-if="cerfa.sexe=='F'">
+  <input class="form-check-input" type="radio" name="sexe" id="madame" value="F" v-model="cerfa.sexe" disabled checked>
+  <label class="form-check-label" for="madame">F</label>
+</div>
+<div class="form-check form-check-inline" v-else>
+  <input class="form-check-input" type="radio" name="sexe" id="madame" value="F" v-model="cerfa.sexe" disabled>
+  <label class="form-check-label" for="madame">F</label>
 </div>
 </div>
 
@@ -271,15 +289,23 @@
   <div class="col-sm-1">
   
   </div>    
-  <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="sportifs" id="ouiSportifs" value="ouiSportifs" v-model="cerfa.sportifs" disabled>
-<label class="form-check-label" for="ouiSportifs">oui</label>
-</div>
-<div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="sportifs" id="nonSportifs" value="nonSportifs" v-model="cerfa.sportifs" disabled>
-<label class="form-check-label" for="nonSportifs">non</label>
-</div>
-</div>
+    <div class="form-check form-check-inline " v-if="cerfa.sportifs=='ouiSportifs'">
+      <input class="form-check-input" type="radio" name="sportifs" id="ouiSportifs" value="ouiSportifs" v-model="cerfa.sportifs" disabled checked>
+      <label class="form-check-label" for="ouiSportifs">oui</label>
+    </div>
+    <div class="form-check form-check-inline " v-else>
+      <input class="form-check-input" type="radio" name="sportifs" id="ouiSportifs" value="ouiSportifs" v-model="cerfa.sportifs" disabled>
+      <label class="form-check-label" for="ouiSportifs">oui</label>
+    </div>
+    <div class="form-check form-check-inline col-3" v-if="cerfa.sportifs=='nonSportifs'">
+      <input class="form-check-input" type="radio" name="sportifs" id="nonSportifs" value="nonSportifs" v-model="cerfa.sportifs" disabled checked>
+      <label class="form-check-label" for="nonSportifs">non</label>
+    </div>
+    <div class="form-check form-check-inline col-3" v-elsel>
+      <input class="form-check-input" type="radio" name="sportifs" id="nonSportifs" value="nonSportifs" v-model="cerfa.sportifs" disabled>
+      <label class="form-check-label" for="nonSportifs">non</label>
+    </div>
+  </div>
 
 <div class="row">
   <div class="col-6">Courriel : </div>
@@ -289,16 +315,24 @@
 <div class="row">
 <div class="col-md-4 offset-md-2"><span type="email" name="email" id="login" class="" placeholder="jmichel@dawan.fr"
             autocomplete="email" >{{ cerfa.emailApprenti}}</span></div>
-  <div class="col-1">handicapé :</div>
+<div class="col-1">handicapé :</div>
   
-  <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHanficape" v-model="cerfa.handicape" disabled>
-<label class="form-check-label" for="ouiHanficape">oui</label>
-</div>
-<div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHanficape" v-model="cerfa.handicape" disabled>
-<label class="form-check-label" for="nonHanficape">non</label>
-</div>
+  <div class="form-check form-check-inline " v-if="cerfa.handicape=='ouiHandicape'">
+    <input class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHandicape" v-model="cerfa.handicape" disabled checked>
+    <label class="form-check-label" for="ouiHanficape">oui</label>
+  </div>
+  <div class="form-check form-check-inline " v-else>
+    <input class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHandicape" v-model="cerfa.handicape" disabled>
+    <label class="form-check-label" for="ouiHanficape">oui</label>
+  </div>
+  <div class="form-check form-check-inline col-3" v-if="cerfa.handicape=='nonHandicape'">
+    <input class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHandicape" v-model="cerfa.handicape" disabled checked>
+    <label class="form-check-label" for="nonHanficape">non</label>
+  </div>
+  <div class="form-check form-check-inline col-3" v-else>
+    <input class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHandicape" v-model="cerfa.handicape" disabled>
+    <label class="form-check-label" for="nonHanficape">non</label>
+  </div>
 </div>
 
 <div class="row">
@@ -415,7 +449,9 @@
       
     </div>
         
-   <div class="col-9"><input class="form-check-input" type="checkbox" id="checkboxEgibilite" value="" aria-label="..." v-model="cerfa.eligibiliteFonction" disabled><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b></div>
+   <div class="col-9">
+     <input class="form-check-input" type="checkbox" id="checkboxEgibilite" value="" aria-label="..." v-model="cerfa.eligibiliteFonction" disabled><b><i>L’employeur atteste sur l’honneur que le maître d’apprentissage répond à l’ensemble des critères d’éligibilité à cette fonction.</i></b>
+     </div>
 </div>
 <br>
 
@@ -503,14 +539,22 @@
 
 <div class="row">
   <div class="col-5">Travail sur machines dangereuses ou exposition à des risques particuliers :</div>
-  <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" v-model="cerfa.machineRisque" disabled>
-<label class="form-check-label" for="ouiMachineRisque">oui</label>
-</div>
-<div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="machine" id="nonMachineRisque" value="nonMachineRisque" v-model="cerfa.machineRisque" disabled>
-<label class="form-check-label" for="nonMachineRisque">non</label>
-</div>
+  <div class="form-check form-check-inline " v-if="cerf.machineRisque=='ouiMachineRisque'">
+    <input class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" v-model="cerfa.machineRisque" disabled checked>
+    <label class="form-check-label" for="ouiMachineRisque">oui</label>
+  </div>
+  <div class="form-check form-check-inline " v-else>
+    <input class="form-check-input" type="radio" name="machine" id="ouiMachineRisque" value="ouiMachineRisque" v-model="cerfa.machineRisque" disabled>
+    <label class="form-check-label" for="ouiMachineRisque">oui</label>
+  </div>
+  <div class="form-check form-check-inline col-3" v-if="cerfa.machineRisque=='nonMachineRisque'">
+    <input class="form-check-input" type="radio" name="machine" id="nonMachineRisque" value="nonMachineRisque" v-model="cerfa.machineRisque" disabled checked>
+    <label class="form-check-label" for="nonMachineRisque">non</label>
+  </div>
+  <div class="form-check form-check-inline col-3" v-else>
+    <input class="form-check-input" type="radio" name="machine" id="nonMachineRisque" value="nonMachineRisque" v-model="cerfa.machineRisque" disabled>
+    <label class="form-check-label" for="nonMachineRisque">non</label>
+  </div>
 </div>
 
 <div class="row">
@@ -659,14 +703,22 @@
   <div class="col-1"><span     class=" "   
               /></div>
   <div class="col-3">non</div> -->
-  <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="cfaentreprise" id="ouiCfaEntreprise" value="ouiCfaEntreprise" v-model="cerfa.cfaEntreprise" disabled>
-<label class="form-check-label" for="ouiCfaEntreprise">oui</label>
-</div>
-<div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="cfaentreprise" id="nonCfaEntreprise" value="nonCfaEntreprise" v-model="cerfa.cfaEntreprise" disabled>
-<label class="form-check-label" for="nonCfaEntreprise">non</label>
-</div>
+  <div class="form-check form-check-inline " v-if="cerfa.cfaEntreprise=='ouiCfaEntreprise'">
+    <input class="form-check-input" type="radio" name="cfaentreprise" id="ouiCfaEntreprise" value="ouiCfaEntreprise" v-model="cerfa.cfaEntreprise" disabled checked>
+    <label class="form-check-label" for="ouiCfaEntreprise">oui</label>
+  </div>
+  <div class="form-check form-check-inline " v-else>
+    <input class="form-check-input" type="radio" name="cfaentreprise" id="ouiCfaEntreprise" value="ouiCfaEntreprise" v-model="cerfa.cfaEntreprise" disabled>
+    <label class="form-check-label" for="ouiCfaEntreprise">oui</label>
+  </div>
+  <div class="form-check form-check-inline col-3" v-if="cerfa.cfaEntreprise=='nonCfaEntreprise'">
+    <input class="form-check-input" type="radio" name="cfaentreprise" id="nonCfaEntreprise" value="nonCfaEntreprise" v-model="cerfa.cfaEntreprise" disabled checked>
+    <label class="form-check-label" for="nonCfaEntreprise">non</label>
+  </div>
+  <div class="form-check form-check-inline col-3" v-else>
+    <input class="form-check-input" type="radio" name="cfaentreprise" id="nonCfaEntreprise" value="nonCfaEntreprise" v-model="cerfa.cfaEntreprise" disabled>
+    <label class="form-check-label" for="nonCfaEntreprise">non</label>
+  </div>
   <div class="col-3">Diplôme ou titre visé par l’apprenti :</div>
   <div class="col-1"><span     class=" "    >{{ cerfa.diplomeVise}}</span></div>
 </div>
