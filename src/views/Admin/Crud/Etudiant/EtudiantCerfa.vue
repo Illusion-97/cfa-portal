@@ -317,12 +317,12 @@
   <div class="col-1">handicapé :</div>
   
   <div class="form-check form-check-inline ">
-<input class="form-check-input" type="radio" name="handicape" id="ouiHanficape" value="ouiHanficape" v-model="form.handicape">
-<label class="form-check-label" for="ouiHanficape">oui</label>
+<input class="form-check-input" type="radio" name="handicape" id="ouiHandicape" value="ouiHandicape" v-model="form.handicape">
+<label class="form-check-label" for="ouiHandicape">oui</label>
 </div>
 <div class="form-check form-check-inline col-3">
-<input class="form-check-input" type="radio" name="handicape" id="nonHanficape" value="nonHanficape" v-model="form.handicape">
-<label class="form-check-label" for="nonHanficape">non</label>
+<input class="form-check-input" type="radio" name="handicape" id="nonHandicape" value="nonHandicape" v-model="form.handicape">
+<label class="form-check-label" for="nonHandicape">non</label>
 </div>
 </div>
 
