@@ -3,6 +3,7 @@
     <form id="formContent" @submit="submit">
       <div class="form-horizontal">
         <div class="form-group">
+
           <div class="col-md-offset-2 col-md-12">
             <h2>Connexion</h2>
           </div>
@@ -47,7 +48,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <div v-if="isInvalid" class="my-invalid-feedback">
             Identifiant ou mot de passe incorrects !
           </div>
@@ -58,36 +59,107 @@
               value="Se connecter"
             />
           </div>    
-        </div>
-      </div>    
-      
-    </form>
+        </div> -->
 
+        <div class="justify-center cardAction">
+        <vue-recaptcha
+          ref="invisibleRecaptcha"
+          @verify="onVerify"
+          @expired="onExpired"
+          :sitekey="sitekey"
+          :loadRecaptchaScript="true"
+        >
+          <button color="error" class="btn btn-primary" :disabled="!valid" type="submit">
+            Se connecter
+          </button>
+          <!-- <div class="form-group">
+          <div v-if="isInvalid" class="my-invalid-feedback">
+            Identifiant ou mot de passe incorrects !
+          </div>
+          <div class="col-md-offset-2 col-md-12">
+            <input
+              class="btn btn-primary"
+              type="submit"
+              value="Se connecter"
+            /> 
+            <button color="error" class="btn btn-primary" :disabled="!valid" type="submit">
+            recaptcha
+          </button>
+          </div>     
+        </div>-->
+          
+        </vue-recaptcha>
+      </div>
+      </div>    
+    </form>
     
   </div>
 </template>
 
 <script>
+import VueRecaptcha from "vue-recaptcha";
+import { validationMixin } from "vuelidate";
+import { required, email } from "vuelidate/lib/validators";
 import { authenticationApi } from "@/_api/authentication.api.js";
 export default {
   name: "LoginPage",
+  mixins: [validationMixin],
+  validations: {
+    password: { required },
+    email: { required, email },
+    form: ["email", "password"],
+  },
+
+  components: {
+    VueRecaptcha,
+  },
   data() {
     return {
-      email: "",
+      sitekey: "6Ld9lTodAAAAAFpu53aFO_BQe8a6hyzzIhg0muVP",
+      show: false,
       password: "",
+      email: "",
       isInvalid: false,
       isInvalidInput: false,
+      valid: false,
     };
+  },
+
+  created(){
+    this.sitekey = process.env.VUE_APP_GOOGLE_CAPTCHA_SITE_KEY;
+    // if ($cookies.get("auth")) {
+    //   router.push("/" + this.$i18n.locale + "/home");
+    // }
+
   },
   methods: {
     isInvalidInputFalse(){
       this.isInvalidInput = false;
     },
-    submit: function(e) {
-      e.preventDefault();
+    // Start Captcha
+    onSubmit() {
+      this.$refs.invisibleRecaptcha.execute();
+    },
+    onVerify(captchaToken) {
+      this.status = "submitting";
+      this.$refs.invisibleRecaptcha.reset();
+      this.submit(captchaToken);
+    },
+    onExpired() {
+      this.$refs.invisibleRecaptcha.reset();
+      window.localStorage.removeItem("captchaToken");
+    },
 
-      authenticationApi.login(this.email,this.password)
-        // .then(()=>this.$router.push({name: 'home'}))
+    // End Captcha
+
+    submit(captchaToken) {
+      if (this.$v.form.$invalid) {
+        this.password = "";
+        this.email = "";
+      } else {
+
+      authenticationApi.login(this.email,this.password, captchaToken)
+        .then(()=>this.$router.push({name: 'home'}))
         .catch(error => {
           // console.log(error);
           if(error.response.data.message == "Erreur : identifiants incorrects !"){
@@ -95,6 +167,7 @@ export default {
             this.isInvalidInput = true;
           }
         });
+      }
     },
     toPublicPage(){
       this.$router.push({name: "public"});
@@ -192,7 +265,8 @@ h2.active {
 
 input[type="button"],
 input[type="submit"],
-input[type="reset"] {
+input[type="reset"],
+button {
   background-color: #56baed;
   border: none;
   color: white;
@@ -216,13 +290,15 @@ input[type="reset"] {
 
 input[type="button"]:hover,
 input[type="submit"]:hover,
-input[type="reset"]:hover {
+input[type="reset"]:hover,
+button:hover {
   background-color: #39ace7;
 }
 
 input[type="button"]:active,
 input[type="submit"]:active,
-input[type="reset"]:active {
+input[type="reset"]:active,
+button:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
