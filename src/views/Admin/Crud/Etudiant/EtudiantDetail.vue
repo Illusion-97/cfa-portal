@@ -407,7 +407,7 @@ export default {
       if (route[0] == "admin") 
         this.$router.push({
           name: "admin_etudiant_cerfa",
-          params: {},
+          params: {id : this.$route.params.id},
         });
       
     },

@@ -1031,6 +1031,8 @@
 <script>
 import { cerfaApi } from "@/_api/cerfa.api.js";
 import { etudiantApi} from "@/_api/etudiant.api.js";
+import { utilisateurApi } from "@/_api/utilisateur.api";
+import { utilisateur } from "../../../../store/modules/utilisateur.module";
 
 export default {
 name: "cerfaCreate",
@@ -1176,13 +1178,12 @@ data() {
         etudiant: null,
     },
   adresse: null,
+  e:null,
+  utilisateur : utilisateur,
     
 };
 },
 methods: {
-  // onClickChildAdresseList(adresse) {
-  //   this.form.adresseSiegeDto = adresse;
-  // },
   submit(e) {
     e.preventDefault();
 
@@ -1195,10 +1196,17 @@ methods: {
     this.$router.go(-1);
   },
   created() {
-      // console.log(this.$route.params.id);
-    
-      etudiantApi.getById(this.$route.params.id)
-        .then(response => this.form.etudiant = response)
+    etudiantApi.getById(this.$route.params.id)
+      .then(response => {this.form.etudiant = response,
+      this.e = response})
+    utilisateurApi.getById(this.e.utilisateurDto.id).then(response =>
+        {
+          console.log(response),
+          this.utilisateur = response,
+          this.form.nomNaissanceApprenti = this.utilisateur.nom,
+          this.form.prenomApprenti = this.utilisateur.prenom;
+        })
+
   },
 },
 };
