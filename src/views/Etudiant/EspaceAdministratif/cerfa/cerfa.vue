@@ -829,7 +829,7 @@
 <script>
 import { cerfaApi } from "@/_api/cerfa.api.js";
 export default {
-    name: "FicheEntreprise",
+    name: "Cerfa",
     components: {
     },
     data() {
@@ -977,7 +977,6 @@ export default {
   },
   created() {
     cerfaApi.getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id).then((response) => (this.cerfa = response));
-    console.log(this.cerfa)
   },
 };
 </script>
