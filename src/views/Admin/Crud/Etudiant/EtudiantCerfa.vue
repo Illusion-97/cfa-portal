@@ -1178,7 +1178,7 @@ data() {
         etudiant: null,
     },
   adresse: null,
-  e:null,
+  idUser : null,
   utilisateur : utilisateur,
     
 };
@@ -1195,20 +1195,27 @@ methods: {
   goBack() {
     this.$router.go(-1);
   },
-  created() {
+},
+created() {
     etudiantApi.getById(this.$route.params.id)
       .then(response => {this.form.etudiant = response,
-      this.e = response})
-    utilisateurApi.getById(this.e.utilisateurDto.id).then(response =>
+      this.idUser = response.utilisateurDto.id,
+      utilisateurApi.getById(this.idUser).then(response =>
         {
-          console.log(response),
           this.utilisateur = response,
           this.form.nomNaissanceApprenti = this.utilisateur.nom,
           this.form.prenomApprenti = this.utilisateur.prenom;
+          this.form.emailApprenti = this.utilisateur.login;
+          this.form.telApprenti = this.utilisateur.telephone,
+          this.form.adresseApprenti = this.utilisateur.adresseDto
+          this.form.dateDeNaissance = this.utilisateur.dateDeNaissance,
+          this.form.sexe = this.utilisateur.civilite;
         })
+      
+      })
+  
 
   },
-},
 };
 </script>
 /* eslint-disable */
