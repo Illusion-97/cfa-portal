@@ -556,12 +556,8 @@ router.beforeEach((to, from, next) => {
         return next({ path: '/' });
 
     }
-
   }
-
-
   next();
-
 })
 
 export default router;

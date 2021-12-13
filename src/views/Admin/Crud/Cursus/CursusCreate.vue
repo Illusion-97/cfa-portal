@@ -40,7 +40,7 @@ import {cursusApi} from "@/_api/cursus.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 
 export default {
-  name: "AddAdresse",
+  name: "AddCursus",
   components: {
     BodyTitle,
   },

@@ -22,7 +22,7 @@
         </form>
       </div>
       <div class="ml-auto d-flex justify-content-around">
-        <button class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
+        <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
         <form action="POST" class="d-flex" enctype="multipart/form-data">
