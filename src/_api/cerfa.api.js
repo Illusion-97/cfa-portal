@@ -9,11 +9,20 @@ export const cerfaApi = {
   deleteCerfa,
   getAllByPage,
   getCount,
+  getByIdEtudiant,
 
 };
 
 function getById(id){
   let req = `/${END_POINT}/${id}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
+function getByIdEtudiant(id){
+  let req = `/${END_POINT}/etudiant/${id}`;
 
   return  axios
       .get(req, requestOptions.headers())

@@ -442,7 +442,7 @@ const routes = [
    { path: "/admin/etudiants/fiche-salarie", name:"admin_etudiant_fiche_salarie", component: EtudiantFicheSalarie, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-poste", name:"admin_etudiant_fiche_poste", component: EtudiantFichePoste, meta: { authorize: [Role.Admin] }},
    { path: "/admin/etudiants/fiche-entreprise", name:"admin_etudiant_fiche_entreprise", component: EtudiantFicheEntreprise, meta: { authorize: [Role.Admin] }},
-   { path: "/admin/etudiants/cerfa", name:"admin_etudiant_cerfa", component: CerfaAdmin, meta: { authorize: [Role.Admin] }},
+   { path: "/admin/etudiants/:id/cerfa", name:"admin_etudiant_cerfa", component: CerfaAdmin, meta: { authorize: [Role.Admin] }},
    //Absence
    { path: "/admin/absences/create", name:"admin_absence_create", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
    { path: "/admin/absences/update/:id", name:"admin_absence_update", component: AbsenceCreate, meta: { authorize: [Role.Admin] }},
