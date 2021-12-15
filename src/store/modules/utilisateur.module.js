@@ -20,6 +20,7 @@ export const utilisateur = {
             },
             formateurDto: null,
             cefDto: null,
+            maitreApprentissageDto:null,
         },
     },
     getters: {
