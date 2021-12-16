@@ -19,26 +19,65 @@
 
       <div class="col-md-10">
         <div class="row mb-5">
-          <div class="offset-1 col-md-4">
+          <div class="offset-1 col-md-3">
             <b-card header="Formateur Référent">
               <div>
                 <p>
-                  {{ maitreApprentissage.prenom }}
-                  {{ maitreApprentissage.nom }}
+                  {{ maitreApprentissage.utilisateurDto.prenom }}
+                  {{ maitreApprentissage.utilisateurDto.nom }}
                 </p>
-                <p>{{ maitreApprentissage.login }}</p>
+                <p>{{ maitreApprentissage.utilisateurDto.login }}</p>
               </div>
             </b-card>
           </div>
-          <div class="offset-1 col-md-4">
+          <div class="offset-1 col-md-3">
             <b-card header="Manager">
               <div>
                 <p>
-                  {{ etudiant.managerDto.prenom }} {{ etudiant.managerDto.nom }}
+                  {{ etudiant.managerDto.utilisateurDto.prenom }} {{ etudiant.managerDto.utilisateurDto.nom }}
                 </p>
-                <p>{{ etudiant.managerDto.login }}</p>
+                <p>{{ etudiant.managerDto.utilisateurDto.login }}</p>
               </div>
             </b-card>
+          </div>
+          <div class="offset-1 col-md-3">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Fiches
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button
+                    class="dropdown-item"
+                    v-on:click="createFicheSalarie(etudiant)">Créer fiche salarié</button>
+                <button
+                    class="dropdown-item"
+                    v-on:click="createFichePoste(etudiant)">Créer fiche poste</button>
+                <button
+                    class="dropdown-item"
+                    v-on:click="createFicheEntreprise(etudiant)">Créer fiche entreprise</button>
+                <div class="dropdown-divider"></div>    
+                <button
+                    class="dropdown-item"
+                    v-on:click="detailFicheSalarie(etudiant)">Details fiche salarié</button>
+                <button
+                    class="dropdown-item"
+                    v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+                <button
+                    class="dropdown-item"
+                    v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+              </div>
+            </div>
+            <br>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Cerfa
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button
+                    class="dropdown-item"
+                    v-on:click="createCerfa(etudiant)">Créer cerfa</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -307,7 +346,7 @@ export default {
   data() {
     return {
       etudiant: {        
-        managerDto: {prenom: "", nom:"", login: ""},
+        managerDto: {utilisateurDto :{prenom: "", nom : "", login: ""}},
         groupesDto: {},
         utilisateurDto: {prenom: "", nom:"", login: ""},
       },
@@ -319,7 +358,7 @@ export default {
       conges: [],
       groupe: [{etudiantsDto: {utilisateurDto: {prenom: "", nom: ""}}}],
 
-      maitreApprentissage: {prenom: "", nom:"", login: ""},
+      maitreApprentissage: {utilisateurDto : {prenom: "", nom:"", login: ""}},
 
       onglet: 1,
     };
@@ -362,6 +401,15 @@ export default {
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    createCerfa(){
+      let route = this.$route.path.split("/").splice(1);
+      if (route[0] == "admin") 
+        this.$router.push({
+          name: "admin_etudiant_cerfa",
+          params: {id : this.$route.params.id},
+        });
+      
     },
     detailFicheSalarie() {
       let route = this.$route.path.split("/").splice(1);

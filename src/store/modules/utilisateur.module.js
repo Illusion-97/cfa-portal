@@ -15,9 +15,12 @@ export const utilisateur = {
             adresseDto: null,
             entrepriseDto: null,
             rolesDto: [],
-            etudiantDto: null,
+            etudiantDto: {
+                id: null,
+            },
             formateurDto: null,
             cefDto: null,
+            maitreApprentissageDto:null,
         },
     },
     getters: {
