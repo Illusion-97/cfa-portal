@@ -89,6 +89,14 @@
         </div>-->
           
         </vue-recaptcha>
+        <div class="cardActionForgot">
+        <div class="link">
+          <router-link :to="{name: 'forgot'}">
+             Mot de passe oublié 
+          </router-link>
+        </div>
+      </div>
+
       </div>
       </div>    
     </form>
@@ -115,7 +123,7 @@ export default {
   },
   data() {
     return {
-      sitekey: "6Ld9lTodAAAAAFpu53aFO_BQe8a6hyzzIhg0muVP",
+      //sitekey: "6Ld9lTodAAAAAFpu53aFO_BQe8a6hyzzIhg0muVP",
       show: false,
       password: "",
       email: "",
