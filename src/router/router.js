@@ -211,8 +211,8 @@ const routes = [
 
   { path: "/", redirect: { name: "home" }, },
   { path: "/home", name: "home", component: Home, },
-  { path: "/login", name: "login", component: LoginPage },
-  { path: "/forgot-password", name: "forgot-password", component: Forgot },
+  { path: "/login", name: "login", component: LoginPage, },
+  { path: "/forgot-password", name: "forgot", component: Forgot, },
   { path: '*', component: NotFound },
   // { path: '/secure', name: 'secure', component: secure},
 

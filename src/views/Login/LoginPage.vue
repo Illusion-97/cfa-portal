@@ -91,7 +91,7 @@
         </vue-recaptcha>
         <div class="cardActionForgot">
         <div class="link">
-          <router-link :to="{name: 'forgot-password'}">
+          <router-link :to="{name: 'forgot'}">
              Mot de passe oublié 
           </router-link>
         </div>
@@ -143,7 +143,6 @@ export default {
   methods: {
     isInvalidInputFalse(){
       this.isInvalidInput = false;
-      this.show.message("email ou mdp incoretc");
     },
     // Start Captcha
     onSubmit() {

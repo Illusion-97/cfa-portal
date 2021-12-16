@@ -25,7 +25,7 @@ Vue.component('paginate', Paginate)
 // local URL
 //axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 // prod URL
- axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
+axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
 
 // Vue.use(VueCookies)
 

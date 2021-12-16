@@ -8,16 +8,15 @@
         <input
           v-model="email"
           :error-messages="emailErrors"
-          :label="$t('forgotPassword.email')"
           required
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
         />
       </div>
 
-      <div v-if="errorMail.checkMail">
+      <!-- <div v-if="errorMail.checkMail">
         {{ errorMail.checkMail }}
-      </div>
+      </div> -->
 
       <div class="justify-center cardActionForgot">
         <input
@@ -39,7 +38,7 @@
 
 
 <script>
-//import VueRecaptcha from "vue-recaptcha";
+import VueRecaptcha from "vue-recaptcha";
 import { validationMixin } from "vuelidate";
 import { required, email} from "vuelidate/lib/validators";
 
@@ -56,9 +55,9 @@ export default {
     form: ["email"],
   },
 
-//   components: {
-//     VueRecaptcha,
-//   },
+  components: {
+    VueRecaptcha,
+  },
 
   data: () => ({
     show1: false,
