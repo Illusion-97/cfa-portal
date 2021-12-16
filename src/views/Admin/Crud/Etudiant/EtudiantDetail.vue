@@ -23,10 +23,10 @@
             <b-card header="Formateur Référent">
               <div>
                 <p>
-                  {{ maitreApprentissage.prenom }}
-                  {{ maitreApprentissage.nom }}
+                  {{ maitreApprentissage.utilisateurDto.prenom }}
+                  {{ maitreApprentissage.utilisateurDto.nom }}
                 </p>
-                <p>{{ maitreApprentissage.login }}</p>
+                <p>{{ maitreApprentissage.utilisateurDto.login }}</p>
               </div>
             </b-card>
           </div>
@@ -34,9 +34,9 @@
             <b-card header="Manager">
               <div>
                 <p>
-                  {{ etudiant.managerDto.prenom }} {{ etudiant.managerDto.nom }}
+                  {{ etudiant.managerDto.utilisateurDto.prenom }} {{ etudiant.managerDto.utilisateurDto.nom }}
                 </p>
-                <p>{{ etudiant.managerDto.login }}</p>
+                <p>{{ etudiant.managerDto.utilisateurDto.login }}</p>
               </div>
             </b-card>
           </div>
@@ -346,7 +346,7 @@ export default {
   data() {
     return {
       etudiant: {        
-        managerDto: {prenom: "", nom:"", login: ""},
+        managerDto: {utilisateurDto :{prenom: "", nom : "", login: ""}},
         groupesDto: {},
         utilisateurDto: {prenom: "", nom:"", login: ""},
       },
@@ -358,7 +358,7 @@ export default {
       conges: [],
       groupe: [{etudiantsDto: {utilisateurDto: {prenom: "", nom: ""}}}],
 
-      maitreApprentissage: {prenom: "", nom:"", login: ""},
+      maitreApprentissage: {utilisateurDto : {prenom: "", nom:"", login: ""}},
 
       onglet: 1,
     };
