@@ -26,13 +26,6 @@
               Madame
             </label>
           </div>
-          <div class="form-check col-1">
-            <input class="form-check-input" type="radio" name="gridRadios" id="mademoiselle" value="Mlle"
-              v-model="form.civilite" autocomplete="honorific-prefix" />
-            <label class="form-check-label" for="mademoiselle">
-              Mademoiselle
-            </label>
-          </div>
         </div>
       </div>
 
@@ -53,8 +46,8 @@
       <div class="d-flex justify-content-center">
         <div class="form-group col-6">
           <label for="nom">Date de naissance</label>
-          <input type="text" name="birthdate" id="birth" class="form-control" placeholder="jj/mm/aaaa"
-            v-model="form.dateDeNaissance" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" autocomplete="bday"/>
+          <input type="date" name="birthdate"  class="form-control"
+            v-model="form.dateDeNaissance" />
         </div>
         <div class="form-group col-6">
           <label for="nom">Telephone</label>
@@ -64,11 +57,17 @@
       </div>
       <!-- Email -->
       <div class="d-flex justify-content-center">
-        <div class="form-group col-12">
+        <div class="form-group col-6">
           <label for="nom">Email</label>
           <input type="email" name="email" id="login" class="form-control" placeholder="jmichel@dawan.fr"
             v-model="form.login" autocomplete="email" />
         </div>
+          <div class="form-group col-6">
+          <label for="nom">Mot de passe</label>
+          <input type="password" name="password" id="password" class="form-control" placeholder="******************"
+            v-model="form.password" />
+        </div>
+        
 
 
       </div>
@@ -89,32 +88,71 @@
         <div class="form-group col-6">
           <label for="">Adresse</label>
           <div class="d-flex justify-content-between">
-            <input type="number" name="num" class="form-control col-1" placeholder="N°"
-              v-model="form.adresseDto.numero" />
+            <input type="number" name="num" class="form-control col-1" placeholder="N°" v-model="form.adresseDto.numero" />
             <input type="text" name="rue" class="form-control col-4" placeholder="rue" v-model="form.adresseDto.rue" />
-            <input type="text" name="ville" class="form-control col-3" placeholder="ville"
-              v-model="form.adresseDto.ville" />
-            <input type="text" name="zipcode" class="form-control col-3" maxlength="5" placeholder="code postale"
-              v-model="form.adresseDto.codePostal" />
+            <input type="text" name="ville" class="form-control col-3" placeholder="ville" v-model="form.adresseDto.ville" />
+            <input type="text" name="zipcode" class="form-control col-3" maxlength="5" placeholder="code postale" v-model="form.adresseDto.codePostal" />
           </div>
         </div>
       </div>
+       <!-- <div>
+            <div class ="form-group col-6">
+              <label for="">Contrat</label>
+                <div class="col-sm-4">
+                 <label for="">Date de début : </label>
+                 <input type="date" name="mode" class="" placeholder="" v-model="contrat.dateDebut"/>
+                </div>
+                 <div class="col-sm-4">
+                 <label for="">Date de fin : </label>
+                 <input type="date" name="mode" class="" placeholder="" v-model="contrat.dateFin"/>
+                </div>
+            </div>
+      </div> -->
+      <div v-for="r in rolesComputed" :key="r.id">
+        <div class=""  v-if="r.intitule== 'ETUDIANT'" >
+            <label for="">Contrat</label>
+            <div class="col-sm-4">
+              <label for="">Date de début : </label>
+              <input type="date" name="mode" class="" placeholder="" v-model="contrat.dateDebut"/>
+            </div>
+            <div class="col-sm-4">
+              <label class="" for="">Date de fin : </label>
+              <input type="date" name="mode" class="" placeholder="" v-model="contrat.dateFin"/>
+            </div>
+            <label class="col-2">Maitre d'Apprentissage</label>
+            <div class="col-sm-4">
+              <input v-model="contrat.maitreApprentissageDto" disabled="disabled" required />
+              <a class="btn btn-primary " @click="showUtilisateurModal('maitreApprentissage')">Maitre d'Apprentissage</a>
+            </div>
+          </div>
+        </div>
       <div>
         <input type="submit" value="Envoyer" class="btn btn-outline-success float-right" />
-      </div>
-    </form>
+    </div>
+  </form>
    
     <RoleModal v-show="isModalVisible" @close="closeModal" :rolesProp="rolesComputed" v-on:close="onClickClose" />
+    
+          <UtilisateurModal
+            v-show="isUtilisateurModalVisible"
+            @close="closeUtilisateurModal"
+            v-on:close="onClickUtilisateurClose"
+            :roleProp="UtilisateurModal_role"
+            :utilisateursProp="UtilisateurModale_utilisateur" />
+
   </div>
 </template>
 
 <script>
-  import moment from "moment-timezone";
+  // import moment from "moment-timezone";
   import { utilisateurApi } from "@/_api/utilisateur.api.js";
   import BodyTitle from "@/components/utils/BodyTitle.vue";
   // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
   //import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
   import RoleModal from "@/components/Modal/RoleModal.vue";
+import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";
+import { etudiantApi } from "../../../../_api/etudiant.api";
+import { contratApi } from "../../../../_api/contrat.api";
 
   export default {
     name: "AddUser",
@@ -123,6 +161,7 @@
       // AdresseListComponent,
       //EntrepriseListComponent,
       RoleModal,
+      UtilisateurModal,
     },
     data() {
       return {
@@ -151,6 +190,17 @@
           cefDto:null,
           maitreApprentissageDto:null,
         },
+        contrat : {
+          id: "",
+          dateDebut: "",
+          dateFin: "",
+          maitreApprentissageDto : "",
+          etudiantDto: ""
+
+        },
+        isUtilisateurModalVisible: false,
+        UtilisateurModal_role: null,
+        UtilisateurModale_utilisateur: null,
 
         //On a des soucis si l'adresse de l'entreprise est null
         //D'ou l'utilisation de cet objet
@@ -161,6 +211,7 @@
         //   ville: "",
         //   codePostal: "",
         // },
+        entrepriseDto: "",
 
         isModalVisible: false,
 
@@ -183,6 +234,21 @@
       },
     },
     methods: {
+      //Utilisateur Modal
+    showUtilisateurModal(role) {
+      switch (role) {
+        default:
+          this.UtilisateurModal_role = "MAITREAPPRENTISSAGE";
+          break;
+      }
+      this.isUtilisateurModalVisible = true;
+    },
+    closeUtilisateurModal() {
+      this.isUtilisateurModalVisible = false;
+    },
+    onClickUtilisateurClose(utilisateur) {
+      this.contrat.maitreApprentissageDto = utilisateur;
+    },
       onClickChildAdresseList(adresse) {
         this.form.adresseDto = adresse;
       },
@@ -211,18 +277,19 @@
         // if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
 
         // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj
-        this.form.dateDeNaissance = this.backEndDateFormat(
-          this.form.dateDeNaissance
-        );
+        // this.form.dateDeNaissance = this.backEndDateFormat(
+        //   this.form.dateDeNaissance
+        // );
         
         console.log("form : ", this.form);
 
         utilisateurApi
           .save(this.form)
-          .then(() =>
-            this.$router.push({name: "admin_dashboard"}))
+          .then(() =>{
+            this.$router.push({name: "admin_dashboard"});
+          })
           .catch((error) => {
-            // console.log(error.response.data);
+             console.log(error.response.data);
             if (
               error.response.data ==
               "Un utilisateur utilise déjà cette adresse mail"
@@ -231,6 +298,20 @@
               login.reportValidity();
             }
           });
+            if( !(this.contrat.dateDebut == "" && this.contrat.dateFin == "" && this.contrat.maitreApprentissageDto == "")){
+                utilisateurApi.getByLogin(this.form.login).then(response => {
+                  utilisateurApi.getById(response.id).then(response1 => {
+                  console.log(response1)
+                  etudiantApi.getById(response1.etudiantDto.id).then(response2 => this.contrat.etudiantDto = response2)
+                  
+                });
+
+                }),
+                console.log(this.contrat)
+                contratApi.save(this.contrat)
+            }
+          
+          
       },
       showModal() {
         this.isModalVisible = true;
@@ -264,12 +345,12 @@
         // console.log("regex.test() : ", regex.test(password));
         return regex.test(password);
       },
-      frontEndDateFormat(date) {
-        return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
-      },
-      backEndDateFormat(date) {
-        return moment(date, "DD/MM/YYYY").format("YYYY-MM-DD");
-      },
+      // frontEndDateFormat(date) {
+      //   return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+      // },
+      // backEndDateFormat(date) {
+      //   return moment(date, "DD/MM/YYYY").format("YYYY-MM-DD");
+      // },
       // dateValidity(date){
       //   const maxYear = new Date();
       //   let dateInput = date.split("/");
@@ -294,6 +375,8 @@
 
           // Si id existant => conversion aaaa-mm-jj vers jj/mm/aaaa
           this.form.dateDeNaissance = this.frontEndDateFormat(response.dateDeNaissance);
+          
+        contratApi.getContratByEtudiant(response.etudiantDto.id).then(response1 => this.contrat = response1)
         });
       }
     },
