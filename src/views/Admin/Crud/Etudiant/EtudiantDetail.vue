@@ -58,13 +58,13 @@
                 <div class="dropdown-divider"></div>    
                 <button
                     class="dropdown-item"
-                    v-on:click="detailFicheSalarie(etudiant)">Details fiche salarié</button>
+                    v-on:click="detailFicheSalarie(etudiant)">Détail fiche salarié</button>
                 <button
                     class="dropdown-item"
-                    v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+                    v-on:click="detailFichePoste(etudiant)">Détail fiche poste</button>
                 <button
                     class="dropdown-item"
-                    v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+                    v-on:click="detailFicheEntreprise(etudiant)">Détail fiche entreprise</button>
               </div>
             </div>
             <br>
@@ -76,7 +76,12 @@
                 <button
                     class="dropdown-item"
                     v-on:click="createCerfa(etudiant)">Créer cerfa</button>
+                    <div class="dropdown-divider"></div> 
+                    <button
+                    class="dropdown-item"
+                    v-on:click="detailCerfa(etudiant)">Détail cerfa</button>
               </div>
+              
             </div>
           </div>
         </div>

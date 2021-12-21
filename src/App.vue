@@ -8,9 +8,6 @@
       <div v-if="table[0] == 'home'">
         <router-view />
       </div>
-      <div v-if="table[0] == 'forgot'">
-        <router-view />
-      </div>
       <div v-else-if=" table[0] == 'formateur'">
         <router-view class="px-5"/>
       </div>
