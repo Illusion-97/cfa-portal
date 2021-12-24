@@ -1180,6 +1180,7 @@ data() {
   adresse: null,
   idUser : null,
   utilisateur : utilisateur,
+  maitreApprentissage:null,
     
 };
 },
@@ -1210,6 +1211,12 @@ created() {
           this.form.adresseApprenti = this.utilisateur.adresseDto
           this.form.dateDeNaissance = this.utilisateur.dateDeNaissance,
           this.form.sexe = this.utilisateur.civilite;
+          if(this.utilisateur.maitreApprentissageDto!=null){
+          this.maitreApprentissage = this.utilisateur.maitreApprentissageDto;
+          this.form.nomPremierTuteur = this.maitreApprentissage.nom;
+          this.form.prenomPremierTuteur = this.maitreApprentissage.prenom;
+          this.form.dateDeNaissancePremierTuteur = this.maitreApprentissage.dateDeNaissance;
+          }
         })
       
       })

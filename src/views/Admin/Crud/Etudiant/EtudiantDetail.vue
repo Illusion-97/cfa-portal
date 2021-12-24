@@ -23,10 +23,10 @@
             <b-card header="Formateur Référent">
               <div>
                 <p>
-                  {{ maitreApprentissage.prenom }}
-                  {{ maitreApprentissage.nom }}
+                  {{ maitreApprentissage.utilisateurDto.prenom }}
+                  {{ maitreApprentissage.utilisateurDto.nom }}
                 </p>
-                <p>{{ maitreApprentissage.login }}</p>
+                <p>{{ maitreApprentissage.utilisateurDto.login }}</p>
               </div>
             </b-card>
           </div>
@@ -34,9 +34,9 @@
             <b-card header="Manager">
               <div>
                 <p>
-                  {{ etudiant.managerDto.prenom }} {{ etudiant.managerDto.nom }}
+                  {{ etudiant.managerDto.utilisateurDto.prenom }} {{ etudiant.managerDto.utilisateurDto.nom }}
                 </p>
-                <p>{{ etudiant.managerDto.login }}</p>
+                <p>{{ etudiant.managerDto.utilisateurDto.login }}</p>
               </div>
             </b-card>
           </div>
@@ -58,13 +58,13 @@
                 <div class="dropdown-divider"></div>    
                 <button
                     class="dropdown-item"
-                    v-on:click="detailFicheSalarie(etudiant)">Details fiche salarié</button>
+                    v-on:click="detailFicheSalarie(etudiant)">Détail fiche salarié</button>
                 <button
                     class="dropdown-item"
-                    v-on:click="detailFichePoste(etudiant)">Details fiche poste</button>
+                    v-on:click="detailFichePoste(etudiant)">Détail fiche poste</button>
                 <button
                     class="dropdown-item"
-                    v-on:click="detailFicheEntreprise(etudiant)">Details fiche entreprise</button>
+                    v-on:click="detailFicheEntreprise(etudiant)">Détail fiche entreprise</button>
               </div>
             </div>
             <br>
@@ -76,7 +76,12 @@
                 <button
                     class="dropdown-item"
                     v-on:click="createCerfa(etudiant)">Créer cerfa</button>
+                    <div class="dropdown-divider"></div> 
+                    <button
+                    class="dropdown-item"
+                    v-on:click="detailCerfa(etudiant)">Détail cerfa</button>
               </div>
+              
             </div>
           </div>
         </div>
@@ -346,7 +351,7 @@ export default {
   data() {
     return {
       etudiant: {        
-        managerDto: {prenom: "", nom:"", login: ""},
+        managerDto: {utilisateurDto :{prenom: "", nom : "", login: ""}},
         groupesDto: {},
         utilisateurDto: {prenom: "", nom:"", login: ""},
       },
@@ -358,7 +363,7 @@ export default {
       conges: [],
       groupe: [{etudiantsDto: {utilisateurDto: {prenom: "", nom: ""}}}],
 
-      maitreApprentissage: {prenom: "", nom:"", login: ""},
+      maitreApprentissage: {utilisateurDto : {prenom: "", nom:"", login: ""}},
 
       onglet: 1,
     };
