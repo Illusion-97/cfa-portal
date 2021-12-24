@@ -811,45 +811,54 @@ export default {
 
       //Pour custom le message d'erreur
       let login = document.getElementById("login");
-      // let role = document.getElementById("role");
-      // let password = document.getElementById('password');
-
-      // //On reset le message pour retest
-      // login.setCustomValidity("");
-      // password.setCustomValidity("");
-
-      // if(!this.testPassword(this.form.password)) {
-      //   console.log("je set password custom validity");
-      //   password.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial ");
-      //   password.reportValidity();
-      // }
-
-      //Si on ne donne pas d'entreprise, on la set a null pour ne rien save dans le back
-      // if(this.form.entrepriseDto.raisonSociale == "" && this.form.entrepriseDto.rue == "" && this.form.entrepriseDto.ville == "") this.form.entrepriseDto = null;
 
       // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj
       this.form.dateDeNaissance = this.backEndDateFormat(
         this.form.dateDeNaissance
       );
 
-      //
-      //TODO
-      //
-
       //Si formateur,cef, maitre apprentissage => il a une entreprise
-      //TODO: on save l'entreprise quand on insert utilisateur ATTENTION pb avec l'adresse
-
-      //Si etudiant, il a un contrat qui a etudiant + maitre apprentissage
-      //L'etudiant est créé avec l'utilisateur
-      //On doit récupérer etudiant + maitre apprentissage
-
-
-      //On save le nouvel utilisateur
+      //TODO: on save l'entreprise quand on insert utilisateur 
       
       //L'utilisateur
       utilisateurApi
         .save(this.form)
-        .then(() => this.$router.push({ name: "admin_dashboard" }))
+        .then(response => {
+          
+          if(this.isEtudiant()){
+            
+            this.contrat.etudiantDto = response.etudiantDto;
+
+            //Le Maitre d'apprentissage
+            utilisateurApi
+              .save(this.maitreApprentissage)
+              .catch((error) => {
+                // console.log(error.response.data);
+                if (
+                  error.response.data ==
+                  "Un utilisateur utilise déjà cette adresse mail"
+                ) {
+                  login.setCustomValidity("Cette adresse mail est déjà utilisée");
+                  login.reportValidity();
+                }
+              })
+              .then(response => {
+
+                this.contrat.maitreApprentissageDto = response;
+
+                contratApi
+                  .save(this.contrat)
+                  .catch((error) => {
+                    console.log(error);
+                  })
+                  .then(() =>  this.$router.go(-1))
+              })          
+            
+          }
+          return;
+        }           
+        
+        )
         .catch((error) => {
           // console.log(error.response.data);
           if (
@@ -861,26 +870,10 @@ export default {
           }
         })
 
-      //Le Maitre d'apprentissage
-      utilisateurApi
-        .save(this.maitreApprentissage)
-        .catch((error) => {
-          // console.log(error.response.data);
-          if (
-            error.response.data ==
-            "Un utilisateur utilise déjà cette adresse mail"
-          ) {
-            login.setCustomValidity("Cette adresse mail est déjà utilisée");
-            login.reportValidity();
-          }
-        })
+      
 
       //Contrat
-      contratApi
-        .save(this.contrat)
-        .catch((error) => {
-          console.log(error);
-        })
+      
       
     },
     showModal() {
