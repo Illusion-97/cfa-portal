@@ -1,6 +1,9 @@
 <template>
   <section>
     <div id="grid-container">
+    <div>
+      <VueSidebarFormateur />
+  </div>
       <div id="identite">
         <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
         <!-- <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p> -->
@@ -8,19 +11,24 @@
       <div id="trainer-planning">
         <Planning />
       </div>
+
     </div>
   </section>
 </template>
 
 <script>
 import Planning from "@/components/utils/Planning.vue";
+import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue"
 export default {
   name: "HomeFormateur",
   components: {
     Planning,
+    VueSidebarFormateur
   },
   data() {
-    return {};
+    return {
+     
+    };
   },
   computed: {
     utilisateur() {
