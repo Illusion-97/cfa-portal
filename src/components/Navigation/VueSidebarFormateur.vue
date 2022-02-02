@@ -25,11 +25,39 @@
          menuLogo:'',
          menuItems: [
            {link: window.location.origin+'/formateur_intervention_detail#/home' ,name: 'Accueil', tooltip: 'Accueil', icon:'bx-home-alt' },
-          {link: window.location.origin+ '/formateur_intervention_detail#/formateur/interventions',name: 'Interventions', tooltip: 'interventions', icon:'bx-briefcase-alt' }
+          {link: window.location.origin+ '/formateur_intervention_detail#/formateur/interventions',name: 'Interventions', tooltip: 'interventions', icon:'bx-briefcase-alt' },
+          {link: window.location.origin+ '/formateur_intervention_detail#/formateur/promotions',name: 'Promotions', tooltip: 'Promotions', icon:'bx bxs-megaphone' }
          ],
       }
     },
   }
+  //   created() {
+    // this.assigneTable();
+  // },
+  // methods :{
+  //   assigneTable : function(){
+  //     if(this.$route == "formateur"){
+  //       this.menuItems = [
+  //           {link: window.location.origin+'/formateur_intervention_detail#/home' ,name: 'Accueil', tooltip: 'Accueil', icon:'bx-home-alt' },
+  //         {link: window.location.origin+ '/formateur_intervention_detail#/formateur/interventions',name: 'Interventions', tooltip: 'interventions', icon:'bx-briefcase-alt' }
+  //       ]
+  //     }
+  //     else if(this.$route.name == "etudiant"){
+  //       this.menuItems = [
+  //           {link: window.location.origin+'/etudiant/accueil' ,name: 'Accueil', tooltip: 'Accueil', icon:'bx-home-alt' }
+         
+  //       ]
+  //     }
+  //   },
+  //   getRoute :function(){
+  //     let route = window.Location.path
+  //   }
+  // },
+  // computed: {
+  //   afficher :function(){
+  //     return this.$route.path;
+  //   }
+  // }
 </script>
 <style >
  .profile{

@@ -10,6 +10,10 @@
       </div>
       <div v-else-if=" table[0] == 'formateur'">
         <router-view class="px-5"/>
+            <div>
+          <VueSidebarFormateur />
+           </div>
+
       </div>
       <div v-else>
         <VerticalNavbar class="col-md-2" />
@@ -23,12 +27,14 @@
 <script>
 import Navbar from "@/components/Navigation/Navbar.vue";
 import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 
 export default {
   name: "App",
   components: {
     Navbar,
     VerticalNavbar,
+  VueSidebarFormateur
   },
   methods: {},
   computed: {

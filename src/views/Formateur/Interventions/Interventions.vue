@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div>
-      <VueSidebarFormateur  />
-    </div>
-    <div>
-      <h1 class="text-center">Mes interventions</h1>
+ 
+      <h2>Interventions</h2>
       <TableTemplate
         :items="items"
         :fields="fields"
@@ -17,20 +14,21 @@
         v-model="key"
         :onSubmit="search"
       />
-    </div>
+    
   </div>
+
 </template>
 
 <script>
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
-import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue"
+
 export default {
   name: "Intervention-Formateur",
   components: {
     TableTemplate,
-    VueSidebarFormateur
+   
   },
   data() {
     return {
