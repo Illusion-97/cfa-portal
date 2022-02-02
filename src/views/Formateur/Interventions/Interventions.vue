@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div>
+      <Header :title="title" />
+    </div>
+  <div>
     <h1 class="text-center">Mes interventions</h1>
     <TableTemplate
       :items="items"
@@ -14,19 +18,25 @@
       :onSubmit="search"
     />
   </div>
+  </div>
 </template>
 
 <script>
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
+import Header from "@/components/Navigation/Header.vue";
 export default {
+
   name: "Intervention-Formateur",
   components: {
     TableTemplate,
+    Header
+    
   },
   data() {
     return {
+      title : "CDA - Nantes/Toulouse",
       items: [],
       fields: courseFieldsFormateur,
       currentPage: 1,

@@ -96,3 +96,4 @@
 </script>
 
 <style scoped src="@/assets/styles/Navbar.css"></style>
+

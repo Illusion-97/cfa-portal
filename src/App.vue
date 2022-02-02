@@ -29,6 +29,8 @@ export default {
   components: {
     Navbar,
     VerticalNavbar,
+    Header
+    
   },
   methods: {},
   computed: {

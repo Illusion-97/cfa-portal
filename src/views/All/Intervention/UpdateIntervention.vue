@@ -66,7 +66,7 @@
                         </b-form-group>
 
                         <div class="d-flex justify-content-end">
-                            <b-button type="submit" variant="outline-info" class="px-5">Envoyer</b-button>
+                            <b-button type="submit" variant="outline-info" class="">Envoyer</b-button>
                         </div>
                     </b-form>
 
