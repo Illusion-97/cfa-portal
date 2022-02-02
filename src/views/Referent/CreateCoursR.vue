@@ -18,14 +18,14 @@
                 <!-- Promotions -->
                 <div>
                   <label class="mr-2" for="promo">Promotion :</label>
-                  <span class="btn btn-outline-dark btn-sm mb-2 px-5" data-toggle="modal" data-target="#modalPromo">
+                  <span class="btn btn-outline-dark btn-sm mb-2 " data-toggle="modal" data-target="#modalPromo">
                     Ajouter des promotions
                   </span>
                 </div>
                 <!-- Trainers -->
                 <div>
                   <label class="mr-2" for="promo">Formateur :</label>
-                  <span class="btn btn-outline-dark btn-sm mb-2 px-5" data-toggle="modal" data-target="#modalTrainer">
+                  <span class="btn btn-outline-dark btn-sm mb-2 " data-toggle="modal" data-target="#modalTrainer">
                     Ajouter des formateurs
                   </span>
                 </div>

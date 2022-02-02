@@ -1,10 +1,9 @@
 <template>
   <section>
     <div id="grid-container">
-      <div id="identite">
-        <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-        <!-- <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p> -->
-      </div>
+    <div>
+      <Header />
+    </div>
       <div id="trainer-planning">
         <Planning />
       </div>
@@ -14,10 +13,12 @@
 
 <script>
 import Planning from "@/components/utils/Planning.vue";
+import Header from "@/components/Navigation/Header.vue";
 export default {
   name: "HomeFormateur",
   components: {
     Planning,
+    Header
   },
   data() {
     return {};

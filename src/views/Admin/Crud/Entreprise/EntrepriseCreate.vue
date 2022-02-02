@@ -36,7 +36,7 @@
         <label for="" class="col-2">Type d'employeur :</label>
         <input type="text" class="form-control col-3" v-model="form.employeurType" required />
       </div>
-       <router-link :to="{ name: 'admin_addEntreprise_adresse' }" class="btn btn-outline-primary float-right px-5">
+       <router-link :to="{ name: 'admin_addEntreprise_adresse' }" class="btn btn-outline-primary float-right ">
         Ajouter une Adresse
       </router-link>
       <div class="form-group row">
@@ -44,7 +44,7 @@
         <AdresseListComponent v-on:click-list="onClickChildAdresseList" :adresseProp="adresse_input" class="col-11" />
       </div>
 
-      <button type="submit" class="btn btn-outline-primary float-right px-5">{{ btn_form_text }}</button>
+      <button type="submit" class="btn btn-outline-primary float-right ">{{ btn_form_text }}</button>
     </b-form>
   </div>
 </template>

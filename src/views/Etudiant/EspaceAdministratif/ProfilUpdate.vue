@@ -91,7 +91,7 @@
         </div>
       </div>
       <div>
-        <input type="submit" value="Envoyer" class="btn btn-outline-success float-right px-5" />
+        <input type="submit" value="Envoyer" class="btn btn-outline-success float-right " />
       </div>
     </form>
 

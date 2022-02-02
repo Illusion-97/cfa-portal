@@ -71,7 +71,7 @@
               </div>
             </div>
             <div class="modal-footer mt-2">
-              <button type="button" class="btn btn-outline-info px-5" @click="saveChange" data-dismiss="modal">
+              <button type="button" class="btn btn-outline-info " @click="saveChange" data-dismiss="modal">
                 Envoyer
               </button>
             </div>
