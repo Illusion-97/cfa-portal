@@ -71,6 +71,7 @@ import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
 //#       FORMATEUR     #
 //#######################
 import Intervention from '@/views/Formateur/Interventions/Interventions.vue'
+import PromotionsFormateur from '@/views/Formateur/PromotionsFormateur.vue'
 
 //#######################
 //#       REFERENT      #
@@ -269,6 +270,8 @@ const routes = [
   { path: "/formateur/examens/create", name: "formateur_examen_create", component: ExamenCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/examens/update/:id", name: "formateur_examen_update", component: ExamenCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/examens/detail/:id", name: "formateur_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Formateur] } },
+  // Promotions
+  { path: "/formateur/promotions", name: "formateur_promotion_list", component: PromotionsFormateur} ,
 
   //#######################
   //#       REFERENT      #
