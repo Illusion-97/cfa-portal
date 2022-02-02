@@ -7,6 +7,7 @@
       <div id="trainer-planning">
         <Planning />
       </div>
+
     </div>
   </section>
 </template>
@@ -14,14 +15,18 @@
 <script>
 import Planning from "@/components/utils/Planning.vue";
 import Header from "@/components/Navigation/Header.vue";
+import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue"
 export default {
   name: "HomeFormateur",
   components: {
     Planning,
-    Header
+    Header,
+    VueSidebarFormateur
   },
   data() {
-    return {};
+    return {
+     
+    };
   },
   computed: {
     utilisateur() {
