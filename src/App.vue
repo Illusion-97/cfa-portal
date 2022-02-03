@@ -18,12 +18,12 @@
       <div v-else-if=" table[0] == 'etudiant'">
         <SinglePageEtudiant />
       </div>
-      <!-- <div v-else>
+      <div v-else>
         <VerticalNavbar class="col-md-2" />
         <div class="monBody col-md-10">
           <router-view />
         </div>
-      </div> -->
+      </div>
     </div> 
   </div>
 </template>

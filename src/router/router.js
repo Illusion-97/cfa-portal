@@ -116,6 +116,7 @@ import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue"
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
 import PromotionCreate from "@/views/Admin/Crud/Promotion/PromotionCreate.vue";
 import PromotionDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
+import PromotionDetailFormateur from "@/views/Admin/Crud/Promotion/PromotionDetailFormateur.vue";
 //Conge
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
 import CongeCreate from "@/views/Admin/Crud/Conge/CongeCreate.vue";
@@ -258,7 +259,7 @@ const routes = [
   //Etudiant
   { path: "/formateur/etudiants/detail/:id", name: "formateur_etudiant_detail", component: EtudiantDetail, meta: { authorize: [Role.Formateur] } },
   //Promotion
-  { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetail, meta: { authorize: [Role.Formateur] } },
+  { path: "/formateur/promotions/detail/:id", name: "formateur_promotion_detail", component: PromotionDetailFormateur, meta: { authorize: [Role.Formateur] } },
   //Devoir  
   { path: "/formateur/devoirs/create/:id", name: "formateur_devoir_create", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/devoirs/update/:id", name: "formateur_devoir_update", component: DevoirCreate, meta: { authorize: [Role.Formateur] } },
