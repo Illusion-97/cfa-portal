@@ -67,7 +67,11 @@ import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue"
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
 //new espace Etudiant
-import SinglePageEtudiant from  "@/views/Etudiant/SinglePageEtudiant";
+import AccueilEtudiant from  "@/views/Etudiant/AccueilEtudiant.vue";
+import CursusEtudiant from  "@/views/Etudiant/CursusEtudiant.vue";
+import LivretEtudiant from  "@/views/Etudiant/LivretEtudiant.vue";
+import ControleEtudiant from  "@/views/Etudiant/ControleEtudiant.vue";
+import DossierProfessionnelEtudiant from  "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
 //#######################
 //#       FORMATEUR     #
 //#######################
@@ -245,7 +249,11 @@ const routes = [
   { path: "/etudiant/espace-pedagogique/cursus/detail/:id", name: "etudiant_espace-peda_cursusdetails", component: CursusDetails, meta: { authorize: [Role.Etudiant] } },
 
   //new routes espace Etudiant
-  { path: "/etudiant/accueil", name: "etudiant_accueil", component: SinglePageEtudiant },
+  { path: "/etudiant", name: "etudiant_accueil", component: AccueilEtudiant },
+  { path: "/cursus", name: "etudiant_cursus", component: CursusEtudiant },
+  { path: "/controle", name: "etudiant_controle", component: ControleEtudiant },
+  { path: "/livret", name: "etudiant_livret", component: LivretEtudiant },
+  { path: "/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
   //#######################
   //#       FORMATEUR     #
   //#######################

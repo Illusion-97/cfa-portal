@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div>
-      <div v-if="table[0] != 'login'">
+      <!-- <div v-if="table[0] != 'login'">
         <Navbar/>
-      </div>
+      </div> -->
 
       <div v-if="table[0] == 'home'">
         <router-view />
@@ -12,28 +12,28 @@
         <router-view class="px-5"/>
       </div>
       <div v-else-if=" table[0] == 'etudiant'">
-        <SinglePageEtudiant />
+        <AccueilEtudiant />
       </div>
-      <!-- <div v-else>
-        <VerticalNavbar class="col-md-2" />
-        <div class="monBody col-md-10">
+      <div v-else>
+        <!-- <VerticalNavbar class="col-md-2" /> -->
+        <!-- <div class="monBody col-md-10"> -->
           <router-view />
-        </div>
-      </div> -->
+        <!-- </div> -->
+      </div>
     </div> 
   </div>
 </template>
 <script>
-import SinglePageEtudiant from "@/views/Etudiant/SinglePageEtudiant.vue";
-// import Navbar from "@/components/Navigation/Navbar.vue";
-// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+import AccueilEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
+//import Navbar from "@/components/Navigation/Navbar.vue";
+//import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 
 export default {
   name: "App",
   components: {
-    SinglePageEtudiant,
-    // Navbar,
-    // VerticalNavbar,
+    AccueilEtudiant,
+    //Navbar,
+    //VerticalNavbar,
   },
   methods: {},
   computed: {
