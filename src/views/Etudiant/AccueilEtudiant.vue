@@ -1,6 +1,9 @@
 <template>
     <div v-if="isEtudiant">
       <HeaderEtudiant />
+      <NavEtudiant /> 
+      <FooterEtudiant />
+     <AccueilEtudiant />
     </div>
     <div v-else>
       <NotFound/>
@@ -8,6 +11,9 @@
 </template>
 
 <script>
+import AccueilEtudiant from "@/components/Etudiant/AccueilEtudiant.vue";
+import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
+import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
 import NotFound from "@/views/NotFound.vue";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
@@ -16,6 +22,9 @@ import { utilisateurService } from "@/_services/utilisateur.service.js";
 export default {
     name: "etudiant_accueil",
     components: {
+      AccueilEtudiant,
+        FooterEtudiant,
+        NavEtudiant,
         HeaderEtudiant,
         NotFound
     },

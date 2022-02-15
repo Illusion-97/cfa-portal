@@ -1,11 +1,14 @@
 <template>
   <div id="app">
     <div>
+
       <div v-if="table[0] != 'login' ">
         <div v-if=" table[0] == 'formateur'">
            <Header />
         </div>     
       </div>
+
+
       <div v-if="table[0] == 'home'">
         <router-view />
       </div>
@@ -17,36 +20,36 @@
 
       </div>
       <div v-else-if=" table[0] == 'etudiant'">
-        <SinglePageEtudiant />
+        <!-- <AccueilEtudiant /> -->
+        <router-view />
       </div>
-      <div v-else>
+      <!-- <div v-else>
         <VerticalNavbar class="col-md-2" />
-        <div class="monBody col-md-10">
-          <router-view />
-        </div>
-      </div>
+        <div class="monBody col-md-10"> -->
+          <!-- <router-view /> -->
+        <!-- </div> -->
+      <!-- </div> -->
     </div> 
   </div>
 </template>
 <script>
 import Header from "@/components/Navigation/Header.vue";
-import Navbar from "@/components/Navigation/Navbar.vue";
+// import Navbar from "@/components/Navigation/Navbar.vue";
 // import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
-import SinglePageEtudiant from "@/views/Etudiant/SinglePageEtudiant.vue";
+// import SinglePageEtudiant from "@/views/Etudiant/SinglePageEtudiant.vue";
 // import Navbar from "@/components/Navigation/Navbar.vue";
-import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+// import AccueilEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
 export default {
   name: "App",
   components: {
-
-    Navbar,
-    VerticalNavbar,
-    Header,
-    VueSidebarFormateur,
-    SinglePageEtudiant,
+    // AccueilEtudiant,
     // Navbar,
     // VerticalNavbar,
+    Header,
+    VueSidebarFormateur,
+    // SinglePageEtudiant,
   },
   methods: {},
   computed: {
@@ -58,6 +61,7 @@ export default {
       return "true";
     },
   },
+
 };
 </script>
 <style>
@@ -117,4 +121,5 @@ export default {
         width: 1024px;
         margin: auto;
     }
-</style> -->
+</style>
+-->

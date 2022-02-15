@@ -8,19 +8,14 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
 
-export default defineComponent({
-    setup() {
-        
-    },
-})
+
 </script>
 
 <style scoped>
     .redBanner {
         background-color: #e11b28;
-        width: 1400px;
+        width: 2000px;
         padding: 100px 0 100px 100px;
         border-radius: 10px 0 0 10px;
     }
@@ -38,6 +33,7 @@ export default defineComponent({
     .mon-logo {
         width: 7%;
         height: 7%;
-        margin-left: 200px;
+        margin-left: 50px;
+        margin-right: 150px;
     }
 </style>
