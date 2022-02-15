@@ -137,6 +137,7 @@
       </template>
 
       <ExamensPromotionsListCompoenent />
+  
     </b-tab>
   
   </b-tabs>
@@ -157,10 +158,14 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import ExamensPromotionsListCompoenent from '@/components/List/ExamensPromotionsListCompoenent.vue'
+
+
 export default {
   name: "PromotionDetailFormateur",
   components: {
-    ExamensPromotionsListCompoenent
+    ExamensPromotionsListCompoenent,
+  
+  
     // BodyTitle,
   },
   data() {
