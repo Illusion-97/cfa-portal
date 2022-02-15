@@ -1,31 +1,42 @@
 <template>
   <section>
+    
+    <div id="header">
+        <Header />
+      </div>
     <div id="grid-container">
     <div>
-      <Header />
+      <VueSidebarFormateur />
     </div>
+      <div id="identite">
+        <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
+        <!-- <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p> -->
+      </div>
       <div id="trainer-planning">
         <Planning />
       </div>
-
+      <!-- Test form ajout exam -->
+        <AddExamen />
     </div>
   </section>
 </template>
 
 <script>
+import Header from"@/components/Navigation/Header.vue";
 import Planning from "@/components/utils/Planning.vue";
-import Header from "@/components/Navigation/Header.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue"
+import AddExamen from"@/components/Formateur/AddExamen.vue"
 export default {
   name: "HomeFormateur",
   components: {
-    Planning,
     Header,
-    VueSidebarFormateur
+    Planning,
+    VueSidebarFormateur,
+    AddExamen
   },
   data() {
     return {
-     
+
     };
   },
   computed: {
