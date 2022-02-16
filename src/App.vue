@@ -1,23 +1,11 @@
 <template>
   <div id="app">
     <div>
-<<<<<<< Updated upstream
-
-      <div v-if="table[0] != 'login' ">
-        <div v-if=" table[0] == 'formateur'">
-           <Header />
-        </div>     
-      </div>
-
-
-      <div v-if="table[0] == 'home'">
-=======
       <div v-if="path != 'login' && path != 'forgot-password' && path != 'reset-password'">
         <!-- <Navbar /> -->
       </div>
 
       <div v-if="path == 'home'">
->>>>>>> Stashed changes
         <router-view />
       </div>
       <div v-else-if="path == 'formateur'">
@@ -29,18 +17,6 @@
           </div>
           <router-view class="px-5" />
       </div>
-<<<<<<< Updated upstream
-      <div v-else-if=" table[0] == 'etudiant'">
-        <!-- <AccueilEtudiant /> -->
-        <router-view />
-      </div>
-      <!-- <div v-else>
-        <VerticalNavbar class="col-md-2" />
-        <div class="monBody col-md-10"> -->
-          <!-- <router-view /> -->
-        <!-- </div> -->
-      <!-- </div> -->
-=======
        <div v-else-if="path == 'etudiant'">
          <div>
            
@@ -53,26 +29,11 @@
           <router-view />
         </div>
       </div>
->>>>>>> Stashed changes
     </div> 
   </div>
 </template>
 <script>
-<<<<<<< Updated upstream
-import Header from "@/components/Navigation/Header.vue";
-// import Navbar from "@/components/Navigation/Navbar.vue";
-// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
-import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
-// import SinglePageEtudiant from "@/views/Etudiant/SinglePageEtudiant.vue";
-// import Navbar from "@/components/Navigation/Navbar.vue";
-// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
-// import AccueilEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
-export default {
-  name: "App",
-  components: {
-    // AccueilEtudiant,
-=======
-import Navbar from "@/components/Navigation/Navbar.vue";
+
 // import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 // import Navbar from "@/components/Navigation/Navbar.vue";
@@ -81,11 +42,7 @@ import Header from './components/Navigation/Header.vue';
 export default {
   name: "App",
   components: {
-    Navbar,
     VerticalNavbar,
-    Header,
-    VueSidebarFormateur,
->>>>>>> Stashed changes
     // Navbar,
     // VerticalNavbar,
     Header,
