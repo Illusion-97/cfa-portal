@@ -27,6 +27,7 @@ export const utilisateurApi = {
 
   isReferent,
   uploadUser,
+  mail,
 
 };
 
@@ -232,4 +233,21 @@ function uploadUser(id, file) {
   return axios.post(`${END_POINT}/${id}/upload-file`, file, requestOptions.headers())
     .then(response => response)
     .catch(err => err.response)
+}
+
+function mail(user){
+  return axios
+    .post(`${process.env.VUE_APP_URL}forgot`, requestOptions.headers()), {
+      email: user.email,
+    }
+    .then((response) => {
+      if (response.data) 
+      return response;
+    })
+    .catch(function (error) {
+      if (error.response) {
+        
+        return error.response;
+      }
+    });
 }

@@ -1,46 +1,44 @@
 <template>
   <div class="wrapper fadeInDown">
-    <form id="formContent" @submit="submit">
+    <form id="ResetForm" @submit="submit">
       <div class="form-horizontal">
         <div class="form-group">
+
           <div class="col-md-offset-2 col-md-12">
-            <h2>Connexion</h2>
+            <h2>Réinitialisation du mot de passe</h2>
           </div>
         </div>
 
-        <div class="form-group fadeIn second">
-          <div class="col-md-offset-2 col-md-4">
-            <label for="Email" class="control-label fadeIn third">Email</label>
+      <div class="form-group fadeIn second">
+        <div class="col-md-offset-2 col-md-4">
+            <label for="Password" class="control-label fadeIn third">Mot de passe</label>
           </div>
 
           <div class="col-md-12">
             <input
-              name="email"
-              type="email"
-              v-model="email"
-              :class="{
-                'form-control fadeIn third': true,
-                'is-invalid my-is-invalid': isInvalidInput,
-              }"
-              placeholder="Email"
-              autocomplete="email"
+              name="password"
+              type="password"
+              v-model="password"
+              :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
+              placeholder="Password"
+              autocomplete="password"
               required
               @input="isInvalidInputFalse()"
             />
-          </div>
+            </div>
         </div>
 
         <div class="form-group fadeIn second">
           <div class="col-md-offset-2 col-md-5">
-            <label for="Password" class="control-label fadeIn third"
-              >Mot de passe</label
+            <label for="ConfirmPassword" class="control-label fadeIn third"
+              >Confirmation mot de passe</label
             >
           </div>
           <div class="password col-md-12">
             <input
               type="password"
-              name="password"
-              v-model="password"
+              name="confirmPassword"
+              v-model="confirmPassword"
               :class="{
                 'form-control fadeIn third': true,
                 'is-invalid my-is-invalid': isInvalidInput,
@@ -53,173 +51,144 @@
           </div>
         </div>
 
-        <!-- <div class="form-group">
-          <div v-if="isInvalid" class="my-invalid-feedback">
-            Identifiant ou mot de passe incorrects !
-          </div>
-          <div class="col-md-offset-2 col-md-12">
-            <input
-              class="btn btn-primary"
-              type="submit"
-              value="Se connecter"
-            />
-          </div>    
-        </div> -->
+      <div v-if="errorPassword.checkPassword">
+        {{ errorPassword.checkPassword }}
+      </div>
 
-        <div class="justify-center cardAction">
-          <vue-recaptcha
-            ref="invisibleRecaptcha"
-            @verify="onVerify"
-            @expired="onExpired"
-            :sitekey="sitekey"
-            :loadRecaptchaScript="true"
-          >
-            <button
-              color="error"
-              class="btn btn-primary"
-              :disabled="!valid"
-              type="submit"
-            >
-              Se connecter
-            </button>
-            <!-- <div class="form-group">
-          <div v-if="isInvalid" class="my-invalid-feedback">
-            Identifiant ou mot de passe incorrects !
-          </div>
-          <div class="col-md-offset-2 col-md-12">
-            <input
-              class="btn btn-primary"
-              type="submit"
-              value="Se connecter"
-            /> 
-            <button color="error" class="btn btn-primary" :disabled="!valid" type="submit">
-            recaptcha
+      <div class="justify-center cardActionForgot">
+        <button color="error" class="btn btn-primary" 
+                :disabled="
+            valid ||
+            password.length == 0 ||
+            confirmPassword.length == 0 ||
+            password != confirmPassword"
+            type="submit">
+            Modifier le mot de passe
           </button>
-          </div>     
-        </div>-->
-          </vue-recaptcha>
-          <div class="cardActionForgot">
-            <div class="link">
-              <router-link :to="{ name: 'forgot' }">
-                Mot de passe oublié
-              </router-link>
-            </div>
-          </div>
+          
+        <div class="link">
+          <router-link :to="{name: 'login'}">
+             Retour à l'écran de connexion 
+          </router-link>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 </template>
 
+
 <script>
-import VueRecaptcha from "vue-recaptcha";
+import router from "../../router/router";
 import { validationMixin } from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
-import { authenticationApi } from "@/_api/authentication.api.js";
-import router from "@/router/router.js";
-import store from "../../store/store";
+import {
+  required,
+  minLength,
+  sameAs,
+} from "vuelidate/lib/validators";
+import resetService from "../../_services/resetService";
+import ResetPassword from "../../_helpers/ResetPassword";
+
+// const alpha = helpers.regex(
+//   "alpha",
+//   /^(?=.*[a-z])(?=.*[A-ZÀ-ȕ])(?=.*[0-9])(?=.*[\(\)\,\-\_\.\, !@#\$%\^&\*])/
+// );
 
 export default {
-  name: "LoginPage",
   mixins: [validationMixin],
+
   validations: {
-    password: { required },
-    email: { required, email },
-    form: ["email", "password"],
+    password: { required, minLength: minLength(8) },
+    confirmPassword: {
+      required,
+      minLength: minLength(8),
+      sameAsPassword: sameAs("password"),
+    },
   },
 
-  components: {
-    VueRecaptcha,
-  },
-  data() {
-    return {
-      //sitekey: "6Ld9lTodAAAAAFpu53aFO_BQe8a6hyzzIhg0muVP",
-      show: false,
-      password: "",
-      email: "",
-      isInvalid: false,
-      isInvalidInput: false,
-      valid: false,
-    };
+  data: () => ({
+    password: "",
+    confirmPassword: "",
+    status: "",
+    sucessfulServerResponse: "",
+    serverError: "",
+    valid: false,
+    token: "default",
+    errorPassword: { checkPassword: null },
+    isInvalidInput: false,
+  }),
+
+  computed: {
+    // passwordErrors() {
+    //   const errors = [];
+    //   if (!this.$v.password.$dirty) return errors;
+    //   !this.$v.password.minLength &&
+    //     errors.push(this.$t("errorFrontEnd.shortPassword"));
+    //   !this.$v.password.required &&
+    //     errors.push(this.$t("errorFrontEnd.requiredPassword"));
+    //   !this.$v.password.alpha &&
+    //     errors.push(this.$t("errorFrontEnd.invalidPasswordLenght"));
+    //   return errors;
+    // },
+    // confirmErrors() {
+    //   const errors = [];
+    //   if (!this.$v.confirmPassword.$dirty) return errors;
+    //   !this.$v.confirmPassword.sameAsPassword &&
+    //     errors.push(this.$t("errorFrontEnd.identicalPassword"));
+    //   return errors;
+    // }
   },
 
   created() {
-    this.sitekey = process.env.VUE_APP_GOOGLE_CAPTCHA_SITE_KEY;
-    // if ($cookies.get("auth")) {
-    //   router.push("/" + this.$i18n.locale + "/home");
-    // }
+    this.getUrlToken();
   },
+
   methods: {
-    isInvalidInputFalse() {
+    getUrlToken() {
+      if(this.$route.query.token){
+        this.token = this.$route.query.token;
+      }
+      else if(this.token == "default"){
+        router.push("/login");
+      }
+        
+    },
+    isInvalidInputFalse(){
       this.isInvalidInput = false;
     },
-    // Start Captcha
-    onSubmit() {
-      this.$refs.invisibleRecaptcha.execute();
-    },
-    onVerify(captchaToken) {
-      this.status = "submitting";
-      this.$refs.invisibleRecaptcha.reset();
-      this.submit(captchaToken);
-    },
-    onExpired() {
-      this.$refs.invisibleRecaptcha.reset();
-      window.localStorage.removeItem("captchaToken");
-    },
 
-    // End Captcha
-
-    submit(captchaToken) {
-      if (this.$v.form.$invalid) {
-        this.password = "";
-        this.email = "";
-      } else {
-        authenticationApi
-          .login(this.email, this.password, captchaToken)
-          .then(() => {
-            let roles = store.getters.getUtilisateur.rolesDto.map((role) => {
-              return role.intitule;
-            });
-            
-            if (roles.includes("ADMIN")) {
-              router.push("admin");
-            }
-            if (roles.includes("CEF")) {
-              router.push("cef");
-            }
-            if (roles.includes("ETUDIANT") || roles.includes("FORMATEUR")) {
-              router.push("home");
-            }
-          })
-          .catch((error) => {
-            // console.log(error);
-            if (
-              error.response.data.message ==
-              "Erreur : identifiants incorrects !"
-            ) {
-              this.isInvalid = true;
-              this.isInvalidInput = true;
-            }
-          });
-      }
-    },
-    toPublicPage() {
-      router.push({ name: "public" });
+    submit() {
+        console.log(this.token);
+        console.log(resetpassword);
+        const resetpassword = new ResetPassword(this.token, this.password);
+        resetService.reset(resetpassword).then((data) => {
+          if (data.status == 500) {
+            this.errorPassword.checkPassword = "Lien invalide ou expiré. Veuillez réutiliser le formulaire d'envoi de mail.";
+          }
+            else if (data.status != 200) {
+            this.errorPassword.checkPassword =
+              "Mot de passe identique à l'ancien.";
+          } else {
+            this.errorPassword.checkPassword = "Mot de passe modifié ! Vous serez redirigé vers la page de connexion d'ici quelques secondes.";
+            setTimeout( () => router.push("/login"), 5000);
+          }
+        });
     },
   },
 };
 </script>
 
 <style scoped>
-.my-invalid-feedback {
+
+.my-invalid-feedback{
   width: 100%;
   margin-top: 0.25rem;
   font-size: 100%;
   color: #dc3545;
 }
 
-.my-is-invalid {
-  border: 2px solid #dc3545 !important;
+.my-is-invalid{
+  border:  2px solid #dc3545  !important;
 }
 
 /* BASIC */

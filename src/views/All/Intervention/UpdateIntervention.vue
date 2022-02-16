@@ -180,7 +180,7 @@
         created() {
             this.getId();
             axios
-                .get("http://localhost:8080/AppliCFABack/promotions")
+                .get("http://localhost:8085/AppliCFABack/promotions")
                 .then((response) => {
                     this.opts = response.data;
                     // console.log(this.opts);
@@ -188,7 +188,7 @@
                 .catch((err) => console.error(err));
 
             axios
-                .get("http://localhost:8080/AppliCFABack/formations")
+                .get("http://localhost:8085/AppliCFABack/formations")
                 .then((response) => {
                     this.courses = response.data;
                     // console.log(this.courses);
