@@ -17,7 +17,11 @@ export default {
 
 <style scoped>
 h5 {
-  margin: 99px 0 0 55px;
+  margin-top: 55px;
 }
+
+  .container {
+        margin: 99px 0 0 421px;
+    }
 </style>
 

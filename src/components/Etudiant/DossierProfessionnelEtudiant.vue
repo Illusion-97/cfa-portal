@@ -13,7 +13,7 @@
               <b-card-text>
                 Je constitue un dossier professionnel en ligne en le remplissant avec mes informations.
               </b-card-text>
-              <b-button href="#" variant="primary" id="btn-creer-dossier">Créer un dossier</b-button>
+              <router-link :to="{ name: 'creer_dossier_pro' }"><b-button variant="primary" id="btn-creer-dossier" >Créer un dossier</b-button></router-link>
             </b-card>
           </div>
 
@@ -28,7 +28,7 @@
               <b-card-text>
                 Je charge mon dossier professionnel en ligne depuis mon ordinateur.
               </b-card-text>
-              <b-button href="#" variant="primary" id="btn-creer-dossier">Charger mon dossier</b-button>
+              <b-button  variant="primary" id="btn-creer-dossier">Charger mon dossier</b-button>
             </b-card>
           </div>
         </div>
@@ -100,8 +100,8 @@
 </script>
 
 <style scoped>
-    .container {
-        margin: 99px 0 0 450px;
+   .container {
+        margin: 99px 0 0 421px;
     }
 
     .fa-folder-open {
@@ -159,6 +159,14 @@
 
     #div-cards-dossier h4{
       font-size: 1.25rem;
+    }
+
+    .card-body .btn{
+      width: -webkit-fill-available;
+    }
+
+    a:hover{
+      text-decoration: none;
     }
 
 </style>

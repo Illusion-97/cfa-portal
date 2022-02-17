@@ -10,10 +10,15 @@
 <style scoped>
     body {
   margin: 0;
-}
-footer {
-  width: 100%;
-  height: 200px;
+  }
 
-}
+  footer {
+    width: 100%;
+    height: 200px;
+
+  }
+
+  .container {
+        margin: 99px 0 0 421px;
+    }
 </style>
