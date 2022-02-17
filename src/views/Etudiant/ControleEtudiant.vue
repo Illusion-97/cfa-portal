@@ -2,8 +2,10 @@
     <div v-if="isEtudiant">
       <HeaderEtudiant />
       <NavEtudiant />
+      <div class="minDiv">
+        <ControleContinuEtudiant />
+      </div>
       <FooterEtudiant />
-      <ControleContinuEtudiant />
     </div>
     <div v-else>
       <NotFound/>
@@ -61,5 +63,8 @@ export default {
 
     .monBody  {
         padding: 0;
+    }
+    .minDiv {
+      min-height: 50vh;
     }
 </style>

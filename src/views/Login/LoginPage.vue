@@ -187,8 +187,11 @@ export default {
             if (roles.includes("CEF")) {
               router.push("cef");
             }
-            if (roles.includes("ETUDIANT") || roles.includes("FORMATEUR")) {
+            if (/*roles.includes("ETUDIANT") ||*/ roles.includes("FORMATEUR")) {
               router.push("home");
+            }
+            if (roles.includes("ETUDIANT")) {
+              router.push("etudiant");
             }
           })
           .catch((error) => {
