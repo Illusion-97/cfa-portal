@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div >
+    <div>
+      <AddExamen />
+    </div>
     <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
      
@@ -90,7 +93,7 @@
             
         <div v-else >
               <b-button block variant="primary" v-bind:class="classObject(row.item, true)" @click="modifier(row.item)">  <font-awesome-icon :icon="['fas', 'edit']" class="icon"/>   Modifier</b-button>
-              <b-button block variant="success"  v-bind:class="classObject(row.item,false)"> <font-awesome-icon :icon="['fas', 'plus-square']" class="icon"/>   Ajouter notes</b-button>
+              <b-button block variant="success"  v-bind:class="classObject(row.item,false)" @click="ajouterNotes(row.item)"> <font-awesome-icon :icon="['fas', 'plus-square']" class="icon"/>   Ajouter notes</b-button>
         </div>
         
         </template>
@@ -104,7 +107,6 @@
                   placeholder="Default textarea"
                   v-model="row.item.description"
                 ></b-form-textarea></b-col>
-            
             </b-row>
             </b-card>
             <b-card v-else>
@@ -118,20 +120,17 @@
    
     </b-table>
   </div>
-  
-    <AjouterNotes />
-  
   </div>
        
 </template>
 
 <script>
 import { examenApi } from "@/_api/examen.api.js";
-import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
+import AddExamen from '@/components/Formateur/AddExamen.vue'
   export default {
       name: 'ExamensPromotionsListCompoenent',
       components:{
-        AjouterNotes
+        AddExamen,      
       },
     data() {
 
@@ -160,12 +159,12 @@ import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
     {
       key: "Date",
       label: "Date",
-      thStyle: { width: "15%" },
+      thStyle: { width: "17%" },
     },
     {
       key: "Blocs_concernes",
       label: "Blocs concernés",
-      thStyle: { width: "12%" },
+      thStyle: { width: "15%" },
     },
     {
       key: "Piece_jointe",
@@ -175,24 +174,24 @@ import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
     {
       key: "Action",
       label: "Action",
-      thStyle: { width: "12%" },
+      thStyle: { width: "15%" },
     }
   ],
        
         items: [
-          { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Piece joite', modifier :false, _showDetails: false },
-          { Titre: 'Java intermédiaire', Duree: '3.5h', Date: '10/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Piece joite', modifier :false ,_showDetails: false },
+          { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false, _showDetails: false },
+          { Titre: 'Java intermédiaire', Duree: '3.5h', Date: '10/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false ,_showDetails: false },
           {
             Titre: 'Travaux pratiques CDA',
             Duree: '4h',
             Date: '13/03/2022	',
             Blocs_concernes:'1,2,3,4',
             description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',
-            Piece_jointe: ' Nom Piece joite',
+            Piece_jointe: ' Nom Pièce jointe',
             modifier :false,
             _showDetails: false
           },
-          { Titre: 'Angular', Duree: '2h', Date: '22/12/2021',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Piece joite',modifier :false,_showDetails: false }
+          { Titre: 'Angular', Duree: '2h', Date: '22/12/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe',modifier :false,_showDetails: false }
         ], 
         selected: [], 
         options: [
@@ -220,6 +219,9 @@ import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
         item.modifier= false;
          item._showDetails = false
       },
+      ajouterNotes(item){
+        this.$emit('custom-event-notes', { examen: item.Titre })
+      },
       onSubmit(event) {
         event.preventDefault()
         alert(JSON.stringify(this.items))
@@ -231,13 +233,13 @@ import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
         .then((response) => (this.examens = response));
     },
     classObject(item,modifier){
-        let dateExam = new Date(item.Date);
+        let dateExam = new Date(item.Date).getTime();
         let now =  Date.now()
         if (dateExam > now ) {
 
-            return !modifier ? 'd-none': ''
+            return modifier ? 'd-none': ''
         }
-        return !modifier ?'':'d-none';
+        return modifier ?'':'d-none';
     },
     tableItems(){
         //Assigner items 
