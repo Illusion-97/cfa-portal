@@ -57,6 +57,6 @@ export default {
 
 <style scoped>
   .minDiv{
-    min-height: 50vh;
+    min-height: 40vh;
   }
 </style>

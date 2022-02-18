@@ -11,22 +11,24 @@
     <SelectMPIL v-if="filter1 == 'Manager de projet en ingénierie logicielle'" @modal="$bvModal.show('exp-pro-modal')"/>
 
     <b-modal id="exp-pro-modal"
-              title="Expériences professionnelles"
+              title="Exemple de compétence : Activité-type 3 -CDA"
               centered
               scrollable
               no-close-on-esc
     >
       <template >
         <div v-if="filter1 == 'Concepteur développeur d\'applications'">
+          <label for="">Compétence professionnelle</label>
+          <select class="form-select">
 
+          </select>
         </div>
         <div v-if="filter1 == 'Manager de projet en ingénierie logicielle'">
 
         </div>
       </template>
-      <template #modal-footer="{ ok, cancel }">
-          <b-button size="sm" variant="success" @click="ok()">OK</b-button>
-          <b-button size="sm" variant="danger" @click="cancel()">Cancel</b-button>
+      <template #modal-footer="{ save }">
+          <b-button size="sm" variant="danger" @click="save()">Enregistrer</b-button>
       </template>
     </b-modal>
 
@@ -52,6 +54,9 @@ export default {
   methods: {
     showModal: function () {
       this.$bvModal.show("experience-pro-modal");
+    },
+    save() {
+
     }
   }
   
