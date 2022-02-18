@@ -159,12 +159,12 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
     {
       key: "Date",
       label: "Date",
-      thStyle: { width: "15%" },
+      thStyle: { width: "17%" },
     },
     {
       key: "Blocs_concernes",
       label: "Blocs concernés",
-      thStyle: { width: "12%" },
+      thStyle: { width: "15%" },
     },
     {
       key: "Piece_jointe",

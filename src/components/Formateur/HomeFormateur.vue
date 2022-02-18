@@ -11,8 +11,6 @@
       <div id="trainer-planning">
         <Planning />
       </div>
-      <!-- Test form ajout exam -->
-        <AddExamen />
     </div>
   </section>
 </template>
@@ -20,15 +18,13 @@
 <script>
 import Header from"@/components/Navigation/Header.vue";
 import Planning from "@/components/utils/Planning.vue";
-import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue"
-import AddExamen from"@/components/Formateur/AddExamen.vue"
+import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 export default {
   name: "HomeFormateur",
   components: {
     Header,
     Planning,
     VueSidebarFormateur,
-    AddExamen
   },
   data() {
     return {

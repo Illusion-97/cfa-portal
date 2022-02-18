@@ -3,7 +3,7 @@
     <div>
       <Header :title="'Promotions'"/>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid mt-4">
       <div class="header-list">
         <form class="form-inline form" @submit="submit">
           <input
@@ -177,7 +177,7 @@ export default {
 </style>
 <style>
 .card-Promotions{
-  border-radius: 50px;
+  border-radius: 5px;
   min-height: 17rem;
 }
 .card-Promotions:hover{

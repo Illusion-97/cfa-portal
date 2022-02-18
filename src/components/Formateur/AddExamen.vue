@@ -184,8 +184,8 @@
 }
 
 #fluid-container{
-  padding-right: 15vw;
-  padding-left: 6vw;
+  padding-right: 10vw;
+  padding-left: 5vw;
   
 }
 

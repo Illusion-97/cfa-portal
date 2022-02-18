@@ -4,7 +4,7 @@
       <Header :title="promotion.nom"/>
     </div> 
       <section>
- <div>
+ <div class="container-fluid mt-4">
   <b-tabs content-class="mt-3" fill>
     <b-tab  active>
        <template v-slot:title>
@@ -117,7 +117,7 @@ export default {
     props : {
       title: {
           type: String,
-                    default: "Selectioner un examen"
+                    default: "Sélectionner un examen"
             }
         },
     data() {
