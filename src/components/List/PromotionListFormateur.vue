@@ -1,51 +1,54 @@
 <template>
-  <div class="container-fluid">
-    <div class="header-list">
-
-
-      
-      <form class="form-inline form" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          placeholder="Rechercher"
-          type="text"
-          class="form-control"
-          v-model="saisie"
-        />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
-      </form>
-      
-     
+  <div>
+    <div>
+      <Header :title="'Promotions'"/>
     </div>
-    <div class="row d-flex justify-content-between">
-      <div v-for="promotion in promotionsComputed"
-          :key="promotion.id" 
-          @click="dblClick(promotion)"
-          class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card ">
-  <b-card
-  
-    header-text-variant="white"
-    header-tag="header"
-    header-bg-variant="dark"
-    footer-tag="footer"
-    footer-bg-variant="success"
-    footer-border-variant="dark"
-    style="max-width: 32rem;"
-    class="card-Promotions col"
+    <div class="container-fluid">
+      <div class="header-list">
+        <form class="form-inline form" @submit="submit">
+          <input
+            id="saisie"
+            name="saisie"
+            placeholder="Rechercher"
+            type="text"
+            class="form-control"
+            v-model="saisie"
+          />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+          </button>
+        </form>
+        
+      
+      </div>
+      <div class="row d-flex justify-content-between">
+        <div v-for="promotion in promotionsComputed"
+            :key="promotion.id" 
+            @click="dblClick(promotion)"
+            class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card ">
+    <b-card
     
-  >
-    <b-card-header class="d-flex justify-content-between bg-white text-secondary col"> 
-      <p>Nantes</p>
-     <b-progress height="20px" :value="Progress(promotion)" show-progress class="mb-2 w-50"></b-progress>
-  </b-card-header>
-    <b-card-text  class="mt-4 font-weight-bold">{{ promotion.nom }}</b-card-text>
-    <b-card-footer class="d-flex justify-content-between bg-white text-secondary"> <span> Date du debut : {{ promotion.dateDebut | formatDate }} </span> <span > Durée: {{ getMoths(promotion) }}M   </span>  <span> Date de fin : {{ promotion.dateFin | formatDate }} </span></b-card-footer>
-  </b-card>
-</div>
+      header-text-variant="white"
+      header-tag="header"
+      header-bg-variant="dark"
+      footer-tag="footer"
+      footer-bg-variant="success"
+      footer-border-variant="dark"
+      style="max-width: 32rem;"
+      class="card-Promotions col"
+      
+    >
+      <b-card-header class="d-flex justify-content-between bg-white text-secondary col"> 
+        <p>Nantes</p>
+      <b-progress height="20px" :value="Progress(promotion)" show-progress class="mb-2 w-50"></b-progress>
+    </b-card-header>
+      <b-card-text  class="mt-4 font-weight-bold">{{ promotion.nom }}</b-card-text>
+      <b-card-footer class="d-flex justify-content-between bg-white text-secondary"> <span> Date du debut : {{ promotion.dateDebut | formatDate }} </span> <span > Durée: {{ getMoths(promotion) }}M   </span>  <span> Date de fin : {{ promotion.dateFin | formatDate }} </span></b-card-footer>
+    </b-card>
+  </div>
+      </div>
     </div>
+      
   
    
   </div>
@@ -53,9 +56,12 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
+import Header from "@/components/Navigation/Header.vue";
 export default {
   name: "PromotionListComponent",
-  components: {},
+  components: {
+    Header,
+  },
   props: {
     isAction: {
       type: Boolean,

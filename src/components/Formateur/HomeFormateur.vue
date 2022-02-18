@@ -2,16 +2,12 @@
   <section>
     
     <div id="header">
-        <Header />
+        <Header :title="'Bienvenue sur le portail CFA '+utilisateur.prenom+ ' '+utilisateur.nom"/>
       </div>
     <div id="grid-container">
     <div>
       <VueSidebarFormateur />
     </div>
-      <div id="identite">
-        <p class="nom">{{ utilisateur.prenom }} {{ utilisateur.nom }}</p>
-        <!-- <p v-for="groupe in groupesComputed" :key="groupe.id" class="">{{groupe.nom}}</p> -->
-      </div>
       <div id="trainer-planning">
         <Planning />
       </div>

@@ -4,7 +4,6 @@
       <Header :title="title" />
     </div>
   <div>
-    <h1 class="text-center">Mes interventions</h1>
     <TableTemplate
       :items="items"
       :fields="fields"
@@ -36,7 +35,7 @@ export default {
   },
   data() {
     return {
-      title : "CDA - Nantes/Toulouse",
+      title : "Mes interventions",
       items: [],
       fields: courseFieldsFormateur,
       currentPage: 1,

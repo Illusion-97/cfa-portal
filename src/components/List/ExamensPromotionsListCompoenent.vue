@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div >
+    <div>
+      <AddExamen />
+    </div>
     <div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
      
@@ -128,10 +131,12 @@
 <script>
 import { examenApi } from "@/_api/examen.api.js";
 import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
+import AddExamen from '@/components/Formateur/AddExamen.vue'
   export default {
       name: 'ExamensPromotionsListCompoenent',
       components:{
-        AjouterNotes
+        AjouterNotes,
+        AddExamen,
       },
     data() {
 

@@ -9,13 +9,13 @@
         <router-view />
       </div>
       <div v-else-if="path == 'formateur'">
-          <div>
+          <!-- <div>
           <Header />
-          </div>
+          </div> -->
           <div>
              <VueSidebarFormateur />
           </div>
-          <router-view class="px-5" />
+          <router-view />
       </div>
        <div v-else-if="path == 'etudiant'">
          <div>
@@ -37,15 +37,15 @@
 // import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 // import Navbar from "@/components/Navigation/Navbar.vue";
-import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
-import Header from './components/Navigation/Header.vue';
+//import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+// import Header from "./components/Navigation/Header.vue";
 export default {
   name: "App",
   components: {
-    VerticalNavbar,
+    //VerticalNavbar,
     // Navbar,
     // VerticalNavbar,
-    Header,
+    // Header,
     VueSidebarFormateur,
     // SinglePageEtudiant,
   },

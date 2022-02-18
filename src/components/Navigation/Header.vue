@@ -8,7 +8,7 @@
             </div>
         </div>
         <div id="header" class="pHeader mr-4 "> 
-           <button type="button" @click="logout" class="btn btn-light"><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon"/>    Déconnexion</button>
+           <button type="button" @click="logout" class="btnHeader btn-light"><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon"/>    Déconnexion</button>
         </div>
     </div>
 </template>
@@ -31,7 +31,7 @@ import { authenticationApi } from "@/_api/authentication.api.js";
                 name: "login"
                 }));
             },
-        }
+        },
     }
 </script>
 <style>
@@ -39,7 +39,7 @@ import { authenticationApi } from "@/_api/authentication.api.js";
     background-color:#00072d;
     overflow: hidden;
     color:white;
-    Height: 4rem;
+    Height: 5rem;
 }
 
 .pHeader{
@@ -48,11 +48,13 @@ import { authenticationApi } from "@/_api/authentication.api.js";
     font-weight:600;
 }
 
-.btn{
+.btnHeader{
     font-size: 20px !important; 
     font-family: Roboto;
-    font-weight:600;
+    font-weight: 500;
     width: 160px;
+    height: 45px;
     border: 5px;
+    
 }
 </style>
