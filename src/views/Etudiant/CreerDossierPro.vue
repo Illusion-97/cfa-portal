@@ -3,9 +3,7 @@
       <HeaderEtudiant />
       <NavEtudiant />
 
-      <div class="minDiv">
-        <DossierPro />
-      </div> 
+      <DossierPro class="minDiv" />
 
       <FooterEtudiant />
     </div>
@@ -20,7 +18,7 @@ import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
 import NotFound from "@/views/NotFound.vue";
 import DossierPro from "@/components/Etudiant/DossierPro.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+//import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 
 
@@ -41,22 +39,19 @@ export default {
   computed: {
     isEtudiant() {
       return utilisateurService.isEtudiant();
-    },
-    isFormateur() {
-      return utilisateurService.isFormateur();
-    },
+    }
   },
-  created() {
-    utilisateurApi
-      .getPlanningById(this.$store.getters.getUtilisateur.id)
-      .then((response) => this.$store.dispatch("setPlanning", response));
+  // created() {
+  //   utilisateurApi
+  //     .getPlanningById(this.$store.getters.getUtilisateur.id)
+  //     .then((response) => this.$store.dispatch("setPlanning", response));
 
-      if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
-        this.$router.push({
-          name: "admin_dashboard",
-        });
-      }
-  },
+  //     if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
+  //       this.$router.push({
+  //         name: "admin_dashboard",
+  //       });
+  //     }
+  // },
 }
 </script>
 

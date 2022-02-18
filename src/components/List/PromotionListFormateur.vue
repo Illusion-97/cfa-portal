@@ -103,7 +103,7 @@ export default {
     },
     Progress(promotion){
       let debut = new Date(promotion.dateDebut);
-      let fin = new Date(promotion.dateFin);
+      //let fin = new Date(promotion.dateFin);
       
       let now =  Date.now()
       let moisPasse = new Number((now - debut.getTime()) / 31536000000 *12).toFixed(0);
