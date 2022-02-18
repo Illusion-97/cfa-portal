@@ -1,11 +1,5 @@
 <template>
   <div id="sidemenu">
-    <button class="sidemenu__btn" v-on:click="navOpen=!navOpen" v-bind:class="{active:navOpen}">
-				<span class="top"></span>
-				<span class="mid"></span>
-				<span class="bottom"></span>
-			</button>
-    <transition name="translateX">
       <nav v-show="navOpen">
         <div class="sidemenu__wrapper">
           <ul class="sidemenu__list">
@@ -18,7 +12,6 @@
           </ul>
         </div>
       </nav>
-    </transition>
   </div>
 </template>
 
@@ -28,7 +21,7 @@ export default {
     name: 'sidemenu',
     data() {
         return {
-            navOpen: false,
+            navOpen: true,
         }
     }
 }
