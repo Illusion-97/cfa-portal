@@ -2,10 +2,12 @@
     <div v-if="isEtudiant">
       <HeaderEtudiant />
       <NavEtudiant />
+
       <div class="minDiv">
-        <AccueilEtudiant />
+        <DossierPro />
       </div> 
-     <FooterEtudiant />
+
+      <FooterEtudiant />
     </div>
     <div v-else>
       <NotFound/>
@@ -13,22 +15,23 @@
 </template>
 
 <script>
-import AccueilEtudiant from "@/components/Etudiant/AccueilEtudiant.vue";
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
 import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
 import NotFound from "@/views/NotFound.vue";
+import DossierPro from "@/components/Etudiant/DossierPro.vue";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 
+
 export default {
-    name: "etudiant_accueil",
+    name: "creer_dossier_pro",
     components: {
-        AccueilEtudiant,
-        FooterEtudiant,
-        NavEtudiant,
-        HeaderEtudiant,
-        NotFound
+      DossierPro,
+      FooterEtudiant,
+      NavEtudiant,
+      HeaderEtudiant,
+      NotFound
     },
     data() {
     return {
@@ -58,11 +61,7 @@ export default {
 </script>
 
 <style scoped>
-
-    body {
-      padding: 0;
-    }
-    .minDiv {
-      min-height: 50vh;
-    }
+  .minDiv{
+    min-height: 50vh;
+  }
 </style>

@@ -54,5 +54,6 @@ import { authenticationApi } from "@/_api/authentication.api.js";
     font-weight:600;
     width: 160px;
     border: 5px;
+    padding: 0.375rem 0.75rem !important;
 }
 </style>

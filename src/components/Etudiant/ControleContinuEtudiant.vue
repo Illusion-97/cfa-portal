@@ -73,6 +73,6 @@ export default {
         margin: 0 0 30px 0;
     }
     .container {
-        margin: 99px 0 0 450px;
+        margin: 99px 0 0 421px;
     }
 </style>
