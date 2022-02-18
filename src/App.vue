@@ -34,19 +34,16 @@
 </template>
 <script>
 
-// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
-// import Navbar from "@/components/Navigation/Navbar.vue";
-//import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
-// import Header from "./components/Navigation/Header.vue";
+// // import Navbar from "@/components/Navigation/Navbar.vue";
+// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 export default {
   name: "App",
   components: {
-    //VerticalNavbar,
     // Navbar,
-    // VerticalNavbar,
-    // Header,
     VueSidebarFormateur,
+    // VerticalNavbar,
     // SinglePageEtudiant,
   },
   methods: {},

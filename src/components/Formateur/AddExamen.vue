@@ -72,8 +72,7 @@
                       </div>
                     </div>
                   </b-col>
-                <b-col class="w-25" order="5"><b-form-spinbutton id="sb-wrap"
-                    size="sm"
+                <b-col class="w-25" order="5"><b-form-spinbutton
                     wrap min="1"
                     max="10"
                     step="0.5"
@@ -229,6 +228,6 @@
 }
 
 .btnValider{
-  margin-right: 3vw;
-}
+  margin-right: 3vw; 
+ }
 </style>
