@@ -2,8 +2,10 @@
     <div v-if="isEtudiant">
       <HeaderEtudiant />
       <NavEtudiant />
+      <div class="minDiv">
+        <DossierProfessionnelEtudiant /> 
+      </div>
       <FooterEtudiant />
-      <DossierProfessionnelEtudiant /> 
     </div>
     <div v-else>
       <NotFound/>
@@ -56,7 +58,9 @@ export default {
 </script>
 
 <style scoped>
-
+    .minDiv {
+      min-height: 50vh;
+    }
     .monBody  {
         padding: 0;
     }

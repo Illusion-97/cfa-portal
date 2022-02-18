@@ -79,6 +79,7 @@
               class="btn btn-primary"
               :disabled="!valid"
               type="submit"
+              id="btn-login-connexion"
             >
               Se connecter
             </button>
@@ -187,8 +188,11 @@ export default {
             if (roles.includes("CEF")) {
               router.push("cef");
             }
-            if (roles.includes("ETUDIANT") || roles.includes("FORMATEUR")) {
+            if  ( /*roles.includes("ETUDIANT") || */ roles.includes("FORMATEUR")) {
               router.push("home");
+            }
+            if (roles.includes("ETUDIANT")){
+              router.push("etudiant");
             }
           })
           .catch((error) => {
@@ -272,6 +276,10 @@ h2 {
   -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
+}
+
+.cardActionForgot{
+  margin-bottom: 30px;
 }
 
 #formFooter {
@@ -545,4 +553,9 @@ input[type="text"]:placeholder {
 .foot-lnk {
   text-align: center;
 }
+#btn-login-connexion{
+    width: auto !important;
+}
+
 </style>
+

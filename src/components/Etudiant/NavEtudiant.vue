@@ -133,4 +133,5 @@ export default {
   transform: translateX(-200px);
   opacity: 0;
 }
+
 </style>

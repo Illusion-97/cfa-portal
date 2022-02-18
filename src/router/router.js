@@ -69,6 +69,8 @@ import CursusEtudiant from  "@/views/Etudiant/CursusEtudiant.vue";
 import LivretEtudiant from  "@/views/Etudiant/LivretEtudiant.vue";
 import ControleEtudiant from  "@/views/Etudiant/ControleEtudiant.vue";
 import DossierProfessionnelEtudiant from  "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
+import CreerDossierPro from  "@/views/Etudiant/CreerDossierPro.vue";
+
 //#######################
 //#       FORMATEUR     #
 //#######################
@@ -334,6 +336,9 @@ const routes = [
   { path: "/etudiant/controle", name: "etudiant_controle", component: ControleEtudiant },
   { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEtudiant },
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
+  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: CreerDossierPro },
+
+
   //#######################
   //#       FORMATEUR     #
   //#######################
