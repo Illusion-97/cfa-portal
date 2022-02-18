@@ -2,150 +2,97 @@
   <div>
     <div>
       <Header :title="promotion.nom"/>
+    </div> 
+      <section>
+ <div>
+  <b-tabs content-class="mt-3" fill>
+    <b-tab  active>
+       <template v-slot:title>
+          <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon"/>   Etudiants
+      </template>
+        <div >
+
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="etudiant in promotion.etudiantsDto"
+                    :key="etudiant.id"
+                    @dblclick="clickEtudiant(etudiant)"
+                    class="mon-tr"
+                  >
+                    <td>{{ etudiant.utilisateurDto.prenom }}</td>
+                    <td>{{ etudiant.utilisateurDto.nom }}</td>
+                    <td>{{ etudiant.utilisateurDto.login }}</td>
+                    <td>
+                        {{etudiant.utilisateurDto.telephone }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </b-tab>
+    <b-tab >
+     <template v-slot:title>
+          <font-awesome-icon :icon="['fas', 'business-time']" class="icon"/>   Interventions
+      </template>
+        <div  id="interventions">
+          <table class="table">
+            <thead class="">
+              <tr>
+                <th>Formation</th>
+                <th>Heures dispensées</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="intervention in promotion.interventionsDto"
+                :key="intervention.id"
+                @dblclick="clickIntervention(intervention)"
+                class="mon-tr"
+              >
+                <td>{{ intervention.formationDto.titre }}</td>
+                <td>35 (à rajouter)</td>
+                <td>{{ intervention.dateDebut | formatDate }}</td>
+                <td>{{ intervention.dateFin | formatDate }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+    </b-tab>
+    <b-tab >
+        <template v-slot:title>
+          <font-awesome-icon :icon="['fas', 'file-alt']" class="icon"/>   Examens
+      </template>
+
+      <ExamensPromotionsListCompoenent @custom-event-notes="setMessage" />
+  
+    </b-tab>
+    <b-tab >
+        <template v-slot:title>
+          <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon"/>   Notes
+      </template>
+         <h2 class="text-center mt-5 mb-5">
+         {{title}}
+          </h2>
+    <div v-bind:class="[afficherNotes]" >
+      <AjouterNotes />
     </div>
-    
+       
 
-    <!-- <BodyTitle :title="promotion.nom" /> -->
-    
-    <!-- <h1>
-      {{ promotion.nom }}
-    </h1> -->
-    
-    
-
-    <!-- <div class="row">
-      <div class="col-md-3" align="center">
-        <div class="identite">
-          <p class="nom">{{ promotion.cursusDto.titre }}</p>
-          <p>
-            {{ promotion.dateDebut | formatDate }} -
-            {{ promotion.dateFin | formatDate }}
-          </p>
-          <p>{{ ville }}</p>
-        </div>
-      </div>
-
-      <div class="col-md-9">
-        <div class="row mb-5">
-          <div class="offset-3 col-md-4">
-            <b-card header="Referent Pedagogique">
-              <div>
-                <p>
-                  {{ promotion.referentPedagogiqueDto.prenom }}
-                  {{ promotion.referentPedagogiqueDto.nom }}
-                </p>
-                <p>{{ promotion.referentPedagogiqueDto.login }}</p>
-              </div>
-            </b-card>
-          </div>
-          <div class="offset-1 col-md-4">
-            <b-card header="Conseillé emploi formation">
-              <div>
-                <p>
-                  {{ promotion.cefDto.utilisateurDto.prenom }}
-                  {{ promotion.cefDto.utilisateurDto.nom }}
-                </p>
-                <p>{{ promotion.cefDto.utilisateurDto.login }}</p>
-              </div>
-            </b-card>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <div class="mon-container-tuile">
-      <span
-        :class="{ ma_tuile: true, activ: isEtudiant }"
-        class="mr-5"
-        @click="changementOnglet(1)"
-      >
-        Etudiants
-      </span>
-      <span
-        :class="{ ma_tuile: true, activ: isIntervention }"
-        @click="changementOnglet(2)"
-      >
-        Interventions
-      </span>
-    </div> -->
-     <section class="container-fluid">
-      <div>
-        <b-tabs content-class="mt-3" fill>
-          <b-tab  active>
-            <template v-slot:title>
-                <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon"/>   Etudiants
-            </template>
-              <div >
-
-                    <table class="table">
-                      <thead class="">
-                        <tr>
-                          <th>Nom</th>
-                          <th>Prénom</th>
-                          <th>Email</th>
-                          <th>Téléphone</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                          v-for="etudiant in promotion.etudiantsDto"
-                          :key="etudiant.id"
-                          @dblclick="clickEtudiant(etudiant)"
-                          class="mon-tr"
-                        >
-                          <td>{{ etudiant.utilisateurDto.prenom }}</td>
-                          <td>{{ etudiant.utilisateurDto.nom }}</td>
-                          <td>{{ etudiant.utilisateurDto.login }}</td>
-                          <td>
-                              {{etudiant.utilisateurDto.telephone }}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-              </div>
-          </b-tab>
-          <b-tab >
-          <template v-slot:title>
-                <font-awesome-icon :icon="['fas', 'business-time']" class="icon"/>   Interventions
-            </template>
-              <div  id="interventions">
-                <table class="table">
-                  <thead class="">
-                    <tr>
-                      <th>Formation</th>
-                      <th>Heures dispensées</th>
-                      <th>Date de début</th>
-                      <th>Date de fin</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="intervention in promotion.interventionsDto"
-                      :key="intervention.id"
-                      @dblclick="clickIntervention(intervention)"
-                      class="mon-tr"
-                    >
-                      <td>{{ intervention.formationDto.titre }}</td>
-                      <td>35 (à rajouter)</td>
-                      <td>{{ intervention.dateDebut | formatDate }}</td>
-                      <td>{{ intervention.dateFin | formatDate }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-          </b-tab>
-          <b-tab >
-              <template v-slot:title>
-                <font-awesome-icon :icon="['fas', 'file-alt']" class="icon"/>   Examens
-            </template>
-
-            <ExamensPromotionsListCompoenent />
-        
-          </b-tab>
-        
-        </b-tabs>
-      </div>
+    </b-tab>
+  </b-tabs>
+</div>
     </section>
   </div>
 </template>
@@ -156,17 +103,30 @@ import { promotionApi } from "@/_api/promotion.api.js";
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import ExamensPromotionsListCompoenent from '@/components/List/ExamensPromotionsListCompoenent.vue'
 import Header from "@/components/Navigation/Header.vue"
-
+import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
 
 export default {
   name: "PromotionDetailFormateur",
   components: {
     ExamensPromotionsListCompoenent,
     Header,  
+    AjouterNotes,
+  
     // BodyTitle,
   },
-  data() {
+    props : {
+      title: {
+          type: String,
+                    default: "Selectioner un examen"
+            }
+        },
+    data() {
     return {
+      // AjouterNotes: {
+      //   ouvert : false,
+      //   titre : "qsddqd"
+      // },
+      afficherNotes:'d-none',
       promotionId: this.$route.params.id,
       promotion: {
         cursusDto: {},
@@ -192,6 +152,10 @@ export default {
     },
   },
   methods: {
+     setMessage(payload) {
+            this.title = payload.examen;
+            this.afficherNotes ='';
+        },
     goBack() {
       this.$router.go(-1);
     },
