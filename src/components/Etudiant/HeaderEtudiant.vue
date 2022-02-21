@@ -28,7 +28,7 @@
 <style scoped>
     .redBanner {
         background-color: #e11b28;
-        width: 2000px;
+        width: 80vw;
         padding: 100px 0 30px 100px;
         border-radius: 10px 0 0 10px;
         display: flex;
@@ -43,13 +43,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height:10em;
     }
 
     .mon-logo {
-        width: 7%;
-        height: 7%;
-        margin-left: 50px;
-        margin-right: 150px;
+        width: 7em;
+        margin-left: 5em;
+        margin-right: 15em;
     }
 
     .btn-light {

@@ -8,7 +8,8 @@
             <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_controle' }">Contrôles continus</router-link></li>
             <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_livret' }">Livrets d'évaluation</router-link></li>
             <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_dossierprofessionnel' }">Dossiers professionnels</router-link></li>
-            <li class="sidemenu__item"><a href="">Dossiers projets</a></li>
+            <!--TODO -->
+            <li class="sidemenu__item disabled-link"><a href="#" >Dossiers projets</a></li>
           </ul>
         </div>
       </nav>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+
 import App from './App.vue'
 import '@babel/polyfill'
 import 'mutationobserver-shim'
@@ -13,6 +14,7 @@ import router from './router/router.js'
 import store from './store/store.js'
 import axios from 'axios';
 import Paginate from 'vuejs-paginate'
+import VSwitch from 'v-switch-case'
 // import VueCookies from 'vue-cookies'
 
 let bootstrap = require('bootstrap');
@@ -28,6 +30,8 @@ Vue.component('paginate', Paginate)
 //axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
 
 // Vue.use(VueCookies)
+
+Vue.use(VSwitch)
 
 new Vue({
   router,

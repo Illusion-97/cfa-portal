@@ -3,14 +3,13 @@
     <h5>Constituer un dossier professionnel</h5>
 
     <!-- select -->
-    <select v-model="filter1" class="form-select">
-      <option v-for="choice in entriesSelect1" :key="choice">
-        {{ choice }}
-      </option>
+
+    <select v-model="select1" class="form-select">
+            <option v-for="choice in entriesSelect1" :key="choice">{{ choice }}</option>
     </select>
     <div id="div-label"><label for="">Activités types</label></div>
-    <SelectCDA v-if="filter1 == 'Concepteur développeur d\'applications'" @modal="$bvModal.show('exp-pro-modal')"/>
-    <SelectMPIL v-if="filter1 == 'Manager de projet en ingénierie logicielle'" @modal="$bvModal.show('exp-pro-modal')"/>
+    <SelectCDA v-if="select1 == 'Concepteur développeur d\'applications'" @modal="$bvModal.show('exp-pro-modal')"/>
+    <SelectMPIL v-if="select1 == 'Manager de projet en ingénierie logicielle'" @modal="$bvModal.show('exp-pro-modal')"/>
 
     <b-modal id="exp-pro-modal"
               title="Exemple de compétence : Activité-type 3 -CDA"
@@ -19,13 +18,13 @@
               no-close-on-esc
     >
       <template >
-        <div v-if="filter1 == 'Concepteur développeur d\'applications'">
+        <div v-if="select1 == 'Concepteur développeur d\'applications'">
           <label for="">Compétence professionnelle</label>
           <select class="form-select">
 
           </select>
         </div>
-        <div v-if="filter1 == 'Manager de projet en ingénierie logicielle'">
+        <div v-if="select1 == 'Manager de projet en ingénierie logicielle'">
 
         </div>
       </template>
@@ -33,7 +32,6 @@
           <b-button size="sm" variant="danger" @click="save()">Enregistrer</b-button>
       </template>
     </b-modal>
-
 </div>
 </template>
 
@@ -54,7 +52,7 @@ export default {
         "Manager de projet en ingénierie logicielle",
       ],
       entriesSelect2: [],
-      filter1: "--Cursus--"
+      select1: "--Cursus--"
     };
   },
   methods: {
@@ -65,7 +63,6 @@ export default {
 
     }
   }
-  
 };
 </script>
 
