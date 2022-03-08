@@ -113,11 +113,11 @@
             <label for="">Contrat</label>
             <div class="col-sm-4">
               <label for="">Date de début : </label>
-              <input type="date" name="mode" class="" placeholder="" v-model="contrat.dateDebut"/>
+              <input type="date" name="mode" class="form-control" placeholder="" v-model="contrat.dateDebut"/>
             </div>
             <div class="col-sm-4">
               <label class="" for="">Date de fin : </label>
-              <input type="date" name="mode" class="" placeholder="" v-model="contrat.dateFin"/>
+              <input type="date" name="mode" class="form-control" placeholder="" v-model="contrat.dateFin"/>
             </div>
             <label class="col-2">Maitre d'Apprentissage</label>
             <div class="col-sm-4">
