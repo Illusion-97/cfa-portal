@@ -157,7 +157,6 @@
           })
           .catch(err => {
             // An error occurred
-            console.log(err.response.data);
           })
           item.ajouter = true;
           this.$nextTick( ()=>{
