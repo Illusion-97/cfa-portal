@@ -36,7 +36,7 @@
 
 
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
-// // import Navbar from "@/components/Navigation/Navbar.vue";
+// import Navbar from "@/components/Navigation/Navbar.vue";
 // import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 export default {
   name: "App",

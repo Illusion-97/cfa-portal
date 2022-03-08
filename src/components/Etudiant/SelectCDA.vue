@@ -2,13 +2,13 @@
   <div>
     <select class="form-select">
       <option value="cda">Activité type 1 CDA</option>
-      <option value="cda">Option 1</option>
+      <option value="cda" v-b-modal.modal-1>Option 1</option>
       <option value="cda">Option 2</option>
       <option value="cda">Option 3</option>
     </select>
     <select class="form-select">
       <option value="cda">Activité type 2 CDA</option>
-      <option value="cda">Option 1</option>
+      <option value="cda" >Option 1</option>
       <option value="cda">Option 2</option>
       <option value="cda">Option 3</option>
     </select>
@@ -18,11 +18,11 @@
       <option value="mpil">Option 2</option>
       <option value="mpil">Option 3</option>
     </select>
-    <select class="form-select">
-    <option value="mpil">Annexes</option>
-      <option value="mpil">Ajouter une expérience professionnelle</option>
-      <option value="mpil">Exemple 2</option>
-      <option value="mpil">Exemple 3</option>
+    <select @change="checkAnnexes" v-model="annexes" class="form-select">
+      <option value="null">Annexes</option>
+      <option value="experience">Ajouter une expérience professionnelle</option>
+      <option >Exemple 2</option>
+      <option >Exemple 3</option>
     </select>
   </div>
 </template>
@@ -31,8 +31,17 @@
 export default {
   name: "Selects",
   data: function () {
-    return {};
+    return {
+       annexes: null
+    };
   },
+  methods: {
+    checkAnnexes: function () {
+      if (this.annexes == "experience") {
+        this.$emit('modal');
+      }
+    }
+  }
 };
 </script>
 

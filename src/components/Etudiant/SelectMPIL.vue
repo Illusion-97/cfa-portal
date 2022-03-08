@@ -18,23 +18,30 @@
       <option value="mpil">Option 2</option>
       <option value="mpil">Option 3</option>
     </select>
-    <select class="form-select">
-    <option value="mpil">Annexes</option>
-      <option value="mpil">Ajouter une expérience professionnelle</option>
-      <option value="mpil">Exemple 2</option>
-      <option value="mpil">Exemple 3</option>
+    <select @change="checkAnnexes" v-model="annexes" class="form-select">
+      <option value="null">Annexes</option>
+      <option value="experience">Ajouter une expérience professionnelle</option>
+      <option >Exemple 2</option>
+      <option >Exemple 3</option>
     </select>
   </div>
 </template>
 
 <script>
-export default {
+export default {  
    name: "Selects",
   data: function () {
     return {
-    
+      annexes: null
     };
   },
+  methods: {
+    checkAnnexes: function () {
+      if (this.annexes == "experience") {
+        this.$emit('modal');
+      }
+    }
+  }
 }
 </script>
 

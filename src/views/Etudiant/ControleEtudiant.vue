@@ -65,6 +65,6 @@ export default {
         padding: 0;
     }
     .minDiv {
-      min-height: 50vh;
+      min-height: 40vh;
     }
 </style>
