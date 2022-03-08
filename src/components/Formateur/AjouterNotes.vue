@@ -156,7 +156,7 @@
             this.boxOne = value
           })
           .catch(err => {
-            // An error occurred
+            console.log(err);
           })
           item.ajouter = true;
           this.$nextTick( ()=>{
