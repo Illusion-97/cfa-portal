@@ -35,6 +35,8 @@
           <span class="col-md-10">{{ centreFormation.id }}</span>
           <span class="font-weight-bold col-md-2">Nom :</span>
           <span class="col-md-10">{{ centreFormation.nom }}</span>
+          <span class="font-weight-bold col-md-2">Coutry code :</span>
+          <span class="col-md-10">{{ centreFormation.countryCode }}</span>
           <span class="font-weight-bold col-md-2">Raison Sociale : </span>
           <span class="col-md-10">{{ entrepriseDto.raisonSociale }}</span>
           <span class="font-weight-bold col-md-2">Adresse : </span>

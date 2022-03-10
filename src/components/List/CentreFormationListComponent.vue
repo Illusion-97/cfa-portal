@@ -34,8 +34,9 @@
         <tr>
           <!-- <th>#</th> -->
           <th>Nom du centre</th>
-          <th>Entreprise</th>
-          <th>Adresse</th>
+          <th>Country Code</th>
+          <!-- <th>Entreprise</th> -->
+          <!-- <th>Adresse</th> -->
           <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
@@ -49,13 +50,14 @@
         
           <!-- <td>{{ centreFormation.id }}</td> -->
           <td>{{ centreFormation.nom }}</td>
-          <td>{{ centreFormation.entrepriseDto.raisonSociale }}</td>
-          <td>
+          <td>{{ centreFormation.countryCode }}</td> 
+          <!-- <td>{{ centreFormation.entrepriseDto.raisonSociale }}</td> -->
+          <!-- <td>
             {{ centreFormation.adresseDto.numero }},
             {{ centreFormation.adresseDto.rue }},
             {{ centreFormation.adresseDto.ville }},
             {{ centreFormation.adresseDto.codePostal }}
-          </td>
+          </td> -->
           <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"

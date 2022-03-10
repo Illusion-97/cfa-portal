@@ -13,7 +13,7 @@ export const formationApi = {
   countFormation,
   getFormationByPromoId,
   getFormationByCursusId,
-  getInterventionsByFormationId
+  getInterventionsByFormationId,
 }
 
 function getAll() {
@@ -95,4 +95,13 @@ function getInterventionsByFormationId(id) {
   return axios.get(url, requestOptions.headers())
     .then(response => response.data)
     .catch(err => console.error(err))
+}
+/* test de recup de la requete import dg2 */
+export async function fetchAllFormationsDG2Http(logInUser) {
+  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+    headers: {
+      Authorization: requestOptions.headers(),
+      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+    },
+  });
 }

@@ -27,6 +27,7 @@
         <tr>
           <th scope="col">Intitulé</th>
           <th scope="col">Description</th>
+          <th scope="col">Duration</th>
           <!-- <th scope="col">Voir plus</th> -->
         </tr>
       </thead>
@@ -34,6 +35,7 @@
         <tr v-for="formation in items" :key="formation.id" @dblclick="detailFormation(formation.id)">
           <td style="width:15em">{{ formation.titre }}</td>
           <td>{{ formation.contenu }}</td>
+          <td>{{ formation.duration }}</td>
           <!-- <td style="width:10em;">
             <router-link
               :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"

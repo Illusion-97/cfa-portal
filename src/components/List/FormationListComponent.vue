@@ -31,6 +31,7 @@
         <tr>
           <!-- <th>Id</th> -->
           <th class="text-center">Intitulé</th>
+          <th class="text-center">duration</th>
           <th class="text-center" v-if="isDescription">Description</th>
           <!-- <th v-if="isAction" width="20%">Voir plus</th> -->
         </tr>
@@ -43,7 +44,9 @@
           @dblclick="dblClick(formation)">
           <!-- <td>{{ formation.id }}</td> -->
           <td>{{ formation.titre }}</td>
+          <td>{{ formation.duration }}</td>
           <td v-if="isDescription">{{formation.contenu}}</td>
+          
           <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
