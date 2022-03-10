@@ -68,3 +68,13 @@ function getCount(search = ""){
       .then(response => response.data["nb"])
       .catch((error) => console.log(error));
 }
+
+/* test de recup de la requete import dg2 */
+export async function fetchAllCentreDeFormationsDG2Http(logInUser) {
+  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+    headers: {
+      Authorization: requestOptions.headers(),
+      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+    },
+  });
+}
