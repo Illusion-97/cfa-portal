@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <div v-if="path != 'login' && path != 'forgot-password' && path != 'reset-password'">
-        <!-- <Navbar /> -->
-      </div>
-
-      <div v-if="path == 'home'">
+      <div v-if="path == 'home' || path == 'etudiant'">
         <router-view />
       </div>
       <div v-else-if="path == 'formateur'">
@@ -17,46 +13,42 @@
           </div>
           <router-view class="px-5" />
       </div>
-       <div v-else-if="path == 'etudiant'">
-         <div>
-           
-         </div>
-          <router-view />
+        <div v-else-if="path == 'admin' || path == 'referent' || path == 'cef'" >
+          <Navbar />
+          <VerticalNavbar class="col-md-2" />
+          <div class="monBody col-md-10">
+            <router-view />
+          </div>
       </div>
-      <div v-else>
-        <!-- <VerticalNavbar class="col-md-2" /> -->
-        <div class="monBody col-md-10">
-          <router-view />
-        </div>
+      <div v-else >
+          <div class="monBody col-md-10">
+            <router-view />
+          </div>
       </div>
     </div> 
   </div>
 </template>
 <script>
 
-// import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
-// import Navbar from "@/components/Navigation/Navbar.vue";
-//import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
+ import Navbar from "@/components/Navigation/Navbar.vue";
+
 import Header from './components/Navigation/Header.vue';
 export default {
   name: "App",
   components: {
-    // Navbar,
-    // VerticalNavbar,
+     Navbar,
+     VerticalNavbar,
     Header,
-    VueSidebarFormateur,
-    // SinglePageEtudiant,
+    VueSidebarFormateur
   },
   methods: {},
   computed: {
     path() {
       // return this.$route.path;
       return this.$route.path.split("/").splice(1)[0];
-    },
-    show() {
-      return "true";
-    },
+    }
   },
 
 };
