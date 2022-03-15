@@ -3,19 +3,15 @@
     <h5>Constituer un dossier professionnel</h5>
 
     <!-- select Principal-->
-    <select v-model="select1" class="form-select">
-            <option v-for="choice in entriesSelect1" :key="choice">{{ choice }}</option>
-    </select>
+    <b-form-select v-model="select1" :options="optionsSelect1"></b-form-select>
+
     <div id="div-label"><label for="">Activités types</label></div>
     
     <!-- SELECT CDA-->
-    <div v-if="select1 == 'Concepteur développeur d\'applications'">
-      <select class="form-select">
-        <option value="cda">Activité type 1 CDA</option>
-        <option value="cda">Option 1</option>
-        <option value="cda">Option 2</option>
-        <option value="cda">Option 3</option>
-      </select>
+    <div v-if="select1 == 'cda'">
+
+      <b-form-select v-model="selectActivite" :options="optionsActivite" @change="checkActiviteType1"></b-form-select>
+
       <select class="form-select">
         <option value="cda">Activité type 2 CDA</option>
         <option value="cda">Option 1</option>
@@ -37,7 +33,7 @@
   </div>
 
     <!-- SELECT MPIL-->
-    <div v-if="select1 == 'Manager de projet en ingénierie logicielle'">
+    <div v-if="select1 == 'mpil'">
       <select class="form-select">
       <option value="mpil">Activité type 1 MPIL</option>
       <option value="mpil">Option 1</option>
@@ -70,17 +66,46 @@
               centered
               scrollable
               no-close-on-esc
+              @hidden="resetModal"
     >
       <template >
-        <div v-if="select1 == 'Concepteur développeur d\'applications'">
-          <label for="">Compétence professionnelle</label>
-          <select class="form-select">
-
-          </select>
-        </div>
-        <div v-if="select1 == 'Manager de projet en ingénierie logicielle'">
+        <div v-if="select1 == 'cda'">
 
         </div>
+        <div v-if="select1 == 'mpil'">
+
+        </div>
+
+        <div v-if="selectActivite == 'aep'">
+            <b-form-select v-model="selectAjouterActivite" :options="optionsSelectAjouterActivite"></b-form-select>
+            <div v-if="selectAjouterActivite != null" class="accordion" role="tablist">
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button block v-b-toggle.accordion-1 variant="info">Accordion 1</b-button>
+                </b-card-header>
+                <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
+                    <!-- <b-card-text>{{ text }}</b-card-text> -->
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button block v-b-toggle.accordion-2 variant="info">Accordion 2</b-button>
+                </b-card-header>
+                <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+                  <b-card-body>
+                    <!-- <b-card-text>{{ text }}</b-card-text> -->
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+
+              
+            </div>
+        </div>
+
       </template>
       <template #modal-footer="{ save }">
           <b-button size="sm" variant="danger" @click="save()">Enregistrer</b-button>
@@ -96,15 +121,35 @@ export default {
     },
   data: function () {
     return {
-      entriesSelect1: [
-        "--Cursus--",
-        "Concepteur développeur d'applications",
-        "Manager de projet en ingénierie logicielle",
-      ],
       entriesSelect2: [],
-      select1: "--Cursus--",
       annexesCDA: null,
-      annexesMPIL: null
+      annexesMPIL: null,
+      select1: null,
+        optionsSelect1: [
+          { value: null, text: '--Cursus--' },
+          { value: 'cda', text: 'Concepteur développeur d\'applications' },
+          { value: 'mpil', text: 'Manager de projet en ingénierie logicielle' }
+        ],
+
+        selectActivite: null,
+        optionsActivite: [
+          { value: null, text: 'Activité type 1 CDA' },
+          { value: 'aep', text: 'Ajouter une expérience professionnelle' },
+          { value: 'o1', text: 'Option 1' },
+          { value: 'o2', text: 'Option 2' },
+          { value: 'o3', text: 'Option 3' }
+        ],
+        selectAjouterActivite: null,
+        optionsSelectAjouterActivite: [
+          { value: null, text: 'Compétence professionnelle' },
+          { value: 'b', text: 'Concevoir une application' },
+          { value: 'c', text: 'Collaborer à la gestion d\'un projet informatique et à l\'organisation de l\'environnement de développement' },
+          { value: 'd', text: 'Développer des composants métier' },
+          { value: 'e', text: 'Construire une application organisée en couches' },
+          { value: 'f', text: 'Développer une application mobile' },
+          { value: 'g', text: 'Préparer et exécuter les plans de tests d\'une application' },
+          { value: 'h', text: 'Préparer et exécuter le déploiement d\'une application' }
+        ]
     };
   },
   methods: {
@@ -117,9 +162,18 @@ export default {
       if (this.annexesMPIL == "experience") {
         this.$bvModal.show('exp-pro-modal');
       }
+     },
+    checkActiviteType1: function () {
+      if (this.selectActivite == "aep") {
+        this.$bvModal.show('exp-pro-modal');
+      }
+    },
+    resetModal: function () {
+      this.annexesCDA = null;
+      this.selectActivite = null;
+      this.selectActivite = null;
     },
     save() {
-
     }
   }
 };
