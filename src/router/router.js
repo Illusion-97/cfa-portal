@@ -63,9 +63,15 @@ import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfe
 import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
+
 //new espace Etudiant
 
-import Etudiant from  "@/views/Etudiant/Etudiant.vue";
+import AccueilEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
+import CursusEtudiant from "@/views/Etudiant/CursusEtudiant.vue";
+import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vue";
+import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
+import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
+import DossierPro from "@/views/Etudiant/DossierPro.vue";
 
 //#######################
 //#       FORMATEUR     #
@@ -327,20 +333,12 @@ const routes = [
   },
 
   //new routes espace Etudiant
-  // { path: "/etudiant", name: "etudiant_accueil", component: AccueilEtudiant },
-  // { path: "/etudiant/cursus", name: "etudiant_cursus", component: CursusEtudiant },
-  // { path: "/etudiant/controle", name: "etudiant_controle", component: ControleEtudiant },
-  // { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEtudiant },
-  // { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
-  // { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: CreerDossierPro },
-
-  { path: "/etudiant", name: "etudiant_accueil", component: Etudiant },
-  { path: "/etudiant/cursus", name: "etudiant_cursus", component: Etudiant },
-  { path: "/etudiant/controle", name: "etudiant_controle", component: Etudiant },
-  { path: "/etudiant/livret", name: "etudiant_livret", component: Etudiant },
-  { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: Etudiant },
-  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: Etudiant },
-
+  { path: "/etudiant", name: "etudiant_accueil", component: AccueilEtudiant },
+  { path: "/etudiant/cursus", name: "etudiant_cursus", component: CursusEtudiant },
+  { path: "/etudiant/controle", name: "etudiant_controle", component: ControleContinuEtudiant },
+  { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
+  { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
+  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
 
   //#######################
   //#       FORMATEUR     #

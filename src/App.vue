@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <div v-if="path == 'home' || path == 'etudiant'">
+      <div v-if="path == 'home'">
         <router-view />
       </div>
       <div v-else-if="path == 'formateur'">
@@ -12,6 +12,12 @@
              <VueSidebarFormateur />
           </div>
           <router-view class="px-5" />
+      </div>
+      <div v-else-if="path == 'etudiant'" id="mainEtudiant">
+        <HeaderEtudiant />
+        <NavEtudiant />
+        <router-view />
+        <FooterEtudiant />
       </div>
         <div v-else-if="path == 'admin' || path == 'referent' || path == 'cef'" >
           <Navbar />
@@ -32,16 +38,24 @@
 
 import VerticalNavbar from "@/components/Navigation/VerticalNavbar.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
- import Navbar from "@/components/Navigation/Navbar.vue";
+import Navbar from "@/components/Navigation/Navbar.vue";
 
 import Header from './components/Navigation/Header.vue';
+
+import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
+import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
+import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
+
 export default {
   name: "App",
   components: {
      Navbar,
      VerticalNavbar,
     Header,
-    VueSidebarFormateur
+    VueSidebarFormateur,
+    FooterEtudiant,
+    NavEtudiant,
+    HeaderEtudiant
   },
   methods: {},
   computed: {
@@ -58,6 +72,10 @@ export default {
   float: right;
   padding-left: 5em;
   padding-right: 5em;
+}
+#mainEtudiant {
+  min-height: calc(100vh - 13.2em);
+  position: relative;
 }
 </style>
 <!--
