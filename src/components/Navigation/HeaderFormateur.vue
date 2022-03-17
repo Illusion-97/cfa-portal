@@ -34,7 +34,7 @@ import { authenticationApi } from "@/_api/authentication.api.js";
         }
     }
 </script>
-<style>
+<style scoped>
 .navHeader{
     background-color:#00072d;
     overflow: hidden;

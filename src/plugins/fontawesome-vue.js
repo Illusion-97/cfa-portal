@@ -6,4 +6,5 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(fas);
 library.add(far);
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
