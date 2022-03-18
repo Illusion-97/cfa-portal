@@ -9,13 +9,10 @@
         <router-view />
       </div>
       <div v-else-if="path == 'formateur'">
-          <!-- <div>
-          <Header />
-          </div> -->
-          <div>
-             <VueSidebarFormateur />
-          </div>
-          <router-view />
+        <div>
+            <VueSidebarFormateur />
+        </div>
+        <router-view />
       </div>
        <div v-else-if="path == 'etudiant'">
          <div>

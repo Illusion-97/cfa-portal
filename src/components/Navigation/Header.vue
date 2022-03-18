@@ -39,22 +39,22 @@ import { authenticationApi } from "@/_api/authentication.api.js";
     background-color:#00072d;
     overflow: hidden;
     color:white;
-    Height: 5rem;
+    Height: 6rem;
 }
 
 .pHeader{
-    font-size: 20px;
+    font-size: 30px;
     font-family: Roboto;
     font-weight:600;
+    height: 50%;
 }
 
 .btnHeader{
-    font-size: 20px !important; 
+    font-size: 25px !important; 
     font-family: Roboto;
     font-weight: 500;
-    width: 160px;
-    height: 45px;
-    border: 5px;
-    
+    width: 200px;
+    height: 100%;
+    border: 5px;    
 }
 </style>
