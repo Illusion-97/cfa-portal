@@ -1,41 +1,61 @@
 <template>
   <div id="sidemenu">
-      <nav v-show="navOpen">
-        <div class="sidemenu__wrapper">
-          <ul class="sidemenu__list">
-            <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_accueil' }">Accueil</router-link></li>
-            <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_cursus' }">Mes cursus</router-link></li>
-            <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_controle' }">Contrôles continus</router-link></li>
-            <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_livret' }">Livrets d'évaluation</router-link></li>
-            <li class="sidemenu__item"><router-link :to="{ name: 'etudiant_dossierprofessionnel' }">Dossiers professionnels</router-link></li>
-            <!--TODO -->
-            <li class="sidemenu__item disabled-link"><a href="#" >Dossiers projets</a></li>
-          </ul>
-        </div>
-      </nav>
+    <nav v-show="navOpen">
+      <div class="sidemenu__wrapper">
+        <ul class="sidemenu__list">
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_accueil' }"
+              >Accueil</router-link
+            >
+          </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_cursus' }"
+              >Mes cursus</router-link
+            >
+          </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_controle' }"
+              >Contrôles continus</router-link
+            >
+          </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_livret' }"
+              >Livrets d'évaluation</router-link
+            >
+          </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_dossierprofessionnel' }"
+              >Dossiers professionnels</router-link
+            >
+          </li>
+          <!--TODO -->
+          <li class="sidemenu__item disabled-link">
+            <a href="#">Dossiers projets</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </div>
 </template>
 
 <script>
-
 export default {
-    name: 'sidemenu',
-    data() {
-        return {
-            navOpen: true,
-        }
-    }
-}
-
+  name: "sidemenu",
+  data() {
+    return {
+      navOpen: true,
+    };
+  },
+};
 </script>
 
 
 <style scoped>
-    #sidemenu {
-        margin: 100px 0 0 50px;
-        position:absolute;
-    }
-    #sidemenu nav {
+#sidemenu {
+  margin: 50px 0 0 50px;
+  position: absolute;
+}
+#sidemenu nav {
   width: 243px;
   background: #e11b28;
   position: relative;
@@ -43,7 +63,6 @@ export default {
   left: 0;
   z-index: 99;
   border-radius: 0 10px 10px 10px;
-  
 }
 #sidemenu .sidemenu__btn {
   display: block;
@@ -54,8 +73,8 @@ export default {
   position: relative;
   z-index: 100;
   -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   cursor: pointer;
   outline: none;
 }
@@ -127,5 +146,4 @@ export default {
   transform: translateX(-200px);
   opacity: 0;
 }
-
 </style>
