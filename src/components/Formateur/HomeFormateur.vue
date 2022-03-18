@@ -2,7 +2,7 @@
   <section>
     
     <div id="header">
-        <Header :title="'Bienvenue sur le portail CFA '+utilisateur.prenom+ ' '+utilisateur.nom"/>
+        <HeaderFormateur />
       </div>
     <div id="grid-container">
     <div>
@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import Header from"@/components/Navigation/Header.vue";
+import HeaderFormateur from"@/components/Navigation/HeaderFormateur.vue";
 import Planning from "@/components/utils/Planning.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 export default {
   name: "HomeFormateur",
   components: {
-    Header,
+    HeaderFormateur,
     Planning,
     VueSidebarFormateur,
   },

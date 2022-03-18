@@ -1,68 +1,32 @@
 <template>
-    <div v-if="isEtudiant">
-      <HeaderEtudiant />
-      <NavEtudiant />
-      <div class="minDiv">
-        <CursusEtudiant />
-      </div>
-      <FooterEtudiant />
-    </div>
-    <div v-else>
-      <NotFound/>
-    </div>
+  <div class="container">
+    <h5>Concepteur développeur d'applications (promo 2022 - Bordeaux)</h5>
+    <p>
+      <strong>Descriptif</strong> : Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Debitis blanditiis nesciunt necessitatibus iure,
+      doloremque ab sunt, cum reiciendis obcaecati voluptatum eum ad
+      reprehenderit id mollitia dicta molestias dolor praesentium inventore.
+    </p>
+    <p><strong>Durée</strong> : 1500h</p>
+    <p><strong>Date</strong> : du 03/01/2022 au 24/12/2022</p>
+    <p>
+      <strong>Planning : </strong
+      > <b-button variant="success" size="sm">
+        <font-awesome-icon :icon="['fas', 'download']" class="btn-download" />
+        Télécharger</b-button
+      >
+    </p>
+  </div>
 </template>
 
 <script>
-import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
-import CursusEtudiant from "@/components/Etudiant/CursusEtudiant.vue";
-import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
-import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
-import NotFound from "@/views/NotFound.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
-
-export default {
-    name: "etudiant_cursus",
-    components: {
-        CursusEtudiant,
-        FooterEtudiant,
-        NavEtudiant,
-        HeaderEtudiant,
-        NotFound
-    },
-    data() {
-    return {
-      userId: this.$store.getters.getUtilisateur.id,
-    };
-  },
-  computed: {
-    isEtudiant() {
-      return utilisateurService.isEtudiant();
-    },
-    isFormateur() {
-      return utilisateurService.isFormateur();
-    },
-  },
-  created() {
-    utilisateurApi
-      .getPlanningById(this.$store.getters.getUtilisateur.id)
-      .then((response) => this.$store.dispatch("setPlanning", response));
-
-      if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
-        this.$router.push({
-          name: "admin_dashboard",
-        });
-      }
-  },
-}
 </script>
 
 <style scoped>
+.container {
+  margin: 49px 0 0 421px;}
 
-    .minDiv {
-      min-height: 40vh;
-    }
-    .monBody  {
-        padding: 0;
-    }
+h5 {
+  margin-bottom: 30px;
+}
 </style>

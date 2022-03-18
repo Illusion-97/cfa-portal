@@ -1,10 +1,16 @@
 <template>
-<div class="container">
-    <h5>Votre livret d'évaluation <font-awesome-icon :icon="['fas', 'download']" /></h5>
+  <div class="container">
+    <div>
+      <h5>Votre livret d'évaluation</h5>
+      <b-button variant="success" size="sm">
+        <font-awesome-icon :icon="['fas', 'download']" class="btn-download" />
+        Télécharger</b-button
+      >
+    </div>
     <div>
       <b-table striped hover :items="items" :fields="fields"></b-table>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -34,28 +40,30 @@ export default {
           isActive: true,
           intitule: "Développer une base de données",
           resultat: "acquis",
-          observation: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat "
+          observation:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
         },
         {
           isActive: true,
           intitule: "Développer la partie Front-End d'une application",
           resultat: "non-acquis",
-          observation: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat "
+          observation:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
         },
         {
           isActive: true,
           intitule: "Développer la partie Back-End d'une application",
           resultat: "acquis",
-          observation: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat "
+          observation:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
         },
         {
           isActive: true,
           intitule: "Développer une application mobile",
           resultat: "acquis",
-          observation: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat "
+          observation:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
         },
-        
-        
       ],
     };
   },
@@ -63,24 +71,29 @@ export default {
 </script>
 
 <style scoped>
-    .container {
-        margin: 99px 0 0 450px;
-    }
+.btn-donwload {
+  color: #fff;
+  width: 18px;
+}
 
-    .fa-download {
-        color:#4CAF50;
-        width: 18px;
-    }
+.container {
+  margin: 99px 0 0 450px;
+}
 
-    h5 {
-        margin: 0 0 30px 0;
-    }
+h5 {
+  margin: 0 0 30px 0;
+  display: inline-block;
+}
 
-    #key:intitule {
-      width:300px;
-    }
+#key:intitule {
+  width: 300px;
+}
 
-      .container {
-        margin: 99px 0 0 421px;
-    }
+.container {
+  margin: 49px 0 0 421px;}
+
+button {
+  display: inline-block;
+  margin-left: 10px;
+}
 </style>

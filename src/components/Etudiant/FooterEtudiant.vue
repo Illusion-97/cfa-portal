@@ -8,17 +8,13 @@
 </template>
 
 <style scoped>
-    body {
-  margin: 0;
-  }
 
   footer {
-    width: 100%;
-    height: 200px;
-
+    height: 5em;
+    padding-top:5em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0
   }
-
-  .container {
-        margin: 99px 0 0 421px;
-    }
 </style>

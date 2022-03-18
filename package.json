@@ -10,7 +10,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
-    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^2.0.6",
     "@vue/composition-api": "^1.4.5",
     "axios": "^0.21.1",
@@ -23,6 +23,7 @@
     "pdfjs": "^2.4.6",
     "semantic-ui-css": "^2.4.1",
     "to-fast-properties": "^4.0.0",
+    "v-switch-case": "^1.0.3",
     "vue": "^2.6.14",
     "vue-cookies": "^1.7.4",
     "vue-loader": "^15.9.7",
