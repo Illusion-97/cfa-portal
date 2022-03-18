@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="stickyPosition">
       <Header :title="promotion.nom"/>
     </div> 
       <section>
@@ -288,5 +288,10 @@ h1 {
 
 .ma-croix {
   margin-right: 0.6em;
+}
+.stickyPosition{
+  position: sticky;
+  top: 0px;
+  z-index: 1;
 }
 </style>
