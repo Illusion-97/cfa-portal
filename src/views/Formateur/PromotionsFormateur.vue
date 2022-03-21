@@ -1,9 +1,6 @@
 <template>
   <div>
-   
     <PromotionListFormateur :isAction="true"/>
-    
-  
   </div>
 </template>
 

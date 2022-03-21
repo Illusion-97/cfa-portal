@@ -1,10 +1,9 @@
 <template>
   <div>
-    <!-- <div>
-      <HeaderFormateur :title="title" />
-    </div> --><!-- DEJA DEFINI DANS app.vue . Faire un choix... -->
     <div>
-      <h1 class="text-center">Mes interventions</h1>
+      <HeaderFormateur :title="title" />
+    </div>
+    <div>
       <TableTemplate
         :items="items"
         :fields="fields"
@@ -25,13 +24,13 @@
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
-//import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 export default {
 
   name: "Intervention-Formateur",
   components: {
-    TableTemplate//,
-    //HeaderFormateur
+    TableTemplate,
+    HeaderFormateur,
     
   },
   data() {

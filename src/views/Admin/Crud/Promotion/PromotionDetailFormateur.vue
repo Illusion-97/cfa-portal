@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="stickyPosition">
-      <Header :title="promotion.nom"/>
+      <HeaderFormateur :title="promotion.nom"/>
     </div> 
       <section>
  <div class="container-fluid mt-4">
@@ -102,14 +102,14 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import ExamensPromotionsListCompoenent from '@/components/List/ExamensPromotionsListCompoenent.vue'
-import Header from "@/components/Navigation/Header.vue"
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue"
 import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
 
 export default {
   name: "PromotionDetailFormateur",
   components: {
     ExamensPromotionsListCompoenent,
-    Header,  
+    HeaderFormateur,  
     AjouterNotes,
   
     // BodyTitle,
@@ -152,13 +152,13 @@ export default {
     },
   },
   methods: {
-     setMessage(payload) {
-            this.title = payload.examen;
-            this.afficherNotes ='';
-        },
-    goBack() {
-      this.$router.go(-1);
-    },
+    //  setMessage(payload) {
+    //         this.title = payload.examen;
+    //         this.afficherNotes ='';
+    //     },
+    // goBack() {
+    //   this.$router.go(-1);
+    // },
     changementOnglet(onglet) {
       this.onglet = onglet;
     },

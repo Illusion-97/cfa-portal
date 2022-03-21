@@ -2,12 +2,12 @@
   <section>
     
     <div id="header">
-        <HeaderFormateur />
+        <HeaderFormateur :title= "'Bienvenue sur le portail CFA '+utilisateur.prenom+' '+ utilisateur.nom"/>
       </div>
-    <div id="grid-container">
     <div>
       <VueSidebarFormateur />
     </div>
+    <div id="grid-container">
       <div id="trainer-planning">
         <Planning />
       </div>

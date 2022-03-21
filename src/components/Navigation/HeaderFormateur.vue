@@ -16,7 +16,7 @@
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
     export default {
-        name:'Header',
+        name:'HeaderFormateur',
         props : {
             title: {
                 type: String,
