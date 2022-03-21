@@ -1,9 +1,10 @@
 <template>
   <div>
+    <div class="d-flex justify-content-end">
+        <b-button variant="secondary" v-b-toggle.collapseFormulaire v-show="show" @click="show = !show" class="btnAddExamen"><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon"/> Ajouter un examen</b-button>
+      </div>
     <b-container fluid id="fluid-container">
-      <div class="d-flex justify-content-end pr-5">
-    <b-button variant="secondary" v-b-toggle.collapseFormulaire v-show="show" @click="show = !show" class="m-1"><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon"/> Ajouter un examen</b-button>
-  </div>
+      
       <b-collapse id="collapseFormulaire">
         <b-row id="center" class="my-1" v-for="type in types" :key="type">
         <b-col sm="3" id="sm">
@@ -127,8 +128,8 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <b-button class="btnValider btnExamen btn-success">Valider</b-button>
-            <b-button class="btnAnnuler btnExamen btn-warning" v-b-toggle.collapseFormulaire>Annuler</b-button>
+            <b-button class="btnAddExamen btnValiderAnnuler btn-success mr-4">Valider</b-button>
+            <b-button class="btnAddExamen btnValiderAnnuler btn-warning " v-b-toggle.collapseFormulaire v-show="!show" @click="show = !show">Annuler</b-button>
           </div>
       </b-collapse> 
     </b-container>
@@ -140,6 +141,7 @@
     data() {
       return {
         show: true,
+        hidden: false,
         selected: [],
         options: [
           { value: '1', text: '1 - Concevoir et développer des composants d\'interface utilisateur en intégrant les recommandations de sécurité' },
@@ -168,6 +170,13 @@
   }
 </script>
 <style>
+.btnAddExamen{
+  position: relative;
+  right: 10px;
+  width: 12vw;
+  height: 4vh;
+  margin-bottom: 20px;
+}
 .form-selec-competences{
   margin-top: 2vh;
   margin-bottom: 5vh !important;
@@ -183,8 +192,8 @@
 }
 
 #fluid-container{
-  padding-right: 10vw;
-  padding-left: 5vw;
+  padding-right: 14vw;
+  padding-left: 8vw;
   
 }
 
@@ -226,8 +235,7 @@
   margin-bottom: 40px;
   position: relative;
 }
-
-.btnValider{
-  margin-right: 3vw; 
- }
+.btnValiderAnnuler{
+  width: 10vw;
+}
 </style>
