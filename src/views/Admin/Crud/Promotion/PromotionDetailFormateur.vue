@@ -61,7 +61,7 @@
                 class="mon-tr"
               >
                 <td>{{ intervention.formationDto.titre }}</td>
-                <td>35 (à rajouter)</td>
+                <td>{{intervention.heuresDisponsees}}</td>
                 <td>{{ intervention.dateDebut | formatDate }}</td>
                 <td>{{ intervention.dateFin | formatDate }}</td>
               </tr>
