@@ -75,7 +75,7 @@
           <font-awesome-icon :icon="['fas', 'file-alt']" class="icon"/>   Examens
       </template>
 
-      <ExamensPromotionsListCompoenent @custom-event-notes="setMessage" />
+      <ExamensPromotionsListCompoenent :examens="promotion.examensDto"  @custom-event-notes="setMessage" />
   
     </b-tab>
     <b-tab >
@@ -83,7 +83,7 @@
           <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon"/>   Notes
       </template>
          <h2 class="text-center mt-5 mb-5">
-         {{title}}
+         {{titleNote}}
           </h2>
     <div v-bind:class="[afficherNotes]" >
       <AjouterNotes />
@@ -115,7 +115,7 @@ export default {
     // BodyTitle,
   },
     props : {
-      title: {
+      titleNote: {
           type: String,
                     default: "Sélectionner un examen"
             }
@@ -152,10 +152,11 @@ export default {
     },
   },
   methods: {
-    //  setMessage(payload) {
-    //         this.title = payload.examen;
-    //         this.afficherNotes ='';
-    //     },
+     setMessage(payload) {
+            // this.titleNote = payload.examen;
+            payload.examen
+            this.afficherNotes ='';
+        },
     // goBack() {
     //   this.$router.go(-1);
     // },
@@ -201,6 +202,7 @@ export default {
       centreFormationApi
         .getById(this.promotion.centreFormationDto.id)
         .then((response) => (this.ville = response.adresseDto.ville));
+
     });
   },
 };
