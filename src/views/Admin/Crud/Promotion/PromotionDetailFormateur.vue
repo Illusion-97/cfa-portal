@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>
-      <Header :title="promotion.nom"/>
+    <div class="stickyPosition">
+      <HeaderFormateur :title="promotion.nom"/>
     </div> 
       <section>
  <div class="container-fluid mt-4">
@@ -61,7 +61,7 @@
                 class="mon-tr"
               >
                 <td>{{ intervention.formationDto.titre }}</td>
-                <td>35 (à rajouter)</td>
+                <td>{{intervention.heuresDisponsees}}</td>
                 <td>{{ intervention.dateDebut | formatDate }}</td>
                 <td>{{ intervention.dateFin | formatDate }}</td>
               </tr>
@@ -75,7 +75,7 @@
           <font-awesome-icon :icon="['fas', 'file-alt']" class="icon"/>   Examens
       </template>
 
-      <ExamensPromotionsListCompoenent @custom-event-notes="setMessage" />
+      <ExamensPromotionsListCompoenent :examens="promotion.examensDto"  @custom-event-notes="setMessage" />
   
     </b-tab>
     <b-tab >
@@ -83,7 +83,7 @@
           <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon"/>   Notes
       </template>
          <h2 class="text-center mt-5 mb-5">
-         {{title}}
+         {{titleNote}}
           </h2>
     <div v-bind:class="[afficherNotes]" >
       <AjouterNotes />
@@ -102,20 +102,20 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import ExamensPromotionsListCompoenent from '@/components/List/ExamensPromotionsListCompoenent.vue'
-import Header from "@/components/Navigation/Header.vue"
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue"
 import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
 
 export default {
   name: "PromotionDetailFormateur",
   components: {
     ExamensPromotionsListCompoenent,
-    Header,  
+    HeaderFormateur,  
     AjouterNotes,
   
     // BodyTitle,
   },
     props : {
-      title: {
+      titleNote: {
           type: String,
                     default: "Sélectionner un examen"
             }
@@ -153,12 +153,13 @@ export default {
   },
   methods: {
      setMessage(payload) {
-            this.title = payload.examen;
+            // this.titleNote = payload.examen;
+            payload.examen
             this.afficherNotes ='';
         },
-    goBack() {
-      this.$router.go(-1);
-    },
+    // goBack() {
+    //   this.$router.go(-1);
+    // },
     changementOnglet(onglet) {
       this.onglet = onglet;
     },
@@ -201,6 +202,7 @@ export default {
       centreFormationApi
         .getById(this.promotion.centreFormationDto.id)
         .then((response) => (this.ville = response.adresseDto.ville));
+
     });
   },
 };
@@ -288,5 +290,10 @@ h1 {
 
 .ma-croix {
   margin-right: 0.6em;
+}
+.stickyPosition{
+  position: sticky;
+  top: 0px;
+  z-index: 1;
 }
 </style>

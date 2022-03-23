@@ -1,0 +1,6309 @@
+[33mcommit e9542c7ed0f85c41af1b3588dbaffebbe013703d[m[33m ([m[1;36mHEAD -> [m[1;32mlionel[m[33m, [m[1;31morigin/lionel[m[33m)[m
+Author: lionel <lbos@jehann.fr>
+Date:   Fri Feb 18 15:48:45 2022 +0100
+
+    ModalDossierProEtudiant
+
+[33mcommit 2e18d175cb10620f03bacfe17ed7c717158c9353[m[33m ([m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdev[m[33m)[m
+Merge: 71659198 273885da
+Author: Rémy CHARPENTIER <rcharpentier@jehann.fr>
+Date:   Fri Feb 18 10:46:47 2022 +0000
+
+    Merge branch 'remy-1' into 'dev'
+    
+    etudiant dossier pro
+    
+    See merge request cda2021/cfa-portal!167
+
+[33mcommit 273885da7158567d138a262021e3b08bfaebfd2c[m[33m ([m[1;31morigin/remy-1[m[33m)[m
+Author: Remy <remy.charpentier89@gmail.com>
+Date:   Fri Feb 18 11:41:27 2022 +0100
+
+    creer dossier pro
+
+[33mcommit 9b8d11e7dcc819aa4a36d813702f612be7a6e931[m
+Author: Remy <remy.charpentier89@gmail.com>
+Date:   Thu Feb 17 17:03:02 2022 +0100
+
+    vue creer dossier pro + route
+
+[33mcommit 55cf56937ff35653d4e3baba5195c384fe2dbf20[m[33m ([m[1;31morigin/remy-0[m[33m)[m
+Merge: aade8e06 bf8f73ce
+Author: unknown <wpires@dawan.fr>
+Date:   Thu Feb 17 14:55:31 2022 +0100
+
+    merge william-remy
+
+[33mcommit aade8e066a2f957718aba22350833d3a0a7c2da2[m
+Author: Remy <remy.charpentier89@gmail.com>
+Date:   Thu Feb 17 12:49:41 2022 +0100
+
+    modif login + content dossier pro
+
+[33mcommit bf8f73cee3e2712292a9915c93809b9179ff8228[m
+Author: unknown <wpires@dawan.fr>
+Date:   Thu Feb 17 12:48:01 2022 +0100
+
+    reglages footer / bouton deconnexion
+
+[33mcommit 71659198b3262b7afea7d4bb6c08cf9b2931823e[m
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Wed Feb 16 11:09:12 2022 +0100
+
+    'Fix-App.vue'
+
+[33mcommit 59b5ca42cdf37338ed3972d1ac508c506bcabc29[m
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Wed Feb 16 11:00:01 2022 +0100
+
+    'Fix-Projet-v2'
+
+[33mcommit ae42482dde615e656150e857e5aacdd823296c95[m
+Merge: 8f37c43e 25340402
+Author: unknown <wpires@dawan.fr>
+Date:   Tue Feb 15 11:27:05 2022 +0100
+
+    correction conflits merging + correction problème double AccueilEtudiant
+
+[33mcommit 8f37c43ec242b5d7316c66da41638b644877f5a9[m
+Merge: f7aca034 89a886ba
+Author: Feres BEN GAMRA <fbengamra@dawan.fr>
+Date:   Tue Feb 15 09:07:17 2022 +0000
+
+    Merge branch 'Examens' into 'dev'
+    
+    Examens
+    
+    See merge request cda2021/cfa-portal!163
+
+[33mcommit 89a886ba01104773cc6bb0ab0f9a62a716bde232[m[33m ([m[1;31morigin/Examens[m[33m)[m
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Tue Feb 15 10:04:55 2022 +0100
+
+    update exam and add ajouter note
+
+[33mcommit f7aca0348051954fc48ed6bed245dc57af2159c3[m
+Merge: 3684f4c0 988a9b91
+Author: Valentin CHEVALLEREAU <vchevallereau@dawan.fr>
+Date:   Tue Feb 15 08:46:42 2022 +0000
+
+    Merge branch 'TestBranch' into 'dev'
+    
+    Ajout Header et AddExamen
+    
+    See merge request cda2021/cfa-portal!162
+
+[33mcommit 988a9b9111aa54862a1749c92e583e82d0c80587[m[33m ([m[1;31morigin/TestBranch[m[33m)[m
+Author: Valentin Chevallereau <chevallereau.valentin@outlook.fr>
+Date:   Tue Feb 15 09:40:27 2022 +0100
+
+    Ajout Header et AddExamen
+
+[33mcommit 253404027cdb398b5095475faf33a10faa74fb66[m
+Author: unknown <wpires@dawan.fr>
+Date:   Mon Feb 7 21:27:53 2022 +0100
+
+    intégration étudiant navbar + composants semaine5
+
+[33mcommit 840ceebc1d9f2dbca7f24777fd109ab386630f13[m
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Thu Feb 3 17:46:28 2022 +0100
+
+    Fix promotion & add Examens
+
+[33mcommit 3684f4c02a030b864e6760c4d521a85c2c3b5959[m
+Merge: 6b2dc98e b825e341
+Author: Valentin Chevallereau <chevallereau.valentin@outlook.fr>
+Date:   Wed Feb 2 17:16:37 2022 +0100
+
+    Fix conflicts Add-Header
+
+[33mcommit 6b2dc98e969d82b96bdd2890266c70b916c3e0c4[m
+Merge: 49538b1f 2de565b0
+Author: Valentin Chevallereau <chevallereau.valentin@outlook.fr>
+Date:   Wed Feb 2 17:01:05 2022 +0100
+
+    Merge branch 'Add-Header' into dev
+
+[33mcommit b825e3412a2a17176462fddc43987efb2366c831[m
+Merge: e1890489 04e771dd
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Wed Feb 2 16:47:00 2022 +0100
+
+    Fix confils app.vue
+
+[33mcommit e1890489e5575888c3815091c9febcb7fa5b1515[m
+Merge: 780ca55b c12e072f
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Wed Feb 2 16:38:19 2022 +0100
+
+    Merge branch 'Fix-Interventions' into dev
+
+[33mcommit c12e072fa4bf743ae07b5262c8af149b2491959e[m
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Wed Feb 2 16:08:20 2022 +0100
+
+    Fix Prom
+
+[33mcommit 2de565b0d4ca4f4bb9d591781d562d2e11f4baf0[m[33m ([m[1;31morigin/Add-Header[m[33m)[m
+Author: Valentin Chevallereau <chevallereau.valentin@outlook.fr>
+Date:   Wed Feb 2 15:52:55 2022 +0100
+
+    Ajout du header
+
+[33mcommit 04e771dd7bdbf34729d83edfa7687d1843e2909d[m
+Merge: 780ca55b 51632f07
+Author: wil1708 <william.wpires@gmail.com>
+Date:   Tue Feb 1 12:01:22 2022 +0100
+
+    conflits package lock json à résoudre
+
+[33mcommit 51632f078dc33b64e453fc5a36a126b301b048a1[m
+Author: wil1708 <william.wpires@gmail.com>
+Date:   Tue Feb 1 11:25:18 2022 +0100
+
+    ajout fichier AccueilEtudiant
+
+[33mcommit 780ca55b97353d4a7f0cd173d134eaa0a720b34d[m
+Merge: 49538b1f 2bbd25a9
+Author: Feres BEN GAMRA <fbengamra@dawan.fr>
+Date:   Tue Feb 1 10:11:10 2022 +0000
+
+    Merge branch 'add-Sidebar' into 'dev'
+    
+    'VueSideBar'
+    
+    See merge request cda2021/cfa-portal!158
+
+[33mcommit 2bbd25a9b27507931558f230c25f5d659aca0dcb[m[33m ([m[1;31morigin/add-Sidebar[m[33m)[m
+Author: Ben Gamra <drogba_filsdelune@hotmail.com>
+Date:   Tue Feb 1 10:49:41 2022 +0100
+
+    'VueSideBar'
+
+[33mcommit 1f66e99c24e53dced86d47532f2cd624183fa954[m
+Author: wil1708 <william.wpires@gmail.com>
+Date:   Mon Jan 31 17:35:44 2022 +0100
+
+    mise en place  SinglePageEtudiant + HeaderEtudiant
+
+[33mcommit 49538b1f6eaf094f042aacfea8949c9cd8ff676f[m
+Merge: 97e3c716 9675ab9b
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Dec 24 09:27:02 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 97e3c71656cf566d1124b2ebc89cdf2da869abf7[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Dec 24 09:25:13 2021 +0100
+
+    form
+
+[33mcommit 9675ab9b757e7d802d03e6a8ddf6b8a75e3450be[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Dec 21 18:52:50 2021 +0100
+
+    btn details et fix bug affichage
+
+[33mcommit 32cf8f86dfed33571168d13fd5a5976f65ecfedb[m
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Dec 17 09:02:34 2021 +0000
+
+    Update main.js
+
+[33mcommit 6b9fb65bcd967e1b5368c39004f337688ed8c409[m
+Merge: c9c5c53f eb1f976e
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Dec 17 08:59:37 2021 +0000
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    Dev ali
+    
+    See merge request cda2021/cfa-portal!157
+
+[33mcommit eb1f976e4251d01780db36d55b2e8136fe485d61[m[33m ([m[1;31morigin/dev_ali[m[33m)[m
+Author: Ali <aatia@dawan.fr>
+Date:   Fri Dec 17 09:57:07 2021 +0100
+
+    formulaire contrat pas au point
+
+[33mcommit c9c5c53f714cca9e4a41c2d128c1ef414ba9bf8d[m
+Merge: 56742959 d37a213b
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu Dec 16 14:20:12 2021 +0000
+
+    Merge branch 'ResetPwd' into 'dev'
+    
+    Reset pwd
+    
+    See merge request cda2021/cfa-portal!155
+
+[33mcommit d37a213bb6c2fec551a138d7523c2ae8432a1c45[m[33m ([m[1;31morigin/ResetPwd[m[33m)[m
+Merge: 5f4b4956 56742959
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Dec 16 13:50:10 2021 +0000
+
+    Merge branch 'dev' into 'ResetPwd'
+    
+    # Conflicts:
+    #   src/main.js
+
+[33mcommit 5f4b495629a9ba9b0575e395f0979756594fcd8f[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Dec 16 14:48:27 2021 +0100
+
+    reset mdp en cours
+
+[33mcommit 74bb13e16a656aec5fe78b114914a81289754816[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Dec 16 09:54:34 2021 +0100
+
+    reset mdp
+
+[33mcommit fc5b1f2f8cc3e81bc10517598013ccdde4dc1eae[m
+Merge: f47447b6 56742959
+Author: Ali <aatia@dawan.fr>
+Date:   Thu Dec 16 09:47:54 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev_ali
+
+[33mcommit 56742959c7160a2ba53159adc65ab2aa6f5c5b94[m
+Merge: 54f189b1 0f6b1665
+Author: Ali <aatia@dawan.fr>
+Date:   Thu Dec 16 09:47:11 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 54f189b140678a60f6578f214ac096d80fc9338b[m
+Author: Ali <aatia@dawan.fr>
+Date:   Thu Dec 16 09:46:51 2021 +0100
+
+    etudiantdetails et cerfa
+
+[33mcommit 0f6b1665573c6e9e9de206c1f1cd17605f8df058[m
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Dec 15 11:41:12 2021 +0000
+
+    Update main.js
+
+[33mcommit f74ba05abb8e040db0a55fdc7649b44b947f4fc5[m
+Merge: cb51bf72 1a75053f
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Dec 15 10:54:04 2021 +0000
+
+    Merge branch 'cerfa' into 'dev'
+    
+    etudiant add cerfa
+    
+    See merge request cda2021/cfa-portal!154
+
+[33mcommit 1a75053f81f5d731c3fd5787cb40372d0ba26e30[m[33m ([m[1;31morigin/cerfa[m[33m)[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Dec 15 11:52:18 2021 +0100
+
+    etudiant add cerfa
+
+[33mcommit 03f66c51e15da5ce8cfd191019f288881c35701b[m
+Merge: bcf400b5 cb51bf72
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Dec 14 00:24:52 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit bcf400b51786637d5bc26e723a18d4ee49acfe81[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Dec 14 00:24:40 2021 +0100
+
+    avant merge
+
+[33mcommit cb51bf728b9b08520e9249a84d58d576ee734461[m
+Merge: befde39e 72883ff5
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Dec 10 09:32:37 2021 +0000
+
+    Merge branch 'cerfa' into 'dev'
+    
+    debut rmplissage auto donnée cerfa
+    
+    See merge request cda2021/cfa-portal!153
+
+[33mcommit 72883ff52eb7be45b07f20cac2aa1d51d3250a5a[m
+Author: Ali <aatia@dawan.fr>
+Date:   Fri Dec 10 10:31:22 2021 +0100
+
+    debut rmplissage auto donnée cerfa
+
+[33mcommit befde39efd8a2d77a5ac98f151668ff78d7cc09e[m
+Merge: e9fad4f4 6848d3b9
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Dec 10 08:30:36 2021 +0000
+
+    Merge branch 'StopDeleteCaptcha' into 'dev'
+    
+    modif cerfa auto en cours , appel api ne marche pas
+    
+    See merge request cda2021/cfa-portal!152
+
+[33mcommit 6848d3b9b8676dea69c1d01ebd770db714bae5d8[m[33m ([m[1;31morigin/StopDeleteCaptcha[m[33m)[m
+Author: Ali <aatia@dawan.fr>
+Date:   Fri Dec 10 09:28:38 2021 +0100
+
+    modif cerfa auto en cours , appel api ne marche pas
+
+[33mcommit e9fad4f4161be3d3c209ed40dd4492f84afbffe8[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Dec 9 09:39:54 2021 +0100
+
+    main.js
+
+[33mcommit 473e484895d6bc25953470042cb1625f9f70f151[m
+Merge: 3d5a2025 20523a73
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Dec 9 08:38:45 2021 +0000
+
+    Merge branch 'StopDeleteCaptcha' into 'dev'
+    
+    captcha is back
+    
+    See merge request cda2021/cfa-portal!151
+
+[33mcommit 20523a73099a7207574e14c8ebfcc0aad53d5733[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Dec 9 09:35:38 2021 +0100
+
+    captcha is back
+
+[33mcommit 3d5a2025cdf1bd25ac9301c451b0a000911350b2[m
+Merge: c1deedd2 f4776c7b
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Dec 8 13:05:52 2021 +0000
+
+    Merge branch 'FicheEdit' into 'dev'
+    
+    Fiche edit
+    
+    See merge request cda2021/cfa-portal!150
+
+[33mcommit f4776c7b8862b92bc89a8ff8189047334b8fc6e7[m[33m ([m[1;31morigin/FicheEdit[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Dec 8 14:04:12 2021 +0100
+
+    cerfa recup coté etudiant OK
+
+[33mcommit 071147c6a883b5b068acd808d5e73dbc1d1e420d[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Dec 8 13:31:52 2021 +0100
+
+    correction checkbox
+
+[33mcommit 43c2f49a0b3f405c4b5b0c2e8b91d25f7fc78995[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Dec 8 13:24:12 2021 +0100
+
+    cerf to cerfa
+
+[33mcommit fb2904dd07d082c6072da294e6e7edf1e0fd6862[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Dec 8 13:22:55 2021 +0100
+
+    correction hanficape to handicape
+
+[33mcommit 6fce441c5f7e6d157d797d3885c378a605eafc00[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Dec 8 13:15:15 2021 +0100
+
+    maj checkbox
+
+[33mcommit 949763470bbf49ab0e683de66e36cac8cf561b1c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Dec 8 12:33:25 2021 +0100
+
+    cerfa checkbox recup modif
+
+[33mcommit 17527bfd5cfd0a20a3bc03e9fcef02569b9d8807[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Dec 8 12:25:48 2021 +0100
+
+    cerfa checkbox recup modif
+
+[33mcommit 0b8bb7355aa2964613916b07d6889c4e4d921bdf[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Dec 8 11:18:29 2021 +0100
+
+    recup cerfa ok
+
+[33mcommit 4230d6e5b096255c5ad3c20101d09bf2bf391197[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Dec 8 09:26:43 2021 +0100
+
+    2-3 corrections sur lajout cerfa
+
+[33mcommit c805ca6ac14ec29d95d6079851d0f16a7dbf57d5[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Dec 7 15:39:58 2021 +0100
+
+    hAAAAAAAAAAA
+
+[33mcommit c1deedd2715fa346d84ab3454079f11e16813183[m
+Merge: 525a3c65 f1ea1db6
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Dec 7 13:14:07 2021 +0000
+
+    Merge branch 'FicheEdit' into 'dev'
+    
+    fiche edit
+    
+    See merge request cda2021/cfa-portal!149
+
+[33mcommit f1ea1db629fc593a48c8c78718cf9026742bfaae[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Dec 7 14:11:36 2021 +0100
+
+    fiche edit
+
+[33mcommit 525a3c658059a9dceb7ddb3b41cab4f54bd0c671[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Dec 7 10:08:23 2021 +0100
+
+    modif menu vertical admin
+
+[33mcommit f76d12ef95a9874dffb2d5ed7d01ba3b40f96a14[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Dec 3 11:07:26 2021 +0100
+
+    btn fiche et cerfa dans detail etudiant coté admin
+
+[33mcommit f47447b6ffb86512735095a784a989cf6c574264[m
+Merge: f45549e5 2e5f5893
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Nov 30 09:24:07 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev_ali
+
+[33mcommit 2e5f58936a4ace97994565e299dc8a2bac2b3b5e[m
+Merge: 349b6447 a28e7fe5
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Nov 25 15:32:15 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    remuneration input
+    
+    See merge request cda2021/cfa-portal!148
+
+[33mcommit a28e7fe5d0d94bd0aadfa92f7901e5431e05bdb5[m[33m ([m[1;31morigin/Cerfa_form[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Nov 25 16:30:21 2021 +0100
+
+    remuneration input
+
+[33mcommit 349b644727bc01d010acaef9e38da0725c94ce60[m
+Merge: 16335995 905e8232
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Nov 25 08:55:05 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    date champs correction et euro but error 400
+    
+    See merge request cda2021/cfa-portal!147
+
+[33mcommit 905e8232b12958a290d5ffbd1cc9cffa5137ec51[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Nov 25 09:53:21 2021 +0100
+
+    date champs correction et euro but error 400
+
+[33mcommit f45549e5ef11035b380287dafddf22b5ca983fc0[m
+Merge: cb2a1688 16335995
+Author: Ali <aatia@dawan.fr>
+Date:   Thu Nov 25 09:38:58 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev_ali
+
+[33mcommit 163359959804d2476cad0fa5f503ab9068fa59c2[m
+Merge: 01249c7e b29df8c6
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Nov 25 08:37:21 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    adresse bug rekt
+    
+    See merge request cda2021/cfa-portal!146
+
+[33mcommit b29df8c6e75afec3d9ccb7b22d5437521751c4fa[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Nov 25 09:35:31 2021 +0100
+
+    adresse bug rekt
+
+[33mcommit 01249c7ee1463a1881b553902c38b0d5af299adc[m
+Merge: 3942eb71 b4406631
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Nov 24 15:45:56 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    edit v-model responsable
+    
+    See merge request cda2021/cfa-portal!145
+
+[33mcommit b4406631acd0f7fc2898450b5b4ce8e7bd970702[m
+Merge: f56ebd53 3942eb71
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Nov 24 15:19:07 2021 +0000
+
+    Merge branch 'dev' into 'Cerfa_form'
+    
+    # Conflicts:
+    #   src/main.js
+
+[33mcommit f56ebd532e13e0b3fd9f7c1776fd9e2f134ce2a1[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Nov 24 16:17:45 2021 +0100
+
+    edit v-model responsable
+
+[33mcommit 3942eb710fea24c77664c87979ffb0445467877e[m
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Nov 24 14:57:07 2021 +0000
+
+    Update main.js
+
+[33mcommit a1130fb484497cc326543646a3c72a5b7d8b5c3a[m
+Merge: 809ff877 206433eb
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Nov 24 15:37:14 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 809ff877406acbe1ce8ee1e073cb588667fcb22a[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Nov 24 15:36:30 2021 +0100
+
+    delete user ok
+
+[33mcommit 206433eb951656d49715abac536815b9a2181247[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Nov 24 15:35:38 2021 +0100
+
+    correction requete cerfa api
+
+[33mcommit d464c1cb6aa814e3f687269d6a4cd299830ec292[m
+Merge: cc68e2f4 36430345
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Nov 24 14:24:28 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    radio btn name
+    
+    See merge request cda2021/cfa-portal!143
+
+[33mcommit 3643034546ed0ce5d7d21a8dbe05b8dc809faabc[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Nov 24 15:22:38 2021 +0100
+
+    radio btn name
+
+[33mcommit cc68e2f4af40ffad8051776a71c06abd61f38aa7[m
+Merge: 101b49ca ee1cc200
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Nov 24 14:02:35 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    radio btn name
+    
+    See merge request cda2021/cfa-portal!142
+
+[33mcommit ee1cc200156633eccc1ce1af3515f3966908f591[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Nov 24 15:00:36 2021 +0100
+
+    radio btn name
+
+[33mcommit 768e49a5ada4a8ec206c4bdb0d27b809291cc878[m
+Merge: dc8079ef 101b49ca
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Nov 24 14:29:03 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit dc8079ef7415cffede9dab316e09345d6531a683[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Nov 24 14:27:37 2021 +0100
+
+    utilisateur save ok
+
+[33mcommit 101b49ca42642d7abf85a4ff1f438899e21a3464[m
+Merge: d48aaf8d 8cc7f581
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Nov 24 11:23:30 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    radio btn edit
+    
+    See merge request cda2021/cfa-portal!141
+
+[33mcommit 8cc7f5816924427e4f800425e8d4a699ebf9801a[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Nov 24 12:21:37 2021 +0100
+
+    radio btn edit
+
+[33mcommit d48aaf8dfbdfeb13d68dc540ca0d824800e3dc69[m
+Merge: 622c9212 cef76e94
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Nov 24 10:47:04 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    radio btn checkbox liste
+    
+    See merge request cda2021/cfa-portal!140
+
+[33mcommit cef76e949d1edecde73a28ac80eae29910b6c07b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Nov 24 11:42:29 2021 +0100
+
+    radio btn checkbox liste
+
+[33mcommit 622c9212a1f5c52be15577bf616d19c3a9a17de9[m
+Merge: 8ec3a857 14c92be5
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 23 15:31:37 2021 +0100
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit 8ec3a8571057d268ed33e78f9bbefac0e9dc7dc4[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 23 15:30:30 2021 +0100
+
+    Update utilisateur.api.js
+
+[33mcommit 59be4b7319905b84636bcfcf086e99353d435903[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 23 15:30:15 2021 +0100
+
+    remove multipart/form-data header
+
+[33mcommit 14c92be5dd01a02c4b6c5181136b2197cfabae8a[m
+Merge: c252b170 b92a5ad0
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Nov 23 13:41:21 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    Cerfa front edit3
+    
+    See merge request cda2021/cfa-portal!139
+
+[33mcommit b92a5ad0aad3bff9c7db00cde0a2e307f4eaf32d[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 23 14:39:04 2021 +0100
+
+    Cerfa front edit3
+
+[33mcommit c252b1709e86d08a4f35c2b537fef01922aca013[m
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Nov 23 13:26:29 2021 +0000
+
+    Update request-options.js
+
+[33mcommit c4b7cfb566ac5670ce696113676a46e61e2dac8e[m
+Merge: 034edda9 481bcc9a
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Nov 23 10:30:03 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    main js
+    
+    See merge request cda2021/cfa-portal!137
+
+[33mcommit 034edda9b8950f26d7c8fdb2db3b0bba53fd7c0b[m
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Nov 23 10:17:17 2021 +0000
+
+    Update request-options.js
+
+[33mcommit 481bcc9a3f77c261712c009cccd8549df839983f[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 23 11:00:04 2021 +0100
+
+    Cerfa front edit2
+
+[33mcommit e441477275b83e8668618051a079b97b6f2deb4e[m
+Merge: b3649994 d2a1a950
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 23 10:56:21 2021 +0100
+
+    Merge branch 'Cerfa_form' of https://gitlab.dawan.fr/cda2021/cfa-portal into Cerfa_form
+
+[33mcommit b3649994562036d9e383dd9d2233f18637a3fa6d[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 23 10:56:05 2021 +0100
+
+    Cerfa front edit
+
+[33mcommit 981f0494bd6b424a447aa1c657ba73bb012728c8[m
+Merge: f6a7b3cd cb5a4e6d
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 23 10:22:41 2021 +0100
+
+    main js
+
+[33mcommit cb5a4e6d50d22b60e636aa7cc4451f482de2b52e[m
+Merge: 7b7a22ac e450e641
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Nov 23 09:12:14 2021 +0000
+
+    Merge branch 'cerfa' into 'dev'
+    
+    ajout cerfa.api
+    
+    See merge request cda2021/cfa-portal!138
+
+[33mcommit e450e641d9b0d22d30c20ebbaab0dc45f329d117[m
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Nov 23 10:08:17 2021 +0100
+
+    ajout cerfa.api
+
+[33mcommit d2a1a95093c8080c44eb31f26e2d3e7393685701[m
+Merge: f6a7b3cd 7b7a22ac
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Nov 22 15:13:01 2021 +0000
+
+    Merge branch 'dev' into 'Cerfa_form'
+    
+    # Conflicts:
+    #   src/main.js
+
+[33mcommit f6a7b3cd72155268da90e1fdaef3a96b93a02f34[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Nov 22 16:10:44 2021 +0100
+
+    main js
+
+[33mcommit 7b7a22ac3904e71bfbf53c9122e80d4ca8144ae1[m
+Merge: a8b0f939 3f297a44
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Nov 22 15:09:41 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    Cerfa form
+    
+    See merge request cda2021/cfa-portal!136
+
+[33mcommit 3f297a44214007031500339f6e48de6e2b22c08c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Nov 22 16:07:47 2021 +0100
+
+    cerfa formulaire edit
+
+[33mcommit b4c29ebfd333cb47ddb57b0f64ca5de4fafde759[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Nov 22 12:18:58 2021 +0100
+
+    cerfa formulaire edit
+
+[33mcommit a8b0f939494b732620c75440b79053fa300935c2[m
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Nov 22 09:33:04 2021 +0000
+
+    Update main.js
+
+[33mcommit c593f6bcb13e44ff231f42304f815d3c3e72bbfc[m
+Merge: 21d7a082 58ca8c46
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Nov 22 09:31:20 2021 +0000
+
+    Merge branch 'Cerfa_form' into 'dev'
+    
+    cerfa formulaire
+    
+    See merge request cda2021/cfa-portal!134
+
+[33mcommit 58ca8c466e01548f10e0e63fd9078503a0fdfe84[m
+Merge: e89889bb 21d7a082
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Nov 22 09:28:58 2021 +0000
+
+    Merge branch 'dev' into 'Cerfa_form'
+    
+    # Conflicts:
+    #   src/router/router.js
+
+[33mcommit e89889bb9d5a79c674f0878d7bf93cc72e52a1c9[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Nov 22 10:11:32 2021 +0100
+
+    cerfa formulaire
+
+[33mcommit 21d7a082b87b4df26fa26fa2712ea2b3ad152b84[m
+Merge: 99efe5b1 c4b6f859
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Nov 19 18:10:00 2021 +0100
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit 99efe5b186759eafee51baee7537cb27d72f50d8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Nov 19 18:09:32 2021 +0100
+
+    update
+
+[33mcommit c4b6f859d5a17ee5cc291d8aa2631b29ae68c580[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Wed Nov 17 17:34:31 2021 +0000
+
+    add manual cache
+
+[33mcommit 76580ae7ab6f401b98e735015b30803c0057bfc3[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Wed Nov 17 17:33:58 2021 +0000
+
+    add manual cache
+
+[33mcommit c9f39d662e0d4beb7ecd6774d3c141e7aa506fa6[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Wed Nov 17 17:32:35 2021 +0000
+
+    add manual cache
+
+[33mcommit 7f022d4ca5e83b9191d80a97aca74aa63313484e[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Wed Nov 17 17:21:16 2021 +0000
+
+    test new rules
+
+[33mcommit 1ced51faa68cce6c1bc84fb4c31407466b48643c[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Wed Nov 17 17:20:18 2021 +0000
+
+    test new rules
+
+[33mcommit ef0ed48d6d23631b3a862c7b4a4b8acc97b9ae06[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 16 17:09:52 2021 +0100
+
+    redirection
+
+[33mcommit cab3f25df8dd5767798c04f784f457fb18210015[m[33m ([m[1;31morigin/model[m[33m)[m
+Merge: 8d237839 aa161a9a
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 16 15:44:23 2021 +0100
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit 8d237839865180525b314c3f017a248c24011d91[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 16 15:43:35 2021 +0100
+
+    update
+
+[33mcommit aa161a9a45cd8051395153087d4680cca21c877e[m
+Merge: 0db78a76 d4c5fdf3
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Nov 16 14:39:28 2021 +0000
+
+    Merge branch 'Captcha_Nico' into 'dev'
+    
+    Captcha nico
+    
+    See merge request cda2021/cfa-portal!133
+
+[33mcommit d4c5fdf3a6fdd1ad95d77f04fe471f484f1309cb[m[33m ([m[1;31morigin/Captcha_Nico[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 16 15:38:25 2021 +0100
+
+    captcha secu
+
+[33mcommit 57a712d15bbf432cd7d3e7604b5fa5a4e1f6d48e[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 16 15:37:31 2021 +0100
+
+    captcha secu
+
+[33mcommit 0db78a761c961c9281f962cb417deeaf722d6872[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 16 10:08:34 2021 +0100
+
+    fix error
+
+[33mcommit 033497b2db66c47789f87665c1b919a1d2b02397[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Nov 15 17:56:01 2021 +0100
+
+    redirection function if admin or cef
+
+[33mcommit 8f0ef8e6feb5f3852b9358caf1277008cfa5a6a1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Nov 15 17:55:31 2021 +0100
+
+    hide home menu if admin or cef
+
+[33mcommit 0e275fb33e41142c64e7fb65a2ffece1a28f0f7d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Nov 15 17:49:26 2021 +0100
+
+    not found page and add to router
+
+[33mcommit 9dd21d7f7f118e360fe63f4a22949ca33bf02857[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Nov 15 17:43:46 2021 +0100
+
+    remove node_modules
+
+[33mcommit 9bb8f1c7a189ba099b5223ec8e02de642f2c8de6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 14:00:49 2021 +0100
+
+    user detail
+
+[33mcommit 3b7bd174bdc59728a74ce4b6d93e4288c2520426[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 11:38:23 2021 +0100
+
+    udpate
+
+[33mcommit 3b7abf53f97f6bce25ef7d2d5a8127ab55fa026f[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 11:18:26 2021 +0100
+
+    duplicate route
+
+[33mcommit 435287f26670c420586b154eb8b29f4d1f6fe61a[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 11:05:13 2021 +0100
+
+    remove duplicate import from router
+
+[33mcommit 46d4c8040664fc3ef11868d5a29c8f9e4e809bc7[m
+Merge: cdcc85fa 00e140b5
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 11:02:24 2021 +0100
+
+    Merge branch 'dev-kanha_bis' into dev
+
+[33mcommit 00e140b50c612db0fe1ab3aa88503078cfc2740b[m[33m ([m[1;31morigin/dev-kanha_bis[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 10:57:11 2021 +0100
+
+    update method
+
+[33mcommit 256d872948901516f42b0830590024bf287e1c9b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Nov 3 10:56:39 2021 +0100
+
+    update + make comments
+
+[33mcommit cdcc85fa3d7388df758b6186642e9f758e17a882[m
+Merge: 10510108 c78253d7
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Nov 3 09:30:16 2021 +0100
+
+    Merge branch 'cerfa' into 'dev'
+    
+    Cerfa
+    
+    See merge request cda2021/cfa-portal!128
+
+[33mcommit c78253d7ca313e5f0123d9695ff38ecc3257bfd8[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 2 16:57:20 2021 +0100
+
+    cerfa design
+
+[33mcommit 6ef00d273c7efea0bd90a5cab8765d62f0c2dfae[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 2 16:56:02 2021 +0100
+
+    cerfa design
+
+[33mcommit b97c937a53966b3b3769975da7fef447e0aab2ff[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 2 15:16:19 2021 +0100
+
+    custom toast base on the status
+
+[33mcommit 02f651828f5f22a2e580fa3b072e35b72f2997da[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 2 15:15:01 2021 +0100
+
+    get error response
+
+[33mcommit cb2a16880393139476ad5c9026ddda35c53f287a[m
+Merge: 1ec6c5da 10510108
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Nov 2 14:18:57 2021 +0100
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev_ali
+
+[33mcommit 1ec6c5dad0ecde91c93b8ee12b78b29bf6963de6[m
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Nov 2 10:36:07 2021 +0100
+
+    cerfa sans style ok
+
+[33mcommit b1fbfdfc8f2e72399e719867ed5d953f2ffd92af[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Nov 2 10:12:43 2021 +0100
+
+    cerfa img
+
+[33mcommit 167d92552772d1fe2ba87eb0290d5bb5008f2d56[m
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Nov 2 10:41:00 2021 +0100
+
+    nouvelle branche pour le cerfa
+
+[33mcommit cc69e52c043e8845350ecd3eb9813bbbd2fc1f83[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 2 09:19:06 2021 +0100
+
+    add input file
+
+[33mcommit 4f475501e04f51be968f074d665460ed751006bd[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Nov 2 09:18:40 2021 +0100
+
+    Delete UploadUserModal.vue
+
+[33mcommit 105101081b84aba34b9feb84034e8fece7544acf[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Oct 28 15:17:28 2021 +0200
+
+    ajout adresse dans interface admin -> correction bug si char dans numero
+
+[33mcommit bc5d8f7c54a25fa92ac0639b247bf1ad4ec62375[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Oct 28 11:29:59 2021 +0200
+
+    ajout entreprise fix
+
+[33mcommit 38443a811b5ee3e4e76212b7eefeae80f163266e[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Oct 28 10:27:01 2021 +0200
+
+    ajout adresse dans create entreprise
+
+[33mcommit d229ebc614bb2aea8fe1ce5390344f9b6f6a77cb[m
+Merge: 8b1e5ab1 cb894c3b
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 27 10:19:02 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 8b1e5ab10327f4dc391ea17887400e7b8a9e0c4e[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 27 10:18:52 2021 +0200
+
+    , requestOptions.headers()
+
+[33mcommit cb894c3bb7a162a924f8824f9ef7bc6bf4d646ea[m
+Merge: 62f4bd54 f8521a56
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Oct 27 10:15:13 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    update profil etudiant ok
+    
+    See merge request cda2021/cfa-portal!127
+
+[33mcommit f8521a56d1bac62dfc64bb9bf723b0133754ec46[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Oct 27 10:13:32 2021 +0200
+
+    update profil etudiant ok
+
+[33mcommit 62f4bd54ab2145e43bfb0768064919966898fa97[m
+Merge: d7739935 078edad2
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 27 09:43:29 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit d7739935fd9ecfa29d3df7e6b53abecbc4c158fa[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 27 09:43:16 2021 +0200
+
+    maitre apprentissage
+
+[33mcommit 078edad2e9ce65ca4bc04474282da7390f72724a[m
+Merge: 582f8c67 277fa894
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Oct 27 09:17:27 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    bouton details user ok
+    
+    See merge request cda2021/cfa-portal!126
+
+[33mcommit 277fa894eb4fbdb901703e925d6aed70ed37c52c[m
+Author: Ali <aatia@dawan.fr>
+Date:   Wed Oct 27 09:15:28 2021 +0200
+
+    bouton details user ok
+
+[33mcommit 82c0fb41074dbe67715bd1f231aff4f6690bdb47[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 26 15:19:44 2021 +0200
+
+    update
+
+[33mcommit 582f8c67d31dd2859d22579a3a37609096b631c8[m
+Merge: 336401f7 b5f99919
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Oct 26 15:02:00 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    modif titre site et logo +page public enlevé
+    
+    See merge request cda2021/cfa-portal!125
+
+[33mcommit b5f99919fbcf77d9bb1efb575a17c3c89a31e306[m
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Oct 26 15:00:12 2021 +0200
+
+    modif titre site et logo +page public enlevé
+
+[33mcommit 336401f78bd458161c48fc9b4f6271f9eb6bb347[m
+Author: Ali <aatia@dawan.fr>
+Date:   Tue Oct 26 10:25:02 2021 +0200
+
+    etudiant profil update ok
+
+[33mcommit 59176b628e819fc6c339a9019f0c363bc78a806f[m
+Author: Mohamed Derkaoui <mderkaoui@dawan.fr>
+Date:   Mon Oct 25 15:35:25 2021 +0200
+
+    Update router.js
+
+[33mcommit 1433c43b4bddbad5db79564c15c120976a6c89e1[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Oct 25 10:13:07 2021 +0200
+
+    edit URL pour la prod
+
+[33mcommit 7e6677f26562372d89171e276b0540b87b03b931[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 22 16:00:19 2021 +0200
+
+    Update utilisateur.module.js
+
+[33mcommit 5c409c39578687a77af293afba8be77b2f038550[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 22 16:00:14 2021 +0200
+
+    update parameters for mapping id
+
+[33mcommit d0f1fc1f7220c5baec331071c224e3c03455ab32[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 22 15:53:23 2021 +0200
+
+    Update DemandeConge.vue
+
+[33mcommit 664bd9b482daa1a636b6a886c443b64c7e7484ed[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 22 09:46:18 2021 +0200
+
+    update
+
+[33mcommit 88f4c71c3f83bb401ec4ada119917f2410daee70[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 20 16:23:12 2021 +0200
+
+    view etudiant profil update
+
+[33mcommit 6bc61b2f256a20a2de9878e198f83d2fe60aa1c8[m
+Merge: ab3d7986 f8681478
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 20 14:38:27 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit f86814787c163c8197605ff0e025d99920267676[m[33m ([m[1;31morigin/dev-kanha[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 20 14:36:22 2021 +0200
+
+    add notification on successful submit form
+
+[33mcommit 60e3f96410c23978596e92fe06e329373960ad1c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 20 14:33:28 2021 +0200
+
+    add new prop TableTemplate
+
+[33mcommit ab3d7986745da355e1b887222c5f4542f6f487eb[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 20 14:22:58 2021 +0200
+
+    build ok
+
+[33mcommit 3da274a888260c10c9d8e5599d89d84b62e2e09f[m[33m ([m[1;31morigin/agregation-utilisateur[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 20 14:19:26 2021 +0200
+
+    agregation ok
+
+[33mcommit 5e0f5fa3e2f09a7ec3c343c5b1328c046fa9b6f8[m
+Merge: c916e291 f543ee2a
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 20 10:10:49 2021 +0200
+
+    Merge branch 'dev' into agregation-utilisateur
+
+[33mcommit c916e2910b02e50a265db932032531397a3b073d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 20 09:21:50 2021 +0200
+
+    npm i
+
+[33mcommit f543ee2aee8aca908fdd2699e6fe2d2989ade360[m
+Merge: 140fb1ea 2b760b25
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 20 09:16:30 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 140fb1eac1affea7568698cd5fc29c63e0ac728e[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 20 09:15:55 2021 +0200
+
+    .env
+
+[33mcommit 2b760b25d1dcfe7756b327e9d17d31a3b22ef0e3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:46:58 2021 +0200
+
+    update
+
+[33mcommit b0bd40ed7b3073074fc6ee6361291decf5937278[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:15:30 2021 +0200
+
+    fix
+
+[33mcommit d9b95fbea2fd4f95cfc94605c8b9542288ea298b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:11:35 2021 +0200
+
+    update
+
+[33mcommit 36412c2ba2bc1ec30de70ff6d512204246378f13[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:09:04 2021 +0200
+
+    Update main.js
+
+[33mcommit e1895870672c09df391044ca66b03b9b44c0cf01[m
+Merge: e6c06779 77933bd1
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:07:33 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit 77933bd1a7adc7cb98270a2f04787a953aaaad41[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:06:54 2021 +0200
+
+    Update DemandeConge.vue
+
+[33mcommit 6125483b841571799540afc681c73050a7e6b149[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:06:51 2021 +0200
+
+    add prod url
+
+[33mcommit f75fd06b82b2a58f187a1f2515beef20770cfa15[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 19 16:02:16 2021 +0200
+
+    env variable
+
+[33mcommit e6c067790fba8fa4a6f62ef422aca91793a8a171[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Oct 19 15:37:55 2021 +0200
+
+    public
+
+[33mcommit face8372277a2d78806be5891c4b3d5746a0e8ed[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Oct 19 15:27:25 2021 +0200
+
+    public
+
+[33mcommit dcbdbb6019f8a0ee237198ff7f0c67405e949163[m
+Merge: 8d470680 2486775d
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Oct 19 11:51:40 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 917710aeee653cd23f0aa39c862e4236a79c62bc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Oct 19 11:51:34 2021 +0200
+
+    conge a fix
+
+[33mcommit 2486775d29d4064dff6e1a0ddebdd7c9bffb5549[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Tue Oct 19 11:05:04 2021 +0200
+
+    Update .gitlab-ci.yml
+
+[33mcommit 8784ebe5d16e7d80e59751a254b5271ae24d181a[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Tue Oct 19 11:00:58 2021 +0200
+
+    Update .gitlab-ci.yml
+
+[33mcommit 2db037cee1b5d2db929dc7c1a72719636f9501aa[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Tue Oct 19 10:43:18 2021 +0200
+
+    Update .gitlab-ci.yml
+
+[33mcommit e9a54777b421b53d88d842d4f39a31c7d0e0ee98[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Tue Oct 19 10:39:33 2021 +0200
+
+    Update .gitlab-ci.yml
+
+[33mcommit 8795a45912a3d73097ecdd221f33bc128c921eae[m
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Tue Oct 19 10:36:36 2021 +0200
+
+    cache job
+
+[33mcommit 75b1ab367c7c595c9f96a4974969d280a6104f2a[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Oct 19 10:22:37 2021 +0200
+
+    accueil etudiant ok
+
+[33mcommit 8d4706809757acca8fe5b61a8659d0c46cb086c9[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Oct 19 09:33:37 2021 +0200
+
+    Update utilisateur.module.js
+
+[33mcommit 7d8e66bd4438b93b020e3c28359b00e443b74d6a[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Oct 19 09:11:44 2021 +0200
+
+    edit for cef
+
+[33mcommit e32d2eb1a3001a1736a0f489c409090fe8d461bd[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Oct 19 08:57:51 2021 +0200
+
+    edit for cef
+
+[33mcommit af50ba03b39bcbd5d8ebc8d26a507b47aa846f63[m
+Merge: 1ef51149 f63bd45d
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Oct 18 16:57:21 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 1ef51149b78b60b2c75d0cc67ba60fa19cf63e15[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Oct 18 16:57:01 2021 +0200
+
+    edit for cef
+
+[33mcommit f63bd45df8c9bcd8aee5a45b6bd4a372ef964954[m
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Oct 18 15:28:05 2021 +0200
+
+    Update .gitlab-ci.yml
+
+[33mcommit 5f12006400cd3b79724492cdafef399fe0f3e991[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Oct 18 15:22:11 2021 +0200
+
+    edit for cef
+
+[33mcommit 8a959cd0c6fec4e85b19092e51aab7d00a5f5e89[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Oct 18 14:30:12 2021 +0200
+
+    package
+
+[33mcommit a0a00dd6d13b6e9f146be4634ff01c5f986dd800[m
+Merge: 069bf6fc 0a26f6d1
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Oct 18 14:25:17 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 069bf6fc8f87587d7d1fca57927e83cf06b448f9[m
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Oct 18 14:25:10 2021 +0200
+
+    curus pagination etudiant peda
+
+[33mcommit 0a26f6d1535542f835acac5bab85b966598f45c9[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 18 11:58:11 2021 +0200
+
+    navbar
+
+[33mcommit 0e926f5483f7d3ee21abc0b1d87a7d7a968b0cad[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 18 11:52:49 2021 +0200
+
+    deplacement fichier
+
+[33mcommit d60ca3c72b73675145e6b019d49e0d021b55d4e4[m
+Merge: 3c99ab93 5809c769
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Oct 18 11:38:46 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 3c99ab935b330bf047f01e8fb043159f9a840c85[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Oct 18 11:38:43 2021 +0200
+
+    fiche entreprise
+
+[33mcommit 5809c769a53ab28e66ff0537c3d68b9220808458[m
+Author: Mohamed Derkaoui <mderkaoui@dawan.fr>
+Date:   Mon Oct 18 11:29:43 2021 +0200
+
+    Update .gitlab-ci.yml
+
+[33mcommit b5000f79b31b3993d3b1620a5b3fed1ea7ac85fb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 18 10:51:28 2021 +0200
+
+    navbar
+
+[33mcommit a3c24c7780ce4dcdbbd303608026819c5a3454a5[m
+Merge: 832818b3 4dcc57c2
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 18 10:45:50 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit 832818b33fd6a10d4b528a6e5e25c34f4a1c083f[m
+Merge: 5420c600 9c8cc069
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Oct 18 10:36:29 2021 +0200
+
+    Merge branch 'Cef_Nico' into 'dev'
+    
+    fix la navbar
+    
+    See merge request cda2021/cfa-portal!122
+
+[33mcommit 4dcc57c2b9909027c10dcb582b3289d866a8d2e3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 18 09:58:58 2021 +0200
+
+    update list
+
+[33mcommit 5420c6002accb8b7a84f1be7628e943e03dfc5a6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 15 14:59:24 2021 +0200
+
+    FIX route name, pagination, style
+
+[33mcommit 9c8cc06951fc1fdc55ddcf0b1539c093753cfee3[m[33m ([m[1;31morigin/Cef_Nico[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Oct 15 14:52:30 2021 +0200
+
+    fix la navbar
+
+[33mcommit 06d888dcdfbdf1578f5f21c1049b07598687e149[m
+Merge: d4666aed 53568ea2
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 15 11:29:30 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit d4666aedc54f58968c597edee3f79400665843a0[m
+Merge: ee578ae7 e67d3194
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Oct 15 09:59:17 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit ee578ae757d593d21974e4e2af18caa77a8e7bc8[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Oct 15 09:59:07 2021 +0200
+
+    Selection projet pour dossierprojet ok
+
+[33mcommit e67d3194ece1dd9cc78d86b986a16bbe0edbf885[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Oct 14 18:10:14 2021 +0200
+
+    style
+
+[33mcommit 53568ea29e5c967e8d3ac305759b49a204633ce0[m
+Merge: 6bb3fe1a 5fa10f31
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Oct 14 16:42:22 2021 +0200
+
+    Merge branch 'dev' into dev-kanha
+
+[33mcommit 6bb3fe1ac799807965e2508ff3d51950f9559200[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Oct 14 16:36:16 2021 +0200
+
+    udpate
+
+[33mcommit 5fa10f31b44d5a5ac41b5363b92995fe7477f790[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Oct 14 12:47:53 2021 +0200
+
+    correctionsDevoir
+
+[33mcommit 4b073672a045fb78f148f8b54f26c3c797ffb252[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Oct 14 12:37:17 2021 +0200
+
+    home
+
+[33mcommit d16c3dc27a77e19fed852c4ef9570d17b01b36d4[m
+Merge: 7f932518 5722373e
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Oct 14 12:32:35 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 7f93251887250b2810830f9cfc2959ef6c4c75c3[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Oct 14 11:56:54 2021 +0200
+
+    corrections
+
+[33mcommit a89d2f47acb9cda12562ab8b431f90955e1e38ce[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 13 17:03:04 2021 +0200
+
+    Update DetailIntervention.vue
+
+[33mcommit fd4bd161374f67ae9fc10302b093ab2fbaf23c6c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 13 17:02:52 2021 +0200
+
+    Update VerticalNavbar.vue
+
+[33mcommit 8854e97749607887d6125b55e7a0ba0d34635abb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Oct 13 17:02:41 2021 +0200
+
+    Update Onglet.css
+
+[33mcommit 75e07accfa855a11054cc3b12761f71cb024f8c2[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 14:28:49 2021 +0200
+
+    remove id column
+
+[33mcommit cc285cb264e7ab4fd337b0b04d524f64200be19d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 14:28:39 2021 +0200
+
+    rename menu
+
+[33mcommit 08ac21dad8afd5cd73291ec7f168a9ffb63f6b56[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 13:50:10 2021 +0200
+
+    update + fix pb
+
+[33mcommit 93e7bdc0206fdd5017487114a7f8a88be216ec38[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 13:49:35 2021 +0200
+
+    redirection after submit
+
+[33mcommit 9ab3378d138891d5c502c810687d385dd95ac3c0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 11:08:16 2021 +0200
+
+    style
+
+[33mcommit 0edd6fd3e8ef7f429191005aa4c6212a85cda4ad[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 11:08:10 2021 +0200
+
+    Update Home.vue
+
+[33mcommit 3c136abf7ddaf576de64d25520aeba26f5e31aa8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 11:08:04 2021 +0200
+
+    update route name
+
+[33mcommit c9516f1b9ffddedeac0c66ba63176f0a8b004eb5[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 11:07:16 2021 +0200
+
+    Update Navbar.vue
+
+[33mcommit 94a9c0e39213910aa7b037abbd1b2b3e531e47d1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 12 09:44:06 2021 +0200
+
+    navbar
+
+[33mcommit 5722373eb0007b3f697b73c7bfdba1eb0df70f1a[m
+Merge: e1f8394c 57a33f45
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 11 12:12:28 2021 +0200
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit e1f8394cc3b3d8306564759869e6d8b5ee5d5c1c[m
+Merge: 8ae87abe 4928d58c
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Oct 11 12:11:34 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit 57a33f457aa339a8500861301a215474b0a16958[m
+Merge: b2286e95 37116e38
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Oct 11 11:38:37 2021 +0200
+
+    Merge branch 'dossierPro' into 'dev'
+    
+    Dossier pro : Crud ok
+    
+    See merge request cda2021/cfa-portal!120
+
+[33mcommit 37116e381477b7149ddb277e5db4b7bf73c59fd8[m[33m ([m[1;31morigin/dossierPro[m[33m)[m
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Oct 11 11:38:09 2021 +0200
+
+    ajout ok , suppression ok
+
+[33mcommit b2286e95e128b3c10f6f3edcd98da6d4d0196ef3[m
+Merge: 8ae87abe f6f1d68d
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Oct 11 10:11:55 2021 +0200
+
+    Merge branch 'Cef_Nico' into 'dev'
+    
+    router / navbar
+    
+    See merge request cda2021/cfa-portal!119
+
+[33mcommit f6f1d68d3b85c134f3a21c397753e0c55e47644b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Oct 11 10:11:37 2021 +0200
+
+    router / navbar
+
+[33mcommit a8f55224910d374ae78b40ce12a19aa072669bd5[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Oct 8 10:44:11 2021 +0200
+
+    router referent dashbord
+
+[33mcommit bf27680a8876bd516f8f3dccbd442683d23e00fd[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Oct 8 10:35:14 2021 +0200
+
+    correction intervention dans Promotion create
+
+[33mcommit 4928d58c3b7368e6d58df043b48688c7cbba0bd4[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Oct 7 12:59:59 2021 +0200
+
+    delete json overview
+
+[33mcommit 43380c9659aac58d207f839398b355a71b2904ba[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Oct 7 12:59:07 2021 +0200
+
+    update
+
+[33mcommit fde779e34e25a2b7368add4f70f4ae9cd8b58925[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Oct 6 11:21:27 2021 +0200
+
+    btn action list deleted
+
+[33mcommit 8ae87abe460da92769021797b16035616bbc484c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 5 17:05:02 2021 +0200
+
+    Update Navbar.vue
+
+[33mcommit 06e90e6eb43d24fa254ae405cf53b4b8d74902e9[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 5 16:51:46 2021 +0200
+
+    Update Profil.vue
+
+[33mcommit 7012293da0c6f3c829007024dd48cf911c7ffe06[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Oct 5 16:51:40 2021 +0200
+
+    update profil + new route
+
+[33mcommit 5f2c53bc2c6270a25e7810b1e6f86aa4f737c688[m
+Merge: 1d2d831b 5a432ab0
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Oct 5 14:41:16 2021 +0200
+
+    Merge branch 'Cef_Nico' into 'dev'
+    
+    Examen Devoir Cef
+    
+    See merge request cda2021/cfa-portal!118
+
+[33mcommit 5a432ab00a921c60a590a9656c3b8014d2e9a03e[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Oct 5 14:40:56 2021 +0200
+
+    Examen Devoir Cef
+
+[33mcommit 1d2d831bd9e5eac89de3b38513cd97446affa058[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Oct 5 10:13:07 2021 +0200
+
+    modif router
+
+[33mcommit be99a8f286e0e8eaf8702ce732e437e5b6ff0e29[m
+Merge: 16173c1a aba0c83b
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Oct 5 09:13:12 2021 +0200
+
+    Merge branch 'Cef_Nico' into 'dev'
+    
+    Cef nico
+    
+    See merge request cda2021/cfa-portal!117
+
+[33mcommit aba0c83b54fa972dd2b34add2e0683d4455fbaeb[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Oct 5 09:11:42 2021 +0200
+
+    Espace CEF
+
+[33mcommit 40006ac38e4819555b158b2ed07c87d5288a7a5b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 17:29:26 2021 +0200
+
+    input search bar
+
+[33mcommit 0ee9a59ed747e70f7d14a6a949b3d246ac63d67b[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Oct 1 15:34:10 2021 +0200
+
+    isDescription
+
+[33mcommit 088c77ec64778f0bd0aaff51b2dbb030f84d5648[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:25:33 2021 +0200
+
+    update
+
+[33mcommit 9042158401f8340b6589c8f64e9f0bbb280d877b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:25:19 2021 +0200
+
+    add props
+
+[33mcommit 42f8f70fbe304f3fa6a0c4256a57065cef5ad225[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:25:03 2021 +0200
+
+    Update AllFormation.vue
+
+[33mcommit eec1f5ea229d4fc4f67f9694df059317bb0276ea[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:24:52 2021 +0200
+
+    rename route
+
+[33mcommit 2331a8dd904d91dbf7f81f668d6e6749ddbb8f38[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:23:53 2021 +0200
+
+    Update VerticalNavbar.vue
+
+[33mcommit 42983948b55a09c799d7c3d2bdd74a76d5bb9a36[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:23:30 2021 +0200
+
+    add option
+
+[33mcommit 777b0eadc48193d3d5056397493f299e5eb3caa7[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:23:07 2021 +0200
+
+    remove column unused
+
+[33mcommit 6739ef02b0d86c267fe57f33027fef653f6413b3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Oct 1 15:22:30 2021 +0200
+
+    style
+
+[33mcommit 5e55ec07d92ea32ec83702c656bdfe54edcbabc0[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Oct 1 12:18:58 2021 +0200
+
+    listcomponent isAction oubliés
+
+[33mcommit 6689fb00873dcbf934cfed0555dde78f0b2a01e3[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Oct 1 09:00:50 2021 +0200
+
+    Espace Cef en cours
+
+[33mcommit e1f7453dee8ecba08e26a4e4ccfb53e7962953f2[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Sep 30 22:53:33 2021 +0200
+
+    rename file
+
+[33mcommit cb683c6e974fbf8e03c861dd0579a8657841a3d0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Sep 30 22:53:02 2021 +0200
+
+    update
+
+[33mcommit 4666395d6a1c84aa7c3d3e3534bb12de5a665db6[m
+Merge: ca704079 16173c1a
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Sep 30 09:32:49 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dossierPro
+
+[33mcommit 16173c1a4b10e2f62d438fca69a619435e8c2c08[m
+Merge: edf060a8 68450b2f
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 29 10:14:14 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit edf060a81f800d4e65a947c3d79502508950037e[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 29 10:14:03 2021 +0200
+
+    groupe
+
+[33mcommit 68450b2f7d90dd24d15b185f021c010f8aea78cb[m
+Merge: a7d6e96d 7ea2a8ac
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Sep 29 09:55:48 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    push avnt pull
+    
+    See merge request cda2021/cfa-portal!116
+
+[33mcommit 7ea2a8ac5aeb88f562322ef6596ea65d390e80af[m[33m ([m[1;31morigin/dev_Nico2[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Sep 29 09:55:27 2021 +0200
+
+    push avnt pull
+
+[33mcommit a7d6e96d4ef9c3c27a162aa60a7b4b6fef3bd237[m
+Merge: 373ea43e b7a80511
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 29 09:14:07 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 373ea43ed5aa2362b420095b81b87d1a372172ef[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 29 09:13:55 2021 +0200
+
+    absence detail btn
+
+[33mcommit b7a805119a4d194adfb4dce59978a828fda04bbe[m
+Merge: 36fae585 cf24852e
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 28 17:22:15 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit cf24852e79c6775d9e73dbebfde608a51bd5c153[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 28 17:19:39 2021 +0200
+
+    rename
+
+[33mcommit 9628ca364f3f3071b6e8d6a4de9eb6972c779196[m
+Merge: 28a6f647 66d9f6ba
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 28 17:18:49 2021 +0200
+
+    Merge branch 'dev-kanha' of gitlab.dawan.fr:cda2021/cfa-portal into dev-kanha
+
+[33mcommit 28a6f647c4094847b591fe3846f4cd151a731f6d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 28 17:18:46 2021 +0200
+
+    Update AddUser.vue
+
+[33mcommit 36fae5852aa85f02de5c794ed1bed1be46d94c9f[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 28 17:15:08 2021 +0200
+
+    table corection
+
+[33mcommit 1c6cf40a390d85567d2abbff2b337e3c2c109345[m
+Merge: e9457b13 5c1651c2
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 28 15:30:59 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit e9457b13482a5dfbd1ecc0a516b6ca98bfb2b527[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 28 15:30:47 2021 +0200
+
+    cursus
+
+[33mcommit 5c1651c2d5353da6fd54a83b4333201159de2b6a[m
+Merge: 78e251fa fd45931f
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 28 11:24:38 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    edit bug detail adresse et siege social
+    
+    See merge request cda2021/cfa-portal!115
+
+[33mcommit fd45931fdf6b318dac831804c464d79af5550a97[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 28 11:24:16 2021 +0200
+
+    edit bug detail adresse et siege social
+
+[33mcommit 2e200720ea5ce8582b78340e0d760b0b1451d04f[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 28 09:47:47 2021 +0200
+
+    blabla
+
+[33mcommit a98cb6109d098b32455d1cfea2ee89ad52ce9a83[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Sep 27 17:05:27 2021 +0200
+
+    lowercase filter
+
+[33mcommit 78e251fa17e004b0d58d06a44baf8f2554027fb9[m
+Merge: c0760b86 c1b6e62c
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Sep 27 16:31:28 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    modif list component admin
+    
+    See merge request cda2021/cfa-portal!114
+
+[33mcommit c1b6e62c76f950ac205aa9ad9d638586de9afb30[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Sep 27 16:31:07 2021 +0200
+
+    modif list component admin
+
+[33mcommit c0760b868f49c38654337630460a1b7ba30e658d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Sep 27 12:05:36 2021 +0200
+
+    rename file
+
+[33mcommit 7dc56e08289d304c25d6be1e3c44fc40f30c5cb7[m
+Merge: 3dc2f4f0 d5639ccb
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 24 16:41:05 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    count centre formation
+    
+    See merge request cda2021/cfa-portal!113
+
+[33mcommit d5639ccb161bb1a8205bcf6a200c71026ac33725[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 24 16:40:26 2021 +0200
+
+    count centre formation
+
+[33mcommit 3dc2f4f0cd3a5fcd1a122418fb7af2cdafff1731[m
+Merge: ba7c9f52 d16e18fb
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Sep 24 11:16:23 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    CRUD Centre de formation
+    
+    See merge request cda2021/cfa-portal!112
+
+[33mcommit d16e18fb2530d65f87e2308f11cd9c96fa4ecf3a[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 24 11:09:37 2021 +0200
+
+    CRUD Centre de formation
+
+[33mcommit ca704079acf27ddffec1576f562bd55fd2b56716[m
+Merge: e606ed61 ba7c9f52
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Sep 23 09:02:48 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dossierPro
+
+[33mcommit 66d9f6bad379f45a0a644cb573716db6953a93c6[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 22 17:01:42 2021 +0200
+
+    Update Navbar.vue
+
+[33mcommit 4d7154febae6c799b86a0bcc6a2579b7bb0fc6ea[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 17:07:53 2021 +0200
+
+    redirection link
+
+[33mcommit 924895253faf13954fea7457da249218b7ed9368[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 16:57:53 2021 +0200
+
+    Update EtudiantR.vue
+
+[33mcommit 301f9c8e409a3b5be4fdf23810fb9a97f032a467[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 16:57:42 2021 +0200
+
+    Update AjoutFormation.vue
+
+[33mcommit 89f5d98784a03080d13e3b4a56b305fd77c7233b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 16:48:37 2021 +0200
+
+    Update Planning.vue
+
+[33mcommit 637f12d0172d0eceab6c4c79b45f00141cd3dcac[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 16:48:30 2021 +0200
+
+    style
+
+[33mcommit 27d8e7a38d2fc4620d308f59156db78f7774d70d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 16:32:14 2021 +0200
+
+    update route link
+
+[33mcommit 434dbd5be73b8d2d94b02128800cb66db9428822[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 16:00:10 2021 +0200
+
+    Update router.js
+
+[33mcommit ba7c9f521e21377772417ff9605c5a1c4e3513e4[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 21 13:59:57 2021 +0200
+
+    navbarre ...
+
+[33mcommit d1c800a54e486d6908f78e1b433ec656fbd5aafc[m
+Merge: ce1367f5 5b0409d6
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 21 13:59:16 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit ce1367f5d70a5002cf893f303e8c0c0c64e1a6d9[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 21 13:58:11 2021 +0200
+
+    intervention support
+
+[33mcommit 5b0409d6bd50742746ab6e58f4be644413f8708d[m
+Merge: 5b306f75 ee0b15b4
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 21 10:11:16 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    referent front ajout update projet et groupe
+    
+    See merge request cda2021/cfa-portal!110
+
+[33mcommit ee0b15b45902ac85343359f3349fe11637d69660[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 21 10:10:49 2021 +0200
+
+    referent front ajout update projet et groupe
+
+[33mcommit 5b306f757c3ef2f1fd4147b431c7105bc0d753a3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 09:36:01 2021 +0200
+
+    add route link + style
+
+[33mcommit ca883f74a68c13421f836fa1feccca8b028cb991[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 21 09:35:36 2021 +0200
+
+    style
+
+[33mcommit 81ac565236bfe7a4e23bec4f2e993730bb9371d4[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 21 09:32:47 2021 +0200
+
+    absence create
+
+[33mcommit 32b7e93c22a048868d122772d25969814eedd935[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Sep 20 10:23:11 2021 +0200
+
+    Update package-lock.json
+
+[33mcommit 87c3874883dcc58307ec0ca68452cc467ca25fca[m
+Merge: bc5dfd35 8a77e8e1
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Sep 20 10:23:04 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit 8a77e8e1bc83b97ad718f78c08bd973c010a349c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Sep 20 10:10:03 2021 +0200
+
+    style
+
+[33mcommit bc5dfd356f745854b026b338e580fb7ba69c74fd[m
+Merge: 95ad548b 3136cdde
+Author: Matthieu Lamamra <mlamamra@dawan.fr>
+Date:   Fri Sep 17 14:51:29 2021 +0200
+
+    Merge branch 'archive_job' into 'dev'
+    
+    CI  file bootstrap
+    
+    See merge request cda2021/cfa-portal!109
+
+[33mcommit 3136cddef7a0d49ecb3d929a62f3df51eb6d423e[m[33m ([m[1;31morigin/archive_job[m[33m)[m
+Author: mlamamra <mlamamra@dawan.fr>
+Date:   Fri Sep 17 14:50:01 2021 +0200
+
+    CI  file bootstrap
+
+[33mcommit 95ad548b88d4c77b0b900b7e9b101aa89fb7468a[m
+Merge: 6042c0b1 35c556a1
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 17 14:11:05 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    bg le front
+    
+    See merge request cda2021/cfa-portal!108
+
+[33mcommit 35c556a1ea694b71575c85fe0ca1ec44e4c4e890[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 17 14:10:38 2021 +0200
+
+    bg le front
+
+[33mcommit 6042c0b1c45b73b82707ad79d81d4f1692fc6ecd[m
+Merge: 7f1b80ec de5029b5
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Sep 17 11:42:52 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    telechargement des dossier ok
+    
+    See merge request cda2021/cfa-portal!107
+
+[33mcommit de5029b55dffc62a2d4eddceb5e2fc9ac292e6e4[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Sep 17 11:42:37 2021 +0200
+
+    telechargement des dossier ok
+
+[33mcommit 7f1b80ec3f61ba78c6811ad29d25b51fcae5df5d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Sep 17 10:30:24 2021 +0200
+
+    syntax
+
+[33mcommit 03d3e69f708848f42a9a8aaf395989c3206dfd98[m
+Merge: 5d10f27f 8190f7bf
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 17 09:46:47 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    css fix
+    
+    See merge request cda2021/cfa-portal!106
+
+[33mcommit 8190f7bf1b0351de4cc7e3ff320e28dd1b3bec14[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 17 09:46:30 2021 +0200
+
+    css fix
+
+[33mcommit 5d10f27fcebfcd6abe4c8c42c4cf0c6f292bbbad[m
+Merge: 4789e1c5 e00e1af3
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 17 09:24:03 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    Details et update des fiches salarie / poste et entreprise
+    
+    See merge request cda2021/cfa-portal!105
+
+[33mcommit e00e1af3cf4de2f3315a82e08c58fef598292db9[m
+Merge: c06fff0d 4789e1c5
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 17 09:23:57 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico2'
+    
+    # Conflicts:
+    #   cfa-front/src/router/router.js
+    #   cfa-front/src/views/Admin/Crud/Etudiant/EtudiantDetail.vue
+
+[33mcommit c06fff0d51cb373afe15064a2f71df2f1de3c626[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 17 09:12:18 2021 +0200
+
+    Details et update des fiches salarie / poste et entreprise
+
+[33mcommit 4789e1c5dcc93848df7f67c4da25860a87a111a1[m
+Merge: 6d6292a6 b1cd27ca
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Sep 16 11:07:56 2021 +0200
+
+    Merge branch 'espace_formateur' into dev
+
+[33mcommit b1cd27ca19f6e4d038a9896bf2b83f085405c8bf[m[33m ([m[1;31morigin/espace_formateur[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Sep 16 11:07:40 2021 +0200
+
+    store in localStorage
+
+[33mcommit 6d6292a6f35edaa16df64dc3f7fe850681fb7f2a[m
+Merge: 5e4ae174 8d0093f5
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Sep 15 14:46:01 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    ajout dossier projet a la liste de letudiant + affichage des dossier ajouté
+    
+    See merge request cda2021/cfa-portal!104
+
+[33mcommit 8d0093f5f8444989341a9cd136c27a2678fc64ba[m
+Author: aatia <aatia@dawan.fr>
+Date:   Wed Sep 15 14:45:44 2021 +0200
+
+    ajout dossier projet a la liste de letudiant + affichage des dossier ajouté
+
+[33mcommit 5e4ae17406b8b4343af94ea0f18dac445630e1a5[m
+Merge: fdc715b6 ba199846
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 15 14:17:43 2021 +0200
+
+    Merge branch 'espace_formateur' into dev
+
+[33mcommit ba19984629343bdc387d5362fab48d4cd8f6f4fa[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 15 14:17:29 2021 +0200
+
+    onglet.css
+
+[33mcommit fdc715b67f460d29fdb79262d94db21c89ec93df[m
+Merge: ecd18ad3 a6154f16
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Wed Sep 15 14:00:37 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    ajout dossier professionnel a la liste de letudiant + affichage des dossier ajouté
+    
+    See merge request cda2021/cfa-portal!103
+
+[33mcommit a6154f167d4860a1f198dbe23bf4d8fd84ae2cb4[m
+Author: aatia <aatia@dawan.fr>
+Date:   Wed Sep 15 14:00:05 2021 +0200
+
+    ajout dossier professionnel a la liste de letudiant + affichage des dossier ajouté
+
+[33mcommit ecd18ad30951f3e9c541abef3c515e997d8058d4[m
+Merge: 5e28bac1 22d3f65a
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 15 11:55:01 2021 +0200
+
+    Merge branch 'espace_formateur' into dev
+
+[33mcommit 22d3f65acc0ebc8f5db9f7d5c734bc30056023bc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 15 11:54:49 2021 +0200
+
+    filtre role router et navbar
+
+[33mcommit 73abef54706b8ad9db189932f121499c01dcd50e[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Sep 15 10:28:11 2021 +0200
+
+    autocomplete attribute
+
+[33mcommit 1bf8bd6c34b4cd953ba79c1fc0f5a7820249a021[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Sep 15 10:27:31 2021 +0200
+
+    Update Navbar.vue
+
+[33mcommit 0b8e7e819458ab1870fb2fab34cbff77bf029134[m
+Merge: 230a3552 5e28bac1
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Sep 15 10:10:05 2021 +0200
+
+    Merge branch 'dev' into dev-kanha
+
+[33mcommit 5e28bac13862d79cbc6bfe5bfa945e5640926017[m
+Merge: 4e6f7104 1ab2c85b
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 15 10:09:37 2021 +0200
+
+    Merge branch 'espace_formateur' into dev
+
+[33mcommit 1ab2c85b41a3a3a7389161663b53b987bb102e5d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 15 10:08:49 2021 +0200
+
+    work in progress
+
+[33mcommit 230a355282ba5264d72b53b0ef4a466dde294cc0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 16:41:05 2021 +0200
+
+    Update HomeFormateur.vue
+
+[33mcommit 4e6f71042f6b7c4b000bd4feedcf6899f5ea8d8f[m
+Merge: 5cad4106 1612a3c0
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Sep 14 16:15:43 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    ajout dun dossier projet ok
+    
+    See merge request cda2021/cfa-portal!102
+
+[33mcommit 1612a3c02ba07a12fd64cd7eea663e7ba11339d9[m
+Merge: 1dffa3c6 5cad4106
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Sep 14 16:15:38 2021 +0200
+
+    Merge branch 'dev' into 'dev_ali'
+    
+    # Conflicts:
+    #   cfa-front/src/components/Navigation/Navbar.vue
+
+[33mcommit 1dffa3c6c25b87a3c9ed4a5ddd96287d4729d542[m
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Sep 14 16:14:48 2021 +0200
+
+    ajout dun dossier projet ok
+
+[33mcommit 5cad41064b6319f36dbd0ea8b7fedd23ada7d194[m
+Merge: 5fda7b96 bfe72def
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 14 15:32:58 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    Fiche entreprise
+    
+    See merge request cda2021/cfa-portal!101
+
+[33mcommit bfe72def10cc0cfb74952dd2f8f053a0cbaeb235[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 14 15:32:43 2021 +0200
+
+    Fiche entreprise
+
+[33mcommit 1d83ec19a2807f1823a3f9f9f0a2898c8bfd3300[m
+Merge: 0a9e22a5 5fda7b96
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 14 15:02:09 2021 +0200
+
+    Merge branch 'dev' into espace_formateur
+
+[33mcommit 0a9e22a5a7154e93347a4039cb9a228b506442c8[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 14 15:01:50 2021 +0200
+
+    avant merge
+
+[33mcommit 5fda7b9684bb75eba9fda817519bee71cb531ae3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:34:48 2021 +0200
+
+    resolve conflict
+
+[33mcommit e9970defe3edf613023c038032748f9a3691adae[m
+Merge: bd523ef1 b5d42dbc
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:33:06 2021 +0200
+
+    Merge branch 'dev-kanha' into dev
+
+[33mcommit b5d42dbc0b823e0d3eb7ce7b90f7093b8a4a8c00[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:32:30 2021 +0200
+
+    HomeFormateur component to Home
+
+[33mcommit e9bad84cb37469b2a309e78ba087b07873525557[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:32:15 2021 +0200
+
+    style
+
+[33mcommit 62f9402ff474ba08cf93da52c363fce9b15f6985[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:32:08 2021 +0200
+
+    add detail link
+
+[33mcommit fcd81e775f41654dab76ff0549351f3dec545be5[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:31:57 2021 +0200
+
+    re design style
+
+[33mcommit 6b3a15f3219b8b1a09b2a072ce925df6d26a9618[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:31:21 2021 +0200
+
+    home formateur
+
+[33mcommit 18ae60c58ad7a8acd5a5b06546b9bdd1258f77c3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Sep 14 14:31:09 2021 +0200
+
+    install package
+
+[33mcommit bd523ef16c34d04f9ae21c9852d350e785efdd62[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 14 14:00:40 2021 +0200
+
+    absence api ajout
+
+[33mcommit 0ddde97c5bd89e6c73ca57b7454255a37d646d49[m
+Merge: aeb0cc83 3753a8ad
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 14 09:05:36 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit aeb0cc83acb8e4966bb193ea0faafc8b469b1745[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Sep 14 09:05:20 2021 +0200
+
+    pull
+
+[33mcommit 3753a8ad0f115250866f093a15cac31f861f6727[m
+Merge: f1bf8a33 9b753115
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Sep 13 16:41:44 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    ajout d'un dossier professionnel ok
+    
+    See merge request cda2021/cfa-portal!100
+
+[33mcommit 9b75311511bba48a6ea032e84772c23c788e268f[m
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Sep 13 16:41:14 2021 +0200
+
+    ajout d'un dossier professionnel ok
+
+[33mcommit ffb3b90cc52d11501893653e05b90733fc955808[m
+Merge: cd113014 f1bf8a33
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Sep 13 09:29:21 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit cd113014af376a3fbfccc49661dd0932c7652121[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Sep 13 09:29:18 2021 +0200
+
+    test navbar
+
+[33mcommit f1bf8a33a579d511fadce7db0818057a6c4f69aa[m
+Merge: 89e1eb0a 3461659d
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Sep 13 09:15:49 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    modif fiche poste
+    
+    See merge request cda2021/cfa-portal!99
+
+[33mcommit 3461659d9e3aa45c3a327ed0f8217fdfca37bb7c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Sep 13 09:15:22 2021 +0200
+
+    modif fiche poste
+
+[33mcommit 89e1eb0a083cda25775297144d5f2ab0f7f33fb0[m
+Merge: 6f9e152c 210bd1cf
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 10 12:27:11 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    Fiche Poste Add / Consultation
+    
+    See merge request cda2021/cfa-portal!98
+
+[33mcommit 210bd1cf9e2e039bb0608b3d0b378af7f2835194[m
+Merge: 71bb8fc4 6f9e152c
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 10 12:27:08 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico2'
+    
+    # Conflicts:
+    #   cfa-front/src/views/All/Formation/AllFormation.vue
+
+[33mcommit 71bb8fc45562711152fec9176759a6dcc3814088[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 10 12:26:21 2021 +0200
+
+    Fiche Poste Add / Consultation
+
+[33mcommit 6f9e152c9a5ff57fb9b147d20067a689e61ebd0d[m
+Merge: f7eecb5d be01a24f
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Sep 9 15:35:06 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    FicheSalarie modif
+    
+    See merge request cda2021/cfa-portal!97
+
+[33mcommit be01a24f41ba78a572381ab374d601eb5f1bdd11[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Sep 9 15:21:58 2021 +0200
+
+    FicheSalarie modif
+
+[33mcommit f7eecb5dcd830285cebd3790b89724ac05675b9a[m
+Merge: 10eee94c e5dd6536
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu Sep 9 12:01:09 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    details dune note
+    
+    See merge request cda2021/cfa-portal!96
+
+[33mcommit e5dd653610633e07f5eacb988da9a5aa03379a5b[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Sep 9 12:00:46 2021 +0200
+
+    details dune note
+
+[33mcommit 10eee94c57bc5e48fcc51b42eac57ef4e087a037[m
+Merge: 6af5d0ff 3ef43e82
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Sep 9 09:54:38 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    modif recup fiche salarie
+    
+    See merge request cda2021/cfa-portal!95
+
+[33mcommit 3ef43e8203d1e1eac16d163ffbb2fe5320f6b4bd[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Sep 9 09:54:20 2021 +0200
+
+    modif recup fiche salarie
+
+[33mcommit 6af5d0ffc75cc00dd16d8b231c83236736c6b9f2[m
+Merge: 2e7687f0 e627a46b
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Sep 8 14:48:31 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    modif demande de doc administratifs
+    
+    See merge request cda2021/cfa-portal!94
+
+[33mcommit e627a46bcb29ccdd018fa62065a2b114b827ebee[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Sep 8 14:48:11 2021 +0200
+
+    modif demande de doc administratifs
+
+[33mcommit e606ed610d50c64b4198dbad62253c7dd6e86f3e[m
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Sep 7 17:21:25 2021 +0200
+
+    test vue-pdf pas fonctionnel
+
+[33mcommit 2e7687f0151d80025ab896573b07aa7e88142a84[m
+Merge: 59ccd7a4 4d52a0e8
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 17:09:57 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    Menu Absence/ Retards retiré comme on peut ajouter directement en selectionnant l'etudiant
+    
+    See merge request cda2021/cfa-portal!93
+
+[33mcommit 4d52a0e8e304e58876c85fa694f6bcef23f28c0f[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 7 17:09:35 2021 +0200
+
+    Menu Absence/ Retards retiré comme on peut ajouter directement en selectionnant l'etudiant
+
+[33mcommit 59ccd7a4cebd9bb57f76bdef60d59e7d6cc09530[m
+Merge: 15d3382f dd57dfdd
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 16:00:19 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    Route referent create Absence/conge/note , Etudiant details
+    
+    See merge request cda2021/cfa-portal!92
+
+[33mcommit dd57dfdd44f768e059b479075bf43d4265237bfe[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 7 15:59:49 2021 +0200
+
+    Route referent create Absence/conge/note , Etudiant details
+
+[33mcommit 15d3382f39bb4b640d9740c4e205b1ac9d2d7db1[m
+Merge: 4089f13d bcbb1dd7
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Sep 7 12:10:38 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    ajout de la route dossierprojet dans la navbarr
+    
+    See merge request cda2021/cfa-portal!91
+
+[33mcommit bcbb1dd7548e39f2f073d29f9fce968f52c37bb0[m
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Sep 7 12:10:26 2021 +0200
+
+    ajout de la route dossierprojet dans la navbarr
+
+[33mcommit 4089f13d095b3bdaa8ca894fa608f3cf99e1eeaa[m
+Merge: ed0079d2 1a0265a7
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 11:58:17 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    route referent => etudiant details, promo create/details, intervention details
+    
+    See merge request cda2021/cfa-portal!90
+
+[33mcommit 1a0265a718aa7a9cccb8f92ebee911480a876211[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 7 11:57:56 2021 +0200
+
+    route referent => etudiant details, promo create/details, intervention details
+
+[33mcommit ed0079d230117a2f06cd3a9c0436e906f7217ce3[m
+Merge: 54788090 52d433e1
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 10:32:39 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    correction router erreur Ali
+    
+    See merge request cda2021/cfa-portal!89
+
+[33mcommit 52d433e17aacdf6de3d881d20820665edaf4d164[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 7 10:32:22 2021 +0200
+
+    correction router erreur Ali
+
+[33mcommit 547880908e12e916352c7560c90869eaa3eefe13[m
+Merge: 5bdd3bcb 15931c07
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 10:18:00 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    suite modif de route : fiches, etudiant details, grp create/details, absence details
+    
+    See merge request cda2021/cfa-portal!88
+
+[33mcommit 15931c0713ccfa7f6105a107c791520aaa6e665c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 7 10:17:40 2021 +0200
+
+    suite modif de route : fiches, etudiant details, grp create/details, absence details
+
+[33mcommit 5bdd3bcbae25a13294c536b4bad55f0605a5a4ad[m
+Merge: 9ed1f724 adb09ea0
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue Sep 7 09:30:02 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    vue dossier projet ajouté + vue details note ajouté dans le router
+    
+    See merge request cda2021/cfa-portal!87
+
+[33mcommit adb09ea03d522250d7a84a38e20d011dd5efa193[m
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Sep 7 09:29:46 2021 +0200
+
+    vue dossier projet ajouté + vue details note ajouté dans le router
+
+[33mcommit 9ed1f724974789ca3dfebb6354a32f561b864618[m
+Merge: 7e607b75 5d717a1c
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 09:24:37 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    modif path btn referent en cours
+    
+    See merge request cda2021/cfa-portal!86
+
+[33mcommit 5d717a1cee4b465f12041655915aac487556a0b9[m
+Merge: 29c92f63 7e607b75
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Sep 7 09:24:29 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico2'
+    
+    # Conflicts:
+    #   cfa-front/src/router/router.js
+
+[33mcommit 29c92f636d8e27e058adab24c030bebbaf701b8d[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Sep 7 09:23:10 2021 +0200
+
+    modif path btn referent en cours
+
+[33mcommit 7e607b7538e63817560e11315eae44f33bdcc1f4[m
+Merge: 77f12bec 572a68d2
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Sep 3 16:40:45 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    list cursus et details des formations du cursus ok
+    
+    See merge request cda2021/cfa-portal!85
+
+[33mcommit 572a68d25753e67006d8f01add7d6aaffdaff4ce[m
+Merge: ab069b64 77f12bec
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Sep 3 16:40:23 2021 +0200
+
+    Merge branch 'dev' into 'dev_ali'
+    
+    # Conflicts:
+    #   cfa-front/src/_api/formation.api.js
+
+[33mcommit ab069b64c9708c553a3b5360da36fefecfecf68d[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Sep 3 16:39:24 2021 +0200
+
+    list cursus et details des formations du cursus ok
+
+[33mcommit 77f12bec1df080901bf2e2601e5cc50c76cb5a38[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:36:31 2021 +0200
+
+    update
+
+[33mcommit 90c5862d51660e41fd3412805708b583e09ae48b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:35:08 2021 +0200
+
+    remove intervention link + update style
+
+[33mcommit 067206495b49626b13198e96e1a0325f8b993e9e[m
+Merge: 20f4df5d c2f5139d
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:28:27 2021 +0200
+
+    Merge branch 'detail-formation' into dev
+
+[33mcommit c2f5139d32806b59b101da915a4acd1cabc7a932[m[33m ([m[1;31morigin/detail-formation[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:24:26 2021 +0200
+
+    Update DetailFormation.vue
+
+[33mcommit b615c0fda8d5fff61b33a25980355974cec98e88[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:24:20 2021 +0200
+
+    style
+
+[33mcommit 237db88a5c833fd551298e27c57bfa173a2e2821[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:24:09 2021 +0200
+
+    add method for redirect on dbclick
+
+[33mcommit 04a2e5bab1c44add9906f0e84e75cbc16a32f860[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:23:40 2021 +0200
+
+    remove bootstrap bundle
+
+[33mcommit 080498f9a54854fd1fb3923b62280ce26e2e0c3c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Sep 3 16:23:18 2021 +0200
+
+    add img for background formation detail
+
+[33mcommit 20f4df5d67f0e55f465b7dd1adaf45d37ace35c8[m
+Merge: 96d0028c 211beb02
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 3 15:12:59 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    referent : modification des routes pour les btn dans la liste des examens
+    
+    See merge request cda2021/cfa-portal!84
+
+[33mcommit 211beb02cdc01b962300dd7044769094978bbde4[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 3 15:12:36 2021 +0200
+
+    referent : modification des routes pour les btn dans la liste des examens
+
+[33mcommit 96d0028c649827caf7ad050d7a0e4e2a53117714[m
+Merge: 77c48af4 f571c5d9
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Sep 3 14:52:53 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    cursus refait et details du cursus en cours
+    
+    See merge request cda2021/cfa-portal!83
+
+[33mcommit f571c5d949285a5cbd7ac459ee98c00512413f72[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Sep 3 14:48:58 2021 +0200
+
+    cursus refait et details du cursus en cours
+
+[33mcommit 77c48af43391a0fd6fea8a48cffd833468a54393[m
+Merge: 6d93ae5b 1de93ad3
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Sep 3 14:42:45 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 6d93ae5b91a69df9984a9e89f6a08505d5a3d995[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Sep 3 14:41:52 2021 +0200
+
+    bug user create with entrepriseAdresse + sendJustificationAbsenceEtudiant
+
+[33mcommit 1de93ad3b7506d542fa4d9911bf4eeae73b1b828[m
+Merge: b462f99b c7b85331
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 3 14:28:43 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    referent : modification des routes pour les btn dans la liste des devoirs
+    
+    See merge request cda2021/cfa-portal!82
+
+[33mcommit c7b853310976b09de902425702754a2d17d8e7cf[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 3 14:28:25 2021 +0200
+
+    referent : modification des routes pour les btn dans la liste des devoirs
+
+[33mcommit b462f99b4bac8a90ac57eb3b8a49d1276e1537c9[m
+Merge: 0b639536 201b55a9
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Sep 3 12:02:50 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    suite des modif path referent pour les pages details reste les btn à faire
+    
+    See merge request cda2021/cfa-portal!81
+
+[33mcommit 201b55a9d89a609014ea49c6833aca2e03b8c47a[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Sep 3 12:02:03 2021 +0200
+
+    suite des modif path referent pour les pages details reste les btn à faire
+
+[33mcommit 0b639536aaebe0a9b4f769f9a03eb71ea54fef04[m
+Merge: 23bc39c4 80cd9f0a
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Sep 2 17:13:55 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    correction route detail promo / groupe/conge/absence/note dans l'espace referent => Etudiant detail
+    
+    See merge request cda2021/cfa-portal!80
+
+[33mcommit 80cd9f0a1d01522ca57971fee7803e6f7f0be08c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Sep 2 17:13:24 2021 +0200
+
+    correction route detail promo / groupe/conge/absence/note dans l'espace referent => Etudiant detail
+
+[33mcommit 23bc39c49268de093a9f89cae8d0e59fb9a228d6[m
+Merge: 2f80d10a 199f6059
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Sep 2 16:11:04 2021 +0200
+
+    Merge branch 'dev_Nico2' into 'dev'
+    
+    modif etudiant referent
+    
+    See merge request cda2021/cfa-portal!79
+
+[33mcommit 199f60594193aa6e40d091c7fa033bb7ecf64e0b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Sep 2 16:10:02 2021 +0200
+
+    modif etudiant referent
+
+[33mcommit 2f80d10ae1475cb9def83862850f714241f2ea87[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Sep 2 13:05:39 2021 +0200
+
+    update
+
+[33mcommit 09f1694b379ce6e39ad4b88be75dd3fe3dbb64b8[m
+Merge: 42c1be6b fd15bedf
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Sep 2 11:04:00 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    edit formulaire des fiches
+    
+    See merge request cda2021/cfa-portal!78
+
+[33mcommit fd15bedf79d39d37d4346e1774a52f3de93e8069[m[33m ([m[1;31morigin/dev_Nico[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Sep 2 11:03:41 2021 +0200
+
+    edit formulaire des fiches
+
+[33mcommit 3be6229cf55159624f31d7774511bfee79c423c2[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Sep 2 10:58:03 2021 +0200
+
+    update style
+
+[33mcommit 106b9563af016e87682be426b4f9044238b522b5[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Sep 2 10:57:48 2021 +0200
+
+    add new service method
+
+[33mcommit 42c1be6b66257f0b62a0c57c3510655065570f86[m
+Merge: 5d72c1d5 9b3d1dc7
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu Sep 2 10:43:55 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    notes affichage
+    
+    See merge request cda2021/cfa-portal!77
+
+[33mcommit 5d72c1d53ef522fad79256ca90bcd1dd257a2882[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Sep 2 10:42:34 2021 +0200
+
+    etudiant detail -> referent
+
+[33mcommit 9b3d1dc7db3d9b07fb220f21b919df89b4119358[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Sep 2 10:39:17 2021 +0200
+
+    notes affichage
+
+[33mcommit 4bc52e8c1b11452078c0c715ab9c0c3155e678d3[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Sep 2 10:36:54 2021 +0200
+
+    corrections router
+
+[33mcommit cc031e89f466411f92acd5adddb50b2fe57f24bb[m
+Merge: 08b748de 48b8be2c
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Sep 2 10:22:22 2021 +0200
+
+    Merge branch 'espace_formateur' into dev
+
+[33mcommit 48b8be2c9184c7e7cbf907159d7c164834e5195e[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Sep 2 10:21:38 2021 +0200
+
+    changmeents urls router + rangements
+
+[33mcommit 08b748decde01d5a5bbd5110f73f6b1405da4085[m
+Merge: b9c9d8a2 cb8e251c
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Sep 2 09:17:28 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    path referent == admin
+    
+    See merge request cda2021/cfa-portal!76
+
+[33mcommit cb8e251cb9898f64f133dd382fa8b15dc4556ee2[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Sep 2 09:16:58 2021 +0200
+
+    path referent == admin
+
+[33mcommit ce0a48650a7d1154ad1c39ab24016fe0ca4bd4f5[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 17:19:16 2021 +0200
+
+    marge
+
+[33mcommit b9c9d8a2070c4c0e2d72c48e4655a442ca7294fd[m
+Merge: a6c6cdc0 96f03bab
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Sep 1 16:07:37 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Dev nico
+    
+    See merge request cda2021/cfa-portal!75
+
+[33mcommit 96f03bab57534b225b68ac8934680f2289665e5c[m
+Merge: b0f54cdf a6c6cdc0
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Sep 1 16:07:31 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico'
+    
+    # Conflicts:
+    #   cfa-front/src/views/Admin/Crud/Etudiant/EtudiantFicheEntreprise.vue
+    #   cfa-front/src/views/Admin/Crud/Etudiant/EtudiantFichePoste.vue
+    #   cfa-front/src/views/Admin/Crud/Etudiant/EtudiantFicheSalarie.vue
+
+[33mcommit b0f54cdf3dad387b11088d52004303695490e867[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Sep 1 16:06:27 2021 +0200
+
+    modif form fiche entreprise
+
+[33mcommit a6c6cdc0f40c440a400847128c18d89c92e2ec91[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 14:38:37 2021 +0200
+
+    url referent/intervention_detail
+
+[33mcommit c831a57c24f3428b0cbfb19491eabdbdb5eaddae[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 13:54:31 2021 +0200
+
+    promotion + groupes home etudiant
+
+[33mcommit 65858013f00debd650be0f4adc4af6129c769c96[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Sep 1 11:42:07 2021 +0200
+
+    correction crash
+
+[33mcommit d3593796ab7a697397468da029510796220e91de[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 11:38:37 2021 +0200
+
+    comment fiches
+
+[33mcommit 8734182ea62db48e6b4c4873617bb48ada776478[m
+Merge: d85ca60b 334c38bf
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Sep 1 11:32:15 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    FICHE
+    
+    See merge request cda2021/cfa-portal!73
+
+[33mcommit 334c38bf4cb0f445de10354644e75a274c622eb2[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Sep 1 11:31:56 2021 +0200
+
+    FICHE
+
+[33mcommit d85ca60b515b1def032a31a9585fa5f95daf0f9c[m
+Merge: 4b5301be 0e69ab3a
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 11:21:13 2021 +0200
+
+    Merge branch 'demande_conge_ajouts' into dev
+
+[33mcommit 0e69ab3a96ef2fa985d6b8b857036ffeec1863e9[m[33m ([m[1;31morigin/demande_conge_ajouts[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 11:20:29 2021 +0200
+
+    justificatif conge
+
+[33mcommit 4b5301be3a7455c83623710967261b49f29c16e0[m
+Merge: 860c8890 61af9e96
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Sep 1 10:23:13 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout formulaire fiche salarie / poste / entreprise dans détails utilisateur
+    
+    See merge request cda2021/cfa-portal!72
+
+[33mcommit 61af9e960d1d88c1574d328ac0fbd359f7794714[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Sep 1 10:22:40 2021 +0200
+
+    Ajout formulaire fiche salarie / poste / entreprise dans detail utilisateur
+
+[33mcommit e90f556c86967014bb8af1b64fe9d557b66d4ea8[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Sep 1 09:48:36 2021 +0200
+
+    envoie mail ok
+
+[33mcommit 860c8890224b4f570841b318ac25ed2f75eda4a2[m
+Merge: 026cffe4 ac16c6f0
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Aug 31 15:10:16 2021 +0200
+
+    Merge branch 'detail-formation' into dev
+
+[33mcommit ac16c6f00103c67581bd024caf486a64cff13173[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Aug 31 15:09:56 2021 +0200
+
+    bug referentPedagogique fixed
+
+[33mcommit 026cffe41da5ad1ede03ec737e067af738734411[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Aug 31 14:50:16 2021 +0200
+
+    correction
+
+[33mcommit 87ff2fb2fd712c720100ac2ad6c9db3683e52529[m
+Merge: 50c258dc 07da7e08
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Aug 31 14:47:13 2021 +0200
+
+    Merge branch 'utilisateur-admin' into dev
+
+[33mcommit 07da7e0809ff92b37e9a4f6f52b7f955ac686955[m[33m ([m[1;31morigin/utilisateur-admin[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Aug 31 14:46:23 2021 +0200
+
+    user insert ok
+
+[33mcommit 50c258dc96fec9127ce73eb07be782eac16d170a[m
+Merge: f5bebb1d 1866a565
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Aug 31 12:24:59 2021 +0200
+
+    Merge branch 'intervention' into dev
+
+[33mcommit f5bebb1d331bcf310c174e08701131f2e1bef1d6[m
+Merge: 6bd6fe78 dd2123d8
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Aug 31 12:05:27 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    fiche salarié / poste / entreprise
+    
+    See merge request cda2021/cfa-portal!71
+
+[33mcommit dd2123d89862d602b599608aed4d3c3cadb368ec[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Aug 31 12:05:03 2021 +0200
+
+    fiche salarié / poste / entreprise
+
+[33mcommit 1866a565c666aef4805d6cc73388fadb929d467a[m[33m ([m[1;31morigin/intervention[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Aug 31 11:41:38 2021 +0200
+
+    style
+
+[33mcommit 6bd6fe78f30aa34807048c5eee98e8965b880ee8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Aug 31 10:47:43 2021 +0200
+
+    style
+
+[33mcommit 3bb215832be3d860ea110cde1440eb88f4053750[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Aug 31 10:45:59 2021 +0200
+
+    style
+
+[33mcommit 6087474d75c225ab9f95d54cdeb323364bb1f73e[m
+Merge: ebda59a1 b995c330
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Aug 30 15:22:59 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    list exam et devoirs Referent modif et detail en cours
+    
+    See merge request cda2021/cfa-portal!70
+
+[33mcommit b995c330de4ca4157061a68c63b5ab3e4aadfb6b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Aug 30 15:22:44 2021 +0200
+
+    list exam et devoirs Referent modif et detail en cours
+
+[33mcommit ebda59a1d6eeb51f519d23bf72de6578c213de33[m
+Merge: 4f106b00 7fd09003
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Aug 30 14:47:05 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Referent interventions en cours
+    
+    See merge request cda2021/cfa-portal!69
+
+[33mcommit 7fd09003c4795c401428f1f9f1d49c28e825856b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Aug 30 14:46:47 2021 +0200
+
+    Referent interventions en cours
+
+[33mcommit 2b3bc4e0ddf8e7639f390488c845fcfd73b2b5d0[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Aug 30 14:39:56 2021 +0200
+
+    insert user login fail in progress
+
+[33mcommit 4f106b00b2b19842af6005edce3a76fe8e50b0f9[m
+Merge: 387f44ee eabbd3f6
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Aug 30 14:19:10 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    barnav etudiant peda a jour
+    
+    See merge request cda2021/cfa-portal!68
+
+[33mcommit eabbd3f6f776c3619ea3d27192d62c9ada2e4a86[m
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Aug 30 14:18:52 2021 +0200
+
+    barnav etudiant peda a jour
+
+[33mcommit 387f44ee7611f9a444ec71c28d3335dbc363dc9e[m
+Merge: 61132342 6878382d
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Aug 30 09:25:56 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    push pour recup les dernieres modif
+    
+    See merge request cda2021/cfa-portal!67
+
+[33mcommit 6878382deebf3b329cc5200c7cddbb4054e28cb6[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Aug 30 09:25:54 2021 +0200
+
+    push pour recup les dernieres modif
+
+[33mcommit 74a95267d026ae6e92b9f19c4e6208f909eb5eda[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Aug 27 10:57:38 2021 +0200
+
+    catch error insert user same login
+
+[33mcommit 206fb839b3409c0554f0216f1cebfd053d0ffb4c[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Aug 25 10:17:19 2021 +0200
+
+    pagination utilisateur liste ok
+
+[33mcommit ed20ff282310ec9b9e5dd54227a30626d89fa63b[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Aug 24 17:27:58 2021 +0200
+
+    probleme insert utilisateur avec adresse
+
+[33mcommit 3a4db43aa9944b3a98a94a4f39bf7001fbe193c6[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Aug 24 15:27:11 2021 +0200
+
+    tentative localStorage : failed
+
+[33mcommit 6113234203e562c25995bf4d61e9532683d10a32[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Aug 23 10:34:41 2021 +0200
+
+    liste user select role
+
+[33mcommit d81883b51cfd944ff63036db1d22f7c2d597f1f2[m
+Merge: 83c29f3d 018b461e
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Aug 23 09:32:26 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 83c29f3d159b697e8761b6f0fb97df58907c9af9[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Aug 23 09:32:22 2021 +0200
+
+    changement titre modal groupe
+
+[33mcommit 018b461e48b3e73527d68927103cc0a06afaa506[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Aug 9 20:44:34 2021 +0200
+
+    update
+
+[33mcommit 9a18789ad0af6fde2c3fd697309d10e998d85e1e[m
+Merge: aaeaa97c 65d95408
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Aug 9 13:29:37 2021 +0200
+
+    Merge branch '20-contenu-du-detail-d-une-intervention' into dev
+
+[33mcommit 65d95408f6c72a6e89d7d5f49f9a91b081289f68[m[33m ([m[1;31morigin/20-contenu-du-detail-d-une-intervention[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Aug 9 13:13:25 2021 +0200
+
+    update
+
+[33mcommit e6f6335212924c5fddc7e86d8aed07df19c3e6b8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:55:05 2021 +0200
+
+    style
+
+[33mcommit 64b2867aa94a421c9ed065407b1892c14c8f44f0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:54:52 2021 +0200
+
+    Update DetailIntervention.vue
+
+[33mcommit 90896494bdc19aa1f69c8f59c6d0dc65600d7952[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:54:43 2021 +0200
+
+    Update router.js
+
+[33mcommit ad11ae5627078020474d0c0c40ff9b16f5810632[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:54:15 2021 +0200
+
+    style and remove some navigation items
+
+[33mcommit 3d15bea29ccfc090d350eaaee5283dd3c12a0b2b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:53:07 2021 +0200
+
+    script toggle navbar
+
+[33mcommit b2c05b5af19a0c1027a95a23c23b60593b84e6ca[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:52:45 2021 +0200
+
+    add  new navbar to App
+
+[33mcommit 3067b5051522b37db74378de61daf83eefaf295e[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:52:25 2021 +0200
+
+    new navbar
+
+[33mcommit a57772ffd4b61a4220a0f993bc58b2f7a1869022[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:51:32 2021 +0200
+
+    style and design
+
+[33mcommit e9d35d32cf248d70dd9b5884cd4e778f1cdb461d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:51:04 2021 +0200
+
+    Update style.css
+
+[33mcommit dfda967d60a35652aba8cac2aa66869b36076e97[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Aug 6 21:50:39 2021 +0200
+
+    Update utilisateur.api.js
+
+[33mcommit eb584adebffb6e40966f8f69bea2efac461fcdcd[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Aug 5 16:13:47 2021 +0200
+
+    responsive navbar (on stand-by)
+
+[33mcommit ebb4ef6943318676e4947b042ad9e0fcbf854b2a[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Aug 5 16:12:51 2021 +0200
+
+    Update DetailIntervention.vue
+
+[33mcommit 242c8de67943863df169b179cc324fb64c086c74[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Aug 5 16:12:48 2021 +0200
+
+    update design
+
+[33mcommit 2bad3f902a8e647121ad8f236f1af10a2b58e490[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Aug 5 16:12:27 2021 +0200
+
+    update background
+
+[33mcommit 71b7a2b5b11452272720829d88c6daa299d8bd86[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:28:05 2021 +0200
+
+    detail intervention + update style
+
+[33mcommit 4b3b9a5d6123343d27bce76873d356180442c37d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:27:41 2021 +0200
+
+    Update AjoutInterventions.vue
+
+[33mcommit 73e41a2b93199f6b2d3dbeb0f075a7ab048c33c4[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:27:24 2021 +0200
+
+    add service
+
+[33mcommit 5382dfb103cee89d4081e4cbd394fdedb5786a66[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:26:52 2021 +0200
+
+    update disposition block
+
+[33mcommit c45be62c0ec5dfe2fe0f358c113e1696b605b3a4[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:25:43 2021 +0200
+
+    background
+
+[33mcommit a6293a3b48eabd8036c98a8d52254a66996296c0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:25:23 2021 +0200
+
+    Update UserListComponent.vue
+
+[33mcommit ffcbe1b5e27dfd8562ba6c2e1eae3385f093fcdc[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:25:18 2021 +0200
+
+    Update Navbar.vue
+
+[33mcommit c20e98d3458765192da396244c0a25682e302388[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:25:13 2021 +0200
+
+    Update TableTemplate.vue
+
+[33mcommit c3a964c2412dafd5a4592290e10ab8f4b9c2c3bd[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:25:09 2021 +0200
+
+    Update Planning.vue
+
+[33mcommit 1ad4f726d6fb9039d4ac05123c6e93c8ad640b55[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 17:25:03 2021 +0200
+
+    Update PromotionListComponent.vue
+
+[33mcommit 027ae84a68f3492e77368965548b0ca37d4257f4[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:57:28 2021 +0200
+
+    Update router.js
+
+[33mcommit 173aed66aa884a1578f46f500e96cb79486a8776[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:57:21 2021 +0200
+
+    icon + bundle bootstrap
+
+[33mcommit 07ca84af57f4b693242d98316883dd5c94933ecb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:56:54 2021 +0200
+
+    add global style file to main
+
+[33mcommit 67f0448d18424da226b950b8768ba3ddade2f1a8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:56:39 2021 +0200
+
+    update style
+
+[33mcommit a82aa081b825f08a202e009cf349fa8efa44cfee[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:56:22 2021 +0200
+
+    add global style file
+
+[33mcommit 5796f435122c6906344e3ff94062e5d2da13092d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:56:03 2021 +0200
+
+    Update App.vue
+
+[33mcommit d4810a042f57a5497e28b79d580851e657cb71dd[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:55:56 2021 +0200
+
+    Update UserListComponent.vue
+
+[33mcommit 67d3ab0e0ddcf46c91652cfd6a7e981f0e620224[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Aug 4 10:55:41 2021 +0200
+
+    update style
+
+[33mcommit aaeaa97ce3a016d48e3d8e97aaa5745172de04c0[m
+Merge: 0f5c21a0 913d38d2
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Jul 30 15:11:33 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    affichage correct devoir ok
+    
+    See merge request cda2021/cfa-portal!66
+
+[33mcommit 913d38d2f6308eecc33d4822b3a3c5d94b1eac78[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Jul 30 15:10:51 2021 +0200
+
+    affichage correct devoir ok
+
+[33mcommit 0f5c21a0236279b11558665729caa71dcec0b638[m
+Merge: 017ad54a b0d339a6
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jul 30 15:06:49 2021 +0200
+
+    Merge branch '19-promotion-crud' into dev
+
+[33mcommit b0d339a640dbb766f3bff5db5ef1052beaba5820[m[33m ([m[1;31morigin/19-promotion-crud[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jul 30 15:06:29 2021 +0200
+
+    pb avec required
+
+[33mcommit 017ad54a6e6ed99cd13594fbd7f38849606c1470[m
+Merge: 963f37d1 b37b2815
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jul 30 14:46:43 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Projet et Groupe List / create pour le referent + design card et btn
+    
+    See merge request cda2021/cfa-portal!65
+
+[33mcommit b37b2815d1a0e084f2fbd9d697024408fe4dd470[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jul 30 14:46:26 2021 +0200
+
+    Projet et Groupe List / create pour le referent + design card et btn
+
+[33mcommit 963f37d1df2f5bf8dae8ef60e964e9ba7435a57d[m
+Merge: e08d8ef6 5a52be3c
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Jul 30 12:59:29 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    affichage des devoirs
+    
+    See merge request cda2021/cfa-portal!64
+
+[33mcommit 5a52be3c9650868d69f7ee5615eb88ce4ea3ff45[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Jul 30 12:58:41 2021 +0200
+
+    affichage des devoirs
+
+[33mcommit e08d8ef69683adefd44ab4d2f81f207bbbd2ed90[m
+Merge: 65f2cace e0bf56bb
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Fri Jul 30 09:41:13 2021 +0200
+
+    Merge branch 'ali' into 'dev'
+    
+    affichage des notes ok
+    
+    See merge request cda2021/cfa-portal!63
+
+[33mcommit e0bf56bb4b3ca9c409396abb2fed6fc45de1fdee[m[33m ([m[1;31morigin/ali[m[33m)[m
+Author: aatia <aatia@dawan.fr>
+Date:   Fri Jul 30 09:40:47 2021 +0200
+
+    affichage des notes ok
+
+[33mcommit 65f2cace9ad376c43256789961e5db3f06b358a6[m
+Merge: 913e84df 19a76092
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Jul 29 17:07:33 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    grp list / create / delte / REFERENT
+    
+    See merge request cda2021/cfa-portal!62
+
+[33mcommit 19a760920110ee2336041ad4cc2491ef46bd3ba1[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Jul 29 17:01:15 2021 +0200
+
+    grp list / create / delte / REFERENT
+
+[33mcommit 913e84df7da14268d98acb71f8c0adb984c166c5[m
+Merge: d575bcc2 00d8140d
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jul 29 15:40:36 2021 +0200
+
+    Merge branch '19-promotion-crud' into dev
+
+[33mcommit 00d8140da6c54ddba978c0bdc62cbbb1331ac9cc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jul 29 15:40:19 2021 +0200
+
+    pb avec required
+
+[33mcommit d575bcc2c4b433bd414b3dce442d4edf3c8ed6ab[m
+Merge: 9c145301 16d36bbe
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Jul 29 15:28:59 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    modif du referent recuperation des données par rapport à l'etudiant
+    
+    See merge request cda2021/cfa-portal!61
+
+[33mcommit 16d36bbec3d4c49762e23362db7891bbc5ac6a56[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Jul 29 15:28:41 2021 +0200
+
+    modif du referent recuperation des données par rapport à l'etudiant
+
+[33mcommit 9c145301162910ded864fdd6e87f0ec788bb32ea[m
+Merge: dfa2b16d ebac99d2
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu Jul 29 14:23:56 2021 +0200
+
+    Merge branch 'ali' into 'dev'
+    
+    affichage des formations ok
+    
+    See merge request cda2021/cfa-portal!60
+
+[33mcommit ebac99d208d7932f07d5eea245865158a7b55627[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Jul 29 14:22:38 2021 +0200
+
+    affichage des formations ok
+
+[33mcommit 90213460e9c472d6645f2e71fee6f5e789089c0c[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jul 29 14:01:43 2021 +0200
+
+    select centre
+
+[33mcommit a805f9f420b2a800f0c867f5f73bff53d8bb9530[m
+Merge: 32458eb7 dfa2b16d
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Jul 27 16:58:16 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into ali
+
+[33mcommit dfa2b16df64a91e491585ec439a46978be7d0cfc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jul 27 15:36:21 2021 +0200
+
+    oublie btn
+
+[33mcommit 3e94c433f4050ad9917d087ac641a64555a3f646[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jul 27 15:30:18 2021 +0200
+
+    bug affichage user.entreprise.raisonSocial
+
+[33mcommit d2cba9d3f48bd1e062535372edd8db2fa1bf26e2[m
+Merge: 4457478a 53e26655
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jul 27 15:26:26 2021 +0200
+
+    Merge branch '19-promotion-crud' into dev
+
+[33mcommit 53e26655d0142115041a0af4d5097bfd93595244[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jul 27 15:24:46 2021 +0200
+
+    vertical nav bar
+
+[33mcommit 48db2d330a23027904515e80f8f8afe883c703b7[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jul 27 15:22:19 2021 +0200
+
+    promotion detail fonctionnel
+
+[33mcommit 32458eb74c667c10afcc911750ab546d7015aaed[m
+Merge: e2f93ea7 4457478a
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Jul 27 09:32:29 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into ali
+
+[33mcommit aa0d3cf1e64542a5c3446b9b6c45021e26c62cb9[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jul 26 18:11:35 2021 +0200
+
+    input add trainer + update detail
+
+[33mcommit 93423c3bfe326bda4f0e54e425b11c877a696fe3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jul 26 18:10:41 2021 +0200
+
+    modal add trainer
+
+[33mcommit fb920cda2f84d341e01ddfa2e9c76da2a2915d06[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jul 26 18:09:29 2021 +0200
+
+    update modal promo
+
+[33mcommit a0b709111b05211cdb13b766c5f60cf500cb56b7[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jul 26 18:07:59 2021 +0200
+
+    router
+
+[33mcommit 5a6d6bd5217e4544003bb8504010c495c937061d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jul 26 18:07:06 2021 +0200
+
+    update method
+
+[33mcommit 4457478a62bb4352efd9d32057bb4baa80456fc7[m
+Merge: 2b2e8040 7f2f6d3f
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Jul 26 11:55:19 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout et Modif AdresseSiege entreprise réglé
+    
+    See merge request cda2021/cfa-portal!59
+
+[33mcommit 7f2f6d3f72299c6f171c7e8f8ab16424a833cd20[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Jul 26 11:55:02 2021 +0200
+
+    Ajout et Modif AdresseSiege entreprise réglé
+
+[33mcommit 2b2e80409377e2c49b66af4ebf5cc8f1dd556c92[m
+Merge: b82241b9 4b7246c8
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Jul 26 11:14:08 2021 +0200
+
+    Merge branch 'dev_ali' into 'dev'
+    
+    modif navigation etudiant pedagogique
+    
+    See merge request cda2021/cfa-portal!58
+
+[33mcommit 4b7246c870e358f507f46f5551c2694447d44c9f[m
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Jul 26 11:13:18 2021 +0200
+
+    modif navigation etudiant pedagogique
+
+[33mcommit b82241b9dbfc58fdc671727db870bdb5f6e5c972[m
+Merge: 22bce1a5 db737b67
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Jul 26 10:47:17 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout adresse entreprise dans la liste des entreprises
+    
+    See merge request cda2021/cfa-portal!57
+
+[33mcommit db737b670fd94685bb260271dae5411c6d141f94[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Jul 26 10:46:39 2021 +0200
+
+    ajout adresse entreprise dans la liste des entreprises
+
+[33mcommit 22bce1a50d28fb66ac89da50154da32ce732b10d[m
+Merge: 0ca43c06 fb2d3f21
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jul 2 16:17:24 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout du Roles dans la liste/creation/edit d'un utilisateur
+    
+    See merge request cda2021/cfa-portal!56
+
+[33mcommit fb2d3f2170d68bda017068ad2cb537bb53315954[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jul 2 16:17:05 2021 +0200
+
+    Ajout du Roles dans la liste/creation/edit d'un utilisateur
+
+[33mcommit 0ca43c067a661b299d7d06f0bef7d1b1b206f856[m
+Merge: 20f57023 a3b66776
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jul 2 13:53:44 2021 +0200
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit 20f570233dae6e28de6a501865581dec2e65afef[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jul 2 13:53:30 2021 +0200
+
+    update
+
+[33mcommit a3b667762c845d1b74332b306a6a5b1eaec6427a[m
+Merge: 90dc8698 e9cc8348
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jul 2 10:15:18 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Dev nico
+    
+    See merge request cda2021/cfa-portal!55
+
+[33mcommit e9cc83485696c5a5d4bbefada47bef32e1bbda6c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jul 2 10:15:00 2021 +0200
+
+    Ajout adresse et entreprise dans creation user, details et Edit
+
+[33mcommit d741d07c0041f382e9b8f03565b02b843f32f7c8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jul 1 17:26:06 2021 +0200
+
+    remove sortable options field
+
+[33mcommit d987685ce08e71fc0c6183aebc477bddc8f8450d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jul 1 10:13:28 2021 +0200
+
+    promo create en cours
+
+[33mcommit 6c9cce5e502839f211ee354581d22a2c81f4027a[m
+Merge: 64098d59 868d8b5d
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 15:42:29 2021 +0200
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit 64098d5930ae279927985c2ebea0bbd89b435139[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 15:42:22 2021 +0200
+
+    Update router.js
+
+[33mcommit 868d8b5d475c7b19b8349c09526847a26d791e0c[m
+Merge: 96630a4d 0260b597
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Jun 30 15:28:32 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout user, ajout de l'adresse et de l'entreprise
+    
+    See merge request cda2021/cfa-portal!55
+
+[33mcommit 0260b597f93259f9b6f3bf6cabe3b381d581c876[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 30 15:28:09 2021 +0200
+
+    Ajout user, ajout de l'adresse et de l'entreprise
+
+[33mcommit 96630a4dc31edee26ca46ffc6bf449d0a673c944[m
+Merge: 90dc8698 858796d4
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:48:17 2021 +0200
+
+    Merge branch 'modifier-formulaire-formation' into dev
+
+[33mcommit 858796d42614375178ccb942c33444948a23db1e[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:41:38 2021 +0200
+
+    intervention + formation detail OK
+
+[33mcommit 27fd43129712ae2adb790a22dd955e214b1ec498[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:41:14 2021 +0200
+
+    intervention + formation form OK
+
+[33mcommit 6b5977557edc5228001cca44b1e14bb2da65db5b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:40:33 2021 +0200
+
+    Update router.js
+
+[33mcommit 202eef263208b83dc10cdba9dc169c1d82f419e0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:40:03 2021 +0200
+
+    change requirement prop + style
+
+[33mcommit 9e7e103066dbc587c8b2219fdf7df1d8dd1e39fc[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:39:17 2021 +0200
+
+    update style
+
+[33mcommit 299879dbc12e4bba1e7baf056d7d3f0bc729a241[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 30 14:37:51 2021 +0200
+
+    replacing on unexisting method from the service + style
+
+[33mcommit 74be8c3a98f63d597e689a78eb748fb4a21fe32a[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 30 14:11:12 2021 +0200
+
+    promotion detail ok
+
+[33mcommit 90dc8698a3f3561fb71b670198cdfaaa0a518f67[m
+Merge: 6f59a4d4 8cad8a70
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 30 10:20:42 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 6f59a4d439b28470c8c5334b345dd62afef6eac4[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 30 10:20:33 2021 +0200
+
+    merge
+
+[33mcommit b1ae28b99715de2f7c7b112568ca9dcc2235bf2c[m
+Merge: 8c1d424c a99689d2
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 30 10:20:27 2021 +0200
+
+    Merge branch 'crud_note_projet_groupe' into dev
+
+[33mcommit 8cad8a70cd40f2fb5fab5df5f1401d86f412ecfd[m
+Merge: 8c1d424c 3984f4c8
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Jun 30 10:09:04 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    modif component/ vue cursus et design
+    
+    See merge request cda2021/cfa-portal!54
+
+[33mcommit 3984f4c8cdc178b82813d830417ee1431ad2babf[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 30 10:08:52 2021 +0200
+
+    modif component/ vue cursus et design
+
+[33mcommit a99689d27d1b66eee4e21b4c0e9841e8a7915191[m[33m ([m[1;31morigin/crud_note_projet_groupe[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 30 10:00:38 2021 +0200
+
+    etudiant detail ok
+
+[33mcommit 19644e579e11b0282264ebe57a3c16615f7bf7ac[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 29 22:57:15 2021 +0200
+
+    add method
+
+[33mcommit ceedffe87c05141737d0dc0d7c69ceda44a7b5dc[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 29 22:56:48 2021 +0200
+
+    update dependencies
+
+[33mcommit 8c1d424cdcda7a1b549001331ebf5c69131b47cd[m
+Merge: ada7c25e 9845b8d9
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 29 16:45:24 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout de filtre pour la recherche referent
+    
+    See merge request cda2021/cfa-portal!53
+
+[33mcommit 9845b8d9fb92feb010ba5c0bc72b7673bb29ef01[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 29 16:45:08 2021 +0200
+
+    ajout de filtre pour la recherche referent
+
+[33mcommit 81e612eb47563b03ef90477effa4c563ac8ef804[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 29 16:42:33 2021 +0200
+
+    note ok
+
+[33mcommit 8483f34690a27faacc8ec69a936847f7210cb052[m[33m ([m[1;31morigin/modifier-formulaire-formation[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 29 15:48:29 2021 +0200
+
+    remove unused import
+
+[33mcommit cb9c60b1c84430ada072284e940c853059fadd6e[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 29 15:47:17 2021 +0200
+
+    update  dependencies / fix audit
+
+[33mcommit e2f93ea7cea3036f85e37ee65fa139b9bd736da5[m
+Merge: ca25663b ada7c25e
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Jun 29 15:34:25 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into ali
+
+[33mcommit ca25663ba4b7b01d0eda1dae6c18692a7f769888[m
+Author: aatia <aatia@dawan.fr>
+Date:   Tue Jun 29 15:34:14 2021 +0200
+
+    jsp
+
+[33mcommit a0597f39144c9d421cf2bcc1ef472ef5fcc0132c[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 29 14:51:48 2021 +0200
+
+    etudiant detail note en cours
+
+[33mcommit 90cfc15ceda71c91f18b6a31875fe5f9ba1b19f6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 29 12:17:57 2021 +0200
+
+    modal add promotions
+
+[33mcommit 1a7d4d48d96441665a2dacf4be70a39f8e525646[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 29 12:17:02 2021 +0200
+
+    update formation form
+
+[33mcommit 8b54d0d9594e13739cd352043abdc3b0e1e7183e[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 29 10:24:01 2021 +0200
+
+    onglet ok
+
+[33mcommit 9395f2744e133b2bf26861e6cbe2d1c3451687d2[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 29 09:34:26 2021 +0200
+
+    etudiant detail en cours
+
+[33mcommit 897985185849d3717d9f0fefd836b195b2f3d964[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 28 16:54:51 2021 +0200
+
+    etudiant detail en cours
+
+[33mcommit ac65f496f752aa9977d31231eb469207e97e9c59[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 28 11:57:17 2021 +0200
+
+    add jquery to main
+
+[33mcommit a2165d25c65ab8b1a73678d43fdafdb87798d448[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 28 11:56:56 2021 +0200
+
+    jquery dependencie
+
+[33mcommit ada7c25eab8c00591dd0a26d7f8af351668915cf[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 28 09:12:03 2021 +0200
+
+    projet from required
+
+[33mcommit 33521e3f67718429c8c88dfe28a65ebf2f72ffe3[m
+Merge: 3a7ebf17 b88a5b6d
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 25 16:08:53 2021 +0200
+
+    Merge branch 'crud_note_projet_groupe' into dev
+
+[33mcommit b88a5b6dcd252b715abf7668f6919bf2cbbdcb73[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 25 16:02:12 2021 +0200
+
+    groupe ok login ok
+
+[33mcommit 3a7ebf17740eee7e691dea5dac0b8735aee8bc7a[m
+Merge: e08008d0 ea520672
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jun 25 09:01:27 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    test v-if menu
+    
+    See merge request cda2021/cfa-portal!52
+
+[33mcommit ea520672420c1a4395231fa642e9b7c3802a3579[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jun 25 09:01:09 2021 +0200
+
+    test v-if menu
+
+[33mcommit 7c1f4f259ad43aec16c708ad0bcda9b8bb4c9edc[m[33m ([m[1;31morigin/18-absences[m[33m)[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:42:34 2021 +0200
+
+    update fields
+
+[33mcommit 577dc39a2e9a5f013fc0551f327f88d4ef8fface[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:42:24 2021 +0200
+
+    update count method
+
+[33mcommit 969824f5bbe3a8554d6f1a8ff9ee68b99979a587[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:42:04 2021 +0200
+
+    update route link
+
+[33mcommit 9ad96559a98c07f43e5db3468c70df35e71bb32a[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:41:51 2021 +0200
+
+    absence list + search absences
+
+[33mcommit 5da0dd4f546fe79d1b08bb0d8f4c004a0b031964[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:40:56 2021 +0200
+
+    Update filters.js
+
+[33mcommit 22e6d530b0e77f6cb3fc8020df54811cebfa73ed[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:40:50 2021 +0200
+
+    upddate absence service methods
+
+[33mcommit ffcc0529dc7b7da8c3d8b49a9f0485c13f039e07[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:40:18 2021 +0200
+
+    admin absences
+
+[33mcommit 1458902db874118c4ca373f7d2180c0e1c966a75[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 24 14:40:03 2021 +0200
+
+    add slot
+
+[33mcommit 89d750866db55eef95c1498e13b69409c71e4823[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 23 10:43:00 2021 +0200
+
+    projet Detail ok
+
+[33mcommit e08008d0cb1ac2ac891f51cddd00b6d7bb5197c2[m
+Merge: 86e623ab 81bf1cd6
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 22 17:07:17 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    test
+    
+    See merge request cda2021/cfa-portal!51
+
+[33mcommit 81bf1cd69d0118039421edd043595ec776561209[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 22 17:06:56 2021 +0200
+
+    test
+
+[33mcommit 3f1737b843bd243533c500604fc4ce4c3d82b720[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 22 16:10:07 2021 +0200
+
+    projet ok
+
+[33mcommit 86e623ab87420474bd2338df610f8545ee873ad8[m
+Merge: 21fe6b6f a19eae0d
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 22 12:11:47 2021 +0200
+
+    Merge branch 'dev' of gitlab.dawan.fr:cda2021/cfa-portal into dev
+
+[33mcommit 21fe6b6faac207a19c401f84fd95ca3d2e9801b0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 22 12:11:12 2021 +0200
+
+    update
+
+[33mcommit 071bf11f6192aa5e689c765ab38fa7c1099c6f57[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 22 11:31:49 2021 +0200
+
+    avant commit
+
+[33mcommit a19eae0da9f9c5bce3f3c78591eb3170c9e0af0f[m
+Merge: c42b266e 9029b9b4
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 22 11:13:35 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    navigation modif
+    
+    See merge request cda2021/cfa-portal!50
+
+[33mcommit 9029b9b4572468fecd0a8e03587647add65b346e[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 22 11:13:21 2021 +0200
+
+    navigation modif
+
+[33mcommit c42b266ed7a2262846527c3438876d4a6245fee7[m
+Merge: e30a5548 b78e454a
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 22 09:58:19 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout component list User et Promotion
+    
+    See merge request cda2021/cfa-portal!49
+
+[33mcommit b78e454a13ae8f12dd67fa0ba26a0c1901b88f7b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 22 09:58:06 2021 +0200
+
+    ajout component list User et Promotion
+
+[33mcommit e30a5548162776b7de8ad88d92653cd08dfb7b04[m
+Merge: 090f62dd ed55e3a1
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 22 09:43:02 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout component list Entreprise et Adresse
+    
+    See merge request cda2021/cfa-portal!48
+
+[33mcommit ed55e3a139508ea81821274b0c080f74784e0f35[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 22 09:42:49 2021 +0200
+
+    ajout component list Entreprise et Adresse
+
+[33mcommit 090f62dd854e59bc9658229d603b4edf8ec495ca[m
+Merge: 6b55da73 18647b34
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Jun 21 16:57:58 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    pop avant suppression
+    
+    See merge request cda2021/cfa-portal!47
+
+[33mcommit 18647b34659de6c5baf72d1b9772d6b3623ee1f6[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Jun 21 16:57:34 2021 +0200
+
+    pop avant suppression
+
+[33mcommit 6b55da730e94468812ac7a18080a9fb4a38fe763[m
+Merge: 5ec065a7 0918f8c2
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:49:46 2021 +0200
+
+    Merge branch '17-etudiant' into dev
+
+[33mcommit 0918f8c2569e02c2301ac56bf18d75ce3c7dbd3f[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:49:09 2021 +0200
+
+    etudiant list + search etudiant
+
+[33mcommit 252275573391980f190d95ce6ca1973ad63a3f68[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:48:44 2021 +0200
+
+    add scoped slot for etudiant
+
+[33mcommit 5086dc190532c18fbe98adbc9b6b362c618cd6b9[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:48:05 2021 +0200
+
+    update url path name for etudiant
+
+[33mcommit ddd8638a34e976c54c61f97bd936015aeb8297d0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:47:09 2021 +0200
+
+    etudiant route
+
+[33mcommit 7525fb0bc4491e69df4e2cf95b5eccfafa083e8b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:45:08 2021 +0200
+
+    update etudiant field text
+
+[33mcommit 759febb768e39302dfeac186038875e01f91a470[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 16:44:32 2021 +0200
+
+    create filter to get full address and fullname
+
+[33mcommit 5ec065a77f5051a7920017acdd8ee3ede981d226[m
+Merge: 7992eb3d 4a2b7211
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Jun 21 15:21:29 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Modif de navigation pages Referent
+    
+    See merge request cda2021/cfa-portal!46
+
+[33mcommit 4a2b721143834a914bf1fcccbe0725a67ed774d4[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Jun 21 15:21:11 2021 +0200
+
+    Modif de navigation pages Referent
+
+[33mcommit 7992eb3d2c65211ee6c491b806daebe1ad2306da[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 13:57:49 2021 +0200
+
+    remove duplicate route
+
+[33mcommit dd2c7a3ebe80c99e51ecd79fe31385d631cf40c4[m
+Merge: 5b128221 495a459f
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 13:55:05 2021 +0200
+
+    Merge branch 'dev_kanha_formateur_cours' into dev
+
+[33mcommit 495a459fea70a84834e448b03a758f4c59b1815d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 13:34:01 2021 +0200
+
+    formateur intervention list + search formation
+
+[33mcommit ac0c7aa3d4b77e32d2b94fba7a9f45e2d08cd4e8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 13:29:35 2021 +0200
+
+    add link for formateur intervention
+
+[33mcommit d0ba17b45fbddfaa98da6e63ad671440f11a7b1b[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 13:27:58 2021 +0200
+
+    update router
+
+[33mcommit 58860ff3ec11ceae2eb3d98fb9f6f5395a0e3082[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 21 13:26:15 2021 +0200
+
+    formateur api
+
+[33mcommit 5b1282214ed364dc5bbad52936ca76d8be95542e[m
+Merge: d75a1662 19d3bae7
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 21 10:47:49 2021 +0200
+
+    Merge branch 'crud_note_projet_groupe' into dev
+
+[33mcommit 19d3bae75d9e8734e39db19e7786be393348dd01[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 21 10:39:53 2021 +0200
+
+    file.api.js
+
+[33mcommit d75a1662cb9cd3bb2b2bbe981db3b09f5ea5511d[m
+Merge: 4870e0ff 691d8775
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Mon Jun 21 09:50:19 2021 +0200
+
+    Merge branch 'ali' into 'dev'
+    
+    Absences presque ok , manque l'envoie de fichier
+    
+    See merge request cda2021/cfa-portal!45
+
+[33mcommit 691d87753f56a756cef4b74702cb12f826647663[m
+Author: aatia <aatia@dawan.fr>
+Date:   Mon Jun 21 09:49:03 2021 +0200
+
+    Absences presque ok , manque l'envoie de fichier
+
+[33mcommit 4870e0ff4a2a97d1d037ebf649aea23718bd93ec[m
+Merge: b08a3a9c 1313ac17
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Jun 21 09:45:26 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Crud Cursus
+    
+    See merge request cda2021/cfa-portal!44
+
+[33mcommit 1313ac17f60dbe20f91aecb16f9447e122ce81b0[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Jun 21 09:45:13 2021 +0200
+
+    Crud Cursus
+
+[33mcommit 4f280537effff5fd0183d03167086881a6caad23[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 21 09:42:58 2021 +0200
+
+    crud projet en cours
+
+[33mcommit b08a3a9c706fd03cf03c8b6ff481b09b50ed6c59[m
+Merge: cb6197d0 fc854819
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 15:12:53 2021 +0200
+
+    Merge branch '16-search-formation' into dev
+
+[33mcommit cb6197d0910d7bbb4de33a14746cddd7e6b17924[m
+Merge: 8fdfbbd6 67de0fc1
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jun 18 14:53:10 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    modif crud entreprise
+    
+    See merge request cda2021/cfa-portal!43
+
+[33mcommit 67de0fc1df08478b6dde39a1df122c72d9339cfb[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jun 18 14:52:51 2021 +0200
+
+    modif crud entreprise
+
+[33mcommit 8fdfbbd64055b74fa96fbdc4ce018399307dec98[m
+Merge: be2b75b0 df567bf4
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jun 18 12:06:28 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    crud promotion corrections
+    
+    See merge request cda2021/cfa-portal!42
+
+[33mcommit df567bf4a6650fcd758751bb8fa9c837f8e07f73[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jun 18 12:06:14 2021 +0200
+
+    crud promotion corrections
+
+[33mcommit fc8548192d82765bc53644d2d568da07a21a0395[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 11:41:57 2021 +0200
+
+    clean code
+
+[33mcommit 5c70fcd2b9d25c76acac54b95e36bee1a5eb0963[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 11:41:03 2021 +0200
+
+    search formation ok
+
+[33mcommit a8af726a2c49309c3d86d15ab23dc08fa53e967f[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 11:22:49 2021 +0200
+
+    clean code
+
+[33mcommit 8ea3a760b028a9cc2bb65950c0bbabab3cf63fcc[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 11:20:35 2021 +0200
+
+    style: remove cancel button
+
+[33mcommit d03625f5c0012006f2cff1deaf84d466d842cb62[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 11:19:19 2021 +0200
+
+    correction of misspelling about promotionApi import
+
+[33mcommit f37fd59f1a4a45d3147e40ee6c757b07df32c443[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Fri Jun 18 11:16:04 2021 +0200
+
+    clean unsuse and duplicate methods + rearrangement code for formation.api
+
+[33mcommit be2b75b0b6043b27d550d5e5a4d1dfaab7514dfa[m
+Merge: 7fdcf5f3 29951139
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jun 18 10:07:37 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Crud Entreprise
+    
+    See merge request cda2021/cfa-portal!41
+
+[33mcommit 29951139797517f89929058b7f73558bf4a6725e[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jun 18 10:07:19 2021 +0200
+
+    Crud Entreprise
+
+[33mcommit d594f9ab408500c2d5d1a06630d2dc28316672b9[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 18 09:45:35 2021 +0200
+
+    crud passage examen ok
+
+[33mcommit 403011e1befbd825f2c8383d5a4562d7885c8793[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 18 09:07:41 2021 +0200
+
+    crud note ok
+
+[33mcommit 592797ccc4d31b482ab28d7d8b60b8101d2b55ef[m
+Merge: 7fdcf5f3 23d75f04
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 17:15:02 2021 +0200
+
+    Merge branch 'dev_kanha_formateur_cours' into 16-search-formation
+
+[33mcommit 23d75f045d3497c6703530a8e96b7910c76878e7[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:53:19 2021 +0200
+
+    search formation in progress
+
+[33mcommit 88a7be1f8c9a2873b89848cb9983425ea8cc5892[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:52:21 2021 +0200
+
+    search intervention OK
+
+[33mcommit 04fb6a9948cb8fccbe23d9abd9f17b3dcc2a1fc1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:49:16 2021 +0200
+
+    add search bar and make it fonctionnal(not 100% fonctionnal for all)
+
+[33mcommit ba67e290a47e4ef06f066d9dc8d75ef9061894a1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:47:22 2021 +0200
+
+    update url link (stand by)
+
+[33mcommit f38d0492318a69d31f4c5b5113e076ab8f5f5a83[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:46:25 2021 +0200
+
+    update url link for admin dashboard (stand by)
+
+[33mcommit 7fdcf5f33eb0112ce8d8c74456b832165dfabe54[m
+Merge: 77028a89 48ebf6f7
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu Jun 17 16:44:44 2021 +0200
+
+    Merge branch 'ali' into 'dev'
+    
+    affichage des absences ok , a faire envoyer justifiatif
+    
+    See merge request cda2021/cfa-portal!40
+
+[33mcommit d51908a8557823a654afdbc75edbb6099a05e8ba[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:44:38 2021 +0200
+
+    get comment
+
+[33mcommit 48ebf6f76052a7ef31fb8d25c9b3e6326497a8de[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Jun 17 16:44:25 2021 +0200
+
+    affichage des absences ok , a faire envoyer justifiatif
+
+[33mcommit c562aaa2c6eea4f3c21303c6440fc17e690e74ec[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 17 16:42:32 2021 +0200
+
+    update method getIntervention
+
+[33mcommit 2cd179b4642d55b83f01b99366a3127d4f7a1611[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jun 17 15:58:10 2021 +0200
+
+    create notes en cours
+
+[33mcommit 77028a898adc49319499b3cea2a1ad113c76981c[m
+Merge: c7d801c3 0e45d015
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Jun 17 14:40:31 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Crud Adresse
+    
+    See merge request cda2021/cfa-portal!38
+
+[33mcommit 0e45d0156e64f229380b56acf6f2c3564a8eb758[m
+Merge: 469aa011 c7d801c3
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Jun 17 14:40:25 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico'
+    
+    # Conflicts:
+    #   cfa-front/src/components/Navigation/VerticalNavbar.vue
+    #   cfa-front/src/router/router.js
+
+[33mcommit c7d801c352bfd0ef6ac83fc49d4ceaaa99855f9a[m
+Merge: dd3d9399 72aa2993
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu Jun 17 14:33:55 2021 +0200
+
+    Merge branch 'ali' into 'dev'
+    
+    etudiant peda liste absences et notes , devoirs en cours
+    
+    See merge request cda2021/cfa-portal!39
+
+[33mcommit 72aa29931b144ba98af56eefea15f5347605533a[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu Jun 17 14:33:39 2021 +0200
+
+    etudiant peda liste absences et notes , devoirs en cours
+
+[33mcommit 469aa0118e3fb569081153ced72900f09fd64fe6[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Jun 17 14:32:39 2021 +0200
+
+    Crud Adresse
+
+[33mcommit dd3d93997e65a73040d4b383f0f76f93aedd4be5[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jun 17 12:33:57 2021 +0200
+
+    correction intervention api
+
+[33mcommit 23da287ca980c57c26404c5a99e75c8c46ba2134[m
+Merge: 00c0fbe2 7976e5db
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jun 17 12:26:28 2021 +0200
+
+    Merge branch '15-crud-conge-devoir-exam' into dev
+
+[33mcommit 7976e5db06cc938464333aa5dc1a5c649dc38db0[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu Jun 17 11:56:15 2021 +0200
+
+    crud devoir ok
+
+[33mcommit 00c0fbe2628e050f1ba516fb8aa028c7c24c8490[m
+Merge: e92f9d69 45e6a7c8
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu Jun 17 09:53:48 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    test promo crud
+    
+    See merge request cda2021/cfa-portal!37
+
+[33mcommit 45e6a7c8e040d73b6a12f4fbd5d44ea2187ca390[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu Jun 17 09:53:01 2021 +0200
+
+    test promo crud
+
+[33mcommit b9d64256b17a09f16d9437e0b7532f62e798a5eb[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 16 17:16:51 2021 +0200
+
+    examen crud ok
+
+[33mcommit e92f9d69858a610ee2acf64538bc6dab2d24f994[m
+Merge: 90073899 a9b6df63
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Jun 16 16:37:08 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Admin Promo list
+    
+    See merge request cda2021/cfa-portal!36
+
+[33mcommit a9b6df637339c36a55c9931b2cd841f02b1c704e[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 16 16:36:54 2021 +0200
+
+    Admin Promo list
+
+[33mcommit 900738999c4e982022e291e5eb21587078587ef7[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 16 15:52:44 2021 +0200
+
+    Crud User
+
+[33mcommit f35a3a35b1e5ef0ad902ce02640b431bab4c4e85[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 16 15:28:13 2021 +0200
+
+    listComponent ok
+
+[33mcommit 8457e304e93b1aef1cf3b0ef423e8d867978087f[m
+Merge: 702ea6d4 22742f7c
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 16 09:48:00 2021 +0200
+
+    resolution conflits
+
+[33mcommit c8abb8d964d0e85b54d89a612fd4299f7f758756[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 16 09:41:46 2021 +0200
+
+    list examen ok
+
+[33mcommit 3b129430faef7c71d1de705d5d71cb09a3f46725[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 16 09:29:57 2021 +0200
+
+    examen list
+
+[33mcommit 22742f7cbd0ce4fc0044c7b20ae0b54ee5c03209[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 16 09:23:05 2021 +0200
+
+    List User Admin
+
+[33mcommit 323429435f11c2812fc393d0d515ef649b13ec8d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:24:37 2021 +0200
+
+    Update AjoutInterventions.vue
+
+[33mcommit a6a131b8b712c7b2a90473172ad574ffdfc5da16[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:24:33 2021 +0200
+
+    Update UpdateIntervention.vue
+
+[33mcommit 5e4b0a01532fde85c9efad03008118f913afad51[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:24:27 2021 +0200
+
+    Update AjoutFormation.vue
+
+[33mcommit 253e70a9d1fd2b3258931ac044a983b6a37b45f5[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:24:12 2021 +0200
+
+    Update router.js
+
+[33mcommit 5f7610f9eb378795e5412b4e9b5063186a4598a1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:24:06 2021 +0200
+
+    Update list + fill list per page
+
+[33mcommit a0f87812c2e08eead8715d6921e819c464fb8317[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:23:21 2021 +0200
+
+    update pagination template + add props
+
+[33mcommit 475fc55f9818776f296ec4bea8085fbba67c87ee[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:22:40 2021 +0200
+
+    Update App.vue
+
+[33mcommit 7a637623dc2c94bfc9948bbeecdfbac547f3bc98[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:22:35 2021 +0200
+
+    Update formation.api.js
+
+[33mcommit 780ad66282cd32e0788e9fde6f0b6007f8e8134c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 17:22:05 2021 +0200
+
+    dependencies
+
+[33mcommit 702ea6d4ee4d8b668d750b82002ceec24ab73ed7[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 17:11:53 2021 +0200
+
+    correction interventions.api.js
+
+[33mcommit bd292152398f6dd97025877e57551c1a9a90fbab[m
+Merge: 17165cc5 dcee5c42
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 17:05:49 2021 +0200
+
+    Merge branch '15-crud-conge-devoir-exam' into dev
+
+[33mcommit dcee5c42ac37bd4a3d8d5e94102f0b650bbde40d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 17:05:39 2021 +0200
+
+    conge adminok, api.js correction
+
+[33mcommit 77d50c2b7365ebc0373f09b06cc6a95ffa7ed536[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 14:14:20 2021 +0200
+
+    conge- create
+
+[33mcommit 8bb068ebd63ace05beecd5caf43ec6cc11e38f67[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:38:51 2021 +0200
+
+    delete files
+
+[33mcommit 17165cc56aac1e84079924b62fb136417bac58c2[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:34:55 2021 +0200
+
+    delete fichier inutile
+
+[33mcommit 58357099552398dec3c939f6cfb4bf5842c0e88d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:33:45 2021 +0200
+
+    correction
+
+[33mcommit 8a697b68c575336ec99661cd9c72e5690280a851[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:33:31 2021 +0200
+
+    correction
+
+[33mcommit 8fe0674ff576a5693acf64930a8a95551633fc4f[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:28:57 2021 +0200
+
+    correction navbar
+
+[33mcommit fe31292e31753e31881ef7f9d1a70248bf8ab9bc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:25:34 2021 +0200
+
+    correctif
+
+[33mcommit 97f4bfea9d3e8230e0b017aeda9d06345bb54f03[m
+Merge: e7f0001d 8f8dbc89
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:23:08 2021 +0200
+
+    Merge branch '15-crud-conge-devoir-exam' into dev
+
+[33mcommit 8f8dbc894fa9859ef6c788eae69e80799dd067f9[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 12:22:08 2021 +0200
+
+    refonte api.js
+
+[33mcommit e7f0001db8fb35fa75e8716c068447cb71da3fc0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 12:14:56 2021 +0200
+
+    resolve conflict
+
+[33mcommit 64c87f781d3856dfe03e1cccff7627e3af521997[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 12:09:40 2021 +0200
+
+    resolve conflict from merge
+
+[33mcommit 71612c3c74026740e03e5b6bd896d2afd09f97d8[m
+Merge: 81876a4d 6600a985
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:59:36 2021 +0200
+
+    Merge branch 'dev_kanha_formateur_cours' into dev
+
+[33mcommit a01f5c6543fdcff3f3b6848fa9f320eba9365ff1[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue Jun 15 11:49:43 2021 +0200
+
+    conge list ok
+
+[33mcommit 6600a985b35a12eb89af48b0dbe786c2bf580430[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:47:28 2021 +0200
+
+    Update intervention form
+
+[33mcommit 6909eaf461f8e089feb2d75b5db21a5789bf74a8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:46:50 2021 +0200
+
+    formation form + formation list + formation detail
+
+[33mcommit 5510830452b1aead66247aed59798e1f7b5e5c6a[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:45:31 2021 +0200
+
+    intervention form + intervention list + intervention detail
+
+[33mcommit 3d2ff98aab9fa4f49ae8797be5099c8bb7532ca7[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:42:53 2021 +0200
+
+    update
+
+[33mcommit 89a21f7b5f21d25d44e6171c06b16792767b5752[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:42:22 2021 +0200
+
+    moving files to folder Intervention
+
+[33mcommit 6a99f5babf506d661c1782b3eac25c72fb4aa705[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:35:16 2021 +0200
+
+    update template
+
+[33mcommit a41caccd87c80c673ab12464841c3bc215cbd3fb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:34:55 2021 +0200
+
+    add routes
+
+[33mcommit b7941d0b47446fdcf7752a0e0fe22eeb2ee09ac1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:34:34 2021 +0200
+
+    formation service + add method in intervention service
+
+[33mcommit b52c67a2fcf233245839e93672c38985325073b3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue Jun 15 11:33:24 2021 +0200
+
+    update field
+
+[33mcommit 81876a4dd187fab9d88ebf5d6c56fb741ef6b655[m
+Merge: 38d20d80 d4c47666
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon Jun 14 15:52:00 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    modif requete axios pour recup les listes
+    
+    See merge request cda2021/cfa-portal!33
+
+[33mcommit d4c47666b402693060ca5f42c37ac6fce7f6d64c[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon Jun 14 15:51:44 2021 +0200
+
+    modif requete axios pour recup les listes
+
+[33mcommit c04bff592118cb665ebc82f6a422dfec7189cd26[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 15:01:35 2021 +0200
+
+    vue congelist
+
+[33mcommit fbecdbcd67504dc03abf9e933740b1a7c1bfd56f[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 11:51:25 2021 +0200
+
+    delete _entities
+
+[33mcommit 38d20d8060a71324fc0a2deedcc740870a70af65[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 11:51:03 2021 +0200
+
+    delete _entities
+
+[33mcommit ce591310dba47e35f1afde82d3784e58c41474bf[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 11:06:16 2021 +0200
+
+    if referent
+
+[33mcommit b70f9b92537d4e4a72f299dd63a6c0b76ea47853[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 11:05:27 2021 +0200
+
+    api?js update
+
+[33mcommit 324ceb5013c53d34ea6e9dd6668f572cdebf9ba0[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 10:14:07 2021 +0200
+
+    constantes.url
+
+[33mcommit fecf7f8460bf02558e707906214f4dd132d66897[m
+Merge: 5efa4918 98417eb7
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 10:09:49 2021 +0200
+
+    Merge branch '14-login' into dev
+
+[33mcommit 98417eb74891941e4a70f65654c6bcb53b62f5bd[m[33m ([m[1;31morigin/14-login[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 14 09:29:23 2021 +0200
+
+    requestOptions.headers()
+
+[33mcommit b6f14afd804c70335ce813d9fd14ce080dfed0f4[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 11 15:23:43 2021 +0200
+
+    btn logout
+
+[33mcommit 95531cfbb9763f6ce992212fb293b6c30e92c884[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 11 14:55:49 2021 +0200
+
+    redirection role ok
+
+[33mcommit fb6c27ebeb9130e61d068ed677202fb5f662ca0a[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 11 14:41:11 2021 +0200
+
+    isLoggIn redirect ok
+
+[33mcommit 150ac56f716ba57e558fa8298147d11d377ab1dc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri Jun 11 14:23:10 2021 +0200
+
+    store modules ok
+
+[33mcommit 5efa4918e942fe7c88f22e9974467710d9c8eae6[m
+Merge: 932bc169 517020f4
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Jun 11 13:47:09 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    entities / _api
+    
+    See merge request cda2021/cfa-portal!32
+
+[33mcommit 517020f467c32208a2c989c9ea21fcb25cc25034[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Jun 11 13:46:47 2021 +0200
+
+    entities / _api
+
+[33mcommit a73ffbd9fd582e0b7542184e8b4c961942ee456c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 10 15:18:37 2021 +0200
+
+    update
+
+[33mcommit 6c9f1a738401edad5959db402871386249d30461[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 10 15:08:37 2021 +0200
+
+    update
+
+[33mcommit e1333f171b25d4a8f5ffa78dd2b712e0193e1701[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 10 15:07:13 2021 +0200
+
+    update
+
+[33mcommit 5076c06f63394c13d234767f7bf29bb129c0ae0a[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 10 15:05:44 2021 +0200
+
+    insert intervention function
+
+[33mcommit 36eeb4e8e95049dc5b4844eae0b2c8a7ff546f76[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu Jun 10 15:04:26 2021 +0200
+
+    add formation form + formation list
+
+[33mcommit b247e19a2d280419d3be22d8cd55bbcbce2c7f14[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:43:26 2021 +0200
+
+    adding intervention form OK
+
+[33mcommit df5a0ff3ee9659b7f6167ba79ccfce0fc01072c6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:37:40 2021 +0200
+
+    update props
+
+[33mcommit 9ceb1f73a0af16c09289f1e646b683f3159975d1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:36:44 2021 +0200
+
+    moving from another folder
+
+[33mcommit 0fedc9b4d1f364a54d4e345624c3c041ea394372[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:36:06 2021 +0200
+
+    moving from another folder
+
+[33mcommit 516f8ec1541d470453f486be703a574772a82805[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:35:19 2021 +0200
+
+    update
+
+[33mcommit 8811552b6ff0751f28cf269b53fe6066cd3c39e6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:34:51 2021 +0200
+
+    update
+
+[33mcommit 7116c728e49a7abb56b1497f53fd2466c2faa0f6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:34:31 2021 +0200
+
+    move router.js from _helper to router
+
+[33mcommit 48812e563dca2e31a8644525e5aec456db4491e8[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:31:20 2021 +0200
+
+    dependencies
+
+[33mcommit 0a546b003497f84acf44db4019e6fcf3f04997ea[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:30:33 2021 +0200
+
+    move from 'ALL' folder
+
+[33mcommit d817a4a2a700a4117db9864805bdcd5afe604a7e[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Jun 9 17:29:55 2021 +0200
+
+    add .env file
+
+[33mcommit 2d9a872c24f15459f7f281c7374d5b2565af0917[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed Jun 9 16:40:54 2021 +0200
+
+    nouveau store ok
+
+[33mcommit 932bc16987459da61b2cd802de602da2c9a72a96[m
+Merge: a3bb2fc3 d8b0ea0e
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Jun 9 13:51:37 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout entities et crud entities
+    
+    See merge request cda2021/cfa-portal!31
+
+[33mcommit d8b0ea0efd680cf95cafece7bd136e9658d8bf66[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed Jun 9 13:51:18 2021 +0200
+
+    ajout entities et crud entities
+
+[33mcommit a3bb2fc33a9f7440434da1e1bbcff62a46f4a324[m
+Merge: 359d7dbd 406486ac
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 8 17:12:41 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout _entities / _api CentreFormation / Projet
+    
+    See merge request cda2021/cfa-portal!30
+
+[33mcommit 406486ac5d7f40f98a2843c0c458c51cd190e79b[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 8 17:12:18 2021 +0200
+
+    ajout _entities / _api CentreFormation / Projet
+
+[33mcommit 359d7dbd39b32f1916cc74fecfd9e8d6ec31d5a0[m
+Merge: 34838a35 c7877cd4
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue Jun 8 10:41:41 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    ajout _entities Adresse/Entreprise et _api entreprise et modif de utilisateur
+    
+    See merge request cda2021/cfa-portal!29
+
+[33mcommit c7877cd4008999f7f606ae9228c4982bd08e71eb[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue Jun 8 10:41:11 2021 +0200
+
+    ajout _entities Adresse/Entreprise et _api entreprise et modif de utilisateur
+
+[33mcommit d53a6eb23cdf91579c78d2fd775be612e1c65940[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 7 17:02:35 2021 +0200
+
+    api ok
+
+[33mcommit 48dcc9ae91302629406d8321633ea644cc9564e0[m
+Merge: 01a5583f 34838a35
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 15:40:07 2021 +0200
+
+    Merge branch 'dev' into dev_kanha_formateur_cours
+
+[33mcommit 01a5583fab48f0e03eee134ec465c6021e25daed[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 15:34:18 2021 +0200
+
+    update
+
+[33mcommit af1ff2f0658b5783c0a49c0f5c39515d7873cc07[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 15:33:48 2021 +0200
+
+    rename cours to intervention
+
+[33mcommit 1e6ecca4cd9c6d736319e59f5284e7f33a024cee[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 15:32:51 2021 +0200
+
+    intervention api
+
+[33mcommit 74298c156c95f5ef2562da54b094fae235d4dfee[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 15:30:53 2021 +0200
+
+    folder for all entities
+
+[33mcommit 34838a358d898cdc0dace34664f5fe5082307d95[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 7 15:28:12 2021 +0200
+
+    constantes api
+
+[33mcommit b675e2cee197622180fd1ae0648aebbc339bfc64[m
+Merge: 195398c4 3748cd21
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 15:05:45 2021 +0200
+
+    Merge branch 'dev' into dev_kanha_formateur_cours
+
+[33mcommit 3748cd21c3f74b959352f8a230fa8ee368cc66de[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 7 14:55:52 2021 +0200
+
+    conge api
+
+[33mcommit 195398c46a1f2af93c86d37cc5f1a3382c8625fb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon Jun 7 14:53:22 2021 +0200
+
+    update
+
+[33mcommit ce5ec1aa3f4adc7f4f3609ca3fa1fafd73a73684[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon Jun 7 14:16:39 2021 +0200
+
+    nouvel orga ?
+
+[33mcommit 8b05bfc882d323418714712c112daa729a4dc7f9[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 14 17:28:15 2021 +0200
+
+    handler a regler
+
+[33mcommit 98040a3dfc2771708b063c25b6a72c6655cfda2d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 14 16:44:38 2021 +0200
+
+    service ok, manque handleresponse
+
+[33mcommit fb65aa3951ada35c1fcab64da85b5309c2dca487[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 14 11:01:49 2021 +0200
+
+    filtres roles ok
+
+[33mcommit bd3c952a3436b80a20c087bf25892dd48a428dac[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 12 17:24:33 2021 +0200
+
+    set up ok a verifier
+
+[33mcommit 25225644c3e6417b2eeef2b1d7b4738d9af55095[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:32:55 2021 +0200
+
+    update cours
+
+[33mcommit 8fe15d197e3dc11ba1d54213feb59ea33d09b24f[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:31:27 2021 +0200
+
+    update template
+
+[33mcommit a3fb6f50333f47aa56b6cec16b1abe8701ba8812[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:30:47 2021 +0200
+
+    update router
+
+[33mcommit c245e8f022fb225a0125821559b8bf852ec846fc[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:29:29 2021 +0200
+
+    remove class
+
+[33mcommit fcd027e1eb3a0d70af07237b23304914462aaa54[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:27:59 2021 +0200
+
+    add detail cours view
+
+[33mcommit 0358b070208e7d35b62367d9ceea42baf2a0a6de[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:25:34 2021 +0200
+
+    update field
+
+[33mcommit 1ece9013e8d5dd605ce1033e8b377c1101c8ae70[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed May 12 12:24:58 2021 +0200
+
+    update package
+
+[33mcommit 65be05eda040404b3e54160138106db1ce583705[m
+Merge: bc980673 bad0871e
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed May 12 11:40:29 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    js modif link
+    
+    See merge request cda2021/cfa-portal!28
+
+[33mcommit bad0871ebf086399309bc048d0851d70aae413f4[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed May 12 11:40:07 2021 +0200
+
+    js modif link
+
+[33mcommit bc980673176bb46bf18ca8f26d358012f949605b[m
+Merge: 9a430b1a 8d20697d
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 12 11:03:08 2021 +0200
+
+    Merge branch '13-dev_tanguy_documents_administratifs' into dev
+
+[33mcommit 8d20697de2c6b1ae1531d4e8de02409431687c7b[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 12 11:02:57 2021 +0200
+
+    conge sortable
+
+[33mcommit 9a430b1ab4e110578b2814f449b217a8c7ae76a9[m
+Merge: 052e60b5 d8bce8d7
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 12 11:00:04 2021 +0200
+
+    Merge branch '13-dev_tanguy_documents_administratifs' into dev
+
+[33mcommit d8bce8d7829abb459333f3eb318eaa36b8de31fd[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 12 10:59:45 2021 +0200
+
+    table conge ok
+
+[33mcommit 1728772122c2b20ade56b8419c25043c7d380ec0[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 11 16:27:25 2021 +0200
+
+    affichage tableConge
+
+[33mcommit 96cc74ec62ddbc13272926a5a1974270895a2681[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue May 11 12:22:38 2021 +0200
+
+    change axios url, get intervention list for a formateur instead of get all
+
+[33mcommit 147c213128496b32d2eecb07d82ce2e7e177547d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Tue May 11 12:19:49 2021 +0200
+
+    add prop default value for items
+
+[33mcommit d07ed53942678b02bad9525048a42c5c9928117d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 11 11:53:13 2021 +0200
+
+    cursor pointer docs
+
+[33mcommit 052e60b5a03cd90276eb57636a0011b5af3d2b94[m
+Merge: 1b9946f0 36cf2ede
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue May 11 09:42:50 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    js edit referent
+    
+    See merge request cda2021/cfa-portal!27
+
+[33mcommit 36cf2ede2372aef3931b52715759561d2a997d77[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue May 11 09:42:31 2021 +0200
+
+    js edit referent
+
+[33mcommit 12c36fea91cb453a5c2174e7086b6362f255f27a[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon May 10 16:26:47 2021 +0200
+
+    doc admin ok
+
+[33mcommit 1b9946f0806792d5ecf9724340fe516ac08219f8[m
+Merge: dcd2a4ba 24692784
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Mon May 10 16:10:51 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout recup données avec axios
+    
+    See merge request cda2021/cfa-portal!26
+
+[33mcommit 246927844cad728c9508d23087ee876ab97358d4[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Mon May 10 16:09:40 2021 +0200
+
+    Ajout recup données avec axios
+
+[33mcommit c76d933f7857a7c72376fd1c7f6650422c26e8f5[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon May 10 14:40:52 2021 +0200
+
+    bug fixed
+
+[33mcommit 4fd3a1d7f008336496baa642ca5b743f561e8f25[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 10 09:27:02 2021 +0200
+
+    Update Cours.vue
+
+[33mcommit 71ac3dbf1270582d1e2a0ec50f06fd207717fcd5[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 10 09:26:50 2021 +0200
+
+    deleting useless comments / code format
+
+[33mcommit 7c92ad760aed4f80d1ab3b264c5f0304fca6f22a[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 10 09:26:07 2021 +0200
+
+    code format for DemandeConge.vue
+
+[33mcommit b38f9a7353d7fcd96f98ce3550f5fe04ec366a7c[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 10 09:25:25 2021 +0200
+
+    Update TableTemplate.vue
+
+[33mcommit 80b208f8aff8427a4c1da214e00be101d4d280bd[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 10 09:18:07 2021 +0200
+
+    Add vertical navbar for formateur
+
+[33mcommit df8058a36545d22dd0c86b1d248aef24d34df7bb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 10 09:17:35 2021 +0200
+
+    update courseFields from fields.js
+
+[33mcommit 7977246c351868c1615fbc99d326a1723e32e293[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 7 17:36:57 2021 +0200
+
+    uplaod ok
+
+[33mcommit 1a0da03db87ab9608078513ea4a062350252fcc4[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 7 17:01:53 2021 +0200
+
+    delete ok
+
+[33mcommit 86622177f7b492de3de43f493747ff521f31475d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 7 16:38:29 2021 +0200
+
+    dl ok
+
+[33mcommit fb4be0ffae7ad2975522a8f9828e629c6a4fb994[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 7 16:03:27 2021 +0200
+
+    dwonlaod ok
+
+[33mcommit dcd2a4ba59cb22d737f4cffe5f3026f82ec626e5[m
+Merge: f7571321 384a0d8a
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri May 7 14:42:44 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout router-link pour referent
+    
+    See merge request cda2021/cfa-portal!25
+
+[33mcommit 384a0d8aca71907ef9b6c9e213f4ba692b34bef1[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri May 7 14:42:16 2021 +0200
+
+    Ajout router-link pour referent
+
+[33mcommit f75713211ce08945d19ab9654e4094b98530069e[m
+Merge: 1ca912a6 2d73d9f4
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri May 7 14:10:50 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Link edit
+    
+    See merge request cda2021/cfa-portal!24
+
+[33mcommit 2d73d9f4134fe6b2457387f5ea830693c84a0e2a[m
+Merge: 3caa1fe7 1ca912a6
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri May 7 14:10:45 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico'
+    
+    # Conflicts:
+    #   cfa-front/src/views/Formateur/Cours/Cours.vue
+
+[33mcommit 6cab77ad89dcff38cac8ba80d565b868d69d5b66[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 7 14:09:31 2021 +0200
+
+    list ok
+
+[33mcommit 3caa1fe7c66c5c411e69ca6f5d683636d022e48a[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri May 7 14:09:29 2021 +0200
+
+    Link edit
+
+[33mcommit 1ca912a6314d032da3b298194a7f02a611c67fbe[m
+Merge: bc9efc16 5fe172a4
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Fri May 7 09:52:46 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 5fe172a4bfac64345f2672bb264bcd8e00d1d8df[m
+Merge: 37040855 62844ef5
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu May 6 17:15:39 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Correction Bug
+    
+    See merge request cda2021/cfa-portal!23
+
+[33mcommit 62844ef5762e6c067912de56ce593cdad9540df2[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu May 6 17:15:11 2021 +0200
+
+    Correction Bug
+
+[33mcommit 37040855a564a1f03d7185c15b3e8a0fb2dceb6c[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu May 6 17:08:11 2021 +0200
+
+    axios et recup des données pour etudiant peda
+
+[33mcommit bc9efc167c605de404254520a528cf042beff9dc[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 15:58:01 2021 +0200
+
+    container-fludi appvue
+
+[33mcommit d4bc4a667f8c82337ba928ec485205d0d8cb263c[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 15:48:29 2021 +0200
+
+    $apiUrl
+
+[33mcommit 82356ae64d0ed0179b59b0ef2173a55c88fad13f[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 15:23:43 2021 +0200
+
+    update dependencies + fix audit
+
+[33mcommit 40f8509038eabcc9b19f8aca753cb817d719976a[m
+Merge: 82ecd2d6 60509a61
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 14:46:27 2021 +0200
+
+    Merge branch '12-dev_tanguy_etudiant_administratif' into dev
+
+[33mcommit 60509a61424f2e830f1be75376aad43c0b1f920a[m[33m ([m[1;31morigin/12-dev_tanguy_etudiant_administratif[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 14:41:18 2021 +0200
+
+    corrections
+
+[33mcommit 5569b4b5886cc7cb146c11a2cd75f9ace2415a13[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 14:37:04 2021 +0200
+
+    $apiUrl
+
+[33mcommit 82ecd2d690c45718a788c0e3031cbdf2e0eac2e6[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 14:33:06 2021 +0200
+
+    Update index.js
+
+[33mcommit 6697ee2e839dbd6d67851a5288f2b8d8053a152a[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 13:47:55 2021 +0200
+
+    profil ok
+
+[33mcommit 408bbdcff7557d54adde6c2edf8ac4255ee3275a[m
+Merge: f0a3a9bb 78993c25
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Thu May 6 13:36:29 2021 +0200
+
+    Merge branch 'ali' into 'dev'
+    
+    Ali
+    
+    See merge request cda2021/cfa-portal!22
+
+[33mcommit f0a3a9bb34f7ebb168d304d6af964315bfeef317[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:50:35 2021 +0200
+
+    Update index.js
+
+[33mcommit 4ffe6309fcb251164ebd13387d7a0fb861ddacce[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:50:01 2021 +0200
+
+    format Navbar
+
+[33mcommit 3846fb82c358481a3f1c0cee56b34d30f7f2a7a3[m
+Merge: 8eaa1b9d 954a3807
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:48:25 2021 +0200
+
+    Merge branch 'dev_kanha_formateur_cours' into dev
+
+[33mcommit 926c02dc3d2c73eee7eaa589591fdac0f9265275[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 12:16:26 2021 +0200
+
+    Profil ok
+
+[33mcommit 954a3807762ffd8453bfd01f3fbf81b7ce58842d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:01:31 2021 +0200
+
+    Update Cours.vue
+
+[33mcommit b4683a36175baa746f41c251bb99fd46b0a06881[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:01:21 2021 +0200
+
+    get css from LoginPage.vue to scoped
+
+[33mcommit a632b4bbd416c7e7bec891d15aee8a2823a531f4[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:00:49 2021 +0200
+
+    Add view AjoutCours.vue
+
+[33mcommit 76dcd9622fc95e3fd5f6c3c9e62324bc9a53abb3[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 12:00:24 2021 +0200
+
+    format file
+
+[33mcommit 98666c05a107991dc5133ce802f73cf9df334d88[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 11:50:50 2021 +0200
+
+    mock promotion
+
+[33mcommit 78e1132e713f38c44960106c5e518f7f3b349169[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 11:50:31 2021 +0200
+
+    update template
+    
+    - change <a href="#"> to <router-link to="#">
+    - add scoped slot for formation titre
+    - remove unused method
+
+[33mcommit bd1b171158f6de9b162a6e1998bff906e34a29e1[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 11:47:33 2021 +0200
+
+    update planning
+
+[33mcommit 149a6ff4d82666885e4fb9479ff6dfc74ee160c0[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 11:47:04 2021 +0200
+
+    update Navbar
+
+[33mcommit 05b5117e135ca0c55c038e48a3ed09ce524c52d9[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Thu May 6 11:45:32 2021 +0200
+
+    update key field name for courses
+
+[33mcommit 78993c2565349b1acf6a3e1f7023278662d1f5af[m
+Author: aatia <aatia@dawan.fr>
+Date:   Thu May 6 10:12:33 2021 +0200
+
+    test axios partie peda ( pas fonctionnel)
+
+[33mcommit 8eaa1b9d53e15ed43d8c7e933c5938465a767054[m
+Merge: 2c755563 b6a7b651
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Thu May 6 10:07:49 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Edit
+    
+    See merge request cda2021/cfa-portal!21
+
+[33mcommit b6a7b651fd19c3d675f2bfd19f14520492330325[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Thu May 6 10:07:24 2021 +0200
+
+    Edit
+
+[33mcommit 213d9831f1fccc9f4c5ab3b6f9745eaef900fcb1[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Thu May 6 09:36:24 2021 +0200
+
+    demande de conge ok
+
+[33mcommit 828536aa62343ddc14fdfc6e36de872114f3d23d[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 5 17:35:27 2021 +0200
+
+    form conge ok
+
+[33mcommit ec49120eed5150a30fdc9e8de84f91363b2579b6[m
+Merge: 3430b0d0 2c755563
+Author: aatia <aatia@dawan.fr>
+Date:   Wed May 5 16:30:07 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into Ali
+
+[33mcommit 3430b0d0088efe02f5fe8648ab2b1263e8d55718[m
+Author: aatia <aatia@dawan.fr>
+Date:   Wed May 5 16:28:37 2021 +0200
+
+    modif de la partie peda( test)
+
+[33mcommit 36098e818021a25a6298797cfd6674beda3ff073[m
+Author: aatia <aatia@dawan.fr>
+Date:   Wed May 5 16:28:30 2021 +0200
+
+    modif de la partie peda( test)
+
+[33mcommit 2c7555634e23588447c65bdfb5b9c6d71762fa48[m
+Merge: 3f06de82 ec3130c0
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed May 5 16:25:06 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Ajout import
+    
+    See merge request cda2021/cfa-portal!20
+
+[33mcommit ec3130c08cf43deaceb73b5500e9780b958e6df5[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed May 5 16:23:21 2021 +0200
+
+    Ajout import
+
+[33mcommit 297dff116ee55867ae5c22e6ec16c650c9e35fef[m
+Author: aatia <aatia@dawan.fr>
+Date:   Wed May 5 14:29:51 2021 +0200
+
+    modif de la partie peda (test)
+
+[33mcommit b9a48af5d17b4ccfef185dc47a4844a56ff61ab4[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 5 11:55:46 2021 +0200
+
+    interventions_promotions
+
+[33mcommit 3c3469fe7c9a33b7640590357cc926c267eb6e83[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Wed May 5 11:07:54 2021 +0200
+
+    promotion referent
+
+[33mcommit 3f06de827c1816de997227c0b9e5588a359ff3af[m
+Merge: 0270b826 e05c241a
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed May 5 10:23:45 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    Menu vertical && contenu
+    
+    See merge request cda2021/cfa-portal!19
+
+[33mcommit e05c241a74c699e0b32476f5f64d2d5be844af96[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Wed May 5 10:22:44 2021 +0200
+
+    Menu vertical && contenu
+
+[33mcommit 5a2dec7841df5fc1f2fdb1fec0b0fa16dac229d6[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 4 17:41:33 2021 +0200
+
+    il est 17h40 maison !
+
+[33mcommit 0270b82619c8ca848a1bb92513696f5aa8a9b9c8[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 4 15:33:51 2021 +0200
+
+    router
+
+[33mcommit 84caa64305597cfeb7577d3b76a8f4f9efa10fe9[m
+Merge: a47af303 03052b74
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 4 12:40:33 2021 +0200
+
+    Merge branch 'dev_tanguy_planning' into dev
+
+[33mcommit a47af30348501190a5835945589a10f7456dd07b[m
+Merge: 8451c1d7 eff0fc9d
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 4 12:40:18 2021 +0200
+
+    Merge branch 'dev' of https://gitlab.dawan.fr/cda2021/cfa-portal into dev
+
+[33mcommit 03052b74264805880dac804171556fae22892796[m[33m ([m[1;31morigin/dev_tanguy_planning[m[33m)[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Tue May 4 12:38:28 2021 +0200
+
+    fontionnel
+
+[33mcommit eff0fc9d771f87bf7f9ad4e186beba0aa4e99755[m
+Merge: 695b13bc 6193b744
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue May 4 12:27:21 2021 +0200
+
+    Merge branch 'dev_Nico' into 'dev'
+    
+    modif referent
+    
+    See merge request cda2021/cfa-portal!18
+
+[33mcommit 6193b744264ae9eee4d99ea213831b52432bc532[m
+Merge: 268ea62d 695b13bc
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Tue May 4 12:27:07 2021 +0200
+
+    Merge branch 'dev' into 'dev_Nico'
+    
+    # Conflicts:
+    #   cfa-front/src/router/index.js
+
+[33mcommit 268ea62d54b16aa31073db89b1ab75e994d393bd[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Tue May 4 12:23:38 2021 +0200
+
+    modif referent
+
+[33mcommit 695b13bcdd2b249bf476d5e462cca8efd97e7553[m
+Merge: a0de7427 980a7a4e
+Author: Ali-haïdar Atia <aatia@dawan.fr>
+Date:   Tue May 4 12:15:30 2021 +0200
+
+    Merge branch 'Ali' into 'dev'
+    
+    modif navbar vertical pour etudiant peda
+    
+    See merge request cda2021/cfa-portal!17
+
+[33mcommit 980a7a4ef8e02715d6e97619e54937333d860c5a[m
+Author: aatia <aatia@dawan.fr>
+Date:   Tue May 4 12:14:41 2021 +0200
+
+    modif navbar vertical pour etudiant peda
+
+[33mcommit 3fe37ed7f09f6b676d5b6213f6d2c240fb86effd[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon May 3 16:28:23 2021 +0200
+
+    planning ok
+
+[33mcommit 9be94fd0ec330daba841856dbc48388616539d50[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 3 16:26:03 2021 +0200
+
+    ajout cours
+
+[33mcommit 8451c1d7b97bab1f0df4b444a2dba060bb5a0a0e[m
+Author: BillonTanguy <tbillon@dawan.fr>
+Date:   Mon May 3 11:38:17 2021 +0200
+
+    test
+
+[33mcommit a0de7427533f86951967e3936c1bd02feda09050[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 3 11:26:51 2021 +0200
+
+    modif nom des routes
+
+[33mcommit 06849b37fe17f3a335bea57f6ef05d58652825eb[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Mon May 3 10:19:59 2021 +0200
+
+    mis a jour de la partie front github vers le gitlab
+
+[33mcommit 95209f17751a573bebf822f74ac9ce859d12042b[m
+Merge: e8c8fda2 5888aefe
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Fri Feb 12 11:31:30 2021 +0100
+
+    Merge branch 'creation_projet_vuejs' into 'dev'
+    
+    Creation projet vuejs
+    
+    See merge request cda2021/cfa-portal!15
+
+[33mcommit 5888aefe641698696e4d8f31534049e885d4beca[m
+Merge: 9152890d edf9dc2e
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Feb 12 11:29:14 2021 +0100
+
+    Merge branch 'creation_projet_vuejs' of https://gitlab.dawan.fr/cda2021/cfa-portal into creation_projet_vuejs
+
+[33mcommit 9152890d37336ee732976ddb7697034459540b12[m
+Merge: 8d37ef32 7b99c0e9
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Feb 12 11:13:10 2021 +0100
+
+    Merge branch 'LoginPage' into creation_projet_vuejs
+
+[33mcommit edf9dc2e5964b3dcc46075df7d30313282962bd6[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Fri Feb 12 10:47:34 2021 +0100
+
+    ajout plugin
+
+[33mcommit 7b99c0e969436e547c10f12e559e80030f8306e8[m[33m ([m[1;31morigin/LoginPage[m[33m)[m
+Author: Nicolas <npotier@dawan.fr>
+Date:   Fri Feb 12 10:19:37 2021 +0100
+
+    test
+
+[33mcommit fa8c9b82090a506daf836d4533de6af7b4ab8eac[m
+Merge: 8d37ef32 199b27d9
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Fri Feb 12 09:43:04 2021 +0100
+
+    Merge branch 'liste_cours_formateur' into creation_projet_vuejs
+
+[33mcommit 199b27d92bd655896f8f6d25bbb2dd83ab398c7b[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Fri Feb 12 09:31:09 2021 +0100
+
+    ajout ds plugin dans le main.js
+
+[33mcommit 41e6a95c25e50b52c3d31c39bc92a1afbff7ae9c[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Fri Feb 12 09:30:16 2021 +0100
+
+    plugin moment-vue & moment-timezone
+
+[33mcommit 5e3e07c716debd2c9e51efac0d922fbe02d22330[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Fri Feb 12 09:29:26 2021 +0100
+
+    mis a jour du style
+
+[33mcommit 8446a19c9805ae336a7f9aedc25d94f2442e5f3f[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Thu Feb 11 23:06:44 2021 +0100
+
+    ajout plugin fontawesome-vue
+
+[33mcommit 32ea75e97c513fb945745a3b8f66415f7eeaa6f3[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Thu Feb 11 23:03:15 2021 +0100
+
+    fields & itemLength pour tableau de donnée
+
+[33mcommit c3dfb7b3fbe3ed36113b4c4a5a227bd8dc6e8169[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Thu Feb 11 23:01:27 2021 +0100
+
+    template tableau de donnée
+
+[33mcommit 76d2e88a98ea451c38920e6634be0574017c4413[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Thu Feb 11 23:00:39 2021 +0100
+
+    ajout component pour liste des cours
+
+[33mcommit b13ca1ceeea66f0bb6fb120f1c7081bb0c790402[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Thu Feb 11 22:59:18 2021 +0100
+
+    jeu de donnée des cours
+
+[33mcommit 0a51b6f693b4285431d10b55639776b896ea0467[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Thu Feb 11 22:58:13 2021 +0100
+
+    ajout route pour liste des cours du formateur
+
+[33mcommit 8d37ef3269c6fc9c33cc58a68241f8158a98ac15[m[33m ([m[1;31morigin/Authentification[m[33m)[m
+Merge: 8145e40b 2aad1ce2
+Author: Tanguy Billon <tbillon@dawan.fr>
+Date:   Wed Feb 10 15:46:53 2021 +0100
+
+    Merge branch '4-ajout-etudiant-administratif' into 'creation_projet_vuejs'
+    
+    Resolve "Ajout étudiant administratif"
+    
+    See merge request cda2021/cfa-portal!7
+
+[33mcommit 2aad1ce250eafdbc26d79f26e6c481e3d3489f36[m
+Author: Tanguy <tbillon@dawan.fr>
+Date:   Wed Feb 10 15:43:41 2021 +0100
+
+    etudiant administratif + arianne
+
+[33mcommit e8c8fda2c2cced2c4672ca5ebeaf10ac4877a5f8[m[33m ([m[1;31morigin/8-ajout_liste_des_cours_formateurs[m[33m, [m[1;31morigin/7-etudiant_pedagogique[m[33m, [m[1;31morigin/6-page-d-authentification[m[33m)[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 12:00:31 2021 +0100
+
+    Delete .gitkeep
+
+[33mcommit ec688f2c97acef728ca4e3441bbecb5b4f151a06[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 12:00:24 2021 +0100
+
+    Delete issue_template
+
+[33mcommit 8145e40b28b8102d5fbf1441378fe76f11f97679[m
+Merge: 87fb63d6 c02d3103
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:45:45 2021 +0100
+
+    Merge branch 'creation_projet_vuejs' into 'master'
+    
+    Creation projet vuejs
+    
+    See merge request cda2021/cfa-portal!2
+
+[33mcommit 87fb63d67152985b0cfbfc600c2f6e3d60aa16af[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:41:57 2021 +0100
+
+    Delete issue-template.md
+
+[33mcommit 0032ad4f621b65a6949603e91b73bb699c376efb[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:41:39 2021 +0100
+
+    Delete .gitkeep
+
+[33mcommit e197580fde7a4e3a73f10944763e48d48ac8f18e[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:39:02 2021 +0100
+
+    Add new file
+
+[33mcommit 0031bd699b2e4def880506298ad418c498134933[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:38:19 2021 +0100
+
+    Add new directory
+
+[33mcommit cf679f44cd0923dc89c5182080a89635821b8333[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:36:28 2021 +0100
+
+    Update issue-template
+
+[33mcommit 10450ff6916058c55e846cd0f4d11e01bff2b34d[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:33:18 2021 +0100
+
+    Delete .gitkeep
+
+[33mcommit b450e3b3a37e4ede01bcc203b3c1f81bce0ac262[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:33:08 2021 +0100
+
+    Add new file
+
+[33mcommit eec07cbdca198333d632650bced05956ecb1ce9c[m
+Author: Christophe Fontaine <cfontaine@dawan.fr>
+Date:   Wed Feb 10 11:31:46 2021 +0100
+
+    Add new directory
+
+[33mcommit f653a9d88217b28cc63cda5048415f5beb10625d[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Feb 10 11:28:31 2021 +0100
+
+    Add new file
+
+[33mcommit f528c284631109ff725502cd1595f9892055fcdc[m
+Author: Kanha Sydaphasavanh <ksydaphasavanh@dawan.fr>
+Date:   Wed Feb 10 11:26:43 2021 +0100
+
+    Add new directory
+
+[33mcommit c02d31035816002049a721ef661b27d991b45c6c[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Wed Feb 10 11:05:11 2021 +0100
+
+    Ajout du component Navbar.vue dans App.vue
+
+[33mcommit 0df0840e5f4e0ccf116cf5ad1acc5649f7a14e38[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Wed Feb 10 11:04:16 2021 +0100
+
+    ajout du logo dawan
+
+[33mcommit 8b756e129660f7cee922fe2e8dd0cc2d60431871[m
+Author: Ka-Bis <k.sydaphasavanh@gmail.com>
+Date:   Wed Feb 10 11:03:37 2021 +0100
+
+    Ajout de la navbar
+
+[33mcommit 19594cbc05efdc878675e6be475ff0a5f8fd1d20[m
+Author: Tanguy <tbillon@dawan.fr>
+Date:   Wed Feb 10 10:20:15 2021 +0100
+
+    init vuejs project
+
+[33mcommit 71c485acd8345698a357138ca43ef4fb804ba242[m
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Feb 10 10:11:24 2021 +0100
+
+    Delete LICENSE
+
+[33mcommit 539717e1a5a7ce79d4ec861c0ea9371590cd44ad[m
+Author: Nicolas Potier <npotier@dawan.fr>
+Date:   Wed Feb 10 10:11:06 2021 +0100
+
+    Add new file
+
+[33mcommit ce9e4131ea3bd170b491715e2180634f93b700e2[m
+Author: Tanguy Billon <tbillon@dawan.fr>
+Date:   Wed Feb 10 09:34:22 2021 +0100
+
+    directory for vuejs project
+
+[33mcommit c8a00dbe816020420b5a6033f1614ffffa4c6d85[m
+Author: Mohamed Derkaoui <mderkaoui@dawan.fr>
+Date:   Thu Feb 4 13:18:43 2021 +0100
+
+    add README

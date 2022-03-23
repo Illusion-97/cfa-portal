@@ -24,9 +24,9 @@
          bgColor: '#00072d',
          menuLogo:'',
          menuItems: [
-           {link: window.location.origin+'/#/home' ,name: 'Accueil', tooltip: 'Accueil', icon:'bx-home-alt' },
-          {link: window.location.origin+ '/#/formateur/interventions',name: 'Interventions', tooltip: 'interventions', icon:'bx-briefcase-alt' },
-          {link: window.location.origin+ '/#/formateur/promotions',name: 'Promotions', tooltip: 'Promotions', icon:'bx bxs-megaphone' }
+           {link: window.location.origin+'/home' ,name: 'Accueil', tooltip: 'Accueil', icon:'bx-home-alt' },
+          {link: window.location.origin+ '/formateur/interventions',name: 'Interventions', tooltip: 'interventions', icon:'bx-briefcase-alt' },
+          {link: window.location.origin+ '/formateur/promotions',name: 'Promotions', tooltip: 'Promotions', icon:'bx bxs-megaphone' }
          ],
       }
     },

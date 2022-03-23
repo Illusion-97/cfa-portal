@@ -63,13 +63,15 @@ import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfe
 import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
+
 //new espace Etudiant
-import AccueilEtudiant from  "@/views/Etudiant/AccueilEtudiant.vue";
-import CursusEtudiant from  "@/views/Etudiant/CursusEtudiant.vue";
-import LivretEtudiant from  "@/views/Etudiant/LivretEtudiant.vue";
-import ControleEtudiant from  "@/views/Etudiant/ControleEtudiant.vue";
-import DossierProfessionnelEtudiant from  "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
-import CreerDossierPro from  "@/views/Etudiant/CreerDossierPro.vue";
+
+import AccueilEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
+import CursusEtudiant from "@/views/Etudiant/CursusEtudiant.vue";
+import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vue";
+import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
+import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
+import DossierPro from "@/views/Etudiant/DossierPro.vue";
 
 //#######################
 //#       FORMATEUR     #
@@ -333,11 +335,10 @@ const routes = [
   //new routes espace Etudiant
   { path: "/etudiant", name: "etudiant_accueil", component: AccueilEtudiant },
   { path: "/etudiant/cursus", name: "etudiant_cursus", component: CursusEtudiant },
-  { path: "/etudiant/controle", name: "etudiant_controle", component: ControleEtudiant },
-  { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEtudiant },
+  { path: "/etudiant/controle", name: "etudiant_controle", component: ControleContinuEtudiant },
+  { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
-  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: CreerDossierPro },
-
+  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
 
   //#######################
   //#       FORMATEUR     #
@@ -1515,7 +1516,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  //mode: "history",
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
 });

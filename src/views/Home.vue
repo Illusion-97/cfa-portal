@@ -1,14 +1,8 @@
 <template>
   <section>
-    <div v-if="isEtudiant">
-      <HomeEtudiant />
-    </div>
-    <div v-else-if="isFormateur">
-      <HomeFormateur />
-    </div>
-    <div v-else>
-      <NotFound/>
-    </div>
+    <HomeEtudiant v-if="isEtudiant"/>
+    <HomeFormateur v-else-if="isFormateur"/>
+    <NotFound v-else/>
   </section>
 </template>
 

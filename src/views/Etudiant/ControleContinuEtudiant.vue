@@ -72,7 +72,6 @@ export default {
     h5 {
         margin: 0 0 30px 0;
     }
-    .container {
-        margin: 99px 0 0 421px;
-    }
+  .container {
+  margin: 49px 0 0 421px;}
 </style>

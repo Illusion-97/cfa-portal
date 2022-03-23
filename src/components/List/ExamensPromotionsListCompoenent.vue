@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div>
       <AddExamen />
     </div>
@@ -120,22 +120,27 @@
    
     </b-table>
   </div>
+  {{examens}}
   </div>
        
 </template>
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
+// import { examenApi } from "@/_api/examen.api.js";
 import AddExamen from '@/components/Formateur/AddExamen.vue'
   export default {
-      name: 'ExamensPromotionsListCompoenent',
-      components:{
+    name: 'ExamensPromotionsListCompoenent',
+    components:{
         AddExamen,      
       },
-    data() {
+    props : {
+            examens: {
+                type: Array ,
+              }
+            },
 
+    data() {
       return {
-      examens: [],
       perPage: 10,
       pageCount: 0,
          form: {
@@ -179,19 +184,19 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
   ],
        
         items: [
-          { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false, _showDetails: false },
-          { Titre: 'Java intermédiaire', Duree: '3.5h', Date: '10/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false ,_showDetails: false },
-          {
-            Titre: 'Travaux pratiques CDA',
-            Duree: '4h',
-            Date: '13/03/2022	',
-            Blocs_concernes:'1,2,3,4',
-            description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',
-            Piece_jointe: ' Nom Pièce jointe',
-            modifier :false,
-            _showDetails: false
-          },
-          { Titre: 'Angular', Duree: '2h', Date: '22/12/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe',modifier :false,_showDetails: false }
+          // { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false, _showDetails: false },
+          // { Titre: 'Java intermédiaire', Duree: '3.5h', Date: '10/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false ,_showDetails: false },
+          // {
+          //   Titre: 'Travaux pratiques CDA',
+          //   Duree: '4h',
+          //   Date: '13/03/2022	',
+          //   Blocs_concernes:'1,2,3,4',
+          //   description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',
+          //   Piece_jointe: ' Nom Pièce jointe',
+          //   modifier :false,
+          //   _showDetails: false
+          // },
+          // { Titre: 'Angular', Duree: '2h', Date: '22/12/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe',modifier :false,_showDetails: false }
         ], 
         selected: [], 
         options: [
@@ -207,9 +212,14 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
         ]
       }
     },
-      created() {
-    this.refreshList();
+    created() {
+         //console.log(this.examens);
+
+      this.assigneTableItems();
+     
+    
   },
+
     methods:{
       modifier(item){
         item.modifier= true;
@@ -227,10 +237,11 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
         alert(JSON.stringify(this.items))
       },
 
-         refreshList() {
-      examenApi
-        .getAllByPage(0, this.perPage)
-        .then((response) => (this.examens = response));
+    refreshList() {
+      this.fields.items[0].Titre = this.examens
+      // examenApi
+      //   .getAllByPage(0, this.perPage)
+      //   .then((response) => (this.examens = response));
     },
     classObject(item,modifier){
         let dateExam = new Date(item.Date).getTime();
@@ -241,11 +252,36 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
         }
         return modifier ?'':'d-none';
     },
-    tableItems(){
-        //Assigner items 
+    assigneTableItems(){
+     let items = [];
+          //  { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false, _showDetails: false },
+        for (let i = 0; i < this.examens.length; i++) {
+          let blocksConcernee = "";
+          for (let j = 0; j < this.examens[i].blocksConcernee.length; j++) {
+               blocksConcernee +=this.examens[i].blocksConcernee[j] + " ," ;            
+          }
+          blocksConcernee = blocksConcernee.substring(0,blocksConcernee.length-1);
+          let item = {
+            Titre:this.examens[i].titre,
+            Duree:this.examens[i].duree,
+            Date: this.examens[i].dateExamen,
+            Blocs_concernes:blocksConcernee,
+            description:this.examens[i].descriptif,
+            Piece_jointe:this.examens[i].pieceJointe,
+            modifier: false,
+            _showDetails:false
+
+          }
+
+            items.push(item);
+          
+        }
+        this.$nextTick( ()=>{
+          this.items = items;})
     }
   }
   }
+  
 </script>
 <style>
 .Bolcs{

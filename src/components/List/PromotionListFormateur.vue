@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <Header :title="'Promotions'"/>
+      <HeaderFormateur :title="'Promotions'"/>
     </div>
     <div class="container-fluid mt-4">
       <div class="header-list">
@@ -18,8 +18,6 @@
             <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
           </button>
         </form>
-        
-      
       </div>
       <div class="row d-flex justify-content-between">
         <div v-for="promotion in promotionsComputed"
@@ -56,11 +54,11 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
-import Header from "@/components/Navigation/Header.vue";
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 export default {
   name: "PromotionListComponent",
   components: {
-    Header,
+    HeaderFormateur,
   },
   props: {
     isAction: {

@@ -1,69 +1,54 @@
 <template>
-    <div v-if="isEtudiant">
-      <HeaderEtudiant />
-      <NavEtudiant />
-      <div class="minDiv">
-        <AccueilEtudiant />
-      </div> 
-     <FooterEtudiant />
+  <div class="container">
+    <div>
+      <h1>
+      {{ utilisateur.prenom }} {{ utilisateur.nom }}
+      </h1>
+      <p class="email-text">{{ utilisateur.login }}</p>
+      <p>Concepteur développeur d'applications ( Promotion 2022 - Bordeaux)
+        <br>
+        Nom du projet : CFA
+      </p>
+      <b-table striped hover :items="items"></b-table>
     </div>
-    <div v-else>
-      <NotFound/>
-    </div>
+  </div>
 </template>
 
 <script>
-import AccueilEtudiant from "@/components/Etudiant/AccueilEtudiant.vue";
-import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
-import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
-import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
-import NotFound from "@/views/NotFound.vue";
-//import { utilisateurApi } from "@/_api/utilisateur.api.js";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
-
 export default {
-    name: "etudiant_accueil",
-    components: {
-        AccueilEtudiant,
-        FooterEtudiant,
-        NavEtudiant,
-        HeaderEtudiant,
-        NotFound
+  name: "AccueilEtudiant",
+  computed: {
+    utilisateur() {
+      return this.$store.getters.getUtilisateur;
     },
-    data() {
+  },
+  data() {
     return {
-      userId: this.$store.getters.getUtilisateur.id,
+      items: [
+        {Nom: "Bos", prenom: "Lionel", Rôle: "Tuteur" },
+        {Nom: "James Baudot ", prenom: "Frederic", Rôle: "CEF" },
+        {Nom: "Chevallereau", prenom: "Valentin", Rôle: "Membre du groupe" },
+        {Nom: "Bengamra", prenom: "Feres", Rôle: "Membre du groupe" },
+        {Nom: "Pires", prenom: "William", Rôle: "Membre du groupe" },
+        {Nom: "Charpentier", prenom: "Remy", Rôle: "Membre du groupe" },
+      ],
     };
   },
-  computed: {
-    isEtudiant() {
-      return utilisateurService.isEtudiant();
-    },
-    isFormateur() {
-      return utilisateurService.isFormateur();
-    },
-  }
-  //,
-  // created() {
-  //   utilisateurApi
-  //     .getPlanningById(this.$store.getters.getUtilisateur.id)
-  //     .then((response) => this.$store.dispatch("setPlanning", response));
-
-  //     if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
-  //       this.$router.push({
-  //         name: "admin_dashboard",
-  //       });
-  //     }
-  // },
-}
+};
 </script>
 
 <style scoped>
+h5 {
+  margin-top: 55px;
+}
 
-    body {
-      padding: 0;
-    }
-    .minDiv {
-      min-height: 40vh;
-    }
+.email-text {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.container {
+  margin: 49px 0 0 421px;}
 </style>
+
