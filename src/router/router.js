@@ -392,7 +392,7 @@ const routes = [
   { path: "/formateur/examens/update/:id", name: "formateur_examen_update", component: ExamenCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/examens/detail/:id", name: "formateur_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Formateur] } },
   // Promotions
-  { path: "/formateur/promotions", name: "formateur_promotion_list", component: PromotionsFormateur} ,
+  { path: "/formateur/promotions", name: "formateur_promotion_list", component: PromotionsFormateur , meta: { authorize: [Role.Formateur] }} ,
 
   //#######################
   //#       REFERENT      #
@@ -1516,7 +1516,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  //mode: "history",
   base: process.env.BASE_URL,
   routes,
 });

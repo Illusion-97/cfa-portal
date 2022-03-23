@@ -18,7 +18,7 @@
             </b-col>
             <b-col class="d-flex justify-content-end">
                 <div>
-                    <button type="button" @click="logout" class="btnHeader btn-light "><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon"/>    Déconnexion</button>
+                    <button  type="button" @click="logout" class="btnHeader btn-light "><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon"/>    Déconnexion</button>
                 </div>
             </b-col>    
         </b-row>
@@ -35,13 +35,20 @@ import { authenticationApi } from "@/_api/authentication.api.js";
                     default: "Bienvenue sur le portail CFA"
             }
         }, 
+        data(){
+            return{
+                logOut : ""+window.location.origin+"/#/login"
+            }
+        },
          methods: {
+
             logout() {
+              
                 authenticationApi
                 .logout()
-                .then(() => this.$router.push({
-                name: "login"
-                }));
+                .then(() => this.$router.push(
+                   {name:"login"}
+                ))
             },
         },
     }
