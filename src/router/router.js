@@ -78,7 +78,7 @@ import DossierPro from "@/views/Etudiant/DossierPro.vue";
 //#######################
 import Intervention from '@/views/Formateur/Interventions/Interventions.vue'
 import PromotionsFormateur from '@/views/Formateur/PromotionsFormateur.vue'
-
+import HomeFormateur from '@/views/Formateur/HomeFormateur.vue'
 //#######################
 //#       REFERENT      #
 //#######################
@@ -343,7 +343,13 @@ const routes = [
   //#######################
   //#       FORMATEUR     #
   //#######################
-
+ // Home Formateur
+ {
+  path: "/formateur/home",
+  name: "formateur_home",
+  component: HomeFormateur,
+  meta: { authorize: [Role.Formateur] },
+},
   {
     path: "/formateur",
     name: "formateur",
@@ -392,7 +398,7 @@ const routes = [
   { path: "/formateur/examens/update/:id", name: "formateur_examen_update", component: ExamenCreate, meta: { authorize: [Role.Formateur] } },
   { path: "/formateur/examens/detail/:id", name: "formateur_examen_detail", component: ExamenDetail, meta: { authorize: [Role.Formateur] } },
   // Promotions
-  { path: "/formateur/promotions", name: "formateur_promotion_list", component: PromotionsFormateur} ,
+  { path: "/formateur/promotions", name: "formateur_promotion_list", component: PromotionsFormateur , meta: { authorize: [Role.Formateur] }} ,
 
   //#######################
   //#       REFERENT      #
@@ -1516,7 +1522,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  //mode: "history",
   base: process.env.BASE_URL,
   routes,
 });

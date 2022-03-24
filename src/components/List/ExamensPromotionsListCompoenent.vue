@@ -120,7 +120,6 @@
    
     </b-table>
   </div>
-  {{examens}}
   </div>
        
 </template>
@@ -136,6 +135,7 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
     props : {
             examens: {
                 type: Array ,
+                required: true
               }
             },
 
@@ -214,10 +214,11 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
     },
     created() {
          //console.log(this.examens);
+         if (this.examens != undefined) {
+                this.assigneTableItems(this.examens);
+         }
 
-      this.assigneTableItems();
-     
-    
+  
   },
 
     methods:{
@@ -246,39 +247,42 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
     classObject(item,modifier){
         let dateExam = new Date(item.Date).getTime();
         let now =  Date.now()
-        if (dateExam > now ) {
+        if (dateExam < now ) {
 
             return modifier ? 'd-none': ''
         }
         return modifier ?'':'d-none';
     },
-    assigneTableItems(){
-     let items = [];
+      assigneTableItems(examens){  
+          let items = [];
           //  { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false, _showDetails: false },
-        for (let i = 0; i < this.examens.length; i++) {
+        for (let i = 0; i < examens.length; i++) {
           let blocksConcernee = "";
-          for (let j = 0; j < this.examens[i].blocksConcernee.length; j++) {
-               blocksConcernee +=this.examens[i].blocksConcernee[j] + " ," ;            
+          for (let j = 0; j < examens[i].blocksConcernee.length; j++) {
+               blocksConcernee +=examens[i].blocksConcernee[j] + " ," ;            
           }
           blocksConcernee = blocksConcernee.substring(0,blocksConcernee.length-1);
           let item = {
-            Titre:this.examens[i].titre,
-            Duree:this.examens[i].duree,
-            Date: this.examens[i].dateExamen,
+            Titre:examens[i].titre,
+            Duree:examens[i].duree,
+            Date: examens[i].dateExamen,
             Blocs_concernes:blocksConcernee,
-            description:this.examens[i].descriptif,
-            Piece_jointe:this.examens[i].pieceJointe,
+            description:examens[i].descriptif,
+            Piece_jointe:examens[i].pieceJointe,
             modifier: false,
             _showDetails:false
 
           }
-
             items.push(item);
-          
         }
         this.$nextTick( ()=>{
           this.items = items;})
     }
+  
+  },
+  computed :{
+
+
   }
   }
   

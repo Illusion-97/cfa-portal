@@ -155,7 +155,6 @@ export default {
     clickList(promotion) {
       this.promotion_input = promotion.nom;
       this.$emit("click-list", promotion);
-      console.log(promotion);
     },
     dblClick(promotion){
       let route = this.$route.path.split("/").splice(1);

@@ -10,7 +10,7 @@
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HomeEtudiant from "@/components/Etudiant/HomeEtudiant.vue";
-import HomeFormateur from "@/components/Formateur/HomeFormateur.vue";
+import HomeFormateur from "@/views/Formateur/HomeFormateur.vue";
 import NotFound from "@/views/NotFound.vue"
 export default {
   name: "Home",
@@ -29,6 +29,7 @@ export default {
       return utilisateurService.isEtudiant();
     },
     isFormateur() {
+      this.$router.push({name: "formateur_home"})
       return utilisateurService.isFormateur();
     },
   },
