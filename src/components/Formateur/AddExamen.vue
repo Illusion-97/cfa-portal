@@ -3,8 +3,25 @@
     <div class="d-flex justify-content-end">
         <b-button variant="secondary" v-b-toggle.collapseFormulaire v-show="show" @click="show = !show" class="btnAddExamen"><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon"/> Ajouter un examen</b-button>
       </div>
-    <b-container fluid id="fluid-container">
-      
+    <b-container fluid id="fluid-container" >
+        <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+       variant="success"
+       @dismissed="dismissCountDown=0"
+    >
+                {{message}}
+    </b-alert>
+   <!-- <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+       variant="danger"
+       @dismissed="dismissCountDownErr=0"
+    >
+                {{message}}
+    </b-alert> -->
       <b-collapse id="collapseFormulaire">
         <b-row id="center" class="my-1" v-for="type in types" :key="type">
         <b-col sm="3" id="sm">
@@ -12,24 +29,20 @@
         </b-col>
         <b-col id="form" sm="9">
           <div v-if="type == 'Titre de l\'examen'">
-            <b-form-input :id="`type-${type}`" :type="type"></b-form-input>
+            <b-form-input :id="`type-${type}`" :type="type"
+            v-model="examenDto.titre"
+            ></b-form-input>
           </div>
           <div v-if="type == 'Descriptif'">
                   <b-form-textarea
                     id="textarea-auto-height"
                     rows="2"
                     max-rows="8"
+                    v-model="examenDto.descriptif"
                   ></b-form-textarea>
           </div>
-          <!-- <div id="duree" class="w-25" v-else-if="type == 'Durée'">
-            <b-form-spinbutton id="sb-wrap"
-            wrap min="1"
-            max="10"
-            step="0.5"
-            placeholder="---"></b-form-spinbutton>
-          </div> -->
           <div v-else-if="type == 'Date'">
-            <b-form-datepicker id="example-datepicker" v-model="dateValue" placeholder="Sélectionner une date" class="mb-2"></b-form-datepicker>
+            <b-form-datepicker id="example-datepicker"   v-model="examenDto.dateExamen" placeholder="Sélectionner une date" class="mb-2"></b-form-datepicker>
           </div>
           <div id="select-file" v-else-if="type == 'Piece jointe'">
             <b-form-file v-model="file" ref="file-input" class="mb-2" placeholder="Sélectionner votre pièce jointe"></b-form-file>
@@ -37,43 +50,18 @@
           <div v-else-if="type == 'Blocs concernés'">
             <b-row class="mb-3">
                   <b-col>
-                    <div>
-                      <div class="row row-width align-items-start" >
-                        <div class="col">
-                          <b-form-checkbox value=1>1</b-form-checkbox>
-                        </div>
-                        <div class="col">
-                          <b-form-checkbox value=2>2</b-form-checkbox>
-                        </div>
-                        <div class="col">
-                          <b-form-checkbox value=3>3</b-form-checkbox>
-                        </div>
-                      </div>
-                      <div class="row row-width align-items-center">
-                        <div class="col">
-                          <b-form-checkbox value=4>4</b-form-checkbox>
-                        </div>
-                        <div class="col">
-                          <b-form-checkbox value=5>5</b-form-checkbox>
-                        </div>
-                        <div class="col">
-                          <b-form-checkbox value=6>6</b-form-checkbox>
-                        </div>
-                      </div>
-                      <div class="row row-width align-items-end">
-                        <div class="col">
-                          <b-form-checkbox value=7>7</b-form-checkbox>
-                        </div>
-                        <div class="col">
-                          <b-form-checkbox value=8>8</b-form-checkbox>
-                        </div>
-                        <div class="col">
-                          <b-form-checkbox value=9>9</b-form-checkbox>
-                        </div>
-                      </div>
-                    </div>
+                      <b-form-checkbox-group
+                          size="lg"
+                          v-model="selectedChekbox"
+                          :options="optionsChebox"
+                          :aria-describedby="ariaDescribedby"
+                          name="flavour-1b"
+                          class="d-flex flex-wrap justify-content-center"
+                          switches
+                    ></b-form-checkbox-group>
                   </b-col>
-                <b-col class="w-25" order="5"><b-form-spinbutton
+                <b-col class="w-Spin" order="5"><b-form-spinbutton
+                    v-model="examenDto.duree"
                     wrap min="1"
                     max="10"
                     step="0.5"
@@ -88,48 +76,17 @@
           <div>
             <b-button v-b-toggle.collapse-1 variant="primary">Sélectionner une compétence</b-button>
               <b-collapse id="collapse-1" class="mt-2">
-
-
-                <!-- <b-form-select class="card cardCompetences" v-model="selected" :options="options" multiple :select-size="3"></b-form-select> -->
-                
-                <!-- <div class="list-group" v-for="item in options" :key="item.text">
-                  <b-button class="list-group-item list-group-item-action" v-onClick="choixCompetence"> {{ item.text }} </b-button>
-                </div> -->
-  <!-- 
-  AVEC DES BOUTONS
-                <div>
-                  <b-button
-                    v-for="(item, idx) in options"
-                    :key="idx"
-                    :pressed.sync="item.state"
-                    variant="primary"
-                  >
-                    {{ item.text }}
-                  </b-button>
-                </div>
-  AVEC DES BOUTONS -->
-
-                
-                  <!-- <div class="row">
-                    <div class="col">Column</div> 
-                    <div class="w-100"></div>
-                  </div>
-                -->
-
-                  <!-- <b-form-select class="cardCompetences">
-                    <option class="card" v-for="item in options" :key="item.text" value=item.value > {{item.text}}</option>
-                  </b-form-select> -->
-
-
-              <select class="form-selec-competences border-0" multiple aria-label="multiple select example" >
-                <option class="card cardCompetences" v-for="item in options" :key="item.text" :value=item.value> {{item.text}} </option>
+              <select  v-model="selected" class="form-selec-competences border-0" multiple aria-label="multiple select example" >
+                <option  class="card cardCompetences"  v-for="item in options" :key="item.text" :value=item.value> {{item.text}} </option>
               </select>
             </b-collapse> 
           </div>
 
           <div class="d-flex justify-content-end">
-            <b-button class="btnAddExamen btnValiderAnnuler btn-success mr-4">Valider</b-button>
-            <b-button class="btnAddExamen btnValiderAnnuler btn-warning " v-b-toggle.collapseFormulaire v-show="!show" @click="show = !show">Annuler</b-button>
+             <b-form @submit="onSubmit" >
+            <b-button  type="submit" class="btnAddExamen btnValiderAnnuler btn-success mr-4">Valider</b-button>
+            </b-form>
+            <b-button  class="btnAddExamen btnValiderAnnuler btn-warning " v-b-toggle.collapseFormulaire v-show="!show" @click="show = !show">Annuler</b-button>
           </div>
       </b-collapse> 
     </b-container>
@@ -137,16 +94,28 @@
 </template>
 
 <script>
+import { examenApi } from "@/_api/examen.api.js";
+import { activiteTypeApi } from "@/_api/activiteType.api.js";
+
   export default {
     data() {
       return {
+         dismissSecs: 5,
+        examenDto:{
+          titre: null,
+          descriptif:null,
+          duree:null,
+          dateExamen: null,
+          promotionId: null,
+          activiteTypeId: null
+        },
+        message: "",
+        file :null,
         show: true,
         hidden: false,
-        selected: [],
+        selected: null,
         options: [
-          { value: '1', text: '1 - Concevoir et développer des composants d\'interface utilisateur en intégrant les recommandations de sécurité' },
-          { value: '2', text: '2 - Concevoir et développer la persistance des données en intégrant les recommandations de sécurité' },
-          { value: '3', text: '3 - Concevoir et développer une application multicouche répartie en intégrant les recommandations de sécurité' },
+          // { value: '1', text: '1 - Concevoir et développer des composants d\'interface utilisateur en intégrant les recommandations de sécurité' },
         ],
         types: [
           'Titre de l\'examen',
@@ -154,22 +123,65 @@
           'Piece jointe',
           'Date',
           'Blocs concernés',
-        ]
+        ],
+         optionsChebox: [
+          { text: '1', value: 1 },
+          { text: '2', value: 2 },
+          { text: '3', value: 3 },
+          { text: '4', value: 4 },
+          { text: '5', value: 5 },
+          { text: '6', value: 6 },
+          { text: '7', value: 7 },
+          { text: '8', value: 8 },
+          { text: '9', value: 9 }
+        ],
+        selectedChekbox :[]
       }
     },
     methods:{
-      // hideAddExamenBtn: function (event) {
-      //   this.isVisible = isNotVisible
-      // },
-
-      // annulerAjoutExamen : function() {
-      //   item.ajouter = false;
-      //   item._showDetails = false;
-      // },
+      onSubmit(event) {
+        event.preventDefault()
+       var bodyFormData = new FormData();
+       this.examenDto.promotionId = this.$route.params.id;
+       this.examenDto.activiteTypeId = this.selected[0];
+       console.log(this.examenDto);    
+       bodyFormData.append('examen', JSON.stringify(this.examenDto));
+       bodyFormData.append('file',this.file);
+       console.log(JSON.stringify(this.examenDto));
+        examenApi.save(bodyFormData).then((response) =>{
+              this.showAlert(response.titre , false)
+        } ).catch((error) => this.showAlert(response.titre , true));
+      },
+      showAlert(titre ,isErr) {
+        if (isErr) {
+        //    this.message = "Erreur d'ajout de 'examen " + titre ;
+        // this.dismissCountDownErr = this.dismissSecs
+        }
+        else{
+        this.message = "L'examen " + titre + " à bien étè rajoué avec succes"
+        this.dismissCountDown = this.dismissSecs
+        }
+      }
+    },
+    created(){
+      activiteTypeApi.getAllByIdPromotion(this.$route.params.id).then((response) =>{
+     console.log(response)
+        for (let i = 0; i < response.length; i++) {
+             let option = {
+          value :response[i].id,
+          text : response[i].numeroFiche + " - " + response[i].libelle
+        }
+          this.options.push(option);
+        }
+      })
     }
+
   }
 </script>
-<style>
+<style >
+.w-Spin{
+  width: 100px;
+}
 .btnAddExamen{
   position: relative;
   right: 10px;

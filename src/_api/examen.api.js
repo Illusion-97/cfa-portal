@@ -39,9 +39,9 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
-function save(examen) {
+function save(formData) {
   return axios
-    .post(`${END_POINT}`, examen, requestOptions.headers())
+    .post(`${END_POINT}`, formData, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

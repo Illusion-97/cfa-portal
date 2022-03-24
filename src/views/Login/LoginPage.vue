@@ -181,7 +181,6 @@ export default {
             let roles = store.getters.getUtilisateur.rolesDto.map((role) => {
               return role.intitule;
             });
-            
             if (roles.includes("ADMIN")) {
               router.push("admin");
             }

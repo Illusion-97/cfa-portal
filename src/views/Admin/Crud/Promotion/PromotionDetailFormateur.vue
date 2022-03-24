@@ -70,12 +70,12 @@
         </div>
 
     </b-tab>
-    <b-tab >
-        <template v-slot:title>
+    <b-tab @click="reloadExam()">
+        <template v-slot:title >
           <font-awesome-icon :icon="['fas', 'file-alt']" class="icon"/>   Examens
       </template>
 
-      <ExamensPromotionsListCompoenent :examens="promotion.examensDto"  @custom-event-notes="setMessage" />
+      <ExamensPromotionsListCompoenent :examens="promotion.examensDto"  @custom-event-notes="setMessage "   ref='examen'/>
   
     </b-tab>
     <b-tab >
@@ -98,7 +98,6 @@
 </template>
 
 <script>
-// import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { promotionApi } from "@/_api/promotion.api.js";
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import ExamensPromotionsListCompoenent from '@/components/List/ExamensPromotionsListCompoenent.vue'
@@ -156,6 +155,9 @@ export default {
             // this.titleNote = payload.examen;
             payload.examen
             this.afficherNotes ='';
+        },
+        reloadExam(){
+          this.$refs.examen.assigneTableItems(this.promotion.examensDto);
         },
     // goBack() {
     //   this.$router.go(-1);
