@@ -4,9 +4,6 @@
     <div id="header">
         <HeaderFormateur :title= "'Bienvenue sur le portail CFA '+utilisateur.prenom+' '+ utilisateur.nom"/>
       </div>
-    <div>
-      <VueSidebarFormateur />
-    </div>
     <div id="grid-container">
       <div id="trainer-planning">
         <Planning />
@@ -20,7 +17,7 @@ import HeaderFormateur from"@/components/Navigation/HeaderFormateur.vue";
 import Planning from "@/components/utils/Planning.vue";
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 export default {
-  name: "HomeFormateur",
+  name: "",
   components: {
     HeaderFormateur,
     Planning,

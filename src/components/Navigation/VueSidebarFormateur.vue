@@ -22,7 +22,7 @@ export default {
          bgColor: '#00072d',
          menuLogo:'',
          menuItems: [
-            {link: "home" ,name: 'Accueil', icon:'bx-home-alt' },
+            {link: "formateur_home" ,name: 'Accueil', icon:'bx-home-alt' },
             {link: "formateur_intervention" ,name: 'Interventions', icon:'bx bxs-megaphone' },
             {link: "formateur_promotion_list" ,name: 'Promotions', icon:'bx-briefcase-alt' }
          ],

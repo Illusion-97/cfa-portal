@@ -78,7 +78,7 @@ import DossierPro from "@/views/Etudiant/DossierPro.vue";
 //#######################
 import Intervention from '@/views/Formateur/Interventions/Interventions.vue'
 import PromotionsFormateur from '@/views/Formateur/PromotionsFormateur.vue'
-
+import HomeFormateur from '@/views/Formateur/HomeFormateur.vue'
 //#######################
 //#       REFERENT      #
 //#######################
@@ -343,7 +343,13 @@ const routes = [
   //#######################
   //#       FORMATEUR     #
   //#######################
-
+ // Home Formateur
+ {
+  path: "/formateur/home",
+  name: "formateur_home",
+  component: HomeFormateur,
+  meta: { authorize: [Role.Formateur] },
+},
   {
     path: "/formateur",
     name: "formateur",
