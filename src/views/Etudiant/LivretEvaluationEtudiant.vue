@@ -77,7 +77,7 @@ export default {
 }
 
 .container {
-  margin: 99px 0 0 450px;
+  margin: 89px 0 0 421px;
 }
 
 h5 {
@@ -88,9 +88,6 @@ h5 {
 #key:intitule {
   width: 300px;
 }
-
-.container {
-  margin: 49px 0 0 421px;}
 
 button {
   display: inline-block;

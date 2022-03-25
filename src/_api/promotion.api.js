@@ -13,6 +13,7 @@ export const promotionApi = {
     getEtudiants,
     getNote,
     getCours,
+    getCef
 };
 
 const END_POINT = "promotions";
@@ -106,4 +107,13 @@ function getAll(){
       .get(req, requestOptions.headers())
       .then(response => response.data)
       .catch((error) => console.log(error));
+}
+
+function getCef(id){
+  let req = `promotions/${id}/cefs`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }

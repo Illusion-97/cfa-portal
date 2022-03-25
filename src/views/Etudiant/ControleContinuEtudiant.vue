@@ -1,11 +1,10 @@
 <template>
-<div class="container">
+  <div class="container">
     <h5>Contrôles continus</h5>
-  <div>
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <div>
+      <b-table striped hover :items="items" :fields="fields"></b-table>
+    </div>
   </div>
-</div>
-  
 </template>
 
 <script>
@@ -61,7 +60,6 @@ export default {
           date_start: "10/06/2022",
           date_end: "11/06/2022",
         },
-        
       ],
     };
   },
@@ -69,9 +67,10 @@ export default {
 </script>
 
 <style scoped>
-    h5 {
-        margin: 0 0 30px 0;
-    }
-  .container {
-  margin: 49px 0 0 421px;}
+h5 {
+  margin: 0 0 30px 0;
+}
+.container {
+  margin: 89px 0 0 421px;
+}
 </style>

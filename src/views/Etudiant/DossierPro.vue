@@ -7,7 +7,9 @@
 
     <!-- SELECT CDA-->
     <div v-if="select1 == 'cda'">
-      <div id="div-label"><label for=""><strong>Activités types</strong></label></div>
+      <div id="div-label">
+        <label for=""><strong>Activités types</strong></label>
+      </div>
       <b-form-select
         v-model="selectActivite"
         :options="optionsActivite"
@@ -43,7 +45,9 @@
 
     <!-- SELECT MPIL-->
     <div v-if="select1 == 'mpil'">
-      <div id="div-label"><label for=""><strong>Activités types</strong></label></div>
+      <div id="div-label">
+        <label for=""><strong>Activités types</strong></label>
+      </div>
 
       <select class="form-select custom-select">
         <option value="mpil">Activité type 1 MPIL</option>
@@ -104,7 +108,11 @@
           >
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal"
+                <b-button
+                  block
+                  v-b-toggle.accordion-1
+                  variant="primary"
+                  class="titre-details-modal"
                   >1. Décrivez les tâches réalisées ou opérations que vous avez
                   effectué et dans quelles conditions.
                 </b-button>
@@ -128,7 +136,11 @@
 
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal"
+                <b-button
+                  block
+                  v-b-toggle.accordion-2
+                  variant="primary"
+                  class="titre-details-modal"
                   >2. Précisez les moyens utilisés.
                 </b-button>
               </b-card-header>
@@ -149,7 +161,11 @@
 
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal"
+                <b-button
+                  block
+                  v-b-toggle.accordion-3
+                  variant="primary"
+                  class="titre-details-modal"
                   >3. Avec qui avez-vous travaillé ?
                 </b-button>
               </b-card-header>
@@ -170,7 +186,11 @@
 
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal"
+                <b-button
+                  block
+                  v-b-toggle.accordion-4
+                  variant="primary"
+                  class="titre-details-modal"
                   >4. Précisez le contexte.
                 </b-button>
               </b-card-header>
@@ -191,7 +211,11 @@
 
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal"
+                <b-button
+                  block
+                  v-b-toggle.accordion-5
+                  variant="primary"
+                  class="titre-details-modal"
                   >5. Informations complémentaires (facultatif).
                 </b-button>
               </b-card-header>
@@ -301,16 +325,17 @@ h5 {
   margin: 0 0 30px 0;
 }
 .container {
-  margin: 49px 0 0 421px;}
+  margin: 89px 0 0 421px;
+}
 select {
   display: block;
 }
 
-.accordeon-groupe{
+.accordeon-groupe {
   margin-top: 15px;
 }
 
-.titre-details-modal{
+.titre-details-modal {
   text-align: left;
   padding: 6px 25px;
 }
