@@ -7,7 +7,7 @@ export const noteApi = {
     getCount,
     save,
     deleteNote,
-
+    getAllByIdExamen,
     getAllByIdEtudiant,
     getAllNotes
 }
@@ -70,7 +70,13 @@ function getAllByIdEtudiant(id) {
         .catch((error) => console.log(error));
 
 }
-
+function getAllByIdExamen(id) {
+    let req =  `notes/examen/${id}`;
+    return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
 function getAllNotes() {
     return axios
       .get(`${END_POINT}`, requestOptions.headers())

@@ -29,11 +29,11 @@ export default {
       return utilisateurService.isEtudiant();
     },
     isFormateur() {
-      this.$router.push({name: "formateur_home"})
       return utilisateurService.isFormateur();
     },
   },
   created() {
+    
     utilisateurApi
       .getPlanningById(this.$store.getters.getUtilisateur.id)
       .then((response) => this.$store.dispatch("setPlanning", response));
@@ -42,6 +42,9 @@ export default {
         this.$router.push({
           name: "admin_dashboard",
         });
+      }
+      if(this.isFormateur){
+        this.$router.push({name: "formateur_home"})
       }
   },
 };
