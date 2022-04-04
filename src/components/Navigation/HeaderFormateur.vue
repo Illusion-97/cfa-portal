@@ -1,14 +1,4 @@
 <template>
-    <!-- <div class="navHeader d-flex justify-content-center">
-       <div class="d-flex">
-            <div class="d-flex align-items-center">
-                {{ title }}
-            </div>
-       </div>
-        <div class="pHeader mr-4"> 
-           <button type="button" @click="logout" class="btnHeader btn-light"><font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon"/>    Déconnexion</button>
-        </div>
-    </div> -->
     <div class="navHeader">
         <b-row class="pHeader h-100 d-flex align-items-center">
             <b-col class=" col-9 d-flex justify-content-center">
