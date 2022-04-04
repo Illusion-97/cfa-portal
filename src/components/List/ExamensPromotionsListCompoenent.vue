@@ -135,6 +135,7 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
     props : {
             examens: {
                 type: Array ,
+                default: [],
                 required: true
               }
             },
@@ -217,8 +218,6 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
          if (this.examens != undefined) {
                 this.assigneTableItems(this.examens);
          }
-
-  
   },
 
     methods:{
@@ -232,6 +231,7 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
       },
       ajouterNotes(item){
         this.$emit('custom-event-notes', { examen: item.Titre })
+        this.$root.$emit('examen',item);
       },
       onSubmit(event) {
         event.preventDefault()
@@ -263,6 +263,7 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
           }
           blocksConcernee = blocksConcernee.substring(0,blocksConcernee.length-1);
           let item = {
+            id:examens[i].id,
             Titre:examens[i].titre,
             Duree:examens[i].duree,
             Date: examens[i].dateExamen,
@@ -281,13 +282,11 @@ import AddExamen from '@/components/Formateur/AddExamen.vue'
   
   },
   computed :{
-
-
   }
   }
   
 </script>
-<style>
+<style scoped>
 .Bolcs{
   width: 180px;
 }

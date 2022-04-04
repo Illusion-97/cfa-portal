@@ -15,13 +15,11 @@
 <script>
 import HeaderFormateur from"@/components/Navigation/HeaderFormateur.vue";
 import Planning from "@/components/utils/Planning.vue";
-import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 export default {
   name: "",
   components: {
     HeaderFormateur,
     Planning,
-    VueSidebarFormateur,
   },
   data() {
     return {

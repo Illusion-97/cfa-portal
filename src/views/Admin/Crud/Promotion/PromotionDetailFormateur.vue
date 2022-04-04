@@ -152,16 +152,13 @@ export default {
   },
   methods: {
      setMessage(payload) {
-            // this.titleNote = payload.examen;
+           this.titleNote = payload.examen;
             payload.examen
             this.afficherNotes ='';
         },
         reloadExam(){
           this.$refs.examen.assigneTableItems(this.promotion.examensDto);
         },
-    // goBack() {
-    //   this.$router.go(-1);
-    // },
     changementOnglet(onglet) {
       this.onglet = onglet;
     },
@@ -181,26 +178,27 @@ export default {
         }
       },
 
-    updatePromotion() {
-      let route = this.$route.path.split("/").splice(1);
+    // updatePromotion() {
+    //   let route = this.$route.path.split("/").splice(1);
 
-      if (route[0] == "admin") this.$router.push({name: "admin_promotion_update"});
-      else if (route[0] == "referent") this.$router.push({name: "referent_promotion_update"});
-      else if (route[0] == "cef") this.$router.push({name: "cef_promotion_update"});
+    //   if (route[0] == "admin") this.$router.push({name: "admin_promotion_update"});
+    //   else if (route[0] == "referent") this.$router.push({name: "referent_promotion_update"});
+    //   else if (route[0] == "cef") this.$router.push({name: "cef_promotion_update"});
       
-    },
-    deletePromotion() {
-      var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if (res) {
-        promotionApi
-          .deletePromotion(this.$route.params.id)
-          .then(() => this.goBack());
-      }
-    },
+    // },
+    // deletePromotion() {
+    //   var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+    //   if (res) {
+    //     promotionApi
+    //       .deletePromotion(this.$route.params.id)
+    //       .then(() => this.goBack());
+    //   }
+    // },
   },
   created() {
     promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
       this.promotion = response;
+      console.log(response);
       centreFormationApi
         .getById(this.promotion.centreFormationDto.id)
         .then((response) => (this.ville = response.adresseDto.ville));
