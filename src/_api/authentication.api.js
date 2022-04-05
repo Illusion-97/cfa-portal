@@ -3,6 +3,7 @@ import axios from "axios";
 //import handleResponse from '@/_helpers/handle-response.js';
 import store from "@/store/store.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import router from "../router/router";
 
 export const authenticationApi = {
   login,
@@ -46,5 +47,6 @@ function login(login, password) {
 }
 
 function logout() {
+  router.go();
   store.dispatch("logout");
 }

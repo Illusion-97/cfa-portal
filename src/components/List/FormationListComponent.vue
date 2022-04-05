@@ -1,5 +1,22 @@
 <template>
   <div class="container-fluid">
+    <div class="updateListFormation">
+      <button-2 name="button2" outlined @click="openLoginWdg2" class="button2">
+        Mise à jour des formations 
+      </button-2>
+      <div class="login-wdg2">
+        <login-wdg-2
+          v-if="showLoginWdg2Card"
+          @logInUser="logInUserWdg2"
+          @wdg2Close="wdg2Close"
+        />
+      </div>
+      <div class="progress"
+        v-if="loading"
+        indeterminate
+      ></div>
+    </div>
+    <br>
     <div class="header-list">
       <div id="groupe-input" v-if="!isAction">
         <input
@@ -94,9 +111,12 @@
 
 <script>
 import { formationApi } from "@/_api/formation.api.js";
+import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "FormationListComponent",
-  components: {},
+  components: {
+    LoginWdg2,
+  },
   props: {
     isAction: {
       type: Boolean,
@@ -184,6 +204,22 @@ export default {
       // else if(route[0]== 'cef') this.$router.push({name:'cef_formation_detail', params: { id: formation.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_formation_detail', params: { id: formation.id }});
 
+    },
+    // open the card to let the user login to webservice DG2
+    openLoginWdg2() {
+      this.showLoginWdg2Card = true;
+    },
+    // fetch courses from webservice DG2
+    async logInUserWdg2(value) {
+      this.showLoginWdg2Card = false;
+      this.loading = true;
+      await this.centreFormationApi.fetchAllFormationDG2Http({ logInUser: value });
+      this.loading = false;
+      await this.loadLocations();
+    },
+    // close the card for the login to webservice DG2
+    wdg2Close(value) {
+      this.showLoginWdg2Card = value;
     },
   },
 };
