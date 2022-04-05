@@ -1,43 +1,49 @@
 <template>
-  <div class="card" id="wdg2">
+  <div class="card" id="wdg2" style="width: 40rem;">
     <form ref="form">
       <div class="card-title">
-        <span class="headline">title</span>
+        <h2>Login Dg2</h2>
       </div>
       <div class="card-text">
         <div class="container">
-          <text-field
+          <input
             id="e-mail-wdg2"
+            name="email"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
             v-model="logInUser.email"
-            :rules="emptyField"
             required
             color="grey"
-          >email</text-field>
-          <text-field
+          />
+          <input
             id="password-wdg2"
+            name="password"
+            placeholder="Mot de passe"
             v-model="logInUser.password"
-            :rules="emptyField"
             type="password"
             color="grey"
             required
-          >mdp</text-field>
+          />
         </div>
       </div>
-      <card-actions>
-        <spacer></spacer>
-        <button color="red darken-1" text @click="close">
-          Cancel
+      <div class="card-body">
+        <br>
+        <button class="btn btn-danger" text @click="close">
+          Annuler
         </button>
         <button
           id="button-login-wdg2"
-          color="red darken-1"
+          color="error"
+          class="btn btn-primary fa-pull-right"
           text
+          
           @click="loginWdg2"
           :disabled="!valid"
         >
-          login
+          Connexion
         </button>
-      </card-actions>
+      </div>
     </form>
   </div>
 </template>
@@ -58,22 +64,22 @@ export default {
   mounted() {},
   methods: {
     close() {
-    //   this.$nextTick(() => {
-    //     this.logInUser = Object.assign({}, this.defaultItem);
-    //   });
-    //   this.$refs.form.reset();
-    //   this.$emit('wdg2Close', false);
+      this.$nextTick(() => {
+        this.logInUser = Object.assign({}, this.defaultItem);
+      });
+      this.$refs.form.reset();
+      this.$emit('wdg2Close', false);
     },
     loginWdg2() {
-    //   if (this.$refs.form.validate()) {
-    //     this.$emit('logInUser', this.logInUser);
-    //   }
+      if (this.$refs.form.validate()) {
+        this.$emit('logInUser', this.logInUser);
+      }
     }
   },
 };
 </script>
 
-<style lang="scss">
+<style src="@/assets/styles/LogDg2.css">
 #wdg2 {
   padding: 2rem;
 }
