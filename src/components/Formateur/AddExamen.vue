@@ -28,18 +28,8 @@
             <b-form-input 
               id="titreFormExamen"
               type:text v-model="examenDto.titre"
-              :state="validateState('name')"
+              required
             ></b-form-input>
-
-
-
-
-            <b-form-invalid-feedback id="titreFormExamenFeedback">               
-              This is a required field and must be at least 3 characters.
-            </b-form-invalid-feedback> 
-
-
-
           </div>
           <div class="d-flex flex-row">
             <b-label class="libelle-width">Descriptif :</b-label>
@@ -153,7 +143,6 @@
 
 <script>
 import { examenApi } from "@/_api/examen.api.js";
-import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   data() {
@@ -182,14 +171,6 @@ export default {
         // { text: '1', value: 1 },
       ],
     };
-  },
-  validations : {
-    form:{
-      name:{
-        required,
-        minLength: minLength(5)
-      }
-    }
   },
   methods: {
     onSubmit(event) {
@@ -236,10 +217,6 @@ export default {
       console.log("***************");
       console.log(this.optionsCheckbox);
     },
-    validateState(name){
-      const { $dirty, $error } = this.$v.form[name];
-      return $dirty ? !$error : null;
-    }
   },
 };
 </script>
