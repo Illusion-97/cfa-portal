@@ -294,7 +294,7 @@ export default {
       .getAllByIdPromotion(this.$route.params.id)
       .then((response) => {
         this.getDataForForm(response);
-        this.$refs.addExamen.options = this.datasFormAt;
+        this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
         this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
       });
   },
