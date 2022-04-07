@@ -25,7 +25,21 @@
         <section class="section-form d-flex flex-column justify-content-around">
           <div class="d-flex flex-row">
             <b-label class="libelle-width">Titre de l'examen :</b-label>
-            <b-form-input type:text v-model="examenDto.titre"></b-form-input>
+            <b-form-input 
+              id="titreFormExamen"
+              type:text v-model="examenDto.titre"
+              :state="validateState('name')"
+            ></b-form-input>
+
+
+
+
+            <b-form-invalid-feedback id="titreFormExamenFeedback">               
+              This is a required field and must be at least 3 characters.
+            </b-form-invalid-feedback> 
+
+
+
           </div>
           <div class="d-flex flex-row">
             <b-label class="libelle-width">Descriptif :</b-label>
@@ -43,6 +57,7 @@
               v-model="file"
               ref="file-input"
               placeholder="Sélectionner votre pièce jointe"
+              required
             ></b-form-file>
           </div>
           <div class="d-flex flex-row">
@@ -51,6 +66,7 @@
               v-model="examenDto.dateExamen"
               placeholder="Sélectionner une date"
               class="mb-2 datepicker-width"
+              required
             ></b-form-datepicker>
           </div>
 
@@ -64,9 +80,10 @@
                 class="form-select-warp-text"
                 id="checkbox-group-1"
                 v-model="selectedActiviteType"
-                :options="options"
+                :options="optionsBlocsCompetences"
                 :aria-describedby="ariaDescribedby"
                 name="flavour-1"
+                required
               ></b-form-checkbox-group>
             </b-form-group>
           </div>
@@ -74,11 +91,10 @@
           <div class="d-flex flex-row">
             <div class="d-flex flex-column w-50">
               <b-label class="libelle-width d-flex flex-row w-75"
-                >Blocs concernés :</b-label
-              >
+                >Compétences professionnelles :</b-label>
               <b-form-checkbox-group
                 size="lg"
-                v-model="selectedBlocsConcernes"
+                v-model="selectedCompConcernees"
                 :options="optionsCheckbox"
                 name="flavour-1b"
                 class="
@@ -90,6 +106,7 @@
                   checkbox-width
                 "
                 switches
+                required
               ></b-form-checkbox-group>
             </div>
             <div class="d-flex flex-row w-50 justify-content-end">
@@ -102,6 +119,7 @@
                 max="10"
                 step="0.5"
                 placeholder="---"
+                required
               ></b-form-spinbutton>
             </div>
           </div>
@@ -135,12 +153,13 @@
 
 <script>
 import { examenApi } from "@/_api/examen.api.js";
+import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
       selectedActiviteType: [],
-      selectedBlocsConcernes: [],
+      selectedCompConcernees: [],
       dismissSecs: 5,
       dataForBlocsConcernes: [],
       examenDto: {
@@ -156,13 +175,21 @@ export default {
       file: null,
       show: true,
       hidden: false,
-      options: [
+      optionsBlocsCompetences: [
         // { value: '1', text: '1 - Concevoir et développer des composants d\'interface utilisateur en intégrant les recommandations de sécurité' },
       ],
       optionsCheckbox: [
         // { text: '1', value: 1 },
       ],
     };
+  },
+  validations : {
+    form:{
+      name:{
+        required,
+        minLength: minLength(5)
+      }
+    }
   },
   methods: {
     onSubmit(event) {
@@ -171,7 +198,7 @@ export default {
       this.examenDto.promotionId = this.$route.params.id;
 
       this.examenDto.activitesType = this.selectedActiviteType;
-      this.examenDto.blocsConcernes = this.selectedBlocsConcernes;
+      this.examenDto.blocsConcernes = this.selectedCompConcernees;
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
       bodyFormData.append("file", this.file);
       examenApi
@@ -191,14 +218,28 @@ export default {
       }
     },
     showBlocsLinked() {
-      //value = 1 par exemple
-      // let blocsLinkedToActiviteType;
-      // for (let i = 0; i < this.blocsConcernes.length; i++){
-      //   selectedBlocsConcernes = this.blocsConcernes[i];
-      //   this.optionsCheckbox.push(this.selectedBlocsConcernes)
-      // }
-      console.log(this.dataForBlocsConcernes);
+      let options = [];
+      for (let i = 0; i < this.selectedActiviteType.length; i++){
+        for(let j = 0; j < this.dataForBlocsConcernes.length; j++){
+          if(this.dataForBlocsConcernes[j][this.selectedActiviteType[i]] != undefined){
+            let compsOptions = this.dataForBlocsConcernes[j][this.selectedActiviteType[i]];
+            for(let x = 0; x < compsOptions.length; x++){
+              options.push(compsOptions[x]);
+            }
+          }
+        }
+      }
+      this.optionsCheckbox = options.sort(function(a,b){
+        return a.text - b.text
+      });
+      
+      console.log("***************");
+      console.log(this.optionsCheckbox);
     },
+    validateState(name){
+      const { $dirty, $error } = this.$v.form[name];
+      return $dirty ? !$error : null;
+    }
   },
 };
 </script>
