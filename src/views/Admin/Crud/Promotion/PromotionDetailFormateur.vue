@@ -1,17 +1,20 @@
 <template>
   <div>
     <div class="stickyPosition">
-      <HeaderFormateur :title="promotion.nom"/>
-    </div> 
-      <section>
- <div class="container-fluid mt-4">
-  <b-tabs content-class="mt-3" fill>
-    <b-tab  active>
-       <template v-slot:title>
-          <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon"/>   Etudiants
-      </template>
-        <div >
-
+      <HeaderFormateur :title="promotion.nom" />
+    </div>
+    <section>
+      <div class="container-fluid mt-4">
+        <b-tabs content-class="mt-3" fill>
+          <b-tab active>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'user-graduate']"
+                class="icon"
+              />
+              Etudiants
+            </template>
+            <div>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -32,109 +35,117 @@
                     <td>{{ etudiant.utilisateurDto.nom }}</td>
                     <td>{{ etudiant.utilisateurDto.login }}</td>
                     <td>
-                        {{etudiant.utilisateurDto.telephone }}
+                      {{ etudiant.utilisateurDto.telephone }}
                     </td>
                   </tr>
                 </tbody>
               </table>
-        </div>
-    </b-tab>
-    <b-tab >
-     <template v-slot:title>
-          <font-awesome-icon :icon="['fas', 'business-time']" class="icon"/>   Interventions
-      </template>
-        <div  id="interventions">
-          <table class="table">
-            <thead class="">
-              <tr>
-                <th>Formation</th>
-                <th>Heures dispensées</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="intervention in promotion.interventionsDto"
-                :key="intervention.id"
-                @dblclick="clickIntervention(intervention)"
-                class="mon-tr"
-              >
-                <td>{{ intervention.formationDto.titre }}</td>
-                <td>{{intervention.heuresDisponsees}}</td>
-                <td>{{ intervention.dateDebut | formatDate }}</td>
-                <td>{{ intervention.dateFin | formatDate }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'business-time']"
+                class="icon"
+              />
+              Interventions
+            </template>
+            <div id="interventions">
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th>Formation</th>
+                    <th>Heures dispensées</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="intervention in promotion.interventionsDto"
+                    :key="intervention.id"
+                    @dblclick="clickIntervention(intervention)"
+                    class="mon-tr"
+                  >
+                    <td>{{ intervention.formationDto.titre }}</td>
+                    <td>{{ intervention.heuresDisponsees }}</td>
+                    <td>{{ intervention.dateDebut | formatDate }}</td>
+                    <td>{{ intervention.dateFin | formatDate }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab @click="reloadExam()">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
+              Examens
+            </template>
 
-    </b-tab>
-    <b-tab @click="reloadExam()">
-        <template v-slot:title >
-          <font-awesome-icon :icon="['fas', 'file-alt']" class="icon"/>   Examens
-      </template>
-
-      <ExamensPromotionsListCompoenent :examens="promotion.examensDto"  @custom-event-notes="setMessage "   ref='examen'/>
-  
-    </b-tab>
-    <b-tab >
-        <template v-slot:title>
-          <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon"/>   Notes
-      </template>
-         <h2 class="text-center mt-5 mb-5">
-         {{titleNote}}
-          </h2>
-    <div v-bind:class="[afficherNotes]" >
-      <AjouterNotes />
-    </div>
-       
-
-    </b-tab>
-  </b-tabs>
-</div>
+            <ExamensPromotionsListCompoenent
+              :examens="promotion.examensDto"
+              @custom-event-notes="setMessage"
+              ref="examen"
+            />
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'sort-numeric-up-alt']"
+                class="icon"
+              />
+              Notes
+            </template>
+            <h3 class="text-center mt-5 mb-5">
+              {{ titleNote }}
+            </h3>
+            <div v-bind:class="[afficherNotes]">
+              <AjouterNotes />
+            </div>
+          </b-tab>
+        </b-tabs>
+      </div>
     </section>
   </div>
 </template>
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
-import { centreFormationApi } from "@/_api/centreFormation.api.js";
-import ExamensPromotionsListCompoenent from '@/components/List/ExamensPromotionsListCompoenent.vue'
-import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue"
-import AjouterNotes from '@/components/Formateur/AjouterNotes.vue';
+import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
+import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 
 export default {
   name: "PromotionDetailFormateur",
   components: {
     ExamensPromotionsListCompoenent,
-    HeaderFormateur,  
+    HeaderFormateur,
     AjouterNotes,
-  
+
     // BodyTitle,
   },
-    props : {
-      titleNote: {
-          type: String,
-                    default: "Sélectionner un examen"
-            }
-        },
-    data() {
+  props: {
+    titleNote: {
+      type: String,
+      default: "Sélectionner un examen",
+    },
+  },
+  data() {
     return {
       // AjouterNotes: {
       //   ouvert : false,
       //   titre : "qsddqd"
       // },
-      afficherNotes:'d-none',
+      afficherNotes: "d-none",
       promotionId: this.$route.params.id,
       promotion: {
         cursusDto: {},
         referentPedagogiqueDto: {},
-        cefDto: {utilisateurDto:{}},
-        interventionsDto: [{formationDto: {}}],
-        etudiantDto: [{utilisateurDto: {}}]
+        cefDto: { utilisateurDto: {} },
+        interventionsDto: [{ formationDto: {} }],
+        etudiantDto: [{ utilisateurDto: {} }],
       },
-      itemsEtudients : [],
+      itemsEtudients: [],
       ville: "",
       onglet: 1,
       isModalVisible: false,
@@ -151,58 +162,59 @@ export default {
     },
   },
   methods: {
-     setMessage(payload) {
-           this.titleNote = payload.examen;
-            payload.examen
-            this.afficherNotes ='';
-        },
-        reloadExam(){
-          this.$refs.examen.assigneTableItems(this.promotion.examensDto);
-        },
+    setMessage(payload) {
+      this.titleNote = payload.examen;
+      this.afficherNotes = "";
+    },
+    reloadExam() {
+      this.$refs.examen.assigneTableItems(this.promotion.examensDto);
+    },
     changementOnglet(onglet) {
       this.onglet = onglet;
     },
     clickEtudiant(etudiant) {
       let route = this.$route.path.split("/").splice(1);
-        if (route[0] == "admin") {this.$router.push({name: "admin_etudiant_detail",params: {id: etudiant.id,},});
-        } else if(route[0] == "referent") {this.$router.push({name: "referent_etudiant_detail",params: {id: etudiant.id,},});
-        }else if(route[0] == "cef") {this.$router.push({name: "cef_etudiant_detail",params: {id: etudiant.id,},});
-        }
-      },
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "admin_etudiant_detail",
+          params: { id: etudiant.id },
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent_etudiant_detail",
+          params: { id: etudiant.id },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef_etudiant_detail",
+          params: { id: etudiant.id },
+        });
+      }
+    },
 
     clickIntervention(intervention) {
       let route = this.$route.path.split("/").splice(1);
-        if (route[0] == "admin") {this.$router.push({name: "intervention-detail",params: {id: intervention.id,},});
-        } else if (route[0] == "referent") {this.$router.push({name: "referent-intervention-detail",params: {id: intervention.id,},});
-        } else if (route[0] == "cef") {this.$router.push({name: "cef-intervention-detail",params: {id: intervention.id,},});
-        }
-      },
-
-    // updatePromotion() {
-    //   let route = this.$route.path.split("/").splice(1);
-
-    //   if (route[0] == "admin") this.$router.push({name: "admin_promotion_update"});
-    //   else if (route[0] == "referent") this.$router.push({name: "referent_promotion_update"});
-    //   else if (route[0] == "cef") this.$router.push({name: "cef_promotion_update"});
-      
-    // },
-    // deletePromotion() {
-    //   var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-    //   if (res) {
-    //     promotionApi
-    //       .deletePromotion(this.$route.params.id)
-    //       .then(() => this.goBack());
-    //   }
-    // },
+      if (route[0] == "admin") {
+        this.$router.push({
+          name: "intervention-detail",
+          params: { id: intervention.id },
+        });
+      } else if (route[0] == "referent") {
+        this.$router.push({
+          name: "referent-intervention-detail",
+          params: { id: intervention.id },
+        });
+      } else if (route[0] == "cef") {
+        this.$router.push({
+          name: "cef-intervention-detail",
+          params: { id: intervention.id },
+        });
+      }
+    },
   },
   created() {
     promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
       this.promotion = response;
-      console.log(response);
-      centreFormationApi
-        .getById(this.promotion.centreFormationDto.id)
-        .then((response) => (this.ville = response.adresseDto.ville));
-
     });
   },
 };
@@ -223,7 +235,7 @@ h1 {
   /* padding-left: 2em; */
 }
 
-.mon-dropdown{
+.mon-dropdown {
   margin-left: 1em;
   margin-top: 0.5em;
 }
@@ -291,7 +303,7 @@ h1 {
 .ma-croix {
   margin-right: 0.6em;
 }
-.stickyPosition{
+.stickyPosition {
   position: sticky;
   top: 0px;
   z-index: 1;
