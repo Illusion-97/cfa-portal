@@ -9,34 +9,35 @@ export const examenApi = {
   getCount,
   save,
   deleteExamen,
+  update,
 
 };
 
-function getById(id){
+function getById(id) {
   let req = `/${END_POINT}/${id}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
-function getAllByPage(page, size, search = ""){
+function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
-function getCount(search = ""){
+function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data["nb"])
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
 }
 
 function save(formData) {
@@ -46,6 +47,12 @@ function save(formData) {
     .catch((error) => console.log(error));
 }
 
+function update(examenDto) {
+  return axios
+    .put(`${END_POINT}`, examenDto)
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
 function deleteExamen(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
