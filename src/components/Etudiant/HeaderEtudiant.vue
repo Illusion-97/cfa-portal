@@ -5,12 +5,17 @@
       alt="logo"
       class="mon-logo"
     />
+    <img
+      src="@/assets/img/institutionnel-logo.png"
+      alt="logo"
+      class="mon-logo"
+    />
     <div class="redBanner">
       <h1>Espace étudiant</h1>
-      <button type="button" @click="logout" class="btn btn-light">
-        <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
-        Déconnexion
-      </button>
+      <b-button size="sm" type="button" @click="logout">
+        <font-awesome-icon :icon="['fas', 'power-off']" />
+        Déconnexion</b-button
+      >
     </div>
   </header>
 </template>
@@ -35,16 +40,14 @@ export default {
 .redBanner {
   background-color: #e11b28;
   width: 100%;
-  padding: 25px 0 30px 100px;
-  display: flex;
-  justify-content: space-between;
+  min-height: 150px;
 }
 
 h1 {
   color: white;
   position: relative;
-  top: 46px;
-  left: 70px;
+  top: 1.76em;
+  left: 4.4em;
 }
 
 header {
@@ -56,15 +59,26 @@ header {
 
 .mon-logo {
   width: 7em;
-  margin-left: 3em;
-  margin-right: 15em;
   position: absolute;
   top: 22px;
+  left: 3em;
 }
 
-.btn-light {
-  margin: 80px 50px 0 0;
-  background-color: #e9ecef;
+button {
+  position: absolute;
+  right: 60px;
+  top: 100px;
+  background-color: #e11b28;
+  border: none;
+}
+
+button:hover {
+  background-color: #e11b28;
+  border: none;
+}
+
+button svg {
+  margin-right: 5px;
 }
 
 #logo2 {

@@ -237,8 +237,10 @@
         </div>
       </template>
       <template #modal-footer="{ save }">
-        <b-button size="sm" variant="success" @click="save()"
-          >Enregistrer</b-button
+        <b-button size="sm" variant="success" @click="save()">
+          <font-awesome-icon :icon="['fas', 'check-circle']" />
+          <span class="icon-right">Enregistrer</span>
+          </b-button
         >
       </template>
     </b-modal>
@@ -323,6 +325,7 @@ export default {
 }
 h5 {
   margin: 0 0 30px 0;
+  font-weight: bolder;
 }
 .container {
   margin: 89px 0 0 421px;
@@ -338,5 +341,14 @@ select {
 .titre-details-modal {
   text-align: left;
   padding: 6px 25px;
+}
+
+.card-header button {
+  background-color: #e11b28 !important;
+  border-color: #e11b28 !important;
+}
+
+.icon-right{
+  margin-left: 7px;
 }
 </style>

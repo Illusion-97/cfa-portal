@@ -41,8 +41,7 @@
     </div>
 
     <p id="info">
-      <strong>Informations</strong>
-      <br />
+      <font-awesome-icon :icon="['fas', 'info-circle']"/> <strong id="title-info">Informations</strong>
       <br />
       <span class="fsize14">
         Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
@@ -56,20 +55,7 @@
         pour réduire leur taille.
       </span>
     </p>
-
-    <!-- <h5>Constituer un dossier professionel en ligne <font-awesome-icon :icon="['fas', 'folder-open']" /></h5>
-
-        <h5 class="redOu">Ou</h5>
-
-        <h5>Charger dans votre espace étudiant un dossier professionnel depuis un document Word <font-awesome-icon :icon="['fas', 'upload']" /></h5>
-        <p class="consignes">*Consignes : 
-            <br>
-            Les images ou captures d'écrans utilisées dans votre dossier professionnel ne doivent pas dépasser 400 ko par image, et doivent être au format png ou jpg uniquement.
-            <br>
-            Utilisez l'outil gratuit https://www.img2go.com/fr/compresser-image pour réduire leur taille.
-        </p> -->
-
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <b-table small head-variant="light" :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -179,6 +165,16 @@ a:hover {
 }
 
 h5 {
-  margin-bottom: 35px;
+  margin-bottom: 31px;
+  font-weight: bolder;
+}
+
+h4{
+  font-size: 1rem!important;
+  font-weight: bolder;
+}
+
+#title-info{
+  padding-left: 7px;
 }
 </style>

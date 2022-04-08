@@ -83,7 +83,7 @@ import { groupeApi } from "@/_api/groupe.api.js";
 import { promotionApi } from "@/_api/promotion.api.js";
 
 // Outil recherche
-import { fauser } from "@fortawesome/free-solid-svg-icons";
+import { facheck } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   name: "AccueilEtudiant",
@@ -169,6 +169,10 @@ export default {
 <style scoped>
 h5 {
   margin-top: 55px;
+}
+
+h2{
+  font-weight: bolder;
 }
 
 .contact {

@@ -2,7 +2,7 @@
   <div class="container">
     <h5>Contrôles continus</h5>
     <div>
-      <b-table striped hover :items="items" :fields="fields"></b-table>
+      <b-table  small head-variant="light" :items="items" :fields="fields"></b-table>
     </div>
   </div>
 </template>
@@ -69,6 +69,7 @@ export default {
 <style scoped>
 h5 {
   margin: 0 0 30px 0;
+  font-weight: bolder;
 }
 .container {
   margin: 89px 0 0 421px;

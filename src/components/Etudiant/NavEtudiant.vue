@@ -4,8 +4,8 @@
       <div class="sidemenu__wrapper">
         <ul class="sidemenu__list">
           <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_accueil' }"
-              >Accueil</router-link
+            <router-link :to="{ name: 'etudiant_accueil' }">
+              Accueil</router-link
             >
           </li>
           <li class="sidemenu__item">
