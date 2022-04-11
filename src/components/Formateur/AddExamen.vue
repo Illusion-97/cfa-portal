@@ -163,7 +163,7 @@ export default {
         dateExamen: null,
         promotionId: null,
         pieceJointe: null,
-        activitesTypesId: [],
+        activiteTypesId: [],
         competencesProfessionnellesId: [],
       },
       message: "",
@@ -180,7 +180,7 @@ export default {
       var bodyFormData = new FormData();
       
       this.examenDto.promotionId = this.$route.params.id;
-      this.examenDto.activitesTypesId = this.selectedActivitesTypes;
+      this.examenDto.activiteTypesId = this.selectedActivitesTypes;
       this.examenDto.competencesProfessionnellesId = this.selectedCompConcernees;
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
       bodyFormData.append("file", this.file);
