@@ -23,7 +23,7 @@
       <b-collapse id="collapseFormulaire">
         <section class="section-form d-flex flex-column justify-content-around">
           <div class="d-flex flex-row">
-            <b-label class="libelle-width">Titre de l'examen :</b-label>
+            <label class="libelle-width">Titre de l'examen :</label>
             <b-form-input 
               id="titreFormExamen"
               type:text
@@ -34,7 +34,7 @@
 
           </div>
           <div class="d-flex flex-row">
-            <b-label class="libelle-width">Descriptif :</b-label>
+            <label class="libelle-width">Descriptif :</label>
             <b-form-textarea
               id="textarea-auto-height"
               rows="2"
@@ -44,7 +44,7 @@
             ></b-form-textarea>
           </div>
           <div class="d-flex flex-row">
-            <b-label class="libelle-width">Pièce jointe :</b-label>
+            <label class="libelle-width">Pièce jointe :</label>
             <b-form-file
               class="mb-2"
               v-model="file"
@@ -54,7 +54,7 @@
             ></b-form-file>
           </div>
           <div class="d-flex flex-row">
-            <b-label class="date-width">Date :</b-label>
+            <label class="date-width">Date :</label>
             <b-form-datepicker
               v-model="examenDto.dateExamen"
               placeholder="Sélectionner une date"
@@ -83,8 +83,8 @@
 
           <div class="d-flex flex-row">
             <div class="d-flex flex-column w-50">
-              <b-label class="libelle-width d-flex flex-row w-75"
-                >Compétences professionnelles :</b-label>
+              <label class="libelle-width d-flex flex-row w-75"
+                >Compétences professionnelles :</label>
               <b-form-checkbox-group
                 size="lg"
                 v-model="selectedCompConcernees"
@@ -103,7 +103,7 @@
               ></b-form-checkbox-group>
             </div>
             <div class="d-flex flex-row w-50 justify-content-end">
-              <b-label class="libelle-width">Durée :</b-label>
+              <label class="libelle-width">Durée :</label>
               <b-form-spinbutton
                 class="w-50"
                 v-model="examenDto.duree"
@@ -145,11 +145,10 @@
 
 
 <script>
+
 import { examenApi } from "@/_api/examen.api.js";
 
 export default {
-  computed:{
-  },
   data() {
     return {
       selectedActivitesTypes: [],
@@ -172,6 +171,7 @@ export default {
       hidden: false,
       optionsBlocsCompetences: [],
       optionsCheckbox: [],
+      dismissCountDown: null,
     };
   },
   methods: {
@@ -190,12 +190,12 @@ export default {
         .then((response) => {
           this.showAlert(response.titre, false);
         })
-         .catch((error) => this.showAlert(response.titre, true));
+        //  .catch((error) => this.showAlert(response.titre, true));
     },
     showAlert(titre, isErr) {
       if (isErr) {
-        this.message = "Erreur d'ajout de l'examen " + titre ;
-        this.dismissCountDownErr = this.dismissSecs
+        // this.message = "Erreur d'ajout de l'examen " + titre ;
+        // this.dismissCountDownErr = this.dismissSecs
       } else {
         this.message = "L'examen " + titre + " a bien été rajouté avec succès";
         this.dismissCountDown = this.dismissSecs;
