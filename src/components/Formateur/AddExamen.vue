@@ -17,8 +17,7 @@
         dismissible
         fade
         variant="success"
-        @dismissed="dismissCountDown = 0"
-      >
+        @dismissed="dismissCountDown = 0">
         {{ message }}
       </b-alert>
       <b-collapse id="collapseFormulaire">
@@ -27,9 +26,12 @@
             <b-label class="libelle-width">Titre de l'examen :</b-label>
             <b-form-input 
               id="titreFormExamen"
-              type:text v-model="examenDto.titre"
+              type:text
+              v-model="examenDto.titre"
+              placeholder="Titre"
               required
             ></b-form-input>
+
           </div>
           <div class="d-flex flex-row">
             <b-label class="libelle-width">Descriptif :</b-label>
@@ -38,6 +40,7 @@
               rows="2"
               max-rows="8"
               v-model="examenDto.descriptif"
+              placeholder="Descriptif"
             ></b-form-textarea>
           </div>
           <div class="d-flex flex-row">
@@ -69,7 +72,7 @@
                 @change="showBlocsLinked()"
                 class="form-select-warp-text"
                 id="checkbox-group-1"
-                v-model="selectedActiviteType"
+                v-model="selectedActivitesTypes"
                 :options="optionsBlocsCompetences"
                 :aria-describedby="ariaDescribedby"
                 name="flavour-1"
@@ -145,9 +148,11 @@
 import { examenApi } from "@/_api/examen.api.js";
 
 export default {
+  computed:{
+  },
   data() {
     return {
-      selectedActiviteType: [],
+      selectedActivitesTypes: [],
       selectedCompConcernees: [],
       dismissSecs: 5,
       dataForBlocsConcernes: [],
@@ -157,42 +162,40 @@ export default {
         duree: null,
         dateExamen: null,
         promotionId: null,
-        activitesType: [],
-        blocsConcernes: [],
+        pieceJointe: null,
+        activitesTypesId: [],
+        competencesProfessionnellesId: [],
       },
       message: "",
       file: null,
       show: true,
       hidden: false,
-      optionsBlocsCompetences: [
-        // { value: '1', text: '1 - Concevoir et développer des composants d\'interface utilisateur en intégrant les recommandations de sécurité' },
-      ],
-      optionsCheckbox: [
-        // { text: '1', value: 1 },
-      ],
+      optionsBlocsCompetences: [],
+      optionsCheckbox: [],
     };
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
       var bodyFormData = new FormData();
+      
       this.examenDto.promotionId = this.$route.params.id;
-
-      this.examenDto.activitesType = this.selectedActiviteType;
-      this.examenDto.blocsConcernes = this.selectedCompConcernees;
+      this.examenDto.activitesTypesId = this.selectedActivitesTypes;
+      this.examenDto.competencesProfessionnellesId = this.selectedCompConcernees;
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
       bodyFormData.append("file", this.file);
+      console.log(bodyFormData.examen);
       examenApi
         .save(bodyFormData)
         .then((response) => {
           this.showAlert(response.titre, false);
         })
-        // .catch((error) => this.showAlert(response.titre, true));
+         .catch((error) => this.showAlert(response.titre, true));
     },
     showAlert(titre, isErr) {
       if (isErr) {
-        //    this.message = "Erreur d'ajout de 'examen " + titre ;
-        // this.dismissCountDownErr = this.dismissSecs
+        this.message = "Erreur d'ajout de l'examen " + titre ;
+        this.dismissCountDownErr = this.dismissSecs
       } else {
         this.message = "L'examen " + titre + " a bien été rajouté avec succès";
         this.dismissCountDown = this.dismissSecs;
@@ -200,10 +203,10 @@ export default {
     },
     showBlocsLinked() {
       let options = [];
-      for (let i = 0; i < this.selectedActiviteType.length; i++){
+      for (let i = 0; i < this.selectedActivitesTypes.length; i++){
         for(let j = 0; j < this.dataForBlocsConcernes.length; j++){
-          if(this.dataForBlocsConcernes[j][this.selectedActiviteType[i]] != undefined){
-            let compsOptions = this.dataForBlocsConcernes[j][this.selectedActiviteType[i]];
+          if(this.dataForBlocsConcernes[j][this.selectedActivitesTypes[i]] != undefined){
+            let compsOptions = this.dataForBlocsConcernes[j][this.selectedActivitesTypes[i]];
             for(let x = 0; x < compsOptions.length; x++){
               options.push(compsOptions[x]);
             }
@@ -213,9 +216,6 @@ export default {
       this.optionsCheckbox = options.sort(function(a,b){
         return a.text - b.text
       });
-      
-      console.log("***************");
-      console.log(this.optionsCheckbox);
     },
   },
 };
