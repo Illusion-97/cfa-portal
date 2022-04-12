@@ -10,46 +10,49 @@
         <p>
           <b-row>
             <b-col cols="2" class="info-gauche"
-              ><strong class="icon-right"
-                >Descriptif</strong
-              ><font-awesome-icon :icon="['fas', 'book']" /></b-col
-            >
+              ><strong class="icon-right">Descriptif</strong
+              ><font-awesome-icon :icon="['fas', 'book']"
+            /></b-col>
             <b-col cols="10">
               {{ item.cursusDto.description }}
             </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
-              <strong class="icon-right"
-                >Durée</strong
-              ><font-awesome-icon :icon="['fas', 'clock']" /></b-col
-            >
+              <strong class="icon-right">Durée</strong
+              ><font-awesome-icon :icon="['fas', 'clock']"
+            /></b-col>
             <b-col cols="10">{{ item.cursusDto.duree }} h </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
-             <strong class="icon-right"
-                >Date</strong
-              > <font-awesome-icon :icon="['fas', 'calendar']" /></b-col
-            >
+              <strong class="icon-right">Date</strong>
+              <font-awesome-icon :icon="['fas', 'calendar']"
+            /></b-col>
             <b-col cols="10"
               >du {{ item.dateDebut }} au {{ item.dateFin }}</b-col
             >
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche"
-              ><strong class="icon-right"
-                >Planning</strong
-              ><font-awesome-icon :icon="['fas', 'calendar-alt']" /></b-col
-            >
+              ><strong class="icon-right">Planning</strong
+              ><font-awesome-icon :icon="['fas', 'calendar-alt']"
+            /></b-col>
             <b-col cols="10">
-              <b-button variant="success" size="sm">
+              <b-table
+                small
+                head-variant="light"
+                :items="tableauComputed"
+              ></b-table>
+
+              <!-- BOUTON TELECHARGER -->
+              <!-- <b-button variant="success" size="sm">
                 <font-awesome-icon
                   :icon="['fas', 'download']"
                   class="btn-download"
                 />
                 Télécharger</b-button
-              >
+              > -->
             </b-col>
           </b-row>
         </p>
@@ -72,7 +75,24 @@ export default {
       cursus: [],
       promotions: [],
       promotionsCursus: [],
+      interventions: [],
     };
+  },
+
+  computed: {
+    tableauComputed() {
+      let interventions = this.interventions;
+      let tab = [];
+
+      interventions.forEach(function (item) {
+        tab.push({
+          Debut: item.dateDebut,
+          Fin: item.dateFin,
+          Formation: item.formationDto.titre,
+          Formateur: item.formateursDto[0].utilisateurDto.prenom+" " +item.formateursDto[0].utilisateurDto.nom,});
+      });
+      return tab;
+    },
   },
 
   created() {
@@ -89,6 +109,12 @@ export default {
         this.$store.getters.getUtilisateur.etudiantDto.id
       )
       .then((data) => (this.promotionsCursus = data));
+
+    etudiantApi
+      .getInterventionByIdEtudiantByWeek(
+        this.$store.getters.getUtilisateur.etudiantDto.id
+      )
+      .then((data) => (this.interventions = data));
   },
 };
 </script>
@@ -99,7 +125,7 @@ export default {
 }
 
 h5 {
-  margin-bottom: 7px;
+  margin-bottom: 17px;
   font-weight: bolder;
 }
 
@@ -116,11 +142,15 @@ ul {
   min-height: 10px;
 }
 
-.icon-right{
+.icon-right {
   margin-right: 7px;
 }
 
-button{
+button {
   padding: 0rem 0.5rem !important;
+}
+
+.col-date {
+  max-width: 20px;
 }
 </style>
