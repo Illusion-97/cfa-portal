@@ -11,7 +11,7 @@
           @wdg2Close="wdg2Close"
         />
       </div>
-      <div class="progress"
+      <div class="progress-bar"
         v-if="loading"
         indeterminate
       ></div>
@@ -131,6 +131,7 @@
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
+import { mapActions } from "vuex";
 export default {
   name: "CentreFormationListComponent",
   components: {
@@ -186,6 +187,12 @@ export default {
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
+    },
+    ...mapActions("locationModule", [
+      "fetchCentreFormationDG2",
+    ]),
+    initialize() {
+      this.loadLocations();
     },
 
     pageChange(pageNum) {
@@ -248,9 +255,9 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      await this.centreFormationApi.fetchAllCentreDeFormationsDG2Http({ logInUser: value });
+      await this.fetchCentreFormationDG2({ logInUser: value });
       this.loading = false;
-      await this.loadLocations();
+      await this.refreshList();
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {
