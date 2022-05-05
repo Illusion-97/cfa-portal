@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <ul>
-      <li v-for="item in promotionsCursus" :key="item">
+      <li v-for="item in cursus" :key="item">
         <h5>
-          {{ item.cursusDto.titre }} -
+          {{ item.cursusTitre }} -
           {{ item.nom }}
           <br />
         </h5>
@@ -14,7 +14,7 @@
               ><font-awesome-icon :icon="['fas', 'book']"
             /></b-col>
             <b-col cols="10">
-              {{ item.cursusDto.description }}
+              {{ item.cursusDescription }}
             </b-col>
           </b-row>
           <b-row>
@@ -22,7 +22,7 @@
               <strong class="icon-right">Durée</strong
               ><font-awesome-icon :icon="['fas', 'clock']"
             /></b-col>
-            <b-col cols="10">{{ item.cursusDto.duree }} h </b-col>
+            <b-col cols="10">{{ item.cursusDuree }} h </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
@@ -39,7 +39,10 @@
               ><font-awesome-icon :icon="['fas', 'calendar-alt']"
             /></b-col>
             <b-col cols="10">
+              {{ index }}
               <b-table
+                v-for="item in cursus.planningsEtudiantDto"
+                :key="item"
                 small
                 head-variant="light"
                 :items="tableauComputed"
@@ -64,8 +67,6 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { cursusApi } from "@/_api/cursus.api.js";
 import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
@@ -73,48 +74,33 @@ export default {
   data() {
     return {
       cursus: [],
-      promotions: [],
-      promotionsCursus: [],
-      interventions: [],
     };
   },
 
   computed: {
     tableauComputed() {
-      let interventions = this.interventions;
       let tab = [];
-
+      console.log("nombre d'exec");
+      // for (let i = 0; i < this.cursus.length; i++) {
+      let interventions = this.cursus.planningsEtudiantDto;
       interventions.forEach(function (item) {
         tab.push({
-          Debut: item.dateDebut,
-          Fin: item.dateFin,
-          Formation: item.formationDto.titre,
-          Formateur: item.formateursDto[0].utilisateurDto.prenom+" " +item.formateursDto[0].utilisateurDto.nom,});
+          Debut: item.interventionDateDebut,
+          Fin: item.interventionDateFin,
+          Formation: item.formationTitre,
+          Formateur: item.formateurNom,
+        });
       });
+      // }
+
       return tab;
     },
   },
 
   created() {
-    cursusApi
-      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.cursus = data));
-
-    etudiantApi
-      .getPromotions(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.promotions = data));
-
     promotionApi
-      .getPromotionByEtudiantIdAndByCursusId(
-        this.$store.getters.getUtilisateur.etudiantDto.id
-      )
-      .then((data) => (this.promotionsCursus = data));
-
-    etudiantApi
-      .getInterventionByIdEtudiantByWeek(
-        this.$store.getters.getUtilisateur.etudiantDto.id
-      )
-      .then((data) => (this.interventions = data));
+      .getCursusByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.cursus = data));
   },
 };
 </script>

@@ -21,6 +21,7 @@ export const etudiantApi = {
     getCountAbsence,
     getGroupes,
     getInterventionByIdEtudiantByWeek,
+    getNotesByIdEtudiant
 }
 
 function getById(id) {
@@ -161,4 +162,12 @@ function getInterventionByIdEtudiantByWeek(id){
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
+}
+
+function getNotesByIdEtudiant(id) {
+    let req = "notes/note-etudiant/" + id;
+    return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
