@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <ul>
-      <li v-for="item in cursus" :key="item">
+      <li v-for="item in cursusComputed" :key="item">
         <h5>
-          {{ item.cursusTitre }} -
-          {{ item.nom }}
+          {{ item.Titre }} -
+          {{ item.Promotion }}
           <br />
         </h5>
         <p>
@@ -14,7 +14,7 @@
               ><font-awesome-icon :icon="['fas', 'book']"
             /></b-col>
             <b-col cols="10">
-              {{ item.cursusDescription }}
+              {{ item.Descriptif }}
             </b-col>
           </b-row>
           <b-row>
@@ -22,7 +22,7 @@
               <strong class="icon-right">Durée</strong
               ><font-awesome-icon :icon="['fas', 'clock']"
             /></b-col>
-            <b-col cols="10">{{ item.cursusDuree }} h </b-col>
+            <b-col cols="10">{{ item.Duree }} h </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
@@ -30,7 +30,7 @@
               <font-awesome-icon :icon="['fas', 'calendar']"
             /></b-col>
             <b-col cols="10"
-              >du {{ item.dateDebut }} au {{ item.dateFin }}</b-col
+              >du {{ item.DateStart }} au {{ item.DateEnd }}</b-col
             >
           </b-row>
           <b-row>
@@ -39,13 +39,10 @@
               ><font-awesome-icon :icon="['fas', 'calendar-alt']"
             /></b-col>
             <b-col cols="10">
-              {{ index }}
               <b-table
-                v-for="item in cursus.planningsEtudiantDto"
-                :key="item"
                 small
                 head-variant="light"
-                :items="tableauComputed"
+                :items="item.Planning"
               ></b-table>
 
               <!-- BOUTON TELECHARGER -->
@@ -76,27 +73,32 @@ export default {
       cursus: [],
     };
   },
-
   computed: {
-    tableauComputed() {
+    cursusComputed() {
       let tab = [];
-      console.log("nombre d'exec");
-      // for (let i = 0; i < this.cursus.length; i++) {
-      let interventions = this.cursus.planningsEtudiantDto;
-      interventions.forEach(function (item) {
+      this.cursus.forEach(function (item) {
+        let tab2 = [];
+        item.planningsEtudiantDto.forEach(function (item2) {
+          tab2.push({
+            Titre: item2.formationTitre,
+            Debut: item2.interventionDateDebut,
+            Fin: item2.interventionDateFin,
+            Formateur: item2.formateurNom,
+          });
+        });
         tab.push({
-          Debut: item.interventionDateDebut,
-          Fin: item.interventionDateFin,
-          Formation: item.formationTitre,
-          Formateur: item.formateurNom,
+          Titre: item.cursusTitre,
+          Descriptif: item.cursusDescription,
+          Duree: item.cursusDuree,
+          DateStart: item.dateDebut,
+          DateEnd: item.dateFin,
+          Promotion: item.nom,
+          Planning: tab2,
         });
       });
-      // }
-
       return tab;
     },
   },
-
   created() {
     promotionApi
       .getCursusByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
