@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style src="@/assets/styles/LogDg2.css">
+<style src="@/assets/styles/LogDg2.css" scoped>
 #wdg2 {
   padding: 2rem;
 }

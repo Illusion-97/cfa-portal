@@ -1,55 +1,58 @@
 <template>
   <div class="container">
     <ul>
-      <li v-for="item in promotionsCursus" :key="item">
+      <li v-for="item in cursusComputed" :key="item">
         <h5>
-          {{ item.cursusDto.titre }} -
-          {{ item.nom }}
+          {{ item.Titre }} -
+          {{ item.Promotion }}
           <br />
         </h5>
         <p>
           <b-row>
             <b-col cols="2" class="info-gauche"
-              ><strong class="icon-right"
-                >Descriptif</strong
-              ><font-awesome-icon :icon="['fas', 'book']" /></b-col
-            >
+              ><strong class="icon-right">Descriptif</strong
+              ><font-awesome-icon :icon="['fas', 'book']"
+            /></b-col>
             <b-col cols="10">
-              {{ item.cursusDto.description }}
+              {{ item.Descriptif }}
             </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
-              <strong class="icon-right"
-                >Durée</strong
-              ><font-awesome-icon :icon="['fas', 'clock']" /></b-col
-            >
-            <b-col cols="10">{{ item.cursusDto.duree }} h </b-col>
+              <strong class="icon-right">Durée</strong
+              ><font-awesome-icon :icon="['fas', 'clock']"
+            /></b-col>
+            <b-col cols="10">{{ item.Duree }} h </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
-             <strong class="icon-right"
-                >Date</strong
-              > <font-awesome-icon :icon="['fas', 'calendar']" /></b-col
-            >
+              <strong class="icon-right">Date</strong>
+              <font-awesome-icon :icon="['fas', 'calendar']"
+            /></b-col>
             <b-col cols="10"
-              >du {{ item.dateDebut }} au {{ item.dateFin }}</b-col
+              >du {{ item.DateStart }} au {{ item.DateEnd }}</b-col
             >
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche"
-              ><strong class="icon-right"
-                >Planning</strong
-              ><font-awesome-icon :icon="['fas', 'calendar-alt']" /></b-col
-            >
+              ><strong class="icon-right">Planning</strong
+              ><font-awesome-icon :icon="['fas', 'calendar-alt']"
+            /></b-col>
             <b-col cols="10">
-              <b-button variant="success" size="sm">
+              <b-table
+                small
+                head-variant="light"
+                :items="item.Planning"
+              ></b-table>
+
+              <!-- BOUTON TELECHARGER -->
+              <!-- <b-button variant="success" size="sm">
                 <font-awesome-icon
                   :icon="['fas', 'download']"
                   class="btn-download"
                 />
                 Télécharger</b-button
-              >
+              > -->
             </b-col>
           </b-row>
         </p>
@@ -61,8 +64,6 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { cursusApi } from "@/_api/cursus.api.js";
 import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
@@ -70,25 +71,38 @@ export default {
   data() {
     return {
       cursus: [],
-      promotions: [],
-      promotionsCursus: [],
     };
   },
-
+  computed: {
+    cursusComputed() {
+      let tab = [];
+      this.cursus.forEach(function (item) {
+        let tab2 = [];
+        item.planningsEtudiantDto.forEach(function (item2) {
+          tab2.push({
+            Titre: item2.formationTitre,
+            Debut: item2.interventionDateDebut,
+            Fin: item2.interventionDateFin,
+            Formateur: item2.formateurNom,
+          });
+        });
+        tab.push({
+          Titre: item.cursusTitre,
+          Descriptif: item.cursusDescription,
+          Duree: item.cursusDuree,
+          DateStart: item.dateDebut,
+          DateEnd: item.dateFin,
+          Promotion: item.nom,
+          Planning: tab2,
+        });
+      });
+      return tab;
+    },
+  },
   created() {
-    cursusApi
-      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.cursus = data));
-
-    etudiantApi
-      .getPromotions(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.promotions = data));
-
     promotionApi
-      .getPromotionByEtudiantIdAndByCursusId(
-        this.$store.getters.getUtilisateur.etudiantDto.id
-      )
-      .then((data) => (this.promotionsCursus = data));
+      .getCursusByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.cursus = data));
   },
 };
 </script>
@@ -99,7 +113,7 @@ export default {
 }
 
 h5 {
-  margin-bottom: 7px;
+  margin-bottom: 17px;
   font-weight: bolder;
 }
 
@@ -116,11 +130,15 @@ ul {
   min-height: 10px;
 }
 
-.icon-right{
+.icon-right {
   margin-right: 7px;
 }
 
-button{
+button {
   padding: 0rem 0.5rem !important;
+}
+
+.col-date {
+  max-width: 20px;
 }
 </style>

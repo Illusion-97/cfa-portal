@@ -15,6 +15,7 @@ export const promotionApi = {
     getCours,
     getCef,
     getPromotionByEtudiantIdAndByCursusId,
+    getCursusByIdEtudiant,
 };
 
 const END_POINT = "promotions";
@@ -72,7 +73,6 @@ function deletePromotion(id) {
 
 }
 
-
 function getEtudiants(id) {
   let req =  `promotions/${id}/etudiants`;
 
@@ -121,6 +121,15 @@ function getCef(id){
 
 function getPromotionByEtudiantIdAndByCursusId(id){
   let req = `promotions/${id}/etudiants/cursus`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getCursusByIdEtudiant(id){
+  let req = `promotions/cursus-etudiant/${id}`;
 
   return axios
     .get(req, requestOptions.headers())

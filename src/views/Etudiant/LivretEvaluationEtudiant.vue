@@ -17,7 +17,6 @@
 export default {
   data() {
     return {
-      // Note 'isActive' is left out and will not appear in the rendered table
       fields: [
         {
           key: "intitule",
