@@ -179,7 +179,7 @@
             <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
             Etudiants
           </template>
-          <div>Etudiants</div>
+         <EtudiantsInterventionListComponent />
         </b-tab>
         <b-tab>
           <template v-slot:title>
@@ -268,7 +268,7 @@
                   </span>
                 </td>
               </tr>
-              <!-- <tr>
+               <tr>
                 <th>Date de fin</th>
                 <td>{{ items.dateFin | formatDate }}</td>
               </tr> -->
@@ -320,7 +320,7 @@
         </span>
       </div>
 
-      <!-- Etudiants -->
+      Etudiants -->
     <!-- <div :class="{ ma_fenetre: true, collapse: !showEtudiant }">
         <table class="table text-center table-sm table-custom">
           <thead>
@@ -424,10 +424,12 @@ import { interventionApi } from "@/_api/intervention.api.js";
 // import { absencesApi } from "@/_api/absence.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
+import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
 export default {
   name: "DetailIntervention",
   components: {
     HeaderFormateur,
+    EtudiantsInterventionListComponent,
   },
   data() {
     return {
