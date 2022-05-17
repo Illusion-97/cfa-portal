@@ -1,13 +1,16 @@
 <template>
-  <div class="container-fluid">
-    <BodyTitle :title="vue_title" />
+<div>
+  <div>
+     <HeaderFormateur :title="title" />
+  </div>
+  <section class="section-form d-flex justify-content-around">
 
     <b-form class="form mb-5" @submit="submit">
       <b-form-group id="form-group">
         <b-form-row class="text-align-left">
-          <label class="mon-label">Enonce</label>
+          <label class="mon-label">Consigne</label>
           <div class="mon-input">
-            <b-form-input type="text" v-model="form.enonce"> </b-form-input>
+            <b-form-textarea type="text" v-model="form.consigne"> </b-form-textarea>
           </div>
         </b-form-row>
       </b-form-group>
@@ -38,63 +41,101 @@
         </b-form-row>
       </b-form-group>
 
-      
-      <InterventionListComponent
+    <div class="d-flex justify-content-end">
+      <b-form @submit="onSubmit">
+        <b-button
+          type="submit"
+          class="btnAddDevoir btn-success">
+          <font-awesome-icon
+            :icon="['fas', 'plus-square']"
+            class="icon"/> Valider</b-button>
+      </b-form>
+
+    </div>
+
+
+      <div v-if="isFormateur">
+      </div>
+      <div v-else>
+        <InterventionListComponent
         v-on:click-list="onClickChildInterventionList"
         :interventionProp="intervention_input"
       />
-
-      <div class="offset-10 col-3 pr-5 pl-0">
-        <button type="submit" class="btn btn-primary mon-btn">
-          {{ btn_form_text }}
-        </button>
       </div>
     </b-form>
-
-    <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </a>
+  </section>
   </div>
 </template>
 
 <script>
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
+import  HeaderFormateur  from "@/components/Navigation/HeaderFormateur.vue";
 import { devoirApi } from "@/_api/devoir.api.js";
 import { interventionApi } from "@/_api/intervention.api.js";
+import { utilisateurService} from "@/_services/utilisateur.service.js"; 
 
 export default {
   name: "DevoirCreate",
   components: {
-    BodyTitle,
+    HeaderFormateur,
     InterventionListComponent,
   },
+    props: {
+    isAction: {
+      type: Boolean,
+      default: false,
+    },
+    interventionProp: {
+      default: null,
+    },
+  },
+  
   data() {
     return {
-      vue_title: "Création d'un nouveau devoir",
+      interventionId: this.$route.params.id,
+      promo: [],
+      title : "",
+      // title : "Création d'un nouveau devoir",
       btn_form_text: "Ajouter",
-
+      intervention_input: "",
       form: {
-        enonce: "",
+        consigne: "",
         dateDebut: "",
         dateFin: "",
+        interventionId: null,
         interventionDto: {},
       },
-
       intervention: null,
+      intervention2: [],
     };
   },
   computed: {
-    intervention_input() {
-      return this.intervention;
-    },
+    isFormateur() {
+      return utilisateurService.isFormateur();
+    }
   },
+  
   methods: {
+    onSubmit(event){
+      event.preventDefault();
+      // var bodyFormData = new FormData();
+      
+      this.form.interventionId = this.$route.params.id;
+      // bodyFormData.append("devoir", JSON.stringify(this.form));
+      console.log("BtnValider--")
+      console.log("interventionId : " +this.form.interventionId);
+      console.log("consigne : " +this.form.consigne);
+      console.log(this.form);
+      devoirApi
+        .save(this.form);
+    },
+    getId(){
+      interventionApi.getInterventionById(this.interventionId).then((data) => 
+       { this.intervention2 = data;
+       this.title = "Création d'un nouveau devoir " +this.intervention2.data.formationDto.titre 
+
+      })    
+    },
     onClickChildInterventionList(intervention) {
       this.form.interventionDto = intervention;
     },
@@ -102,7 +143,6 @@ export default {
       this.$router.go(-1);
     },
     submit(e) {
-      
       let route = this.$route.path.split("/").splice(1);
       e.preventDefault();
       devoirApi
@@ -149,12 +189,9 @@ export default {
       this.$route.params.id != null &&
       this.$route.params.id != "" &&
       this.$route.params.id != 0
-    ){
-      interventionApi.getById(this.$route.params.id).then( response => {
-        // console.log(response);
-        this.intervention = response;
-      })
-    }
+    )
+    this.getId();
+    
   },
 };
 </script>
@@ -175,11 +212,20 @@ export default {
 }
 
 .mon-label{
-margin-left: 2.2em;
+margin-bottom: 5px;
 width: 9.7em;
 }
 
 .mon-input{
-  width: 32em;
+  width: 99%;
+}
+
+.btnAddDevoir{
+  margin-top: 1vh;
+}
+
+.section-form{
+  width: 38vw;
+  margin: 6vh auto;
 }
 </style>

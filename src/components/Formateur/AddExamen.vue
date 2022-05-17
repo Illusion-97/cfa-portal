@@ -118,17 +118,7 @@
             </div>
           </div>
           <div class="d-flex flex-row justify-content-end">
-            <b-form @submit="onSubmit">
-              <b-button
-                type="submit"
-                class="btnAddExamen btnValiderAnnuler btn-success mr-4"
-                ><font-awesome-icon
-                  :icon="['fas', 'plus-square']"
-                  class="icon"
-                />
-                Valider</b-button
-              >
-            </b-form>
+            
             <b-button
               class="btnAddExamen btnValiderAnnuler btn-warning"
               v-b-toggle.collapseFormulaire
