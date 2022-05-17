@@ -158,11 +158,7 @@
               <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
               Ajouter notes</b-button
             >
-              <b-button
-              block
-              variant="danger"
-              @click="spprimerExamen(row.item)"
-            > 
+            <b-button block variant="danger" @click="spprimerExamen(row.item)">
               <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
               Supprimer</b-button
             >
@@ -220,7 +216,7 @@ export default {
       isModifier: false,
       message: "",
       dismissSecs: 5,
-      dismissCountDown:null,
+      dismissCountDown: null,
       perPage: 10,
       pageCount: 0,
       form: {
@@ -355,9 +351,13 @@ export default {
         datasFormAt.push(option);
         optionAt.push(optionForAt);
         let tabCompetences = [];
-        for (let j = 0; j < data[i].competenceProfessionnellesDto.length; j++) {
-          let value = data[i].competenceProfessionnellesDto[j].id;
-          let text = data[i].competenceProfessionnellesDto[j].numeroFiche;
+        for (
+          let j = 0;
+          j < data[i].competencesProfessionnellesDto.length;
+          j++
+        ) {
+          let value = data[i].competencesProfessionnellesDto[j].id;
+          let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
           let competence = {
             text: text,
             value: value,
@@ -374,7 +374,7 @@ export default {
       this.optionsBc = optionAt;
     },
     modifier(item) {
-      this.tempItem =item;
+      this.tempItem = item;
       item.modifier = true;
       item._showDetails = true;
       this.addOptionsCompetences(item.selectedActiviteType);
@@ -389,8 +389,9 @@ export default {
       this.$emit("custom-event-notes", { examen: item.Titre });
       this.$root.$emit("examen", item);
     },
-    spprimerExamen(item){
+    spprimerExamen(item) {
       const h = this.$createElement;
+      // let index = this.items.indexOf(item);
       // Using HTML string
       const titleVNode = h("div", {
         domProps: {
@@ -399,7 +400,9 @@ export default {
       });
       // More complex structure
       const messageVNode = h("div", { class: ["foobar"] }, [
-        h("h5", { class: [] }, [" voulez vous supprimer l'examen : " +item.Titre]),
+        h("h5", { class: [] }, [
+          " voulez vous supprimer l'examen : " + item.Titre,
+        ]),
       ]);
       // We must pass the generated VNodes as arrays
       this.$bvModal
@@ -410,29 +413,29 @@ export default {
         })
         .then((value) => {
           if (value) {
-            examenApi.deleteExamen(item.id).then((respose)=>{
-              if ( respose === 'suppression effectuée' ){
-                this.showAlert(item.Titre,false)
+            examenApi.deleteExamen(item.id).then((respose) => {
+              if (respose === "suppression effectuée") {
                 for (let i = 0; i < this.items.length; i++) {
-                  if(this.items[i].id == item.id){
-                    let item = this.items[i];
-                    this.items.pop(item);
+                  let itemToPop = this.items[i];
+                  if ((itemToPop.id = item.id)) {
+                    this.items.pop(itemToPop);
+                    break;
                   }
-                  
                 }
+                this.showAlert(item.Titre, false);
               }
-            })
+            });
           }
-        
         })
         .catch((err) => {
           console.log(err);
         });
-      
     },
     onSubmit(item) {
+      let index = this.items.indexOf(item);
       let examenDtoSave = {
         id: item.id,
+        version: item.version,
         titre: item.Titre,
         descriptif: item.description,
         duree: item.Duree,
@@ -442,22 +445,26 @@ export default {
         promotionId: this.$route.params.id,
         competencesProfessionnellesId: item.selectedCompetencesPro,
       };
-
       if (this.changeFile) {
         var bodyFormData = new FormData();
         bodyFormData.append("examen", JSON.stringify(examenDtoSave));
         bodyFormData.append("file", this.file);
         examenApi.save(bodyFormData).then((response) => {
           this.showAlert(response.titre, false);
-          
         });
       } else {
         examenApi.update(examenDtoSave).then((response) => {
           this.showAlert(response.titre, false);
+          this.items[index].version++;
+          this.$nextTick(() => {
+            this.items[index].version++;
+            this.items[index].selectedActiviteType =
+              examenDtoSave.activiteTypesId;
+          });
         });
       }
-       item.modifier = false;
-       item._showDetails = false;
+      item.modifier = false;
+      item._showDetails = false;
     },
     showAlert(titre, isErr) {
       if (isErr) {
@@ -487,10 +494,10 @@ export default {
         let competences = " ";
         let selectedActiviteType = [];
         let selectedCompetencesPro = [];
-        let activitesTypes = examens[i].activiteTypes.sort((a, b) => {
+        let activitesTypes = examens[i].activiteTypesDto.sort((a, b) => {
           return a.numeroFiche - b.numeroFiche;
         });
-        let competencesPro = examens[i].competenceProfessionnelleDto.sort(
+        let competencesPro = examens[i].competencesProfessionnellesDto.sort(
           (a, b) => {
             return a.numeroFiche - b.numeroFiche;
           }
@@ -510,6 +517,7 @@ export default {
         competences = competences.substring(0, competences.length - 1);
         let item = {
           id: examens[i].id,
+          version: examens[i].version,
           Titre: examens[i].titre,
           Duree: examens[i].duree,
           Date: examens[i].dateExamen,

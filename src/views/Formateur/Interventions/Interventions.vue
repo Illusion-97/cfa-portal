@@ -64,14 +64,12 @@
 </template>
 
 <script>
-import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 export default {
   name: "Intervention-Formateur",
   components: {
-    TableTemplate,
     HeaderFormateur,
   },
   data() {
