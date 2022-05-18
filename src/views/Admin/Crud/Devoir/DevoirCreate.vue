@@ -155,15 +155,15 @@ export default {
     getId(){
       interventionApi.getInterventionById(this.interventionId).then((data) => 
        { this.intervention2 = data;
-       this.title = "CrÃ©ation d'un nouveau devoir " +this.intervention2.data.formationDto.titre 
+       this.title = "Creation d'un nouveau devoir " +this.intervention2.data.formationDto.titre 
   
       }) 
     },
     annulerFormDevoir(){
       console.log("test");
     },
-    showAlert(titre, isErro){
-      this.message = "Le devoir a Ã©tÃ© rajoutÃ© avec succÃ¨s";
+    showAlert(){
+      this.message = "Le devoir a été mis a jours avec succes";
       this.dismissCountDown = this.dismissSecs;
     },
     onClickChildInterventionList(intervention) {
