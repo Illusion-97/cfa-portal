@@ -1,8 +1,11 @@
 import Vue from 'vue'
 
 import App from './App.vue'
+
 import '@babel/polyfill'
 import 'mutationobserver-shim'
+ import vuetify from '@/plugins/vuetify'
+import './plugins/vuetify'
 import './plugins/bootstrap-vue'
 import './plugins/fontawesome-vue'
 import './plugins/moment-vue'
@@ -18,6 +21,7 @@ import Paginate from 'vuejs-paginate'
 
 let bootstrap = require('bootstrap');
 Vue.use(bootstrap)
+Vue.use(vuetify)
 global.jQuery = jQuery
 Vue.config.productionTip = false
 Vue.component('paginate', Paginate)
@@ -33,5 +37,6 @@ axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount('#app')
