@@ -8,7 +8,7 @@
       >
     </div>
     <div>
-      <b-table striped hover :items="items" :fields="fields"></b-table>
+      <b-table  small head-variant="light" :items="items" :fields="fields"></b-table>
     </div>
   </div>
 </template>
@@ -17,7 +17,6 @@
 export default {
   data() {
     return {
-      // Note 'isActive' is left out and will not appear in the rendered table
       fields: [
         {
           key: "intitule",
@@ -77,20 +76,18 @@ export default {
 }
 
 .container {
-  margin: 99px 0 0 450px;
+  margin: 89px 0 0 421px;
 }
 
 h5 {
   margin: 0 0 30px 0;
   display: inline-block;
+  font-weight: bolder;
 }
 
 #key:intitule {
   width: 300px;
 }
-
-.container {
-  margin: 49px 0 0 421px;}
 
 button {
   display: inline-block;

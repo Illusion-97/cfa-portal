@@ -12,7 +12,6 @@ export const etudiantApi = {
     deleteEtudiant,
 
     getFormateurReferent,
-    getManager,
     getPromotions,
     getNotesById,
     getCountNotes,
@@ -21,7 +20,8 @@ export const etudiantApi = {
     getAbsencesById,
     getCountAbsence,
     getGroupes,
-
+    getInterventionByIdEtudiantByWeek,
+    getNotesByIdEtudiant
 }
 
 function getById(id) {
@@ -80,18 +80,10 @@ function getFormateurReferent(id) {
         .catch((error) => console.log(error));
 }
 
-function getManager(id) {
-
-    let req = "etudiants/" + id + "/manager";
-    return axios
-        .get(req, requestOptions.headers())
-        .then(response => response.data)
-        .catch((error) => console.log(error));
-}
-
 //ATTENTION : un étudiant a potentiellement plusieurs promotions
 //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
+
 function getPromotions(id) {
 
     let req = "etudiants/" + id + "/promotions";
@@ -162,4 +154,20 @@ function getGroupes(id){
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
+}
+
+function getInterventionByIdEtudiantByWeek(id){
+    let req = "etudiants/" + id + "/interventions/semaines";
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+function getNotesByIdEtudiant(id) {
+    let req = "notes/note-etudiant/" + id;
+    return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }

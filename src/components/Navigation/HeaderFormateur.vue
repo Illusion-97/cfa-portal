@@ -3,7 +3,8 @@
         <b-row class="pHeader h-100 d-flex align-items-center">
             <b-col class=" col-9 d-flex justify-content-center">
                 <div class="title-header">
-                    {{ title }}
+                    <div class="text-center">{{ title }}</div>
+                    <div class="text-center">{{subTitle}}</div>
                 </div>
             </b-col>
             <b-col class="d-flex justify-content-end">
@@ -23,6 +24,10 @@ import { authenticationApi } from "@/_api/authentication.api.js";
             title: {
                 type: String,
                     default: "Bienvenue sur le portail CFA"
+            },
+             subTitle: {
+                type: String,
+                default: ""
             }
         }, 
         data(){
