@@ -15,6 +15,15 @@
             ></b-form-input>
           </div>
         </b-form-row>
+        <b-form-row class="text-align-left">
+          <label class="col-2">Country Code</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.countryCode"
+              required
+            ></b-form-input>
+          </div>
+        </b-form-row>
       </b-form-group>
 
       <EntrepriseListComponent
@@ -66,6 +75,7 @@ export default {
       form: {
         id: null,
         nom: "",
+        countryCode: "",
         entrepriseDto: {},
         adresseDto: {},
       },
