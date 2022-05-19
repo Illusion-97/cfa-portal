@@ -162,9 +162,9 @@ export default {
     },
   },
   methods: {
-    setMessage(payload) {
-      this.titleNote = payload.examen;
-      this.afficherNotes = "";
+    setMessage() {
+      // this.titleNote = payload.examen;
+      // this.afficherNotes = "";
     },
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.promotion.examensDto);
