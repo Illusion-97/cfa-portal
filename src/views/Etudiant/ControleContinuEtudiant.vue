@@ -33,6 +33,7 @@ export default {
     },
   },
   created() {
+    
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.notesEtudiant = data));

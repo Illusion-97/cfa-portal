@@ -20,6 +20,11 @@ export const promotionApi = {
 
 const END_POINT = "promotions";
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getPromotionByid(id){
     let req =  `/promotions/${id}`;
 
@@ -29,6 +34,13 @@ function getPromotionByid(id){
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = ""){
   let req = `/promotions/${page}/${size}/${search}`;
 
@@ -38,6 +50,11 @@ function getAllByPage(page, size, search = ""){
       .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = ""){
   let req = `/promotions/count/${search}`;
 
@@ -47,6 +64,11 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} form 
+ * @returns 
+ */
 function save(form) {
   let req =  "promotions";
 
@@ -54,8 +76,12 @@ function save(form) {
       .post(req, form, requestOptions.headers())
       .then((response) => response)
       .catch((error) => console.log(error));
-
 }
+
+/**
+ * 
+ * @returns 
+ */
 function getAllPromotions() {
   return axios
     .get(`${END_POINT}`, requestOptions.headers())
@@ -63,6 +89,11 @@ function getAllPromotions() {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deletePromotion(id) {
   let req =  `promotions/${id}`;
 
@@ -70,9 +101,13 @@ function deletePromotion(id) {
       .delete(req, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
-
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getEtudiants(id) {
   let req =  `promotions/${id}/etudiants`;
 
@@ -80,8 +115,13 @@ function getEtudiants(id) {
       .get(req, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
-
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getNote(id) {
   let req =  `promotions/${id}/notes`;
 
@@ -89,8 +129,13 @@ function getNote(id) {
       .get(req, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
-
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getCours(id) {
   let req =  `promotions/${id}/interventions`;
 
@@ -98,9 +143,12 @@ function getCours(id) {
       .get(req, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
-
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getAll(){
   let req = `/promotions`;
 
@@ -110,6 +158,11 @@ function getAll(){
       .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getCef(id){
   let req = `promotions/${id}/cefs`;
 
@@ -119,6 +172,11 @@ function getCef(id){
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getPromotionByEtudiantIdAndByCursusId(id){
   let req = `promotions/${id}/etudiants/cursus`;
 
@@ -128,6 +186,11 @@ function getPromotionByEtudiantIdAndByCursusId(id){
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getCursusByIdEtudiant(id){
   let req = `promotions/cursus-etudiant/${id}`;
 

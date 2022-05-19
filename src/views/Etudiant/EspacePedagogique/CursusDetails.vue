@@ -44,11 +44,7 @@ export default {
       formations: null,
       perPage: 10,
       pageCount: 0,
-      
-      selected: null,
-
-
-      
+      selected: null,  
     };
   },
  computed: {

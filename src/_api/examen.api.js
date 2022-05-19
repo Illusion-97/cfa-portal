@@ -10,9 +10,14 @@ export const examenApi = {
   save,
   deleteExamen,
   update,
-
+  getLivretEvaluation,
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id) {
   let req = `/${END_POINT}/${id}`;
 
@@ -22,6 +27,13 @@ function getById(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
@@ -31,6 +43,11 @@ function getAllByPage(page, size, search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
 
@@ -40,6 +57,11 @@ function getCount(search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} formData 
+ * @returns 
+ */
 function save(formData) {
   return axios
     .post(`${END_POINT}`, formData, requestOptions.headers())
@@ -47,15 +69,39 @@ function save(formData) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} examenDto 
+ * @returns 
+ */
 function update(examenDto) {
   return axios
     .put(`${END_POINT}`, examenDto)
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteExamen(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+function getLivretEvaluation(id) {
+  let req = "examens/livret-evaluation/" + id;
+  return axios
+  .get(req, requestOptions.headers())
+  .then(response => response.data)
+  .catch((error) => console.log(error));
 }
