@@ -28,7 +28,6 @@ export const utilisateurApi = {
   isReferent,
   uploadUser,
   mail,
-
 };
 
 const END_POINT = "utilisateurs";
@@ -43,6 +42,13 @@ function getById(id) {
 }
 */
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
@@ -52,6 +58,11 @@ function getAllByPage(page, size, search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
 
@@ -61,6 +72,14 @@ function getCount(search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} role 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getByRoleByPage(role = "", page, size, search = "") {
   let req = "";
 
@@ -78,6 +97,12 @@ function getByRoleByPage(role = "", page, size, search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} role 
+ * @param {*} search 
+ * @returns 
+ */
 function getCountByRole(role, search = "") {
   let req = "";
 
@@ -96,7 +121,11 @@ function getCountByRole(role, search = "") {
     .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id) {
   let req = `/utilisateurs/${id}`;
 
@@ -106,6 +135,11 @@ function getById(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} login 
+ * @returns 
+ */
 function getByLogin(login) {
   let req = `/utilisateurs/email=${login}`;
 
@@ -115,7 +149,11 @@ function getByLogin(login) {
     .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getByIdWithObject(id) {
   let req = "utilisateurs/" + id + "/with-object";
 
@@ -125,6 +163,11 @@ function getByIdWithObject(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getAdresseById(id) {
   let req = "utilisateurs/" + id + "/adresse";
 
@@ -134,6 +177,11 @@ function getAdresseById(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getPlanningById(id) {
   let req = "utilisateurs/" + id + "/planning";
 
@@ -143,6 +191,11 @@ function getPlanningById(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getRoleById(id) {
   let req = "utilisateurs/" + id + "/roles";
 
@@ -152,7 +205,10 @@ function getRoleById(id) {
     .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @returns 
+ */
 function getAllUtilisateurs() {
   return axios
     .get(`${END_POINT}`, requestOptions.headers())
@@ -160,7 +216,11 @@ function getAllUtilisateurs() {
     .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @param {*} name 
+ * @returns 
+ */
 async function getAllUsersByName(name) {
   let users = [];
   const response = await axios.get(`$/admin/userList?name=${name}`, requestOptions.headers());
@@ -168,8 +228,10 @@ async function getAllUsersByName(name) {
   return users;
 }
 
-
-
+/**
+ * 
+ * @returns 
+ */
 function getAllUtilisateursByEntreprise() {
   return axios
     .get(`${END_POINT}/${ENTREPRISE}`, requestOptions.headers())
@@ -177,6 +239,10 @@ function getAllUtilisateursByEntreprise() {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getAllUtilisateursByAdresse() {
   return axios
     .get(`${END_POINT}/${ADRESSE}`, requestOptions.headers())
@@ -184,6 +250,11 @@ function getAllUtilisateursByAdresse() {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} Utilisateur 
+ * @returns 
+ */
 function addUtilisateur(Utilisateur) {
   return axios
     .post(`${END_POINT}`, Utilisateur, requestOptions.headers())
@@ -191,6 +262,11 @@ function addUtilisateur(Utilisateur) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} Utilisateur 
+ * @returns 
+ */
 function updateUtilisateur(Utilisateur) {
   return axios
     .post(`${END_POINT}`, Utilisateur, requestOptions.headers())
@@ -198,6 +274,11 @@ function updateUtilisateur(Utilisateur) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} form 
+ * @returns 
+ */
 function save(form) {
   let req = "utilisateurs";
 
@@ -214,7 +295,11 @@ function save(form) {
 
 }
 
-
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteUtilisateur(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
@@ -222,6 +307,11 @@ function deleteUtilisateur(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function isReferent(id) {
   return axios
     .get(`${END_POINT}/${id}/isReferent`, requestOptions.headers())
@@ -229,12 +319,23 @@ function isReferent(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} file 
+ * @returns 
+ */
 function uploadUser(id, file) {
   return axios.post(`${END_POINT}/${id}/upload-file`, file, requestOptions.headers())
     .then(response => response)
     .catch(err => err.response)
 }
 
+/**
+ * 
+ * @param {*} user 
+ * @returns 
+ */
 function mail(user){
   return axios
     .post(`${process.env.VUE_APP_URL}forgot`, requestOptions.headers()), {

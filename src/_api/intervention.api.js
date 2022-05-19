@@ -26,7 +26,13 @@ export const interventionApi = {
     findAllSupportByInterventionId,
 }
 
-
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} keyword 
+ * @returns 
+ */
 function getIntervention(page, size, keyword = "") {
     const url = `${process.env.VUE_APP_API_URL}/${END_POINT}/${page - 1}/${size}/${keyword}`
     return axios
@@ -35,6 +41,11 @@ function getIntervention(page, size, keyword = "") {
         .catch(err => console.error(err));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getInterventionById(id) {
     const url = `/${END_POINT}/${id}`
     return axios
@@ -43,6 +54,11 @@ function getInterventionById(id) {
         .catch(err => console.error(err));
 }
 
+/**
+ * 
+ * @param {*} form 
+ * @returns 
+ */
 function insertIntervention(form) {
     const url = `/${END_POINT}`;
     return axios
@@ -51,6 +67,10 @@ function insertIntervention(form) {
         .catch(err => console.error(err));
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getAllIntervention() {
     const url = `/${END_POINT}/with-object`;
     return axios
@@ -59,6 +79,11 @@ function getAllIntervention() {
         .catch(err => console.error(err));
 }
 
+/**
+ * 
+ * @param {*} keyword 
+ * @returns 
+ */
 function countIntervention(keyword = "") {
     const url = `/${END_POINT}/count/${keyword}`;
     return axios
@@ -67,6 +92,11 @@ function countIntervention(keyword = "") {
         .catch(err => console.error(err));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id) {
     let req = `/${END_POINT}/${id}`;
 
@@ -76,6 +106,13 @@ function getById(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = "") {
     let req = `/${END_POINT}/${page}/${size}/${search}`;
 
@@ -85,6 +122,11 @@ function getAllByPage(page, size, search = "") {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = "") {
     let req = `/${END_POINT}/count/${search}`;
 
@@ -94,6 +136,11 @@ function getCount(search = "") {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} intervention 
+ * @returns 
+ */
 function save(intervention) {
     return axios
         .post(`${END_POINT}`, intervention, requestOptions.headers())
@@ -101,7 +148,11 @@ function save(intervention) {
         .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteIntervention(id) {
     return axios
         .delete(`${END_POINT}/${id}`, requestOptions.headers())
@@ -109,6 +160,11 @@ function deleteIntervention(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function findStudentsByPromoInterventionId(id) {
     const url = `${END_POINT}/${id}/etudiants-promotion`
     // console.log(url);
@@ -118,6 +174,11 @@ function findStudentsByPromoInterventionId(id) {
         .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function findPromoByInterventionId(id) {
     const url = `${END_POINT}/${id}/promotions`
     return axios
@@ -126,6 +187,11 @@ function findPromoByInterventionId(id) {
         .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function findAssignementByInterventionId(id) {
     const url = `${END_POINT}/${id}/devoirs`
     return axios
@@ -134,6 +200,11 @@ function findAssignementByInterventionId(id) {
         .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function findTrainerByInterventionId(id) {
     const url = `${END_POINT}/${id}/formateurs`
     return axios
@@ -142,6 +213,11 @@ function findTrainerByInterventionId(id) {
         .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function findAllSupportByInterventionId(id) {
     const url = `${END_POINT}/${id}/supports`
     return axios
