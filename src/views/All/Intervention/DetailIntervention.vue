@@ -1,16 +1,212 @@
 <template>
-  <section>
+  <div>
+    <div>
+      <HeaderFormateur :title="getTitle" :subTitle="getSubTitle" />
+    </div>
+    <section class="container-fluid mt-4">
+      <b-tabs content-class="mt-3" fill>
+        <b-tab active>
+          <template v-slot:title>
+            <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
+            Details
+          </template>
+          <div class="m-4 flex-xl-column">
+            <div class="d-flex justify-content-start">
+              <h3
+                class="
+                  order-0
+                  mr-4
+                  pr-2
+                  d-flex
+                  align-items-center
+                  right-border
+                  start
+                "
+              >
+                {{
+                  trainers.length > 1
+                    ? "Formateurs affectés"
+                    : "Formateur affecté"
+                }}
+              </h3>
+              <div v-for="t in trainers" :key="t.id">
+                <h4>
+                  {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
+                </h4>
+                <h4>Mourad Mahrane</h4>
+              </div>
+            </div>
+            <div class="separation"></div>
+            <div class="d-flex justify-content-start mt-2">
+              <h3
+                class="
+                  order-0
+                  mr-4
+                  pr-2
+                  d-flex
+                  align-items-center
+                  right-border
+                  start
+                "
+              >
+                {{
+                  promo.length > 1
+                    ? "Promotions associées"
+                    : "Promotion associé"
+                }}
+              </h3>
+              <div v-for="p in promo" :key="p.id">
+                <h4>
+                  {{ p.nom }}
+                </h4>
+              </div>
+            </div>
+            <div class="separation"></div>
+            <div class="d-flex justify-content-start mt-2">
+              <h3
+                class="
+                  order-0
+                  mr-4
+                  pr-2
+                  d-flex
+                  align-items-center
+                  right-border
+                  start
+                "
+              >
+                Note info personnel
+              </h3>
+              <div class="container-note-info-personel">
+                <div
+                  v-if="items.noteInfoPersonnel == null"
+                  class="d-flex justify-content-between align-items-center"
+                >
+                  <h4 v-if="ajouterInfo == false">
+                    Pas d'information disponible
+                  </h4>
+                  <div v-else-if="ajouterInfo == true" class="w-75">
+                    <b-form-textarea
+                      id="textarea-large"
+                      size="lg"
+                      placeholder="Ajouter information"
+                      v-model="items.noteInfoPersonnel"
+                    ></b-form-textarea>
+                  </div>
+                  <b-button
+                    v-if="ajouterInfo == false"
+                    variant="info"
+                    @click="ajouterInfo = true"
+                  >
+                    <font-awesome-icon
+                      :icon="['fas', 'plus-square']"
+                      class="icon"
+                    />
+                    Ajouter
+                  </b-button>
+                  <div v-else class="d-flex flex-xl-column">
+                    <b-button variant="success" @click="updateIntervention()">
+                      <font-awesome-icon
+                        :icon="['fas', 'check-square']"
+                        class="icon"
+                      />
+                      Valider
+                    </b-button>
+                    <b-button
+                      class="mt-2"
+                      variant="warning"
+                      @click="annulerModif()"
+                    >
+                      <font-awesome-icon
+                        :icon="['fas', 'undo-alt']"
+                        class="icon"
+                      />
+                      Annuler
+                    </b-button>
+                  </div>
+                </div>
+
+                <div
+                  v-else
+                  class="d-flex justify-content-between align-items-center"
+                >
+                  <h4 v-if="modifierInfo == false">
+                    {{ items.noteInfoPersonnel }}
+                  </h4>
+                  <div v-else class="w-75">
+                    <b-form-textarea
+                      id="textarea-large"
+                      size="lg"
+                      placeholder="Ajouter information"
+                      v-model="items.noteInfoPersonnel"
+                    ></b-form-textarea>
+                  </div>
+
+                  <b-button
+                    variant="primary"
+                    @click="modifierInfoPerso()"
+                    v-if="modifierInfo ==false"
+                  >
+                    <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+                    Modifier</b-button
+                  >
+                  <div v-else class="d-flex flex-xl-column">
+                    <b-button variant="success" @click="updateIntervention()">
+                      <font-awesome-icon
+                        :icon="['fas', 'check-square']"
+                        class="icon"
+                      />
+                      Valider
+                    </b-button>
+                    <b-button
+                      class="mt-2"
+                      variant="warning"
+                      @click="annulerModif()"
+                    >
+                      <font-awesome-icon
+                        :icon="['fas', 'undo-alt']"
+                        class="icon"
+                      />
+                      Annuler
+                    </b-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </b-tab>
+        <b-tab>
+          <template v-slot:title>
+            <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
+            Etudiants
+          </template>
+         <EtudiantsInterventionListComponent />
+        </b-tab>
+        <b-tab>
+          <template v-slot:title>
+            <font-awesome-icon :icon="['fas', 'code']" class="icon" />
+            Devoirs
+          </template>
+          <div>Devoirs</div>
+        </b-tab>
+        <b-tab>
+          <template v-slot:title>
+            <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
+            Examens
+          </template>
+          <div>Examens</div>
+        </b-tab>
+      </b-tabs>
+    </section>
     <!-- <h1>Detail Intervention</h1> -->
-    <a
+    <!-- <a
       @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Precedent
-    </a>
-
-    <div id="grid-container">
+    </a> -->
+    <!-- <div id="grid-container">
       <div
         id="note-information"
         class="mx-5 mt-2"
@@ -72,11 +268,11 @@
                   </span>
                 </td>
               </tr>
-              <!-- <tr>
+               <tr>
                 <th>Date de fin</th>
                 <td>{{ items.dateFin | formatDate }}</td>
               </tr> -->
-              <tr>
+    <!-- <tr>
                 <th>Formateurs affecté</th>
                 <td v-if="trainers.length > 0">
                   <ul class="list-style-none" v-for="t in trainers" :key="t.id">
@@ -91,9 +287,9 @@
           </table>
         </div>
       </div>
-    </div>
+    </div>  -->
 
-    <div class="mon-container-body">
+    <!-- <div class="mon-container-body">
       <div class="mon-container-tuile">
         <span
           :class="{ ma_tuile: true, activ: showEtudiant }"
@@ -124,8 +320,8 @@
         </span>
       </div>
 
-      <!-- Etudiants -->
-      <div :class="{ ma_fenetre: true, collapse: !showEtudiant }">
+      Etudiants -->
+    <!-- <div :class="{ ma_fenetre: true, collapse: !showEtudiant }">
         <table class="table text-center table-sm table-custom">
           <thead>
             <tr>
@@ -147,10 +343,10 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
 
-      <!-- Promotions -->
-      <div :class="{ ma_fenetre: true, collapse: !showPromotion }">
+    <!-- Promotions -->
+    <!-- <div :class="{ ma_fenetre: true, collapse: !showPromotion }">
         <ul class="list-style-none text-center">
           <li v-for="promotion in promo" :key="promotion.id">
             <router-link
@@ -163,10 +359,9 @@
             </router-link>
           </li>
         </ul>
-      </div>
-
-      <!-- Devoirs -->
-      <div :class="{ ma_fenetre: true, collapse: !showDevoir }">
+      </div> -->
+    <!-- Devoirs -->
+    <!-- <div :class="{ ma_fenetre: true, collapse: !showDevoir }">
         <p v-if="assignements.length == 0" class="text-center">Aucun devoirs</p>
         <table class="table text-center table-sm table-custom" v-else>
           <thead>
@@ -190,9 +385,9 @@
             </tr>
           </tbody>
         </table>
-      </div>
-      <!-- Absences -->
-      <div :class="{ ma_fenetre: true, collapse: !showAbsence }">
+      </div> -->
+    <!-- Absences -->
+    <!-- <div :class="{ ma_fenetre: true, collapse: !showAbsence }">
         <div class="card card-body border-0">
           <table class="table text-center table-sm table-custom">
             <thead>
@@ -220,19 +415,26 @@
           </table>
         </div>
       </div>
-    </div>
-  </section>
+    </div> -->
+  </div>
 </template>
 
 <script>
 import { interventionApi } from "@/_api/intervention.api.js";
-import { absencesApi } from "@/_api/absence.api.js";
+// import { absencesApi } from "@/_api/absence.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
+import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
 export default {
   name: "DetailIntervention",
+  components: {
+    HeaderFormateur,
+    EtudiantsInterventionListComponent,
+  },
   data() {
     return {
       interventionId: this.$route.params.id,
+      titre: "",
       items: {
         formationDto: {},
       },
@@ -244,7 +446,10 @@ export default {
       status,
 
       onglet: 1,
-      routeSplited :  this.$route.path.split("/").splice(1)
+      routeSplited: this.$route.path.split("/").splice(1),
+      ajouterInfo: false,
+      modifierInfo: false,
+      textInfo: null,
     };
   },
   computed: {
@@ -252,6 +457,14 @@ export default {
     //   if (this.status == 202) return "d-block";
     //   return "d-none";
     // },
+    getTitle() {
+      return this.items.formationDto.titre;
+    },
+    getSubTitle() {
+      let dateDebut = new Date(this.items.dateDebut).toLocaleDateString();
+      let dateFin = new Date(this.items.dateFin).toLocaleDateString();
+      return `Du ${dateDebut}  au ${dateFin}`;
+    },
     showEtudiant() {
       if (this.onglet == 1) return true;
       else return false;
@@ -285,7 +498,17 @@ export default {
     this.getAssignement();
     this.getTrainer();
   },
+
   methods: {
+    modifierInfoPerso() {
+      this.modifierInfo = true;
+      this.textInfo = this.items.noteInfoPersonnel;
+    },
+    annulerModif() {
+      this.ajouterInfo = false;
+      this.modifierInfo = false;
+      this.items.noteInfoPersonnel = this.textInfo;
+    },
     goBack() {
       this.$router.go(-1);
     },
@@ -297,19 +520,32 @@ export default {
         this.promo = this.items.promotionsDto;
       });
     },
+    updateIntervention() {
+      // this.items.noteInfoPersonnel = this.textInfo;
+      interventionApi
+        .update(this.items)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.ajouterInfo = false;
+      this.modifierInfo = false;
+    },
     modifierIntervention() {
       const route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {
-        this.$router.push({name: "admin_intervention_update",});
-      } else  if (route[0] == "referent") {
-        this.$router.push({name: "referent_intervention_update",});
+        this.$router.push({ name: "admin_intervention_update" });
+      } else if (route[0] == "referent") {
+        this.$router.push({ name: "referent_intervention_update" });
       }
     },
     deleteIntervention(id) {
       interventionApi.deleteIntervention(id).then((response) => {
         this.status = response.status;
         if (this.status == 202) {
-          this.showAlert;          
+          this.showAlert;
           this.goBack();
         }
       });
@@ -318,8 +554,8 @@ export default {
     getStudents() {
       interventionApi
         .findStudentsByPromoInterventionId(this.interventionId)
-        .then((data) => (this.students = data))
-        .then(() => this.getAbsences());
+        .then((data) => (this.students = data));
+      // .then(() => this.getAbsences());
     },
     goToStudentDetail(id) {
       // const route = this.$route.path.split("/").splice(1);
@@ -389,7 +625,7 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
-    ajouterDevoir(){
+    ajouterDevoir() {
       const route = this.$route.path.split("/").splice(1);
       switch (route[0]) {
         case "admin":
@@ -398,12 +634,12 @@ export default {
           });
           break;
         case "referent":
-           this.$router.push({
+          this.$router.push({
             name: "referent_devoir_create",
           });
           break;
         case "formateur":
-           this.$router.push({
+          this.$router.push({
             name: "formateur_devoir_create",
           });
           break;
@@ -416,16 +652,16 @@ export default {
         .then((data) => (this.trainers = data));
     },
     // Absence
-    getAbsences() {
-      for (let i = 0; i < this.students.length; i++) {
-        absencesApi.getAllByIdEtudiant(this.students[i].id).then((data) => {
-          //data est un array, on veut pas un array d'array donc on fait element par element
-          for (let j = 0; j < data.length; j++) {
-            this.absences.push(data[j]);
-          }
-        });
-      }
-    },
+    // getAbsences() {
+    //   for (let i = 0; i < this.students.length; i++) {
+    //     absencesApi.getAllByIdEtudiant(this.students[i].id).then((data) => {
+    //       //data est un array, on veut pas un array d'array donc on fait element par element
+    //       for (let j = 0; j < data.length; j++) {
+    //         this.absences.push(data[j]);
+    //       }
+    //     });
+    //   }
+    // },
     goToAbsenceDetail(id) {
       // const route = this.$route.path.split("/").splice(1);
       let routeData;
@@ -457,7 +693,7 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
-    ajouterAbsence(){
+    ajouterAbsence() {
       const route = this.$route.path.split("/").splice(1);
       switch (route[0]) {
         case "admin":
@@ -466,12 +702,12 @@ export default {
           });
           break;
         case "referent":
-           this.$router.push({
+          this.$router.push({
             name: "referent_absence_create",
           });
           break;
         case "formateur":
-           this.$router.push({
+          this.$router.push({
             name: "formateur_absence_create",
           });
           break;
@@ -482,11 +718,11 @@ export default {
       // const route = this.$route.path.split("/").splice(1);
       switch (this.routeSplited[0]) {
         case "admin":
-          return {name: "admin_promotion_detail",params: {id: id}};
+          return { name: "admin_promotion_detail", params: { id: id } };
         case "referent":
           return { name: "referent_promotion_detail", params: { id: id } };
         case "formateur":
-          return {name: "formateur_promotion_detail",params: {id: id}};
+          return { name: "formateur_promotion_detail", params: { id: id } };
       }
     },
     // Other
@@ -500,6 +736,18 @@ export default {
 <style src="@/assets/styles/Onglet.css"></style>
 
 <style scoped>
+.start {
+  width: 320px;
+}
+.container-note-info-personel {
+  width: calc(99% - 320px);
+}
+.separation {
+  width: 100%;
+  height: 2px;
+  background-color: gainsboro;
+  margin: 4px 0;
+}
 #grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -585,5 +833,8 @@ tr th {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+.right-border {
+  border-right: 3px solid gainsboro;
 }
 </style>

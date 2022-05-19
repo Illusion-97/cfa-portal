@@ -16,6 +16,7 @@ export const interventionApi = {
     getAllByPage,
     getCount,
     save,
+    update,
     deleteIntervention,
 
     findStudentsByPromoInterventionId,
@@ -153,6 +154,13 @@ function save(intervention) {
  * @param {*} id 
  * @returns 
  */
+function  update(intervention){
+    return axios
+    .put(`${END_POINT}`, intervention, requestOptions.headers())
+    .then((response) => response)
+    .catch((error) => console.log(error));
+}
+
 function deleteIntervention(id) {
     return axios
         .delete(`${END_POINT}/${id}`, requestOptions.headers())

@@ -44,10 +44,10 @@ function getPromotionByid(id){
 function getAllByPage(page, size, search = ""){
   let req = `/promotions/${page}/${size}/${search}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
 /**
@@ -58,10 +58,10 @@ function getAllByPage(page, size, search = ""){
 function getCount(search = ""){
   let req = `/promotions/count/${search}`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data["nb"])
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
 }
 
 /**
@@ -70,7 +70,7 @@ function getCount(search = ""){
  * @returns 
  */
 function save(form) {
-  let req =  "promotions";
+  let req = "promotions";
 
   return axios
       .post(req, form, requestOptions.headers())
@@ -95,7 +95,7 @@ function getAllPromotions() {
  * @returns 
  */
 function deletePromotion(id) {
-  let req =  `promotions/${id}`;
+  let req = `promotions/${id}`;
 
   return axios
       .delete(req, requestOptions.headers())
@@ -109,7 +109,7 @@ function deletePromotion(id) {
  * @returns 
  */
 function getEtudiants(id) {
-  let req =  `promotions/${id}/etudiants`;
+  let req = `promotions/${id}/etudiants`;
 
   return axios
       .get(req, requestOptions.headers())
@@ -123,7 +123,7 @@ function getEtudiants(id) {
  * @returns 
  */
 function getNote(id) {
-  let req =  `promotions/${id}/notes`;
+  let req = `promotions/${id}/notes`;
 
   return axios
       .get(req, requestOptions.headers())
@@ -137,7 +137,7 @@ function getNote(id) {
  * @returns 
  */
 function getCours(id) {
-  let req =  `promotions/${id}/interventions`;
+  let req = `promotions/${id}/interventions`;
 
   return axios
       .get(req, requestOptions.headers())
@@ -152,10 +152,10 @@ function getCours(id) {
 function getAll(){
   let req = `/promotions`;
 
-  return  axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data)
-      .catch((error) => console.log(error));
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
 
 /**

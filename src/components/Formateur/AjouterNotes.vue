@@ -153,6 +153,7 @@ export default {
     setNoteDatToItem(noteData) {
       let item = {
         id: noteData.id,
+        version: noteData.version,
         nom: noteData.etudiantNoteUtilisateurNom,
         prenom: noteData.etudiantNoteUtilisateurPrenom,
         note: noteData.noteObtenue,
@@ -207,19 +208,22 @@ export default {
         .then((value) => {
           let index = this.geIndexForItem(item.id);
           if (value) {
-            let notteDto = {
+            let noteDto = {
               id: item.id,
+              version: item.version,
               noteObtenue: item.note,
               satisfaction: item.satisfaction.toUpperCase(),
               etudiantNoteId: item.etudiantNoteId,
               examenId: item.examenId,
             };
-            noteApi.save(notteDto).then(() => {
-              this.$nextTick(() => {
+          
+            noteApi.save(noteDto).then(() => {
+        
                 this.items[index].ajouter = true;
                 this.items[index].modifier = false;
+                this.items[index].version++;
                 this.ajouterSatisfaction();
-              });
+           
             });
           } else {
             this.items[index].modifier = false;
