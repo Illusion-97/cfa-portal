@@ -80,6 +80,8 @@ export default {
       currentPage: 1,
       perPage: 9,
       pageCount: 0,
+      key: "",
+ 
     };
   },
   created() {
