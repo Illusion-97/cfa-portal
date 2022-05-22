@@ -9,6 +9,9 @@ export const devoirApi = {
   getCount,
   save,
   deleteDevoir,
+  getAllByInterventionId,
+
+  
 };
 
 function getById(id){
@@ -48,6 +51,14 @@ function save(devoir) {
 function deleteDevoir(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getAllByInterventionId(id) {
+let req = `${END_POINT}/intervention/${id}`;
+  return axios
+    .get(req, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

@@ -1,7 +1,15 @@
 <template>
 <div>
-  <div>
-     <HeaderFormateur :title="title" :subTitle="getInterventionDate" />
+  <div class="d-flex justify-content-end">
+    <b-button
+      variant="secondary"
+      v-b-toggle.collapseFormulaire
+      v-show="show"
+      @click="show = !show"
+      class="btnAddExamen"
+      ><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
+      Ajouter un examen
+  </b-button>
   </div>
   <b-alert  
         class="b-alert-succes d-flex justify-content-around"
@@ -13,88 +21,90 @@
       >
         {{ message }}
       </b-alert>
-  <section class="section-form ">
+    
+      <b-collapse id="collapseFormulaire">
+        <section class="section-form ">
+          <b-form class="form mb-5" @submit="submit">
+            <!-- Consigne -->
+            <b-form-group id="form-group">
+              <b-form-row class="text-align-left">
+                <label class="mon-label">Consigne</label>
+                <div class="mon-input">
+                  <b-form-textarea type="text" v-model="form.consigne" required placeholder="Rentrez la consigne"> </b-form-textarea>
+                </div>
+                
+              </b-form-row>
+            </b-form-group>
+            <b-form-group>
+              <b-form-row class="text-align-left">
+                <label class="mon-label">Date de début</label>
+                <div class="mon-input">
+                  <b-form-datepicker
+                    locale="fr"
+                    v-model="form.dateDebut"
+                  ></b-form-datepicker>
+                </div>
+              </b-form-row>
+            </b-form-group>
 
+            <b-form-group>
+              <b-form-row class="text-align-left">
+                <div class="mon-label">Date de fin</div>
+                <div class="mon-input">
+                  <b-form-datepicker
+                    locale="fr"
+                    v-model="form.dateFin"
+                    required
+                  ></b-form-datepicker>
+                </div>
+              </b-form-row>
+            </b-form-group>
 
-    <b-form class="form mb-5" @submit="submit">
-      <b-form-group id="form-group">
-        <b-form-row class="text-align-left">
-          <label class="mon-label">Consigne</label>
-          <div class="mon-input">
-            <b-form-textarea type="text" v-model="form.consigne" required> </b-form-textarea>
+          <div class="d-flex justify-content-end">
+            <b-form @submit="onSubmit">
+              <b-button
+                type="submit"
+                class="btnAddDevoir btn-success">
+                <font-awesome-icon
+                  :icon="['fas', 'plus-square']"
+                  class="icon"/> Valider
+              </b-button>
+            </b-form>
+              <b-button
+                  class="btnAddDevoir btn-warning"
+                  v-b-toggle.collapseFormulaire
+                  v-show="!show"
+                  @click="show = !show"
+                  ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                  Annuler
+              </b-button>
           </div>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="mon-label">Date de dÃ©but</label>
-          <div class="mon-input">
-            <b-form-datepicker
-              locale="fr"
-              v-model="form.dateDebut"
-            ></b-form-datepicker>
-          </div>
-        </b-form-row>
-      </b-form-group>
-
-       <b-form-group>
-        <b-form-row class="text-align-left">
-          <div class="mon-label">Date de fin</div>
-          <div class="mon-input">
-            <b-form-datepicker
-              locale="fr"
-              v-model="form.dateFin"
-              required
-            ></b-form-datepicker>
-          </div>
-        </b-form-row>
-      </b-form-group>
-
-    <div class="d-flex justify-content-end">
-      <b-form @submit="onSubmit">
-        <b-button
-          type="submit"
-          class="btnAddDevoir btn-success">
-          <font-awesome-icon
-            :icon="['fas', 'plus-square']"
-            class="icon"/> Valider
-      </b-button>
-      </b-form>
-      <b-button
-              class="btnAddDevoir btn-warning"
-              v-b-toggle.collapseFormulaire
-              @click="annulerFormDevoir"
-              ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-              Annuler
-        </b-button>
-    </div>
 
 
-      <div v-if="isFormateur">
-      </div>
-      <div v-else>
-        <InterventionListComponent
-        v-on:click-list="onClickChildInterventionList"
-        :interventionProp="intervention_input"
-      />
-      </div>
-    </b-form>
-  </section>
+            <div v-if="isFormateur">
+            </div>
+            <div v-else>
+              <InterventionListComponent
+              v-on:click-list="onClickChildInterventionList"
+              :interventionProp="intervention_input"
+            />
+            </div>
+          </b-form>
+        </section>
+      </b-collapse>
+  
   </div>
 </template>
 
 <script>
 import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
-import  HeaderFormateur  from "@/components/Navigation/HeaderFormateur.vue";
 import { devoirApi } from "@/_api/devoir.api.js";
-import { interventionApi } from "@/_api/intervention.api.js";
+// import { interventionApi } from "@/_api/intervention.api.js";
 import { utilisateurService} from "@/_services/utilisateur.service.js"; 
 
 export default {
   name: "DevoirCreate",
   components: {
-    HeaderFormateur,
     InterventionListComponent,
   },
     props: {
@@ -109,16 +119,16 @@ export default {
   
   data() {
     return {
-      interventionId: this.$route.params.id,
+      show: true,
       promo: [],
       title : "",
-      // title : "CrÃ©ation d'un nouveau devoir",
+      // title : "Création d'un nouveau devoir",
       btn_form_text: "Ajouter",
       intervention_input: "",
       form: {
         consigne: "",
-        dateDebut: "",
-        dateFin: "",
+        dateDebut: null,
+        dateFin: null,
         interventionId: null,
         interventionDto: {},
       },
@@ -137,8 +147,6 @@ export default {
       let dateDebut = new Date(this.intervention2.data.dateDebut).toLocaleDateString();
       let dateFin = new Date(this.intervention2.data.dateFin).toLocaleDateString();
       return `Du ${dateDebut}  au ${dateFin}`;
-   
-      
     },
   },
   
@@ -149,22 +157,33 @@ export default {
       devoirApi
         .save(this.form)
         .then((response) => {
-          this.showAlert(response.titre, false);
+          console.log("méthode on submit -> devoirApi.save");
+          console.log(response);
+          this.showAlert(false);
         });
     },
-    getId(){
-      interventionApi.getInterventionById(this.interventionId).then((data) => 
-       { this.intervention2 = data;
-       this.title = "CrÃ©ation d'un nouveau devoir " +this.intervention2.data.formationDto.titre 
+    // getId(){
+    //   interventionApi.getInterventionById(this.$route.params.id).then((data) => 
+    //    { this.intervention2 = data;
+    //    this.title = "Création d'un nouveau devoir " +this.intervention2.data.formationDto.titre 
   
-      }) 
-    },
-    annulerFormDevoir(){
-      console.log("test");
-    },
-    showAlert(titre, isErro){
-      this.message = "Le devoir a Ã©tÃ© rajoutÃ© avec succÃ¨s";
-      this.dismissCountDown = this.dismissSecs;
+    //   }) 
+    // },
+  //   annulerFormDevoir(){
+      
+  //     let route = this.$route.path.split("/").splice(1);
+  //     console.log("ma route :");
+  //     console.log(route);
+  //     this.$router.push({name:'formateur_intervention_detail', params: { id: this.$route.params.id }});
+  //  },
+    showAlert(isErr){
+       if (isErr) {
+        // this.message = "Erreur d'ajout du devoir " + titre ;
+        // this.dismissCountDownErr = this.dismissSecs
+      } else {
+        this.message = "Le devoir a bien été rajouté avec succès";
+        this.dismissCountDown = this.dismissSecs;
+      }
     },
     onClickChildInterventionList(intervention) {
       this.form.interventionDto = intervention;
@@ -219,10 +238,10 @@ export default {
       this.$route.params.id != null &&
       this.$route.params.id != "" &&
       this.$route.params.id != 0
-    )
-    this.getId();
+    );
+    // this.getId();
     
-  },
+  }
 };
 </script>
 
@@ -263,5 +282,12 @@ width: 9.7em;
 .b-alert-succes{
   width: 30vw;
   margin: 30px auto;
+}
+.btnAddExamen {
+    position: relative;
+    right: 10px;
+    width: 12vw;
+    height: 4vh;
+    margin-bottom: 20px;
 }
 </style>
