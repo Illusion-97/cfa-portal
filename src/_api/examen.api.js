@@ -10,13 +10,21 @@ export const examenApi = {
   save,
   deleteExamen,
   update,
-
+  getExamensByInterventionId
 };
 
 function getById(id) {
   let req = `/${END_POINT}/${id}`;
 
   return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getExamensByInterventionId(id) {
+  let req = `/${END_POINT}/interventions/${id}`;
+  return axios 
     .get(req, requestOptions.headers())
     .then(response => response.data)
     .catch((error) => console.log(error));

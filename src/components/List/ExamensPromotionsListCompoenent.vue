@@ -13,7 +13,12 @@
       >
         {{ message }}
       </b-alert>
+
+    <!-- {{examens}} -->
+
+
       <b-table :items="items" :fields="fields" striped responsive="sm">
+       
         <!-- //details -->
         <template #cell(Details)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
@@ -138,7 +143,6 @@
               >
             </b-form>
           </div>
-
           <div v-else>
             <b-button
               block
@@ -191,9 +195,9 @@
 </template>
 
 <script>
+import { examenApi } from "@/_api/examen.api.js";
 import AddExamen from "@/components/Formateur/AddExamen.vue";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
-import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   name: "ExamensPromotionsListCompoenent",
@@ -277,25 +281,11 @@ export default {
         },
       ],
 
-      items: [
-        //   Titre: 'Travaux pratiques CDA',
-        //   Duree: '4h',
-        //   Date: '13/03/2022	',
-        //   Blocs_concernes:'1,2,3,4',
-        //   description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',
-        //   Piece_jointe: ' Nom Pièce jointe',
-        //   modifier :false,
-        //   _showDetails: false
-        // }
-      ],
+      items: [],
       selectedBc: [],
-      optionsBc: [
-        // { text: "1", value: 1 },
-      ],
+      optionsBc: [],
       selectedCompetences: [],
-      optionsCompetences: [
-        // { text: "1", value: 1 },
-      ],
+      optionsCompetences: [],
     };
   },
   created() {
@@ -310,9 +300,11 @@ export default {
         this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
         this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
       });
+
   },
 
   methods: {
+     
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
       // selectedActiviteType[i] 4 ou 7 ou 8
@@ -401,7 +393,7 @@ export default {
       // More complex structure
       const messageVNode = h("div", { class: ["foobar"] }, [
         h("h5", { class: [] }, [
-          " voulez vous supprimer l'examen : " + item.Titre,
+          "Voulez-vous supprimer l'examen : " + item.Titre + " ?",
         ]),
       ]);
       // We must pass the generated VNodes as arrays

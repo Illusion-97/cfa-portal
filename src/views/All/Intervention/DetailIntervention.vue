@@ -188,12 +188,15 @@
           </template>
           <DevoirsInterventionListComponent />
         </b-tab>
-        <b-tab>
+        <b-tab @click="reloadExam()">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
             Examens
           </template>
           <div>
+            <ExamensPromotionsListCompoenent 
+             ref="examen"
+             :examens = "examensByInterventionId"/>
             <!-- <ExamensPromotionsListCompoenent
               @custom-event-notes="setMessage"
               ref="examensByIntervention"
@@ -206,6 +209,7 @@
 </template>
 
 <script>
+import { examenApi } from "@/_api/examen.api.js";
 import { interventionApi } from "@/_api/intervention.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 // import { absencesApi } from "@/_api/absence.api.js";
@@ -223,6 +227,7 @@ export default {
   },
   data() {
     return {
+      examensByInterventionId: [],
       interventionId: this.$route.params.id,
       titre: "",
       items: {
@@ -285,27 +290,21 @@ export default {
   },
   created() {
     this.getId();
-    //On a besoin de this.students.length pour getAbsences
     this.getStudents();
-    // this.getAssignement();
-    this.getTrainer();
-    //On veut récup toutes les promotions d'une intervention
-    this.getAllPromotionByInterventionId();
+    this.getTrainer();  
+    this.getExamensByInterventionId();
   },
 
   methods: {
-    getAllPromotionByInterventionId(){
-      interventionApi.findPromoByInterventionId(this.$route.params.id).then((response) =>{
-         this.responseApi = response;
-         for(let i = 0; i<this.responseApi.length; i++){
-
-           console.log();
-         }
-        console.log("testAPPELAPI");
-        console.log(this.responseApi);
-
-        // this.$refs.examensByIntervention.assigneTableItems()
-      });
+    getExamensByInterventionId(id){
+      examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
+          this.examensByInterventionId = response;
+      })
+    },
+    reloadExam() {
+       console.log(this.examensByInterventionId)
+      this.$refs.examen.assigneTableItems(this.examensByInterventionId);
+     
     },
     modifierInfoPerso() {
       this.modifierInfo = true;
@@ -356,6 +355,7 @@ export default {
         }
       });
     },
+   
     // Etudiant
     getStudents() {
       interventionApi

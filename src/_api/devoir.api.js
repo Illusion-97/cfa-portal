@@ -7,6 +7,7 @@ export const devoirApi = {
   getById,
   getAllByPage,
   getCount,
+  update,
   save,
   deleteDevoir,
   getAllByInterventionId,
@@ -39,6 +40,13 @@ function getCount(search = ""){
       .get(req, requestOptions.headers())
       .then(response => response.data["nb"])
       .catch((error) => console.log(error));
+}
+
+function update(devoirDto){
+  return axios
+    .put(`${END_POINT}`, devoirDto)
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 function save(devoir) {
