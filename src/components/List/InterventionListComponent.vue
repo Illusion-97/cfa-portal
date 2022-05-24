@@ -154,9 +154,7 @@ export default {
       interventions: [],
       perPage: 10,
       pageCount: 0,
-
       saisie: "",
-
       intervention_input: "",
     };
   },

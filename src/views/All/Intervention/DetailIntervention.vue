@@ -194,10 +194,10 @@
             Examens
           </template>
           <div>
-            <!-- <ExamensPromotionsListCompoenent
+            <ExamensPromotionsListCompoenent
               @custom-event-notes="setMessage"
               ref="examensByIntervention"
-            /> -->
+            />
           </div>
         </b-tab>
       </b-tabs>

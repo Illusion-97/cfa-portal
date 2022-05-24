@@ -156,8 +156,8 @@ export default {
       dismissSecs: 5,
       dataForBlocsConcernes: [],
       examenDto: {
-        id:0,
-        version:0,
+        id: 0,
+        version: 0,
         titre: null,
         descriptif: null,
         duree: null,

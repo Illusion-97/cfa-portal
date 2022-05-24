@@ -5,7 +5,7 @@
     </div>
     <section>
       <div class="container-fluid mt-4">
-        <b-tabs content-class="mt-3" fill>
+        <b-tabs content-class="mt-3" fill v-model="tabIndex">
           <b-tab active>
             <template v-slot:title>
               <font-awesome-icon
@@ -84,7 +84,6 @@
 
             <ExamensPromotionsListCompoenent
               :examens="promotion.examensDto"
-              @custom-event-notes="setMessage"
               ref="examen"
             />
           </b-tab>
@@ -96,10 +95,8 @@
               />
               Notes
             </template>
-            <h3 class="text-center mt-5 mb-5">
-              {{ titleNote }}
-            </h3>
-            <div v-bind:class="[afficherNotes]">
+
+            <div>
               <AjouterNotes />
             </div>
           </b-tab>
@@ -124,19 +121,14 @@ export default {
 
     // BodyTitle,
   },
-  props: {
-    titleNote: {
-      type: String,
-      default: "Sélectionner un examen",
-    },
-  },
+  props: {},
   data() {
     return {
       // AjouterNotes: {
       //   ouvert : false,
       //   titre : "qsddqd"
       // },
-      afficherNotes: "d-none",
+      tabIndex: 1,
       promotionId: this.$route.params.id,
       promotion: {
         cursusDto: {},
@@ -151,21 +143,9 @@ export default {
       isModalVisible: false,
     };
   },
-  computed: {
-    isEtudiant() {
-      if (this.onglet == 1) return true;
-      else return false;
-    },
-    isIntervention() {
-      if (this.onglet == 2) return true;
-      else return false;
-    },
-  },
+
+  computed: {},
   methods: {
-    setMessage() {
-      // this.titleNote = payload.examen;
-      // this.afficherNotes = "";
-    },
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.promotion.examensDto);
     },
@@ -215,6 +195,12 @@ export default {
   created() {
     promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
       this.promotion = response;
+    });
+    this.$root.$on("afficherNotes", (data) => {
+      if (data) {
+        this.tabIndex++;
+        this.$root.$emit("afficherNotes", false);
+      }
     });
   },
 };
