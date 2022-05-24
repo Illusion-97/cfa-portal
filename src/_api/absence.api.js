@@ -29,7 +29,6 @@ export async function getAllAbsences() {
       .catch((error) => console.log(error));
   }
 
-
 export async function save(absence) {
   return axios
     .post(`${END_POINT}`, absence, requestOptions.headers())

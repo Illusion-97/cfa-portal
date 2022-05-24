@@ -21,7 +21,8 @@ export const etudiantApi = {
     getCountAbsence,
     getGroupes,
     getInterventionByIdEtudiantByWeek,
-    getNotesByIdEtudiant
+    getNotesByIdEtudiant,
+    getEtudiantsByInterventionIdwithDevoirsAndAbsence,
 }
 
 function getById(id) {
@@ -166,6 +167,14 @@ function getInterventionByIdEtudiantByWeek(id){
 
 function getNotesByIdEtudiant(id) {
     let req = "notes/note-etudiant/" + id;
+    return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, serach = ""){
+
+    let req = "etudiants/"+ id + "/etudiants-abcences-devoirs/" + serach;
     return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

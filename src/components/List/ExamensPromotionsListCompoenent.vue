@@ -388,6 +388,7 @@ export default {
     ajouterNotes(item) {
       this.$emit("custom-event-notes", { examen: item.Titre });
       this.$root.$emit("examen", item);
+      this.$root.$emit("afficherNotes", true);
     },
     spprimerExamen(item) {
       const h = this.$createElement;
@@ -422,7 +423,7 @@ export default {
                     break;
                   }
                 }
-                this.showAlert(item.Titre, false);
+                this.showAlert(item.Titre, false, false);
               }
             });
           }
@@ -466,12 +467,16 @@ export default {
       item.modifier = false;
       item._showDetails = false;
     },
-    showAlert(titre, isErr) {
+    showAlert(titre, isErr, modifier = true) {
       if (isErr) {
         //    this.message = "Erreur d'ajout de 'examen " + titre ;
         // this.dismissCountDownErr = this.dismissSecs
       } else {
-        this.message = "L'examen " + titre + " a bien été modifier avec succès";
+        modifier
+          ? (this.message =
+              "L'examen " + titre + " a bien été modifier avec succès")
+          : (this.message =
+              "L'examen " + titre + " a bien été supprimer avec succès");
         this.dismissCountDown = this.dismissSecs;
       }
     },

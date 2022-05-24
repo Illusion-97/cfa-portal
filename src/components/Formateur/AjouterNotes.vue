@@ -1,85 +1,100 @@
-<template>
-  <div>
-    <b-table hover :items="items" :fields="fields">
-      <template #cell(note)="row">
-        <div v-if="row.item.modifier || !row.item.ajouter">
-          <b-form-spinbutton
-            id="demo-sb"
-            v-model="row.item.note"
-            min="1"
-            max="20"
-            step="0.5"
-          ></b-form-spinbutton>
-        </div>
-        <div v-else>
-          {{ row.item.note }}
-        </div>
-      </template>
-      <template #cell(satisfaction)="row">
-        <div v-if="!row.item.ajouter || row.item.modifier">
-          <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
-            <b-form-radio-group class="pt-2" id="radio-group-2">
-              <b-form-radio
-                v-model="row.item.satisfaction"
-                :aria-describedby="ariaDescribedby"
-                name="some-radios"
-                value="Oui"
-                >Oui</b-form-radio
-              >
-              <b-form-radio
-                v-model="row.item.satisfaction"
-                :aria-describedby="ariaDescribedby"
-                name="some-radios"
-                value="Non"
-                >Non</b-form-radio
-              >
-            </b-form-radio-group>
-          </b-form-group>
-        </div>
-        <div v-else>
-          {{ row.item.satisfaction }}
-        </div>
-      </template>
-      <template #cell(Action)="row">
-        <div v-if="!row.item.ajouter">
-          <b-form>
-            <b-button
-              block
-              variant="success"
-              @click="showMsgBox(row.item, true)"
-            >
-              <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
-              Ajouter
-            </b-button>
-          </b-form>
-        </div>
-        <div v-else>
-          <div v-if="row.item.modifier">
-            <b-button
-              block
-              variant="success"
-              @click="showMsgBox(row.item, false)"
-              type="submit"
-            >
-              <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-              Valider</b-button
-            >
+<template >
+  <section >
 
-            <b-button block variant="warning" @click="AnnulerModif(row.item)">
-              <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-              Annuler</b-button
-            >
+      <h3 class="text-center mt-5 mb-5">
+        {{ titleNote }}
+      </h3>
+      <b-table hover :items="items" :fields="fields" v-bind:class="[afficherNotes]"  >
+        <template #cell(note)="row">
+          <div v-if="row.item.modifier || !row.item.ajouter">
+            <b-form-spinbutton
+              id="demo-sb"
+              v-model="row.item.note"
+              min="1"
+              max="20"
+              step="0.5"
+            ></b-form-spinbutton>
           </div>
           <div v-else>
-            <b-button block variant="primary" @click="modifierNotes(row.item)">
-              <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-              Modifier</b-button
-            >
+            {{ row.item.note }}
           </div>
-        </div>
-      </template>
-    </b-table>
-  </div>
+        </template>
+        <template #cell(satisfaction)="row">
+          <div v-if="!row.item.ajouter || row.item.modifier">
+            <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
+              <b-form-radio-group class="pt-2" id="radio-group-2">
+                <b-form-radio
+                  v-model="row.item.satisfaction"
+                  :aria-describedby="ariaDescribedby"
+                  name="some-radios"
+                  value="Oui"
+                  >Oui</b-form-radio
+                >
+                <b-form-radio
+                  v-model="row.item.satisfaction"
+                  :aria-describedby="ariaDescribedby"
+                  name="some-radios"
+                  value="Non"
+                  >Non</b-form-radio
+                >
+              </b-form-radio-group>
+            </b-form-group>
+          </div>
+          <div v-else>
+            {{ row.item.satisfaction }}
+          </div>
+        </template>
+        <template #cell(Action)="row">
+          <div v-if="!row.item.ajouter">
+            <b-form>
+              <b-button
+                block
+                variant="success"
+                @click="showMsgBox(row.item, true)"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'plus-square']"
+                  class="icon"
+                />
+                Ajouter
+              </b-button>
+            </b-form>
+          </div>
+          <div v-else>
+            <div v-if="row.item.modifier">
+              <b-button
+                block
+                variant="success"
+                @click="showMsgBox(row.item, false)"
+                type="submit"
+              >
+                <font-awesome-icon
+                  :icon="['fas', 'check-square']"
+                  class="icon"
+                />
+                Valider</b-button
+              >
+
+              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+                <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                Annuler</b-button
+              >
+            </div>
+            <div v-else>
+              <b-button
+                block
+                variant="primary"
+                @click="modifierNotes(row.item)"
+              >
+                <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+                Modifier</b-button
+              >
+            </div>
+          </div>
+        </template>
+      </b-table>
+
+  </section>
 </template>
 
 <script>
@@ -87,7 +102,8 @@ import { noteApi } from "@/_api/note.api.js";
 export default {
   data() {
     return {
-      titleNote: "sxdaa",
+      titleNote: "Sélectionner un examen",
+      afficherNotes: "d-none",
       boxOne: "",
       tempItemNote: null,
       tempItemSati: null,
@@ -129,6 +145,7 @@ export default {
   created() {
     this.$root.$on("examen", (data) => {
       this.titleNote = data.Titre;
+      this.afficherNotes = "";
       noteApi.getAllByIdExamen(data.id).then((response) => {
         this.assignValueItems(response);
       });
@@ -216,14 +233,12 @@ export default {
               etudiantNoteId: item.etudiantNoteId,
               examenId: item.examenId,
             };
-          
+
             noteApi.save(noteDto).then(() => {
-        
-                this.items[index].ajouter = true;
-                this.items[index].modifier = false;
-                this.items[index].version++;
-                this.ajouterSatisfaction();
-           
+              this.items[index].ajouter = true;
+              this.items[index].modifier = false;
+              this.items[index].version++;
+              this.ajouterSatisfaction();
             });
           } else {
             this.items[index].modifier = false;
