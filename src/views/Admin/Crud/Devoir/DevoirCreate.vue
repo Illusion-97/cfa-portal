@@ -37,16 +37,39 @@
               <b-form-row class="text-align-left">
                 <div class="mon-input">
                   <label class="mon-label">Consigne</label>
-                <!-- <div class="mon-input">
-                  <b-form-textarea type="text" v-model="form.consigne" placeholder="Rentrez la consigne"> </b-form-textarea>
-                </div> -->
                 <div>
                   <b-form-textarea
                     id="textarea"
                     type="text"
                     v-model="formDevoir.consigne">
-
                   </b-form-textarea>
+
+
+
+                  <!-- <v-form>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                        >
+                          <v-text-field
+                            v-model="title"
+                            :rules="rules"
+                            counter="25"
+                            hint="This field uses counter prop"
+                            label="Regular"
+                          ></v-text-field>
+
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-form> -->
+
+
+
+
+
                 </div>
                 </div>    
               </b-form-row>
@@ -151,6 +174,12 @@ export default {
       dismissCountDown: null,
       dismissCountDownErr: null,
       dismissSecs: 5,
+
+      title: 'Preliminary report',
+      description: 'California is a state in the western United States',
+      rules: [v => v.length <= 25 || 'Max 25 characters'],
+      wordsRules: [v => v.trim().split(' ').length <= 5 || 'Max 5 words'],
+
     };
   },
   computed: {
