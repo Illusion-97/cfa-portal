@@ -1,38 +1,54 @@
 <template>
 <div>
-  <div class="d-flex justify-content-end">
+  <div class="divBtnDevoirCreate d-flex justify-content-end">
     <b-button
       variant="secondary"
       v-b-toggle.collapseFormulaire
       v-show="show"
       @click="show = !show"
-      class="btnAddExamen"
-      ><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
-      Ajouter un examen
-  </b-button>
+      class="btnAddDevoir">
+      <font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
+      Ajouter un devoir
+    </b-button>
   </div>
   <b-alert  
-        class="b-alert-succes d-flex justify-content-around"
-        :show="dismissCountDown"
-        dismissible
-        fade
-        variant="success"
-        @dismissed="dismissCountDown = 0"
-      >
-        {{ message }}
-      </b-alert>
-    
+    class="b-alert-succes d-flex justify-content-around"
+    :show="dismissCountDown"
+    dismissible
+    fade
+    variant="success"
+    @dismissed="dismissCountDown = 0">
+    {{ message }}
+  </b-alert>
+  <b-alert  
+    class="b-alert-succes d-flex justify-content-around"
+    :show="dismissCountDownErr"
+    dismissible
+    fade
+    variant="danger"
+    @dismissed="dismissCountDownErr = 0">
+    {{ message }}
+  </b-alert>
       <b-collapse id="collapseFormulaire">
         <section class="section-form ">
           <b-form class="form mb-5" @submit="submit">
             <!-- Consigne -->
             <b-form-group id="form-group">
               <b-form-row class="text-align-left">
-                <label class="mon-label">Consigne</label>
                 <div class="mon-input">
-                  <b-form-textarea type="text" v-model="form.consigne" required placeholder="Rentrez la consigne"> </b-form-textarea>
+                  <label class="mon-label">Consigne</label>
+                <!-- <div class="mon-input">
+                  <b-form-textarea type="text" v-model="form.consigne" placeholder="Rentrez la consigne"> </b-form-textarea>
+                </div> -->
+                <div>
+                  <b-form-textarea
+                    id="textarea"
+                    type="text"
+                    v-model="formDevoir.consigne">
+
+                  </b-form-textarea>
                 </div>
-                
+                </div>    
               </b-form-row>
             </b-form-group>
             <b-form-group>
@@ -41,7 +57,7 @@
                 <div class="mon-input">
                   <b-form-datepicker
                     locale="fr"
-                    v-model="form.dateDebut"
+                    v-model="formDevoir.dateDebut"
                   ></b-form-datepicker>
                 </div>
               </b-form-row>
@@ -53,46 +69,43 @@
                 <div class="mon-input">
                   <b-form-datepicker
                     locale="fr"
-                    v-model="form.dateFin"
+                    v-model="formDevoir.dateFin"
                     required
                   ></b-form-datepicker>
                 </div>
               </b-form-row>
             </b-form-group>
 
-          <div class="d-flex justify-content-end">
-            <b-form @submit="onSubmit">
+          <div>
+            <b-form @submit="onSubmit" class="d-flex justify-content-end bFormBtnValider">
               <b-button
                 type="submit"
-                class="btnAddDevoir btn-success">
+                class="btn-success btnFormDevoir btnFormDevoirValider">
                 <font-awesome-icon
                   :icon="['fas', 'plus-square']"
                   class="icon"/> Valider
               </b-button>
-            </b-form>
               <b-button
-                  class="btnAddDevoir btn-warning"
+                  class="btn-warning btnFormDevoir"
                   v-b-toggle.collapseFormulaire
                   v-show="!show"
                   @click="show = !show"
                   ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                   Annuler
               </b-button>
+            </b-form>  
           </div>
-
-
             <div v-if="isFormateur">
             </div>
-            <div v-else>
-              <InterventionListComponent
-              v-on:click-list="onClickChildInterventionList"
-              :interventionProp="intervention_input"
-            />
+              <div v-else>
+                <InterventionListComponent
+                v-on:click-list="onClickChildInterventionList"
+                :interventionProp="intervention_input"
+              />
             </div>
           </b-form>
         </section>
       </b-collapse>
-  
   </div>
 </template>
 
@@ -116,26 +129,27 @@ export default {
       default: null,
     },
   },
-  
   data() {
     return {
+      temp: {
+        consigne: "",
+      },
       show: true,
       promo: [],
       title : "",
-      // title : "Création d'un nouveau devoir",
       btn_form_text: "Ajouter",
       intervention_input: "",
-      form: {
+      formDevoir: {
         consigne: "",
         dateDebut: null,
         dateFin: null,
         interventionId: null,
-        interventionDto: {},
       },
       intervention: null,
       intervention2: [],
       message: "",
       dismissCountDown: null,
+      dismissCountDownErr: null,
       dismissSecs: 5,
     };
   },
@@ -149,37 +163,37 @@ export default {
       return `Du ${dateDebut}  au ${dateFin}`;
     },
   },
-  
   methods: {
     onSubmit(event){
       event.preventDefault();
-      this.form.interventionId = this.$route.params.id;
-      devoirApi
-        .save(this.form)
+      this.formDevoir.interventionId = this.$route.params.id;
+      if (this.formDevoir.consigne != "" && this.formDevoir.dateDebut != null && this.formDevoir.dateFin != null) {
+          devoirApi
+        .save(this.formDevoir)
         .then((response) => {
-          console.log("méthode on submit -> devoirApi.save");
-          console.log(response);
           this.showAlert(false);
         });
+      } else {
+        this.showAlert(this.formDevoir, true)
+      }
     },
     // getId(){
     //   interventionApi.getInterventionById(this.$route.params.id).then((data) => 
     //    { this.intervention2 = data;
     //    this.title = "Création d'un nouveau devoir " +this.intervention2.data.formationDto.titre 
-  
     //   }) 
     // },
   //   annulerFormDevoir(){
-      
   //     let route = this.$route.path.split("/").splice(1);
   //     console.log("ma route :");
   //     console.log(route);
   //     this.$router.push({name:'formateur_intervention_detail', params: { id: this.$route.params.id }});
   //  },
-    showAlert(isErr){
-       if (isErr) {
-        // this.message = "Erreur d'ajout du devoir " + titre ;
-        // this.dismissCountDownErr = this.dismissSecs
+    showAlert(formDevoir, isErr){
+      console.log(formDevoir);
+      if (isErr) {
+        this.message = "Veuillez renseigner tous les champs";
+        this.dismissCountDownErr = this.dismissSecs
       } else {
         this.message = "Le devoir a bien été rajouté avec succès";
         this.dismissCountDown = this.dismissSecs;
@@ -200,7 +214,6 @@ export default {
           { 
                 if (route[0]== 'admin'){
                 this.$router.push({ name: "admin_devoir_list", 
-                
                 });
               }
               else if (route[0] == 'referent') {
@@ -213,7 +226,6 @@ export default {
               name: "cef_devoir",
               });
             }
-
         });
     },
     isCreated(){
@@ -268,13 +280,6 @@ width: 9.7em;
 .mon-input{
   width: 99%;
 }
-
-.btnAddDevoir{
-  margin: 3vh 0 0 2vw;
-  width: 10vw;
-}
-
-
 .section-form{
   width:30vw;
   margin: 6vh auto;
@@ -283,11 +288,22 @@ width: 9.7em;
   width: 30vw;
   margin: 30px auto;
 }
-.btnAddExamen {
-    position: relative;
-    right: 10px;
-    width: 12vw;
-    height: 4vh;
-    margin-bottom: 20px;
+.btnAddDevoir {
+  position: relative;
+  right: 0px;
+  width: 18%;
+  height: 100%;
+}
+.divBtnDevoirCreate{
+  padding: 12px
+}
+.btnFormDevoir{
+  width: 30%;
+}
+.btnFormDevoirValider{
+  margin-right: 2vw;
+}
+.bFormBtnValider{
+  width: 100%;
 }
 </style>

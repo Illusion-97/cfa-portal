@@ -5,34 +5,29 @@
             dismissible
             fade
             variant="success"
-            @dismissed="dismissCountDown = 0"
-        >
+            @dismissed="dismissCountDown = 0">
             {{ message }}
       </b-alert>
         <div>
             <DevoirCreate />
         </div>
-        <!-- <b-table striped hover :fields="fields" :items="items"> -->
-            <b-table striped hover :fields="fields" :items="items">
-                
+            <b-table striped hover :fields="fields" :transItem="transItem" :items="items" >
                 <template #cell(consigne)="row">
                     <div v-if="row.item.modifier">
                         <b-form-input
                             id="input-default"
-                            v-model="transItem.consigne">
+                            v-model="row.item.consigne">
                         </b-form-input>
                     </div>
                     <div v-else>
                         {{row.item.consigne}}
                     </div>
-                </template>  
-
-
+                </template>     
                 <template #cell(dateDebut)="row">
                     <div v-if="row.item.modifier">
                         <b-form-datepicker
                             id="example-datepicker"
-                            v-model="transItem.dateDebut"
+                            v-model="row.item.dateDebut"
                             class="mb-2">
                         </b-form-datepicker>
                     </div>
@@ -40,13 +35,11 @@
                         {{row.item.dateDebut}}
                     </div>
                 </template>
-
-
                 <template #cell(dateFin)="row">
                     <div v-if="row.item.modifier">
                         <b-form-datepicker
                             id="example-datepicker"
-                            v-model="transItem.dateFin"
+                            v-model="row.item.dateFin"
                             class="mb-2">
                         </b-form-datepicker>
                     </div>
@@ -54,8 +47,6 @@
                         {{row.item.dateFin}}
                     </div>
                 </template>   
-
-
                 <template #cell(action)="row">
                 <div v-if="row.item.modifier">
                     <b-form @submit="onSubmit(row.item)">
@@ -65,15 +56,12 @@
                             class="icon"
                             />Valider
                         </b-button>
-                        <b-button class="btnAction" block variant="warning" @click="AnnulerModif(transItem, row.item)">
+                        <b-button class="btnAction" block variant="warning" @click="AnnulerModif(row.item, transItem)">
                             <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon"
                             />Annuler
                          </b-button>
-                         --row.item : {{row.item}}</br>
-                         --transItem : {{transItem }}
                     </b-form>
                 </div>
-
                 <div v-else>
                     <b-button class="btnAction"
                         block
@@ -85,7 +73,7 @@
                     </b-button>
                     <b-button class="btnAction"
                          block variant="danger"
-                         @click="supprimerExamen(items)">
+                         @click="supprimerDevoir(row.item)">
                         <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
                         Supprimer
                     </b-button>
@@ -98,14 +86,25 @@
 <script>
 import { devoirApi } from "@/_api/devoir.api.js";
 import DevoirCreate from "@/views/Admin/Crud/Devoir/DevoirCreate.vue"
+import AddExamen from "@/components/Formateur/AddExamen.vue";
+
 
 export default {
     components:{
         DevoirCreate,
+        AddExamen,
     },
     data(){
         return{
-            transItem:{},
+            transItem:{
+                consigne: "",
+                dateDebut: null,
+                dateFin: null,
+                id: null,
+                interventionId: null,
+                modifier: false,
+                version: null,
+            },
             devoirs: [],
             items: [],
             dismissSecs: 5,
@@ -115,33 +114,28 @@ export default {
                 {
                 key: "consigne",
                 label: "Consigne",
-                thStyle: { width: "15%" }
-               
+                thStyle: { width: "50%" }
                 },
                 {
                 key: "dateDebut",
                 label: "Date début",
-                thStyle: { width: "5%" }
-                
+                thStyle: { width: "15%" }
                 },
                 {
                 key: "dateFin",
                 label: "Date fin",
-                thStyle: { width: "5%" }
-                
+                thStyle: { width: "15%" }
                 },
                 {
                 key: "action",
                 label: "Action",
-                thStyle: { width: "6%" }
-                
+                thStyle: { width: "14%" } 
                 },
             ]    
         }
     },
     created() {
-        this.getAllDevoirsByInterventionId()
-        
+        this.getAllDevoirsByInterventionId()    
     },
     methods: {
         // Intervention
@@ -152,8 +146,7 @@ export default {
                 if (this.devoirs != undefined) {
                     this.assigneTableItems(this.devoirs)
                 }
-            });
-            
+            });  
         },
         assigneTableItems(devoirs){  
             let items = [];
@@ -189,27 +182,65 @@ export default {
         });
         },
         modifier(item) {  
-            console.log("modif*****");
-            console.log(item)   ;
-            // let transItem:{
-                
-            // } 
-            this.transItem.modifier = true;
-            console.log(this.transItem);
-            
-            // this.addOptionsCompetences(item.selectedActiviteType);
-        },
-         AnnulerModif(transItem, item) {
-            console.log("Annuler modif*****");
-            console.log("item");
-            console.log(item);
-            console.log("transItem");
-            console.log(transItem);
-            item = this.transItem;
-            item.modifier = false;
+            this.transItem = {
+                consigne: item.consigne,
+                dateDebut: item.dateDebut,
+                dateFin: item.dateFin,
+                id: item.id,
+                interventionId: item.interventionId,
+                modifier: item.modifier,
+                version: item.version,
+             } 
+            item.modifier = true;
+        },  
+        AnnulerModif(item, transItem) {
+            item.consigne =  transItem.consigne,
+            item.dateDebut = transItem.dateDebut,
+            item.dateFin = transItem.dateFin,
+            item.id =  transItem.id,
+            item.interventionId = transItem.interventionId,
+            item.modifier = transItem.modifier,
+            item.version = transItem.version,
             this.transItem = null;
         },
-
+        supprimerDevoir(item){
+            const h = this.$createElement;
+            const titleVNode = h("div", {
+                domProps: {
+                innerHTML: "<h4 style='color: red'>Suppresion Examen</h4>",
+                },
+            });
+            const messageVNode = h("div", { class: ["foobar"] }, [
+                h("h5", { class: [] }, [
+                "Voulez-vous supprimer le devoir: " + item.consigne + " ?",
+                ]),
+            ]);
+            this.$bvModal
+                .msgBoxConfirm([messageVNode], {
+                title: [titleVNode],
+                centered: true,
+                size: "md",
+                })
+                .then((value) => {
+                if (value) {
+                    devoirApi.deleteDevoir(item.id).then((respose) => {
+                    if (respose === "suppression effectuée") {
+                        for (let i = 0; i < this.items.length; i++) {
+                        let itemToPop = this.items[i];
+                        if ((itemToPop.id = item.id)) {
+                            this.items.pop(itemToPop);
+                            break;
+                        }
+                        }
+                        this.showAlert(item.consigne, false);
+                    }
+                    });
+                }
+                })
+                .catch((err) => {
+                console.log(err);
+                });
+        },
         classObject(item, modifier) {
             let dateFinDevoir = new Date(item.Date).getTime();
             let now = Date.now();
@@ -229,8 +260,8 @@ export default {
             }
             devoirApi.update(devoirDtoSave).then((response) => {
                 this.showAlert(response.consigne, false);
-
             })
+            item.modifier = false;
         },
         showAlert(consigne, isErr) {
             if (isErr) {
@@ -246,8 +277,8 @@ export default {
 </script>
 <style scoped>
     .btnAction{
-        width: 60%;
-        margin: auto;
+        width: 100%;
+        /* margin: auto; */
     }
 
 </style>
