@@ -6,7 +6,7 @@
       </h3>
       <b-table hover :items="items" :fields="fields" v-bind:class="[afficherNotes]"  >
         <template #cell(note)="row">
-          <div v-if="row.item.modifier || !row.item.ajouter">
+          <div v-if="row.item.modifier || !row.item.ajouter">²
             <b-form-spinbutton
               id="demo-sb"
               v-model="row.item.note"
@@ -279,7 +279,7 @@ export default {
             this.items[i]._cellVariants.satisfaction = "success";
           } else {
             this.items[i]._cellVariants.satisfaction = "danger";
-          }
+          }        
         }
       }
     },

@@ -256,9 +256,9 @@ function getNotesByIdEtudiant(id) {
     .then(response => response.data)
     .catch((error) => console.log(error));
 }
-function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, serach = ""){
+function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
 
-    let req = "etudiants/"+ id + "/etudiants-abcences-devoirs/" + serach;
+    let req = "etudiants/"+ id + "/etudiants-abcences-devoirs/" + search;
     return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

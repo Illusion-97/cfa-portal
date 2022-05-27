@@ -24,7 +24,6 @@
             <form class="form-inline form" @submit="submit">
               <input
                 id="saisie"
-                name="saisie"
                 placeholder="Rechercher"
                 type="text"
                 class="form-control"
@@ -146,10 +145,7 @@
             align-items-center
           "
         >
-          <div
-            class="w-50 "
-            v-bind:style="{ background: row.item.bgDepart }"
-          >
+          <div class="w-50" v-bind:style="{ background: row.item.bgDepart }">
             {{ row.item.depart }}
           </div>
           <div>
@@ -166,8 +162,8 @@
       <template #cell(fin)="row">
         <div
           v-if="
-            row.item.ajouterPositionnement == false ||
-            row.item.modifierPositionnement == true
+            row.item.ajouterPositionnement == false &&
+            row.item.modifierPositionnement == false
           "
           class="
             text-white text-center
@@ -181,12 +177,21 @@
             {{ row.item.fin }}
           </div>
           <div>
-            <b-button class="m-1  btn-sm" variant="primary">
+            <b-button
+              class="m-1 btn-sm"
+              variant="primary"
+              @click="modifier(row.item)"
+            >
               <font-awesome-icon :icon="['fas', 'edit']" />
             </b-button>
           </div>
         </div>
-        <div v-else class="d-flex justify-content-around align-items-center">
+        <div
+          v-else-if="
+            row.item.ajouterPositionnement || row.item.modifierPositionnement
+          "
+          class="d-flex justify-content-around align-items-center"
+        >
           <b-form-spinbutton
             inline
             id="demo-sb"
@@ -195,10 +200,22 @@
             max="5"
             step="1"
           ></b-form-spinbutton>
-
-          <b-button class="m-1  btn-sm" variant="success">
+          <b-button
+            class="m-1 btn-sm"
+            variant="success"
+            @click="ajouterPositionnement(row.item)"
+          >
             <font-awesome-icon :icon="['fas', 'plus-square']"
           /></b-button>
+
+          <b-button
+            v-if="row.item.modifierPositionnement == true"
+            class="m-1 btn-sm"
+            variant="warning"
+            @click="annulerModif(row.item)"
+          >
+            <font-awesome-icon :icon="['fas', 'undo-alt']" />
+          </b-button>
         </div>
       </template>
       <!-- Action -->
@@ -283,6 +300,8 @@
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { absencesApi } from "@/_api/absence.api.js";
+import { positionnementApi } from "@/_api/positionnements.api.js";
+import { devoirApi } from "@/_api/devoir.api.js";
 export default {
   name: "EtudiantsInterventionListComponent",
   components: {},
@@ -294,6 +313,7 @@ export default {
       message: "",
       dismissSecs: 5,
       dismissCountDown: null,
+      tempPositionnementFin: null,
       formModel: {
         type: "RETARD",
         dateDebut: null,
@@ -338,21 +358,27 @@ export default {
       ],
       fieldsDevoirs: [
         {
-          key: "nom",
-          label: "Nom",
-          thStyle: { width: "33%" },
+          key: "consigne",
+          label: "Consigne",
+          thStyle: { width: "30%" },
           thClass: "",
         },
         {
           key: "date",
+          label: "Date",
+          thStyle: { width: "30%" },
+          thClass: "",
+        },
+        {
+          key: "dateRendu",
           label: "Date rendu",
-          thStyle: { width: "33%" },
+          thStyle: { width: "30%" },
           thClass: "",
         },
         {
           key: "justificatif",
           label: "Justificatif",
-          thStyle: { width: "33%" },
+          thStyle: { width: "10%" },
           thClass: "",
         },
       ],
@@ -386,13 +412,13 @@ export default {
           key: "depart",
           label: "Départ",
           thStyle: { width: "13%" },
-          thClass: "",
+          thClass: "text-center",
         },
         {
           key: "fin",
           label: "Fin",
           thStyle: { width: "13%" },
-          thClass: "",
+          thClass: "text-center",
         },
         {
           key: "action",
@@ -412,6 +438,7 @@ export default {
     console.log(nowDate);
     //2022-05-04
   },
+  mounted() {},
   computed: {
     rows() {
       return this.items.length;
@@ -463,56 +490,98 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          let allDevoirs = new Array();
+          if (response.length > 0) {
+            let devoirsEtudiant = response[0].devoirs;
+            if (devoirsEtudiant.length > 0 && allDevoirs.length == 0) {
+              devoirsEtudiant.forEach((dE) => {
+                devoirApi.getById(dE.devoirId).then((devoirResponse) => {
+                  allDevoirs.push(devoirResponse);
+                });
+              });
+            }
+            let items = [];
+            //Affecter les absences
 
-          let items = [];
-          //Affecter les absences
+            response.forEach((e) => {
+              let itemsAbsences = [];
+              let itemsDevoirs = [];
+              e.absences.forEach((absence) => {
+                let itemAbsences = {
+                  date: this.getDateFormat(absence.dateDebut, absence.dateFin),
+                  typeAbsence: absence.typeAbsence,
+                  justificatif: absence.justificatif != null ? "Oui" : "Non",
+                };
+                itemsAbsences.push(itemAbsences);
+              });
 
-          response.forEach((e) => {
-            let itemsAbsences = [];
-            let itemsDevoirs = [];
-            e.absences.forEach((absence) => {
-              let itemAbsences = {
-                date: this.getDateFormat(absence.dateDebut, absence.dateFin),
-                typeAbsence: absence.typeAbsence,
-                justificatif: absence.justificatif != null ? "Oui" : "Non",
+              // Affectation tableau initial
+              let item = {
+                id: e.etudiant.idEtudiant,
+                nom: e.etudiant.nom,
+                prenom: e.etudiant.prenom,
+                nomCentreFormation: e.etudiant.nomCentreFormation,
+                depart:
+                  e.niveauDebut != null ? e.niveauDebut.valeur : "Pas défint",
+                fin: e.niveauFin != null ? e.niveauFin.valeur : 0,
+                _showDetails: false,
+                itemsAbsences: itemsAbsences,
+                itemsDevoirs: itemsDevoirs,
+                bgDepart:
+                  e.niveauDebut != null ? e.niveauDebut.codeCouleur : "",
+                bgFin: e.niveauFin != null ? e.niveauFin.codeCouleur : "",
+                modifierPositionnement: false,
+                ajouterPositionnement: e.niveauFin != null ? false : true,
+                positionnement: e.positionnement,
               };
-              itemsAbsences.push(itemAbsences);
+              items.push(item);
+              //Affecter les devoirs
+              setTimeout(() => {
+                for (let i = 0; i < e.devoirs.length; i++) {
+                  let itemDevoir = {
+                    consigne: allDevoirs[i].consigne.substring(0,allDevoirs[i].consigne.length/10) + "...",
+                    date: this.getDateFormat(
+                      allDevoirs[i].dateDebut,
+                      allDevoirs[i].dateFin
+                    ),
+                    justificatif: e.devoirs[i].justificatif,
+                    dateRendu: new Date(e.devoirs[i].dateRendu).toLocaleString('fr-FR'),
+                  };
+                  itemsDevoirs.push(itemDevoir);
+                }
+              }, 200);
             });
-            e.devoirs.forEach((devoir) => {
-              let itemDevoir = {
-                nom: devoir.nom,
-                date: devoir.dateRendu,
-                justificatif: devoir.justificatif,
-              };
-              itemsDevoirs.push(itemDevoir);
-            });
-
-            let item = {
-              id: e.etudiant.idEtudiant,
-              nom: e.etudiant.nom,
-              prenom: e.etudiant.prenom,
-              nomCentreFormation: e.etudiant.nomCentreFormation,
-              depart:
-                e.niveauDebut != null ? e.niveauDebut.valeur : "Pas défint",
-              fin: e.niveauFin != null ? e.niveauFin.valeur : 0,
-              _showDetails: false,
-              itemsAbsences: itemsAbsences,
-              itemsDevoirs: itemsDevoirs,
-              bgDepart: e.niveauDebut != null ? e.niveauDebut.codeCouleur : "",
-              bgFin: e.niveauFin != null ? e.niveauFin.codeCouleur : "",
-              modifierPositionnement: false,
-              ajouterPositionnement: e.niveauFin != null ? false : true,
-            };
-
-            items.push(item);
-          });
-          this.items = items;
+            this.items = items;
+          } else {
+            // pas de donnéés
+          }
         });
+    },
+    ajouterPositionnement(item) {
+      let positionnement = item.positionnement;
+      positionnement.niveauFin = item.fin;
+      console.log(positionnement);
+      positionnementApi.save(positionnement).then((responce) => {
+        console.log(responce);
+        item.modifierPositionnement = false;
+      });
+    },
+    modifier(item) {
+      item.modifierPositionnement = true;
+      this.tempPositionnementFin = item.fin;
+    },
+    annulerModif(item) {
+      item.modifierPositionnement = false;
+      item.fin = this.tempPositionnementFin;
+      this.tempPositionnementFin = null;
     },
     getDateFormat(dateDebutR, dateFinR) {
       let dateDebut = new Date(dateDebutR).toLocaleString();
       let dateFin = new Date(dateFinR).toLocaleString();
       return `Du ${dateDebut}  Au ${dateFin}`;
+    },
+    sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
     },
     showModal(item) {
       this.$refs["modal-" + item.id].show();
@@ -525,12 +594,6 @@ export default {
         "Impossible de rajouter l'absence ou le retard date de fin inférieure à la date de départ";
 
       this.dismissCountDown = this.dismissSecs;
-    },
-    makeToast() {
-      this.$bvToast.toast(`This is toast number`, {
-        title: "BootstrapVue Toast",
-        autoHideDelay: 5000,
-      });
     },
   },
 };
