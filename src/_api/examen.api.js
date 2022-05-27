@@ -11,6 +11,7 @@ export const examenApi = {
   deleteExamen,
   update,
   getLivretEvaluation,
+  getExamensByInterventionId,
 };
 
 /**
@@ -27,13 +28,14 @@ function getById(id) {
     .catch((error) => console.log(error));
 }
 
-/**
- * 
- * @param {*} page 
- * @param {*} size 
- * @param {*} search 
- * @returns 
- */
+function getExamensByInterventionId(id) {
+  let req = `/${END_POINT}/interventions/${id}`;
+  return axios 
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
 function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
