@@ -1,12 +1,12 @@
 <template>
-  <div class="card" id="wdg2" style="width: 40rem;">
-    <form ref="form">
-      <div class="card-title">
+  <v-card id="wdg2" style="width: 40rem;">
+    <v-form ref="form" v-model="valid" >
+      <v-card-title class="card-title">
         <h2>Login Dg2</h2>
-      </div>
-      <div class="card-text">
-        <div class="container">
-          <input
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-text-field
             id="e-mail-wdg2"
             name="email"
             type="email"
@@ -15,8 +15,8 @@
             v-model="logInUser.email"
             required
             color="grey"
-          />
-          <input
+          ></v-text-field>
+          <v-text-field
             id="password-wdg2"
             name="password"
             placeholder="Mot de passe"
@@ -24,28 +24,27 @@
             type="password"
             color="grey"
             required
-          />
-        </div>
-      </div>
-      <div class="card-body">
-        <br>
-        <button class="btn btn-danger" text @click="close">
+          ></v-text-field>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn class="btn btn-danger" text @click="close">
           Annuler
-        </button>
-        <button
+        </v-btn>
+        <v-btn
           id="button-login-wdg2"
-          color="error"
+          color="red darken-1"
           class="btn btn-primary fa-pull-right"
           text
-          
           @click="loginWdg2"
           :disabled="!valid"
         >
           Connexion
-        </button>
-      </div>
-    </form>
-  </div>
+        </v-btn>
+      </v-card-actions>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -79,7 +78,7 @@ export default {
 };
 </script>
 
-<style src="@/assets/styles/LogDg2.css" scoped>
+<style lang="scss">
 #wdg2 {
   padding: 2rem;
 }

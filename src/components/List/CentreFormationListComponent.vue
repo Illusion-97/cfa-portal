@@ -11,10 +11,10 @@
           @wdg2Close="wdg2Close"
         />
       </div>
-      <div class="progress-bar"
+      <v-progress-circular
         v-if="loading"
         indeterminate
-      ></div>
+      ></v-progress-circular>
     </div>
     <br>
     <div class="header-list">
@@ -188,7 +188,7 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    ...mapActions("locationModule", [
+    ...mapActions("centreFormation", [
       "fetchCentreFormationDG2",
     ]),
     initialize() {
