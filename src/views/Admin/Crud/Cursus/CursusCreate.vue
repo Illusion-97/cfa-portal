@@ -24,6 +24,31 @@
           </div>
         </b-form-row>
       </b-form-group>
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">Durée</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.duree"
+              required
+              placeholder="Ex: 80.00"
+              type="number" min="0"
+            ></b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
+      <b-form-group>
+        <b-form-row class="text-align-left">
+          <label class="col-1">Slug</label>
+          <div class="col-5 pr-5">
+            <b-form-input
+              v-model="form.slug"
+              required
+              placeholder="Ex : titre-professionnel-administrateur..."
+            ></b-form-input>
+          </div>
+        </b-form-row>
+      </b-form-group>
     
       <div class="offset-1 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
@@ -52,6 +77,8 @@ export default {
       form: {
         id: null,
         titre: "",
+        duree: "",
+        slug: "",
       },
     };
   },
@@ -78,6 +105,7 @@ export default {
     }
   },
 };
+
 </script>
 
 <style scoped>

@@ -37,6 +37,7 @@
       <thead v-bind:class="{'thead-dark': isModal}">
         <tr>
           <th>Nom du cursus</th>
+          <th>Durée</th>
           <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
@@ -49,6 +50,7 @@
           @dblclick="dblClick(cursus)">
         
           <td>{{ cursus.titre }}</td>
+          <td>{{ cursus.duree }}</td>
           <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
@@ -154,7 +156,7 @@ export default {
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
       this.$router.push({
-        name: "admin_addCursus",
+        name: "admin_cursus_create",
         params: {}
       });
       }
