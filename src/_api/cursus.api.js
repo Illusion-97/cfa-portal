@@ -136,3 +136,18 @@ function getPromotionsById(id) {
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * 
+ * @param {*} logInUser 
+ * @returns 
+ */
+/* test de recup de la requete import dg2 */
+export async function fetchAllCursusDG2Http(logInUser) {
+  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+    headers: {
+      Authorization: requestOptions.headers(),
+      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+    },
+  });
+}
