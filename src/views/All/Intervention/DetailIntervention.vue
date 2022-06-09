@@ -4,7 +4,7 @@
       <HeaderFormateur :title="getTitle" :subTitle="getSubTitle" />
     </div>
     <section class="container-fluid mt-4">
-      <b-tabs content-class="mt-3" fill>
+      <b-tabs content-class="mt-3" fill v-model="tabIndex">
         <b-tab active>
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
@@ -195,12 +195,24 @@
           </template>
           <div>
             <ExamensPromotionsListCompoenent
-              @custom-event-notes="setMessage"
               ref="examen"
              :examens = "examensByInterventionId"
             />
           </div>
         </b-tab>
+                  <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'sort-numeric-up-alt']"
+                class="icon"
+              />
+              Notes
+            </template>
+
+            <div>
+              <AjouterNotes :context="'intervention'" />
+            </div>
+          </b-tab>
       </b-tabs>
     </section>
   </div>
@@ -215,6 +227,8 @@ import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
 import DevoirsInterventionListComponent from "@/components/List/DevoirsInterventionListComponent";
+import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
+
 export default {
   name: "DetailIntervention",
   components: {
@@ -222,9 +236,11 @@ export default {
     EtudiantsInterventionListComponent,
     DevoirsInterventionListComponent,
     ExamensPromotionsListCompoenent,
+    AjouterNotes,
   },
   data() {
     return {
+      tabIndex:1,
       examensByInterventionId: [],
       interventionId: this.$route.params.id,
       titre: "",
@@ -291,6 +307,12 @@ export default {
     this.getStudents();
     this.getTrainer();  
     this.getExamensByInterventionId();
+    this.$root.$on("afficherNotes", (data) => {
+      if (data) {
+        this.tabIndex++;
+        this.$root.$emit("afficherNotes", false);
+      }
+    });
   },
 
   methods: {

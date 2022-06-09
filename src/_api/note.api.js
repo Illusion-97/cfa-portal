@@ -9,7 +9,9 @@ export const noteApi = {
     deleteNote,
     getAllByIdExamen,
     getAllByIdEtudiant,
-    getAllNotes
+    getAllNotes,
+    getAllByPrmotionIdAndExamenId,
+    getAllByInterventionIdAndExamenId,
 }
 
 const END_POINT = "notes";
@@ -112,7 +114,33 @@ function getAllByIdExamen(id) {
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
-
+/**
+ * 
+ * @param {*} id promotion
+ * @returns liste de notes par promotion
+ */
+function getAllByPrmotionIdAndExamenId(idP,idE){
+    let req = `notes/promotion-examen/${idP}/${idE}`
+    return axios
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+/**
+ * 
+ * @param {*} id intervention
+ * @returns liste de notes par intervention
+ */
+ function getAllByInterventionIdAndExamenId(idI,idE,search=null){
+    let req = `notes/intervention-examen/${idI}/${idE}`
+     if(search != null){
+        req =  `notes/intervention-examen/${idI}/${idE}/${search}`
+     }
+    return axios
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
 /**
  * 
  * @returns affiche toutes les notes
