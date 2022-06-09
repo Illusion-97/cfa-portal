@@ -289,7 +289,6 @@ export default {
   },
   created() {
     if (this.examens != undefined) {
-      console.log("test");
       this.assigneTableItems(this.examens);
       
     }
@@ -377,7 +376,6 @@ export default {
       this.tempItem = null;
     },
     ajouterNotes(item) {
-      this.$emit("custom-event-notes", { examen: item.Titre });
       this.$root.$emit("examen", item);
       this.$root.$emit("afficherNotes", true);
     },
@@ -483,8 +481,6 @@ export default {
       return modifier ? "" : "d-none";
     },
     assigneTableItems(examens) {
-      console.log("EXAMENS ***********");
-      console.log(examens);
       let items = [];
       //  { Titre: 'Java approfondissement', Duree: '4h', Date: '05/02/2022',Blocs_concernes:'1,2,3,4',description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',Piece_jointe: ' Nom Pièce jointe', modifier :false, _showDetails: false },
       for (let i = 0; i < examens.length; i++) {

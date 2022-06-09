@@ -16,6 +16,7 @@ export const promotionApi = {
     getCef,
     getPromotionByEtudiantIdAndByCursusId,
     getCursusByIdEtudiant,
+    getAllByInterventionIdForSelect,
 };
 
 const END_POINT = "promotions";
@@ -198,4 +199,12 @@ function getCursusByIdEtudiant(id){
     .get(req, requestOptions.headers())
     .then(response => response.data)
     .catch((error) => console.log(error));
+}
+function getAllByInterventionIdForSelect(idI){
+  let req = `promotions/intervention-select/${idI}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+   
 }

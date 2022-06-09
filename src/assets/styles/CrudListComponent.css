@@ -8,7 +8,7 @@
   width: 50%;
 }
 
-#saisie {
+#saisie,.select{
   border-radius: 20px;
   width: 400px;
   /* background: #000; */
