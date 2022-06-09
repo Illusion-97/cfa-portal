@@ -9,6 +9,13 @@ export const authenticationApi = {
   login,
   logout,
 };
+/**
+ * Connexion, récupération des identifiants puis vérirification en base
+ * 
+ * @param {*} login
+ * @param {*} password 
+ * @returns 
+ */
 
 function login(login, password) {
   let req = "authenticate";
@@ -46,6 +53,11 @@ function login(login, password) {
   );
 }
 
+/**
+ * 
+ * Déconnexion
+ * 
+ */
 function logout() {
   router.go();
   store.dispatch("logout");
