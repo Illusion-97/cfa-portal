@@ -4,8 +4,8 @@
     <b-button
       variant="secondary"
       v-b-toggle.collapseFormulaire
-      v-show="show"
-      @click="show = !show"
+      v-show="showshowDevoir"
+      @click="showshowDevoir = !showshowDevoir"
       class="btnAddDevoir">
       <font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
       Ajouter un devoir
@@ -33,99 +33,106 @@
         <section class="section-form ">
           <b-form class="form mb-5" @submit="submit">
             <!-- Consigne -->
-            <b-form-group id="form-group">
+            <b-form-group>
               <b-form-row class="text-align-left">
                 <div class="mon-input">
                   <label class="mon-label">Consigne</label>
                 <div>
-                  <b-form-textarea
-                    id="textarea"
-                    type="text"
-                    v-model="formDevoir.consigne">
-                  </b-form-textarea>
-
-
-
-                  <!-- <v-form>
-                    <v-container>
-                      <v-row>
-                        <v-col
-                          cols="12"
-                          sm="6"
-                        >
-                          <v-text-field
-                            v-model="title"
-                            :rules="rules"
-                            counter="25"
-                            hint="This field uses counter prop"
-                            label="Regular"
-                          ></v-text-field>
-
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-form> -->
-
-
-
-
-
+                  <v-form class="">
+                      <v-textarea
+                        auto-grow
+                        rows="3"
+                        solo
+                        name="input-7-"
+                        v-model="formDevoir.consigne">
+                      ></v-textarea>
+                  </v-form>
                 </div>
                 </div>    
               </b-form-row>
             </b-form-group>
-            <b-form-group>
+            <b-form-group class="formGroupDateDebut">
               <b-form-row class="text-align-left">
                 <label class="mon-label">Date de début</label>
-                <div class="mon-input">
-                  <b-form-datepicker
-                    locale="fr"
-                    v-model="formDevoir.dateDebut"
-                  ></b-form-datepicker>
-                </div>
+                <div class="w-100">  
+                  <v-app class="vAppClass">
+                    <v-col>
+                       <v-container>
+                          <v-row align="center">
+                            <v-flex xs4>
+                              <v-datetime-picker v-model="formDevoir.dateDebut" date-format="dd/MM/yyyyy">
+                                <template slot="dateIcon">
+                                  <v-icon>fas fa-calendar</v-icon>
+                                </template>
+                                <template slot="timeIcon">
+                                  <v-icon>fas fa-clock</v-icon>
+                                </template>
+                              </v-datetime-picker>
+                            </v-flex>
+                          </v-row>
+                       </v-container>
+                    </v-col>
+                </v-app>
+                </div>  
               </b-form-row>
             </b-form-group>
-
             <b-form-group>
               <b-form-row class="text-align-left">
-                <div class="mon-label">Date de fin</div>
-                <div class="mon-input">
-                  <b-form-datepicker
-                    locale="fr"
-                    v-model="formDevoir.dateFin"
-                    required
-                  ></b-form-datepicker>
-                </div>
+                <label class="mon-label">Date de fin</label>
+                  <div class=" w-100">  
+                  <v-app class="vAppClass">
+                    <v-col>
+                      <v-container>
+                          <v-row align="center">
+                            <v-flex xs4>
+                              <v-datetime-picker v-model="formDevoir.dateFin">
+                                <template slot="dateIcon">
+                                  <v-icon>fas fa-calendar</v-icon>
+                                </template>
+                                <template slot="timeIcon">
+                                  <v-icon>fas fa-clock</v-icon>
+                                </template>
+                              </v-datetime-picker>
+                            </v-flex>
+                          </v-row>
+                       </v-container>
+                    </v-col>
+                </v-app>
+                </div>  
               </b-form-row>
             </b-form-group>
-
-          <div>
-            <b-form @submit="onSubmit" class="d-flex justify-content-end bFormBtnValider">
-              <b-button
-                type="submit"
-                class="btn-success btnFormDevoir btnFormDevoirValider">
-                <font-awesome-icon
-                  :icon="['fas', 'plus-square']"
-                  class="icon"/> Valider
-              </b-button>
-              <b-button
-                  class="btn-warning btnFormDevoir"
-                  v-b-toggle.collapseFormulaire
-                  v-show="!show"
-                  @click="show = !show"
-                  ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                  Annuler
-              </b-button>
-            </b-form>  
-          </div>
-            <div v-if="isFormateur">
+          <v-app v-app class="vAppClass">
+            <div>
+              <b-form @submit="onSubmit" class="d-flex justify-content-end bFormBtnValider">
+                <v-btn
+                  color="success"
+                  dark
+                  type="submit"
+                  class="btn-success btnFormDevoir btnFormDevoirValider">
+                  <font-awesome-icon
+                    :icon="['fas', 'plus-square']"
+                    class="icon"/>
+                    Valider
+                </v-btn>
+                <v-btn
+                    color="warning"
+                    v-b-toggle.collapseFormulaire
+                    v-show="!showDevoir"
+                    @click="showshowDevoir = !showshowDevoir"
+                    ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                    Annuler
+                </v-btn>
+              </b-form>  
             </div>
-              <div v-else>
-                <InterventionListComponent
-                v-on:click-list="onClickChildInterventionList"
-                :interventionProp="intervention_input"
-              />
-            </div>
+              <div v-if="isFormateur">
+              </div>
+                <div v-else>
+                  <InterventionListComponent
+                  v-on:click-list="onClickChildInterventionList"
+                  :interventionProp="intervention_input"
+                />
+              </div>
+            </v-app>
           </b-form>
         </section>
       </b-collapse>
@@ -133,6 +140,7 @@
 </template>
 
 <script>
+import '@fortawesome/fontawesome-free/css/all.css'
 import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
 import { devoirApi } from "@/_api/devoir.api.js";
 // import { interventionApi } from "@/_api/intervention.api.js";
@@ -157,7 +165,7 @@ export default {
       temp: {
         consigne: "",
       },
-      show: true,
+      showshowDevoir: true,
       promo: [],
       title : "",
       btn_form_text: "Ajouter",
@@ -174,12 +182,6 @@ export default {
       dismissCountDown: null,
       dismissCountDownErr: null,
       dismissSecs: 5,
-
-      // title: 'Preliminary report',
-      // description: 'California is a state in the western United States',
-      // rules: [v => v.length <= 25 || 'Max 25 characters'],
-      // wordsRules: [v => v.trim().split(' ').length <= 5 || 'Max 5 words'],
-
     };
   },
   computed: {
@@ -194,12 +196,18 @@ export default {
   },
   methods: {
     onSubmit(event){
+      // la date arrive sous format " Tue Jun 07 2022 09:05:52 GMT+0200 (heure d’été d’Europe centrale)"
+      this.formDevoir.dateDebut = new Date(this.formDevoir.dateDebut).toISOString();
+      this.formDevoir.dateFin = new Date(this.formDevoir.dateFin).toISOString();
+
       event.preventDefault();
       this.formDevoir.interventionId = this.$route.params.id;
       if (this.formDevoir.consigne != "" && this.formDevoir.dateDebut != null && this.formDevoir.dateFin != null) {
+          console.log("dateDebut juste avant")
+          console.log(this.formDevoir);
           devoirApi
-        .save(this.formDevoir)
-        .then((response) => {
+            .save(this.formDevoir)
+            .then((response) => {
           this.showAlert(false);
           console.log(response);
           //  .catch((error) => this.showAlert(response.titre, true));
@@ -305,7 +313,7 @@ export default {
 
 .mon-label{
 margin: 10px 0 5px 0;
-width: 9.7em;
+width: 100%;
 }
 
 .mon-input{
@@ -335,6 +343,13 @@ width: 9.7em;
   margin-right: 2vw;
 }
 .bFormBtnValider{
+  width: 100%;
+}
+.vAppClass{
+  height : 5vh;
+  width: 100%;
+}
+.monDatePicker{
   width: 100%;
 }
 </style>

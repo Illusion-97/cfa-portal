@@ -290,9 +290,7 @@ export default {
   created() {
     if (this.examens != undefined) {
       this.assigneTableItems(this.examens);
-      
     }
-
     activiteTypeApi
       .getAllByIdPromotion(this.$route.params.id)
       .then((response) => {
