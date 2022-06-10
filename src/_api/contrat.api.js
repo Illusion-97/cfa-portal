@@ -11,6 +11,13 @@ export const contratApi = {
     deleteContrat,
 };
 
+/**
+ * Récupération du contrat en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
     let req = `/${END_POINT}/${id}`;
 
@@ -19,6 +26,15 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des contrats avec pagination + recherche
+ * 
+ * @param {*} page 
+ * @param {*} size
+ * @param {*} search
+ * @returns 
+ */
 
 function getAllByPage(page, size, search = ""){
     let req = `/${END_POINT}/${page}/${size}/${search}`;
@@ -29,7 +45,12 @@ function getAllByPage(page, size, search = ""){
         .catch((error) => console.log(error));
   }
 
-
+/**
+ * Méthode de recherche
+ * 
+ * @param {*} search
+ * @returns 
+ */
 
 function getCount(search = ""){
     let req = `/${END_POINT}/count/${search}`;
@@ -40,6 +61,12 @@ function getCount(search = ""){
         .catch((error) => console.log(error));
 }
 
+/**
+ * Save du contrat
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function save(form) {
     let req =  `${END_POINT}`;
@@ -50,6 +77,13 @@ function save(form) {
         .catch((error) => console.log(error));
 
 }
+
+/**
+ * Suppression du contrat
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function deleteContrat(id) {
     let req =  `${END_POINT}/${id}`;

@@ -14,6 +14,13 @@ export const congeApi = {
     getAllByIdEtudiant,
 }
 
+/**
+ * Récupération du conge en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
     let req = `/conges/${id}`;
 
@@ -22,6 +29,15 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des congés avec pagination + recherche
+ * 
+ * @param {*} page 
+ * @param {*} size
+ * @param {*} search
+ * @returns 
+ */
 
 function getAllByPage(page, size, search = ""){
     let req = `/conges/${page}/${size}/${search}`;
@@ -32,6 +48,13 @@ function getAllByPage(page, size, search = ""){
         .catch((error) => console.log(error));
 }
 
+/**
+ * Méthode de recherche
+ * 
+ * @param {*} search
+ * @returns 
+ */
+
 function getCount(search = ""){
     let req = `/conges/count/${search}`;
 
@@ -40,6 +63,13 @@ function getCount(search = ""){
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des congés de l'utilisateur
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function getCongesByUtilisateurId(id) {
 
@@ -51,6 +81,13 @@ function getCongesByUtilisateurId(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * Récupération des des congés acquis / dispo / restant
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getTableConge(id) {
     let req =  "conges/acquis-disponibles-restants/" + id;
 
@@ -60,6 +97,13 @@ function getTableConge(id) {
         .catch((error) => console.log(error));
 
 }
+
+/**
+ * Save du congé
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function save(form) {
     let req =  "conges";
@@ -71,6 +115,13 @@ function save(form) {
 
 }
 
+/**
+ * Suppression du congé
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function deleteConge(id) {
     let req =  `conges/${id}`;
 
@@ -80,6 +131,13 @@ function deleteConge(id) {
         .catch((error) => console.log(error));
 
 }
+
+/**
+ * Récupération des congés avec l'id de l'étudiant
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function getAllByIdEtudiant(id) {
     let req =  `conges/utilisateur/${id}`;
