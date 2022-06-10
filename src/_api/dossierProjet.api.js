@@ -11,6 +11,14 @@ export const dossierProjetApi = {
     getByIdEtudiant,
 
 }
+
+/**
+ * Récupération du dossier projet en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
     let req = `${END_POINT}/${id}`;
   
@@ -19,6 +27,14 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
   }
+
+  /**
+ * Récupération des dossiers projets avec l'id de l'étudiant
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
   function getByIdEtudiant(id){
     let req = `${END_POINT}/etudiant/${id}`;
   
@@ -27,6 +43,13 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
   }
+
+/**
+ * 
+ * Récupération des dossiers projets
+ * 
+ */
+
   function getAll(){
     let req = `${END_POINT}`;
   
@@ -35,6 +58,15 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
   }
+
+  /**
+ * Save du dossier projet
+ * 
+ * @param {*} id 
+ * @param {*} form
+ * @returns 
+ */
+
   function save(form,id) {
     return axios
       .post(`${END_POINT}/save/${id}`, form, requestOptions.headers())
@@ -42,6 +74,14 @@ function getById(id){
       .catch((error) => console.log(error));
   }
   
+  /**
+ * Suppression du dossier projet
+ * 
+ * @param {*} id 
+ * @param {*} idetudiant
+ * @returns 
+ */
+
   function deleteDossierProjet(id,idetudiant){
     return axios
       .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
