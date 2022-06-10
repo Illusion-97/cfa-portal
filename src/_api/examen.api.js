@@ -15,8 +15,8 @@ export const examenApi = {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id examen
+ * @returns affiche examen selon l'id
  */
 function getById(id) {
   let req = `/${END_POINT}/${id}`;
@@ -32,7 +32,7 @@ function getById(id) {
  * @param {*} page 
  * @param {*} size 
  * @param {*} search 
- * @returns 
+ * @returns affiche les examens par page
  */
 function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
@@ -46,7 +46,7 @@ function getAllByPage(page, size, search = "") {
 /**
  * 
  * @param {*} search 
- * @returns 
+ * @returns affiche le nombre d'examens
  */
 function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
@@ -59,8 +59,8 @@ function getCount(search = "") {
 
 /**
  * 
- * @param {*} formData 
- * @returns 
+ * @param {*} formData formulaire 
+ * @returns insert un examen selon le formulaire
  */
 function save(formData) {
   return axios
@@ -72,7 +72,7 @@ function save(formData) {
 /**
  * 
  * @param {*} examenDto 
- * @returns 
+ * @returns modifie le contenu d'examen dto
  */
 function update(examenDto) {
   return axios
@@ -83,8 +83,8 @@ function update(examenDto) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id examen
+ * @returns supprime un examen selon l'id
  */
 function deleteExamen(id) {
   return axios
@@ -95,13 +95,13 @@ function deleteExamen(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id examen
+ * @returns affiche le livret d'évaluation selon l'examen
  */
 function getLivretEvaluation(id) {
   let req = "examens/livret-evaluation/" + id;
   return axios
-  .get(req, requestOptions.headers())
-  .then(response => response.data)
-  .catch((error) => console.log(error));
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }

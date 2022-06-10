@@ -211,4 +211,8 @@ table {
 #bloc-droit svg {
   margin-left: 7px;
 }
+
+ul{
+  margin-bottom: 0 !important;
+}
 </style>

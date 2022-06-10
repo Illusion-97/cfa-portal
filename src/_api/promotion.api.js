@@ -2,31 +2,30 @@ import axios from 'axios';
 import { requestOptions } from "@/_helpers/request-options.js";
 
 export const promotionApi = {
-    getPromotionByid,
-    getAllByPage,
-    getCount,
-    save,
-    deletePromotion,
-    getAllPromotions,
-
-    getAll,
-    getEtudiants,
-    getNote,
-    getCours,
-    getCef,
-    getPromotionByEtudiantIdAndByCursusId,
-    getCursusByIdEtudiant,
+  getPromotionByid,
+  getAllByPage,
+  getCount,
+  save,
+  deletePromotion,
+  getAllPromotions,
+  getAll,
+  getEtudiants,
+  getNote,
+  getCours,
+  getCef,
+  getPromotionByEtudiantIdAndByCursusId,
+  getCursusByIdEtudiant,
 };
 
 const END_POINT = "promotions";
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id promotion
+ * @returns affiche la promotion selon son id
  */
-function getPromotionByid(id){
-    let req =  `/promotions/${id}`;
+function getPromotionByid(id) {
+  let req = `/promotions/${id}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -39,9 +38,9 @@ function getPromotionByid(id){
  * @param {*} page 
  * @param {*} size 
  * @param {*} search 
- * @returns 
+ * @returns affiche toutes les promotions par pages
  */
-function getAllByPage(page, size, search = ""){
+function getAllByPage(page, size, search = "") {
   let req = `/promotions/${page}/${size}/${search}`;
 
   return axios
@@ -53,9 +52,9 @@ function getAllByPage(page, size, search = ""){
 /**
  * 
  * @param {*} search 
- * @returns 
+ * @returns affiche le nombre de promotions
  */
-function getCount(search = ""){
+function getCount(search = "") {
   let req = `/promotions/count/${search}`;
 
   return axios
@@ -66,21 +65,21 @@ function getCount(search = ""){
 
 /**
  * 
- * @param {*} form 
- * @returns 
+ * @param {*} form formulaire promotion
+ * @returns insert une promotion
  */
 function save(form) {
   let req = "promotions";
 
   return axios
-      .post(req, form, requestOptions.headers())
-      .then((response) => response)
-      .catch((error) => console.log(error));
+    .post(req, form, requestOptions.headers())
+    .then((response) => response)
+    .catch((error) => console.log(error));
 }
 
 /**
  * 
- * @returns 
+ * @returns affiche toutes les promotions
  */
 function getAllPromotions() {
   return axios
@@ -91,44 +90,44 @@ function getAllPromotions() {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id promotion
+ * @returns supprime la promotion selon son id
  */
 function deletePromotion(id) {
   let req = `promotions/${id}`;
 
   return axios
-      .delete(req, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    .delete(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id promotion
+ * @returns affiche les étudiants selon la promotion id
  */
 function getEtudiants(id) {
   let req = `promotions/${id}/etudiants`;
 
   return axios
-      .get(req, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id promotion
+ * @returns affiche les notes selon la promotion id
  */
 function getNote(id) {
   let req = `promotions/${id}/notes`;
 
   return axios
-      .get(req, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 /**
@@ -140,16 +139,16 @@ function getCours(id) {
   let req = `promotions/${id}/interventions`;
 
   return axios
-      .get(req, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
 
 /**
  * 
  * @returns 
  */
-function getAll(){
+function getAll() {
   let req = `/promotions`;
 
   return axios
@@ -163,7 +162,7 @@ function getAll(){
  * @param {*} id 
  * @returns 
  */
-function getCef(id){
+function getCef(id) {
   let req = `promotions/${id}/cefs`;
 
   return axios
@@ -177,7 +176,7 @@ function getCef(id){
  * @param {*} id 
  * @returns 
  */
-function getPromotionByEtudiantIdAndByCursusId(id){
+function getPromotionByEtudiantIdAndByCursusId(id) {
   let req = `promotions/${id}/etudiants/cursus`;
 
   return axios
@@ -191,7 +190,7 @@ function getPromotionByEtudiantIdAndByCursusId(id){
  * @param {*} id 
  * @returns 
  */
-function getCursusByIdEtudiant(id){
+function getCursusByIdEtudiant(id) {
   let req = `promotions/cursus-etudiant/${id}`;
 
   return axios

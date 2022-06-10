@@ -11,19 +11,16 @@ export const interventionApi = {
     getInterventionById,
     insertIntervention,
     countIntervention,
-
     getById,
     getAllByPage,
     getCount,
     save,
     update,
     deleteIntervention,
-
     findStudentsByPromoInterventionId,
     findPromoByInterventionId,
     findAssignementByInterventionId,
-    findTrainerByInterventionId,    
-
+    findTrainerByInterventionId,
     findAllSupportByInterventionId,
 }
 
@@ -32,7 +29,7 @@ export const interventionApi = {
  * @param {*} page 
  * @param {*} size 
  * @param {*} keyword 
- * @returns 
+ * @returns affiche les interventions par page
  */
 function getIntervention(page, size, keyword = "") {
     const url = `${process.env.VUE_APP_API_URL}/${END_POINT}/${page - 1}/${size}/${keyword}`
@@ -44,8 +41,8 @@ function getIntervention(page, size, keyword = "") {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiche l'intervention selon son id
  */
 function getInterventionById(id) {
     const url = `/${END_POINT}/${id}`
@@ -57,8 +54,8 @@ function getInterventionById(id) {
 
 /**
  * 
- * @param {*} form 
- * @returns 
+ * @param {*} form formulaire intervention
+ * @returns insert une intervention
  */
 function insertIntervention(form) {
     const url = `/${END_POINT}`;
@@ -70,7 +67,7 @@ function insertIntervention(form) {
 
 /**
  * 
- * @returns 
+ * @returns affiche toutes les interventions
  */
 function getAllIntervention() {
     const url = `/${END_POINT}/with-object`;
@@ -83,7 +80,7 @@ function getAllIntervention() {
 /**
  * 
  * @param {*} keyword 
- * @returns 
+ * @returns affiche le nombre d'intervention
  */
 function countIntervention(keyword = "") {
     const url = `/${END_POINT}/count/${keyword}`;
@@ -95,8 +92,8 @@ function countIntervention(keyword = "") {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiche l'intervention selon son id
  */
 function getById(id) {
     let req = `/${END_POINT}/${id}`;
@@ -112,7 +109,7 @@ function getById(id) {
  * @param {*} page 
  * @param {*} size 
  * @param {*} search 
- * @returns 
+ * @returns affiche les interventions par pages
  */
 function getAllByPage(page, size, search = "") {
     let req = `/${END_POINT}/${page}/${size}/${search}`;
@@ -126,7 +123,7 @@ function getAllByPage(page, size, search = "") {
 /**
  * 
  * @param {*} search 
- * @returns 
+ * @returns affiche le nombre d'intervention
  */
 function getCount(search = "") {
     let req = `/${END_POINT}/count/${search}`;
@@ -139,8 +136,8 @@ function getCount(search = "") {
 
 /**
  * 
- * @param {*} intervention 
- * @returns 
+ * @param {*} intervention formulaire intervention
+ * @returns insert une intervention
  */
 function save(intervention) {
     return axios
@@ -151,16 +148,21 @@ function save(intervention) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} intervention formulaire intervention
+ * @returns modifie une intervention
  */
-function  update(intervention){
+function update(intervention) {
     return axios
-    .put(`${END_POINT}`, intervention, requestOptions.headers())
-    .then((response) => response)
-    .catch((error) => console.log(error));
+        .put(`${END_POINT}`, intervention, requestOptions.headers())
+        .then((response) => response)
+        .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id intervention
+ * @returns supprime une intervention selon son id
+ */
 function deleteIntervention(id) {
     return axios
         .delete(`${END_POINT}/${id}`, requestOptions.headers())
@@ -170,8 +172,8 @@ function deleteIntervention(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiches les étudiants selon l'intervention id
  */
 function findStudentsByPromoInterventionId(id) {
     const url = `${END_POINT}/${id}/etudiants-promotion`
@@ -184,8 +186,8 @@ function findStudentsByPromoInterventionId(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiche les promos selon l'intervention id
  */
 function findPromoByInterventionId(id) {
     const url = `${END_POINT}/${id}/promotions`
@@ -197,8 +199,8 @@ function findPromoByInterventionId(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiche les devoirs selon l'intervention id
  */
 function findAssignementByInterventionId(id) {
     const url = `${END_POINT}/${id}/devoirs`
@@ -210,8 +212,8 @@ function findAssignementByInterventionId(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiche les formateurs selon l'intervention id
  */
 function findTrainerByInterventionId(id) {
     const url = `${END_POINT}/${id}/formateurs`
@@ -223,8 +225,8 @@ function findTrainerByInterventionId(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id intervention
+ * @returns affiche les supports selon l'intervention id
  */
 function findAllSupportByInterventionId(id) {
     const url = `${END_POINT}/${id}/supports`
