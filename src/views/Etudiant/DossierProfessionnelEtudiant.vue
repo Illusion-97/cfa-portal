@@ -1,9 +1,7 @@
-
 <template>
   <div class="container">
     <h5>Dossiers professionnels</h5>
 
-    <!-- TEST -->
     <b-table small head-variant="light" :items="cursus" :fields="fields">
       <template #cell(Cursus)="data">
         {{ data.item.titre }}
@@ -11,15 +9,68 @@
 
       <template #cell(DossierPro)="data">
         <!-- SWITCH -->
-        <div v-switch="switchDossier(data, dossierProfessionnel)" class="test">
+        <div v-switch="switchDossier(data, dossierProfessionnel)" class="">
+          <div>
+            <!-- {{ getDossierId(data, dossierProfessionnel) }} -->
+          </div>
+
           <!-- DOSSIER CORRESPONDANT AU CURSUS -->
           <div v-case="'dossier'">
-            <b-button size="sm" class="mr-2" variant="primary"> Voir </b-button>
-            <b-button size="sm" class="mr-2" variant="primary"
-              >Modifier</b-button
+            <b-button size="sm" class="mr-2" variant="primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-eye-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                <path
+                  d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"
+                />
+              </svg>
+              Voir
+            </b-button>
+            <b-button size="sm" class="mr-2" variant="primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                />
+              </svg>
+              Modifier</b-button
             >
-            <b-button size="sm" class="mr-2" variant="danger" v-on:click="deleteDossier(dossierProfessionnel.id)"
-              >Supprimer</b-button
+            <b-button
+              size="sm"
+              class="mr-2"
+              variant="danger"
+              v-on:click="
+                deleteDossier(
+                  dossierProfessionnel,
+                  getDossierId(data, dossierProfessionnel)
+                )
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-dash-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"
+                />
+              </svg>
+              Supprimer</b-button
             >
           </div>
 
@@ -27,10 +78,34 @@
           <div v-case="'no'">
             <router-link :to="{ name: 'creer_dossier_pro' }">
               <b-button size="sm" class="mr-2" variant="success">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-plus-circle-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
+                  />
+                </svg>
                 Créer
               </b-button>
             </router-link>
             <b-button size="sm" class="mr-2" variant="primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-up-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
+                />
+              </svg>
               Uploader
             </b-button>
           </div>
@@ -38,98 +113,6 @@
         </div>
       </template>
     </b-table>
-
-    <!-- SWITCH -->
-    <b-table small head-variant="light" :items="cursus" :fields="fields">
-      <template #cell(Cursus)="data">
-        {{ data.item.titre }}
-      </template>
-
-      <template #cell(DossierPro)="data">
-        <div v-switch="result(data, dossierProfessionnel)" class="test">
-          <div v-case="'dossier'">dossier</div>
-          <div v-case="'no'">no</div>
-          <div v-default>dossier absent</div>
-        </div>
-      </template>
-    </b-table>
-
-    <!-- IF -->
-    <b-table small head-variant="light" :items="cursus" :fields="fields">
-      <template #cell(Cursus)="data">
-        {{ data.item.titre }}
-      </template>
-
-      <template #cell(DossierPro)="data">
-        <div v-for="items in dossierProfessionnel" :key="items">
-          <div v-if="items.cursusDto.id == data.item.id" class="test">
-            <!-- <div v-html="legacySystemHTML"></div> -->
-            <!-- {{ aaa }} -->
-            dossier pro présent
-            <b-button size="sm" class="mr-2" variant="primary"> Voir </b-button>
-            <b-button size="sm" class="mr-2" variant="primary"
-              >Modifier</b-button
-            >
-            <b-button size="sm" class="mr-2" variant="danger"
-              >Supprimer</b-button
-            >
-          </div>
-          <div v-else class="test">
-            dossier pro absent
-            <b-button size="sm" class="mr-2" variant="success">
-              Créer
-            </b-button>
-            <b-button size="sm" class="mr-2" variant="primary">
-              Uploader
-            </b-button>
-          </div>
-        </div>
-      </template>
-    </b-table>
-
-    <!-- DYNAMIQUE -->
-    <b-table small head-variant="light" :items="cursus" :fields="fields">
-      <template #cell(Cursus)="data">
-        {{ data.item.titre }}
-      </template>
-
-      <template #cell(DossierPro)="data">
-        <div v-for="items in dossierProfessionnel" :key="items">
-          dp id : {{ items.cursusDto.id }} cu id : {{ data.item.id }}
-          <div v-if="items.cursusDto.id == data.item.id">
-            dossier pro présent
-            <b-button size="sm" class="mr-2" variant="primary"> Voir </b-button>
-            <b-button size="sm" class="mr-2" variant="primary">
-              Modifier
-            </b-button>
-            <b-button size="sm" class="mr-2" variant="danger">
-              Supprimer
-            </b-button>
-          </div>
-          <div v-else>
-            dossier pro absent
-            <b-button size="sm" class="mr-2" variant="success">
-              Créer
-            </b-button>
-            <b-button size="sm" class="mr-2" variant="primary">
-              Modifier
-            </b-button>
-          </div>
-        </div>
-      </template>
-    </b-table>
-
-    <!-- DUR -->
-    <!-- <b-table small head-variant="light" :items="items2" :fields="fields2">
-      <template #cell(Dossiers_professionnels)> -->
-    <!-- <div v-if="dossierProfessionnel.cursusDto.id === cursus.id">
-          dossier présent
-        </div> -->
-    <!-- <b-button size="sm" class="mr-2" variant="success"> Voir </b-button>
-        <b-button size="sm" class="mr-2" variant="primary"> Modifier </b-button>
-        <b-button size="sm" class="mr-2" variant="danger"> Supprimer </b-button>
-      </template>
-    </b-table> -->
 
     <!-- INFOS -->
     <p id="info">
@@ -138,8 +121,8 @@
       <br />
       <span class="fsize14">
         Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
-        dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image,
-        et doivent être au format <b>png</b> ou <b>jpg</b>.
+        dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image et
+        doivent être au format <b>png</b> ou <b>jpg</b>.
         <br />
         Vous pouvez utiliser l'outil gratuit disponible sur
         <a href="https://www.img2go.com/fr/compresser-image"
@@ -165,103 +148,86 @@ export default {
     return {
       cursus: [],
       dossierProfessionnel: [],
-      // legacySystemHTML: `
-      //   <p>Please <strong>enter</strong> your name to continue.</p>`,
-
-      // DYNAMIQUE
-      fields: ["Cursus", "DossierPro"],
-
-      // DUR
-      // fields2: ["Cursus", "Dossiers_professionnels"],
-      // items2: [
-      //   { Cursus: "CDA 2022" },
-      //   { Cursus: "Concepteur designer UI 2021" },
-      //   { Cursus: "Designer web" },
-      //   { Cursus: "Administrateur d'infrastructures sécurisées" },
-      // ],
+      fields: [
+        // "Cursus", "DossierPro",
+        { key: "Cursus", label: "Cursus" },
+        { key: "DossierPro", label: "" },
+      ],
+      file1: null,
     };
   },
 
   methods: {
-    switchDossier: function (data, dossierProfessionnel) {
-      // console.log("CURSUS ID -> " + data.item.id);
-      // console.log("DP ID [0] ->" + dossierProfessionnel[0].cursusDto.id);
+    switchDossier(data, dossierProfessionnel) {
+      // console.dir(
+      //   "*****************dossierProfessionnel > " +
+      //     JSON.stringify(dossierProfessionnel, null, 4)
+      // )
+
+      // console.log('data.item.id ' + data.item.id)
+
+      // console.log('dossierProfessionnel ' + dossierProfessionnel[0].cursusDto.id)
+      // console.log('dossierProfessionnel ' + dossierProfessionnel[1].cursusDto.id)
 
       let matchDossier;
       matchDossier = dossierProfessionnel.find(
         (element) => element.cursusDto.id == data.item.id
       );
 
-      // console.log("Math Dossier -> " + matchDossier);
-
       if (typeof matchDossier != "undefined") {
-        // console.log('dossier')
+        // console.log('dossier');
+
         return "dossier";
       } else {
-        // console.log('no')
+        // console.log('no');
+
         return "no";
       }
-
-      // switch (data.item.id) {
-      //   default:
-      //     return "no id";
-      //   case 0:
-      //     return "id 0";
-      //   case 1:
-      //     return "id 1";
-      //   case 2:
-      //     return "id 2";
-      //   case 3:
-      //     return "id 3";
-      // }
     },
 
-    // deleteDossier() {
-    //   dossierProfessionnelApi.deleteDossierProfesionnel(dossierId);
-    // },
+    deleteDossier(dossierProfessionnel, getDossierId) {
+      // getDossierId(dossierProfessionnel);
 
-    result: function (data, dossierProfessionnel) {
-      // console.log("yaaaaaaaaaaaaaa");
-      // console.log(data.item.id);
+      console.log("getDossierId > " + getDossierId),
+        // console.log("Dans deleteDossier() > "),
 
-      dossierProfessionnel.forEach((element) => {
-        let result;
-        // console.log("*************");
-        if (element.cursusDto.id == data.item.id) {
-          console.log(
-            "result = dossier - > dossierId : " +
-              element.cursusDto.id +
-              " cursusId : " +
-              data.item.id
-          );
-          result = "dossier";
-        } else {
-          console.log(
-            "result = dossier absent - > dossierId : " +
-              element.cursusDto.id +
-              " cursusId : " +
-              data.item.id
-          );
-        }
-        // console.log("result : " + result);
-        return result;
-      });
+        console.dir(
+          "dossierProfessionnel > " +
+            JSON.stringify(dossierProfessionnel[0], null, 4)
+        );
+
+      // console.log("dossierProfessionnel.id > " + dossierProfessionnel.id)
+
+      dossierProfessionnelApi.deleteDossierProfessionnel(
+        // console.log("dossierProfessionnel.id > " + dossierProfessionnel.id),
+
+        // console.log(
+        //   "etudiantDto.id > " +
+        //     this.$store.getters.getUtilisateur.etudiantDto.id
+        // ),
+
+        getDossierId,
+        this.$store.getters.getUtilisateur.etudiantDto.id,
+        console.log("Dossier Id correctement effacé > " + getDossierId)
+      );
     },
-  },
 
-  computed: {
-    tableauComputed() {
-      let cursus = this.cursus;
-      // let dossierProfessionnel = this.dossierProfessionnel;
+    getDossierId(data, dossierProfessionnel) {
+      // console.dir(
+      //   "dossierProfessionnel > " +
+      //     JSON.stringify(dossierProfessionnel, null, 4)
+      // );
 
-      let tab = [];
+      let gdos;
+      gdos = dossierProfessionnel.find(
+        (element) => element.cursusDto.id == data.item.id
+      );
 
-      cursus.forEach(function (item) {
-        tab.push({
-          Cursus: item.titre,
-        });
-      });
-      return tab;
+      console.dir("gdos > " + JSON.stringify(gdos, null, 4));
+
+      console.log("gdos.cursusDto.id > " + gdos.cursusDto.id);
+
+      return gdos.id;
     },
   },
 
@@ -278,6 +244,10 @@ export default {
 </script>
 
 <style scoped>
+
+.dnone {
+  display: none;
+}
 .oui {
   color: red;
 }
