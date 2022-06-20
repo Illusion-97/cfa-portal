@@ -27,7 +27,7 @@ export async function getAll() {
       .catch((error) => console.log(error));
   }
 
-export async function save(positionnements) {
+ function save(positionnements) {
   return axios
     .post(`${END_POINT}`, positionnements, requestOptions.headers())
     .then((response) => response.data)

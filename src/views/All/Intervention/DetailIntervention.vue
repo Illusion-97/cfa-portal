@@ -33,7 +33,6 @@
                 <h4>
                   {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
                 </h4>
-                <h4>Mourad Mahrane</h4>
               </div>
             </div>
             <div class="separation"></div>
@@ -55,11 +54,12 @@
                     : "Promotion associé"
                 }}
               </h3>
-              <div v-for="p in promo" :key="p.id">
-                <h4>
+              <div class="d-flex flex-column">
+                  <h4 v-for="p in promo" :key="p.id"  class="pt-2">
                   {{ p.nom }}
                 </h4>
               </div>
+             
             </div>
             <div class="separation"></div>
             <div class="d-flex justify-content-start mt-2">
@@ -196,7 +196,8 @@
           <div>
             <ExamensPromotionsListCompoenent
               ref="examen"
-             :examens = "examensByInterventionId"
+              :examens = "examensByInterventionId"
+              :context="'intervention'"
             />
           </div>
         </b-tab>
@@ -322,7 +323,6 @@ export default {
       })
     },
     reloadExam() {
-       console.log(this.examensByInterventionId)
       this.$refs.examen.assigneTableItems(this.examensByInterventionId);
      
     },
@@ -349,8 +349,7 @@ export default {
       // this.items.noteInfoPersonnel = this.textInfo;
       interventionApi
         .update(this.items)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
         })
         .catch((err) => {
           console.log(err);

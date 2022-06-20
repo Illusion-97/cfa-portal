@@ -85,6 +85,7 @@
             <ExamensPromotionsListCompoenent
               :examens="promotion.examensDto"
               ref="examen"
+              :context="'promotion'"
             />
           </b-tab>
           <b-tab>
