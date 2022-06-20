@@ -205,7 +205,6 @@ export default {
           .getAllByInterventionIdForSelect(this.$route.params.id)
           .then((responce) => {
             responce.forEach((e) => {
-              console.log(e);
               let option = {
                 item: e.id,
                 name: e.nom,
@@ -274,7 +273,6 @@ export default {
       this.ajouterSatisfaction();
     },
     setNoteDatToItem(noteData) {
-      console.log(noteData)
       let item = {
         id: noteData.id,
         version: noteData.version,
