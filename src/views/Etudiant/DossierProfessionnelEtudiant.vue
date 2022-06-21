@@ -76,7 +76,13 @@
 
           <!-- PAS DE DOSSIER CORRESPONDANT AU CURSUS -->
           <div v-case="'no'">
-            <router-link :to="{ name: 'creer_dossier_pro' }">
+            <router-link
+              :to="{ 
+                name: 'creer_dossier_pro',
+                query: {data : data}
+                }">
+                {{data.item.titre}}
+
               <b-button size="sm" class="mr-2" variant="success">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

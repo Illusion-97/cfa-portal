@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <h5>Constituer un dossier professionnel</h5>
+    <h5>
+      Constituer un dossier professionnel >
+      <span>{{ data.item.titre }}</span>
+    </h5>
+
+    <!-- METTRE ICI TITRE DU CURSUS CHOISI-->
 
     <!-- SELECT Principal-->
     <b-form-select v-model="select1" :options="optionsSelect1"></b-form-select>
@@ -110,7 +115,6 @@
               class="accordion accordeon-groupe"
               role="tablist"
             >
-
               <!-- ACCORDEON EXP 1 -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
@@ -330,16 +334,21 @@
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+import { cursusApi } from "@/_api/cursus.api.js";
 
 export default {
   name: "Selects",
   components: {},
   data: function () {
     return {
+      //DATA TRANSFERT DEPUIS ROUTER-LINK
+      data: this.$route.query.data,
+
       entriesSelect2: [],
       annexesCDA: null,
       annexesMPIL: null,
       select1: null,
+      cursus: [],
 
       form: {
         id: 0,
@@ -372,7 +381,7 @@ export default {
 
       // SELECT CONSTITUER DOSSIER
       optionsSelect1: [
-        { value: null, text: "--Cursus--" },
+        { value: null, text: "Choisir un cursus" },
         { value: "cda", text: "Concepteur développeur d'applications" },
         { value: "mpil", text: "Manager de projet en ingénierie logicielle" },
       ],
@@ -449,15 +458,17 @@ export default {
     },
   },
 
-  created() {},
+  created() {
+    cursusApi.getAllCursus().then((data) => (this.cursus = data));
+  },
 };
 </script>
 
 <style scoped>
-.custom-select{
+.custom-select {
   margin-bottom: 5px;
 }
-.bi{
+.bi {
   position: relative;
   top: 4px;
 }
