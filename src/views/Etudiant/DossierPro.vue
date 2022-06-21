@@ -2,7 +2,7 @@
   <div class="container">
     <h5>Constituer un dossier professionnel</h5>
 
-    <!-- select Principal-->
+    <!-- SELECT Principal-->
     <b-form-select v-model="select1" :options="optionsSelect1"></b-form-select>
 
     <!-- SELECT CDA-->
@@ -14,6 +14,7 @@
         v-model="selectActivite"
         :options="optionsActivite"
         @change="checkActiviteType1"
+        @submit="onSubmit"
       ></b-form-select>
 
       <select class="form-select custom-select">
@@ -91,163 +92,179 @@
       scrollable
       no-close-on-esc
       @hidden="resetModal"
+      hide-footer
     >
-      <template>
-        <div v-if="select1 == 'cda'"></div>
-        <div v-if="select1 == 'mpil'"></div>
+      <!-- FORMULAIRE -->
+      <b-form @submit="onSubmit">
+        <template>
+          <div v-if="select1 == 'cda'"></div>
+          <div v-if="select1 == 'mpil'"></div>
 
-        <div v-if="selectActivite == 'aep'">
-          <b-form-select
-            v-model="selectAjouterActivite"
-            :options="optionsSelectAjouterActivite"
-          ></b-form-select>
-          <div
-            v-if="selectAjouterActivite != null"
-            class="accordion accordeon-groupe"
-            role="tablist"
-          >
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button
-                  block
-                  v-b-toggle.accordion-1
-                  variant="primary"
-                  class="titre-details-modal"
-                  >1. Décrivez les tâches réalisées ou opérations que vous avez
-                  effectué et dans quelles conditions.
-                </b-button>
-              </b-card-header>
-              <b-collapse
-                id="accordion-1"
-                visible
-                accordion="my-accordion"
-                role="tabpanel"
-              >
-                <b-card-body>
-                  <b-form-textarea
-                    id="textarea-rows"
-                    placeholder=""
-                    rows="8"
-                  ></b-form-textarea>
-                  <!-- <b-card-text>{{ text }}</b-card-text> -->
-                </b-card-body>
-              </b-collapse>
-            </b-card>
+          <div v-if="selectActivite == 'aep'">
+            <b-form-select
+              v-model="selectAjouterActivite"
+              :options="optionsSelectAjouterActivite"
+            ></b-form-select>
+            <div
+              v-if="selectAjouterActivite != null"
+              class="accordion accordeon-groupe"
+              role="tablist"
+            >
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle.accordion-1
+                    variant="primary"
+                    class="titre-details-modal"
+                    >1. Décrivez les tâches réalisées ou opérations que vous
+                    avez effectué et dans quelles conditions.
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  id="accordion-1"
+                  visible
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <!-- INSERT EXP -->
+                    <b-form-input
+                      id="exp1"
+                      v-model="form.experienceProfessionnelles.tacheRealisee"
+                      name="tacheRealisee"
+                      placeholder="TACHES REALISEES"
+                      required
+                    ></b-form-input>
 
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button
-                  block
-                  v-b-toggle.accordion-2
-                  variant="primary"
-                  class="titre-details-modal"
-                  >2. Précisez les moyens utilisés.
-                </b-button>
-              </b-card-header>
-              <b-collapse
-                id="accordion-2"
-                accordion="my-accordion"
-                role="tabpanel"
-              >
-                <b-card-body>
-                  <b-form-textarea
-                    id="textarea-rows"
-                    placeholder=""
-                    rows="8"
-                  ></b-form-textarea>
-                </b-card-body>
-              </b-collapse>
-            </b-card>
+                    <!-- <b-form-input
+                      id="exp1"
+                      placeholder="TACHES REALISEES"
+                      required
+                    ></b-form-input> -->
 
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button
-                  block
-                  v-b-toggle.accordion-3
-                  variant="primary"
-                  class="titre-details-modal"
-                  >3. Avec qui avez-vous travaillé ?
-                </b-button>
-              </b-card-header>
-              <b-collapse
-                id="accordion-3"
-                accordion="my-accordion"
-                role="tabpanel"
-              >
-                <b-card-body>
-                  <b-form-textarea
-                    id="textarea-rows"
-                    placeholder=""
-                    rows="8"
-                  ></b-form-textarea>
-                </b-card-body>
-              </b-collapse>
-            </b-card>
+                    <!-- <b-card-text>{{ text }}</b-card-text> -->
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
 
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button
-                  block
-                  v-b-toggle.accordion-4
-                  variant="primary"
-                  class="titre-details-modal"
-                  >4. Précisez le contexte.
-                </b-button>
-              </b-card-header>
-              <b-collapse
-                id="accordion-4"
-                accordion="my-accordion"
-                role="tabpanel"
-              >
-                <b-card-body>
-                  <b-form-textarea
-                    id="textarea-rows"
-                    placeholder=""
-                    rows="8"
-                  ></b-form-textarea>
-                </b-card-body>
-              </b-collapse>
-            </b-card>
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle.accordion-2
+                    variant="primary"
+                    class="titre-details-modal"
+                    >2. Précisez les moyens utilisés.
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  id="accordion-2"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-form-textarea
+                      id="textarea-rows"
+                      placeholder=""
+                      rows="8"
+                    ></b-form-textarea>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
 
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button
-                  block
-                  v-b-toggle.accordion-5
-                  variant="primary"
-                  class="titre-details-modal"
-                  >5. Informations complémentaires (facultatif).
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle.accordion-3
+                    variant="primary"
+                    class="titre-details-modal"
+                    >3. Avec qui avez-vous travaillé ?
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  id="accordion-3"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-form-textarea
+                      id="textarea-rows"
+                      placeholder=""
+                      rows="8"
+                    ></b-form-textarea>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle.accordion-4
+                    variant="primary"
+                    class="titre-details-modal"
+                    >4. Précisez le contexte.
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  id="accordion-4"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-form-textarea
+                      id="textarea-rows"
+                      placeholder=""
+                      rows="8"
+                    ></b-form-textarea>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle.accordion-5
+                    variant="primary"
+                    class="titre-details-modal"
+                    >5. Informations complémentaires (facultatif).
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  id="accordion-5"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-form-textarea
+                      id="textarea-rows"
+                      placeholder=""
+                      rows="8"
+                    ></b-form-textarea>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+
+              <div id="div-save">
+                <b-button size="sm" variant="success" type="submit">
+                  <font-awesome-icon :icon="['fas', 'check-circle']" />
+                  <span class="icon-right">Enregistrer</span>
                 </b-button>
-              </b-card-header>
-              <b-collapse
-                id="accordion-5"
-                accordion="my-accordion"
-                role="tabpanel"
-              >
-                <b-card-body>
-                  <b-form-textarea
-                    id="textarea-rows"
-                    placeholder=""
-                    rows="8"
-                  ></b-form-textarea>
-                </b-card-body>
-              </b-collapse>
-            </b-card>
+              </div>
+            </div>
           </div>
-        </div>
-      </template>
-      <template #modal-footer="{ save }">
-        <b-button size="sm" variant="success" @click="save()">
-          <font-awesome-icon :icon="['fas', 'check-circle']" />
-          <span class="icon-right">Enregistrer</span>
-          </b-button
-        >
-      </template>
+        </template>
+      </b-form>
     </b-modal>
   </div>
 </template>
 
 <script>
+import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+
 export default {
   name: "Selects",
   components: {},
@@ -257,12 +274,45 @@ export default {
       annexesCDA: null,
       annexesMPIL: null,
       select1: null,
+
+      form: {
+        id: 0,
+        nom: "",
+        cursus: {
+          id: 0,
+          titre: "",
+
+          activiteTypes: {
+            id: 0,
+            libelle: "",
+
+            competenceProfessionnelles: {
+              id: 0,
+              libelle: "",
+            },
+          },
+        },
+
+        experienceProfessionnelles: {
+          id: 0,
+          tacheRealisee: "",
+          moyenUtilise: "",
+          collaborateur: "",
+          contexte: "",
+          information: "",
+          competenceProfessionnelleId: 0,
+        },
+      },
+
+      // SELECT CONSTITUER DOSSIER
       optionsSelect1: [
         { value: null, text: "--Cursus--" },
         { value: "cda", text: "Concepteur développeur d'applications" },
         { value: "mpil", text: "Manager de projet en ingénierie logicielle" },
       ],
 
+
+      // SELECT ACTIVITES TYPES
       selectActivite: null,
       optionsActivite: [
         { value: null, text: "Activité type 1 CDA" },
@@ -271,6 +321,8 @@ export default {
         { value: "o2", text: "Activité enregistrée 2" },
         { value: "o3", text: "Activité enregistrée 3" },
       ],
+
+      // SELECT DE LA MODLAE
       selectAjouterActivite: null,
       optionsSelectAjouterActivite: [
         { value: null, text: "Compétence professionnelle" },
@@ -293,6 +345,7 @@ export default {
       ],
     };
   },
+
   methods: {
     checkAnnexesCDA: function () {
       if (this.annexesCDA == "experience") {
@@ -314,12 +367,37 @@ export default {
       this.selectActivite = null;
       this.selectActivite = null;
     },
+
     save() {},
+
+    // ENVOIE FORMULAIRE
+    onSubmit(event) {
+      event.preventDefault();
+
+      dossierProfessionnelApi
+        .saveDossierProfessionnel(
+          // console.log("ici"),
+            console.dir(
+              "form > " +
+              JSON.stringify(this.form, null, 4)
+            ),
+          // console.log("etudiant id > " + this.$store.getters.getUtilisateur.etudiantDto.id),
+          this.form,
+          this.$store.getters.getUtilisateur.etudiantDto.id
+        )
+    },
   },
+
+  created() {},
 };
 </script>
 
 <style scoped>
+#div-save {
+  justify-content: flex-end;
+  display: flex;
+}
+
 #div-label {
   margin-top: 10px;
 }
@@ -348,7 +426,7 @@ select {
   border-color: #e11b28 !important;
 }
 
-.icon-right{
+.icon-right {
   margin-left: 7px;
 }
 </style>

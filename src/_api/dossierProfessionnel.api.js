@@ -9,6 +9,7 @@ export const dossierProfessionnelApi = {
   save,
   getAll,
   getByIdEtudiant,
+  saveDossierProfessionnel
 
 }
 
@@ -75,6 +76,13 @@ function save(form, id) {
 function deleteDossierProfessionnel(id, idetudiant) {
   return axios
     .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+function saveDossierProfessionnel(form, id) {
+  return axios
+    .post(`${END_POINT}/save/etudiant/${id}`, form, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
