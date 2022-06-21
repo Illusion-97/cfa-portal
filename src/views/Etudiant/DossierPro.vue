@@ -110,15 +110,29 @@
               class="accordion accordeon-groupe"
               role="tablist"
             >
+
+              <!-- ACCORDEON EXP 1 -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button
                     block
                     v-b-toggle.accordion-1
                     variant="primary"
-                    class="titre-details-modal"
+                    class="titre-details-modal volets"
                     >1. Décrivez les tâches réalisées ou opérations que vous
                     avez effectué et dans quelles conditions.
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-caret-down-square-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
+                      />
+                    </svg>
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -148,14 +162,27 @@
                 </b-collapse>
               </b-card>
 
+              <!-- ACCORDEON EXP 2 -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button
                     block
                     v-b-toggle.accordion-2
                     variant="primary"
-                    class="titre-details-modal"
+                    class="titre-details-modal volets"
                     >2. Précisez les moyens utilisés.
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-caret-down-square-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
+                      />
+                    </svg>
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -173,14 +200,27 @@
                 </b-collapse>
               </b-card>
 
+              <!-- ACCORDEON EXP 3 -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button
                     block
                     v-b-toggle.accordion-3
                     variant="primary"
-                    class="titre-details-modal"
+                    class="titre-details-modal volets"
                     >3. Avec qui avez-vous travaillé ?
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-caret-down-square-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
+                      />
+                    </svg>
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -198,14 +238,27 @@
                 </b-collapse>
               </b-card>
 
+              <!-- ACCORDEON EXP 4 -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button
                     block
                     v-b-toggle.accordion-4
                     variant="primary"
-                    class="titre-details-modal"
+                    class="titre-details-modal volets"
                     >4. Précisez le contexte.
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-caret-down-square-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
+                      />
+                    </svg>
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -223,14 +276,27 @@
                 </b-collapse>
               </b-card>
 
+              <!-- ACCORDEON EXP 5 -->
               <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button
                     block
                     v-b-toggle.accordion-5
                     variant="primary"
-                    class="titre-details-modal"
+                    class="titre-details-modal volets"
                     >5. Informations complémentaires (facultatif).
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-caret-down-square-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
+                      />
+                    </svg>
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -311,7 +377,6 @@ export default {
         { value: "mpil", text: "Manager de projet en ingénierie logicielle" },
       ],
 
-
       // SELECT ACTIVITES TYPES
       selectActivite: null,
       optionsActivite: [
@@ -325,7 +390,7 @@ export default {
       // SELECT DE LA MODLAE
       selectAjouterActivite: null,
       optionsSelectAjouterActivite: [
-        { value: null, text: "Compétence professionnelle" },
+        { value: null, text: "Compétences professionnelles" },
         { value: "b", text: "Concevoir une application" },
         {
           value: "c",
@@ -374,17 +439,13 @@ export default {
     onSubmit(event) {
       event.preventDefault();
 
-      dossierProfessionnelApi
-        .saveDossierProfessionnel(
-          // console.log("ici"),
-            console.dir(
-              "form > " +
-              JSON.stringify(this.form, null, 4)
-            ),
-          // console.log("etudiant id > " + this.$store.getters.getUtilisateur.etudiantDto.id),
-          this.form,
-          this.$store.getters.getUtilisateur.etudiantDto.id
-        )
+      dossierProfessionnelApi.saveDossierProfessionnel(
+        // console.log("ici"),
+        console.dir("form > " + JSON.stringify(this.form, null, 4)),
+        // console.log("etudiant id > " + this.$store.getters.getUtilisateur.etudiantDto.id),
+        this.form,
+        this.$store.getters.getUtilisateur.etudiantDto.id
+      );
     },
   },
 
@@ -393,6 +454,18 @@ export default {
 </script>
 
 <style scoped>
+.custom-select{
+  margin-bottom: 5px;
+}
+.bi{
+  position: relative;
+  top: 4px;
+}
+.volets {
+  display: flex;
+  justify-content: space-between;
+}
+
 #div-save {
   justify-content: flex-end;
   display: flex;
