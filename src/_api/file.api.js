@@ -15,6 +15,13 @@ export const fileApi = {
     deleteByDirectoryAndIdAndDirectoryAndFilename,
 };
 
+/**
+ * Récupération des fichiers en fonction de l'id
+ * 
+ * @param {*} id 
+ * @param {*} directory
+ * @returns 
+ */
 
 function getListByDirectoryAndId(directory, id) {
 
@@ -25,6 +32,16 @@ function getListByDirectoryAndId(directory, id) {
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération de la liste par répertoire et répertoire id
+ * 
+ * @param {*} id 
+ * @param {*} directory
+ * @param {*} directory2
+ * @returns 
+ */
+
 function getListByDirectoryAndIdAndDirectory(directory,id,directory2){
   let req = `files/${directory}/${id}/${directory2}`;
 
@@ -33,6 +50,17 @@ function getListByDirectoryAndIdAndDirectory(directory,id,directory2){
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération du fichier en fonciton du nom
+ * 
+ * @param {*} id 
+ * @param {*} directory
+ * @param {*} directory2
+ * @param {*} filename
+ * @returns 
+ */
+
 function getFileByName(directory,id,directory2,filename){
   let req = `files/${directory}/${id}/${directory2}/${filename}`;
 
@@ -47,6 +75,15 @@ function getFileByName(directory,id,directory2,filename){
           })
         .catch((error) => console.log(error));
 }
+
+/**
+ * Téléchargement du fichier en fonction du répertoire et l'id et du nom
+ * 
+ * @param {*} id
+ * @param {*} directory
+ * @param {*} fileName
+ * @returns 
+ */
 
 function downloadByDirectoryAndIdAndFilename(directory,id, fileName) {
 
@@ -64,6 +101,16 @@ function downloadByDirectoryAndIdAndFilename(directory,id, fileName) {
           })
         .catch((error) => console.log(error));
 }
+
+/**
+ * Téléchargement du fichier du répertoire en fonciton de l'id et répertoite puis nomdu fichier
+ * 
+ * @param {*} id 
+ * @param {*} directory
+ * @param {*} directory2
+ * @param {*} fileName
+ * @returns 
+ */
 function downloadByDirectoryAndIdAndDirectoryAndFilename(directory,id,directory2, fileName) {
 
   let req = `files/${directory}/${id}/${directory2}/${fileName}` ;
@@ -81,6 +128,15 @@ function downloadByDirectoryAndIdAndDirectoryAndFilename(directory,id,directory2
       .catch((error) => console.log(error));
 }
 
+/**
+ * Suppression du fichier du répertoire / id et nom du fichier
+ * 
+ * @param {*} id
+ * @param {*} directory
+ * @param {*} fileName
+ * @returns 
+ */
+
 function deleteByDirectoryAndIdAndFilename(directory, id, fileName) {
 
   let req = `files/${directory}/${id}/${fileName}`;
@@ -90,6 +146,18 @@ function deleteByDirectoryAndIdAndFilename(directory, id, fileName) {
       .then(response => response)
       .catch((error) => console.log(error));
 }
+
+
+/**
+ * Suppression du fichier en fonction du répertoire / id et nom du fichier
+ * 
+ * @param {*} id
+ * @param {*} directory
+ * @param {*} fileName
+ * @param {*} directory2
+ * @returns 
+ */
+
 function deleteByDirectoryAndIdAndDirectoryAndFilename(directory, id,directory2, fileName) {
 
   let req = `files/${directory}/${id}/${directory2}/${fileName}`;
@@ -100,6 +168,14 @@ function deleteByDirectoryAndIdAndDirectoryAndFilename(directory, id,directory2,
       .catch((error) => console.log(error));
 }
 
+/**
+ * Ajout fichier dans un répertoire et id
+ * 
+ * @param {*} id
+ * @param {*} directory
+ * @param {*} file
+ * @returns 
+ */
 
 function submitFileByDirectoryAndId(directory, id, file) {
 
@@ -116,6 +192,17 @@ function submitFileByDirectoryAndId(directory, id, file) {
         .then((response) => response)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Ajout fichier dans un répertoire et id répertoire
+ * 
+ * @param {*} id
+ * @param {*} directory
+ * @param {*} file
+ * @param {*} directory2
+ * @returns 
+ */
+
 function submitFileByDirectoryAndIdAndDirectory(directory, id,directory2, file) {
 
   let req = `files/${directory}/${id}/${directory2}`;

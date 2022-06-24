@@ -97,7 +97,7 @@
             </template>
 
             <div>
-              <AjouterNotes />
+              <AjouterNotes :context="'promotion'" />
             </div>
           </b-tab>
         </b-tabs>

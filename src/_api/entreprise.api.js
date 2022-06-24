@@ -14,6 +14,13 @@ export const entrepriseApi = {
 
 const END_POINT = "entreprises";
 
+/**
+ * Récupération de l'entreprise en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
     let req = `/${END_POINT}/${id}`;
     return  axios
@@ -21,6 +28,15 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des entreprise avec pagination + recherche
+ * 
+ * @param {*} page 
+ * @param {*} size
+ * @param {*} search
+ * @returns 
+ */
 
 function getAllByPage(page, size, search = ""){
     let req = `/${END_POINT}/${page}/${size}/${search}`;
@@ -31,6 +47,9 @@ function getAllByPage(page, size, search = ""){
         .catch((error) => console.log(error));
   }
 
+/**
+ * Récupération de toutes les entreprises
+ */
 
 function getAllEntreprises() {
     return axios
@@ -38,6 +57,13 @@ function getAllEntreprises() {
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
+
+  /**
+ * Méthode de recherche
+ * 
+ * @param {*} search
+ * @returns 
+ */
 
 function getCount(search = ""){
     let req = `/${END_POINT}/count/${search}`;
@@ -48,6 +74,13 @@ function getCount(search = ""){
         .catch((error) => console.log(error));
 }
 
+/**
+ * Save de l'entreprise
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function save(entreprise) {
   return axios
     .post(`/${END_POINT}`, entreprise, requestOptions.headers())
@@ -55,12 +88,25 @@ function save(entreprise) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * Suppression de l'entreprise
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
+
 function deleteEntreprise(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+
+/**
+ * Récupération de toutes les entreprises
+ */
 
 function getAll(){
   let req = `/entreprises`;

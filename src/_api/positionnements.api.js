@@ -10,6 +10,13 @@ export const positionnementApi = {
   deletePositionnement,
 };
 
+/**
+ * Récupération du positionnement en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
   let req = `/${END_POINT}/${id}`;
 
@@ -19,6 +26,11 @@ function getById(id){
       .catch((error) => console.log(error));
 }
 
+/**
+ * Récupération de la liste des positionnements 
+ * 
+ * @returns 
+ */
 
 export async function getAll() {
     return axios
@@ -27,12 +39,26 @@ export async function getAll() {
       .catch((error) => console.log(error));
   }
 
+  /**
+ * Save du positionnement
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 export async function save(positionnements) {
   return axios
     .post(`${END_POINT}`, positionnements, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * Suppression du positionnement
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 export async function deletePositionnement(id) {
   return axios
