@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h5>Votre livret d'évaluation</h5>
+      <h5>Livret d'évaluation</h5>
       <!-- <b-button variant="success" size="sm">
         <font-awesome-icon :icon="['fas', 'download']" class="btn-download" />
         Télécharger</b-button> -->
@@ -14,6 +14,7 @@
 
 <script>
 import { examenApi } from "@/_api/examen.api.js";
+
 export default {
   name: "LivretEvaluationEtudiant",
   data() {
@@ -23,28 +24,29 @@ export default {
   },
 
   computed: {
-      tableauComputed() {
-        let livret = this.livret;
-        let tab = [];
+    tableauComputed() {
+      let livret = this.livret;
+      let tab = [];
 
-        livret.forEach(function (item) {
-          tab.push({
-            Promotion: item.promotion,
-            Examen: item.examen,
-            Competence: item.competences[0],
-            Satisfaction: item.satisfactions[0],
-            Observation: item.observations[0],
-          });
+      livret.forEach(function (item) {
+        tab.push({
+          Promotion: item.promotion,
+          Examen: item.examen,
+          Competence: item.competences[0],
+          Satisfaction: item.satisfactions[0],
+          Observation: item.observations[0],
         });
-        return tab;
-      },
+      });
+      return tab;
     },
+  },
 
   created() {
-      examenApi
-        .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
-        .then((data) => (this.livret = data));
-    },
+    examenApi
+      .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.livret = data));
+
+  },
 };
 </script>
 

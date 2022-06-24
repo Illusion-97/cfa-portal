@@ -5,6 +5,7 @@ const END_POINT = "activiteTypes";
 
 export const activiteTypeApi = {
   getAllByIdPromotion,
+  getById
 };
 
 function getAllByIdPromotion(id){
@@ -14,4 +15,11 @@ function getAllByIdPromotion(id){
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error)); 
+}
+
+function getById(id) {
+  return axios
+    .get(`${END_POINT}/${id}/promotions`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }

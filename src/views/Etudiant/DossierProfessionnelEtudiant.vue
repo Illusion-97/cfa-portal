@@ -10,41 +10,14 @@
       <template #cell(DossierPro)="data">
         <!-- SWITCH -->
         <div v-switch="switchDossier(data, dossierProfessionnel)" class="">
-          <div>
-            <!-- {{ getDossierId(data, dossierProfessionnel) }} -->
-          </div>
-
           <!-- DOSSIER CORRESPONDANT AU CURSUS -->
-          <div v-case="'dossier'">
+          <div v-case="'dossier'" class="div-btn-right">
             <b-button size="sm" class="mr-2" variant="primary">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-eye-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                <path
-                  d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"
-                />
-              </svg>
+              <i class="bi bi-eye"></i>
               Voir
             </b-button>
             <b-button size="sm" class="mr-2" variant="primary">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-pencil-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
-                />
-              </svg>
+              <i class="bi bi-pencil"></i>
               Modifier</b-button
             >
             <b-button
@@ -58,63 +31,30 @@
                 )
               "
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-dash-circle-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"
-                />
-              </svg>
+              <i class="bi bi-dash-circle"></i>
               Supprimer</b-button
             >
           </div>
 
           <!-- PAS DE DOSSIER CORRESPONDANT AU CURSUS -->
-          <div v-case="'no'">
+          <div v-case="'no'" class="div-btn-right">
             <router-link
-              :to="{ 
+              :to="{
                 name: 'creer_dossier_pro',
-                query: {data : data}
-                }">
-                {{data.item.titre}}
-
+                query: { data: data },
+              }"
+            >
               <b-button size="sm" class="mr-2" variant="success">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-plus-circle-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"
-                  />
-                </svg>
+                <i class="bi bi-plus-circle"></i>
                 Créer
               </b-button>
             </router-link>
-            <b-button size="sm" class="mr-2" variant="primary">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-arrow-up-circle-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
-                />
-              </svg>
+             <b-button size="sm" class="mr-2" variant="primary">
+              <i class="bi bi-arrow-up-circle"></i>
               Uploader
             </b-button>
           </div>
+
           <div v-default>dossier absent</div>
         </div>
       </template>
@@ -143,6 +83,7 @@
 <script>
 import { cursusApi } from "@/_api/cursus.api.js";
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 import Vue from "vue";
 import VSwitch from "v-switch-case";
@@ -156,8 +97,15 @@ export default {
       dossierProfessionnel: [],
       fields: [
         // "Cursus", "DossierPro",
-        { key: "Cursus", label: "Cursus" },
-        { key: "DossierPro", label: "" },
+        {
+          key: "Cursus",
+          label: "Cursus",
+          thStyle: { width: "70%" },
+        },
+        {
+          key: "DossierPro",
+          label: "",
+        },
       ],
       file1: null,
     };
@@ -250,7 +198,10 @@ export default {
 </script>
 
 <style scoped>
-
+/* .div-btn-right {
+  display: flex;
+  flex-flow: row-reverse;
+} */
 .dnone {
   display: none;
 }

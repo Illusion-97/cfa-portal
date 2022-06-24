@@ -3,9 +3,37 @@
     <h5>
       Constituer un dossier professionnel >
       <span>{{ data.item.titre }}</span>
+      <br />
+      <span>Cursus id > {{ data.item.id }}</span>
     </h5>
 
-    <!-- METTRE ICI TITRE DU CURSUS CHOISI-->
+    <label>
+      <strong>Activités types</strong>
+    </label>
+
+    <div v-for="item in activiteType" :key="item">
+      <b-form-select>
+        <!-- GET ACTIVITES TYPES BY ID -->
+        <!-- ACTIVITE.LIBELLE -->
+      </b-form-select>
+    </div>
+
+    <!-- <br />
+    <br />
+    ***********
+    <br />
+    ***********
+    <br />
+    ***********
+    <br />
+    <br /> -->
+
+    <!-- <b-form-select
+        v-model="selectActivite"
+        :options="optionsActivite"
+        @change="checkActiviteType1"
+        @submit="onSubmit"
+      ></b-form-select> -->
 
     <!-- SELECT Principal-->
     <b-form-select v-model="select1" :options="optionsSelect1"></b-form-select>
@@ -28,6 +56,7 @@
         <option value="cda">Activité enregistrée 2</option>
         <option value="cda">Activité enregistrée 3</option>
       </select>
+
       <select class="form-select custom-select">
         <option value="mpil">Activité type 3 CDA</option>
         <option value="mpil">Activité enregistrée 1</option>
@@ -50,7 +79,7 @@
     </div>
 
     <!-- SELECT MPIL-->
-    <div v-if="select1 == 'mpil'">
+    <!-- <div v-if="select1 == 'mpil'">
       <div id="div-label">
         <label for=""><strong>Activités types</strong></label>
       </div>
@@ -86,7 +115,7 @@
         <option>Activité enregistrée 2</option>
         <option>Activité enregistrée 3</option>
       </select>
-    </div>
+    </div> -->
 
     <!--modale Nouvelle experience professionnelle-->
     <b-modal
@@ -125,18 +154,8 @@
                     class="titre-details-modal volets"
                     >1. Décrivez les tâches réalisées ou opérations que vous
                     avez effectué et dans quelles conditions.
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-caret-down-square-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
-                      />
-                    </svg>
+                            <i class="bi bi-caret-down-square-fill"></i>
+
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -175,18 +194,8 @@
                     variant="primary"
                     class="titre-details-modal volets"
                     >2. Précisez les moyens utilisés.
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-caret-down-square-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
-                      />
-                    </svg>
+                            <i class="bi bi-caret-down-square-fill"></i>
+
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -213,18 +222,8 @@
                     variant="primary"
                     class="titre-details-modal volets"
                     >3. Avec qui avez-vous travaillé ?
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-caret-down-square-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
-                      />
-                    </svg>
+                            <i class="bi bi-caret-down-square-fill"></i>
+
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -251,18 +250,8 @@
                     variant="primary"
                     class="titre-details-modal volets"
                     >4. Précisez le contexte.
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-caret-down-square-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
-                      />
-                    </svg>
+                            <i class="bi bi-caret-down-square-fill"></i>
+
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -289,18 +278,8 @@
                     variant="primary"
                     class="titre-details-modal volets"
                     >5. Informations complémentaires (facultatif).
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-caret-down-square-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"
-                      />
-                    </svg>
+                            <i class="bi bi-caret-down-square-fill"></i>
+
                   </b-button>
                 </b-card-header>
                 <b-collapse
@@ -459,7 +438,10 @@ export default {
   },
 
   created() {
-    cursusApi.getAllCursus().then((data) => (this.cursus = data));
+    cursusApi
+    .getAllCursus().then((data) => (this.cursus = data));
+    
+
   },
 };
 </script>
