@@ -43,10 +43,12 @@
               {{promotion.centreFormationAdresseVille != null ? promotion.centreFormationAdresseVille : "pas de ville" }}
               <b-progress
                 height="20px"
-                :value="Progress(promotion)"
+               
                 show-progress
                 class="mb-2 w-50"
-              ></b-progress>
+              >
+               <b-progress-bar  :value="Progress(promotion)" :label="Progress(promotion) + '%'"></b-progress-bar>
+              </b-progress>
             </b-card-header>
             <b-card-text class="mt-4 font-weight-bold">{{
               promotion.nom
@@ -139,7 +141,7 @@ export default {
         return 100;
       }
 
-      return (100 * joursPasse) / joursFormation;
+      return  Math.round((100 * joursPasse) / joursFormation);
     },
     submit(e) {
       e.preventDefault();

@@ -317,22 +317,19 @@ export default {
   },
 
   methods: {
-    getFile(id, pieceJointe) {
-      examenApi.getFileExamen(id).then((response) => {
-        {
-          let url = URL.createObjectURL(
-            new Blob([response.data], { type: "application/pdf" })
-          );
-          
-          console.log(pieceJointe);
-          console.log(response);
-          const link = document.createElement("a");
-          link.download = "pieceJointe.pdf";
-          link.href = url;
-          link.click();
-          URL.revokeObjectURL(link.href);
-        }
-      });
+    async getFile(id, pieceJointe) {
+      const response = await examenApi.getFileExamen(id);
+      console.log(response);
+    
+      const blob = new Blob([response], { type: "application/pdf" });
+
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob)
+      link.download = pieceJointe + ".pdf";
+      link.click();
+      URL.revokeObjectURL(link.href);
+      console.log("URL => " +  link.href)
+      console.log("after click");
     },
     updateExamens() {
       examenApi
