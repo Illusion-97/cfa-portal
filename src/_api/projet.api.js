@@ -12,6 +12,13 @@ export const projetApi = {
   getByIdEtudiant,
 };
 
+/**
+ * Récupération du projet en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
   let req = `/${END_POINT}/${id}`;
 
@@ -20,6 +27,14 @@ function getById(id){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des projets avec l'id de l'étudiant
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getByIdEtudiant(id){
   let req = `/${END_POINT}/etudiant/${id}`;
 
@@ -28,6 +43,15 @@ function getByIdEtudiant(id){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des projets avec pagination + recherche
+ * 
+ * @param {*} page 
+ * @param {*} size
+ * @param {*} search
+ * @returns 
+ */
 
 function getAllByPage(page, size, search = ""){
   let req = `/${END_POINT}/${page}/${size}/${search}`;
@@ -38,6 +62,13 @@ function getAllByPage(page, size, search = ""){
       .catch((error) => console.log(error));
 }
 
+/**
+ * Méthode de recherche
+ * 
+ * @param {*} search
+ * @returns 
+ */
+
 function getCount(search = ""){
   let req = `/${END_POINT}/count/${search}`;
 
@@ -47,12 +78,27 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
+/**
+ * Save du projet
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function save(projet) {
   return axios
     .post(`${END_POINT}`, projet, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+
+/**
+ * Suppression du projet
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function deleteProjet(id) {
   return axios

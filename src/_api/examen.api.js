@@ -10,13 +10,28 @@ export const examenApi = {
   save,
   deleteExamen,
   update,
-
+  getLivretEvaluation,
+  getExamensByInterventionId,
+  getFileExamen,
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id) {
   let req = `/${END_POINT}/${id}`;
 
   return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getExamensByInterventionId(id) {
+  let req = `/${END_POINT}/interventions/${id}`;
+  return axios 
     .get(req, requestOptions.headers())
     .then(response => response.data)
     .catch((error) => console.log(error));
@@ -31,6 +46,11 @@ function getAllByPage(page, size, search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
 
@@ -40,6 +60,11 @@ function getCount(search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} formData 
+ * @returns 
+ */
 function save(formData) {
   return axios
     .post(`${END_POINT}`, formData, requestOptions.headers())
@@ -47,15 +72,49 @@ function save(formData) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} examenDto 
+ * @returns 
+ */
 function update(examenDto) {
   return axios
     .put(`${END_POINT}`, examenDto)
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteExamen(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+function getLivretEvaluation(id) {
+  let req = "examens/livret-evaluation/" + id;
+  return axios
+  .get(req, requestOptions.headers())
+  .then(response => response.data)
+  .catch((error) => console.log(error));
+}
+/***
+ * 
+ */
+function getFileExamen(id){
+  let req = "examens/file/" + id;
+  return axios
+  .get(req, requestOptions.headers(),{ responseType:"blob"})
+  .then(response => response)
+  .catch((error) => console.log(error));
 }

@@ -23,18 +23,6 @@
                             </b-form-textarea>
                         </b-form-group>
 
-                        <b-form-group label="Durée :">
-                            <b-form-input v-model="form.duration" type="number" min="0"
-                                placeholder="Ex : 100.0" id="duration">
-                            </b-form-input>
-                        </b-form-group>
-
-                        <b-form-group label="Slug :">
-                            <b-form-input v-model="form.slug" 
-                                placeholder="Ex : titre-pro-cda..." id="slug">
-                            </b-form-input>
-                        </b-form-group>
-
                         <div class="d-flex justify-content-between" v-if="formationId == null">
                             <b-button type="reset" variant="outline-danger">Annuler</b-button>
                             <b-button type="submit" variant="outline-info" class=" px-3">Envoyer</b-button>
@@ -61,8 +49,6 @@
                     id: "",
                     titre: "",
                     contenu: "",
-                    duration: "",
-                    slug: "",
                 },
                 items: {},
                 formationId: this.$route.params.id,
@@ -88,8 +74,6 @@
                 // Reset our form values
                 this.form.titre = ""
                 this.form.contenu = "";
-                this.form.duration = "";
-                this.form.slug = "";
                 // this.form.cursusLstDto = [];
                 // Trick to reset/clear native browser form validation state
                 this.show = false;

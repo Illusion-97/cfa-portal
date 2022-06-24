@@ -9,6 +9,13 @@ export const passageExamenApi = {
     deletePassageExamen,
 }
 
+/**
+ * Récupération du passade d'examen en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id){
     let req = `/passageExamens/${id}`;
 
@@ -17,6 +24,15 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des passages d'examens avec pagination + recherche
+ * 
+ * @param {*} page 
+ * @param {*} size
+ * @param {*} search
+ * @returns 
+ */
 
 function getAllByPage(page, size, search = ""){
     let req = `/passageExamens/${page}/${size}/${search}`;
@@ -27,6 +43,13 @@ function getAllByPage(page, size, search = ""){
         .catch((error) => console.log(error));
 }
 
+/**
+ * Méthode de recherche
+ * 
+ * @param {*} search
+ * @returns 
+ */
+
 function getCount(search = ""){
     let req = `/passageExamens/count/${search}`;
 
@@ -35,6 +58,13 @@ function getCount(search = ""){
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
 }
+
+/**
+ * Save du passageExamen
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function save(form) {
     let req =  "passageExamens";
@@ -45,6 +75,13 @@ function save(form) {
         .catch((error) => console.log(error));
 
 }
+
+/**
+ * Suppression de l'examen
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function deletePassageExamen(id) {
     let req =  `passageExamens/${id}`;

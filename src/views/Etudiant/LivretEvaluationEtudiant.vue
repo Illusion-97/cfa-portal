@@ -2,70 +2,49 @@
   <div class="container">
     <div>
       <h5>Votre livret d'évaluation</h5>
-      <b-button variant="success" size="sm">
+      <!-- <b-button variant="success" size="sm">
         <font-awesome-icon :icon="['fas', 'download']" class="btn-download" />
-        Télécharger</b-button
-      >
+        Télécharger</b-button> -->
     </div>
     <div>
-      <b-table  small head-variant="light" :items="items" :fields="fields"></b-table>
+      <b-table small head-variant="light" :items="tableauComputed"></b-table>
     </div>
   </div>
 </template>
 
 <script>
+import { examenApi } from "@/_api/examen.api.js";
 export default {
+  name: "LivretEvaluationEtudiant",
   data() {
     return {
-      fields: [
-        {
-          key: "intitule",
-          label: "Intitulé",
-          sortable: false,
-        },
-        {
-          key: "resultat",
-          label: "Résultat",
-          sortable: true,
-        },
-        {
-          key: "observation",
-          label: "Observations",
-          sortable: true,
-        },
-      ],
-      items: [
-        {
-          isActive: true,
-          intitule: "Développer une base de données",
-          resultat: "acquis",
-          observation:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
-        },
-        {
-          isActive: true,
-          intitule: "Développer la partie Front-End d'une application",
-          resultat: "non-acquis",
-          observation:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
-        },
-        {
-          isActive: true,
-          intitule: "Développer la partie Back-End d'une application",
-          resultat: "acquis",
-          observation:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
-        },
-        {
-          isActive: true,
-          intitule: "Développer une application mobile",
-          resultat: "acquis",
-          observation:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit cumque molestias vero quaerat ",
-        },
-      ],
+      livret: [],
     };
   },
+
+  computed: {
+      tableauComputed() {
+        let livret = this.livret;
+        let tab = [];
+
+        livret.forEach(function (item) {
+          tab.push({
+            Promotion: item.promotion,
+            Examen: item.examen,
+            Competence: item.competences[0],
+            Satisfaction: item.satisfactions[0],
+            Observation: item.observations[0],
+          });
+        });
+        return tab;
+      },
+    },
+
+  created() {
+      examenApi
+        .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
+        .then((data) => (this.livret = data));
+    },
 };
 </script>
 

@@ -15,6 +15,11 @@ export const cursusApi = {
   getPromotionsById,
 };
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id){
   let req = `/${END_POINT}/${id}`;
 
@@ -23,6 +28,12 @@ function getById(id){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getByIdEtudiant(id){
   let req = `/${END_POINT}/etudiant/${id}`;
 
@@ -31,6 +42,12 @@ function getByIdEtudiant(id){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getCurrentCursusByIdEtudiant(id){
   let req = `/${END_POINT}/CurrentCursus/${id}`;
 
@@ -41,6 +58,13 @@ function getCurrentCursusByIdEtudiant(id){
 
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = ""){
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
@@ -50,6 +74,11 @@ function getAllByPage(page, size, search = ""){
       .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = ""){
   let req = `/${END_POINT}/count/${search}`;
 
@@ -59,6 +88,11 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} cursus 
+ * @returns 
+ */
 function save(cursus) {
   return axios
     .post(`${END_POINT}`, cursus, requestOptions.headers())
@@ -66,6 +100,11 @@ function save(cursus) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteCursus(id) {
   let req =  `cursus/${id}`;
 
@@ -75,6 +114,10 @@ function deleteCursus(id) {
       .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getAllCursus() {
   return axios
     .get(`${END_POINT}`, requestOptions.headers())
@@ -82,10 +125,29 @@ function getAllCursus() {
     .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getPromotionsById(id) {
   return axios
     .get(`${END_POINT}/${id}/promotions`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} logInUser 
+ * @returns 
+ */
+/* test de recup de la requete import dg2 */
+export async function fetchAllCursusDG2Http(logInUser) {
+  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+    headers: {
+      Authorization: requestOptions.headers(),
+      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+    },
+  });
 }

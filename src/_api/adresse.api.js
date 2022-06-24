@@ -13,6 +13,12 @@ export const adresseApi = {
 
 const END_POINT = "adresses";
 
+/**
+ * Récupération de l'adresse en fonction de son id
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id){
     let req = `/adresses/${id}`;
 
@@ -21,6 +27,15 @@ function getById(id){
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récuparation des adresses avec pagination + recherche
+ * 
+ * @param {*} page
+ * @param {*} size
+ * @param {*} search 
+ * @returns 
+ */
 
 function getAllByPage(page, size, search = ""){
     let req = `/${END_POINT}/${page}/${size}/${search}`;
@@ -31,6 +46,11 @@ function getAllByPage(page, size, search = ""){
         .catch((error) => console.log(error));
   }
 
+  /**
+ * 
+ * Récupération de toutes les adresses
+ * 
+ */
 
 function getAllAdresses() {
     return axios
@@ -39,6 +59,12 @@ function getAllAdresses() {
       .catch((error) => console.log(error));
   }
 
+  /**
+ * Méthode de recherche
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = ""){
     let req = `/adresses/count/${search}`;
 
@@ -48,6 +74,12 @@ function getCount(search = ""){
         .catch((error) => console.log(error));
 }
 
+/**
+ * Sauvegarde d'une adresse
+ * 
+ * @param {*} form 
+ * @returns 
+ */
 
 function save(form) {
     let req =  "adresses";
@@ -59,6 +91,12 @@ function save(form) {
 
 }
 
+/**
+ * Supression d'une adresse
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteAdresse(id) {
     let req =  `adresses/${id}`;
 

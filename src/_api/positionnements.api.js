@@ -1,23 +1,22 @@
 import axios from 'axios';
 import { requestOptions } from '@/_helpers/request-options.js';
 
-const END_POINT = "absences";
+const END_POINT = "positionnements";
 
-export const absencesApi = {
+export const positionnementApi = {
   getById,
-  getAllAbsences,
+  getAll,
   save,
-  deleteAbsence,
-
-  getAllByIdEtudiant,
+  deletePositionnement,
 };
 
 /**
- * Récupération des absences
+ * Récupération du positionnement en fonction de son id
  * 
  * @param {*} id 
  * @returns 
  */
+
 function getById(id){
   let req = `/${END_POINT}/${id}`;
 
@@ -28,12 +27,12 @@ function getById(id){
 }
 
 /**
+ * Récupération de la liste des positionnements 
  * 
- * Récuparation de toutes les absences
- * 
+ * @returns 
  */
 
-export async function getAllAbsences() {
+export async function getAll() {
     return axios
       .get(`${END_POINT}`, requestOptions.headers())
       .then((response) => response.data)
@@ -41,45 +40,30 @@ export async function getAllAbsences() {
   }
 
   /**
- *Save d'une absence
+ * Save du positionnement
  * 
- * @param {*} absence 
+ * @param {*} positionnements 
  * @returns 
  */
-export async function save(absence) {
+
+ function save(positionnements) {
   return axios
-    .post(`${END_POINT}`, absence, requestOptions.headers())
+    .post(`${END_POINT}`, positionnements, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
 /**
- * Suppression d'une absence 
+ * Suppression du positionnement
  * 
  * @param {*} id 
  * @returns 
  */
 
-export async function deleteAbsence(id) {
+export async function deletePositionnement(id) {
   return axios
     .delete(`${END_POINT}/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-/**
- *Récupération des absences en fonction de l'id étudiant
- * 
- * @param {*} id 
- * @returns 
- */
-
-function getAllByIdEtudiant(id) {
-  let req =  `${END_POINT}/etudiant/${id}`;
-
-  return axios
-      .get(req, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-
-}

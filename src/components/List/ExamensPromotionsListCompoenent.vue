@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div>
-      <AddExamen ref="addExamen" />
+    <div v-if="context == 'intervention'">
+      <AddExamen
+        ref="addExamen"
+        :context="context"
+        @updateExamens="updateExamens"
+      />
     </div>
-    <div>
+    <div class="mt-4">
       <b-alert
         :show="dismissCountDown"
         dismissible
@@ -13,6 +17,9 @@
       >
         {{ message }}
       </b-alert>
+
+      <!-- {{examens}} -->
+
       <b-table :items="items" :fields="fields" striped responsive="sm">
         <!-- //details -->
         <template #cell(Details)="row">
@@ -117,7 +124,11 @@
           </div>
 
           <p v-else>
-            <font-awesome-icon :icon="['fas', 'download']" class="icon" />
+            <b-button
+              @click.prevent="getFile(row.item.id, row.item.Piece_jointe)"
+            >
+              <font-awesome-icon :icon="['fas', 'download']" class="icon" />
+            </b-button>
           </p>
         </template>
         <!-- Action -->
@@ -138,9 +149,9 @@
               >
             </b-form>
           </div>
-
           <div v-else>
             <b-button
+              v-if="context == 'intervention'"
               block
               variant="primary"
               v-bind:class="classObject(row.item, true)"
@@ -158,7 +169,12 @@
               <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
               Ajouter notes</b-button
             >
-            <b-button block variant="danger" @click="spprimerExamen(row.item)">
+            <b-button
+              v-if="context == 'intervention'"
+              block
+              variant="danger"
+              @click="spprimerExamen(row.item)"
+            >
               <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
               Supprimer</b-button
             >
@@ -191,9 +207,9 @@
 </template>
 
 <script>
+import { examenApi } from "@/_api/examen.api.js";
 import AddExamen from "@/components/Formateur/AddExamen.vue";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
-import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   name: "ExamensPromotionsListCompoenent",
@@ -203,6 +219,10 @@ export default {
   props: {
     examens: {
       type: Array,
+    },
+    context: {
+      type: String,
+      default: "",
     },
   },
 
@@ -276,33 +296,17 @@ export default {
           thClass: "text-center",
         },
       ],
-
-      items: [
-        //   Titre: 'Travaux pratiques CDA',
-        //   Duree: '4h',
-        //   Date: '13/03/2022	',
-        //   Blocs_concernes:'1,2,3,4',
-        //   description:'Evalution des connaissances des élèves sur des concepts Java avancés.n',
-        //   Piece_jointe: ' Nom Pièce jointe',
-        //   modifier :false,
-        //   _showDetails: false
-        // }
-      ],
+      items: [],
       selectedBc: [],
-      optionsBc: [
-        // { text: "1", value: 1 },
-      ],
+      optionsBc: [],
       selectedCompetences: [],
-      optionsCompetences: [
-        // { text: "1", value: 1 },
-      ],
+      optionsCompetences: [],
     };
   },
   created() {
     if (this.examens != undefined) {
       this.assigneTableItems(this.examens);
     }
-
     activiteTypeApi
       .getAllByIdPromotion(this.$route.params.id)
       .then((response) => {
@@ -313,6 +317,30 @@ export default {
   },
 
   methods: {
+    getFile(id, pieceJointe) {
+      examenApi.getFileExamen(id).then((response) => {
+        {
+          let url = URL.createObjectURL(
+            new Blob([response.data], { type: "application/pdf" })
+          );
+          
+          console.log(pieceJointe);
+          console.log(response);
+          const link = document.createElement("a");
+          link.download = "pieceJointe.pdf";
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        }
+      });
+    },
+    updateExamens() {
+      examenApi
+        .getExamensByInterventionId(this.$route.params.id)
+        .then((response) => {
+          this.assigneTableItems(response);
+        });
+    },
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
       // selectedActiviteType[i] 4 ou 7 ou 8
@@ -347,7 +375,6 @@ export default {
           value: data[i].id,
           text: data[i].numeroFiche,
         };
-
         datasFormAt.push(option);
         optionAt.push(optionForAt);
         let tabCompetences = [];
@@ -364,7 +391,6 @@ export default {
           };
           tabCompetences.push(competence);
         }
-
         let at = new Object();
         at[data[i].id] = tabCompetences;
         dataForFormCp.push(at);
@@ -386,8 +412,8 @@ export default {
       this.tempItem = null;
     },
     ajouterNotes(item) {
-      this.$emit("custom-event-notes", { examen: item.Titre });
       this.$root.$emit("examen", item);
+      this.$root.$emit("afficherNotes", true);
     },
     spprimerExamen(item) {
       const h = this.$createElement;
@@ -401,7 +427,7 @@ export default {
       // More complex structure
       const messageVNode = h("div", { class: ["foobar"] }, [
         h("h5", { class: [] }, [
-          " voulez vous supprimer l'examen : " + item.Titre,
+          "Voulez-vous supprimer l'examen : " + item.Titre + " ?",
         ]),
       ]);
       // We must pass the generated VNodes as arrays
@@ -413,16 +439,10 @@ export default {
         })
         .then((value) => {
           if (value) {
-            examenApi.deleteExamen(item.id).then((respose) => {
-              if (respose === "suppression effectuée") {
-                for (let i = 0; i < this.items.length; i++) {
-                  let itemToPop = this.items[i];
-                  if ((itemToPop.id = item.id)) {
-                    this.items.pop(itemToPop);
-                    break;
-                  }
-                }
-                this.showAlert(item.Titre, false);
+            examenApi.deleteExamen(item.id).then((respnose) => {
+              if (respnose === "suppression effectuée") {
+                this.updateExamens();
+                this.showAlert(item.Titre, false, false);
               }
             });
           }
@@ -432,7 +452,6 @@ export default {
         });
     },
     onSubmit(item) {
-      let index = this.items.indexOf(item);
       let examenDtoSave = {
         id: item.id,
         version: item.version,
@@ -442,8 +461,9 @@ export default {
         pieceJointe: item.Piece_jointe,
         dateExamen: item.Date,
         activiteTypesId: item.selectedActiviteType,
-        promotionId: this.$route.params.id,
+        interventionId: this.$route.params.id,
         competencesProfessionnellesId: item.selectedCompetencesPro,
+        promotionsId: [],
       };
       if (this.changeFile) {
         var bodyFormData = new FormData();
@@ -451,27 +471,28 @@ export default {
         bodyFormData.append("file", this.file);
         examenApi.save(bodyFormData).then((response) => {
           this.showAlert(response.titre, false);
+          this.updateExamens();
         });
       } else {
         examenApi.update(examenDtoSave).then((response) => {
           this.showAlert(response.titre, false);
-          this.items[index].version++;
-          this.$nextTick(() => {
-            this.items[index].version++;
-            this.items[index].selectedActiviteType =
-              examenDtoSave.activiteTypesId;
-          });
+          this.updateExamens();
         });
+        ("");
       }
       item.modifier = false;
       item._showDetails = false;
     },
-    showAlert(titre, isErr) {
+    showAlert(titre, isErr, modifier = true) {
       if (isErr) {
         //    this.message = "Erreur d'ajout de 'examen " + titre ;
         // this.dismissCountDownErr = this.dismissSecs
       } else {
-        this.message = "L'examen " + titre + " a bien été modifier avec succès";
+        modifier
+          ? (this.message =
+              "L'examen " + titre + " a bien été modifier avec succès")
+          : (this.message =
+              "L'examen " + titre + " a bien été supprimer avec succès");
         this.dismissCountDown = this.dismissSecs;
       }
     },

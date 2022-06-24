@@ -1,106 +1,175 @@
-<template>
-  <div>
-    <b-table hover :items="items" :fields="fields">
-      <template #cell(note)="row">
-        <div v-if="row.item.modifier || !row.item.ajouter">
-          <b-form-spinbutton
-            id="demo-sb"
-            v-model="row.item.note"
-            min="1"
-            max="20"
-            step="0.5"
-          ></b-form-spinbutton>
-        </div>
-        <div v-else>
-          {{ row.item.note }}
-        </div>
-      </template>
-      <template #cell(satisfaction)="row">
-        <div v-if="!row.item.ajouter || row.item.modifier">
-          <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
-            <b-form-radio-group class="pt-2" id="radio-group-2">
-              <b-form-radio
-                v-model="row.item.satisfaction"
-                :aria-describedby="ariaDescribedby"
-                name="some-radios"
-                value="Oui"
-                >Oui</b-form-radio
-              >
-              <b-form-radio
-                v-model="row.item.satisfaction"
-                :aria-describedby="ariaDescribedby"
-                name="some-radios"
-                value="Non"
-                >Non</b-form-radio
-              >
-            </b-form-radio-group>
-          </b-form-group>
-        </div>
-        <div v-else>
-          {{ row.item.satisfaction }}
-        </div>
-      </template>
-      <template #cell(Action)="row">
-        <div v-if="!row.item.ajouter">
-          <b-form>
-            <b-button
-              block
-              variant="success"
-              @click="showMsgBox(row.item, true)"
-            >
-              <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
-              Ajouter
-            </b-button>
-          </b-form>
-        </div>
-        <div v-else>
-          <div v-if="row.item.modifier">
-            <b-button
-              block
-              variant="success"
-              @click="showMsgBox(row.item, false)"
-              type="submit"
-            >
-              <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-              Valider</b-button
-            >
-
-            <b-button block variant="warning" @click="AnnulerModif(row.item)">
-              <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-              Annuler</b-button
-            >
+<template >
+  <section>
+    <h3 class="text-center mt-5 mb-5">
+      {{ titleNote }}
+    </h3>
+    <section v-bind:class="[afficherNotes]">
+      <div
+        v-if="context == 'intervention'"
+        class="d-flex alig-item-center justify-content-between m-4"
+      >
+        <form class="form-inline form" @submit="submit">
+          <input
+            id="saisie"
+            placeholder="Rechercher"
+            type="text"
+            class="form-control"
+            v-model="saisie"
+          />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+          </button>
+        </form>
+        <b-form-select
+          class="select w-50"
+          v-model="selected"
+          :options="options"
+          value-field="item"
+          text-field="name"
+          disabled-field="notEnabled"
+          @input="changePromotion"
+        ></b-form-select>
+      </div>
+      <b-table
+        hover
+        :items="items"
+        :fields="fields"
+        :per-page="perPage"
+        :current-page="currentPage"
+      >
+        <template #cell(note)="row">
+          <div v-if="row.item.modifier || !row.item.ajouter">
+            <b-form-spinbutton
+              id="demo-sb"
+              v-model="row.item.note"
+              min="1"
+              max="20"
+              step="0.5"
+            ></b-form-spinbutton>
           </div>
           <div v-else>
-            <b-button block variant="primary" @click="modifierNotes(row.item)">
-              <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-              Modifier</b-button
-            >
+            {{ row.item.note }}
           </div>
-        </div>
-      </template>
-    </b-table>
-  </div>
+        </template>
+        <template #cell(satisfaction)="row">
+          <div v-if="!row.item.ajouter || row.item.modifier">
+            <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
+              <b-form-radio-group class="pt-2" id="radio-group-2">
+                <b-form-radio
+                  v-model="row.item.satisfaction"
+                  :aria-describedby="ariaDescribedby"
+                  name="some-radios"
+                  value="Oui"
+                  >Oui</b-form-radio
+                >
+                <b-form-radio
+                  v-model="row.item.satisfaction"
+                  :aria-describedby="ariaDescribedby"
+                  name="some-radios"
+                  value="Non"
+                  >Non</b-form-radio
+                >
+              </b-form-radio-group>
+            </b-form-group>
+          </div>
+          <div v-else>
+            {{ row.item.satisfaction }}
+          </div>
+        </template>
+        <template #cell(Action)="row">
+          <div v-if="!row.item.ajouter">
+            <b-form>
+              <b-button
+                block
+                variant="success"
+                @click="showMsgBox(row.item, true)"
+              >
+                <font-awesome-icon :icon="['fas', 'plus-square']" />
+                Ajouter
+              </b-button>
+            </b-form>
+          </div>
+          <div v-else>
+            <div v-if="row.item.modifier">
+              <b-button
+                block
+                variant="success"
+                @click="showMsgBox(row.item, false)"
+                type="submit"
+              >
+                <font-awesome-icon :icon="['fas', 'check-square']" />
+                Valider</b-button
+              >
+
+              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+                <font-awesome-icon :icon="['fas', 'undo-alt']" />
+                Annuler</b-button
+              >
+            </div>
+            <div v-else>
+              <b-button
+                block
+                variant="primary"
+                @click="modifierNotes(row.item)"
+              >
+                <font-awesome-icon :icon="['fas', 'edit']" />
+                Modifier</b-button
+              >
+            </div>
+          </div>
+        </template>
+      </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+        pills
+        size="lg"
+        class="customPagination"
+      ></b-pagination>
+    </section>
+  </section>
 </template>
 
 <script>
 import { noteApi } from "@/_api/note.api.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 export default {
+  props: {
+    context: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
-      titleNote: "sxdaa",
+      titleNote: "Sélectionner un examen",
+      afficherNotes: "d-none",
       boxOne: "",
       tempItemNote: null,
       tempItemSati: null,
+      perPage: 2,
+      currentPage: 1,
+      saisie: "",
+      options: [{ item: "All", name: "Tout les promotions" }],
+      selected: "All",
+      idExamen: null,
       fields: [
         {
           key: "nom",
           label: "Nom",
-          thStyle: { width: "20%" },
+          thStyle: { width: "15%" },
         },
         {
           key: "prenom",
           label: "Prenom",
-          thStyle: { width: "20%" },
+          thStyle: { width: "15%" },
+        },
+        {
+          key: "ville",
+          label: "Nom du centre",
+          thStyle: { width: "8%" },
         },
         { key: "note", label: "Note", thStyle: { width: "10%" } },
         {
@@ -129,15 +198,68 @@ export default {
   created() {
     this.$root.$on("examen", (data) => {
       this.titleNote = data.Titre;
-      noteApi.getAllByIdExamen(data.id).then((response) => {
-        this.assignValueItems(response);
-      });
+      this.afficherNotes = "";
+      this.idExamen = data.id;
+      if (this.context == "intervention") {
+        promotionApi
+          .getAllByInterventionIdForSelect(this.$route.params.id)
+          .then((responce) => {
+            responce.forEach((e) => {
+              let option = {
+                item: e.id,
+                name: e.nom,
+              };
+              this.options.push(option);
+            });
+          });
+        this.getByIntervention();
+      } else if (this.context == "promotion") {
+        this.getByPromotion(this.$route.params.id);
+      }
     });
+  },
+  computed: {
+    rows() {
+      return this.items.length;
+    },
   },
   mounted() {
     this.ajouterSatisfaction();
   },
   methods: {
+    getByIntervention() {
+      noteApi
+        .getAllByInterventionIdAndExamenId(this.$route.params.id, this.idExamen)
+        .then((response) => {
+          this.assignValueItems(response);
+        });
+    },
+    getByPromotion(idPromotion) {
+      noteApi
+        .getAllByPrmotionIdAndExamenId(idPromotion, this.idExamen)
+        .then((response) => {
+          this.assignValueItems(response);
+        });
+    },
+    changePromotion() {
+      this.items = [];
+      if (this.selected != "All") {
+        this.getByPromotion(this.selected);
+      } else {
+        this.getByIntervention();
+      }
+    },
+    submit() {
+      noteApi
+        .getAllByInterventionIdAndExamenId(
+          this.$route.params.id,
+          this.idExamen,
+          this.saisie
+        )
+        .then((response) => {
+          this.assignValueItems(response);
+        });
+    },
     assignValueItems(data) {
       // {id:1, nom: 'Dickerson', prenom: 'Macdonald',note :17,satisfaction :'Oui',
       //  _cellVariants: {  satisfaction: '' },
@@ -166,6 +288,7 @@ export default {
         ajouter: noteData.noteObtenue == 0 ? false : true,
         etudiantNoteId: noteData.etudiantNoteId,
         examenId: noteData.examenId,
+        ville: noteData.ville,
       };
       return item;
     },
@@ -216,14 +339,12 @@ export default {
               etudiantNoteId: item.etudiantNoteId,
               examenId: item.examenId,
             };
-          
+
             noteApi.save(noteDto).then(() => {
-        
-                this.items[index].ajouter = true;
-                this.items[index].modifier = false;
-                this.items[index].version++;
-                this.ajouterSatisfaction();
-           
+              this.items[index].ajouter = true;
+              this.items[index].modifier = false;
+              this.items[index].version++;
+              this.ajouterSatisfaction();
             });
           } else {
             this.items[index].modifier = false;
@@ -287,3 +408,6 @@ export default {
   },
 };
 </script>
+
+<style scoped src="@/assets/styles/CrudListComponent.css">
+</style>

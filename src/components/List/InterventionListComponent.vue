@@ -19,10 +19,6 @@
     <br>
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
-
-
-
-
         <label class="col-1">Intervention</label>
         <input
           class="col-9 form-control"
@@ -31,10 +27,6 @@
           disabled="disabled"
         />
       </div>
-
-
-
-
 
       <form class="form-inline form" @submit="submit">
         <input
@@ -162,9 +154,7 @@ export default {
       interventions: [],
       perPage: 10,
       pageCount: 0,
-
       saisie: "",
-
       intervention_input: "",
     };
   },
@@ -214,7 +204,6 @@ export default {
     clickList(intervention) {
       this.intervention_input = intervention.formationDto.titre;
       this.$emit("click-list", intervention);
-      
     },
     dblClick(intervention){
       let route = this.$route.path.split("/").splice(1);

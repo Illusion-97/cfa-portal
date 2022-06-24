@@ -11,7 +11,7 @@
           disabled="disabled"
         />
       </div>
-      
+
       <form v-bind:class="{'form form-inline': true, 'mt-5 mb-2': isModal}" @submit="submit">
         <input
           id="saisie"
@@ -29,14 +29,30 @@
       <button class="btn btn-primary" v-on:click="createCursus()">
               Ajouter un cursus
             </button>
-
     </div>
+      <div class="updateListCursus">
+        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
+          Mise à jour des cursus 
+        </button>
+        <div class="login-wdg2">
+          <login-wdg-2
+            v-if="showLoginWdg2Card"
+            @logInUser="logInUserWdg2"
+            @wdg2Close="wdg2Close"
+          />
+        </div>
+        <div class="progress"
+          v-if="loading"
+          indeterminate
+        ></div>
+      </div>
 
 
     <table class="table table-striped table-hover text-center">
       <thead v-bind:class="{'thead-dark': isModal}">
         <tr>
           <th>Nom du cursus</th>
+          <th>Durée</th>
           <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
@@ -49,6 +65,7 @@
           @dblclick="dblClick(cursus)">
         
           <td>{{ cursus.titre }}</td>
+          <td>{{ cursus.duree }}</td>
           <!-- <td v-if="isAction">
             <router-link
               class="btn btn-info"
@@ -93,9 +110,12 @@
 
 <script>
 import { cursusApi } from "@/_api/cursus.api.js";
+import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "CursusListComponent",
-  components: {},
+  components: {
+    LoginWdg2,
+  },
   props: {
     isAction: {
       type: Boolean,
@@ -123,6 +143,9 @@ export default {
       saisie: "",
 
       cursus_input: "",
+
+      showLoginWdg2Card: false,
+      loading: false,
     };
   },
   computed: {
@@ -154,7 +177,7 @@ export default {
       let route = this.$route.path.split("/").splice(1);
       if(route[0]== 'admin'){
       this.$router.push({
-        name: "admin_addCursus",
+        name: "admin_cursus_create",
         params: {}
       });
       }
@@ -191,6 +214,23 @@ export default {
       // else if(route[0]== 'formateur') this.$router.push({name:'formateur_cursus_detail', params: { id: cursus.id }});
       else if(route[0]== 'cef') this.$router.push({name:'cef_cursus_detail', params: { id: cursus.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_cursus_detail', params: { id: cursus.id }});
+    },
+
+    // open the card to let the user login to webservice DG2
+    openLoginWdg2() {
+      this.showLoginWdg2Card = true;
+    },
+    // fetch courses from webservice DG2
+    async logInUserWdg2(value) {
+      this.showLoginWdg2Card = false;
+      this.loading = true;
+      await this.cursusApi.fetchAllCursusDG2Http({ logInUser: value });
+      this.loading = false;
+      await this.loadLocations();
+    },
+    // close the card for the login to webservice DG2
+    wdg2Close(value) {
+      this.showLoginWdg2Card = value;
     },
   },
 };

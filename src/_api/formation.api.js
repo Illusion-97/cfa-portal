@@ -16,6 +16,10 @@ export const formationApi = {
   getInterventionsByFormationId,
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getAll() {
   return axios
     .get("/formations", requestOptions.headers())
@@ -23,6 +27,13 @@ function getAll() {
     .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = "") {
   let url = `/${END_POINT}/${page - 1}/${size}/${search}`;
 
@@ -32,6 +43,12 @@ function getAllByPage(page, size, search = "") {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @returns 
+ */
 function getFormation(page, size) {
   const url = `/${END_POINT}/${page - 1}/${size}`;
 
@@ -40,6 +57,11 @@ function getFormation(page, size) {
     .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} form 
+ * @returns 
+ */
 function insertFormation(form) {
   const url = `/${END_POINT}`;
 
@@ -48,6 +70,11 @@ function insertFormation(form) {
     .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getFormationById(id) {
   const url = `/${END_POINT}/${id}`;
 
@@ -56,6 +83,11 @@ function getFormationById(id) {
     .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteFormation(id) { // EN STAND BY DANS LE BACKEND
   const url = `/${END_POINT}/${id}`
   return axios
@@ -64,6 +96,11 @@ function deleteFormation(id) { // EN STAND BY DANS LE BACKEND
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} key 
+ * @returns 
+ */
 function countFormation(key = "") {
   const url = `/${END_POINT}/count/${key}`;
   return axios.get(url, requestOptions.headers())
@@ -71,6 +108,11 @@ function countFormation(key = "") {
     .catch(err => console.error(err))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getFormationByPromoId(id){
   const url = `/${END_POINT}/getFormationByPromoId/${id}`
 
@@ -80,6 +122,11 @@ function getFormationByPromoId(id){
   .catch((error) => console.log(error))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getFormationByCursusId(id){
   const url = `/${END_POINT}/getFormationByCursusId/${id}`
 
@@ -89,6 +136,11 @@ function getFormationByCursusId(id){
   .catch((error) => console.log(error))
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getInterventionsByFormationId(id) {
   const url = `/${END_POINT}/${id}/interventions`;
 
@@ -96,6 +148,12 @@ function getInterventionsByFormationId(id) {
     .then(response => response.data)
     .catch(err => console.error(err))
 }
+
+/**
+ * 
+ * @param {*} logInUser 
+ * @returns 
+ */
 /* test de recup de la requete import dg2 */
 export async function fetchAllFormationsDG2Http(logInUser) {
   return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {

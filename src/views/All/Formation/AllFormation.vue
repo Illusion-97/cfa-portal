@@ -1,22 +1,5 @@
 <template>
   <section>
-    <div class="updateListFormation">
-      <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
-        Mise à jour des formations 
-      </button>
-      <div class="login-wdg2">
-        <login-wdg-2
-          v-if="showLoginWdg2Card"
-          @logInUser="logInUserWdg2"
-          @wdg2Close="wdg2Close"
-        />
-      </div>
-      <div class="progress"
-        v-if="loading"
-        indeterminate
-      ></div>
-    </div>
-    <br>
     <form class="d-flex" @submit="search">
         <input
           id="saisie"
@@ -43,7 +26,6 @@
         <tr>
           <th scope="col">Intitulé</th>
           <th scope="col">Description</th>
-          <th scope="col">Duration</th>
           <!-- <th scope="col">Voir plus</th> -->
         </tr>
       </thead>
@@ -51,7 +33,6 @@
         <tr v-for="formation in items" :key="formation.id" @dblclick="detailFormation(formation.id)">
           <td style="width:15em">{{ formation.titre }}</td>
           <td>{{ formation.contenu }}</td>
-          <td>{{ formation.duration }}</td>
           <!-- <td style="width:10em;">
             <router-link
               :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"
@@ -95,7 +76,6 @@
 //import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import { formationFields } from "@/assets/js/fields.js";
-import LoginWdg2 from "../../../components/LoginWdg2.vue";
 // import BodyTitle from "@/components/utils/BodyTitle.vue";
 // import FormationListComponent from "@/components/List/FormationListComponent.vue";
 export default {
@@ -104,7 +84,6 @@ export default {
     //TableTemplate,
     // BodyTitle,
     // FormationListComponent,
-    LoginWdg2,
   },
   data() {
     return {
@@ -115,8 +94,6 @@ export default {
       pageCount: 0,
       keyword: "",
 
-      showLoginWdg2Card: false,
-      loading: false,
     };
   },
   created() {
@@ -150,23 +127,6 @@ export default {
     },
     detailFormation(id) {
       this.$router.push({name:"admin_formation_detail",params:{id:id}})
-    },
-
-    // open the card to let the user login to webservice DG2
-    openLoginWdg2() {
-      this.showLoginWdg2Card = true;
-    },
-    // fetch courses from webservice DG2
-    async logInUserWdg2(value) {
-      this.showLoginWdg2Card = false;
-      this.loading = true;
-      await this.centreFormationApi.fetchAllFormationsDG2Http({ logInUser: value });
-      this.loading = false;
-      await this.loadLocations();
-    },
-    // close the card for the login to webservice DG2
-    wdg2Close(value) {
-      this.showLoginWdg2Card = value;
     },
 
   },

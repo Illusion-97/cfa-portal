@@ -21,9 +21,15 @@ export const etudiantApi = {
     getCountAbsence,
     getGroupes,
     getInterventionByIdEtudiantByWeek,
-    getNotesByIdEtudiant
+    getNotesByIdEtudiant,
+    getEtudiantsByInterventionIdwithDevoirsAndAbsence,
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */       
 function getById(id) {
     let req = `/etudiants/${id}`;
 
@@ -33,6 +39,13 @@ function getById(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
 function getAllByPage(page, size, search = "") {
     let req = `/etudiants/${page}/${size}/${search}`;
 
@@ -42,6 +55,11 @@ function getAllByPage(page, size, search = "") {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} search 
+ * @returns 
+ */
 function getCount(search = "") {
     let req = `/etudiants/count/${search}`;
 
@@ -51,6 +69,11 @@ function getCount(search = "") {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} form 
+ * @returns 
+ */
 function save(form) {
     let req = "etudiants";
 
@@ -61,6 +84,11 @@ function save(form) {
 
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function deleteEtudiant(id) {
     let req = `etudiants/${id}`;
 
@@ -70,6 +98,11 @@ function deleteEtudiant(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getFormateurReferent(id) {
 
     let req = "etudiants/" + id + "/formateurReferent";
@@ -84,6 +117,11 @@ function getFormateurReferent(id) {
 //affichage du referent de promotion ? tous ? un seul ? si un seul, lequel ?
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getPromotions(id) {
 
     let req = "etudiants/" + id + "/promotions";
@@ -93,7 +131,13 @@ function getPromotions(id) {
         .catch((error) => console.log(error));
 }
 
-
+/**
+ * 
+ * @param {*} id 
+ * @param {*} page 
+ * @param {*} size 
+ * @returns 
+ */
 function getNotesById(id, page, size) {
 
     let req = "etudiants/" + id + "/notes/" + page + "/" + size
@@ -103,6 +147,10 @@ function getNotesById(id, page, size) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getCountNotes() {
 
     let req = `/notes/count`;
@@ -112,6 +160,10 @@ function getCountNotes() {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getCountDevoirs() {
     let req = `/devoirs/count`;
 
@@ -121,6 +173,13 @@ function getCountDevoirs() {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} page 
+ * @param {*} size 
+ * @returns 
+ */
 function getDevoirsById(id, page, size) {
 
     let req = "etudiants/" + id + "/devoirs/" + page + "/" + size
@@ -130,6 +189,13 @@ function getDevoirsById(id, page, size) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} page 
+ * @param {*} size 
+ * @returns 
+ */
 function getAbsencesById(id, page, size) {
 
     let req = "etudiants/" + id + "/absences/" + page + "/" + size
@@ -139,6 +205,10 @@ function getAbsencesById(id, page, size) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @returns 
+ */
 function getCountAbsence() {
 
     let req = `/absences/count`;
@@ -148,6 +218,11 @@ function getCountAbsence() {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getGroupes(id){
     let req = "etudiants/" + id + "/groupes";
     return axios
@@ -156,6 +231,11 @@ function getGroupes(id){
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getInterventionByIdEtudiantByWeek(id){
     let req = "etudiants/" + id + "/interventions/semaines";
     return axios
@@ -164,8 +244,21 @@ function getInterventionByIdEtudiantByWeek(id){
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getNotesByIdEtudiant(id) {
     let req = "notes/note-etudiant/" + id;
+    return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
+
+    let req = "etudiants/"+ id + "/etudiants-abcences-devoirs/" + search;
     return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

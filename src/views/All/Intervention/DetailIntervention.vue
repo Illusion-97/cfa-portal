@@ -4,7 +4,7 @@
       <HeaderFormateur :title="getTitle" :subTitle="getSubTitle" />
     </div>
     <section class="container-fluid mt-4">
-      <b-tabs content-class="mt-3" fill>
+      <b-tabs content-class="mt-3" fill v-model="tabIndex">
         <b-tab active>
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
@@ -33,7 +33,6 @@
                 <h4>
                   {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
                 </h4>
-                <h4>Mourad Mahrane</h4>
               </div>
             </div>
             <div class="separation"></div>
@@ -55,11 +54,12 @@
                     : "Promotion associé"
                 }}
               </h3>
-              <div v-for="p in promo" :key="p.id">
-                <h4>
+              <div class="d-flex flex-column">
+                  <h4 v-for="p in promo" :key="p.id"  class="pt-2">
                   {{ p.nom }}
                 </h4>
               </div>
+             
             </div>
             <div class="separation"></div>
             <div class="d-flex justify-content-start mt-2">
@@ -186,253 +186,63 @@
             <font-awesome-icon :icon="['fas', 'code']" class="icon" />
             Devoirs
           </template>
-          <div>Devoirs</div>
+          <DevoirsInterventionListComponent />
         </b-tab>
-        <b-tab>
+        <b-tab @click="reloadExam()">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
             Examens
           </template>
-          <div>Examens</div>
+          <div>
+            <ExamensPromotionsListCompoenent
+              ref="examen"
+              :examens = "examensByInterventionId"
+              :context="'intervention'"
+            />
+          </div>
         </b-tab>
+                  <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'sort-numeric-up-alt']"
+                class="icon"
+              />
+              Notes
+            </template>
+
+            <div>
+              <AjouterNotes :context="'intervention'" />
+            </div>
+          </b-tab>
       </b-tabs>
     </section>
-    <!-- <h1>Detail Intervention</h1> -->
-    <!-- <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
-    </a> -->
-    <!-- <div id="grid-container">
-      <div
-        id="note-information"
-        class="mx-5 mt-2"
-        v-if="items.noteInfoPersonnel"
-      >
-        <h4>
-          <span style="font-size:13px"> 
-          <font-awesome-icon
-                :icon="['far', 'sticky-note']"
-                class="icon text-dark"/>
-          </span> 
-            Note d'information
-        </h4>
-        <p class="mt-4">{{ this.items.noteInfoPersonnel }}</p>
-      </div>
-      <div class="card" id="card-detail">
-        <div class="card-header">
-          <div class="float-right dropstart" v-if="isAdmin || isReferent">
-            <a class="" href="#" id="navbardrop" data-toggle="dropdown">
-              <font-awesome-icon
-                :icon="['fas', 'ellipsis-v']"
-                class="icon text-dark"
-              />
-            </a>
-            <div class="dropdown-menu rounded-0">
-              <span
-                v-on:click="modifierIntervention"
-                class="icon-link dropdown-item"
-              >
-                Modifier
-              </span>
-              <span
-                v-on:click="deleteIntervention(interventionId)"
-                class="icon-link dropdown-item"
-              >
-                Supprimer
-              </span>
-            </div>
-          </div>
-          <h2>{{ items.formationDto.titre }}</h2>
-        </div>
-        <div class="card-body">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <th>Intitulé de la formation</th>
-                <td>{{ items.formationDto.titre }}</td>
-              </tr>
-              <tr>
-                <th>Dates</th>
-                <td>
-                  Du
-                  <span class="font-weight-bold">
-                    {{ items.dateDebut | formatDate }}
-                  </span>
-                  au
-                  <span class="font-weight-bold">
-                    {{ items.dateFin | formatDate }}
-                  </span>
-                </td>
-              </tr>
-               <tr>
-                <th>Date de fin</th>
-                <td>{{ items.dateFin | formatDate }}</td>
-              </tr> -->
-    <!-- <tr>
-                <th>Formateurs affecté</th>
-                <td v-if="trainers.length > 0">
-                  <ul class="list-style-none" v-for="t in trainers" :key="t.id">
-                    <li>{{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}</li>
-                  </ul>
-                </td>
-                <td v-else>
-                  <span>Aucun formateurs affecté</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>  -->
-
-    <!-- <div class="mon-container-body">
-      <div class="mon-container-tuile">
-        <span
-          :class="{ ma_tuile: true, activ: showEtudiant }"
-          class="mr-5"
-          @click="changementOnglet(1)"
-        >
-          Etudiants
-        </span>
-        <span
-          :class="{ ma_tuile: true, activ: showPromotion }"
-          class="mr-5"
-          @click="changementOnglet(2)"
-        >
-          Promotions
-        </span>
-        <span
-          :class="{ ma_tuile: true, activ: showDevoir }"
-          class="mr-5"
-          @click="changementOnglet(3)"
-        >
-          Devoirs
-        </span>
-        <span
-          :class="{ ma_tuile: true, activ: showAbsence }"
-          @click="changementOnglet(4)"
-        >
-          Absences
-        </span>
-      </div>
-
-      Etudiants -->
-    <!-- <div :class="{ ma_fenetre: true, collapse: !showEtudiant }">
-        <table class="table text-center table-sm table-custom">
-          <thead>
-            <tr>
-              <th scope="col">Nom</th>
-              <th scope="col">Prenom</th>
-              <th scope="col">Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="stud in students"
-              :key="stud.id"
-              @click="goToStudentDetail(stud.id)"
-              title="Cliquez pour plus de detail"
-            >
-              <td>{{ stud.utilisateurDto.nom }}</td>
-              <td>{{ stud.utilisateurDto.prenom }}</td>
-              <td>{{ stud.utilisateurDto.login }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div> -->
-
-    <!-- Promotions -->
-    <!-- <div :class="{ ma_fenetre: true, collapse: !showPromotion }">
-        <ul class="list-style-none text-center">
-          <li v-for="promotion in promo" :key="promotion.id">
-            <router-link
-              :to="goToPromotionDetail(promotion.id)"
-              target="_blank"
-              title="Cliquez pour plus de detail"
-              class="text-dark"
-            >
-              {{ promotion.nom }}
-            </router-link>
-          </li>
-        </ul>
-      </div> -->
-    <!-- Devoirs -->
-    <!-- <div :class="{ ma_fenetre: true, collapse: !showDevoir }">
-        <p v-if="assignements.length == 0" class="text-center">Aucun devoirs</p>
-        <table class="table text-center table-sm table-custom" v-else>
-          <thead>
-            <tr>
-              <th scope="col">Enonce</th>
-              <th scope="col">Date de debut</th>
-              <th scope="col">Date de fin</th>
-              <th><span @click="ajouterDevoir()">+</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="assignement in assignements"
-              :key="assignement.id"
-              @click="goToDevoirDetail(assignement.id)"
-              title="Cliquez pour plus de detail"
-            >
-              <td>{{ assignement.enonce }}</td>
-              <td>{{ assignement.dateDebut | formatDate }}</td>
-              <td>{{ assignement.dateFin | formatDate }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div> -->
-    <!-- Absences -->
-    <!-- <div :class="{ ma_fenetre: true, collapse: !showAbsence }">
-        <div class="card card-body border-0">
-          <table class="table text-center table-sm table-custom">
-            <thead>
-              <tr>
-                <th scope="col">Etudiant</th>
-                <th scope="col">Date debut</th>
-                <th scope="col">Date Fin</th>
-                <th><span @click="ajouterAbsence()">+</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="absence in absences"
-                :key="absence.id"
-                @click="goToAbsenceDetail(absence.id)"
-                title="Cliquez pour plus de detail"
-              >
-                <td>
-                  {{ absence.etudiantDto.utilisateurDto.prenom }} {{ absence.etudiantDto.utilisateurDto.nom }}
-                </td>
-                <td>{{ absence.dateDebut | formatDate }}</td>
-                <td>{{ absence.dateFin | formatDate }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
+import { examenApi } from "@/_api/examen.api.js";
 import { interventionApi } from "@/_api/intervention.api.js";
+import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 // import { absencesApi } from "@/_api/absence.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
+import DevoirsInterventionListComponent from "@/components/List/DevoirsInterventionListComponent";
+import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
+
 export default {
   name: "DetailIntervention",
   components: {
     HeaderFormateur,
     EtudiantsInterventionListComponent,
+    DevoirsInterventionListComponent,
+    ExamensPromotionsListCompoenent,
+    AjouterNotes,
   },
   data() {
     return {
+      tabIndex:1,
+      examensByInterventionId: [],
       interventionId: this.$route.params.id,
       titre: "",
       items: {
@@ -443,6 +253,8 @@ export default {
       assignements: [],
       absences: [],
       trainers: [],
+      devoirs: [],
+      responseApi: [],
       status,
 
       onglet: 1,
@@ -493,13 +305,27 @@ export default {
   },
   created() {
     this.getId();
-    //On a besoin de this.students.length pour getAbsences
     this.getStudents();
-    this.getAssignement();
-    this.getTrainer();
+    this.getTrainer();  
+    this.getExamensByInterventionId();
+    this.$root.$on("afficherNotes", (data) => {
+      if (data) {
+        this.tabIndex++;
+        this.$root.$emit("afficherNotes", false);
+      }
+    });
   },
 
   methods: {
+    getExamensByInterventionId(){
+      examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
+          this.examensByInterventionId = response;
+      })
+    },
+    reloadExam() {
+      this.$refs.examen.assigneTableItems(this.examensByInterventionId);
+     
+    },
     modifierInfoPerso() {
       this.modifierInfo = true;
       this.textInfo = this.items.noteInfoPersonnel;
@@ -512,7 +338,6 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    // Intervention
     getId() {
       interventionApi.getInterventionById(this.interventionId).then((data) => {
         this.status = data.status;
@@ -524,8 +349,7 @@ export default {
       // this.items.noteInfoPersonnel = this.textInfo;
       interventionApi
         .update(this.items)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
         })
         .catch((err) => {
           console.log(err);
@@ -550,6 +374,7 @@ export default {
         }
       });
     },
+   
     // Etudiant
     getStudents() {
       interventionApi
@@ -588,12 +413,12 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
-    // Devoir
-    getAssignement() {
-      interventionApi
-        .findAssignementByInterventionId(this.interventionId)
-        .then((data) => (this.assignements = data));
-    },
+    // // Devoir
+    // getAssignement() {
+    //   interventionApi
+    //     .findAssignementByInterventionId(this.interventionId)
+    //     .then((data) => (this.assignements = data));
+    // },
     goToDevoirDetail(id) {
       // const route = this.$route.path.split("/").splice(1);
       let routeData;
