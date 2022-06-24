@@ -51,6 +51,7 @@
               Interventions
             </template>
             <div id="interventions">
+                <b-button variant="primary" class="m-4" @click="getGrille">Télècharger grille de positionnement</b-button>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -131,13 +132,14 @@ export default {
       // },
       tabIndex: 1,
       promotionId: this.$route.params.id,
-      promotion: {
-        cursusDto: {},
-        referentPedagogiqueDto: {},
-        cefDto: { utilisateurDto: {} },
-        interventionsDto: [{ formationDto: {} }],
-        etudiantDto: [{ utilisateurDto: {} }],
-      },
+      // promotion: {
+      //   cursusDto: {},
+      //   referentPedagogiqueDto: {},
+      //   cefDto: { utilisateurDto: {} },
+      //   interventionsDto: [{ formationDto: {} }],
+      //   etudiantDto: [{ utilisateurDto: {} }],
+      // },
+      promotion : [],
       itemsEtudients: [],
       ville: "",
       onglet: 1,
@@ -147,6 +149,21 @@ export default {
 
   computed: {},
   methods: {
+    async getGrille(){
+     let response =  await promotionApi.getGrillePositionnement(this.promotionId);
+           console.log(response);
+    
+      const blob = new Blob([response], { type: "application/pdf" });
+
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob)
+      link.download = "GrillePositionnement" +  this.promotion.nom + ".pdf";
+      this.$router.push(link.href)
+      link.click();
+      URL.revokeObjectURL(link.href);
+      console.log("URL => " +  link.href)
+      console.log("after click");
+    },
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.promotion.examensDto);
     },
@@ -197,6 +214,7 @@ export default {
     promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
       this.promotion = response;
     });
+
     this.$root.$on("afficherNotes", (data) => {
       if (data) {
         this.tabIndex++;

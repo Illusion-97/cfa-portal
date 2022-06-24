@@ -40,7 +40,6 @@
           <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
         </button>
       </form>
-
       <router-link
         class="btn btn-info"
         :to="{ name: 'admin_intervention_create' }"
@@ -189,7 +188,7 @@ export default {
     refreshList() {
       interventionApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.interventions = response));
+        .then((response) => {this.interventions = response });
       interventionApi
         .getCount()
         .then(
