@@ -12,6 +12,7 @@ export const examenApi = {
   update,
   getLivretEvaluation,
   getExamensByInterventionId,
+  getFileExamen,
 };
 
 /**
@@ -105,5 +106,15 @@ function getLivretEvaluation(id) {
   return axios
   .get(req, requestOptions.headers())
   .then(response => response.data)
+  .catch((error) => console.log(error));
+}
+/***
+ * 
+ */
+function getFileExamen(id){
+  let req = "examens/file/" + id;
+  return axios
+  .get(req, requestOptions.headers(),{ responseType:"blob"})
+  .then(response => response)
   .catch((error) => console.log(error));
 }

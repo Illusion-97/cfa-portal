@@ -61,13 +61,16 @@
                   <strong class="mr-auto">Rappel Positionnements</strong>
                 </div>
               </template>
-              <div>
-                <div>0 Absent</div>
-                <div>1 Aucune connaissance.</div>
-                <div>2 Notions.</div>
-                <div>3 En cours d’acquisition.</div>
-                <div>4 Acquis.</div>
-                <div>5 Niveau Avancé.</div>
+              <div v-for="niveau in niveaux" :key="niveau.valeur">
+                <div>
+                  <span
+                    class="span-positionnement"
+                    v-bind:style="{ background: niveau.codeCouleur }"
+                  >
+                    {{ niveau.valeur }}</span
+                  >
+                  <span> {{ niveau.descreption }}.</span>
+                </div>
               </div>
             </b-toast>
             Positionnements
@@ -302,6 +305,8 @@ import { etudiantApi } from "@/_api/etudiant.api.js";
 import { absencesApi } from "@/_api/absence.api.js";
 import { positionnementApi } from "@/_api/positionnements.api.js";
 import { devoirApi } from "@/_api/devoir.api.js";
+import { niveauApi } from "@/_api/niveau.api.js";
+
 export default {
   name: "EtudiantsInterventionListComponent",
   components: {},
@@ -314,6 +319,7 @@ export default {
       dismissSecs: 5,
       dismissCountDown: null,
       tempPositionnementFin: null,
+      niveaux: [],
       formModel: {
         type: "RETARD",
         dateDebut: null,
@@ -431,11 +437,10 @@ export default {
   },
   created() {
     this.getItems();
-    console.log();
-    let now = new Date();
-    let nowDate =
-      now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate();
-    console.log(nowDate);
+    this.getNiveaux();
+    // let now = new Date();
+    // let nowDate =
+    //   now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate();
     //2022-05-04
   },
   mounted() {},
@@ -446,6 +451,11 @@ export default {
   },
 
   methods: {
+    getNiveaux() {
+      niveauApi.getAll().then((responce) => {
+        this.niveaux = responce;
+      });
+    },
     ajouetrAbsence(item) {
       let dateDebut = new Date(
         this.formModel.dateDebut + ":" + this.formModel.tempDebut
@@ -489,7 +499,6 @@ export default {
           this.saisie
         )
         .then((response) => {
-          console.log(response);
           let allDevoirs = new Array();
           if (response.length > 0) {
             let devoirsEtudiant = response[0].devoirs;
@@ -522,13 +531,13 @@ export default {
                 prenom: e.etudiant.prenom,
                 nomCentreFormation: e.etudiant.nomCentreFormation,
                 depart:
-                  e.niveauDebut != null ? e.niveauDebut.valeur : "Pas défint",
+                  e.niveauDebut != null ? e.niveauDebut.valeur : 0,
                 fin: e.niveauFin != null ? e.niveauFin.valeur : 0,
                 _showDetails: false,
                 itemsAbsences: itemsAbsences,
                 itemsDevoirs: itemsDevoirs,
                 bgDepart:
-                  e.niveauDebut != null ? e.niveauDebut.codeCouleur : "",
+                  e.niveauDebut != null ? e.niveauDebut.codeCouleur : "black",
                 bgFin: e.niveauFin != null ? e.niveauFin.codeCouleur : "",
                 modifierPositionnement: false,
                 ajouterPositionnement: e.niveauFin != null ? false : true,
@@ -539,13 +548,19 @@ export default {
               setTimeout(() => {
                 for (let i = 0; i < e.devoirs.length; i++) {
                   let itemDevoir = {
-                    consigne: allDevoirs[i].consigne.substring(0,allDevoirs[i].consigne.length/10) + "...",
+                    consigne:
+                      allDevoirs[i].consigne.substring(
+                        0,
+                        allDevoirs[i].consigne.length / 10
+                      ) + "...",
                     date: this.getDateFormat(
                       allDevoirs[i].dateDebut,
                       allDevoirs[i].dateFin
                     ),
                     justificatif: e.devoirs[i].justificatif,
-                    dateRendu: new Date(e.devoirs[i].dateRendu).toLocaleString('fr-FR'),
+                    dateRendu: new Date(e.devoirs[i].dateRendu).toLocaleString(
+                      "fr-FR"
+                    ),
                   };
                   itemsDevoirs.push(itemDevoir);
                 }
@@ -560,11 +575,19 @@ export default {
     ajouterPositionnement(item) {
       let positionnement = item.positionnement;
       positionnement.niveauFin = item.fin;
-      console.log(positionnement);
-      positionnementApi.save(positionnement).then((responce) => {
-        console.log(responce);
+      positionnement.niveauDebut = item.depart;
+
+      positionnementApi.save(positionnement).then(() => {
         item.modifierPositionnement = false;
+        item.bgFin = this.getBgPositionnement(item.fin);
       });
+    },
+    getBgPositionnement(niveau) {
+      for (let i = 0; i < this.niveaux.length; i++) {
+        if (this.niveaux[i].valeur == niveau) {
+          return this.niveaux[i].codeCouleur;
+        }
+      }
     },
     modifier(item) {
       item.modifierPositionnement = true;
@@ -609,6 +632,13 @@ export default {
   width: 50px;
   background-color: black;
   color: white;
+}
+.span-positionnement {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+  color: rgb(149, 147, 147);
+  font-weight: bold;
 }
 </style>
 <style >

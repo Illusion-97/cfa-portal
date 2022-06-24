@@ -5,6 +5,7 @@ import App from './App.vue'
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import vuetify from '@/plugins/vuetify'
+import DatetimePicker from 'vuetify-datetime-picker'
 import './plugins/vuetify'
 import './plugins/bootstrap-vue'
 import './plugins/fontawesome-vue'
@@ -21,6 +22,8 @@ import Paginate from 'vuejs-paginate'
 
 let bootstrap = require('bootstrap');
 Vue.use(bootstrap)
+
+Vue.use(DatetimePicker)
 
 global.jQuery = jQuery
 Vue.config.productionTip = false

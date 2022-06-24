@@ -46,7 +46,7 @@ export async function getAll() {
  * @returns 
  */
 
-export async function save(positionnements) {
+ function save(positionnements) {
   return axios
     .post(`${END_POINT}`, positionnements, requestOptions.headers())
     .then((response) => response.data)

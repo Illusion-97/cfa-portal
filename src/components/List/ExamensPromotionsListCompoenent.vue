@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div>
-      <AddExamen ref="addExamen" />
+    <div v-if="context == 'intervention'">
+      <AddExamen
+        ref="addExamen"
+        :context="context"
+        @updateExamens="updateExamens"
+      />
     </div>
-    <div>
+    <div class="mt-4">
       <b-alert
         :show="dismissCountDown"
         dismissible
@@ -14,11 +18,9 @@
         {{ message }}
       </b-alert>
 
-    <!-- {{examens}} -->
-
+      <!-- {{examens}} -->
 
       <b-table :items="items" :fields="fields" striped responsive="sm">
-       
         <!-- //details -->
         <template #cell(Details)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
@@ -122,7 +124,11 @@
           </div>
 
           <p v-else>
-            <font-awesome-icon :icon="['fas', 'download']" class="icon" />
+            <b-button
+              @click.prevent="getFile(row.item.id, row.item.Piece_jointe)"
+            >
+              <font-awesome-icon :icon="['fas', 'download']" class="icon" />
+            </b-button>
           </p>
         </template>
         <!-- Action -->
@@ -145,6 +151,7 @@
           </div>
           <div v-else>
             <b-button
+              v-if="context == 'intervention'"
               block
               variant="primary"
               v-bind:class="classObject(row.item, true)"
@@ -162,7 +169,12 @@
               <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
               Ajouter notes</b-button
             >
-            <b-button block variant="danger" @click="spprimerExamen(row.item)">
+            <b-button
+              v-if="context == 'intervention'"
+              block
+              variant="danger"
+              @click="spprimerExamen(row.item)"
+            >
               <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
               Supprimer</b-button
             >
@@ -207,6 +219,10 @@ export default {
   props: {
     examens: {
       type: Array,
+    },
+    context: {
+      type: String,
+      default: "",
     },
   },
 
@@ -290,9 +306,7 @@ export default {
   created() {
     if (this.examens != undefined) {
       this.assigneTableItems(this.examens);
-      
     }
-
     activiteTypeApi
       .getAllByIdPromotion(this.$route.params.id)
       .then((response) => {
@@ -300,11 +314,33 @@ export default {
         this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
         this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
       });
-
   },
 
   methods: {
-     
+    getFile(id, pieceJointe) {
+      examenApi.getFileExamen(id).then((response) => {
+        {
+          let url = URL.createObjectURL(
+            new Blob([response.data], { type: "application/pdf" })
+          );
+          
+          console.log(pieceJointe);
+          console.log(response);
+          const link = document.createElement("a");
+          link.download = "pieceJointe.pdf";
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        }
+      });
+    },
+    updateExamens() {
+      examenApi
+        .getExamensByInterventionId(this.$route.params.id)
+        .then((response) => {
+          this.assigneTableItems(response);
+        });
+    },
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
       // selectedActiviteType[i] 4 ou 7 ou 8
@@ -403,15 +439,9 @@ export default {
         })
         .then((value) => {
           if (value) {
-            examenApi.deleteExamen(item.id).then((respose) => {
-              if (respose === "suppression effectuée") {
-                for (let i = 0; i < this.items.length; i++) {
-                  let itemToPop = this.items[i];
-                  if ((itemToPop.id = item.id)) {
-                    this.items.pop(itemToPop);
-                    break;
-                  }
-                }
+            examenApi.deleteExamen(item.id).then((respnose) => {
+              if (respnose === "suppression effectuée") {
+                this.updateExamens();
                 this.showAlert(item.Titre, false, false);
               }
             });
@@ -422,7 +452,6 @@ export default {
         });
     },
     onSubmit(item) {
-      let index = this.items.indexOf(item);
       let examenDtoSave = {
         id: item.id,
         version: item.version,
@@ -432,8 +461,9 @@ export default {
         pieceJointe: item.Piece_jointe,
         dateExamen: item.Date,
         activiteTypesId: item.selectedActiviteType,
-        promotionId: this.$route.params.id,
+        interventionId: this.$route.params.id,
         competencesProfessionnellesId: item.selectedCompetencesPro,
+        promotionsId: [],
       };
       if (this.changeFile) {
         var bodyFormData = new FormData();
@@ -441,17 +471,14 @@ export default {
         bodyFormData.append("file", this.file);
         examenApi.save(bodyFormData).then((response) => {
           this.showAlert(response.titre, false);
+          this.updateExamens();
         });
       } else {
         examenApi.update(examenDtoSave).then((response) => {
           this.showAlert(response.titre, false);
-          this.items[index].version++;
-          this.$nextTick(() => {
-            this.items[index].version++;
-            this.items[index].selectedActiviteType =
-              examenDtoSave.activiteTypesId;
-          });
+          this.updateExamens();
         });
+        ("");
       }
       item.modifier = false;
       item._showDetails = false;

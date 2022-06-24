@@ -3,9 +3,8 @@
     <div class="d-flex justify-content-end">
       <b-button
         variant="secondary"
-        v-b-toggle.collapseFormulaire
-        v-show="show"
-        @click="show = !show"
+        :aria-expanded="visible ? 'true' : 'false'"
+        @click="visible = !visible"
         class="btnAddExamen"
         ><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
         Ajouter un examen</b-button
@@ -21,7 +20,7 @@
       >
         {{ message }}
       </b-alert>
-      <b-collapse id="collapseFormulaire">
+      <b-collapse v-model="visible" id="collapseFormulaire">
         <section class="section-form d-flex flex-column justify-content-around">
           <div class="d-flex flex-row">
             <label class="libelle-width">Titre de l'examen :</label>
@@ -131,9 +130,7 @@
             </b-form>
             <b-button
               class="btnAddExamen btnValiderAnnuler btn-warning"
-              v-b-toggle.collapseFormulaire
-              v-show="!show"
-              @click="show = !show"
+              v-b-toggle.collapseFormulaire     
               ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
               Annuler</b-button
             >
@@ -149,12 +146,19 @@
 import { examenApi } from "@/_api/examen.api.js";
 
 export default {
+  props: {
+    context: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       selectedActivitesTypes: [],
       selectedCompConcernees: [],
       dismissSecs: 5,
       dataForBlocsConcernes: [],
+      visible: false,
       examenDto: {
         id: 0,
         version: 0,
@@ -162,14 +166,14 @@ export default {
         descriptif: null,
         duree: null,
         dateExamen: null,
-        promotionId: null,
+        interventionId: null,
         pieceJointe: null,
         activiteTypesId: [],
         competencesProfessionnellesId: [],
+        promotionsId: [],
       },
       message: "",
       file: null,
-      show: true,
       hidden: false,
       optionsBlocsCompetences: [],
       optionsCheckbox: [],
@@ -180,7 +184,12 @@ export default {
     onSubmit(event) {
       event.preventDefault();
       var bodyFormData = new FormData();
-      this.examenDto.promotionId = this.$route.params.id;
+      if (this.context == "promotion") {
+        this.examenDto.interventionId = "via select";
+      } else if (this.context == "intervention") {
+        this.examenDto.interventionId = this.$route.params.id;
+      }
+
       this.examenDto.activiteTypesId = this.selectedActivitesTypes;
       this.examenDto.competencesProfessionnellesId =
         this.selectedCompConcernees;
@@ -189,6 +198,10 @@ export default {
       bodyFormData.append("file", this.file);
       examenApi.save(bodyFormData).then((response) => {
         this.showAlert(response.titre, false);
+        setTimeout(() => {
+          this.$emit("updateExamens");
+          this.visible = false;
+        }, 500);
       });
       //  .catch((error) => this.showAlert(response.titre, true));
     },

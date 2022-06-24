@@ -30,6 +30,9 @@
                             v-model="row.item.dateDebut"
                             class="mb-2">
                         </b-form-datepicker>
+ 
+
+ 
                     </div>
                     <div v-else>
                         {{row.item.dateDebut}}
@@ -94,6 +97,7 @@ export default {
     },
     data(){
         return{
+            datetime: new Date(),
             transItem:{
                 consigne: "",
                 dateDebut: null,
@@ -190,6 +194,8 @@ export default {
                 version: item.version,
              } 
             item.modifier = true;
+            item.dateDebut = new Date(item.dateDebut)
+            console.log(item.dateDebut)
         },  
         AnnulerModif(item, transItem) {
             item.consigne =  transItem.consigne,
@@ -278,5 +284,13 @@ export default {
         width: 100%;
         /* margin: auto; */
     }
+    .vAppClass{
+        height : 5vh;
+        width: 100%;
+    }
+    .monVRow{
+        width: 200px;
+    }
+
 
 </style>
