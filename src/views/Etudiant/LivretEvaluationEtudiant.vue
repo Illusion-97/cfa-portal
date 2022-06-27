@@ -1,14 +1,14 @@
 <template>
   <div class="container">
-    <div>
-      <h5>Livret d'évaluation</h5>
-      <!-- <b-button variant="success" size="sm">
-        <font-awesome-icon :icon="['fas', 'download']" class="btn-download" />
-        Télécharger</b-button> -->
-    </div>
-    <div>
-      <b-table small head-variant="light" :items="tableauComputed"></b-table>
-    </div>
+    <h5>Livret d'évaluation</h5>
+    <b-table small head-variant="light" :items="tableauComputed"> </b-table>
+    <br />
+    <b-table
+      small
+      head-variant="light"
+      :items="tableauComputed"
+      :fields="fields"
+    ></b-table>
   </div>
 </template>
 
@@ -20,7 +20,37 @@ export default {
   data() {
     return {
       livret: [],
+      fields: [
+        {
+          key: "Promotion",
+          label: "Promotion",
+          thStyle: { width: "25%" },
+          sortable: true,
+        },
+        {
+          key: "TODO",
+          label: "PDF",
+          thStyle: { width: "25%" },
+          formatter: "formatName",
+        },
+        {
+          key: "Satisfaction",
+          label: "Satisfation",
+          thStyle: { width: "25%" },
+        },
+        {
+          key: "Observation",
+          label: "Observation",
+          thStyle: { width: "25%" },
+        },
+      ],
     };
+  },
+
+  methods: {
+    formatName() {
+      return "ICONE POUR DL PDF";
+    },
   },
 
   computed: {
@@ -45,7 +75,6 @@ export default {
     examenApi
       .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.livret = data));
-
   },
 };
 </script>

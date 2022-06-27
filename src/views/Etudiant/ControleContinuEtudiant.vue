@@ -2,8 +2,8 @@
   <div class="container">
     <h5>Contrôles continus</h5>
 
-    <!-- <b-table small head-variant="light" :items="tableauComputed"></b-table>
-    <br /> -->
+    <b-table small head-variant="light" :items="tableauComputed"></b-table>
+    <br />
 
     <div v-for="(item, index) in notesEtudiant2" :key="item" class="redAcc">
       <b-button v-b-toggle.collapse-1 variant="primary">
@@ -40,23 +40,28 @@ export default {
         {
           key: "examen",
           label: "Examen",
-          sortable: true,
           thStyle: { width: "70%" },
         },
         {
           key: "date",
           label: "Date",
-          sortable: true,
           thStyle: { width: "20%" },
         },
         {
           key: "noteObtenue",
           label: "Note",
-          sortable: true,
           thStyle: { width: "10%" },
+          formatter: "formatName"
         },
       ],
     };
+  },
+
+  methods: {
+    formatName(value) {
+      alert(value)
+      return value + "/20";
+    },
   },
 
   computed: {
@@ -69,7 +74,7 @@ export default {
           Promotion: item.promotion,
           Titre: item.examen,
           Date: item.date,
-          Note: item.noteObtenue,
+          Note: item.noteObtenue + "/20",
         });
       });
       return tab;

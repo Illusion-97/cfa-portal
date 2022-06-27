@@ -138,14 +138,13 @@ button {
   max-width: 20px;
 }
 
-.col-10, 
-.col-2{
+.col-10,
+.col-2 {
   padding-top: 0;
   padding-bottom: 0;
 }
 
-.m-top{
-  margin-top: 39px ;
+.m-top {
+  margin-top: 39px;
 }
-
 </style>
