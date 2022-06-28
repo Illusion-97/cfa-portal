@@ -2,13 +2,12 @@
   <div class="container">
     <h5>Contrôles continus</h5>
 
-    <b-table small head-variant="light" :items="tableauComputed"></b-table>
-    <br />
+    <!-- <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
 
-    <div v-for="(item, index) in notesEtudiant2" :key="item" class="redAcc">
+    <div v-for="(item, index) in notesEtudiant" :key="item" class="redAcc">
       <b-button v-b-toggle.collapse-1 variant="primary">
         <!-- <b-button v-b-toggle="'accordion '+index" variant="primary"> -->
-        <div><strong>Promotion :</strong> {{ index }}</div>
+        <div><strong>Promotion :</strong> {{ index.slice(1).slice(0, index.length - 2) }}</div>
         <div>
           <i class="bi bi-caret-down-square-fill"></i>
         </div>
@@ -35,7 +34,8 @@ export default {
   data() {
     return {
       notesEtudiant: [],
-      notesEtudiant2: [],
+      // notesEtudiant2: [],
+      
       fields: [
         {
           key: "examen",
@@ -51,7 +51,7 @@ export default {
           key: "noteObtenue",
           label: "Note",
           thStyle: { width: "10%" },
-          formatter: "formatName"
+          // formatter: "formatName",
         },
       ],
     };
@@ -59,26 +59,26 @@ export default {
 
   methods: {
     formatName(value) {
-      alert(value)
-      return value + "/20";
+      let res = "";
+      res = value + "/20";
+      return res;
     },
   },
 
   computed: {
-    tableauComputed() {
-      let notesEtudiant = this.notesEtudiant;
-      let tab = [];
-
-      notesEtudiant.forEach(function (item) {
-        tab.push({
-          Promotion: item.promotion,
-          Titre: item.examen,
-          Date: item.date,
-          Note: item.noteObtenue + "/20",
-        });
-      });
-      return tab;
-    },
+    // tableauComputed() {
+    //   let notesEtudiant = this.notesEtudiant;
+    //   let tab = [];
+    //   notesEtudiant.forEach(function (item) {
+    //     tab.push({
+    //       Promotion: item.promotion,
+    //       Titre: item.examen,
+    //       Date: item.date,
+    //       Note: item.noteObtenue + "/20",
+    //     });
+    //   });
+    //   return tab;
+    // },
   },
 
   created() {
@@ -86,9 +86,9 @@ export default {
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.notesEtudiant = data));
 
-    etudiantApi
-      .getNotesByIdEtudiant2(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.notesEtudiant2 = data));
+    // etudiantApi
+    //   .getNotesByIdEtudiant2(this.$store.getters.getUtilisateur.etudiantDto.id)
+    //   .then((data) => (this.notesEtudiant2 = data));
   },
 };
 </script>

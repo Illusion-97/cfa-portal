@@ -19,6 +19,7 @@ export default {
   name: "LivretEvaluationEtudiant",
   data() {
     return {
+      test: "['BLABLABLA']",
       livret: [],
       fields: [
         {
@@ -60,7 +61,7 @@ export default {
 
       livret.forEach(function (item) {
         tab.push({
-          Promotion: item.promotion,
+          Promotion: item.promotion[0],
           Examen: item.examen,
           Competence: item.competences[0],
           Satisfaction: item.satisfactions[0],
