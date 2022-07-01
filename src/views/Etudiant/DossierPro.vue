@@ -4,14 +4,29 @@
       Constituer un dossier professionnel :
       <span>{{ data.item.titre }}</span>
     </h5>
+    
     <div v-for="(item, index) in activites" :key="item">
       <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
       <b-form-select
         v-model="selected[index]"
         :options="optionsAT(item)"
-        @change="checkAT(index)"
+        @change="checkAT(index, item, $event)"
       ></b-form-select>
+
+      <!-- SELECT TEST -->
+      <b-form-select v-model="selected[index]">
+        <option :value="null" disabled>-- Test --</option>
+        <option
+          v-for="i in item.competencesProfessionnellesDto"
+          :value="'aep'"
+          :key="i"
+          :id="i.id"
+          @change="testAT($event)"
+        >
+          {{ i.libelle }}
+        </option>
+      </b-form-select>
 
       <!-- ACTIVITES TYPES MODALE -->
       <b-modal
@@ -23,6 +38,9 @@
         hide-footer
         title="TITRE"
       >
+        {{ transAT }}
+        <br />
+        <br />
         <!-- FULLACCORDION -->
         <div>
           <!-- ACCORDEON EXP 1 -->
@@ -176,122 +194,15 @@
 
         <!-- BTN SAVE -->
         <div id="div-save">
-                <b-button size="sm" variant="success" type="submit">
-                  <font-awesome-icon :icon="['fas', 'check-circle']" />
-                  <span class="icon-right">Enregistrer</span>
-                </b-button>
+          <b-button size="sm" variant="success" type="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Enregistrer</span>
+          </b-button>
         </div>
       </b-modal>
 
       <br />
     </div>
-
-    <label>
-      <h5>Ancien Code</h5>
-      <strong>Cursus</strong>
-    </label>
-
-    <!-- <br />
-    <br />
-    ***********
-    <br />
-    ***********
-    <br />
-    ***********
-    <br />
-    <br /> -->
-
-    <!-- <b-form-select
-        v-model="selectActivite"
-        :options="optionsActivite"
-        @change="checkActiviteType1"
-        @submit="onSubmit"
-      ></b-form-select> -->
-
-    <!-- SELECT Principal-->
-    <b-form-select v-model="select1" :options="optionsSelect1"></b-form-select>
-
-    <!-- SELECT CDA-->
-    <div v-if="select1 == 'cda'">
-      <div id="div-label">
-        <label for=""><strong>Activités types</strong></label>
-      </div>
-
-      <b-form-select
-        v-model="selectActivite"
-        :options="optionsActivite"
-        @change="checkActiviteType1"
-        @submit="onSubmit"
-      ></b-form-select>
-
-      <select class="form-select custom-select">
-        <option value="cda">Activité type 2 CDA</option>
-        <option value="cda">Activité enregistrée 1</option>
-        <option value="cda">Activité enregistrée 2</option>
-        <option value="cda">Activité enregistrée 3</option>
-        <option value="cda">{{ test() }}</option>
-      </select>
-
-      <select class="form-select custom-select">
-        <option value="mpil">Activité type 3 CDA</option>
-        <option value="mpil">Activité enregistrée 1</option>
-        <option value="mpil">Activité enregistrée 2</option>
-        <option value="mpil">Activité enregistrée 3</option>
-      </select>
-
-      <select
-        @change="checkAnnexesCDA"
-        v-model="annexesCDA"
-        class="form-select custom-select"
-      >
-        <option value="null">Annexes</option>
-        <option value="experience">
-          Ajouter une expérience professionnelle
-        </option>
-        <option>Activité enregistrée 1</option>
-        <option>Activité enregistrée 2</option>
-        <option>Activité enregistrée 3</option>
-      </select>
-    </div>
-
-    <!-- SELECT MPIL-->
-    <!-- <div v-if="select1 == 'mpil'">
-      <div id="div-label">
-        <label for=""><strong>Activités types</strong></label>
-      </div>
-
-      <select class="form-select custom-select">
-        <option value="mpil">Activité type 1 MPIL</option>
-        <option value="mpil">Activité enregistrée 1</option>
-        <option value="mpil">Activité enregistrée 2</option>
-        <option value="mpil">Activité enregistrée 3</option>
-      </select>
-      <select class="form-select custom-select">
-        <option value="mpil">Activité type 2 MPIL</option>
-        <option value="mpil">Activité enregistrée 1</option>
-        <option value="mpil">Activité enregistrée 2</option>
-        <option value="mpil">Activité enregistrée 3</option>
-      </select>
-      <select class="form-select custom-select">
-        <option value="mpil">Activité type 3 MPIL</option>
-        <option value="mpil">Activité enregistrée 1</option>
-        <option value="mpil">Activité enregistrée 2</option>
-        <option value="mpil">Activité enregistrée 3</option>
-      </select>
-      <select
-        @change="checkAnnexesMPIL"
-        v-model="annexesMPIL"
-        class="form-select custom-select"
-      >
-        <option value="null">Annexes</option>
-        <option value="experience">
-          Ajouter une expérience professionnelle
-        </option>
-        <option>Activité enregistrée 1</option>
-        <option>Activité enregistrée 2</option>
-        <option>Activité enregistrée 3</option>
-      </select>
-    </div> -->
 
     <!--modale Nouvelle experience professionnelle-->
     <b-modal
@@ -495,13 +406,13 @@ export default {
       //DATA TRANSFERT DEPUIS ROUTER-LINK
       data: this.$route.query.data,
 
-      entriesSelect2: [],
-      annexesCDA: null,
-      annexesMPIL: null,
       select1: null,
       cursus: [],
       activites: [],
       options: [],
+
+      transAT: "Activitée type dynamique",
+
       selected: [null, null, null],
 
       form: {
@@ -532,85 +443,39 @@ export default {
           competenceProfessionnelleId: 0,
         },
       },
-
-      // SELECT CONSTITUER DOSSIER
-      optionsSelect1: [
-        { value: null, text: "Choisir un cursus" },
-        { value: "cda", text: "Concepteur développeur d'applications" },
-        { value: "mpil", text: "Manager de projet en ingénierie logicielle" },
-      ],
-
-      // SELECT ACTIVITES TYPES
-      selectActivite: null,
-      optionsActivite: [
-        { value: null, text: "Activité type 1 CDA" },
-        { value: "aep", text: "Ajouter une expérience professionnelle" },
-        { value: "o1", text: "Activité enregistrée 1" },
-        { value: "o2", text: "Activité enregistrée 2" },
-        { value: "o3", text: "Activité enregistrée 3" },
-      ],
-
-      // SELECT DE LA MODLAE
-      selectAjouterActivite: null,
-      optionsSelectAjouterActivite: [
-        { value: null, text: "Compétences professionnelles" },
-        { value: "b", text: "Concevoir une application" },
-        {
-          value: "c",
-          text: "Collaborer à la gestion d'un projet informatique et à l'organisation de l'environnement de développement",
-        },
-        { value: "d", text: "Développer des composants métier" },
-        { value: "e", text: "Construire une application organisée en couches" },
-        { value: "f", text: "Développer une application mobile" },
-        {
-          value: "g",
-          text: "Préparer et exécuter les plans de tests d'une application",
-        },
-        {
-          value: "h",
-          text: "Préparer et exécuter le déploiement d'une application",
-        },
-      ],
     };
   },
 
   methods: {
-    checkAnnexesCDA: function () {
-      if (this.annexesCDA == "experience") {
-        this.$bvModal.show("exp-pro-modal");
-      }
-    },
-
-    checkAnnexesMPIL: function () {
-      if (this.annexesMPIL == "experience") {
-        this.$bvModal.show("exp-pro-modal");
-      }
-    },
-
-    checkActiviteType1: function () {
-      if (this.selectActivite == "aep") {
-        this.$bvModal.show("exp-pro-modal");
-      }
-    },
 
     // LANCE MODALE APRES AJOUTER ACTIVITE
-    checkAT(index) {
+    checkAT(index, item) {
+
+      // this.transAT = event.target;
+      // console.log("yoooooooo" + this.transAT);
+
+      // CONTINUER ICI, REMPLACER []
+      // L'OBJET A TRANSFERET DANS NE DATA POUR L'EXPLOITER
+      console.dir(
+        "transAT > " +
+          JSON.stringify(item.competencesProfessionnellesDto[2].id, null, 4)
+      );
+
       if (this.selected[index] == "aep") {
         // console.dir("this > " + JSON.stringify(this.selected[index], null, 4));
         this.$bvModal.show("new-exp-modale");
       }
-      // let transAT = "";
-      // transAT = this.optionsAT(item).text;
-      // console.log("transAT" + transAT);
     },
 
-    resetModal: function () {
-      this.annexesCDA = null;
-      this.selectActivite = null;
-      this.selectActivite = null;
+    //TEST 
+    testAT(event){
+       console.log("yoooooooo");
+      //  console.log("yoooooooo" + event.target.value);
+       if (event.target.value == "aep") {
+        // console.dir("this > " + JSON.stringify(this.selected[index], null, 4));
+        this.$bvModal.show("new-exp-modale");
+      }
     },
-
-    save() {},
 
     // ENVOIE FORMULAIRE
     onSubmit(event) {
@@ -648,6 +513,7 @@ export default {
     },
 
     test() {},
+    save() {},
   },
 
   created() {

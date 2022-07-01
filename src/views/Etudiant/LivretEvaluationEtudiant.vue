@@ -1,14 +1,20 @@
 <template>
   <div class="container">
     <h5>Livret d'évaluation</h5>
+    <p><strong>Ancien tableau ( A supprimer )> </strong></p>
     <b-table small head-variant="light" :items="tableauComputed"> </b-table>
     <br />
+    <p><strong>Nouveau tableau > </strong></p>
     <b-table
       small
       head-variant="light"
       :items="tableauComputed"
       :fields="fields"
-    ></b-table>
+    >
+    <template v-slot:cell(TODO)>
+      <button class="btn mr-2 btn-primary btn-sm" type="button"><i class="bi bi-filetype-pdf"></i>PDF</button>
+    </template>
+    </b-table>
   </div>
 </template>
 
@@ -32,7 +38,7 @@ export default {
           key: "TODO",
           label: "PDF",
           thStyle: { width: "25%" },
-          formatter: "formatName",
+          formatter: () => { return "Bouton Telechargement";},
         },
         {
           key: "Satisfaction",
@@ -81,6 +87,10 @@ export default {
 </script>
 
 <style scoped>
+.bi{
+  margin-right: 5px;
+}
+
 .btn-donwload {
   color: #fff;
   width: 18px;

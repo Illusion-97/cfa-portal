@@ -51,18 +51,13 @@ export default {
           key: "noteObtenue",
           label: "Note",
           thStyle: { width: "10%" },
-          // formatter: "formatName",
+          formatter: (value) => { return value + "/20"},
         },
       ],
     };
   },
 
   methods: {
-    formatName(value) {
-      let res = "";
-      res = value + "/20";
-      return res;
-    },
   },
 
   computed: {
