@@ -11,6 +11,7 @@ export const examenApi = {
   deleteExamen,
   update,
   getLivretEvaluation,
+  generateBulletinByStudentAndPromo
 };
 
 /**
@@ -100,6 +101,19 @@ function deleteExamen(id) {
  */
 function getLivretEvaluation(id) {
   let req = "examens/livret-evaluation/" + id;
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} id examen
+ * @returns affiche le livret d'évaluation selon l'examen
+ */
+function generateBulletinByStudentAndPromo(etudiantId, promoId) {
+  let req = `/${END_POINT}/bulletin-etudiant/` + etudiantId + "/" + promoId;
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

@@ -5,10 +5,21 @@
     <!-- <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
 
     <div v-for="(item, index) in notesEtudiant" :key="item" class="redAcc">
-      <b-button v-b-toggle.collapse-1 variant="primary">
+      <b-button v-b-toggle.collapse-1 variant="primary" class="btn-volet">
         <!-- <b-button v-b-toggle="'accordion '+index" variant="primary"> -->
-        <div><strong>Promotion :</strong> {{ index.slice(1).slice(0, index.length - 2) }}</div>
         <div>
+          <strong>Promotion :</strong>
+          {{ index.slice(1).slice(0, index.length - 2) }}
+        </div>
+        <div>
+          <!-- BUTTON -->
+          <b-button
+            size="sm"
+            class="btn-pdf"
+            variant="success"
+            v-on:click="goToEvents(item)"
+            ><i class="bi bi-file-pdf"></i>Télécharger PDF</b-button
+          >
           <i class="bi bi-caret-down-square-fill"></i>
         </div>
       </b-button>
@@ -28,14 +39,15 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
+import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   name: "ControleContinuEtudiant",
   data() {
     return {
       notesEtudiant: [],
-      // notesEtudiant2: [],
-      
+      bulletin: [],
+
       fields: [
         {
           key: "examen",
@@ -51,44 +63,51 @@ export default {
           key: "noteObtenue",
           label: "Note",
           thStyle: { width: "10%" },
-          formatter: (value) => { return value + "/20"},
+          formatter: (value) => {
+            return value + "/20";
+          },
         },
       ],
     };
   },
 
   methods: {
+    // TELECHARGER PDF
+    goToEvents: function (item) {
+      window.open(
+        "http://localhost:8085/examens/bulletin-etudiant/" +
+          this.$store.getters.getUtilisateur.etudiantDto.id +
+          "/" +
+          item[0].id
+      );
+    },
   },
 
-  computed: {
-    // tableauComputed() {
-    //   let notesEtudiant = this.notesEtudiant;
-    //   let tab = [];
-    //   notesEtudiant.forEach(function (item) {
-    //     tab.push({
-    //       Promotion: item.promotion,
-    //       Titre: item.examen,
-    //       Date: item.date,
-    //       Note: item.noteObtenue + "/20",
-    //     });
-    //   });
-    //   return tab;
-    // },
-  },
+  computed: {},
 
   created() {
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.notesEtudiant = data));
 
-    // etudiantApi
-    //   .getNotesByIdEtudiant2(this.$store.getters.getUtilisateur.etudiantDto.id)
-    //   .then((data) => (this.notesEtudiant2 = data));
+    examenApi
+      .generateBulletinByStudentAndPromo(
+        this.$store.getters.getUtilisateur.etudiantDto.id,
+        1
+      )
+      .then((data) => (this.bulletin = data));
   },
 };
 </script>
 
 <style scoped>
+.bi {
+  margin-right: 5px;
+}
+.btn-pdf {
+    margin-right: 137px;
+}
+
 .colla {
   position: relative;
   bottom: 5px;
@@ -99,7 +118,7 @@ export default {
   text-align-last: left;
 }
 
-.redAcc button {
+.btn-volet {
   background-color: #e11b28 !important;
   border-color: #e11b28 !important;
   display: flex;

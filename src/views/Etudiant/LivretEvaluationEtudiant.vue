@@ -1,10 +1,6 @@
 <template>
   <div class="container">
     <h5>Livret d'évaluation</h5>
-    <p><strong>Ancien tableau ( A supprimer )> </strong></p>
-    <b-table small head-variant="light" :items="tableauComputed"> </b-table>
-    <br />
-    <p><strong>Nouveau tableau > </strong></p>
     <b-table
       small
       head-variant="light"
@@ -12,7 +8,7 @@
       :fields="fields"
     >
     <template v-slot:cell(TODO)>
-      <button class="btn mr-2 btn-primary btn-sm" type="button"><i class="bi bi-filetype-pdf"></i>PDF</button>
+      <button class="btn mr-2 btn-primary btn-sm" type="button"><i class="bi bi-filetype-pdf"></i>Télécharger</button>
     </template>
     </b-table>
   </div>
@@ -25,7 +21,6 @@ export default {
   name: "LivretEvaluationEtudiant",
   data() {
     return {
-      test: "['BLABLABLA']",
       livret: [],
       fields: [
         {
@@ -82,6 +77,7 @@ export default {
     examenApi
       .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.livret = data));
+
   },
 };
 </script>
