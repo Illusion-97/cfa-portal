@@ -62,11 +62,11 @@ export default {
 
       livret.forEach(function (item) {
         tab.push({
-          Promotion: item.promotion[0],
+          Promotion: item.promotions[0],
           Examen: item.examen,
           Competence: item.competences[0],
-          Satisfaction: item.satisfactions[0],
-          Observation: item.observations[0],
+          Satisfaction: item.satisfactions[0] || item.satisfactions[1],
+          Observation: item.observations[0] || item.observations[1],
         });
       });
       return tab;

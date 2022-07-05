@@ -63,7 +63,7 @@ export default {
   background-color: #FF9000;
   /* background-color: #b8d8d8; */
   border-color:#FF9000;
-  width: 70%;
+  /* width: 70%; */
   padding: 0.3rem 14px;
 }
 
