@@ -57,6 +57,14 @@ export default {
   min-height: calc(100vh - 13.2em);
   position: relative;
 }
+
+#mainEtudiant *:focus {
+    outline: none;
+     border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 #mainEtudiant .table th {
   /* color: #495057; */
   color: #fff;

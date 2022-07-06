@@ -24,7 +24,7 @@
         </div>
       </b-button>
 
-      <b-collapse id="collapse-1" class="colla">
+      <b-collapse id="collapse-1" class="colla" visible>
         <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
         <b-table
           small
@@ -80,7 +80,7 @@ export default {
           "/" +
           item[0].id
       );
-    },
+    }, 
   },
 
   computed: {},
@@ -96,6 +96,7 @@ export default {
         1
       )
       .then((data) => (this.bulletin = data));
+
   },
 };
 </script>

@@ -4,29 +4,16 @@
       Constituer un dossier professionnel :
       <span>{{ data.item.titre }}</span>
     </h5>
-    
-    <div v-for="(item, index) in activites" :key="item">
+
+    <div v-for="(item, index) in activites" :key="index">
       <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
-      <b-form-select
-        v-model="selected[index]"
-        :options="optionsAT(item)"
-        @change="checkAT(index, item, $event)"
-      ></b-form-select>
 
-      <!-- SELECT TEST -->
-      <b-form-select v-model="selected[index]">
-        <option :value="null" disabled>-- Test --</option>
-        <option
-          v-for="i in item.competencesProfessionnellesDto"
-          :value="'aep'"
-          :key="i"
-          :id="i.id"
-          @change="testAT($event)"
-        >
-          {{ i.libelle }}
-        </option>
-      </b-form-select>
+      <b-form-select
+        v-model="item[index]"
+        :options="optionsAT(item)"
+        @change="getValue"
+      ></b-form-select>
 
       <!-- ACTIVITES TYPES MODALE -->
       <b-modal
@@ -414,6 +401,7 @@ export default {
       transAT: "Activitée type dynamique",
 
       selected: [null, null, null],
+      selectActivite: [],
 
       form: {
         id: 0,
@@ -447,34 +435,38 @@ export default {
   },
 
   methods: {
-
-    // LANCE MODALE APRES AJOUTER ACTIVITE
-    checkAT(index, item) {
-
-      // this.transAT = event.target;
-      // console.log("yoooooooo" + this.transAT);
-
-      // CONTINUER ICI, REMPLACER []
-      // L'OBJET A TRANSFERET DANS NE DATA POUR L'EXPLOITER
-      console.dir(
-        "transAT > " +
-          JSON.stringify(item.competencesProfessionnellesDto[2].id, null, 4)
-      );
-
-      if (this.selected[index] == "aep") {
-        // console.dir("this > " + JSON.stringify(this.selected[index], null, 4));
-        this.$bvModal.show("new-exp-modale");
-      }
+    resetModal: function () {
+      this.annexesCDA = null;
+      this.selectActivite = null;
+      this.selectActivite = null;
     },
 
-    //TEST 
-    testAT(event){
-       console.log("yoooooooo");
-      //  console.log("yoooooooo" + event.target.value);
-       if (event.target.value == "aep") {
-        // console.dir("this > " + JSON.stringify(this.selected[index], null, 4));
-        this.$bvModal.show("new-exp-modale");
+    getValue(value) {
+      console.log("getValue > " + value);
+      console.dir("getValue > " + JSON.stringify(value, null, 4));
+      // activiteInModal
+    },
+
+    // OPTIONS DES ACTIVITES TYPES
+    optionsAT(item) {
+      let tab = [
+        { value: null, text: "+ Ajouter une expérience professionnelle à :" },
+      ];
+
+      if (item.competencesProfessionnellesDto) {
+        // console.dir("tab > " + JSON.stringify(tab, null, 4));
+
+        for (let i = 0; i < item.competencesProfessionnellesDto.length; i++) {
+          // console.log("item.competencesProfessionnellesDto[i].libelle > " + item.competencesProfessionnellesDto[i].libelle);
+          tab.push({
+            value: item.competencesProfessionnellesDto[i],
+            text: item.competencesProfessionnellesDto[i].libelle,
+          });
+        }
       }
+
+      // console.dir("optionsAT(item) > " + JSON.stringify(tab, null, 4));
+      return tab;
     },
 
     // ENVOIE FORMULAIRE
@@ -490,28 +482,6 @@ export default {
       );
     },
 
-    // OPTIONS DES ACTIVITES TYPES
-    optionsAT(item) {
-      let tab = [
-        { value: null, text: "+ Ajouter une expérience professionnelle à :" },
-      ];
-
-      if (item.competencesProfessionnellesDto) {
-        // console.dir("tab > " + JSON.stringify(tab, null, 4));
-
-        for (let i = 0; i < item.competencesProfessionnellesDto.length; i++) {
-          // console.log("item.competencesProfessionnellesDto[i].libelle > " + item.competencesProfessionnellesDto[i].libelle);
-          tab.push({
-            value: "aep",
-            text: item.competencesProfessionnellesDto[i].libelle,
-          });
-        }
-      }
-
-      // console.dir("tab > " + JSON.stringify(tab, null, 4));
-      return tab;
-    },
-
     test() {},
     save() {},
   },
@@ -522,6 +492,7 @@ export default {
     activiteTypeApi
       .getAllByIdPromotion(this.data.item.id)
       .then((data) => (this.activites = data));
+
   },
 };
 </script>
