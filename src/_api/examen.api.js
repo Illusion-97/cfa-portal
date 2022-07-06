@@ -29,11 +29,11 @@ function getById(id) {
     .catch((error) => console.log(error));
 }
 
-function getExamensByInterventionId(id) {
+async  function getExamensByInterventionId(id) {
   let req = `/${END_POINT}/interventions/${id}`;
-  return axios 
+    return await  axios 
     .get(req, requestOptions.headers())
-    .then(response => response.data)
+    .then(response =>  response.data)
     .catch((error) => console.log(error));
 }
 
@@ -111,10 +111,10 @@ function getLivretEvaluation(id) {
 /***
  * 
  */
-function getFileExamen(id){
+ async function getFileExamen(id){
   let req = "examens/file/" + id;
-  return axios
-  .get(req, requestOptions.headers(),{ responseType:"blob"})
-  .then(response => response)
+  return  await axios
+  .get(req, requestOptions.headers(),{ responseType:"arraybuffer"})
+  .then(response => response.data)
   .catch((error) => console.log(error));
 }

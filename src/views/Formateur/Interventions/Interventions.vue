@@ -81,11 +81,11 @@ export default {
       perPage: 9,
       pageCount: 0,
       key: "",
- 
     };
   },
   created() {
     this.fillList();
+    this.countIntervention();
   },
   mounted() {
     this.getNextInterventions();
@@ -99,8 +99,12 @@ export default {
           this.perPage,
           this.key
         )
-        .then((data) => (this.items = data));
-      this.countIntervention();
+        .then((data) => {
+          this.items = data;
+
+          console.log("interventions");
+          console.log(data);
+        });
     },
     countIntervention() {
       formateurApi

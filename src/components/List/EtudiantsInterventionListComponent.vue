@@ -69,7 +69,7 @@
                   >
                     {{ niveau.valeur }}</span
                   >
-                  <span> {{ niveau.descreption }}.</span>
+                  <span> {{ niveau.description }}.</span>
                 </div>
               </div>
             </b-toast>
