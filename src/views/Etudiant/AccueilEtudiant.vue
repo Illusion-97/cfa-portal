@@ -33,7 +33,7 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="promotion in promotions" :key="promotion">
+                  <li v-for="promotion in promotions" :key="promotion" class="promo">
                     {{ promotion.nom }}
                   </li>
                 </ul>
@@ -164,6 +164,11 @@ export default {
 </script>
 
 <style scoped>
+
+.promo{
+      margin-bottom: 8px;
+}
+
 h5 {
   margin-top: 55px;
 }
@@ -175,7 +180,6 @@ h2{
 .contact {
   margin-top: 0;
   margin-bottom: 30px;
-  font-weight: 500;
 }
 
 .container {
@@ -210,5 +214,9 @@ table {
 
 #bloc-droit svg {
   margin-left: 7px;
+}
+
+ul{
+  margin-bottom: 0 !important;
 }
 </style>

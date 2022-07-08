@@ -5,32 +5,40 @@
         <ul class="sidemenu__list">
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_accueil' }">
+              <i class="bi bi-house"></i>
               Accueil</router-link
             >
           </li>
           <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_cursus' }"
-              >Mes cursus</router-link
+            <router-link :to="{ name: 'etudiant_cursus' }">
+              <i class="bi bi-mortarboard"></i>
+              Mes cursus</router-link
             >
           </li>
           <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_controle' }"
-              >Contrôles continus</router-link
+            <router-link :to="{ name: 'etudiant_controle' }">
+              <i class="bi bi-book"></i>
+              Contrôles continus</router-link
             >
           </li>
           <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_livret' }"
-              >Livrets d'évaluation</router-link
+            <router-link :to="{ name: 'etudiant_livret' }">
+              <i class="bi bi-card-checklist"></i>
+              Livrets d'évaluation</router-link
             >
           </li>
           <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_dossierprofessionnel' }"
-              >Dossiers professionnels</router-link
+            <router-link :to="{ name: 'etudiant_dossierprofessionnel' }">
+              <i class="bi bi-folder"></i>
+              Dossiers professionnels</router-link
             >
           </li>
           <!--TODO -->
           <li class="sidemenu__item disabled-link">
-            <a href="#">Dossiers projets</a>
+            <a href="#">
+              <i class="bi bi-folder"></i>
+              Dossiers projets</a
+            >
           </li>
         </ul>
       </div>
@@ -51,12 +59,19 @@ export default {
 
 
 <style scoped>
+i {
+  margin-right: 3px;
+}
+
+nav {
+  width: fit-content;
+}
+
 #sidemenu {
   margin: 50px 0 0 50px;
   position: absolute;
 }
 #sidemenu nav {
-  width: 243px;
   background: #e11b28;
   position: relative;
   top: 0;
@@ -127,8 +142,9 @@ export default {
   transition: 0.4s ease;
 }
 #sidemenu .sidemenu__item a:hover {
-  background: lightgrey;
+  /* background: #b8d8d8;
   color: #e11b28;
+  border-radius: 5px; */
 }
 
 .translateX-enter {

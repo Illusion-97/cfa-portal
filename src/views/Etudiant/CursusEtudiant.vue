@@ -7,7 +7,7 @@
           {{ item.Promotion }}
           <br />
         </h5>
-        <p>
+        <p class="m-top">
           <b-row>
             <b-col cols="2" class="info-gauche"
               ><strong class="icon-right">Descriptif</strong
@@ -120,16 +120,13 @@ h5 {
 ul {
   list-style-type: none;
 }
-
 .info-gauche {
   text-align: end;
   padding-right: 0;
 }
-
 .space {
   min-height: 10px;
 }
-
 .icon-right {
   margin-right: 7px;
 }
@@ -137,8 +134,17 @@ ul {
 button {
   padding: 0rem 0.5rem !important;
 }
-
 .col-date {
   max-width: 20px;
+}
+
+.col-10,
+.col-2 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.m-top {
+  margin-top: 39px;
 }
 </style>
