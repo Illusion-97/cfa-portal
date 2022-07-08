@@ -8,7 +8,7 @@
       :fields="fields"
     >
     <template v-slot:cell(TODO)>
-      <button class="btn mr-2 btn-primary btn-sm" type="button"><i class="bi bi-filetype-pdf"></i>Télécharger</button>
+      <button class="btn mr-2 btn-success btn-sm" type="button"><i class="bi bi-filetype-pdf"></i>Télécharger</button>
     </template>
     </b-table>
   </div>
