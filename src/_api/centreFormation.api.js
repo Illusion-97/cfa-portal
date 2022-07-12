@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { requestOptions } from '@/_helpers/request-options.js';
-import store from '@/store/store.js';
+//import store from '@/store/store.js';
 
 const END_POINT = "centreFormations";
 
@@ -130,12 +130,13 @@ function getCount(search = ""){
  */
 
 /* test de recup de la requete import dg2 */
- function fetchAllCentreDeFormationsDG2Http(logInUser) {
+ function fetchAllCentreDeFormationsDG2Http(logInUser, id) {
   // console.log(logInUser);
   // console.log(logInUser.logInUser.email);
-  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
+  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2/${id}`, {
     headers: {
-      Authorization: 'Bearer ' + store.getters.getToken, 
+      // Authorization: 'Bearer ' + store.getters.getToken, 
+      Authorization: requestOptions.headers(),
       "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
     },
   });

@@ -14,6 +14,7 @@ export const formationApi = {
   getFormationByPromoId,
   getFormationByCursusId,
   getInterventionsByFormationId,
+  fetchAllFormationsDG2Http,
 }
 
 /**
@@ -155,11 +156,11 @@ function getInterventionsByFormationId(id) {
  * @returns 
  */
 /* test de recup de la requete import dg2 */
-export async function fetchAllFormationsDG2Http(logInUser) {
-  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+function fetchAllFormationsDG2Http(logInUser) {
+  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
     headers: {
       Authorization: requestOptions.headers(),
-      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+      "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
     },
   });
 }
