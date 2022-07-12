@@ -41,10 +41,11 @@
             @wdg2Close="wdg2Close"
           />
         </div>
-        <div class="progress"
-          v-if="loading"
-          indeterminate
-        ></div>
+        <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
       </div>
 
 
@@ -224,9 +225,9 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      await this.cursusApi.fetchAllCursusDG2Http({ logInUser: value });
+      cursusApi.fetchAllCursusDG2Http({ logInUser: value });
       this.loading = false;
-      await this.loadLocations();
+      this.refreshList();
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {
