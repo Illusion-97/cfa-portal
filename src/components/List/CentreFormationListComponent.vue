@@ -14,6 +14,7 @@
       <v-progress-circular
         v-if="loading"
         indeterminate
+        color="red darken-1"
       ></v-progress-circular>
     </div>
     <br>
@@ -255,9 +256,9 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      await this.fetchCentreFormationDG2({ logInUser: value });
+      centreFormationApi.fetchAllCentreDeFormationsDG2Http({ logInUser: value });
       this.loading = false;
-      await this.refreshList();
+      this.refreshList();
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {

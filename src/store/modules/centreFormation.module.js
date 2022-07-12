@@ -41,7 +41,7 @@ const actions = {
         //     },
         //     { root: true }
         //   );
-        centreFormationApi.getAllCentreFormations;
+        centreFormationApi.getAllByPage;
         
         }
       })
