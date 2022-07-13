@@ -19,7 +19,7 @@ export const formationApi = {
 
 /**
  * 
- * @returns 
+ * @returns affiche toutes les formations
  */
 function getAll() {
   return axios
@@ -33,7 +33,7 @@ function getAll() {
  * @param {*} page 
  * @param {*} size 
  * @param {*} search 
- * @returns 
+ * @returns affiche toutes les informations par pages
  */
 function getAllByPage(page, size, search = "") {
   let url = `/${END_POINT}/${page - 1}/${size}/${search}`;
@@ -48,7 +48,7 @@ function getAllByPage(page, size, search = "") {
  * 
  * @param {*} page 
  * @param {*} size 
- * @returns 
+ * @returns affiche toutes les informations par pages
  */
 function getFormation(page, size) {
   const url = `/${END_POINT}/${page - 1}/${size}`;
@@ -60,8 +60,8 @@ function getFormation(page, size) {
 
 /**
  * 
- * @param {*} form 
- * @returns 
+ * @param {*} form formulaire formation
+ * @returns insert le formulaire formation
  */
 function insertFormation(form) {
   const url = `/${END_POINT}`;
@@ -73,8 +73,8 @@ function insertFormation(form) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id formation
+ * @returns affiche la formation selon son id
  */
 function getFormationById(id) {
   const url = `/${END_POINT}/${id}`;
@@ -86,8 +86,8 @@ function getFormationById(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id  formation 
+ * @returns supprime la formation selon son id
  */
 function deleteFormation(id) { // EN STAND BY DANS LE BACKEND
   const url = `/${END_POINT}/${id}`
@@ -100,7 +100,7 @@ function deleteFormation(id) { // EN STAND BY DANS LE BACKEND
 /**
  * 
  * @param {*} key 
- * @returns 
+ * @returns affiche le nombre de formations
  */
 function countFormation(key = "") {
   const url = `/${END_POINT}/count/${key}`;
@@ -111,36 +111,36 @@ function countFormation(key = "") {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id  promotion
+ * @returns affiche les formations selon l'id de la promotion
  */
-function getFormationByPromoId(id){
+function getFormationByPromoId(id) {
   const url = `/${END_POINT}/getFormationByPromoId/${id}`
 
-  return  axios
-  .get(url,requestOptions.headers()) //faire la méthode pour recupérer le cursus
-  .then(response =>response.data)
-  .catch((error) => console.log(error))
+  return axios
+    .get(url, requestOptions.headers()) //faire la méthode pour recupérer le cursus
+    .then(response => response.data)
+    .catch((error) => console.log(error))
 }
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id cursus
+ * @returns affiche les formations selon l'id du cursus
  */
-function getFormationByCursusId(id){
+function getFormationByCursusId(id) {
   const url = `/${END_POINT}/getFormationByCursusId/${id}`
 
-  return  axios
-  .get(url,requestOptions.headers()) //faire la méthode pour recupérer le cursus
-  .then(response =>response.data)
-  .catch((error) => console.log(error))
+  return axios
+    .get(url, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error))
 }
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id formation
+ * @returns affiche les interventions selon l'id de la formation
  */
 function getInterventionsByFormationId(id) {
   const url = `/${END_POINT}/${id}/interventions`;

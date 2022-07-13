@@ -21,10 +21,10 @@ const END_POINT = "notes";
  * @param {*} id note
  * @returns affiche la note par id
  */
-function getById(id){
+function getById(id) {
     let req = `/notes/${id}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
@@ -37,10 +37,10 @@ function getById(id){
  * @param {*} search 
  * @returns affiche les notes par pages
  */
-function getAllByPage(page, size, search = ""){
+function getAllByPage(page, size, search = "") {
     let req = `/notes/${page}/${size}/${search}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
@@ -51,10 +51,10 @@ function getAllByPage(page, size, search = ""){
  * @param {*} search valeur de notes
  * @returns affiche nombre de notes
  */
-function getCount(search = ""){
+function getCount(search = "") {
     let req = `/notes/count/${search}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
@@ -66,7 +66,7 @@ function getCount(search = ""){
  * @returns enregistre formulaire notes
  */
 function save(form) {
-    let req =  "notes";
+    let req = "notes";
 
     return axios
         .post(req, form, requestOptions.headers())
@@ -80,7 +80,7 @@ function save(form) {
  * @returns efface la note
  */
 function deleteNote(id) {
-    let req =  `notes/${id}`;
+    let req = `notes/${id}`;
 
     return axios
         .delete(req, requestOptions.headers())
@@ -94,7 +94,7 @@ function deleteNote(id) {
  * @returns affiche toutes les notes par étudiant
  */
 function getAllByIdEtudiant(id) {
-    let req =  `notes/etudiant/${id}`;
+    let req = `notes/etudiant/${id}`;
 
     return axios
         .get(req, requestOptions.headers())
@@ -108,7 +108,7 @@ function getAllByIdEtudiant(id) {
  * @returns affiche toutes les notes par examen
  */
 function getAllByIdExamen(id) {
-    let req =  `notes/examen/${id}`;
+    let req = `notes/examen/${id}`;
     return axios
         .get(req, requestOptions.headers())
         .then((response) => response.data)
@@ -147,7 +147,7 @@ function getAllByPrmotionIdAndExamenId(idP,idE){
  */
 function getAllNotes() {
     return axios
-      .get(`${END_POINT}`, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-  }
+        .get(`${END_POINT}`, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}

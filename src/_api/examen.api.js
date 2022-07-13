@@ -13,12 +13,13 @@ export const examenApi = {
   getLivretEvaluation,
   getExamensByInterventionId,
   getFileExamen,
+  generateBulletinByStudentAndPromo
 };
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id examen
+ * @returns affiche examen selon l'id
  */
 function getById(id) {
   let req = `/${END_POINT}/${id}`;
@@ -37,6 +38,13 @@ async  function getExamensByInterventionId(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns affiche les examens par page
+ */
 function getAllByPage(page, size, search = "") {
   let req = `/${END_POINT}/${page}/${size}/${search}`;
 
@@ -49,7 +57,7 @@ function getAllByPage(page, size, search = "") {
 /**
  * 
  * @param {*} search 
- * @returns 
+ * @returns affiche le nombre d'examens
  */
 function getCount(search = "") {
   let req = `/${END_POINT}/count/${search}`;
@@ -62,8 +70,8 @@ function getCount(search = "") {
 
 /**
  * 
- * @param {*} formData 
- * @returns 
+ * @param {*} formData formulaire 
+ * @returns insert un examen selon le formulaire
  */
 function save(formData) {
   return axios
@@ -75,7 +83,7 @@ function save(formData) {
 /**
  * 
  * @param {*} examenDto 
- * @returns 
+ * @returns modifie le contenu d'examen dto
  */
 function update(examenDto) {
   return axios
@@ -86,8 +94,8 @@ function update(examenDto) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id examen
+ * @returns supprime un examen selon l'id
  */
 function deleteExamen(id) {
   return axios
@@ -98,8 +106,8 @@ function deleteExamen(id) {
 
 /**
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} id examen
+ * @returns affiche le livret d'évaluation selon l'examen
  */
 function getLivretEvaluation(id) {
   let req = "examens/livret-evaluation/" + id;
@@ -117,4 +125,17 @@ function getLivretEvaluation(id) {
   .get(req, requestOptions.headers(),{ responseType:"arraybuffer"})
   .then(response => response.data)
   .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} id examen
+ * @returns affiche le livret d'évaluation selon l'examen
+ */
+function generateBulletinByStudentAndPromo(etudiantId, promoId) {
+  let req = `/${END_POINT}/bulletin-etudiant/` + etudiantId + "/" + promoId;
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }
