@@ -4,6 +4,8 @@ import {
 } from '@/_helpers/request-options.js';
 //import handleResponse from '@/_helpers/handle-response.js';
 
+const END_POINT = "etudiants";
+
 export const etudiantApi = {
     getById,
     getAllByPage,
@@ -23,6 +25,7 @@ export const etudiantApi = {
     getInterventionByIdEtudiantByWeek,
     getNotesByIdEtudiant,
     getEtudiantsByInterventionIdwithDevoirsAndAbsence,
+    fetchAllEtudiantDG2Http,
 }
 
 /**
@@ -264,3 +267,22 @@ function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
     .then(response => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des etudiants de DG2
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
+/* test de recup de la requete import dg2 */
+function fetchAllEtudiantDG2Http(logInUser) {
+    return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
+      headers: {
+        // Authorization: 'Bearer ' + store.getters.getToken, 
+        Authorization: requestOptions.headers(),
+        "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
+      },
+    });
+  
+  }

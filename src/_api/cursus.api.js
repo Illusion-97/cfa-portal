@@ -1,5 +1,6 @@
 import axios from "axios";
 import { requestOptions } from "@/_helpers/request-options.js";
+import store from '@/store/store.js';
 
 const END_POINT = "cursus";
 
@@ -13,6 +14,7 @@ export const cursusApi = {
   getByIdEtudiant,
   getCurrentCursusByIdEtudiant,
   getPromotionsById,
+  fetchAllCursusDG2Http,
 };
 
 /**
@@ -143,11 +145,11 @@ function getPromotionsById(id) {
  * @returns 
  */
 /* test de recup de la requete import dg2 */
-export async function fetchAllCursusDG2Http(logInUser) {
-  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+function fetchAllCursusDG2Http(logInUser) {
+  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
     headers: {
-      Authorization: requestOptions.headers(),
-      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+      Authorization: 'Bearer ' + store.getters.getToken,
+      "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
     },
   });
 }

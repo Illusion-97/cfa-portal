@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { requestOptions } from '@/_helpers/request-options.js';
+//import store from '@/store/store.js';
 
 const END_POINT = "centreFormations";
 
@@ -11,6 +12,7 @@ export const centreFormationApi = {
   deleteCentreFormations,
   getAllByPage,
   getCount,
+  fetchAllCentreDeFormationsDG2Http
 
 };
 
@@ -128,11 +130,15 @@ function getCount(search = ""){
  */
 
 /* test de recup de la requete import dg2 */
-export async function fetchAllCentreDeFormationsDG2Http(logInUser) {
-  return await axios.get(`${process.env.VUE_APP_BASE_URL}${END_POINT}/dg2`, {
+ function fetchAllCentreDeFormationsDG2Http(logInUser) {
+  // console.log(logInUser);
+  // console.log(logInUser.logInUser.email);
+  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
     headers: {
+      // Authorization: 'Bearer ' + store.getters.getToken, 
       Authorization: requestOptions.headers(),
-      "X-AUTH-TOKEN": `${logInUser.email}:${logInUser.password}`,
+      "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
     },
   });
+
 }

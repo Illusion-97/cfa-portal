@@ -6,6 +6,7 @@ import VuexPersistence from 'vuex-persist';
 import {authentication} from './modules/authentication.module.js'
 import {utilisateur} from './modules/utilisateur.module.js'
 import {planning} from './modules/planning.module.js'
+import centreFormation from './modules/centreFormation.module.js'
 
 
 Vue.use(Vuex)
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     authentication,
     utilisateur,
     planning,
+    centreFormation,
   },
   plugins: [vuexLocal.plugin],
 })
