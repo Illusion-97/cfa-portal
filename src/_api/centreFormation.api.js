@@ -130,10 +130,10 @@ function getCount(search = ""){
  */
 
 /* test de recup de la requete import dg2 */
- function fetchAllCentreDeFormationsDG2Http(logInUser, id) {
+ function fetchAllCentreDeFormationsDG2Http(logInUser) {
   // console.log(logInUser);
   // console.log(logInUser.logInUser.email);
-  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2/${id}`, {
+  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
     headers: {
       // Authorization: 'Bearer ' + store.getters.getToken, 
       Authorization: requestOptions.headers(),

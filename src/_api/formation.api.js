@@ -157,7 +157,7 @@ function getInterventionsByFormationId(id) {
  */
 /* test de recup de la requete import dg2 */
 function fetchAllFormationsDG2Http(logInUser) {
-  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
+  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2test`, {
     headers: {
       Authorization: requestOptions.headers(),
       "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
