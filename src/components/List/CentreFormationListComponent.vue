@@ -1,9 +1,12 @@
 <template>
-  <div id="adresseList">
+  <div id="CentreFormationListComponent">
     <div class="updateListLocation">
       <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
         Mise à jour des centres 
       </button>
+    <!-- <v-btn depressed class="btn btn-info" outlined @click="openLoginWdg2">
+          Mise à jour des centres
+        </v-btn> -->
       <div class="login-wdg2">
         <login-wdg-2
           v-if="showLoginWdg2Card"
@@ -43,12 +46,14 @@
           <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
         </button>
       </form>
-
-      <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
+      <!-- <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
               Ajouter un centre de formation
-            </button>
-
+            </button> -->
     </div>
+    <small class="form-text info-text ml-1 mt-4">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur un centre de formation pour plus d'info
+    </small>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -156,7 +161,7 @@ export default {
   data() {
     return {
       centreFormations: [],
-      perPage: 3,
+      perPage: 5,
       pageCount: 0,
       saisie: "",
 
@@ -279,6 +284,9 @@ export default {
   display: flex;
   justify-content: center;
   padding: 2rem 0 0 0;
+}
+button2 {
+  color: aqua;
 }
 
 </style>
