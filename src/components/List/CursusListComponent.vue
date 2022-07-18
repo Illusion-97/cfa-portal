@@ -1,5 +1,23 @@
 <template>
   <div class="container-fluid">
+    <div class="updateListCursus">
+        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
+          Mise à jour des cursus 
+        </button>
+        <div class="login-wdg2">
+          <login-wdg-2
+            v-if="showLoginWdg2Card"
+            @logInUser="logInUserWdg2"
+            @wdg2Close="wdg2Close"
+          />
+        </div>
+        <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
+      </div>
+      <br>
     <div class="header-list">
 
       <div v-bind:class="{'text-align-left': true, 'mt-5 mb-2': isModal}" id="groupe-input" v-if="!isAction">
@@ -26,29 +44,14 @@
         </button>
       </form>
 
-      <button class="btn btn-primary" v-on:click="createCursus()">
+      <!-- <button class="btn btn-primary" v-on:click="createCursus()">
               Ajouter un cursus
-            </button>
+            </button> -->
     </div>
-      <div class="updateListCursus">
-        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
-          Mise à jour des cursus 
-        </button>
-        <div class="login-wdg2">
-          <login-wdg-2
-            v-if="showLoginWdg2Card"
-            @logInUser="logInUserWdg2"
-            @wdg2Close="wdg2Close"
-          />
-        </div>
-        <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
-      </div>
-
-
+    <small class="form-text info-text ml-1 mt-4">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur un cursus pour plus d'info
+    </small>
     <table class="table table-striped table-hover text-center">
       <thead v-bind:class="{'thead-dark': isModal}">
         <tr>

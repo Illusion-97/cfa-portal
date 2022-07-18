@@ -1,23 +1,6 @@
 <template>
   <section>
-    <form class="d-flex" @submit="search">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          v-model="key"
-          placeholder="Rechercher une formation..."
-        />
-        <button class="btn-search" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
-    </form>
-    
-    <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
-      Ajouter une nouvelle formation
-    </router-link>
-    <br>
+    <BodyTitle title="Liste des formations" />
     <div class="updateListLocation">
       <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
         Mise à jour des formations 
@@ -36,6 +19,24 @@
       ></v-progress-circular>
     </div>
     <br>
+    <form class="d-flex" @submit="search">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          v-model="key"
+          placeholder="Rechercher une formation..."
+        />
+        <button class="btn-search" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        </button>
+    </form>
+    
+    <!-- <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
+      Ajouter une nouvelle formation
+    </router-link> -->
+    <br>
     <small class="form-text info-text ml-1 mt-4">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
         Double-cliquez sur une formation pour plus d'info
@@ -45,6 +46,7 @@
         <tr>
           <th scope="col">Intitulé</th>
           <th scope="col">Durée</th>
+          <th scope="col">Prérequis</th>
           <th scope="col">Slug</th>
           <!-- <th scope="col">Voir plus</th> -->
         </tr>
@@ -53,6 +55,7 @@
         <tr v-for="formation in items" :key="formation.id" @dblclick="detailFormation(formation.id)">
           <td style="width:15em">{{ formation.titre }}</td>
           <td>{{ formation.duration }}</td>
+          <td>{{ formation.prerequis }}</td>
           <td>{{ formation.slug }}</td>
           <!-- <td style="width:10em;">
             <router-link
@@ -95,6 +98,7 @@
 
 <script>
 //import TableTemplate from "@/components/utils/TableTemplate.vue";
+import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { formationFields } from "@/assets/js/fields.js";
@@ -104,7 +108,7 @@ export default {
   name: "Formation",
   components: {
     //TableTemplate,
-    // BodyTitle,
+     BodyTitle,
     // FormationListComponent,
     LoginWdg2,
   },
@@ -164,7 +168,7 @@ export default {
       this.loading = true;
       formationApi.fetchAllFormationsDG2Http({ logInUser: value });
       this.loading = false;
-      this.countFormation();
+      this.$.push({ name: "admin_formation" });
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {

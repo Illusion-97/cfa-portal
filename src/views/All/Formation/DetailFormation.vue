@@ -32,12 +32,16 @@
               {{ item.titre }}
             </p>
             <p>
-              <span class="font-weight-bold">Description :</span>
-              {{ item.contenu }}
-            </p>
-            <p>
               <span class="font-weight-bold">Duration :</span>
               {{ item.duration }}
+            </p>
+            <p>
+              <span class="font-weight-bold">Prérequis :</span>
+              {{ item.prerequis }}
+            </p>
+            <p>
+              <span class="font-weight-bold">Slug :</span>
+              {{ item.slug }}
             </p>
             <p><span class="font-weight-bold">Cursus associé: </span>
               <ul v-if="item.cursusLstDto.length > 0">
