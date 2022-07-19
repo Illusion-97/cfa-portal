@@ -13,10 +13,6 @@
       <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
         Mise à jour des promotions 
       </button>
-      <small class="form-text info-text ml-1 mt-4">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-        Mise à jour des promotions boutton en cours 
-    </small>
       <div class="login-wdg2">
         <login-wdg-2
           v-if="showLoginWdg2Card"
@@ -205,12 +201,14 @@ export default {
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
+      this.$alert("Fonctionnalité en cours de production");
+      this.wdg2Close();
     },
     // fetch courses from webservice DG2
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      promotionApi.fetchAllPromotionsDG2Http({ logInUser: value });
+      promotionApi.fetchAllPromotionsDG2Http({ logInUser: value }); // methode à créer dans le service _api
       this.loading = false;
       //this.$.push({ name: "admin_promotion" });
     },

@@ -22,19 +22,41 @@
         </form>
       </div>
       <div class="ml-auto d-flex justify-content-around">
-        <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
+        <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
         <form action="POST" class="d-flex" enctype="multipart/form-data">
           <input id="file" type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload" accept=".csv" />
           <button class="btn btn-secondary rounded-sm" @click="makeToast(variant)" type="button"
             id="btn-import">Importer</button>
-        </form>
+        </form> -->
         <router-link class="btn btn-outline-primary px-3 mx-3" :to="{ name: 'admin_addUser' }" v-if="isAction">Ajouter
           un utilisateur</router-link>
       </div>
     </div>
-
+<br>
+<div class="updateListCursus">
+        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
+          Mise à jour des utilisateurs 
+        </button>
+        <div class="login-wdg2">
+          <login-wdg-2
+            v-if="showLoginWdg2Card"
+            @logInUser="logInUserWdg2"
+            @wdg2Close="wdg2Close"
+          />
+        </div>
+        <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
+      </div>
+      <small class="form-text info-text ml-1 mt-4">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Mise à jour des user dg2 en attente de la requête 
+    </small>
+      <br>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -58,7 +80,7 @@
 
           <td v-if="isAction">
             <button class="btn btn-info" v-on:click="detailUtilisateur(user.id)">
-              Details
+              Détails
             </button>
             <router-link class="btn btn-success mx-2" :to="{ name: 'admin_user_update', params: { id: user.id } }">
               Modifier</router-link>
@@ -81,8 +103,12 @@
 <script>
   import { utilisateurApi } from "@/_api/utilisateur.api.js";
   import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
+  import LoginWdg2 from "../LoginWdg2.vue";
   export default {
     name: "UserListComponent",
+    components: {
+      LoginWdg2,
+    },
     props: {
       isAction: {
         type: Boolean,
@@ -113,7 +139,10 @@
         file_imported: "",
         toast_message: "",
         variant: "",
-        formData : null
+        formData : null,
+
+        showLoginWdg2Card: false,
+        loading: false,
       };
     },
     computed: {
@@ -253,6 +282,24 @@
         this.utilisateur_input = utilisateur.prenom;
         this.$emit("click-list", utilisateur);
       },
+          // open the card to let the user login to webservice DG2
+    openLoginWdg2() {
+      this.showLoginWdg2Card = true;
+      this.$alert("Fonctionnalité en cours de production");
+      this.wdg2Close();
+    },
+    // fetch courses from webservice DG2
+    async logInUserWdg2(value) {
+      this.showLoginWdg2Card = false;
+      this.loading = true;
+      utilisateurApi.fetchAllUserDG2Http({ logInUser: value }); //methode à créer dans le service _api
+      this.loading = false;
+      this.refreshList();
+    },
+    // close the card for the login to webservice DG2
+    wdg2Close(value) {
+      this.showLoginWdg2Card = value;
+    },
     },
   };
 </script>
