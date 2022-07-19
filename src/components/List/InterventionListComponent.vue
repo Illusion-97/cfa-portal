@@ -219,12 +219,11 @@ export default {
       this.showLoginWdg2Card = true;
     },
     // fetch courses from webservice DG2
-    async logInUserWdg2(value) {
+    logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      await this.centreFormationApi.fetchAllFormationDG2Http({ logInUser: value });
+      interventionApi.fetchAllInterventionDG2Http({ logInUser: value }); //requete dans le service à faire 
       this.loading = false;
-      await this.loadLocations();
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {

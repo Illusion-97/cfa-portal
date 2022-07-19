@@ -1,7 +1,5 @@
 <template>
   <div class="container-fluid">
-    <div class="header-list">
-
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
         <label class="col-1">Promotion</label>
         <input
@@ -11,7 +9,23 @@
           disabled="disabled"
         />
       </div>
-      
+      <div class="updateListPromotion">
+      <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
+        Mise à jour des promotions 
+      </button>
+      <div class="login-wdg2">
+        <login-wdg-2
+          v-if="showLoginWdg2Card"
+          @logInUser="logInUserWdg2"
+          @wdg2Close="wdg2Close"
+        />
+      </div>
+      <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
+    <br>
       <form class="form-inline form" @submit="submit">
         <input
           id="saisie"
@@ -26,13 +40,17 @@
         </button>
       </form>
 
-      <router-link
+      <!-- <router-link
         class="btn btn-primary"
         :to="{ name: 'admin_promotion_create' }"
         v-if="isAction"
         >Ajouter une promotion</router-link
-      >
+      > -->
     </div>
+    <small class="form-text info-text ml-1 mt-4">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur une promotion pour plus d'info
+    </small>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -86,9 +104,12 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
+import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "PromotionListComponent",
-  components: {},
+  components: {
+    LoginWdg2,
+  },
   props: {
     isAction: {
       type: Boolean,
@@ -112,6 +133,8 @@ export default {
       saisie: "",
 
       promotion_input: "",
+      showLoginWdg2Card: false,
+      loading: false,
     };
   },
   computed: {
@@ -174,6 +197,24 @@ export default {
       else if(route[0]== 'cef') this.$router.push({name:'cef_promotion_detail', params: { id: promotion.id }});
       else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_promotion_detail', params: { id: promotion.id }});
 
+    },
+    // open the card to let the user login to webservice DG2
+    openLoginWdg2() {
+      this.showLoginWdg2Card = true;
+      this.$alert("Fonctionnalité en cours de production");
+      this.wdg2Close();
+    },
+    // fetch courses from webservice DG2
+    async logInUserWdg2(value) {
+      this.showLoginWdg2Card = false;
+      this.loading = true;
+      promotionApi.fetchAllPromotionsDG2Http({ logInUser: value }); // methode à créer dans le service _api
+      this.loading = false;
+      //this.$.push({ name: "admin_promotion" });
+    },
+    // close the card for the login to webservice DG2
+    wdg2Close(value) {
+      this.showLoginWdg2Card = value;
     },
   },
 };
