@@ -57,6 +57,7 @@
           <th>Nom de la promo</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
+          <th>Centre dawan</th>
           <!-- <th>Action</th>  -->
         </tr>
       </thead>
@@ -70,6 +71,7 @@
           <td>{{ promotion.nom }}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
           <td>{{ promotion.dateFin | formatDate }}</td>
+          <td>{{ promotion.centreFormationDto.nom }}</td>
           <!-- <td>
             <button
               class="btn btn-danger"
