@@ -129,7 +129,7 @@
         users: [],
         userId : this.$store.getters.getUtilisateur.id,
         roles: [],
-        perPage: 10,
+        perPage: 7,
         pageCount: 0,
         saisie: "",
 
