@@ -75,7 +75,7 @@ export default {
     // TELECHARGER PDF
     goToEvents: function (item) {
       window.open(
-        "http://localhost:8080/examens/bulletin-etudiant/" +
+        `${process.env.VUE_APP_API_URL}examens/bulletin-etudiant/` +
           this.$store.getters.getUtilisateur.etudiantDto.id +
           "/" +
           item[0].id
