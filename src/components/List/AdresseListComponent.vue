@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       adresses: [],
-      perPage: 3,
+      perPage: 7,
       pageCount: 0,
       saisie: "",
 
@@ -140,7 +140,7 @@ export default {
     },
     refreshList() {
       adresseApi
-        .getAllAdresses(0, this.perPage)
+        .getAllByPage(0, this.perPage)
         .then((response) => (this.adresses = response));
       adresseApi
         .getCount()

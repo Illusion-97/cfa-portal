@@ -161,7 +161,7 @@ export default {
   data() {
     return {
       centreFormations: [],
-      perPage: 5,
+      perPage: 7,
       pageCount: 0,
       saisie: "",
 

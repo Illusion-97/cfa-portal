@@ -33,7 +33,7 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="promotion in promotions" :key="promotion" class="promo">
+                  <li v-for="promotion in promotions" :key="promotion.id" class="promo">
                     {{ promotion.nom }}
                   </li>
                 </ul>
@@ -46,7 +46,7 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="projet in projets" :key="projet">
+                  <li v-for="projet in projets" :key="projet.id">
                     {{ projet.nom }}
                   </li>
                 </ul>
@@ -54,12 +54,12 @@
             </b-row>
             <b-row>
               <b-col cols="5" class="info-gauche">
-                <strong>Numéro du groupe</strong>
+                <strong>Nom du groupe</strong>
                 <font-awesome-icon :icon="['fas', 'user-friends']" />
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="groupe in groupes" :key="groupe">
+                  <li v-for="groupe in groupes" :key="groupe.id">
                     {{ groupe.nom }}
                   </li>
                 </ul>
