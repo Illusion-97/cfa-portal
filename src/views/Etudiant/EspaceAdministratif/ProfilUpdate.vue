@@ -12,24 +12,17 @@
         <div class="row">
           <label class="civilite">Civilité : </label>
           <div class="form-check col-1">
-            <input class="form-check-input" type="radio" name="gridRadios" id="monsieur" value="M" checked
+            <input class="form-check-input" type="radio" name="gridRadios" id="monsieur" value="m" checked
               v-model="form.civilite" autocomplete="honorific-prefix" />
             <label class="form-check-label" for="monsieur">
               Monsieur
             </label>
           </div>
           <div class="form-check col-1">
-            <input class="form-check-input" type="radio" name="gridRadios" id="madame" value="Mme"
+            <input class="form-check-input" type="radio" name="gridRadios" id="madame" value="ms"
               v-model="form.civilite" autocomplete="honorific-prefix" />
             <label class="form-check-label" for="madame">
               Madame
-            </label>
-          </div>
-          <div class="form-check col-1">
-            <input class="form-check-input" type="radio" name="gridRadios" id="mademoiselle" value="Mlle"
-              v-model="form.civilite" autocomplete="honorific-prefix" />
-            <label class="form-check-label" for="mademoiselle">
-              Mademoiselle
             </label>
           </div>
         </div>
