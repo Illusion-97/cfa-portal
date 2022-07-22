@@ -27,8 +27,7 @@
     <table class="table table-striped table-hover table-hover">
       <thead>
         <tr>
-          <th>Numero</th>
-          <th>Rue</th>
+          <th>Libelle</th>
           <th>Ville</th>
           <th>Code Postal</th>
           <!-- <th v-if="isAction">Action</th> -->
@@ -41,8 +40,7 @@
         v-on:click="clickList(adresse)"
         @dblclick="dblClick(adresse)">
 
-          <td>{{ adresse.numero }} </td>
-          <td>{{ adresse.rue }}</td>
+          <td>{{ adresse.libelle }} </td>
           <td>{{ adresse.ville }}</td>
           <td>{{ adresse.codePostal }}</td>
           <!-- <td v-if="isAction">

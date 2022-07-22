@@ -4,7 +4,7 @@
       <h5>Espace Administratif</h5>
 
       <div v-if="table[0] == 'etudiant'">
-        <nav class="mb-3">
+        <nav class="mb-3" aria-label="nav etudiant administratif">
           <b-nav vertical>
             <router-link class="nav-item" :to="{ name: 'etudiant_profil' }">Profil</router-link>
             <router-link class="nav-item" :to="{ name: 'etudiant_documents_administratifs' }">Documents administratifs
@@ -19,7 +19,7 @@
       <h5>Espace Pedogique</h5>
 
       <div v-if="table[0] == 'etudiant'">
-        <nav class="mb-3">
+        <nav class="mb-3" aria-label="nav etudiant pedagogique">
           <b-nav vertical>
             <router-link class="nav-item" :to="{ name: 'etudiant_espace-peda_cursus' }">Mon cursus</router-link>
             <router-link class="nav-item" :to="{ name: 'etudiant_espace-peda_devoirs' }">Devoirs</router-link>
@@ -38,7 +38,7 @@
     <div v-if="table[0] == 'referent'" id="referent">
       <h5>Espace Referent</h5>
 
-      <nav class="mb-3">
+      <nav class="mb-3" aria-label="nav referent">
         <b-nav vertical>
 
           <router-link class="nav-item" :to="{name:'referent_promotions'}">Promotions</router-link>
@@ -55,7 +55,7 @@
       <div>
         <h5>Espace Administrateur</h5>
 
-        <nav class="mb-3">
+        <nav class="mb-3" aria-label="nav admin">
           <b-nav vertical>
 
             <router-link class="nav-item" :to="{ name: 'admin_utilisateur' }">Utilisateurs</router-link>
@@ -63,10 +63,11 @@
             <router-link class="nav-item" :to="{ name: 'admin_cursus_list' }">Cursus</router-link>
             <router-link class="nav-item" :to="{ name: 'admin_promotion_list' }">Promotions</router-link>
             <router-link class="nav-item" :to="{ name: 'admin_intervention_list' }">Interventions</router-link>
-            <router-link class="nav-item" :to="{ name: 'admin_entreprise_list' }">Entreprise</router-link>
+            <!-- <router-link class="nav-item" :to="{ name: 'admin_entreprise_list' }">Entreprise</router-link> -->
             <router-link class="nav-item" :to="{ name: 'admin_centreFormation_list' }">Centre de Formation</router-link>
-            <!-- <router-link class="nav-item" :to="{name: 'admin_projet_list' }">Projets</router-link> -->
-            <!-- <router-link class="nav-item" :to="{ name: 'admin_adresse_list' }">Adresse</router-link> -->
+            <!-- <router-link class="nav-item" :to="{name: 'admin_projet_list' }">Projets</router-link>
+            <router-link class="nav-item" :to="{name: 'admin_groupe_list' }">Groupes</router-link> -->
+            <router-link class="nav-item" :to="{ name: 'admin_adresse_list' }">Adresse</router-link>
             <!-- <router-link class="nav-item" :to="{ name: 'admin_etudiant_cerfa' }">Cerfa</router-link> -->
           </b-nav>
         </nav>
@@ -77,7 +78,7 @@
       <div>
         <h5>Espace Cef</h5>
 
-        <nav class="mb-3">
+        <nav class="mb-3" aria-label="nav cef">
           <b-nav vertical>
             <router-link class="nav-item" :to="{name:'cef_centreFormation_list'}">Centre de Formation</router-link>
             <router-link class="nav-item" :to="{name:'cef_promotions'}">Promotions</router-link>
