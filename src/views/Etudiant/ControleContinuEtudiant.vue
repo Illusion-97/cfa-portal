@@ -125,6 +125,8 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  border: 0;
+  border-radius: 0;
 }
 
 h5 {

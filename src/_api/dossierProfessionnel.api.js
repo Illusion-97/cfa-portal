@@ -80,7 +80,7 @@ function deleteDossierProfessionnel(id, idetudiant) {
     .catch((error) => console.log(error));
 }
 
-function saveDossierProfessionnel(form, id) {
+function saveDossierProfessionnel(id, form) {
   return axios
     .post(`${END_POINT}/save/etudiant/${id}`, form, requestOptions.headers())
     .then((response) => response.data)

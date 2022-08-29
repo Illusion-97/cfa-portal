@@ -68,9 +68,9 @@ export default {
 #mainEtudiant .table th {
   /* color: #495057; */
   color: #fff;
-  background-color: #FF9000;
+  background-color: #565656;
   /* background-color: #b8d8d8; */
-  border-color:#FF9000;
+  border-color:#565656;
   /* width: 70%; */
   padding: 0.3rem 14px;
 }

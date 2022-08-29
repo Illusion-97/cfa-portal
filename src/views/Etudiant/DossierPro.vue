@@ -3,13 +3,9 @@
     <h5>
       Constituer un dossier professionnel :
       <span>{{ data.item.titre }}</span>
-      <br>
-      id : {{data.item.id}}
-      <br>
-      titre : {{data.item.titre}}
     </h5>
 
-    <div v-for="(item, index) in activites" :key="index">
+    <div v-for="(item, index) in activitesByCursus" :key="index">
       <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
@@ -25,7 +21,10 @@
     <b-modal
       id="exp-pro-modal"
       size="xl"
-      :title="'Compétence professionnelle : ' + activiteInModal.libelle + ' > activiteInModal : id > ' + activiteInModal.id"
+      :title="
+        'Compétence professionnelle : ' +
+        activiteInModal.libelle 
+      "
       centered
       scrollable
       no-close-on-esc
@@ -56,16 +55,25 @@
             <b-card-body>
 
               <!-- TEST -->
-              
-
+              <!-- <b-form-input
+                id="test1"
+                v-model="data.item.id"
+                name="cursusId"
+                placeholder="Cursus Id"
+              ></b-form-input>
+              <b-form-input
+                id="test1"
+                name="cursusTitre"
+                placeholder="Cursus Titre"
+                v-model="data.item.titre"
+              ></b-form-input> -->
 
               <!-- INSERT EXP -->
               <b-form-input
                 id="exp1"
                 v-model="form.experienceProfessionnelles.tacheRealisee"
                 name="tacheRealisee"
-                placeholder="TACHES REALISEES"
-                required
+                placeholder="Tâches réalisées"
               ></b-form-input>
 
               <!-- <b-form-input
@@ -201,6 +209,7 @@ export default {
       options: [],
       selectActivite: [],
       activiteInModal: [],
+      activitesByCursus: [],
 
       form: {
         id: 0,
@@ -275,14 +284,13 @@ export default {
     onSubmit(event) {
       event.preventDefault();
       console.log("ici"),
-
         dossierProfessionnelApi.saveDossierProfessionnel(
-          console.dir("form > " + JSON.stringify(this.form, null, 4)),
+          // console.dir("form > " + JSON.stringify(this.form, null, 4)),
           // console.log("etudiant id > " + this.$store.getters.getUtilisateur.etudiantDto.id),
           this.form,
-          1
+          1,
         );
-
+        alert('dossier crée')
     },
 
     test() {},
@@ -295,6 +303,10 @@ export default {
     activiteTypeApi
       .getAllByIdPromotion(this.data.item.id)
       .then((data) => (this.activites = data));
+
+    activiteTypeApi
+      .getActiviteTypesByCursus(this.data.item.id)
+      .then((data) => (this.activitesByCursus = data));
   },
 };
 </script>
