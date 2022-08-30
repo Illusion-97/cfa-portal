@@ -271,8 +271,8 @@ export default {
               nom: "",
 
               cursus: {
-                id: 0,
-                titre: "",
+                id: this.data.item.id,
+                titre: this.data.item.titre,
 
                 activiteTypes: [{
                   id: 0,
