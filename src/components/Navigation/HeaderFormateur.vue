@@ -3,8 +3,14 @@
         <b-row class="pHeader h-100 d-flex align-items-center">
             <b-col class=" col-9 d-flex justify-content-center">
                 <div class="title-header">
-                    <div class="text-center">{{ title }}</div>
+                    <!-- <div class="text-center">{{ title }}</div> -->
                     <div class="text-center">{{subTitle}}</div>
+                    <div v-if="isAdmin">
+                        {{ title }} - admin
+                    </div>
+                    <div v-if="isCEF">    
+                        {{ title}} - CEF
+                    </div>
                 </div>
             </b-col>
             <b-col class="d-flex justify-content-end">
@@ -18,8 +24,26 @@
 
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
+import { utilisateurService } from "@/_services/utilisateur.service.js";
     export default {
         name:'HeaderFormateur',
+         computed: {
+            isAdmin() {
+            return utilisateurService.isAdmin();
+            },
+            isCEF() {
+            return utilisateurService.isCEF();
+            },
+            isReferent() {
+            return utilisateurService.isReferent();
+            },
+            isFormateur() {
+            return utilisateurService.isFormateur();
+            },
+            isEtudiant() {
+            return utilisateurService.isEtudiant();
+            },
+        },
         props : {
             title: {
                 type: String,

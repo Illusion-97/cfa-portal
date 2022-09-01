@@ -1,6 +1,6 @@
 <template>
     <div class="container-fuild">
-    <a
+    <!-- <a
       @click="goBack()"
       class="h5"
       style="cursor:pointer; color:black;text-decoration:none;"
@@ -42,60 +42,60 @@
           <span class="font-weight-bold col-md-2">Adresse : </span>
           <span class="col-md-10">{{ adresseDto.numero }}, {{ adresseDto.rue }}, {{ adresseDto.ville }}, {{ adresseDto.codePostal }}</span>
         </b-card-text>
-    </b-card>
+    </b-card> -->
 
     </div>
 </template>
 
 <script>
-import { centreFormationApi } from '@/_api/centreFormation.api.js';
+// import { centreFormationApi } from '@/_api/centreFormation.api.js';
 
-export default {
-    name: "CentreFormationDetail",
+// export default {
+//     name: "CentreFormationDetail",
 
 
-    data(){
-        return {
-            centreFormationId: this.$route.params.id,
-            centreFormation: {},
-            entrepriseDto : {},
-            adresseDto :{},
-            loading: false,
+//     data(){
+//         return {
+//             centreFormationId: this.$route.params.id,
+//             centreFormation: {},
+//             entrepriseDto : {},
+//             adresseDto :{},
+//             loading: false,
             
-        };
-    },
-    created(){
-        centreFormationApi.getById(this.$route.params.id).then(response => {this.centreFormation = response; this.entrepriseDto = this.centreFormation.entrepriseDto; this.adresseDto = this.centreFormation.adresseDto} );
+//         };
+//     },
+//     created(){
+//         centreFormationApi.getById(this.$route.params.id).then(response => {this.centreFormation = response; this.entrepriseDto = this.centreFormation.entrepriseDto; this.adresseDto = this.centreFormation.adresseDto} );
         
-    },
-    methods :{
-      updateCentre() {
-      let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_centreFormation_update",
-        });
-      } else if (route[0] == "referent") {
-        this.$router.push({
-          name: "referent_centreFormation_update",
-        });
-      } else if (route[0] == "formateur") {
-        this.$router.push({
-          name: "formateur_centreFormation_update",
-        });
-      } else if (route[0] == "cef") {
-        this.$router.push({
-          name: "cef_centreFormation_update",
-        });
-      }
-    },
-    goBack() {
-      this.$router.go(-1);
-    },
-    deleteCentre() {
-      centreFormationApi.deleteCentreFormations(this.$route.params.id).then(() => this.goBack());
-    },
-    }
+//     },
+//     methods :{
+//       updateCentre() {
+//       let route = this.$route.path.split("/").splice(1);
+//       if (route[0] == "admin") {
+//         this.$router.push({
+//           name: "admin_centreFormation_update",
+//         });
+//       } else if (route[0] == "referent") {
+//         this.$router.push({
+//           name: "referent_centreFormation_update",
+//         });
+//       } else if (route[0] == "formateur") {
+//         this.$router.push({
+//           name: "formateur_centreFormation_update",
+//         });
+//       } else if (route[0] == "cef") {
+//         this.$router.push({
+//           name: "cef_centreFormation_update",
+//         });
+//       }
+//     },
+//     goBack() {
+//       this.$router.go(-1);
+//     },
+//     deleteCentre() {
+//       centreFormationApi.deleteCentreFormations(this.$route.params.id).then(() => this.goBack());
+//     },
+//     }
 
-}
+// }
 </script>
