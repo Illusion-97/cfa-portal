@@ -8,7 +8,6 @@ export const promotionApi = {
     save,
     deletePromotion,
     getAllPromotions,
-
     getAll,
     getEtudiants,
     getNote,
@@ -17,6 +16,7 @@ export const promotionApi = {
     getPromotionByEtudiantIdAndByCursusId,
     getCursusByIdEtudiant,
     getAllByInterventionIdForSelect,
+    getAllByCentreFormationIdPagination,
 };
 
 const END_POINT = "promotions";
@@ -207,4 +207,14 @@ function getAllByInterventionIdForSelect(idI){
     .get(req, requestOptions.headers())
     .then(response => response.data)
    
+}
+
+function getAllByCentreFormationIdPagination(idCentreFormation, page, size){
+  let req = `promotions/centreFormation/${idCentreFormation}/${page}/${size}`
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+
 }
