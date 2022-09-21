@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    
     <div class="header-list">
       <div class="text-align-left" id="groupe-input" v-if="!isAction">
         <label class="col-1">Etudiant</label>
@@ -16,7 +17,6 @@
           >x</span
         >
       </div>
-
       <form class="form-inline form" @submit="submit">
         <input
           id="saisie"

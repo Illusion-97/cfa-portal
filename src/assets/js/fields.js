@@ -96,8 +96,20 @@ export const examensFields = [
 ];
 
 export const formationFields = [
-  { key: "titre", label: "Nom de la formation", thStyle: { width: "200px" } },
-  { key: "contenu", label: "Contenu" },
+  {
+    key: "Details",
+    label: "Détails",
+  },
+  { key: "titre", label: "Intitulé" },
+  { key: "duration", label: "Durée" },
+  { key: "objectif", label: "objectif" },
+  { key: "prerequis", label: "Prérequis" },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "10%" },
+    thClass: "text-center",
+  },
   // { key: "cursusLstDto", label: "Cursus" },
 ]
 // Example

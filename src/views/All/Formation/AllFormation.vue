@@ -1,25 +1,8 @@
 <template>
   <section>
     <BodyTitle title="Liste des formations" />
-    <div class="updateListLocation">
-      <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
-        Mise à jour des formations 
-      </button>
-      <div class="login-wdg2">
-        <login-wdg-2
-          v-if="showLoginWdg2Card"
-          @logInUser="logInUserWdg2"
-          @wdg2Close="wdg2Close"
-        />
-      </div>
-      <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
-    </div>
-    <br>
-    <form class="d-flex" @submit="search">
+    <div class="d-flex flex-row align-items-end justify-content-between">
+      <form class="form-inline p-2 " @submit="search">
         <input
           id="saisie"
           name="saisie"
@@ -28,19 +11,73 @@
           v-model="key"
           placeholder="Rechercher une formation..."
         />
-        <button class="btn-search" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
-    </form>
-    
+      </form>
+      <div class="updateListLocation p-2">
+        <button
+          name="button2"
+          outlined
+          @click="openLoginWdg2"  
+          class="btn btn-outline-info"
+        >
+          Mise à jour des formations
+        </button>
+        <div class="login-wdg2">
+          <login-wdg-2
+            v-if="showLoginWdg2Card"
+            @logInUser="logInUserWdg2"
+            @wdg2Close="wdg2Close"
+          />
+        </div>
+        <v-progress-circular
+          v-if="loading"
+          indeterminate
+          color="red darken-1"
+        ></v-progress-circular>
+      </div>
+    </div>
+
     <!-- <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
       Ajouter une nouvelle formation
     </router-link> -->
-    <br>
-    <small class="form-text info-text ml-1 mt-4">
+
+    <!-- <small class="form-text info-text ml-1 mt-4">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
-        Double-cliquez sur une formation pour plus d'info
-    </small>
+      Double-cliquez sur une formation pour plus d'info
+    </small> -->
+        <b-table :items="items" :fields="fields" striped responsive="sm">
+      <!-- //details -->
+      <template #cell(Details)="row">
+        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+          {{ row.detailsShowing ? "Masquer" : "Afficher" }}
+        </b-button>
+      </template>
+      <!-- Roles -->
+      <template #cell(rolesDto)="row">
+        <p v-for="role in row.item.rolesDto" :key="role.id">
+          {{ role.intitule }}
+        </p>
+      </template>
+      <!--Description -->
+      <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="2" class="text-sm-right"><b>Civilite:</b></b-col>
+            <b-col> {{ row.item.civilite }}  </b-col>
+            <b-col sm="2" class="text-sm-right"><b>Adresse:</b></b-col>
+            <b-col> {{ row.item.adresse }} </b-col>
+          </b-row>
+          <b-row class="mb-2">
+            <b-col sm="2" class="text-sm-right"><b>Téléphone:</b></b-col>
+            <b-col> {{ row.item.telephone }}  </b-col>
+            <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
+            <b-col> {{row.item.dateDeNaissance}} </b-col>
+          </b-row>
+        </b-card>
+      </template>
+    </b-table>
     <table class="table text-center table-striped">
       <thead>
         <tr>
@@ -52,8 +89,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="formation in items" :key="formation.id" @dblclick="detailFormation(formation.id)">
-          <td style="width:15em">{{ formation.titre }}</td>
+        <tr
+          v-for="formation in items"
+          :key="formation.id"
+          @dblclick="detailFormation(formation.id)"
+        >
+          <td style="width: 15em">{{ formation.titre }}</td>
           <td>{{ formation.duration }}</td>
           <td>{{ formation.prerequis }}</td>
           <td>{{ formation.slug }}</td>
@@ -70,7 +111,7 @@
         </tr>
       </tbody>
     </table>
-      <paginate
+    <paginate
       :page-count="pageCount"
       :page-range="1"
       :margin-pages="2"
@@ -92,8 +133,6 @@
     <!-- <BodyTitle title="Liste des Formations" />
     <FormationListComponent :isAction="true"/> -->
   </section>
-
-  
 </template>
 
 <script>
@@ -108,12 +147,13 @@ export default {
   name: "Formation",
   components: {
     //TableTemplate,
-     BodyTitle,
+    BodyTitle,
     // FormationListComponent,
     LoginWdg2,
   },
   data() {
     return {
+     
       items: [],
       fields: formationFields,
       currentPage: 1,
@@ -123,7 +163,6 @@ export default {
 
       showLoginWdg2Card: false,
       loading: false,
-
     };
   },
   created() {
@@ -133,8 +172,11 @@ export default {
     fillList() {
       formationApi
         .getAllByPage(this.currentPage, this.perPage, this.keyword)
-        .then((data) => (this.items = data));
+        .then((data) => {this.assigneTableItems(data) ;this.items = data });
       this.countFormation();
+    },
+    assigneTableItems(formations){
+      console.log(formations)
     },
     countFormation() {
       formationApi
@@ -156,7 +198,7 @@ export default {
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     detailFormation(id) {
-      this.$router.push({name:"admin_formation_detail",params:{id:id}})
+      this.$router.push({ name: "admin_formation_detail", params: { id: id } });
     },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
@@ -174,7 +216,6 @@ export default {
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
     },
-
   },
   computed: {
     nbPageComputed() {
@@ -191,19 +232,15 @@ export default {
   },
 };
 </script>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
 
 <style scoped>
 tbody tr {
   cursor: pointer;
 }
 
-#saisie {
-  border-radius: 20px;
-  width: 300px;
-  /* margin-right: 1em; */
-}
 
-.btn-search{
+.btn-search {
   /* border: 1px solid black; */
   border: 0;
   background-color: inherit;
@@ -227,5 +264,4 @@ tbody tr {
   padding: 1.5px 10px;
   /* margin-bottom: 1em; */
 }
-
 </style>
