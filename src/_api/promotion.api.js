@@ -18,6 +18,7 @@ export const promotionApi = {
     getAllByInterventionIdForSelect,
     getGrillePositionnement,
     fetchAllPromotionDG2Http,
+    getAllByCentreFormationIdPagination,
 };
 
 const END_POINT = "promotions";
@@ -232,4 +233,13 @@ function fetchAllPromotionDG2Http(logInUser) {
       "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
     },
   });
+}
+
+function getAllByCentreFormationIdPagination(idCentreFormation, page, size){
+  let req = `promotions/centreFormation/${idCentreFormation}/${page}/${size}`
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }

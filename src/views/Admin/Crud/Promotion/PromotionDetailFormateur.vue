@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="stickyPosition">
-      <HeaderFormateur :title="promotion.nom" />
-    </div>
     <section>
       <div class="container-fluid mt-4">
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
@@ -28,7 +25,7 @@
                   <tr
                     v-for="etudiant in promotion.etudiantsDto"
                     :key="etudiant.id"
-                    @dblclick="clickEtudiant(etudiant)"
+                    @click="clickEtudiant(etudiant)"
                     class="mon-tr"
                   >
                     <td>{{ etudiant.utilisateurDto.prenom }}</td>
@@ -65,7 +62,7 @@
                   <tr
                     v-for="intervention in promotion.interventionsDto"
                     :key="intervention.id"
-                    @dblclick="clickIntervention(intervention)"
+                    @click="clickIntervention(intervention)"
                     class="mon-tr"
                   >
                     <td>{{ intervention.formationDto.titre }}</td>
@@ -111,17 +108,13 @@
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
-import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 
 export default {
   name: "PromotionDetailFormateur",
   components: {
     ExamensPromotionsListCompoenent,
-    HeaderFormateur,
     AjouterNotes,
-
-    // BodyTitle,
   },
   props: {},
   data() {
@@ -147,7 +140,9 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+
+  },
   methods: {
     async getGrille(){
      let response =  await promotionApi.getGrillePositionnement(this.promotionId);
@@ -174,7 +169,7 @@ export default {
       let route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {
         this.$router.push({
-          name: "admin_etudiant_detail",
+          name: "admin_etudiant_details",
           params: { id: etudiant.id },
         });
       } else if (route[0] == "referent") {
@@ -211,10 +206,9 @@ export default {
     },
   },
   created() {
-    promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-      this.promotion = response;
-    });
-
+    promotionApi
+    .getPromotionByid(this.$route.params.id)
+    .then((response) => {this.promotion = response});
     this.$root.$on("afficherNotes", (data) => {
       if (data) {
         this.tabIndex++;

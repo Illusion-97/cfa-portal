@@ -1,7 +1,7 @@
 <template>
   <div id="centreFormationList">
    
-    <BodyTitle title="Liste des centres de formations" />
+    <BodyTitle title="Liste des centres de formationsAAA" />
     <CentreFormationListComponent :isAction="true"/>
 
   

@@ -1,19 +1,32 @@
 <template>
     <div>
-  
+      <div v-if="userRole === 'admin'">
+        <SideBarComponentFormateur :menuTitle="menuTitle"  :isSearch="isSearch" :menuItems="menuItemsAdmin" :isMenuOpen="isMenuOpen" :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
+      </div>
+      <div v-if="userRole ==='formateur'">
         <SideBarComponentFormateur :menuTitle="menuTitle"  :isSearch="isSearch" :menuItems="menuItems" :isMenuOpen="isMenuOpen" :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
+      </div>
+      <!--
+      <div v-else-if="userRole = 'formateur'">
+        <SideBarComponentFormateur :menuTitle="menuTitle"  :isSearch="isSearch" :menuItems="menuItems" :isMenuOpen="isMenuOpen" :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
+      </div>
+      <div v-else-if="userRole = 'cef'">
+        <SideBarComponentFormateur :menuTitle="menuTitle"  :isSearch="isSearch" :menuItems="menuItems" :isMenuOpen="isMenuOpen" :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
+      </div> -->
+        <!-- <SideBarComponentFormateur :menuTitle="menuTitle"  :isSearch="isSearch" :menuItems="menuItems" :isMenuOpen="isMenuOpen" :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" /> -->
     </div>
 </template>
 
 <script>
   import SideBarComponentFormateur from "@/components/Navigation/SideBarComponentFormateur.vue";
+  import { utilisateurService } from "@/_services/utilisateur.service.js";
 
 export default {
-
    name: 'VueSidebarFormateur',
       components: {SideBarComponentFormateur},
     data() {
       return {
+        userRole: "",
          isSearch: false,
          menuTitle: 'DAWAN' ,
          isMenuOpen: true,
@@ -26,7 +39,34 @@ export default {
             {link: "formateur_intervention" ,name: 'Interventions', icon:'bx bxs-megaphone' },
             {link: "formateur_promotion_list" ,name: 'Promotions', icon:'bx-briefcase-alt' }
          ],
+         menuItemsAdmin: [
+            {link: "admin_utilisateur", name: 'Utilisateur', icon: 'bx-user'},
+            {link: "admin_formation_list", name: 'Formations', icon: 'bx-book'},
+            {link: "admin_cursus_list", name: 'Cursus', icon: 'bx-certification'},
+            {link: "admin_promotion_list", name: 'Promotions', icon: 'bx-briefcase-alt'},
+            {link: "admin_entreprise_list", name: 'Entreprises', icon: 'bx-building-house'},
+            {link: "admin_centreFormation_list", name: 'Centres de formation', icon: 'bx-home-circle'},
+            {link: "admin_adresse_list", name: 'Adresse', icon: 'bx-map-pin'},
+         ]
       }
+    },
+    methods: {
+      findUserRole() {
+       if(utilisateurService.isAdmin()){
+        this.userRole = "admin"
+      } else if (utilisateurService.isFormateur()){
+        this.userRole = "formateur"
+      } else if (utilisateurService.isCEF()){
+        this.userRole = "cef"
+      } else if (utilisateurService.isReferent()){
+        this.userRole = "referent"
+      } else if (utilisateurService.isEtudiant()){
+        this.userRole = "etudiant"
+      }
+     }
+    },
+    created() {
+      this.findUserRole();
     },
   }
 

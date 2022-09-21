@@ -3,12 +3,11 @@ import { requestOptions } from '@/_helpers/request-options.js';
 
 const END_POINT = "absences";
 
-export const absencesApi = {
+export const absenceApi = {
   getById,
   getAllAbsences,
   save,
   deleteAbsence,
-
   getAllByIdEtudiant,
 };
 
@@ -75,11 +74,10 @@ export async function deleteAbsence(id) {
  */
 
 function getAllByIdEtudiant(id) {
-  let req =  `${END_POINT}/etudiant/${id}`;
+  let req =  `${END_POINT}/etudiant/id/${id}`;
 
-  return axios
-      .get(req, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-
+ return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
 }

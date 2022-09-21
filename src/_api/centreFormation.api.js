@@ -41,7 +41,7 @@ function getById(id){
 function getAllCentreFormations() {
     return axios
       .get(`${END_POINT}`, requestOptions.headers())
-      .then((response) => response.data)
+      .then(response => response.data)
       .catch((error) => console.log(error));
   }
 
