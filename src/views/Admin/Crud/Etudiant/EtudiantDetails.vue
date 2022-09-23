@@ -1,9 +1,134 @@
 <template>
   <div>
-    Afficher promo etudiant <br/>
-    Ses notes <br/>
-    Ses absences <br/>
-    Ses dossiers <br/>
+  Un admin peut gérer les absences d’un élève  <br/>
+  Pouvoir signer le dossier projet & livret évaluation & le dossier professionnel des élèves. Si non validation, envoyer mail à l’élève. <br/>
+    <section>
+      <div class="container-fluid mt-4">
+        <b-tabs content-class="mt-3" fill>
+          <b-tab active>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'user-graduate']"
+                class="icon"
+              />
+              Absences
+            </template>
+            <div>
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th>date début absence</th>
+                    <th>date fin absence</th>
+                    <th>type absence</th>
+                    <th>justificatif</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="absence in absences"
+                    :key="absence.id"
+                    class="mon-tr"
+                  >
+                    <td>{{ absence.dateDebut }}</td>
+                    <td>{{ absence.dateFin }}</td>
+                    <td>{{ absence.typeAbsence }}</td>
+                    <td>{{ absence.justificatif }}</td>      
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'user-graduate']"
+                class="icon"
+              />
+              Notes
+            </template>
+            <div>
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th>Note obtenue</th>
+                    <th>satisfaction</th>
+                    <th>observation</th>
+                    <th>examenId</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="note in notes"
+                    :key="note.id"
+                    class="mon-tr"
+                  >
+                    <td>{{ note.noteObtenue }}</td>
+                    <td>{{ note.satisfaction }}
+
+                    </td>
+                    <td>{{ note.observation }}</td>
+                    <td>{{ note.examenId }}</td>      
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'user-graduate']"
+                class="icon"
+              />
+              Dossiers
+            </template>
+            <div>
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th></th>
+                    <th></th>
+ 
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="mon-tr">
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'user-graduate']"
+                class="icon"
+              />
+              Divers
+            </template>
+            <div>
+              <table class="table">
+                <tbody>
+                  <tr class="mon-tr">
+                    <td>Fiche contact DG2 :</td>
+                    <td>contact</td>                      
+                  </tr>
+                  <tr class="mon-tr">
+                    <td>Fiche entreprise DG2</td>
+                    <td>entreprise</td>
+                  </tr>
+                  <tr class="mon-tr">
+                    <td>Tuteur :</td>
+                    <td> {{maitreApprentissage.utilisateurDto.prenom}} {{maitreApprentissage.utilisateurDto.nom}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+        </b-tabs>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -12,52 +137,56 @@ import { etudiantApi } from "@/_api/etudiant.api.js";
 import { noteApi } from "@/_api/note.api.js";
 import { absenceApi } from "@/_api/absence.api.js";
 import { congeApi } from "@/_api/conge.api.js";
+import { maitreApprentissageApi } from "@/_api/maitreApprentissage.api.js";
 
 import "@/assets/styles/CrudDetail.css";
 
 export default {
   name: "EtudiantDetail",
-  components: {},
+  components: {
+ },
   data() {
   return {
+    absences: [],
     etudiant: [],
     notes: [],
-    absences: [],
+    maitreApprentissage: {
+      utilisateurDto: {}
+    },
   };
 },
 created() {
-  // this.getEtudiant();
-  this.getEtudiantAbsences();
+  this.fetchEtudiantDatas();
 },
 methods: {
-  getEtudiant(){
-    etudiantApi
-      .getById(this.$route.params.id)
-      .then((response) =>(this.etudiant = response))
+  fetchEtudiantDatas(){
+  etudiantApi
+    .getById(this.$route.params.id)
+    .then((response) => {this.etudiant = response
+    console.log("etudiant")
+    console.log(this.etudiant)
+    })
 
-      // .then(() => noteApi
-      //   .getAllByIdEtudiant(this.$route.params.id)
-      //   .then((response) => {this.notes = response
-      //   console.log("notes")
-      //   console.log(this.notes)}))
-      // .then(() => absenceApi
-      //   .getAllByIdEtudiant(this.$route.params.id)
-      //   .then((response) => {this.absences = response
-      //   console.log("absences")
-      //   console.log(this.absences)}))
-        //on veut requpeter pour récupé les notes via l'id
-        //ses absences
-  },
-  getEtudiantAbsences(){
-    absenceApi
+    .then(() => noteApi
+      .getAllByIdEtudiant(this.$route.params.id)
+      .then((response) => {this.notes = response
+      console.log("notes")
+      console.log(this.notes)
+      }))
+
+    .then(() => absenceApi
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => {this.absences = response
-      console.log(this.absences)})
-    // absenceApi
-    //   .getAllByIdEtudiant(this.$route.params.id)
-    //   .then((response) => {this.absences = response
-    //   console.log(this.absences)})
+      console.log("absences")
+      console.log(this.absences)
+      }))
+    
+    .then(() => maitreApprentissageApi
+      .getMaitreApprentissageByEtudiantId(this.$route.params.id)
+      .then((response) => {this.maitreApprentissage = response}))
   },
+
+  // },
   // goBack() {
   //   this.$router.go(-1);
   // },
@@ -597,16 +726,5 @@ methods: {
 -->
 
 <style scoped>
-.identite {
-    margin-top: 4em;
-    margin-bottom: 7em;
-  }
-  
-  .identite > .nom {
-    font-size: 1.5em;
-  }
-  
-  .identite > .email {
-    font-size: 1.2em;
-  }
+
 </style>

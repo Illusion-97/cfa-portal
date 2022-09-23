@@ -302,7 +302,7 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
-import { absencesApi } from "@/_api/absence.api.js";
+import { absenceApi } from "@/_api/absence.api.js";
 import { positionnementApi } from "@/_api/positionnements.api.js";
 import { devoirApi } from "@/_api/devoir.api.js";
 import { niveauApi } from "@/_api/niveau.api.js";
@@ -477,7 +477,7 @@ export default {
           typeAbsence: this.formModel.type,
         };
 
-        absencesApi.save(absence).then((responce) => {
+        absenceApi.save(absence).then((responce) => {
           this.items[this.items.indexOf(item)].itemsAbsences.push({
             date: this.getDateFormat(responce.dateDebut, responce.dateFin),
             justificatif: "Non",
