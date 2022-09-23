@@ -110,17 +110,13 @@ import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 
 export default {
   name: "PromotionDetailFormateur",
+  props: [],
   components: {
     ExamensPromotionsListCompoenent,
     AjouterNotes,
   },
-  props: {},
   data() {
     return {
-      // AjouterNotes: {
-      //   ouvert : false,
-      //   titre : "qsddqd"
-      // },
       tabIndex: 1,
       promotionId: this.$route.params.id,
       promotion: {
@@ -136,11 +132,20 @@ export default {
       isModalVisible: false,
     };
   },
-
   computed: {
-
   },
   methods: {
+    getPromotionId(){
+      promotionApi
+          .getPromotionByid(this.$route.params.id)
+          .then((response) => {this.promotion = response});
+          this.$root.$on("afficherNotes", (data) => {
+            if (data) {
+              this.tabIndex++;
+              this.$root.$emit("afficherNotes", false);
+            }
+          });
+    },
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.promotion.examensDto);
     },
@@ -188,15 +193,7 @@ export default {
     },
   },
   created() {
-    promotionApi
-    .getPromotionByid(this.$route.params.id)
-    .then((response) => {this.promotion = response});
-    this.$root.$on("afficherNotes", (data) => {
-      if (data) {
-        this.tabIndex++;
-        this.$root.$emit("afficherNotes", false);
-      }
-    });
+    this.getPromotionId();    
   },
 };
 </script>

@@ -272,7 +272,7 @@
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { noteApi } from "@/_api/note.api.js";
-import { absencesApi } from "@/_api/absence.api.js";
+import { absenceApi } from "@/_api/absence.api.js";
 import { congeApi } from "@/_api/conge.api.js";
 
 import "@/assets/styles/CrudDetail.css";
@@ -289,7 +289,7 @@ export default {
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => (this.notes = response));
 
-    absencesApi
+    absenceApi
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => (this.absences = response));
 
@@ -390,10 +390,10 @@ export default {
         );
     },
     deleteAbsence(id) {
-      absencesApi
+      absenceApi
         .deleteAbsence(id)
         .then(() =>
-          absencesApi
+          absenceApi
             .getAllByIdEtudiant(this.$route.params.id)
             .then((response) => (this.absences = response))
         );
