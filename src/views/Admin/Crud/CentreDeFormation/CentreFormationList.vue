@@ -1,23 +1,50 @@
 <template>
   <div>
     <BodyTitle title="Liste des centres de formations" />
-    <!-- <CentreFormationListComponent :isAction="true"/> -->
-    <div class="header-list">
-      <!-- <form class="form-inline form" @submit="submit">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      :variant="color"
+      @dismissed="dismissCountDown = 0"
+    >
+      {{ message }}
+    </b-alert>
+    <div class="d-flex justify-content-center">
+      <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
+    </div>
+    <div class="d-flex flex-row align-items-end justify-content-between">
+      <!-- <form class="form-inline p-2" @submit="search">
         <input
           id="saisie"
           name="saisie"
-          placeholder="Rechercher"
           type="text"
           class="form-control"
-          v-model="saisie"
+          v-model="key"
+          placeholder="Rechercher une formation..."
         />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
       </form> -->
+      <div class="updateListFormation p-2">
+        <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
+          Mise à jour des interventions
+        </button>
+        <div class="login-wdg2">
+          <login-wdg-2
+            v-if="showLoginWdg2Card"
+            @logInUser="logInUserWdg2"
+            @wdg2Close="wdg2Close"
+          />
+        </div>
+      </div>
     </div>
-    <!-- {{centresFormation}} -->
+
     <div class="row d-flex justify-content-arround">
       <div 
         v-for="centreFormation in centresFormationComputed"
@@ -60,16 +87,28 @@
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js"
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+import LoginWdg2 from "../../../../components/LoginWdg2.vue";
+
 // import CentreFormationListComponent from "@/components/List/CentreFormationListComponent.vue";
 
 export default {
   name: "CentreFormationList",
+    components:{
+      LoginWdg2,
+      BodyTitle
+    },
   data() {
+  
     return {
       centresFormation: [],
       perPage : 9,
       saisie: "",
       currentPage: 1,
+      showLoginWdg2Card: false,
+      loading: false,
+      dismissCountDown : 0,
+      message :"",
+      color :"success",
     }
   },
   computed: {
@@ -77,10 +116,7 @@ export default {
       return this.centresFormation
     },
   },
-  components: {
-    BodyTitle,
-    // CentreFormationListComponent,
-  },
+ 
   created () {
     this.getListCentresFormation();
   },
@@ -123,10 +159,38 @@ export default {
         params: {id: centreFormation.id}
       });
     },
+        openLoginWdg2() {
+      this.showLoginWdg2Card = true;
+    },
+    // fetch courses from webservice DG2
+      async logInUserWdg2(value) {
+      this.showLoginWdg2Card = false;
+      this.loading = true;
+     await centreFormationApi
+        .fetchAllCentreDeFormationsDG2Http({ logInUser: value })
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+          this.getListCentresFormation();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
+
+    },
+    // close the card for the login to webservice DG2
+    wdg2Close(value) {
+      this.showLoginWdg2Card = value;
+    }
   }
   
 };
 </script>
-<style scoped>
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+
 

@@ -107,10 +107,42 @@ export const formationFields = [
   {
     key: "Action",
     label: "Action",
-    thStyle: { width: "10%" },
+    thStyle: { width: "13%" },
     thClass: "text-center",
   },
   // { key: "cursusLstDto", label: "Cursus" },
+]
+export const fieldsCursus = [
+  {
+    key: "titre",
+    label: "Titre ",
+  },
+  {
+    key: "duree",
+    label: "Dureé ",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "8%" },
+    thClass: "text-center",
+  },
+]
+export const fieldsIntervention = [
+  {
+    key: "dateDebut",
+    label: "Date Début ",
+  },
+  {
+    key: "dateFin",
+    label: "Date Fin ",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "8%" },
+    thClass: "text-center",
+  },
 ]
 // Example
 // export const nom_variable = [

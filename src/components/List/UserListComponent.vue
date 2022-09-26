@@ -1,5 +1,21 @@
 <template>
   <div id="adminDashboard">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      :variant="color"
+      @dismissed="dismissCountDown = 0"
+    >
+      {{ message }}
+    </b-alert>
+    <div class="d-flex justify-content-center">
+      <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
+    </div>
     <div class="text-align-left" id="groupe-input" v-if="!isAction">
       <label class="col-1">utilisateur</label>
       <input
@@ -57,11 +73,6 @@
             @wdg2Close="wdg2Close"
           />
         </div>
-        <v-progress-circular
-          v-if="loading"
-          indeterminate
-          color="red darken-1"
-        ></v-progress-circular>
       </div>
     </div>
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
@@ -98,15 +109,17 @@
         <b-card>
           <b-row class="mb-2">
             <b-col sm="2" class="text-sm-right"><b>Civilite:</b></b-col>
-            <b-col> {{ row.item.civilite }}  </b-col>
+            <b-col> {{ row.item.civilite }} </b-col>
             <b-col sm="2" class="text-sm-right"><b>Adresse:</b></b-col>
             <b-col> {{ row.item.adresse }} </b-col>
           </b-row>
           <b-row class="mb-2">
             <b-col sm="2" class="text-sm-right"><b>Téléphone:</b></b-col>
-            <b-col> {{ row.item.telephone }}  </b-col>
-            <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
-            <b-col> {{row.item.dateDeNaissance}} </b-col>
+            <b-col> {{ row.item.telephone }} </b-col>
+            <b-col sm="2" class="text-sm-right"
+              ><b>Date de naissance:</b></b-col
+            >
+            <b-col> {{ row.item.dateDeNaissance }} </b-col>
           </b-row>
         </b-card>
       </template>
@@ -156,8 +169,12 @@ export default {
         this.utilisateur_input = `${this.utilisateurProp.prenom}`;
     },
   },
+
   data() {
     return {
+      dismissCountDown: null,
+      message: "",
+      color: "success",
       users: [],
       userId: this.$store.getters.getUtilisateur.id,
       roles: [],
@@ -229,10 +246,17 @@ export default {
           prenom: e.prenom,
           login: e.login,
           rolesDto: e.rolesDto,
-          civilite : e.civilite,
-          telephone : e.telephone,
-           adresse : e.adresseDto != null? e.adresseDto.libelle + " " +  e.adresseDto.codePostal + " " +  e.adresseDto.ville : "Pas d'adresse",
-          dateDeNaissance : e.dateDeNaissance
+          civilite: e.civilite,
+          telephone: e.telephone,
+          adresse:
+            e.adresseDto != null
+              ? e.adresseDto.libelle +
+                " " +
+                e.adresseDto.codePostal +
+                " " +
+                e.adresseDto.ville
+              : "Pas d'adresse",
+          dateDeNaissance: e.dateDeNaissance,
         };
         this.items.push(item);
       });
@@ -369,15 +393,26 @@ export default {
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
-      this.$alert("Fonctionnalité en cours de production");
-      this.wdg2Close();
     },
     // fetch courses from webservice DG2
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      utilisateurApi.fetchAllUserDG2Http({ logInUser: value }); //methode à créer dans le service _api
-      this.loading = false;
+
+      utilisateurApi
+        .fetchAllUsersDG2Http({ logInUser: value })
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        }); //methode à créer dans le service _api
       this.refreshList();
     },
     // close the card for the login to webservice DG2

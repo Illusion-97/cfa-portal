@@ -1,8 +1,25 @@
 <template>
   <section>
     <BodyTitle title="Liste des formations" />
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      :variant="color"
+      @dismissed="dismissCountDown = 0"
+    >
+      {{ message }}
+    </b-alert>
+    <div class="d-flex justify-content-center">
+      <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="red darken-1"
+      ></v-progress-circular>
+    </div>
+
     <div class="d-flex flex-row align-items-end justify-content-between">
-      <form class="form-inline p-2 " @submit="search">
+      <form class="form-inline p-2" @submit="search">
         <input
           id="saisie"
           name="saisie"
@@ -19,7 +36,7 @@
         <button
           name="button2"
           outlined
-          @click="openLoginWdg2"  
+          @click="openLoginWdg2"
           class="btn btn-outline-info"
         >
           Mise à jour des formations
@@ -31,11 +48,6 @@
             @wdg2Close="wdg2Close"
           />
         </div>
-        <v-progress-circular
-          v-if="loading"
-          indeterminate
-          color="red darken-1"
-        ></v-progress-circular>
       </div>
     </div>
 
@@ -47,7 +59,7 @@
       <font-awesome-icon :icon="['fas', 'info-circle']" />
       Double-cliquez sur une formation pour plus d'info
     </small> -->
-        <b-table :items="items" :fields="fields" striped responsive="sm">
+    <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
         <b-button size="sm" @click="row.toggleDetails" class="mr-2">
@@ -60,57 +72,87 @@
           {{ role.intitule }}
         </p>
       </template>
+      <template #cell(action)="row">
+        <b-button block variant="info" @click="gotoDetailDg2(row)">
+          <font-awesome-icon :icon="['fas', 'eye']" />
+          Voir dans Dg2</b-button
+        >
+      </template>
+      <!-- https://dawan.org/Training/show/ -->
       <!--Description -->
       <template #row-details="row">
         <b-card>
-          <b-row class="mb-2">
-            <b-col sm="2" class="text-sm-right"><b>Civilite:</b></b-col>
-            <b-col> {{ row.item.civilite }}  </b-col>
-            <b-col sm="2" class="text-sm-right"><b>Adresse:</b></b-col>
-            <b-col> {{ row.item.adresse }} </b-col>
-          </b-row>
-          <b-row class="mb-2">
-            <b-col sm="2" class="text-sm-right"><b>Téléphone:</b></b-col>
-            <b-col> {{ row.item.telephone }}  </b-col>
-            <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
-            <b-col> {{row.item.dateDeNaissance}} </b-col>
-          </b-row>
+          <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-button block v-b-toggle.accordion-1 class="btn-accordion"
+                >Cursus associés
+              </b-button>
+            </b-card-header>
+            <b-collapse
+              id="accordion-1"
+              visible
+              accordion="my-accordion"
+              role="tabpanel"
+            >
+              <b-card-body>
+                <b-table
+                  sticky-header
+                  :items="row.item.cursus"
+                  head-variant="light"
+                  :fields="fieldsCursus"
+                  dark
+                  bordered
+                >
+                  <template #cell(action)="row">
+                    <b-button
+                      block
+                      variant="info"
+                      @click="gotoDetailCursus(row.item)"
+                    >
+                      <font-awesome-icon :icon="['fas', 'eye']" />
+                    </b-button>
+                  </template>
+                </b-table>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+
+          <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-button block v-b-toggle.accordion-2 class="btn-accordion"
+                >Interventions Liées</b-button
+              >
+            </b-card-header>
+            <b-collapse
+              id="accordion-2"
+              accordion="my-accordion"
+              role="tabpanel"
+            >
+              <b-card-body>
+                <b-table
+                  sticky-header
+                  :items="row.item.interventions"
+                  head-variant="light"
+                  :fields="fieldsIntervention"
+                  dark
+                  bordered
+                >
+                  <template #cell(action)="row">
+                    <b-button
+                      block
+                      variant="info"
+                      @click="gotoDetailIntervention(row.item)"
+                    >
+                      <font-awesome-icon :icon="['fas', 'eye']" />
+                    </b-button> </template
+                ></b-table>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
         </b-card>
       </template>
     </b-table>
-    <table class="table text-center table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Intitulé</th>
-          <th scope="col">Durée</th>
-          <th scope="col">Prérequis</th>
-          <th scope="col">Slug</th>
-          <!-- <th scope="col">Voir plus</th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="formation in items"
-          :key="formation.id"
-          @dblclick="detailFormation(formation.id)"
-        >
-          <td style="width: 15em">{{ formation.titre }}</td>
-          <td>{{ formation.duration }}</td>
-          <td>{{ formation.prerequis }}</td>
-          <td>{{ formation.slug }}</td>
-          <!-- <td style="width:10em;">
-            <router-link
-              :to="{ name: 'admin_formation_detail', params: { id: formation.id } }"
-            >
-              <font-awesome-icon
-                :icon="['fas', 'info']"
-                class="icon"
-              />
-            </router-link>
-          </td> -->
-        </tr>
-      </tbody>
-    </table>
+
     <paginate
       :page-count="pageCount"
       :page-range="1"
@@ -141,6 +183,8 @@ import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { formationFields } from "@/assets/js/fields.js";
+import { fieldsCursus } from "@/assets/js/fields.js";
+import { fieldsIntervention } from "@/assets/js/fields.js";
 // import BodyTitle from "@/components/utils/BodyTitle.vue";
 // import FormationListComponent from "@/components/List/FormationListComponent.vue";
 export default {
@@ -153,14 +197,17 @@ export default {
   },
   data() {
     return {
-     
+      dismissCountDown: null,
+      message: "",
+      color: "success",
       items: [],
       fields: formationFields,
+      fieldsCursus: fieldsCursus,
+      fieldsIntervention: fieldsIntervention,
       currentPage: 1,
       perPage: 10,
       pageCount: 0,
       keyword: "",
-
       showLoginWdg2Card: false,
       loading: false,
     };
@@ -172,12 +219,24 @@ export default {
     fillList() {
       formationApi
         .getAllByPage(this.currentPage, this.perPage, this.keyword)
-        .then((data) => {this.assigneTableItems(data) ;this.items = data });
+        .then((data) => {
+          // this.assigneTableItems(data);
+          this.items = data;
+        });
       this.countFormation();
     },
-    assigneTableItems(formations){
-      console.log(formations)
+    // assigneTableItems(formations) {
+    //   console.log(formations);
+    // },
+    gotoDetailDg2(row) {
+      let link = "https://dawan.org/Training/show/" + row.item.slug;
+      Object.assign(document.createElement("a"), {
+        target: "_blank",
+        rel: "noopener noreferrer",
+        href: link,
+      }).click();
     },
+
     countFormation() {
       formationApi
         .countFormation(this.key)
@@ -200,6 +259,18 @@ export default {
     detailFormation(id) {
       this.$router.push({ name: "admin_formation_detail", params: { id: id } });
     },
+    gotoDetailIntervention(intervention) {
+      this.$router.push({
+        name: "admin_intervention_detail",
+        params: { id: intervention.id },
+      });
+    },
+    gotoDetailCursus(cursus) {
+      this.$router.push({
+        name: "admin_cursus_detail",
+        params: { id: cursus.id },
+      });
+    },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
@@ -208,9 +279,21 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      formationApi.fetchAllFormationsDG2Http({ logInUser: value });
-      this.loading = false;
-      this.$.push({ name: "admin_formation" });
+      formationApi
+        .fetchAllFormationsDG2Http({ logInUser: value })
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+          this.fillList();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {
@@ -233,12 +316,12 @@ export default {
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-
+<style scoped src="@/assets/styles/BtnAccordion.css">
+</style>
 <style scoped>
 tbody tr {
   cursor: pointer;
 }
-
 
 .btn-search {
   /* border: 1px solid black; */
