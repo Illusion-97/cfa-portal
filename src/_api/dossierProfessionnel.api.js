@@ -9,7 +9,9 @@ export const dossierProfessionnelApi = {
   save,
   getAll,
   getByIdEtudiant,
-  saveDossierProfessionnel
+  getByIdEtudiant2,
+  saveDossierProfessionnel,
+  getAllDossierProfessionnelByEtudiantAndByCursus,
 
 }
 
@@ -34,6 +36,34 @@ function getById(id) {
  */
 function getByIdEtudiant(id) {
   let req = `${END_POINT}/etudiant/${id}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+ function getByIdEtudiant2(id) {
+  let req = `${END_POINT}/etudiant2/${id}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+ function getAllDossierProfessionnelByEtudiantAndByCursus(id) {
+  let req = `${END_POINT}/cursus/etudiant/${id}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -73,9 +103,9 @@ function save(form, id) {
  * @param {*} idetudiant 
  * @returns 
  */
-function deleteDossierProfessionnel(id, idetudiant) {
+function deleteDossierProfessionnel(id) {
   return axios
-    .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
+    .delete(`${END_POINT}/delete/${id}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

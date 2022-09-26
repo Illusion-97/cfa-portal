@@ -2,22 +2,26 @@
   <div class="container">
     <h5>
       Constituer un dossier professionnel :
-      <span>{{  data.item.titre  }}</span>
+      <span>{{ data.item.cursus.titre }}</span>
+      <!-- <span>{{ data.item.cursus.dossierProfessionnel.cursus.activiteTypes }}</span> -->
     </h5>
 
-    <div v-for="(item, index) in activitesByCursus" :key="index">
+    <div v-for="(item, index) in data.item.cursus.dossierProfessionnel.cursus.activiteTypes" :key="index">
       <!-- ACTIVITES TYPES SELECTEURS -->
-      <h6>Activité type {{  index + 1  }} : {{  item.libelle  }}</h6>
+      <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
       <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select>
+
+      <!-- LISTE COMPETENCES PRO -->
+
+
       <br />
     </div>
 
     <!-- ACTIVITES TYPES MODALE -->
-    <b-modal id="exp-pro-modal" size="xl" :title="
-      'Compétence professionnelle : ' +
-      compInModal.libelle
-    " centered scrollable no-close-on-esc @hidden="resetModal" hide-footer>
+    <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
+      scrollable no-close-on-esc @hidden="resetModal" hide-footer>
+
       <!-- FORMULAIRE -->
       <b-form @submit="onSubmit">
         <!-- ACCORDEON EXP 1 -->
@@ -52,8 +56,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp2" v-model="form.experienceProfessionnelles.moyenUtilise" name="moyenUtilise"
-                placeholder="Moyens utilisés"></b-form-input>
+              <b-form-input id="exp2" ref="aa" v-model="form.experienceProfessionnelles.moyenUtilise"
+                name="moyenUtilise" placeholder="Moyens utilisés"></b-form-input>
             </b-card-body>
 
           </b-collapse>
@@ -124,6 +128,21 @@
         </div>
       </b-form>
     </b-modal>
+
+    <!-- MODALE SUCCESS DOSSIER CREE -->
+    <b-button v-b-modal.modal-success>Launch demo modal</b-button>
+    <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre dossier professionnel a correctement été crée.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary">
+          <router-link class="nav-item first" :to="'/etudiant/dossierprofessionnel'">Ok</router-link>
+        </b-button>
+      </div>
+    </b-modal>
+
   </div>
 </template>
 
@@ -150,6 +169,8 @@ export default {
 
       tempActivite: [],
       tempCompetence: [],
+
+      dpId: 0,
 
       form: {
         id: 0,
@@ -180,38 +201,6 @@ export default {
           competenceProfessionnelleId: 1
         }],
       },
-
-      // A FAIRE
-      // form: {
-      //   id: 0,
-      //   nom: "",
-
-      //   cursus: {
-      //     id: 1,
-      //     titre: "cursus non dynamique",
-
-      //     activiteTypes: [{
-      //       id: 1,
-      //       libelle: "Activite type non dynamique",
-
-      //       competenceProfessionnelles: [{
-      //         id: this.tempCompetence.id,
-      //         libelle: this.tempCompetence.libelle
-      //       }],
-      //     }],
-      //   },
-
-      //   experienceProfessionnelles: [{
-      //     id: 0,
-      //     tacheRealisee: this.form.experienceProfessionnelles.tacheRealisee,
-      //     moyenUtilise: this.form.experienceProfessionnelles.moyenUtilise,
-      //     collaborateur: this.form.experienceProfessionnelles.collaborateur,
-      //     contexte: this.form.experienceProfessionnelles.contexte,
-      //     information: this.form.experienceProfessionnelles.information,
-      //     competenceProfessionnelleId: this.tempCompetence.id
-      //   }],
-      // },
-
     };
   },
 
@@ -243,11 +232,11 @@ export default {
         },
       ];
 
-      if (item.competencesProfessionnellesDto) {
-        for (let i = 0; i < item.competencesProfessionnellesDto.length; i++) {
+      if (item.competenceProfessionnelles) {
+        for (let i = 0; i < item.competenceProfessionnelles.length; i++) {
           tab.push({
-            value: item.competencesProfessionnellesDto[i],
-            text: item.competencesProfessionnellesDto[i].libelle,
+            value: item.competenceProfessionnelles[i],
+            text: item.competenceProfessionnelles[i].libelle,
           });
         }
       }
@@ -267,12 +256,12 @@ export default {
             this.$store.getters.getUtilisateur.etudiantDto.id,
             // this.form
             {
-              id: 0,
-              nom: "",
+              id: this.data.item.cursus.dossierProfessionnel.id || 0,
+              nom: this.data.item.cursus.dossierProfessionnel.nom || "",
 
               cursus: {
-                id: this.data.item.id,
-                titre: this.data.item.titre,
+                id: this.data.item.cursus.id,
+                titre: this.data.item.cursus.titre,
 
                 activiteTypes: [{
                   id: 0,
@@ -296,12 +285,14 @@ export default {
               }],
             },
 
+          )
+          // REDIRECTION
+          .then(() =>
+            this.$bvModal.hide("exp-pro-modal"),
+            this.$bvModal.show("modal-success")
           );
-      alert('dossier crée')
     },
 
-    test() { },
-    save() { },
   },
 
   created() {
@@ -314,6 +305,25 @@ export default {
     activiteTypeApi
       .getActiviteTypesByCursus(this.data.item.id)
       .then((data) => (this.activitesByCursus = data));
+
+    console.log("Dossier Professionnel > " + this.data);
+    console.dir(
+      "data > " +
+      JSON.stringify(this.data, null, 4)
+    );
+
+    console.log("************" + this.data.item.cursus.dossierProfessionnel.id);
+    
+    // setDpId(){
+    //      // Dossier professionnel ID
+    //      if (data.item.cursus.dossierProfessionnel !== null) {
+    //     console.log("data.item.cursus.dossierProfessionnel.id : " + data.item.cursus.dossierProfessionnel.id);
+    //     return this.dpId = data.item.cursus.dossierProfessionnel.id
+    //   } else {
+    //     return 0
+    //   }
+    // }
+
   },
 };
 </script>
@@ -322,6 +332,25 @@ export default {
 /* TEMPORAIRE BUG */
 footer {
   display: none;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.check {
+  width: 20px;
+}
+
+.div-ok {
+  justify-content: flex-end;
+  display: flex;
 }
 
 .custom-select {
