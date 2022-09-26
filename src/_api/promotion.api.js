@@ -44,7 +44,7 @@ function getPromotionByid(id) {
  * @param {*} search 
  * @returns affiche toutes les promotions par pages
  */
-function getAllByPage(page, size, search = "") {
+function getAllByPage(page, size, search ="" ) {
   let req = `/promotions/${page}/${size}/${search}`;
 
   return axios
@@ -226,7 +226,7 @@ async function getGrillePositionnement(id){
 function fetchAllPromotionDG2Http(logInUser) {
   // console.log(logInUser);
   // console.log(logInUser.logInUser.email);
-  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
+  return axios.get(`${END_POINT}/dg2`, {
     headers: {
       // Authorization: 'Bearer ' + store.getters.getToken, 
       Authorization: requestOptions.headers(),

@@ -1,5 +1,15 @@
 <template>
+
   <div>
+       <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Precedent
+    </a>
+
     <PromotionDetailFormateur />
   </div>
 </template>
@@ -21,22 +31,24 @@ export default {
   // },
   // computed: {
   // },
-  // methods: {
-  //   clickEtudiant(etudiant) {
-  //     let route = this.$route.path.split("/").splice(1);
-  //       if (route[0] == "admin") {this.$router.push({name: "admin_etudiant_detail",params: {id: etudiant.id,},});
-  //       } else if(route[0] == "referent") {this.$router.push({name: "referent_etudiant_detail",params: {id: etudiant.id,},});
-  //       }else if(route[0] == "cef") {this.$router.push({name: "cef_etudiant_detail",params: {id: etudiant.id,},});
-  //       }
-  //     },
-
-  //   clickIntervention(intervention) {
-  //     let route = this.$route.path.split("/").splice(1);
-  //       if (route[0] == "admin") {this.$router.push({name: "intervention-detail",params: {id: intervention.id,},});
-  //       } else if (route[0] == "referent") {this.$router.push({name: "referent-intervention-detail",params: {id: intervention.id,},});
-  //       } else if (route[0] == "cef") {this.$router.push({name: "cef-intervention-detail",params: {id: intervention.id,},});
-  //       }
-  //     },
-  // }
+  methods: {
+     goBack() {
+      this.$router.go(-1);
+    },
+    // clickEtudiant(etudiant) {
+    //   let route = this.$route.path.split("/").splice(1);
+    //     if (route[0] == "admin") {this.$router.push({name: "admin_etudiant_detail",params: {id: etudiant.id,},});
+    //     } else if(route[0] == "referent") {this.$router.push({name: "referent_etudiant_detail",params: {id: etudiant.id,},});
+    //     }else if(route[0] == "cef") {this.$router.push({name: "cef_etudiant_detail",params: {id: etudiant.id,},});
+    //     }
+    //   },
+    // clickIntervention(intervention) {
+    //   let route = this.$route.path.split("/").splice(1);
+    //     if (route[0] == "admin") {this.$router.push({name: "intervention-detail",params: {id: intervention.id,},});
+    //     } else if (route[0] == "referent") {this.$router.push({name: "referent-intervention-detail",params: {id: intervention.id,},});
+    //     } else if (route[0] == "cef") {this.$router.push({name: "cef-intervention-detail",params: {id: intervention.id,},});
+    //     }
+    //   },
+  }
 };
 </script>

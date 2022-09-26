@@ -146,7 +146,7 @@ function getPromotionsById(id) {
  */
 /* test de recup de la requete import dg2 */
 function fetchAllCursusDG2Http(logInUser) {
-  return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
+  return axios.get(`${END_POINT}/dg2`, {
     headers: {
       Authorization: 'Bearer ' + store.getters.getToken,
       "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,

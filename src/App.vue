@@ -18,7 +18,7 @@
         <VueSidebarFormateur />
         <HeaderFormateur />
         <!-- <VerticalNavbar /> -->
-        <router-view class="monBody col-md-10"/>
+        <router-view class="col-md-12"/>
       </div>
       <router-view v-else class="monBody" />
     </div>

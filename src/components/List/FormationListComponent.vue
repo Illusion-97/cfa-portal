@@ -26,7 +26,6 @@
           :disabled="true"
         />
       </div>
-
       <form class="d-flex" @submit="search">
         <input
           id="saisie"
@@ -196,7 +195,7 @@ export default {
     dblClick(formation){
       let route = this.$route.path.split("/").splice(1);
 
-      if(route[0]== 'admin') this.$router.push({name:'admin_formation_detail', params: { id: formation.id }}); 
+       if(route[0]== 'admin') this.$router.push({name:'admin_formation_detail', params: { id: formation.id }}); 
       // else if(route[0]== 'referent')  this.$router.push({name:'referent_formation_detail', params: { id: formation.id }});
       // else if(route[0]== 'formateur') this.$router.push({name:'formateur_formation_detail', params: { id: formation.id }});
       // else if(route[0]== 'cef') this.$router.push({name:'cef_formation_detail', params: { id: formation.id }});

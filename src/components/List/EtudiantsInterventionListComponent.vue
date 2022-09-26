@@ -623,11 +623,10 @@ export default {
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css">
 </style>
+<style scoped src="@/assets/styles/BtnAccordion.css">
+</style>
 <style scoped>
-.btn-accordion {
-  background-color: #0d153e;
-  border: none;
-}
+
 .absent {
   width: 50px;
   background-color: black;
