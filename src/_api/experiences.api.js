@@ -15,9 +15,9 @@ function deleteById(id) {
       .catch((error) => console.log(error));
   }
 
-function update() {
+function update(form) {
   return axios
-    .post(`${END_POINT}`, requestOptions.headers())
+    .post(`${END_POINT}`, form,  requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+
+  <!-- CONTAINER UPDATE DOSSIER -->
+  <div class="container" v-if="data.item.cursus.dossierProfessionnel">
     <h5>
       Constituer un dossier professionnel :
       <span>{{ data.item.cursus.titre }}</span>
@@ -121,17 +123,27 @@
 
 
         <div id="div-save">
+
           <!-- BOUTON DELETE EXP -->
           <!-- MARCHE PAS -->
-          <!-- <div v-if="res"> -->
-          <b-button size="sm" variant="danger" class="btn-delete">
+          <!-- <div v-if="test()">
+              YOOOOOOOOOOOO
+          </div> -->
+          <!-- <div v-if="res == undefined">
+              YOOOOOOOOOOOO
+          </div> -->
+          <!-- <div v-else>
+              XXXXXXXXXX
+          </div> -->
+
+          <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
             <font-awesome-icon :icon="['fas', 'trash']" />
             <span class="icon-right">Supprimer</span>
           </b-button>
-          <!-- </div> -->
 
           <!-- BOUTON UPDATE -->
-          <b-button size="sm" variant="primary" type="submit">
+          <b-button size="sm" variant="primary" @click="updateExp()" class="btn-delete">
+            <i class="fa-solid fa-square-pen"></i>
             <span class="icon-right">Mettre à jour</span>
           </b-button>
 
@@ -145,8 +157,13 @@
       </b-form>
     </b-modal>
 
+    <!-- LAUCHN MODALE TEST -->
+    <b-button v-b-modal.modal-success>test modale dossier créer</b-button>
+    <br>
+    <br>
+    <b-button v-b-modal.modal-update-success>test modale dossier mis à jour</b-button>
+
     <!-- MODALE SUCCESS DOSSIER CREE -->
-    <b-button v-b-modal.modal-success>Launch demo modal</b-button>
     <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
@@ -159,12 +176,45 @@
       </div>
     </b-modal>
 
+    <!-- MODALE SUCCESS DOSSIER UPDATE -->
+    <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre expérience professionnelle à correctement été mis à jour.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-update-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
+
+    <!-- MODALE SUCCESS DOSSIER DELETE -->
+    <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre expérience professionnelle à correctement supprimé.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-delete-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
+
   </div>
+
+  <!-- CONTAINER CREER DOSSIER -->
+  <div v-else>
+    NOUVEAU DOSSIER
+  </div>
+  
 </template>
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import { cursusApi } from "@/_api/cursus.api.js";
+import { experiencesApi } from "@/_api/experiences.api.js";
+// import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 
 export default {
@@ -211,14 +261,24 @@ export default {
 
         experienceProfessionnelles: [{
           id: 0,
-          tacheRealisee: "aaa",
+          tacheRealisee: "",
           moyenUtilise: "",
           collaborateur: "",
           contexte: "",
           information: "",
-          competenceProfessionnelleId: 1
+          competenceProfessionnelleId: 0
         }],
       },
+
+      formExp: {
+        id: 0,
+        tacheRealisee: "",
+        moyenUtilise: "",
+        collaborateur: "",
+        contexte: "",
+        information: "",
+        competenceProfessionnelleId: 0
+      }
     };
   },
 
@@ -363,10 +423,49 @@ export default {
         );
     },
 
+    updateExp() {
+      experiencesApi
+        .update(
+          {
+            id: this.expPro.id,
+            tacheRealisee: this.expPro.tacheRealisee,
+            moyenUtilise: this.expPro.moyenUtilise,
+            collaborateur: this.expPro.collaborateur,
+            contexte: this.expPro.contexte,
+            information: this.expPro.information,
+            competenceProfessionnelleId: this.tempCompetence.id,
+            dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id
+          }
+        )
+
+        // REDIRECTION
+        .then(() =>
+          this.$bvModal.hide("exp-pro-modal"),
+          this.$bvModal.show("modal-update-success")
+        );
+    },
+
+    deleteExp() {
+      experiencesApi
+        .deleteById(this.expPro.id)
+
+        // REDIRECTION
+        .then(() =>
+          this.$bvModal.hide("exp-pro-modal"),
+          this.$bvModal.show("modal-delete-success")
+        );
+    }
+
+  },
+
+  computed: {
+    // test() {
+    //   return this.res;
+    // }
   },
 
   created() {
-    cursusApi.getAllCursus().then((data) => (this.cursus = data));
+    // cursusApi.getAllCursus().then((data) => (this.cursus = data));
 
     activiteTypeApi
       .getAllByIdPromotion(this.data.item.id)
@@ -376,13 +475,13 @@ export default {
       .getActiviteTypesByCursus(this.data.item.id)
       .then((data) => (this.activitesByCursus = data));
 
-    // console.log("Dossier Professionnel > " + this.data);
-    // console.dir(
-    //   "data > " +
-    //   JSON.stringify(this.data, null, 4)
-    // );
+    console.log("Dossier Professionnel > " + this.data);
+    console.dir(
+      "data > " +
+      JSON.stringify(this.data, null, 4)
+    );
 
-    // console.log("************" + this.data.item.cursus.dossierProfessionnel.id);
+    console.log("************" + this.data.item.cursus.dossierProfessionnel.id);
 
     // setDpId(){
     //      // Dossier professionnel ID
