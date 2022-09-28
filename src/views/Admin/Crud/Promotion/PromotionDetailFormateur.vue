@@ -65,7 +65,7 @@
                     @click="clickIntervention(intervention)"
                     class="mon-tr"
                   >
-                    <td>{{ intervention.formationDto.titre }}</td>
+                    <td>{{intervention.formationDto!= null? intervention.formationDto.titre:'Pas de Formation' }}</td>
                     <td>{{ intervention.heuresDisponsees }}</td>
                     <td>{{ intervention.dateDebut | formatDate }}</td>
                     <td>{{ intervention.dateFin | formatDate }}</td>
@@ -156,7 +156,7 @@ export default {
     getPromotionId(){
       promotionApi
           .getPromotionByid(this.$route.params.id)
-          .then((response) => {this.promotion = response});
+          .then((response) => {this.promotion = response; console.log(response)});
           this.$root.$on("afficherNotes", (data) => {
             if (data) {
               this.tabIndex++;
