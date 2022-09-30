@@ -1,6 +1,5 @@
 <template>
   <section>
-    <BodyTitle title="Liste des formations" />
     <div class="d-flex flex-row align-items-end justify-content-between">
       <form class="form-inline p-2 " @submit="search">
         <input
@@ -129,26 +128,16 @@
     >
       >
     </paginate>
-
-    <!-- <BodyTitle title="Liste des Formations" />
-    <FormationListComponent :isAction="true"/> -->
   </section>
 </template>
 
 <script>
-//import TableTemplate from "@/components/utils/TableTemplate.vue";
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { formationFields } from "@/assets/js/fields.js";
-// import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import FormationListComponent from "@/components/List/FormationListComponent.vue";
 export default {
   name: "Formation",
   components: {
-    //TableTemplate,
-    BodyTitle,
-    // FormationListComponent,
     LoginWdg2,
   },
   data() {

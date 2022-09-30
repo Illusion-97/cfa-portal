@@ -1,7 +1,5 @@
 <template>
   <div>
-    <BodyTitle title="Liste des centres de formations" />
-    <!-- <CentreFormationListComponent :isAction="true"/> -->
     <div class="header-list">
       <!-- <form class="form-inline form" @submit="submit">
         <input
@@ -59,9 +57,6 @@
 
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js"
-import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import CentreFormationListComponent from "@/components/List/CentreFormationListComponent.vue";
-
 export default {
   name: "CentreFormationList",
   data() {
@@ -78,8 +73,6 @@ export default {
     },
   },
   components: {
-    BodyTitle,
-    // CentreFormationListComponent,
   },
   created () {
     this.getListCentresFormation();

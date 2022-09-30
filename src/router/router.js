@@ -1100,25 +1100,25 @@ const routes = [
   },
   //Centre Formation
   {
-    path: "/admin/centreFormations",
+    path: "/admin/centresFormation",
     name: "admin_centreFormation_list",
     component: CentreFormationList,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/create",
+    path: "/admin/centresFormation/create",
     name: "admin_centreFormation_create",
     component: AddCentreFormation,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/update/:id",
+    path: "/admin/centresFormation/update/:id",
     name: "admin_centreFormation_update",
     component: AddCentreFormation,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/details/:id",
+    path: "/admin/centresFormation/details/:id",
     name: "admin_centreFormation_details",
     component: CentreFormationDetails,
     meta: { authorize: [Role.Admin] },

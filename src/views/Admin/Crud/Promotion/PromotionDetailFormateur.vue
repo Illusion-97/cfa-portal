@@ -15,24 +15,95 @@
               <table class="table">
                 <thead class="">
                   <tr>
+                    <th v-if="isAdmin"> Détails étudiant</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
+                    <th v-if="isAdmin">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     v-for="etudiant in promotion.etudiantsDto"
                     :key="etudiant.id"
-                    @click="clickEtudiant(etudiant)"
                     class="mon-tr"
                   >
+                    <td width=13% v-if="isAdmin">
+                      <b-button @click="clickEtudiant(etudiant)" size="sm" class="mr-2">
+                        Afficher détails 
+                      </b-button>
+                    </td>                  
                     <td>{{ etudiant.utilisateurDto.prenom }}</td>
                     <td>{{ etudiant.utilisateurDto.nom }}</td>
                     <td>{{ etudiant.utilisateurDto.login }}</td>
                     <td>
                       {{ etudiant.utilisateurDto.telephone }}
+                    </td>
+                    <td width=16% v-if="isAdmin">
+                      <b-button block variant="danger" @click="showModal(etudiant.utilisateurDto.id)">
+                        <font-awesome-icon :icon="['fas', 'clock']" />
+                        Déclarer Absence
+                      </b-button>
+                      <b-modal hide-footer :ref="'modal-' + etudiant.utilisateurDto.id">
+                        <template #modal-title>
+                          <div class="text-center">
+                            Ajouter une absence ou un retard pour
+                            <span class="text-info font-weight-bold">{{
+                              etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom
+                            }}</span>
+                          </div>
+                        </template>
+                        <b-form @submit="ajouterAbsence()">
+                          <b-form-group label="Type">
+                            <b-form-select
+                              id="input-3"
+                              v-model="formModel.type"
+                              :options="retardAbsence"
+                              required
+                            ></b-form-select>
+                          </b-form-group>
+                          <b-form-group label="Du">
+                            <div class="w-100 d-flex justify-content-center">
+                              <b-form-input
+                                v-model="formModel.dateDebut"
+                                type="date"
+                                class=""
+                              ></b-form-input>
+                              <b-form-input
+                                v-model="formModel.tempDebut"
+                                type="time"
+                                class=""
+                              ></b-form-input>
+                            </div>
+                          </b-form-group>
+                          <b-form-group label="Au">
+                            <div class="w-100 d-flex justify-content-center">
+                              <b-form-input
+                                v-model="formModel.dateFin"
+                                type="date"
+                                class=""
+                              ></b-form-input>
+                              <b-form-input
+                                v-model="formModel.tempFin"
+                                type="time"
+                                class=""
+                              ></b-form-input>
+                            </div>
+                          </b-form-group>
+
+                          <b-button type="submit" class="mt-3" variant="outline-success" block
+                            >Ajouter</b-button
+                          >
+                        </b-form>
+                        <b-button
+                          class="mt-3"
+                          variant="outline-danger"
+                          block
+                          @click="hideModal(etudiant)"
+                          >Annuler</b-button
+                        >
+                      </b-modal>
                     </td>
                   </tr>
                 </tbody>
@@ -79,7 +150,6 @@
               <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
               Examens
             </template>
-
             <ExamensPromotionsListCompoenent
               :examens="promotion.examensDto"
               ref="examen"
@@ -109,6 +179,8 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
+import { utilisateurService } from "@/_services/utilisateur.service.js";
+
 
 export default {
   name: "PromotionDetailFormateur",
@@ -121,21 +193,28 @@ export default {
     return {
       tabIndex: 1,
       promotionId: this.$route.params.id,
-      // promotion: {
-      //   cursusDto: {},
-      //   referentPedagogiqueDto: {},
-      //   cefDto: { utilisateurDto: {} },
-      //   interventionsDto: [{ formationDto: {} }],
-      //   etudiantDto: [{ utilisateurDto: {} }],
-      // },
       promotion : [],
       itemsEtudients: [],
       ville: "",
       onglet: 1,
       isModalVisible: false,
+      formModel: {
+        type: "RETARD",
+        dateDebut: null,
+        tempDebut: null,
+        dateFin: null,
+        tempFin: null,
+      },
+      retardAbsence: [
+        { text: "Retard", value: "RETARD" },
+        { text: "Absence", value: "ABSENCE" },
+      ],
     };
   },
   computed: {
+    isAdmin() {
+      return utilisateurService.isAdmin();
+    },
   },
   methods: {
     async getGrille(){
@@ -189,7 +268,6 @@ export default {
         });
       }
     },
-
     clickIntervention(intervention) {
       let route = this.$route.path.split("/").splice(1);
       if (route[0] == "admin") {
@@ -208,6 +286,17 @@ export default {
           params: { id: intervention.id },
         });
       }
+    },
+    showModal(etuId) {
+      console.log(etuId)
+      console.log(this.$refs )
+      this.$refs["modal-" + etuId].show();
+    },
+    hideModal(etuId) {
+      this.$refs["modal-" + etuId].hide();
+    },
+    ajouterAbsence(){
+      return null;
     },
   },
   created() {
