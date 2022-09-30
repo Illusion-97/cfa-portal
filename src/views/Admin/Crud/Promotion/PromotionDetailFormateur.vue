@@ -48,7 +48,9 @@
               Interventions
             </template>
             <div id="interventions">
-                <b-button variant="primary" class="m-4" @click="getGrille">Télècharger grille de positionnement</b-button>
+              <b-button variant="primary" class="m-4" @click="getGrille"
+                >Télècharger grille de positionnement</b-button
+              >
               <table class="table">
                 <thead class="">
                   <tr>
@@ -65,13 +67,21 @@
                     @click="clickIntervention(intervention)"
                     class="mon-tr"
                   >
-                    <td>{{intervention.formationDto!= null? intervention.formationDto.titre:'Pas de Formation' }}</td>
+                    <td>
+                      {{
+                        intervention.formationDto != null
+                          ? intervention.formationDto.titre
+                          : "Pas de Formation"
+                      }}
+                    </td>
                     <td>{{ intervention.heuresDisponsees }}</td>
                     <td>{{ intervention.dateDebut | formatDate }}</td>
                     <td>{{ intervention.dateFin | formatDate }}</td>
                   </tr>
                 </tbody>
               </table>
+              <a href="./testGR.pdf" download>Resume</a>
+              <vue-pdf-app pdf="./test.pdf"></vue-pdf-app>
             </div>
           </b-tab>
           <b-tab @click="reloadExam()">
@@ -109,6 +119,10 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
+import { saveAs } from "file-saver";
+
+
+import "vue-pdf-app/dist/icons/main.css";
 
 export default {
   name: "PromotionDetailFormateur",
@@ -116,6 +130,9 @@ export default {
   components: {
     ExamensPromotionsListCompoenent,
     AjouterNotes,
+        
+
+   
   },
   data() {
     return {
@@ -128,41 +145,57 @@ export default {
       //   interventionsDto: [{ formationDto: {} }],
       //   etudiantDto: [{ utilisateurDto: {} }],
       // },
-      promotion : [],
+      promotion: [],
       itemsEtudients: [],
       ville: "",
       onglet: 1,
       isModalVisible: false,
     };
   },
-  computed: {
-  },
+  computed: {},
   methods: {
-    async getGrille(){
-     let response =  await promotionApi.getGrillePositionnement(this.promotionId);
-           console.log(response);
-    
-      const blob = new Blob([response], { type: "application/pdf" });
-
-      let link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob)
-      link.download = "GrillePositionnement" +  this.promotion.nom + ".pdf";
-      this.$router.push(link.href)
-      link.click();
-      URL.revokeObjectURL(link.href);
-      console.log("URL => " +  link.href)
-      console.log("after click");
+    openHandler(pdfApp) {
+      window._pdfApp = pdfApp;
     },
-    getPromotionId(){
+    getGrille() {
+      
       promotionApi
-          .getPromotionByid(this.$route.params.id)
-          .then((response) => {this.promotion = response; console.log(response)});
-          this.$root.$on("afficherNotes", (data) => {
-            if (data) {
-              this.tabIndex++;
-              this.$root.$emit("afficherNotes", false);
-            }
-          });
+        .getGrillePositionnement(this.promotionId)
+        .then((response) => {
+          console.log(response);
+          const blob = new Blob([response], { type: "application/pdf" });
+    //       console.log(blob);
+    //       let pdfName = 'testgpo'; 
+    // var doc = new jsPDF();
+    // doc.text(blob, 10, 10);
+    // doc.save(pdfName + '.pdf');
+    // console.log(jsPDF)
+          //  blob.text().then(response=>{
+          //         console.log(response)
+          //  });
+          saveAs(blob, "test.pdf");
+        });
+
+      // let link = document.createElement("a");
+      // link.href = window.URL.createObjectURL(blob)
+      // link.download = "GrillePositionnement" +  this.promotion.nom + ".pdf";
+      // this.$router.push(link.href)
+      // link.click();
+      // URL.revokeObjectURL(link.href);
+      // console.log("URL => " +  link.href)
+      // console.log("after click");
+    },
+    getPromotionId() {
+      promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
+        console.log(response);
+        this.promotion = response;
+      });
+      this.$root.$on("afficherNotes", (data) => {
+        if (data) {
+          this.tabIndex++;
+          this.$root.$emit("afficherNotes", false);
+        }
+      });
     },
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.promotion.examensDto);
@@ -211,7 +244,7 @@ export default {
     },
   },
   created() {
-    this.getPromotionId();    
+    this.getPromotionId();
   },
 };
 </script>
