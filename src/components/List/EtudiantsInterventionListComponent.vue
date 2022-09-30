@@ -310,7 +310,7 @@ import { devoirApi } from "@/_api/devoir.api.js";
 import { niveauApi } from "@/_api/niveau.api.js";
 
 export default {
-  name: "EtudiantsInterventionListComponent",
+  name: "cnterventionListComponent",
   components: {},
   data() {
     return {
@@ -640,6 +640,7 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, ms));
     },
     showModal(item) {
+      console.log(this.$refs)
       this.$refs["modal-" + item.id].show();
     },
     hideModal(item) {

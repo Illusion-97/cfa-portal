@@ -87,7 +87,6 @@
                   <tr>
                     <th></th>
                     <th></th>
- 
                   </tr>
                 </thead>
                 <tbody>
@@ -99,6 +98,7 @@
               </table>
             </div>
           </b-tab>
+
           <b-tab>
             <template v-slot:title>
               <font-awesome-icon
@@ -108,19 +108,36 @@
               Divers
             </template>
             <div>
-              <table class="table">
+              <table class="table table-divers">
                 <tbody>
-                  <tr class="mon-tr">
-                    <td>Fiche contact DG2 :</td>
-                    <td>contact</td>                      
+                  <tr>
+                    <td>Email :</td>
+                    <td> {{etudiant.utilisateurDto.login}} </td>
                   </tr>
-                  <tr class="mon-tr">
-                    <td>Fiche entreprise DG2</td>
-                    <td>entreprise</td>
+                  <tr>
+                    <td>Téléphone :</td>
+                    <td> {{etudiant.utilisateurDto.telephone}} </td>
                   </tr>
-                  <tr class="mon-tr">
+                  <tr>
+                    <td>Adresse :</td>
+                    <td> {{etudiant.utilisateurDto.adresseDto.libelle}} - {{etudiant.utilisateurDto.adresseDto.codePostal}}
+                      {{etudiant.utilisateurDto.adresseDto.ville}} </td>
+                  </tr>
+                  <tr>
+                    <td>Date de naissance :</td>
+                    <td> {{etudiant.utilisateurDto.dateDeNaissance}} </td>
+                  </tr>
+                  <tr>
                     <td>Tuteur :</td>
                     <td> {{maitreApprentissage.utilisateurDto.prenom}} {{maitreApprentissage.utilisateurDto.nom}}</td>
+                  </tr>
+                  <tr> 
+                    <td class=td-width >Fiche contact DG2 :</td>
+                    <td class=td-width> contact </td>                      
+                  </tr>
+                  <tr>
+                    <td>Fiche entreprise DG2 :</td>
+                    <td>entreprise</td>
                   </tr>
                 </tbody>
               </table>
@@ -726,5 +743,9 @@ methods: {
 -->
 
 <style scoped>
-
+.table-divers{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%
+}
 </style>

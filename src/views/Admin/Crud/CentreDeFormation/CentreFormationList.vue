@@ -1,24 +1,7 @@
 <template>
   <div>
-    <BodyTitle title="Liste des centres de formations" />
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      :variant="color"
-      @dismissed="dismissCountDown = 0"
-    >
-      {{ message }}
-    </b-alert>
-    <div class="d-flex justify-content-center">
-      <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
-    </div>
-    <div class="d-flex flex-row align-items-end justify-content-between">
-      <!-- <form class="form-inline p-2" @submit="search">
+    <div class="header-list">
+      <!-- <form class="form-inline form" @submit="submit">
         <input
           id="saisie"
           name="saisie"
@@ -86,16 +69,11 @@
 
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js"
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 import LoginWdg2 from "../../../../components/LoginWdg2.vue";
-
-// import CentreFormationListComponent from "@/components/List/CentreFormationListComponent.vue";
-
 export default {
   name: "CentreFormationList",
     components:{
       LoginWdg2,
-      BodyTitle
     },
   data() {
   
