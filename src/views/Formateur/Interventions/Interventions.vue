@@ -45,7 +45,7 @@
               font-weight-bold
             "
           >
-            {{ item.formationDto.titre }}
+            {{ item.formationDto != null ? item.formationDto.titre : 'Pas de formation' }}
           </b-card-header>
           <b-card-text
             class="mt-4 d-flex justify-content-center bg-white text-secondary"
@@ -59,6 +59,9 @@
           </b-card-footer>
         </b-card>
       </div>
+    </div>
+    <div class="text-center m-4" v-if="loading">
+      <b-spinner variant="primary" label="Text Centered"></b-spinner>
     </div>
   </div>
 </template>
@@ -81,6 +84,8 @@ export default {
       perPage: 9,
       pageCount: 0,
       key: "",
+      stopScrol: false,
+      loading: false,
     };
   },
   created() {
@@ -101,9 +106,6 @@ export default {
         )
         .then((data) => {
           this.items = data;
-
-          console.log("interventions");
-          console.log(data);
         });
     },
     countIntervention() {
@@ -115,11 +117,12 @@ export default {
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     getNextInterventions() {
-      window.onscroll = () => {
+       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
+          window.scrollY + window.innerHeight + 1 >=
           document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
+
+        if (bottomOfWindow && this.stopScrol == false) {
           this.currentPage++;
           this.pageChange(this.currentPage * this.perPage);
         }
@@ -133,7 +136,16 @@ export default {
           perPage,
           this.key
         )
-        .then((data) => (this.items = data));
+        .then((data) => {
+          this.items = data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          if (err) {
+            this.stopScrol = true;
+            this.loading = false;
+          }
+        });
     },
     search(evt) {
       evt.preventDefault();
