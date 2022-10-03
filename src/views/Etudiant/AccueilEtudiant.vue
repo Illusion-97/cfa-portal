@@ -46,10 +46,10 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <!-- <li v-for="projet in projets" :key="projet.id">
+                  <li v-for="projet in projets" :key="projet.id">
                     {{ projet.nom }}
-                  </li> -->
-                  CFA
+                  </li>
+                  <!-- CFA -->
                 </ul>
               </b-col>
             </b-row>
@@ -72,10 +72,12 @@
     </b-row>
 
     <!-- <br />
-    <b-table small head-variant="light" :items="tableauComputed"></b-table>
+    <b-table small head-variant="light" :items="tableauComputed"></b-table>-->
+    
     <br />
-    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> -->
+    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> 
 
+    <!-- TABLEAU DUR POUR EXEMPLE -->
     <br />
     <b-table small head-variant="light" :items="tab3" :fields="fields"></b-table>
   </div>
@@ -118,6 +120,7 @@ export default {
       ],
 
       arr: [],
+      arr3: [],
 
     };
   },
@@ -191,14 +194,15 @@ export default {
       //   )
       // });
 
+      console.dir("tab > " + JSON.stringify(tab, null, 4));
       return tab;
 
     },
 
     tab3(){
-      let tab = this.arr;
+      let tab3 = this.arr3;
 
-      tab.push(
+      tab3.push(
         {
           nom: "Baron Gomez",
           prenom: "Laurence",
@@ -232,7 +236,7 @@ export default {
         
         );
         
-      return tab;
+      return tab3;
     }
   },
 

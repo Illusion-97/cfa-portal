@@ -133,10 +133,13 @@
               XXXXXXXXXX
           </div> -->
 
-          <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
-            <font-awesome-icon :icon="['fas', 'trash']" />
-            <span class="icon-right">Supprimer</span>
-          </b-button>
+
+          <div v-if="hideDelete == true">
+            <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
+              <font-awesome-icon :icon="['fas', 'trash']" />
+              <span class="icon-right">Supprimer</span>
+            </b-button>
+          </div>
 
           <!-- BOUTON UPDATE -->
           <b-button size="sm" variant="primary" @click="updateExp()" class="btn-delete">
@@ -144,11 +147,6 @@
             <span class="icon-right">Mettre à jour</span>
           </b-button>
 
-          <!-- BOUTON SAVE EXP -->
-          <b-button size="sm" variant="success" type="submit">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Enregistrer</span>
-          </b-button>
         </div>
 
       </b-form>
@@ -319,21 +317,10 @@
         </b-card>
 
         <div id="div-save">
-          <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
-            <font-awesome-icon :icon="['fas', 'trash']" />
-            <span class="icon-right">Supprimer</span>
-          </b-button>
-
-          <!-- BOUTON UPDATE -->
-          <b-button size="sm" variant="primary" @click="updateExp()" class="btn-delete">
-            <i class="fa-solid fa-square-pen"></i>
-            <span class="icon-right">Mettre à jour</span>
-          </b-button>
-
           <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Enregistrer</span>
+            <span class="icon-right">Créer</span>
           </b-button>
         </div>
 
@@ -406,6 +393,7 @@ export default {
       compInModal: [],
       expPro: [],
       activitesByCursus: [],
+      hideDelete: false,
 
       tempActivite: [],
       tempCompetence: [],
@@ -498,6 +486,18 @@ export default {
 
       this.expPro = res || res2;
       console.log("expPro " + this.expPro);
+
+      // SWITCH DELETE EXP PRO
+      if (this.expPro.tacheRealisee ||
+        this.expPro.moyenUtilise ||
+        this.expPro.collaborateur ||
+        this.expPro.contexte ||
+        this.expPro.information) {
+        this.hideDelete = true;
+      } else {
+        this.hideDelete = false;
+      }
+
     },
 
     // LANCE LA MODALE DE LA COMPETENCE CHOISIE
@@ -524,6 +524,11 @@ export default {
           disabled: true,
         },
       ];
+
+      // console.dir(
+      //   "item.competenceProfessionnelles > " +
+      //   JSON.stringify(item.competenceProfessionnelles, null, 4)
+      // );
 
       if (item.competenceProfessionnelles) {
         for (let i = 0; i < item.competenceProfessionnelles.length; i++) {
@@ -648,8 +653,6 @@ export default {
         .then(() =>
           this.$bvModal.hide("exp-pro-modal"),
           this.$bvModal.show("modal-update-success"),
-
-          // TEST
         );
     },
 
@@ -660,8 +663,13 @@ export default {
         // REDIRECTION
         .then(() =>
           this.$bvModal.hide("exp-pro-modal"),
-          this.$bvModal.show("modal-delete-success")
+          this.$bvModal.show("modal-delete-success"),
+
+          // TEST MARCHE PAS 
+          // this.optionsAT()
         );
+
+
     }
 
   },
