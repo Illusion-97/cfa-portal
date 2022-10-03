@@ -33,7 +33,7 @@
       </form> -->
       <div class="updateListFormation p-2">
         <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
-          Mise à jour des interventions
+          Mise à jour des centres de formations
         </button>
         <div class="login-wdg2">
           <login-wdg-2
@@ -46,7 +46,7 @@
     </div>
 
     <div class="row d-flex justify-content-arround">
-      <div 
+      <div
         v-for="centreFormation in centresFormationComputed"
         :key="centreFormation.id"
         @click="click(centreFormation)"
@@ -62,30 +62,32 @@
           style="max-width: 32rem"
           class="card-Promotions col"
         >
-        <b-card-header
-          class="d-flex justify-content-between bg-white text-secondary col"
-        >
-          {{centreFormation.adresseDto.libelle}} - {{centreFormation.adresseDto.codePostal}} 
-          - {{centreFormation.adresseDto.ville}}
-        </b-card-header>
-        <b-card-text class="mt-4 font-weight-bold">
-          {{centreFormation.nom}}
-        </b-card-text>
+          <b-card-header
+            class="d-flex justify-content-between bg-white text-secondary col"
+          >
+            {{ centreFormation.adresseDto.libelle }} -
+            {{ centreFormation.adresseDto.codePostal }} -
+            {{ centreFormation.adresseDto.ville }}
+          </b-card-header>
+          <b-card-text class="mt-4 font-weight-bold">
+            {{ centreFormation.nom }}
+          </b-card-text>
           <b-card-footer
             class="d-flex justify-content-between bg-white text-secondary"
           >
-            <span>
-              Nombre de promotions en cours : 
-            </span>
+            <span> Nombre de promotions en cours : </span>
           </b-card-footer>
         </b-card>
       </div>
+    </div>
+    <div class="text-center m-4" v-if="loadingScroll || !stopScroll">
+      <b-spinner variant="primary" label="Text Centered"></b-spinner>
     </div>
   </div>
 </template>
 
 <script>
-import { centreFormationApi } from "@/_api/centreFormation.api.js"
+import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import LoginWdg2 from "../../../../components/LoginWdg2.vue";
 
@@ -93,80 +95,91 @@ import LoginWdg2 from "../../../../components/LoginWdg2.vue";
 
 export default {
   name: "CentreFormationList",
-    components:{
-      LoginWdg2,
-      BodyTitle
-    },
+  components: {
+    LoginWdg2,
+    BodyTitle,
+  },
   data() {
-  
     return {
       centresFormation: [],
-      perPage : 9,
+      perPage: 9,
       saisie: "",
       currentPage: 1,
       showLoginWdg2Card: false,
       loading: false,
-      dismissCountDown : 0,
-      message :"",
-      color :"success",
-    }
+      dismissCountDown: 0,
+      message: "",
+      color: "success",
+      stopScroll: false,
+      loadingScroll: false,
+    };
   },
   computed: {
     centresFormationComputed() {
-      return this.centresFormation
+      return this.centresFormation;
     },
   },
- 
-  created () {
+
+  created() {
     this.getListCentresFormation();
   },
   mounted() {
     this.getNextCentresFormation();
   },
-  methods:{
-    getListCentresFormation(){
+  methods: {
+    getListCentresFormation() {
       centreFormationApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => {this.centresFormation = response
+        .then((response) => {
+          this.centresFormation = response;
         });
-     },
-    getNextCentresFormation(){
+    },
+    getNextCentresFormation() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight === 
+          window.scrollY + window.innerHeight + 1 >=
           document.documentElement.offsetHeight;
-          if(bottomOfWindow) {
-            this.currentPage++;
-            this.pageChange(this.currentPage * this.perPage);
-          }
-      }
+        if (bottomOfWindow && this.stopScroll == false) {
+          this.currentPage++;
+          this.pageChange(this.currentPage * this.perPage);
+        }
+      };
     },
     pageChange(perPage) {
+      this.loadingScroll = true;
       centreFormationApi
         .getAllByPage(0, perPage, this.saisie)
-        .then((response) => {this.centresFormation = response
-        //dans BDD table centreFormation, colonne adresse vite pour ligne SurSite, ADistance
-        for(let i = 0; i < this.centresFormation.length; i++){
-          if(this.centresFormation[i].adresseDto == null){
-          this.centresFormation[i].adresseDto= "";
+        .then((response) => {
+          this.centresFormation = response;
+          //dans BDD table centreFormation, colonne adresse vite pour ligne SurSite, ADistance
+          for (let i = 0; i < this.centresFormation.length; i++) {
+            if (this.centresFormation[i].adresseDto == null) {
+              this.centresFormation[i].adresseDto = "";
+            }
           }
+        })
+        .catch((err) => {
+          if (err) {
+             this.stopScroll = true;
+             this.loadingScroll = false;
+
           }
         });
     },
-    click(centreFormation){
+    click(centreFormation) {
       this.$router.push({
         name: "admin_centreFormation_details",
-        params: {id: centreFormation.id}
+        params: { id: centreFormation.id },
       });
     },
-        openLoginWdg2() {
+    openLoginWdg2() {
       this.showLoginWdg2Card = true;
     },
     // fetch courses from webservice DG2
-      async logInUserWdg2(value) {
+    async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-     await centreFormationApi
+      await centreFormationApi
         .fetchAllCentreDeFormationsDG2Http({ logInUser: value })
         .then((response) => {
           this.color = "success";
@@ -181,16 +194,24 @@ export default {
           this.message = err;
           this.loading = false;
         });
-
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
-    }
-  }
-  
+    },
+  },
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<style scoped>
+.card-Promotions {
+  border-radius: 5px;
+  min-height: 17rem;
+}
+.card-Promotions:hover {
+  border: 3px solid red;
+  cursor: pointer;
+}
+</style>
 
 

@@ -102,13 +102,16 @@ export default {
       if (joursPasse >= joursFormation) {
         return 100;
       }
+      if (joursPasse <= 0) {
+        return 0;
+      }
 
       return (100 * joursPasse) / joursFormation;
     },
      getNextPromotions() {
       window.onscroll = () => {
-        let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
+          let bottomOfWindow =
+          window.scrollY + window.innerHeight + 1 >=
           document.documentElement.offsetHeight;
         if (bottomOfWindow) {
           this.currentPage++;
@@ -183,3 +186,13 @@ export default {
 
 // }
 </script>
+<style scoped>
+.card-Promotions {
+  border-radius: 5px;
+  min-height: 17rem;
+}
+.card-Promotions:hover {
+  border: 3px solid red;
+  cursor: pointer;
+}
+</style>
