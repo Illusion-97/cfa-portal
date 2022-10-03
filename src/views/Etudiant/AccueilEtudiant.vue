@@ -33,7 +33,7 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="promotion in promotions" :key="promotion" class="promo">
+                  <li v-for="promotion in promotions" :key="promotion.id" class="promo">
                     {{ promotion.nom }}
                   </li>
                 </ul>
@@ -46,9 +46,10 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="projet in projets" :key="projet">
+                  <!-- <li v-for="projet in projets" :key="projet.id">
                     {{ projet.nom }}
-                  </li>
+                  </li> -->
+                  CFA
                 </ul>
               </b-col>
             </b-row>
@@ -59,7 +60,7 @@
               </b-col>
               <b-col cols="7" class="info-droit">
                 <ul>
-                  <li v-for="groupe in groupes" :key="groupe">
+                  <li v-for="groupe in groupes" :key="groupe.id">
                     {{ groupe.nom }}
                   </li>
                 </ul>
@@ -70,9 +71,13 @@
       </b-col>
     </b-row>
 
-    <br />
+    <!-- <br />
     <b-table small head-variant="light" :items="tableauComputed"></b-table>
     <br />
+    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> -->
+
+    <br />
+    <b-table small head-variant="light" :items="tab3" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -84,6 +89,39 @@ import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
   name: "AccueilEtudiant",
+
+  data() {
+    return {
+      promotions: [],
+      projets: [],
+      cef: [],
+      // formateurReferent: [],
+      membres: [],
+      groupes: [],
+
+      fields: [
+        {
+          key: "nom",
+          label: "Nom",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "prenom",
+          label: "Prenom",
+          // thStyle: { width: "20%" },
+        },
+        {
+          key: "role",
+          label: "Rôle",
+          // thStyle: { width: "10%" },
+        },
+      ],
+
+      arr: [],
+
+    };
+  },
+
   computed: {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
@@ -123,26 +161,89 @@ export default {
       });
       return tab;
     },
+
+    tab() {
+
+      let tab = this.arr;
+      let manager = this.cef;
+      // let tuteur = this.formateurReferent;
+
+      tab.push(
+        {
+          nom: manager.nom,
+          prenom: manager.prenom,
+          role: "Manager",
+        },
+        // {
+        //   nom: tuteur.nom,
+        //   prenom: tuteur.prenom,
+        //   role: "Tuteur",
+        // },
+      );
+
+      // this.membres.forEach(function (e) {
+      //   this.tab2.push(
+      //     {
+      //       nom: e.utilisateurDto.nom,
+      //       prenom: e.utilisateurDto.prenom,
+      //       role: "Membre du groupe",
+      //     }
+      //   )
+      // });
+
+      return tab;
+
+    },
+
+    tab3(){
+      let tab = this.arr;
+
+      tab.push(
+        {
+          nom: "Baron Gomez",
+          prenom: "Laurence",
+          role: "Manager",
+        },
+        {
+          nom: "Merckling",
+          prenom: "Jerome",
+          role: "Tuteur",
+        },
+        {
+          nom: "Chevallereau",
+          prenom: "Valentin",
+          role: "Membre du groupe",
+        },
+        {
+          nom: "Ben Gamra",
+          prenom: "Feres",
+          role: "Membre du groupe",
+        },
+        {
+          nom: "Pires",
+          prenom: "William",
+          role: "Membre du groupe",
+        },
+        {
+          nom: "Charpentier",
+          prenom: "Remy",
+          role: "Membre du groupe",
+        },
+        
+        );
+        
+      return tab;
+    }
   },
 
-  data() {
-    return {
-      promotions: [],
-      projets: [],
-      cef: [],
-      formateurReferent: [],
-      membres: [],
-      groupes: [],
-    };
-  },
   created() {
     etudiantApi
       .getPromotions(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.promotions = data));
 
-    etudiantApi
-      .getFormateurReferent(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.formateurReferent = data));
+    // etudiantApi
+    //   .getFormateurReferent(this.$store.getters.getUtilisateur.etudiantDto.id)
+    //   .then((data) => (this.formateurReferent = data));
 
     etudiantApi
       .getGroupes(this.$store.getters.getUtilisateur.etudiantDto.id)
@@ -164,16 +265,15 @@ export default {
 </script>
 
 <style scoped>
-
-.promo{
-      margin-bottom: 8px;
+.promo {
+  margin-bottom: 8px;
 }
 
 h5 {
   margin-top: 55px;
 }
 
-h2{
+h2 {
   font-weight: bolder;
 }
 
@@ -216,7 +316,7 @@ table {
   margin-left: 7px;
 }
 
-ul{
+ul {
   margin-bottom: 0 !important;
 }
 </style>

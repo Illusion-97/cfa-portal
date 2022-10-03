@@ -16,8 +16,8 @@
 
             <!-- BOUTON CREER -->
             <b-button size="sm" class="mr-2" variant="primary">
-              <i class="bi bi-eye"></i>
-              Voir
+              <!-- <i class="bi bi-eye"></i> -->
+              <i class="bi bi-filetype-pdf"></i> Voir
             </b-button>
 
             <!-- BOUTON UPDATE -->
@@ -147,7 +147,7 @@ export default {
   },
 
   created() {
-      dossierProfessionnelApi
+    dossierProfessionnelApi
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));
   },

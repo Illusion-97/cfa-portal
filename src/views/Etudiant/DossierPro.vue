@@ -202,23 +202,23 @@
   </div>
 
   <!-- CONTAINER CREER DOSSIER -->
-    <div class="container" v-else>
-      <h5>
-        Créer le dossier professionnel :
-        <span>{{ data.item.cursus.titre }}</span>
-      </h5>
+  <div class="container" v-else>
+    <h5>
+      Créer le dossier professionnel :
+      <span>{{ data.item.cursus.titre }}</span>
+    </h5>
 
-      <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index">
-        
-        <!-- ACTIVITES TYPES SELECTEURS -->
-        <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
+    <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index">
 
-        <b-form-select v-model="item[index]" :options="optionsAT2(item)" @change="getValue2"></b-form-select>
-        <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
-        <br />
-      </div>
+      <!-- ACTIVITES TYPES SELECTEURS -->
+      <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-        <!-- ACTIVITES TYPES MODALE -->
+      <b-form-select v-model="item[index]" :options="optionsAT2(item)" @change="getValue2"></b-form-select>
+      <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
+      <br />
+    </div>
+
+    <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
 
@@ -380,7 +380,7 @@
     </b-modal>
 
 
-    </div>
+  </div>
 </template>
 
 <script>
@@ -515,7 +515,7 @@ export default {
       this.tempCompetence = value;
     },
 
-    // OPTIONS DES ACTIVITES TYPES
+    // OPTIONS DES ACTIVITES TYPES - MODIFIER
     optionsAT(item) {
       let tab = [
         {
@@ -570,11 +570,11 @@ export default {
       if (item.competenceProfessionnelles) {
         for (let i = 0; i < item.competenceProfessionnelles.length; i++) {
 
-            tab.push({
-              value: item.competenceProfessionnelles[i],
-              text: item.competenceProfessionnelles[i].libelle,
-              disabled: false,
-            });
+          tab.push({
+            value: item.competenceProfessionnelles[i],
+            text: item.competenceProfessionnelles[i].libelle,
+            disabled: false,
+          });
 
           // <img src="@/assets/img/verifier.png" class="check" />
         }
@@ -647,7 +647,9 @@ export default {
         // REDIRECTION
         .then(() =>
           this.$bvModal.hide("exp-pro-modal"),
-          this.$bvModal.show("modal-update-success")
+          this.$bvModal.show("modal-update-success"),
+
+          // TEST
         );
     },
 
@@ -665,7 +667,8 @@ export default {
   },
 
   created() {
-    cursusApi.getAllCursus().then((data) => (this.cursus = data));
+    cursusApi
+      .getAllCursus().then((data) => (this.cursus = data));
 
     activiteTypeApi
       .getAllByIdPromotion(this.data.item.id)
