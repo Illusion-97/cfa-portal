@@ -208,8 +208,10 @@
             variant="success"
             @click="ajouterPositionnement(row.item)"
           >
-            <font-awesome-icon :icon="['fas', 'plus-square']"
-          /></b-button>
+            <font-awesome-icon
+              :icon="['fas', 'plus-square']"
+            /></b-button
+          >
 
           <b-button
             v-if="row.item.modifierPositionnement == true"
@@ -302,17 +304,17 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
-import { absencesApi } from "@/_api/absence.api.js";
+import { absenceApi } from "@/_api/absence.api.js";
 import { positionnementApi } from "@/_api/positionnements.api.js";
 import { devoirApi } from "@/_api/devoir.api.js";
 import { niveauApi } from "@/_api/niveau.api.js";
 
 export default {
-  name: "EtudiantsInterventionListComponent",
+  name: "cnterventionListComponent",
   components: {},
   data() {
     return {
-      perPage: 3,
+      perPage: 9,
       currentPage: 1,
       saisie: "",
       message: "",
@@ -477,7 +479,7 @@ export default {
           typeAbsence: this.formModel.type,
         };
 
-        absencesApi.save(absence).then((responce) => {
+        absenceApi.save(absence).then((responce) => {
           this.items[this.items.indexOf(item)].itemsAbsences.push({
             date: this.getDateFormat(responce.dateDebut, responce.dateFin),
             justificatif: "Non",
@@ -530,8 +532,7 @@ export default {
                 nom: e.etudiant.nom,
                 prenom: e.etudiant.prenom,
                 nomCentreFormation: e.etudiant.nomCentreFormation,
-                depart:
-                  e.niveauDebut != null ? e.niveauDebut.valeur : 0,
+                depart: e.niveauDebut != null ? e.niveauDebut.valeur : 0,
                 fin: e.niveauFin != null ? e.niveauFin.valeur : 0,
                 _showDetails: false,
                 itemsAbsences: itemsAbsences,
@@ -543,9 +544,11 @@ export default {
                 ajouterPositionnement: e.niveauFin != null ? false : true,
                 positionnement: e.positionnement,
               };
+
               items.push(item);
               //Affecter les devoirs
               setTimeout(() => {
+                console.log(e.devoirs);
                 for (let i = 0; i < e.devoirs.length; i++) {
                   let itemDevoir = {
                     consigne:
@@ -564,7 +567,7 @@ export default {
                   };
                   itemsDevoirs.push(itemDevoir);
                 }
-              }, 200);
+              }, 300);
             });
             this.items = items;
           } else {
@@ -573,13 +576,43 @@ export default {
         });
     },
     ajouterPositionnement(item) {
-      let positionnement = item.positionnement;
-      positionnement.niveauFin = item.fin;
-      positionnement.niveauDebut = item.depart;
-
-      positionnementApi.save(positionnement).then(() => {
+      let positionnement = {};
+      if (item.modifierPositionnement) {
+        positionnement = item.positionnement;
+        positionnement.niveauFin = item.fin;
+      } else {
+        positionnement = {
+          id: 0,
+          version: 0,
+          niveauDebut: 0,
+          niveauFin: item.fin,
+          interventionId: this.$route.params.id,
+          etudiantId: item.id,
+        };
+      }
+      positionnementApi.save(positionnement).then((response) => {
         item.modifierPositionnement = false;
         item.bgFin = this.getBgPositionnement(item.fin);
+        item.positionnement = response;
+      });
+    },
+    ModifierPositionnement(item) {
+      let positionnement = {
+        id: 0,
+        version: 0,
+        niveauDebut: 0,
+        niveauFin: item.fin,
+        interventionId: this.$route.params.id,
+        etudiantId: item.id,
+      };
+      // console.log(item.positionnement)
+      // positionnement.niveauFin = item.fin;
+      // positionnement.niveauDebut = item.depart;
+
+      positionnementApi.save(positionnement).then((response) => {
+        item.modifierPositionnement = false;
+        item.bgFin = this.getBgPositionnement(item.fin);
+        item.positionnement = response;
       });
     },
     getBgPositionnement(niveau) {
@@ -607,6 +640,7 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, ms));
     },
     showModal(item) {
+      console.log(this.$refs)
       this.$refs["modal-" + item.id].show();
     },
     hideModal(item) {
@@ -623,11 +657,9 @@ export default {
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css">
 </style>
+<style scoped src="@/assets/styles/BtnAccordion.css">
+</style>
 <style scoped>
-.btn-accordion {
-  background-color: #0d153e;
-  border: none;
-}
 .absent {
   width: 50px;
   background-color: black;

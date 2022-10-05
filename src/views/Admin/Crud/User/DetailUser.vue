@@ -86,6 +86,9 @@
           </div>
           <div class="card-body user-info">
             <p>
+              <span class="font-weight-bold mr-2"><b-icon icon="person-fill"/></span>: {{ user.civilite }}
+            </p>
+            <p>
               <span class="font-weight-bold mr-2">&#64;</span>: {{ user.login }}
             </p>
             <p>
@@ -95,6 +98,9 @@
             <p>
               <span class="mr-2"> <b-icon icon="telephone-fill"/></span>:
               {{ user.telephone }}
+            </p>
+            <p>
+              <span class="font-weight-bold mr-2"><b-icon icon="calendar3"/></span>: {{ user.dateDeNaissance | formatDate }}
             </p>
           </div>
         </div>
@@ -153,7 +159,9 @@ export default {
       this.adresseDto = this.user.adresseDto;
     });
   },
+  
 };
+
 </script>
 
 <style scoped>

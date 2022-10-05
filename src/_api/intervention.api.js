@@ -22,6 +22,7 @@ export const interventionApi = {
     findAssignementByInterventionId,
     findTrainerByInterventionId,
     findAllSupportByInterventionId,
+    fetchAllInterventionsDG2Http,
 }
 
 /**
@@ -235,3 +236,24 @@ function findAllSupportByInterventionId(id) {
         .then(response => response.data)
         .catch(err => console.error(err))
 }
+
+/**
+ * Récupération des centres de DG2
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
+/* test de recup de la requete import dg2 */
+function fetchAllInterventionsDG2Http(logInUser) {
+    // console.log(logInUser);
+    // console.log(logInUser.logInUser.email);
+    return axios.get(`${END_POINT}/dg2`, {
+      headers: {
+        // Authorization: 'Bearer ' + store.getters.getToken, 
+        Authorization: requestOptions.headers(),
+        "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
+      },
+    });
+  
+  }

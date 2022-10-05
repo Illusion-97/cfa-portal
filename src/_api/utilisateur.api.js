@@ -24,7 +24,7 @@ export const utilisateurApi = {
   deleteUtilisateur,
   getAllUsersByName,
   save,
-
+  fetchAllUsersDG2Http,
   isReferent,
   uploadUser,
   mail,
@@ -351,4 +351,13 @@ function mail(user){
         return error.response;
       }
     });
+}
+function fetchAllUsersDG2Http(logInUser) {
+  console.log(logInUser);
+  return axios.get(`${END_POINT}/dg2`, {
+    headers: {
+      Authorization: requestOptions.headers(),
+      "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
+    },
+  });
 }

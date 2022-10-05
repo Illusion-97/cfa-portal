@@ -13,18 +13,18 @@
         <div class="row">
           <label class="civilite">Civilité : </label>
           <div class="form-check col-1">
-            <input class="form-check-input" type="radio" name="gridRadios" id="monsieur" value="M" checked
+            <input class="form-check-input" type="radio" name="gridRadios" id="monsieur" value="m" checked
               v-model="form.civilite" autocomplete="honorific-prefix" />
             <label class="form-check-label" for="monsieur">
-              Monsieur
+              Mr
             </label>
           </div>
           <div class="form-check col-1">
-            <input class="form-check-input" type="radio" name="gridRadios" id="madame" value="Mme"
+            <input class="form-check-input" type="radio" name="gridRadios" id="madame" value="ms"
               v-model="form.civilite" autocomplete="honorific-prefix" />
             <label class="form-check-label" for="madame">
-              Madame
-            </label>
+              Mme
+            </label> 
           </div>
         </div>
       </div>
@@ -88,12 +88,16 @@
         <div class="form-group col-6">
           <label for="">Adresse</label>
           <div class="d-flex justify-content-between">
-            <input type="number" name="num" min="1" class="form-control col-2" placeholder="N°" v-model="form.adresseDto.numero" />
-            <input type="text" name="rue" class="form-control col-4" placeholder="rue" v-model="form.adresseDto.rue" />
+            <!-- <input type="number" name="num" min="1" class="form-control col-2" placeholder="N°" v-model="form.adresseDto.numero" /> -->
+            <input type="text" name="rue" class="form-control col-4" placeholder="numero et rue" v-model="form.adresseDto.libelle" />
             <input type="text" name="ville" class="form-control col-3" placeholder="ville" v-model="form.adresseDto.ville" />
-            <input type="text" name="zipcode" class="form-control col-2" maxlength="5" placeholder="code postal" v-model="form.adresseDto.codePostal" />
+            <input type="text" name="zipcode" class="form-control col-3" maxlength="5" placeholder="code postal" v-model="form.adresseDto.codePostal" />
           </div>
         </div>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-1">Entreprise :</label>
+        <EntrepriseListComponent v-on:click-list="onClickChildEntrepriseList" :entrepriseProp="entreprise_input" class="col-11" />
       </div>
        <!-- <div>
             <div class ="form-group col-6">
@@ -148,7 +152,7 @@
   import { utilisateurApi } from "@/_api/utilisateur.api.js";
   import BodyTitle from "@/components/utils/BodyTitle.vue";
   // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
-  //import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+  import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
   import RoleModal from "@/components/Modal/RoleModal.vue";
 import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";
 import { etudiantApi } from "../../../../_api/etudiant.api";
@@ -159,7 +163,7 @@ import { contratApi } from "../../../../_api/contrat.api";
     components: {
       BodyTitle,
       // AdresseListComponent,
-      //EntrepriseListComponent,
+      EntrepriseListComponent,
       RoleModal,
       UtilisateurModal,
     },
@@ -180,10 +184,17 @@ import { contratApi } from "../../../../_api/contrat.api";
           rolesDto: [],
           adresseDto: {
             id: null,
-            numero: "",
-            rue: "",
+            libelle: "",
             ville: "",
             codePostal: "",
+          },
+          entrepriseDto: {
+            id: null,
+            raisonSociale: "",
+            siret: "",
+            naf: "",
+            effectifTotal: "",
+            employeurType: "",
           },
           etudiantDto:null,
           formateurDto:null,
@@ -211,7 +222,7 @@ import { contratApi } from "../../../../_api/contrat.api";
         //   ville: "",
         //   codePostal: "",
         // },
-        entrepriseDto: "",
+        
 
         isModalVisible: false,
 

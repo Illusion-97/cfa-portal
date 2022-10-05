@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid">
     <BodyTitle :title="vue_title" />
-
     <b-form class="form mb-5" @submit="submit">
       <b-form-group id="form-group">
         <b-form-row class="text-align-left">

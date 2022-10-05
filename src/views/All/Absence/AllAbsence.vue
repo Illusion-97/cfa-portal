@@ -21,7 +21,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
 import { absences_latesFields } from "@/assets/js/fields.js";
-import { absencesApi } from "@/_api/absence.api";
+import { absenceApi } from "@/_api/absence.api";
 export default {
   name: "AbsenceRetard",
   components: {
@@ -43,18 +43,18 @@ export default {
   },
   methods: {
     fillList() {
-      absencesApi
+      absenceApi
         .getAllAbsences(this.currentPage, this.perPage, this.key)
         .then((data) => (this.items = data));
       this.countAbsence();
     },
     countAbsence() {
-      absencesApi
+      absenceApi
         .countAbsence(this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     pageChange(page) {
-      absencesApi
+      absenceApi
         .getAllAbsences(page, this.perPage, this.key)
         .then((data) => (this.items = data));
       this.countAbsence();

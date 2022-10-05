@@ -223,7 +223,7 @@
 import { examenApi } from "@/_api/examen.api.js";
 import { interventionApi } from "@/_api/intervention.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
-// import { absencesApi } from "@/_api/absence.api.js";
+// import { absenceApi } from "@/_api/absence.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
@@ -479,7 +479,7 @@ export default {
     // Absence
     // getAbsences() {
     //   for (let i = 0; i < this.students.length; i++) {
-    //     absencesApi.getAllByIdEtudiant(this.students[i].id).then((data) => {
+    //     absenceApi.getAllByIdEtudiant(this.students[i].id).then((data) => {
     //       //data est un array, on veut pas un array d'array donc on fait element par element
     //       for (let j = 0; j < data.length; j++) {
     //         this.absences.push(data[j]);

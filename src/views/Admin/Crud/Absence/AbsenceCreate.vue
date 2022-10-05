@@ -88,7 +88,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";
-import { absencesApi } from "@/_api/absence.api.js";
+import { absenceApi } from "@/_api/absence.api.js";
 import { etudiantApi } from "@/_api/etudiant.api.js";
 
 export default {
@@ -135,7 +135,7 @@ export default {
       this.$route.params.id != null &&
       this.$route.params.id != "" &&
       this.$route.params.id != 0){
-      absencesApi.getById(this.$route.params.id).then((response) => {
+      absenceApi.getById(this.$route.params.id).then((response) => {
         this.form = response;
         this.vue_title = "Update d'un absence";
         this.btn_form_text = "Update";
@@ -147,7 +147,7 @@ export default {
     submit(e) {
       e.preventDefault();
 
-      absencesApi.save(this.form).then(() => this.goBack());
+      absenceApi.save(this.form).then(() => this.goBack());
     },
     goBack() {
       this.$router.go(-1);

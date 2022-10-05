@@ -34,6 +34,10 @@
         <span class="font-weight-bold col-md-2">Titre : </span>
         <span class="">{{ cursus.titre }}</span>
       </b-card-text>
+      <b-card-text class="identity row ml-6">
+        <span class="font-weight-bold col-md-2">Durée : </span>
+        <span class="">{{ cursus.duree }}</span>
+      </b-card-text>
 
       <b-card-text class="identity row ml-6">
         <span class="font-weight-bold col-md-4 mb-2">Promotions associées :</span>

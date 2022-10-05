@@ -88,7 +88,7 @@
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import "bootstrap-icons/font/bootstrap-icons.css";
+//erreur avec l'import à corriger import "bootstrap-icons/font/bootstrap-icons.css";
 
 
 // SWITCH

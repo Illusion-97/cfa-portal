@@ -4,7 +4,7 @@
 
     <!-- <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
 
-    <div v-for="(item, index) in notesEtudiant" :key="item" class="redAcc">
+    <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
       <b-button v-b-toggle.collapse-1 variant="primary" class="btn-volet">
         <!-- <b-button v-b-toggle="'accordion '+index" variant="primary"> -->
         <div>
@@ -65,10 +65,10 @@ export default {
     // TELECHARGER PDF
     goToEvents: function (item) {
       window.open(
-        "http://localhost:8085/examens/bulletin-etudiant/" +
-        this.$store.getters.getUtilisateur.etudiantDto.id +
-        "/" +
-        item[0].id
+        `${process.env.VUE_APP_API_URL}examens/bulletin-etudiant/` +
+          this.$store.getters.getUtilisateur.etudiantDto.id +
+          "/" +
+          item[0].id
       );
     },
   },

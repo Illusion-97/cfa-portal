@@ -1,9 +1,12 @@
 <template>
-  <div id="adresseList">
+  <div id="CentreFormationListComponent">
     <div class="updateListLocation">
       <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
         Mise à jour des centres 
       </button>
+    <!-- <v-btn depressed class="btn btn-info" outlined @click="openLoginWdg2">
+          Mise à jour des centres
+        </v-btn> -->
       <div class="login-wdg2">
         <login-wdg-2
           v-if="showLoginWdg2Card"
@@ -11,10 +14,11 @@
           @wdg2Close="wdg2Close"
         />
       </div>
-      <div class="progress"
+      <v-progress-circular
         v-if="loading"
         indeterminate
-      ></div>
+        color="red darken-1"
+      ></v-progress-circular>
     </div>
     <br>
     <div class="header-list">
@@ -42,12 +46,14 @@
           <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
         </button>
       </form>
-
-      <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
+      <!-- <button class="btn btn-primary" v-on:click="createCentreFormation()" v-if="isAction">
               Ajouter un centre de formation
-            </button>
-
+            </button> -->
     </div>
+    <small class="form-text info-text ml-1 mt-4">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+        Double-cliquez sur un centre de formation pour plus d'info
+    </small>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -131,6 +137,7 @@
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
+import { mapActions } from "vuex";
 export default {
   name: "CentreFormationListComponent",
   components: {
@@ -154,7 +161,7 @@ export default {
   data() {
     return {
       centreFormations: [],
-      perPage: 3,
+      perPage: 7,
       pageCount: 0,
       saisie: "",
 
@@ -186,6 +193,12 @@ export default {
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
+    },
+    ...mapActions("centreFormation", [
+      "fetchCentreFormationDG2",
+    ]),
+    initialize() {
+      this.loadLocations();
     },
 
     pageChange(pageNum) {
@@ -248,9 +261,9 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      await this.centreFormationApi.fetchAllCentreDeFormationsDG2Http({ logInUser: value });
+      centreFormationApi.fetchAllCentreDeFormationsDG2Http({ logInUser: value });
       this.loading = false;
-      await this.loadLocations();
+      this.refreshList();
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {
@@ -271,6 +284,9 @@ export default {
   display: flex;
   justify-content: center;
   padding: 2rem 0 0 0;
+}
+button2 {
+  color: aqua;
 }
 
 </style>

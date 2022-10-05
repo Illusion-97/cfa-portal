@@ -17,6 +17,8 @@ export const promotionApi = {
     getCursusByIdEtudiant,
     getAllByInterventionIdForSelect,
     getGrillePositionnement,
+    fetchAllPromotionDG2Http,
+    getAllByCentreFormationIdPagination,
 };
 
 const END_POINT = "promotions";
@@ -42,7 +44,7 @@ function getPromotionByid(id) {
  * @param {*} search 
  * @returns affiche toutes les promotions par pages
  */
-function getAllByPage(page, size, search = "") {
+function getAllByPage(page, size, search ="" ) {
   let req = `/promotions/${page}/${size}/${search}`;
 
   return axios
@@ -210,8 +212,34 @@ function getAllByInterventionIdForSelect(idI){
 }
 async function getGrillePositionnement(id){
   let req = "promotions/grillePositionnement/" + id;
-  return  await axios
-  .get(req, requestOptions.headers(),{ responseType:"blob"})
+  return axios
+  .get(req, requestOptions.headers(),{responseType:"blob"})
   .then(response => response.data)
   .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} logInUser (email et mot de passe itulisateur)
+ * @returns Liste des promo de dg2
+ */
+function fetchAllPromotionDG2Http(logInUser) {
+  // console.log(logInUser);
+  // console.log(logInUser.logInUser.email);
+  return axios.get(`${END_POINT}/dg2`, {
+    headers: {
+      // Authorization: 'Bearer ' + store.getters.getToken, 
+      Authorization: requestOptions.headers(),
+      "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
+    },
+  });
+}
+
+function getAllByCentreFormationIdPagination(idCentreFormation, page, size){
+  let req = `promotions/centreFormation/${idCentreFormation}/${page}/${size}`
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
 }

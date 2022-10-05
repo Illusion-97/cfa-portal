@@ -96,9 +96,53 @@ export const examensFields = [
 ];
 
 export const formationFields = [
-  { key: "titre", label: "Nom de la formation", thStyle: { width: "200px" } },
-  { key: "contenu", label: "Contenu" },
+  {
+    key: "Details",
+    label: "Détails",
+  },
+  { key: "titre", label: "Intitulé" },
+  { key: "duration", label: "Durée" },
+  { key: "objectif", label: "objectif" },
+  { key: "prerequis", label: "Prérequis" },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "13%" },
+    thClass: "text-center",
+  },
   // { key: "cursusLstDto", label: "Cursus" },
+]
+export const fieldsCursus = [
+  {
+    key: "titre",
+    label: "Titre ",
+  },
+  {
+    key: "duree",
+    label: "Dureé ",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "8%" },
+    thClass: "text-center",
+  },
+]
+export const fieldsIntervention = [
+  {
+    key: "dateDebut",
+    label: "Date Début ",
+  },
+  {
+    key: "dateFin",
+    label: "Date Fin ",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "8%" },
+    thClass: "text-center",
+  },
 ]
 // Example
 // export const nom_variable = [

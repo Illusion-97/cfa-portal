@@ -18,6 +18,7 @@ import router from './router/router.js'
 import store from './store/store.js'
 import axios from 'axios';
 import Paginate from 'vuejs-paginate'
+
 // import VueCookies from 'vue-cookies'
 
 let bootstrap = require('bootstrap');

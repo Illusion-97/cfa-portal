@@ -55,7 +55,7 @@
             </b-row>
             <b-row>
               <b-col cols="5" class="info-gauche">
-                <strong>Numéro du groupe</strong>
+                <strong>Nom du groupe</strong>
                 <font-awesome-icon :icon="['fas', 'user-friends']" />
               </b-col>
               <b-col cols="7" class="info-droit">

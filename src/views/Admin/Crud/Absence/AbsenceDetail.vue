@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { absencesApi } from "@/_api/absence.api.js";
+import { absenceApi } from "@/_api/absence.api.js";
 
 export default {
   name: "absenceDetail",
@@ -106,11 +106,11 @@ export default {
       }
     },
     deleteAbsence(){
-      absencesApi.deleteAbsence(this.$route.params.id).then(() => this.goBack());
+      absenceApi.deleteAbsence(this.$route.params.id).then(() => this.goBack());
     }
   },
   created() {
-    absencesApi
+    absenceApi
       .getById(this.$route.params.id)
       .then((response) => (this.absence = response));this.$router.push()
   },

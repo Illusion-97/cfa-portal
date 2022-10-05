@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <BodyTitle title="Liste des Etudiants" />
     <EtudiantListComponent :isAction="true"/>
+   
   </div>
 </template>
 

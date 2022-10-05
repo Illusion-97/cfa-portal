@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul>
-      <li v-for="item in cursusComputed" :key="item">
+      <li v-for="item in cursusComputed" :key="item.id">
         <h5>
           {{ item.Titre }} -
           {{ item.Promotion }}

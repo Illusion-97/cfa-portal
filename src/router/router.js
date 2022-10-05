@@ -119,7 +119,7 @@ import DetailUser from "@/views/Admin/Crud/User/DetailUser.vue";
 //Promotion
 import PromotionList from "@/views/Admin/Crud/Promotion/PromotionList.vue";
 import PromotionCreate from "@/views/Admin/Crud/Promotion/PromotionCreate.vue";
-import PromotionDetail from "@/views/Admin/Crud/Promotion/PromotionDetail.vue";
+import PromotionDetails from "@/views/Admin/Crud/Promotion/PromotionDetails.vue";
 import PromotionDetailFormateur from "@/views/Admin/Crud/Promotion/PromotionDetailFormateur.vue";
 //Conge
 import CongeList from "@/views/Admin/Crud/Conge/CongeList.vue";
@@ -151,7 +151,7 @@ import GroupeCreate from "@/views/Admin/Crud/Groupe/GroupeCreate.vue";
 import GroupeDetail from "@/views/Admin/Crud/Groupe/GroupeDetail.vue";
 //Etudiant
 import EtudiantList from "@/views/Admin/Crud/Etudiant/EtudiantList.vue";
-import EtudiantDetail from "@/views/Admin/Crud/Etudiant/EtudiantDetail.vue";
+import EtudiantDetails from "@/views/Admin/Crud/Etudiant/EtudiantDetails.vue";
 import EtudiantFicheSalarie from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarie.vue";
 import EtudiantFicheSalarieDetail from "@/views/Admin/Crud/Etudiant/EtudiantFicheSalarieDetail.vue";
 import EtudiantFichePoste from "@/views/Admin/Crud/Etudiant/EtudiantFichePoste.vue";
@@ -178,7 +178,7 @@ import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
 //CentreFormation
 import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreFormationList.vue";
 import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
-import CentreFormationDetail from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetail.vue";
+import CentreFormationDetails from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetails.vue";
 
 //#######################
 //#       CEF           #
@@ -374,7 +374,7 @@ const routes = [
   {
     path: "/formateur/etudiants/detail/:id",
     name: "formateur_etudiant_detail",
-    component: EtudiantDetail,
+    component: EtudiantDetails,
     meta: { authorize: [Role.Formateur] },
   },
   //Promotion
@@ -600,9 +600,9 @@ const routes = [
     meta: { authorize: [Role.Referent] },
   },
   {
-    path: "/referent/promotions/detail/:id",
-    name: "referent_promotion_detail",
-    component: PromotionDetail,
+    path: "/referent/promotions/details/:id",
+    name: "referent_promotion_details",
+    component: PromotionDetails,
     meta: { authorize: [Role.Referent] },
   },
   {
@@ -711,7 +711,7 @@ const routes = [
   {
     path: "/referent/etudiants/detail/:id",
     name: "referent_etudiant_detail",
-    component: EtudiantDetail,
+    component: EtudiantDetails,
     meta: { authorize: [Role.Referent] },
   },
   {
@@ -838,9 +838,9 @@ const routes = [
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/promotions/detail/:id",
-    name: "admin_promotion_detail",
-    component: PromotionDetail,
+    path: "/admin/promotion/details/:id",
+    name: "admin_promotion_details",
+    component: PromotionDetails,
     meta: { authorize: [Role.Admin] },
   },
   //Adresse
@@ -1101,27 +1101,27 @@ const routes = [
   },
   //Centre Formation
   {
-    path: "/admin/centreFormations",
+    path: "/admin/centresFormation",
     name: "admin_centreFormation_list",
     component: CentreFormationList,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/create",
+    path: "/admin/centresFormation/create",
     name: "admin_centreFormation_create",
     component: AddCentreFormation,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/update/:id",
+    path: "/admin/centresFormation/update/:id",
     name: "admin_centreFormation_update",
     component: AddCentreFormation,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/detail/:id",
-    name: "admin_centreFormation_detail",
-    component: CentreFormationDetail,
+    path: "/admin/centresFormation/details/:id",
+    name: "admin_centreFormation_details",
+    component: CentreFormationDetails,
     meta: { authorize: [Role.Admin] },
   },
   //Etudiant
@@ -1162,9 +1162,9 @@ const routes = [
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/etudiants/detail/:id",
-    name: "admin_etudiant_detail",
-    component: EtudiantDetail,
+    path: "/admin/etudiants/details/:id",
+    name: "admin_etudiant_details",
+    component: EtudiantDetails,
     meta: { authorize: [Role.Admin] },
   },
   {
@@ -1241,9 +1241,9 @@ const routes = [
     meta: { authorize: [Role.CEF] },
   },
   {
-    path: "/cef/centreFormations/detail/:id",
-    name: "cef_centreFormation_detail",
-    component: CentreFormationDetail,
+    path: "/cef/centreFormations/details/:id",
+    name: "cef_centreFormation_details",
+    component: CentreFormationDetails,
     meta: { authorize: [Role.CEF] },
   },
   //Promo
@@ -1254,9 +1254,9 @@ const routes = [
     meta: { authorize: [Role.CEF] },
   },
   {
-    path: "/cef/promotions/detail/:id",
-    name: "cef-promotion-detail",
-    component: PromotionDetail,
+    path: "/cef/promotion/details/:id",
+    name: "cef-promotion-details",
+    component: PromotionDetails,
     meta: { authorize: [Role.CEF] },
   },
   {
@@ -1282,7 +1282,7 @@ const routes = [
   {
     path: "/cef/etudiants/detail/:id",
     name: "cef_etudiant_detail",
-    component: EtudiantDetail,
+    component: EtudiantDetails,
     meta: { authorize: [Role.CEF] },
   },
   {
