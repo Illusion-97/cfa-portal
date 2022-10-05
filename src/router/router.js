@@ -339,6 +339,7 @@ const routes = [
   { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
+  { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
 
   //#######################
   //#       FORMATEUR     #
