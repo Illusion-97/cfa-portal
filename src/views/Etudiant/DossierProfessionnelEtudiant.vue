@@ -126,16 +126,12 @@ export default {
     },
 
     voirDossier(promotionId){
-      
-      // console.log("this.$store.getters.getUtilisateur.etudiantDto.id " + this.$store.getters.getUtilisateur.etudiantDto.id);
-      // console.log("promotionId " + promotionId);
-
-      dossierProfessionnelApi
-        .generateDossierProByStudentAndPromo(
-          this.$store.getters.getUtilisateur.etudiantDto.id,
-          promotionId
-        )
-        
+        window.open(
+        "http://localhost:8085/dossierProfessionnel/dossier-professionnel/" +
+        this.$store.getters.getUtilisateur.etudiantDto.id +
+        "/" +
+        promotionId
+      ); 
     },
 
     updateDossier() {
