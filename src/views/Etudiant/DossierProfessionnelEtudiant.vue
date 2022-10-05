@@ -15,7 +15,8 @@
           <div class="div-btn-right">
 
             <!-- BOUTON CREER -->
-            <b-button size="sm" class="mr-2" variant="primary">
+            <b-button size="sm" class="mr-2" variant="primary" v-on:click="
+              voirDossier(data.item.id)">
               <!-- <i class="bi bi-eye"></i> -->
               <i class="bi bi-filetype-pdf"></i> Voir
             </b-button>
@@ -122,6 +123,19 @@ export default {
     deleteDossier(id) {
       console.log("id : " + id);
       dossierProfessionnelApi.deleteDossierProfessionnel(id);
+    },
+
+    voirDossier(promotionId){
+      
+      // console.log("this.$store.getters.getUtilisateur.etudiantDto.id " + this.$store.getters.getUtilisateur.etudiantDto.id);
+      // console.log("promotionId " + promotionId);
+
+      dossierProfessionnelApi
+        .generateDossierProByStudentAndPromo(
+          this.$store.getters.getUtilisateur.etudiantDto.id,
+          promotionId
+        )
+        
     },
 
     updateDossier() {

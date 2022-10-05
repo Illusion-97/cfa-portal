@@ -12,7 +12,7 @@ export const dossierProfessionnelApi = {
   getByIdEtudiant2,
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
-
+  generateDossierProByStudentAndPromo
 }
 
 /**
@@ -48,7 +48,7 @@ function getByIdEtudiant(id) {
  * @param {*} id 
  * @returns 
  */
- function getByIdEtudiant2(id) {
+function getByIdEtudiant2(id) {
   let req = `${END_POINT}/etudiant2/${id}`;
 
   return axios
@@ -62,7 +62,7 @@ function getByIdEtudiant(id) {
  * @param {*} id 
  * @returns 
  */
- function getAllDossierProfessionnelByEtudiantAndByCursus(id) {
+function getAllDossierProfessionnelByEtudiantAndByCursus(id) {
   let req = `${END_POINT}/cursus/etudiant/${id}`;
 
   return axios
@@ -115,4 +115,23 @@ function saveDossierProfessionnel(id, form) {
     .post(`${END_POINT}/save/etudiant/${id}`, form, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
+  let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${promotionId}`;
+
+  return axios
+
+    // .get(req, requestOptions.headers())
+    // .then(response => response.data)
+
+    .get(req, { responseType: 'blob' })
+
+    .then(response => {
+      // const objectUrl = URL.createObjectURL(response.data);
+      window.open(URL.createObjectURL(response.data));
+    })
+
+    .catch((error) => console.log(error));
+
 }
