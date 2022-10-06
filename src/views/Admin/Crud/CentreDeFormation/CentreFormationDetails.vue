@@ -56,6 +56,8 @@ import { promotionApi } from '@/_api/promotion.api.js';
 
 export default {
   name: "CentreFormationDetails",
+  components:{
+  },
   data() {
     return {
       promosList: [],

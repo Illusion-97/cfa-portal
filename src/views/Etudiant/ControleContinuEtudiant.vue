@@ -13,25 +13,15 @@
         </div>
         <div>
           <!-- BUTTON -->
-          <b-button
-            size="sm"
-            class="btn-pdf"
-            variant="success"
-            v-on:click="goToEvents(item)"
-            ><i class="bi bi-file-pdf"></i>Télécharger PDF</b-button
-          >
+          <!-- <b-button size="sm" class="btn-pdf" variant="success" v-on:click="goToEvents(item)"><i
+              class="bi bi-file-pdf"></i>Télécharger PDF</b-button> -->
           <i class="bi bi-caret-down-square-fill"></i>
         </div>
       </b-button>
 
       <b-collapse id="collapse-1" class="colla" visible>
         <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
-        <b-table
-          small
-          head-variant="light"
-          :items="item"
-          :fields="fields"
-        ></b-table>
+        <b-table small head-variant="light" :items="item" :fields="fields"></b-table>
       </b-collapse>
     </div>
   </div>
@@ -80,7 +70,7 @@ export default {
           "/" +
           item[0].id
       );
-    }, 
+    },
   },
 
   computed: {},
@@ -105,8 +95,9 @@ export default {
 .bi {
   margin-right: 5px;
 }
+
 .btn-pdf {
-    margin-right: 137px;
+  margin-right: 137px;
 }
 
 .colla {
@@ -125,12 +116,15 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  border: 0;
+  border-radius: 0;
 }
 
 h5 {
   margin: 0 0 30px 0;
   font-weight: bolder;
 }
+
 .container {
   margin: 89px 0 0 421px;
 }
