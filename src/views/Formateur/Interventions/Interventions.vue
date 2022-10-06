@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     fillList() {
+      console.log(this.$store.getters.getUtilisateur);
       formateurApi
         .getInterventionsByFormateurId(
           this.$store.getters.getUtilisateur.formateurDto.id,

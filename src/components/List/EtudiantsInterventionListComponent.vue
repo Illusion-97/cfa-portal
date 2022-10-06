@@ -176,7 +176,7 @@
             align-items-center
           "
         >
-          <div v-bind:style="{ background: row.item.bgFin }" class="w-50">
+          <div v-bind:style="{ background: row.item.bgFin }" class="w-50 span-positionnement">
             {{ row.item.fin }}
           </div>
           <div>
@@ -592,27 +592,10 @@ export default {
       }
       positionnementApi.save(positionnement).then((response) => {
         item.modifierPositionnement = false;
+        item.ajouterPositionnement = false;
         item.bgFin = this.getBgPositionnement(item.fin);
         item.positionnement = response;
-      });
-    },
-    ModifierPositionnement(item) {
-      let positionnement = {
-        id: 0,
-        version: 0,
-        niveauDebut: 0,
-        niveauFin: item.fin,
-        interventionId: this.$route.params.id,
-        etudiantId: item.id,
-      };
-      // console.log(item.positionnement)
-      // positionnement.niveauFin = item.fin;
-      // positionnement.niveauDebut = item.depart;
 
-      positionnementApi.save(positionnement).then((response) => {
-        item.modifierPositionnement = false;
-        item.bgFin = this.getBgPositionnement(item.fin);
-        item.positionnement = response;
       });
     },
     getBgPositionnement(niveau) {
