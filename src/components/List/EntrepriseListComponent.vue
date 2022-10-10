@@ -46,7 +46,7 @@
           <td>{{ entreprise.raisonSociale }} </td>
           <td>{{ entreprise.siret }} </td>
           <td>{{ entreprise.naf }} </td>
-          <td>{{ entreprise.adresseSiegeDto.numero }},{{ entreprise.adresseSiegeDto.rue}}, {{ entreprise.adresseSiegeDto.ville }}, {{ entreprise.adresseSiegeDto.codePostal }}  </td>
+          <td>{{ entreprise.adresseSiegeDto.libelle}}, {{ entreprise.adresseSiegeDto.ville }}, {{ entreprise.adresseSiegeDto.codePostal }}  </td>
           <!-- <td v-if="isAction">
             <router-link class="btn btn-info" :to="{name:'admin_entreprise_detail', params: { id: entreprise.id }}">Details</router-link>
             &nbsp;
