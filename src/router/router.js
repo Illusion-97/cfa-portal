@@ -179,6 +179,8 @@ import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
 import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreFormationList.vue";
 import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
 import CentreFormationDetails from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetails.vue";
+//Activité Type 
+import ActiviteTypeDetail from "@/views/Admin/Crud/ActiviteType/ActiviteTypeDetail.vue";
 
 //#######################
 //#       CEF           #
@@ -741,6 +743,13 @@ const routes = [
     path: "/admin/",
     name: "admin_dashboard",
     redirect: { name: "admin_utilisateur" },
+    meta: { authorize: [Role.Admin] },
+  },
+  //ActiviteType
+  {
+    path: "/admin/activites_types",
+    name: "admin_activites_types",
+    component: ActiviteTypeDetail,
     meta: { authorize: [Role.Admin] },
   },
   //Utilisateur

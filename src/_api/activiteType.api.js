@@ -7,7 +7,10 @@ export const activiteTypeApi = {
   getAll,
   getAllByIdPromotion,
   getById,
-  getActiviteTypesByCursus
+  getActiviteTypesByCursus,
+  save,
+  update,
+  deleteAt,
 };
 
 function getAll(){
@@ -40,4 +43,23 @@ function getActiviteTypesByCursus(id){
       .get(req, requestOptions.headers())
       .then(response => response.data)
       .catch((error) => console.log(error)); 
+}
+
+function save(at) {
+  return axios
+    .post(`${END_POINT}`,at, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+function update(at) {
+  return axios
+    .put(`${END_POINT}`,at, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+function deleteAt(id) {
+  return axios
+    .delete(`${END_POINT}/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }
