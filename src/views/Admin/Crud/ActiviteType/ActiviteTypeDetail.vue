@@ -168,6 +168,7 @@ export default {
       this.visible = !this.visible
       if (this.visible == false) {
         this.clear()
+        this.modifier = false;
       }
     },
     supprimer(item) {
