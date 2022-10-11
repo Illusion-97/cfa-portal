@@ -144,6 +144,23 @@ export const fieldsIntervention = [
     thClass: "text-center",
   },
 ]
+export const fieldsActiviteType = [
+  {
+    key: "libelle",
+    label: "Libelle ",
+  },
+  {
+    key: "numeroFiche",
+    label: "Numero Fiche",
+    class: "text-center",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "20%" },
+    thClass: "text-center",
+  },
+]
 // Example
 // export const nom_variable = [
 //   { key: "champs1", label: "nom_colonne1",sortable(triable):true/false (optionnel) },

@@ -18,7 +18,7 @@
       :current-page="currentPage"
     >
       <!-- Header sup -->
-      <template #thead-top="">
+      <template #thead-top>
         <b-tr>
           <b-th colspan="4">
             <form class="form-inline form" @submit="submit">
