@@ -1,23 +1,5 @@
 <template>
   <section>
-    <BodyTitle title="Liste des formations" />
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      :variant="color"
-      @dismissed="dismissCountDown = 0"
-    >
-      {{ message }}
-    </b-alert>
-    <div class="d-flex justify-content-center">
-      <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
-    </div>
-
     <div class="d-flex flex-row align-items-end justify-content-between">
       <form class="form-inline p-2" @submit="search">
         <input
@@ -116,7 +98,6 @@
               </b-card-body>
             </b-collapse>
           </b-card>
-
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
               <b-button block v-b-toggle.accordion-2 class="btn-accordion"
@@ -152,7 +133,6 @@
         </b-card>
       </template>
     </b-table>
-
     <paginate
       :page-count="pageCount"
       :page-range="1"
@@ -171,28 +151,19 @@
     >
       >
     </paginate>
-
-    <!-- <BodyTitle title="Liste des Formations" />
-    <FormationListComponent :isAction="true"/> -->
   </section>
 </template>
 
 <script>
-//import TableTemplate from "@/components/utils/TableTemplate.vue";
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { formationApi } from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { formationFields } from "@/assets/js/fields.js";
 import { fieldsCursus } from "@/assets/js/fields.js";
 import { fieldsIntervention } from "@/assets/js/fields.js";
-// import BodyTitle from "@/components/utils/BodyTitle.vue";
-// import FormationListComponent from "@/components/List/FormationListComponent.vue";
+
 export default {
   name: "Formation",
   components: {
-    //TableTemplate,
-    BodyTitle,
-    // FormationListComponent,
     LoginWdg2,
   },
   data() {

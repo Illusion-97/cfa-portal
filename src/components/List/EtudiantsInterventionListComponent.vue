@@ -18,7 +18,7 @@
       :current-page="currentPage"
     >
       <!-- Header sup -->
-      <template #thead-top="">
+      <template #thead-top>
         <b-tr>
           <b-th colspan="4">
             <form class="form-inline form" @submit="submit">
@@ -176,7 +176,7 @@
             align-items-center
           "
         >
-          <div v-bind:style="{ background: row.item.bgFin }" class="w-50">
+          <div v-bind:style="{ background: row.item.bgFin }" class="w-50 span-positionnement">
             {{ row.item.fin }}
           </div>
           <div>
@@ -208,8 +208,10 @@
             variant="success"
             @click="ajouterPositionnement(row.item)"
           >
-            <font-awesome-icon :icon="['fas', 'plus-square']"
-          /></b-button>
+            <font-awesome-icon
+              :icon="['fas', 'plus-square']"
+            /></b-button
+          >
 
           <b-button
             v-if="row.item.modifierPositionnement == true"
@@ -308,11 +310,11 @@ import { devoirApi } from "@/_api/devoir.api.js";
 import { niveauApi } from "@/_api/niveau.api.js";
 
 export default {
-  name: "EtudiantsInterventionListComponent",
+  name: "cnterventionListComponent",
   components: {},
   data() {
     return {
-      perPage: 3,
+      perPage: 9,
       currentPage: 1,
       saisie: "",
       message: "",
@@ -530,8 +532,7 @@ export default {
                 nom: e.etudiant.nom,
                 prenom: e.etudiant.prenom,
                 nomCentreFormation: e.etudiant.nomCentreFormation,
-                depart:
-                  e.niveauDebut != null ? e.niveauDebut.valeur : 0,
+                depart: e.niveauDebut != null ? e.niveauDebut.valeur : 0,
                 fin: e.niveauFin != null ? e.niveauFin.valeur : 0,
                 _showDetails: false,
                 itemsAbsences: itemsAbsences,
@@ -543,9 +544,11 @@ export default {
                 ajouterPositionnement: e.niveauFin != null ? false : true,
                 positionnement: e.positionnement,
               };
+
               items.push(item);
               //Affecter les devoirs
               setTimeout(() => {
+                console.log(e.devoirs);
                 for (let i = 0; i < e.devoirs.length; i++) {
                   let itemDevoir = {
                     consigne:
@@ -564,7 +567,7 @@ export default {
                   };
                   itemsDevoirs.push(itemDevoir);
                 }
-              }, 200);
+              }, 300);
             });
             this.items = items;
           } else {
@@ -573,13 +576,26 @@ export default {
         });
     },
     ajouterPositionnement(item) {
-      let positionnement = item.positionnement;
-      positionnement.niveauFin = item.fin;
-      positionnement.niveauDebut = item.depart;
-
-      positionnementApi.save(positionnement).then(() => {
+      let positionnement = {};
+      if (item.modifierPositionnement) {
+        positionnement = item.positionnement;
+        positionnement.niveauFin = item.fin;
+      } else {
+        positionnement = {
+          id: 0,
+          version: 0,
+          niveauDebut: 0,
+          niveauFin: item.fin,
+          interventionId: this.$route.params.id,
+          etudiantId: item.id,
+        };
+      }
+      positionnementApi.save(positionnement).then((response) => {
         item.modifierPositionnement = false;
+        item.ajouterPositionnement = false;
         item.bgFin = this.getBgPositionnement(item.fin);
+        item.positionnement = response;
+
       });
     },
     getBgPositionnement(niveau) {
@@ -607,6 +623,7 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, ms));
     },
     showModal(item) {
+      console.log(this.$refs)
       this.$refs["modal-" + item.id].show();
     },
     hideModal(item) {
@@ -626,7 +643,6 @@ export default {
 <style scoped src="@/assets/styles/BtnAccordion.css">
 </style>
 <style scoped>
-
 .absent {
   width: 50px;
   background-color: black;

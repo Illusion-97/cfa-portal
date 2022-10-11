@@ -179,6 +179,8 @@ import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
 import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreFormationList.vue";
 import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
 import CentreFormationDetails from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetails.vue";
+//Activité Type 
+import ActiviteTypeDetail from "@/views/Admin/Crud/ActiviteType/ActiviteTypeDetail.vue";
 
 //#######################
 //#       CEF           #
@@ -339,6 +341,7 @@ const routes = [
   { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
+  { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
 
   //#######################
   //#       FORMATEUR     #
@@ -742,6 +745,13 @@ const routes = [
     redirect: { name: "admin_utilisateur" },
     meta: { authorize: [Role.Admin] },
   },
+  //ActiviteType
+  {
+    path: "/admin/activites_types",
+    name: "admin_activites_types",
+    component: ActiviteTypeDetail,
+    meta: { authorize: [Role.Admin] },
+  },
   //Utilisateur
   {
     path: "/admin/utilisateurs",
@@ -1100,25 +1110,25 @@ const routes = [
   },
   //Centre Formation
   {
-    path: "/admin/centreFormations",
+    path: "/admin/centresFormation",
     name: "admin_centreFormation_list",
     component: CentreFormationList,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/create",
+    path: "/admin/centresFormation/create",
     name: "admin_centreFormation_create",
     component: AddCentreFormation,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/update/:id",
+    path: "/admin/centresFormation/update/:id",
     name: "admin_centreFormation_update",
     component: AddCentreFormation,
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/centreFormations/details/:id",
+    path: "/admin/centresFormation/details/:id",
     name: "admin_centreFormation_details",
     component: CentreFormationDetails,
     meta: { authorize: [Role.Admin] },

@@ -3,13 +3,14 @@
         <b-row class="pHeader h-100 d-flex align-items-center">
             <b-col class=" col-9 d-flex justify-content-center">
                 <div class="title-header">
-                    <!-- <div class="text-center">{{ title }}</div> -->
-                    <div class="text-center">{{subTitle}}</div>
                     <div v-if="isAdmin">
-                        {{ title }} - admin
+                        {{ path }} - Espace admin
                     </div>
                     <div v-if="isCEF">    
-                        {{ title}} - CEF
+                        {{ title }} - Espace CEF
+                    </div>
+                    <div v-if="isFormateur">
+                        {{ path }} - Espace Formateur
                     </div>
                 </div>
             </b-col>
@@ -27,47 +28,59 @@ import { authenticationApi } from "@/_api/authentication.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
     export default {
         name:'HeaderFormateur',
+        data(){
+            return {
+                logOut : ""+window.location.origin+"/#/login",
+                title: "Bienvenue sur le portail CFA",
+            }
+        },
          computed: {
+            path(){
+                return this.changeDisplay();
+            },
+            getUtilisateur(){
+                return this.$store.getters.getUtilisateur;
+            },
             isAdmin() {
-            return utilisateurService.isAdmin();
+                return utilisateurService.isAdmin();
             },
             isCEF() {
-            return utilisateurService.isCEF();
+                return utilisateurService.isCEF();
             },
             isReferent() {
-            return utilisateurService.isReferent();
+                return utilisateurService.isReferent();
             },
             isFormateur() {
-            return utilisateurService.isFormateur();
+                return utilisateurService.isFormateur();
             },
             isEtudiant() {
-            return utilisateurService.isEtudiant();
+                return utilisateurService.isEtudiant();
             },
         },
-        props : {
-            title: {
-                type: String,
-                    default: "Bienvenue sur le portail CFA"
-            },
-             subTitle: {
-                type: String,
-                default: ""
-            }
-        }, 
-        data(){
-            return{
-                logOut : ""+window.location.origin+"/#/login"
-            }
-        },
-         methods: {
-
+        methods: {
             logout() {
-              
                 authenticationApi
                 .logout()
                 .then(() => this.$router.push(
                    {name:"login"}
                 ))
+            },
+            changeDisplay(){
+                console.log(this.$route.path.split("/").splice(2)[0])
+                // console.log(this.$route.path.split("/").splice(3)[0])
+                if (this.$route.path.split("/").splice(2)[0] == 'centresFormation'){
+                    if(this.$route.path.split("/").splice(2)[0] == 'centresFormation' 
+                    && this.$route.path.split("/").splice(3)[0] == 'details'){
+                        return "Promotion du centre ..."
+                    }
+                    return "Centres de formation";
+                } else if (this.$route.path.split("/").splice(2)[0] == 'promotion' &&
+                this.$route.path.split("/").splice(3)[0] == 'details') {
+                    return "Détails d'une promotion"
+                } else {
+                    return this.$route.path.split("/").splice(2)[0].substring(0,1).toUpperCase()+
+                    this.$route.path.split("/").splice(2)[0].substring(1)
+                }
             },
         },
     }

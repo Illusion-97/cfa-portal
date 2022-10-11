@@ -211,7 +211,7 @@ export default {
             const h = this.$createElement;
             const titleVNode = h("div", {
                 domProps: {
-                innerHTML: "<h4 style='color: red'>Suppresion Examen</h4>",
+                innerHTML: "<h4 style='color: red'>Suppresion du Devoir </h4>",
                 },
             });
             const messageVNode = h("div", { class: ["foobar"] }, [

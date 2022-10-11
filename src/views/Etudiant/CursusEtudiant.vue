@@ -8,7 +8,7 @@
           <br />
         </h5>
         <p class="m-top">
-          <b-row>
+          <!-- <b-row>
             <b-col cols="2" class="info-gauche"
               ><strong class="icon-right">Descriptif</strong
               ><font-awesome-icon :icon="['fas', 'book']"
@@ -16,7 +16,7 @@
             <b-col cols="10">
               {{ item.Descriptif }}
             </b-col>
-          </b-row>
+          </b-row> -->
           <b-row>
             <b-col cols="2" class="info-gauche">
               <strong class="icon-right">Durée</strong

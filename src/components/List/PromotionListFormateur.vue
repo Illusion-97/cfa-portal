@@ -39,15 +39,16 @@
             <b-card-header
               class="d-flex justify-content-between bg-white text-secondary col"
             >
-            
-              {{promotion.centreFormationAdresseVille != null ? promotion.centreFormationAdresseVille : "pas de ville" }}
-              <b-progress
-                height="20px"
-               
-                show-progress
-                class="mb-2 w-50"
-              >
-               <b-progress-bar  :value="Progress(promotion)" :label="Progress(promotion) + '%'"></b-progress-bar>
+              {{
+                promotion.centreFormationAdresseVille != null
+                  ? promotion.centreFormationAdresseVille
+                  : "pas de ville"
+              }}
+              <b-progress height="20px" show-progress class="mb-2 w-50">
+                <b-progress-bar
+                  :value="Progress(promotion)"
+                  :label="Progress(promotion) + '%'"
+                ></b-progress-bar>
               </b-progress>
             </b-card-header>
             <b-card-text class="mt-4 font-weight-bold">{{
@@ -67,6 +68,9 @@
           </b-card>
         </div>
       </div>
+    </div>
+    <div class="text-center m-4" v-if="loading">
+      <b-spinner variant="primary" label="Text Centered"></b-spinner>
     </div>
   </div>
 </template>
@@ -102,6 +106,8 @@ export default {
       saisie: "",
       promotion_input: "",
       currentPage: 1,
+      stopScrol: false,
+      loading: false,
     };
   },
   computed: {
@@ -110,6 +116,7 @@ export default {
     },
   },
   created() {
+    console.log(this.stopScrol);
     this.getList();
   },
   mounted() {
@@ -131,7 +138,6 @@ export default {
     },
     Progress(promotion) {
       let debut = new Date(promotion.dateDebut);
-
       let now = Date.now();
       let joursPasse = new Number(
         ((now - debut.getTime()) / 31536000000) * 365
@@ -140,33 +146,55 @@ export default {
       if (joursPasse >= joursFormation) {
         return 100;
       }
-
-      return  Math.round((100 * joursPasse) / joursFormation);
+      if(joursPasse <= 0 ){
+        return 0;
+      }
+      return Math.round((100 * joursPasse) / joursFormation);
     },
     submit(e) {
       e.preventDefault();
       this.getList();
     },
     getList() {
+      this.loading = true;
       promotionApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.promotions = response));
+        .then((response) => {
+          this.promotions = response;
+          this.loading = false;
+        })
+        .catch((err) => {
+          if (err) {
+            this.stopScrol = true;
+            this.loading = false;
+          }
+        });
     },
     getNextPromotions() {
       window.onscroll = () => {
         let bottomOfWindow =
-          document.documentElement.scrollTop + window.innerHeight ===
+          window.scrollY + window.innerHeight + 1 >=
           document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
+
+        if (bottomOfWindow && this.stopScrol == false) {
           this.currentPage++;
           this.pageChange(this.currentPage * this.perPage);
         }
       };
     },
     pageChange(perPage) {
+      this.loading = true;
       promotionApi
         .getAllByPage(0, perPage, this.saisie)
-        .then((response) => (this.promotions = response));
+        .then((response) => {
+          this.promotions = response;
+        })
+        .catch((err) => {
+          if (err) {
+            this.stopScrol = true;
+            this.loading = false;
+          }
+        });
     },
 
     clickList(promotion) {
