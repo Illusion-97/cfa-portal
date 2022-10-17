@@ -161,6 +161,44 @@ export const fieldsActiviteType = [
     thClass: "text-center",
   },
 ]
+
+export const fieldsEntreprise = [
+  {
+    key: "Details",
+    label: "Détails",
+  },
+  {
+    key: "raisonSociale",
+    label: "Raison Sociale",
+    class: "text-center",
+  },
+  {
+    key: "siret",
+    label: "Siret",
+    class: "text-center",
+  },
+  {
+    key: "naf",
+    label: "NAF",
+    class: "text-center",
+  },
+  {
+    key: "effectifTotal",
+    label: "Effectif total",
+    class: "text-center",
+  },
+  {
+    key: "employeurType",
+    label: "Employeur Type",
+    class: "text-center",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "20%" },
+    thClass: "text-center",
+  },
+]
 // Example
 // export const nom_variable = [
 //   { key: "champs1", label: "nom_colonne1",sortable(triable):true/false (optionnel) },

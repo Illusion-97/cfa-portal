@@ -7,6 +7,7 @@ export const entrepriseApi = {
     getAllByPage,
     getCount,
     save,
+    update,
     deleteEntreprise,
     getAllEntreprises,
     getAll,
@@ -82,6 +83,20 @@ function getCount(search = ""){
  */
 
 function save(entreprise) {
+  return axios
+    .post(`/${END_POINT}`, entreprise, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+/**
+ * Update de l'entreprise
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
+ function update(entreprise) {
   return axios
     .post(`/${END_POINT}`, entreprise, requestOptions.headers())
     .then((response) => response.data)
