@@ -34,7 +34,11 @@
       </div>
       <div class="form-group row">
         <label for="" class="col-2">Type d'employeur :</label>
-        <input type="text" class="form-control col-3" v-model="form.employeurType" required />
+        <!-- <input type="text" class="form-control col-3" v-model="form.employeurType" required /> -->
+        <select class="custom-select col-2" id="PriveOrPublic" v-model="form.employeurType" required>
+          <option value="1">PRIVE</option>
+          <option value="2">PUBLIC</option>
+        </select>
       </div>
        <router-link :to="{ name: 'admin_addEntreprise_adresse' }" class="btn btn-outline-primary float-right ">
         Ajouter une Adresse
