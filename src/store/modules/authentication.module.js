@@ -1,5 +1,5 @@
 import store from "../store.js";
-import router from "../../router/router";
+//import router from "../../router/router";
 
 export const authentication = {
   state: {
@@ -36,7 +36,7 @@ export const authentication = {
     },
     logout({ commit }) {
       commit("logout");
-      router.push("/login");
+      //router.push("/login");
     },
   },
 };
