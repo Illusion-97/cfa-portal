@@ -1,15 +1,14 @@
 <template>
   <div class="container">
-    <h5>Livret d'évaluation</h5>
-    <b-table
-      small
-      head-variant="light"
-      :items="tableauComputed"
-      :fields="fields"
-    >
-    <template v-slot:cell(TODO)>
-      <button class="btn mr-2 btn-success btn-sm" type="button"><i class="bi bi-filetype-pdf"></i>Télécharger</button>
-    </template>
+    <h2>Livret d'évaluation</h2>
+    <br>
+    <b-table small head-variant="light" :items="tableauComputed" :fields="fields">
+      <template v-slot:cell(TODO)>
+        <button class="btn mr-2 btn-success btn-sm" type="button">
+          <i class="fa-solid fa-file-pdf"></i>
+          Télécharger
+        </button>
+      </template>
     </b-table>
   </div>
 </template>
@@ -33,7 +32,7 @@ export default {
           key: "TODO",
           label: "PDF",
           thStyle: { width: "25%" },
-          formatter: () => { return "Bouton Telechargement";},
+          formatter: () => { return "Bouton Telechargement"; },
         },
         {
           key: "Satisfaction",
@@ -83,7 +82,11 @@ export default {
 </script>
 
 <style scoped>
-.bi{
+h2 {
+  font-weight: bolder;
+}
+
+.bi {
   margin-right: 5px;
 }
 
@@ -94,6 +97,7 @@ export default {
 
 .container {
   margin: 89px 0 0 421px;
+  min-height: 340px;
 }
 
 h5 {

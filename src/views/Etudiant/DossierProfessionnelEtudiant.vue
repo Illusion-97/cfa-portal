@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h5>Dossiers professionnels</h5>
+    <h2>Dossiers professionnels</h2>
 
     <!-- TABLEAU TEST -->
     <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
@@ -14,11 +14,11 @@
         <div v-if="data.item.cursus.dossierProfessionnel != null">
           <div class="div-btn-right">
 
-            <!-- BOUTON CREER -->
+            <!-- BOUTON VOIR -->
             <b-button size="sm" class="mr-2" variant="primary" v-on:click="
-              voirDossier(data.item.id)">
+            voirDossier(data.item.id)">
               <!-- <i class="bi bi-eye"></i> -->
-              <i class="bi bi-filetype-pdf"></i> Voir
+              <i class="fa-solid fa-file-pdf"></i> Voir
             </b-button>
 
             <!-- BOUTON UPDATE -->
@@ -28,7 +28,7 @@
             }">
               <b-button size="sm" class="mr-2" variant="primary" v-on:click="
               updateDossier()">
-                <i class="bi bi-pencil"></i>
+                <i class="fa-solid fa-square-pen"></i>
                 Modifier
               </b-button>
             </router-link>
@@ -52,15 +52,15 @@
               query: { data: data },
             }">
               <b-button size="sm" class="mr-2" variant="success">
-                <i class="bi bi-plus-circle"></i>
+                <i class="fa-solid fa-square-plus"></i>
                 Créer
               </b-button>
             </router-link>
 
             <!-- BOUTON UPDATE -->
             <b-button size="sm" class="mr-2" variant="primary">
-              <i class="bi bi-arrow-up-circle"></i>
-              Uploader
+              <i class="fa-solid fa-cloud"></i>
+               Uploader
             </b-button>
           </div>
         </div>
@@ -125,13 +125,13 @@ export default {
       dossierProfessionnelApi.deleteDossierProfessionnel(id);
     },
 
-    voirDossier(promotionId){
-        window.open(
+    voirDossier(promotionId) {
+      window.open(
         "http://localhost:8085/dossierProfessionnel/dossier-professionnel/" +
         this.$store.getters.getUtilisateur.etudiantDto.id +
         "/" +
         promotionId
-      ); 
+      );
     },
 
     updateDossier() {
@@ -165,6 +165,10 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  font-weight: bolder;
+}
+
 /* .div-btn-right {
   display: flex;
   flex-flow: row-reverse;
@@ -183,6 +187,7 @@ export default {
 
 .container {
   margin: 89px 0 0 421px;
+  min-height: 340px;
 }
 
 .fa-folder-open {

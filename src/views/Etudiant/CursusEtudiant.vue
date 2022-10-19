@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <h2>Cursus</h2>
+    <br>
     <ul>
       <li v-for="item in cursusComputed" :key="item.id">
         <h5>
@@ -19,31 +21,24 @@
           </b-row> -->
           <b-row>
             <b-col cols="2" class="info-gauche">
-              <strong class="icon-right">Durée</strong
-              ><font-awesome-icon :icon="['fas', 'clock']"
-            /></b-col>
+              <strong class="icon-right">Durée</strong>
+              <font-awesome-icon :icon="['fas', 'clock']" />
+            </b-col>
             <b-col cols="10">{{ item.Duree }} h </b-col>
           </b-row>
           <b-row>
             <b-col cols="2" class="info-gauche">
               <strong class="icon-right">Date</strong>
-              <font-awesome-icon :icon="['fas', 'calendar']"
-            /></b-col>
-            <b-col cols="10"
-              >du {{ item.DateStart }} au {{ item.DateEnd }}</b-col
-            >
+              <font-awesome-icon :icon="['fas', 'calendar']" />
+            </b-col>
+            <b-col cols="10">du {{ item.DateStart }} au {{ item.DateEnd }}</b-col>
           </b-row>
           <b-row>
-            <b-col cols="2" class="info-gauche"
-              ><strong class="icon-right">Planning</strong
-              ><font-awesome-icon :icon="['fas', 'calendar-alt']"
-            /></b-col>
+            <b-col cols="2" class="info-gauche"><strong class="icon-right">Planning</strong>
+              <font-awesome-icon :icon="['fas', 'calendar-alt']" />
+            </b-col>
             <b-col cols="10">
-              <b-table
-                small
-                head-variant="light"
-                :items="item.Planning"
-              ></b-table>
+              <b-table small head-variant="light" :items="item.Planning"></b-table>
 
               <!-- BOUTON TELECHARGER -->
               <!-- <b-button variant="success" size="sm">
@@ -56,8 +51,6 @@
             </b-col>
           </b-row>
         </p>
-        <br />
-        <br />
       </li>
     </ul>
   </div>
@@ -108,8 +101,13 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  font-weight: bolder;
+}
+
 .container {
   margin: 89px 0 0 421px;
+  min-height: 340px;
 }
 
 h5 {
@@ -120,13 +118,16 @@ h5 {
 ul {
   list-style-type: none;
 }
+
 .info-gauche {
   text-align: end;
   padding-right: 0;
 }
+
 .space {
   min-height: 10px;
 }
+
 .icon-right {
   margin-right: 7px;
 }
@@ -134,6 +135,7 @@ ul {
 button {
   padding: 0rem 0.5rem !important;
 }
+
 .col-date {
   max-width: 20px;
 }

@@ -5,40 +5,39 @@
         <ul class="sidemenu__list">
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_accueil' }">
-              <i class="bi bi-house"></i>
-              Accueil</router-link
-            >
+              <i class="fa-solid fa-house"></i>
+              Accueil
+            </router-link>
           </li>
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_cursus' }">
-              <i class="bi bi-mortarboard"></i>
-              Mes cursus</router-link
-            >
+              <i class="fa-solid fa-user-graduate"></i>
+              Cursus
+            </router-link>
           </li>
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_controle' }">
-              <i class="bi bi-book"></i>
-              Contrôles continus</router-link
-            >
+              <i class="fa-solid fa-book"></i>
+              Contrôles continus
+            </router-link>
           </li>
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_livret' }">
-              <i class="bi bi-card-checklist"></i>
-              Livrets d'évaluation</router-link
-            >
+              <i class="fa-solid fa-address-card"></i>
+              Livrets d'évaluation
+            </router-link>
           </li>
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_dossierprofessionnel' }">
-              <i class="bi bi-folder"></i>
-              Dossiers professionnels</router-link
-            >
+              <i class="fa-solid fa-folder"></i>
+              Dossiers professionnels
+            </router-link>
           </li>
           <!--TODO -->
           <li class="sidemenu__item disabled-link">
             <a href="#">
-              <i class="bi bi-folder"></i>
-              Dossiers projets</a
-            >
+              <i class="fa-solid fa-folder-closed"></i>
+              Dossiers projets</a>
           </li>
         </ul>
       </div>
@@ -71,6 +70,7 @@ nav {
   margin: 50px 0 0 50px;
   position: absolute;
 }
+
 #sidemenu nav {
   background: #e11b28;
   position: relative;
@@ -79,6 +79,7 @@ nav {
   z-index: 99;
   border-radius: 0 10px 10px 10px;
 }
+
 #sidemenu .sidemenu__btn {
   display: block;
   width: 50px;
@@ -93,6 +94,7 @@ nav {
   cursor: pointer;
   outline: none;
 }
+
 #sidemenu .sidemenu__btn span {
   display: block;
   width: 20px;
@@ -106,32 +108,40 @@ nav {
   right: 0;
   transition: all 0.4s ease;
 }
+
 #sidemenu .sidemenu__btn span.top {
   transform: translateY(-8px);
 }
+
 #sidemenu .sidemenu__btn span.bottom {
   transform: translateY(8px);
 }
+
 #sidemenu .sidemenu__btn.active .top {
   transform: rotate(-45deg);
 }
+
 #sidemenu .sidemenu__btn.active .mid {
   transform: translateX(-20px) rotate(360deg);
   opacity: 0;
 }
+
 #sidemenu .sidemenu__btn.active .bottom {
   transform: rotate(45deg);
 }
+
 #sidemenu .sidemenu__wrapper {
   /* padding-top: 50px; */
   padding: 10px;
 }
+
 #sidemenu .sidemenu__list {
   padding-top: 50px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 #sidemenu .sidemenu__item a {
   text-decoration: none;
   line-height: 1.6em;
@@ -141,6 +151,7 @@ nav {
   color: white;
   transition: 0.4s ease;
 }
+
 #sidemenu .sidemenu__item a:hover {
   /* background: #b8d8d8;
   color: #e11b28;
