@@ -119,12 +119,28 @@ export const fieldsCursus = [
   },
   {
     key: "duree",
-    label: "Dureé ",
+    label: "Durée ",
+  },
+  {
+    key: "niveau",
+    label: "Niveau ",
+  },
+  {
+    key: "sigle",
+    label: "Sigle ",
+  },
+  {
+    key: "millesime",
+    label: "Millesime ",
+  },
+  {
+    key: "codeTitre",
+    label: "Code Titre ",
   },
   {
     key: "Action",
     label: "Action",
-    thStyle: { width: "8%" },
+    thStyle: { width: "10%" },
     thClass: "text-center",
   },
 ]

@@ -71,7 +71,60 @@
         <b-button block variant="info" @click="gotoDetailCursus(row.item)">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
         </b-button>
+
+        <b-button block variant="warning" @click="showModal(row.item)">
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" /> Modifier
+        </b-button>
+        <b-modal hide-footer :ref="'modal-' + row.item.id">
+          <template #modal-title>
+            <div class="text-center">
+              Modifier le cursus
+            </div>
+          </template>
+          <b-form @submit="modifierCursus(row.item)">
+              <v-text-field
+                  v-model="row.item.niveau"
+                    label="Niveau*"
+                    type="number"
+                    required
+                  ></v-text-field>
+      
+              <div class="w-100 d-flex justify-content-center">
+                <v-text-field
+                  v-model="row.item.sigle"
+                    label="Sigle*"
+                    required
+                  ></v-text-field>
+              </div>
+        
+              <div class="w-100 d-flex justify-content-center">
+                <v-text-field
+                  v-model="row.item.millesime"
+                    label="Millesime*"
+                    type="number"
+                    required
+                  ></v-text-field>
+              </div>
+              <small>*indique les champs requis</small>
+           
+
+            <b-button type="submit" class="mt-3" variant="warning" block
+              >
+              <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />Modifier</b-button
+            >
+          </b-form>
+          <b-button
+            class="mt-3"
+            variant="danger"
+            block
+            @click="hideModal(row.item)"
+            >
+            Annuler</b-button
+          >
+        </b-modal>
+        
       </template>
+      
     </b-table>
 
     <paginate
@@ -92,6 +145,7 @@
     >
       >
     </paginate>
+    
   </div>
 </template>
 
@@ -99,6 +153,7 @@
 import { cursusApi } from "@/_api/cursus.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 import { fieldsCursus } from "@/assets/js/fields.js";
+
 
 export default {
   name: "CursusListComponent",
@@ -126,6 +181,8 @@ export default {
   },
   data() {
     return {
+      dismissCountDown: null,
+      color: null,
       cursus: [],
       perPage: 7,
       pageCount: 0,
@@ -133,6 +190,11 @@ export default {
       fields: fieldsCursus,
       cursus_input: "",
       items: [],
+      item: {
+        niveau: "",
+        sigle: "",
+        millesime: "",
+      },
       showLoginWdg2Card: false,
       loading: false,
       message: "",
@@ -158,7 +220,13 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-
+    showModal(item) {
+      this.$refs["modal-" + item.id].show();
+      this.refreshList();
+    },
+    hideModal(item) {
+      this.$refs["modal-" + item.id].hide();
+    },
     pageChange(pageNum) {
       cursusApi
         .getAllByPage(pageNum - 1, this.perPage)
@@ -169,6 +237,18 @@ export default {
         name: "admin_cursus_detail",
         params: { id: cursus.id },
       });
+    },
+    modifierCursus(item){
+      cursusApi.save(item).then (response => {
+      this.items = null;
+      this.refreshList()
+      console.log(response)
+      this.hideModal(item);
+      });
+      
+      
+      
+  
     },
     createCursus() {
       let route = this.$route.path.split("/").splice(1);
@@ -185,14 +265,18 @@ export default {
     },
 
     refreshList() {
+      
       cursusApi
         .getAllByPage(0, this.perPage)
-        .then((response) => (this.items = response));
+        .then((response) => {this.items = response; console.log(response)});
       cursusApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        );
+        ).catch(err => {
+          console.log(err);
+        })
+
     },
     deleteCursus(cursusId) {
       cursusApi.deleteCursus(cursusId).then(() => this.refreshList());
