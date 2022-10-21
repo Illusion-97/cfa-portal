@@ -42,7 +42,7 @@
               {{
                 promotion.centreFormationAdresseVille != null
                   ? promotion.centreFormationAdresseVille
-                  : "pas de ville"
+                  : "Pas de ville"
               }}
               <b-progress height="20px" show-progress class="mb-2 w-50">
                 <b-progress-bar

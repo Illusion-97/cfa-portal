@@ -5,10 +5,7 @@
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
           <b-tab active>
             <template v-slot:title>
-              <font-awesome-icon
-                :icon="['fas', 'user-graduate']"
-                class="icon"
-              />
+              <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
               Etudiants
             </template>
             <div>
@@ -24,16 +21,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="etudiant in promotion.etudiantsDto"
-                    :key="etudiant.id"
-                    class="mon-tr"
-                  >
+                  <tr v-for="etudiant in promotion.etudiantsDto" :key="etudiant.id" class="mon-tr">
                     <td width=13% v-if="isAdmin">
                       <b-button @click="clickEtudiant(etudiant)" size="sm" class="mr-2">
-                        Afficher détails 
+                        Afficher détails
                       </b-button>
-                    </td>                  
+                    </td>
                     <td>{{ etudiant.utilisateurDto.prenom }}</td>
                     <td>{{ etudiant.utilisateurDto.nom }}</td>
                     <td>{{ etudiant.utilisateurDto.login }}</td>
@@ -50,59 +43,32 @@
                           <div class="text-center">
                             Ajouter une absence ou un retard pour
                             <span class="text-info font-weight-bold">{{
-                              etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom
+                            etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom
                             }}</span>
                           </div>
                         </template>
                         <b-form @submit="ajouterAbsence()">
                           <b-form-group label="Type">
-                            <b-form-select
-                              id="input-3"
-                              v-model="formModel.type"
-                              :options="retardAbsence"
-                              required
-                            ></b-form-select>
+                            <b-form-select id="input-3" v-model="formModel.type" :options="retardAbsence" required>
+                            </b-form-select>
                           </b-form-group>
                           <b-form-group label="Du">
                             <div class="w-100 d-flex justify-content-center">
-                              <b-form-input
-                                v-model="formModel.dateDebut"
-                                type="date"
-                                class=""
-                              ></b-form-input>
-                              <b-form-input
-                                v-model="formModel.tempDebut"
-                                type="time"
-                                class=""
-                              ></b-form-input>
+                              <b-form-input v-model="formModel.dateDebut" type="date" class=""></b-form-input>
+                              <b-form-input v-model="formModel.tempDebut" type="time" class=""></b-form-input>
                             </div>
                           </b-form-group>
                           <b-form-group label="Au">
                             <div class="w-100 d-flex justify-content-center">
-                              <b-form-input
-                                v-model="formModel.dateFin"
-                                type="date"
-                                class=""
-                              ></b-form-input>
-                              <b-form-input
-                                v-model="formModel.tempFin"
-                                type="time"
-                                class=""
-                              ></b-form-input>
+                              <b-form-input v-model="formModel.dateFin" type="date" class=""></b-form-input>
+                              <b-form-input v-model="formModel.tempFin" type="time" class=""></b-form-input>
                             </div>
                           </b-form-group>
 
-                          <b-button type="submit" class="mt-3" variant="outline-success" block
-                            >Ajouter</b-button
-                          >
+                          <b-button type="submit" class="mt-3" variant="outline-success" block>Ajouter</b-button>
                         </b-form>
-                        <b-button
-                          class="mt-3"
-                          variant="outline-danger"
-                          block
-                          @click="hideModal(etudiant)"
-                          >Annuler</b-button
-                        >
+                        <b-button class="mt-3" variant="outline-danger" block @click="hideModal(etudiant)">Annuler
+                        </b-button>
                       </b-modal>
                     </td>
                   </tr>
@@ -112,16 +78,11 @@
           </b-tab>
           <b-tab>
             <template v-slot:title>
-              <font-awesome-icon
-                :icon="['fas', 'business-time']"
-                class="icon"
-              />
+              <font-awesome-icon :icon="['fas', 'business-time']" class="icon" />
               Interventions
             </template>
             <div id="interventions">
-              <b-button variant="primary" class="m-4" @click="getGrille"
-                >Télècharger grille de positionnement</b-button
-              >
+              <b-button variant="primary" class="m-4" @click="getGrille">Télècharger grille de positionnement</b-button>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -132,17 +93,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="intervention in promotion.interventionsDto"
-                    :key="intervention.id"
-                    @click="clickIntervention(intervention)"
-                    class="mon-tr"
-                  >
+                  <tr v-for="intervention in promotion.interventionsDto" :key="intervention.id"
+                    @click="clickIntervention(intervention)" class="mon-tr">
                     <td>
                       {{
-                        intervention.formationDto != null
-                          ? intervention.formationDto.titre
-                          : "Pas de Formation"
+                      intervention.formationDto != null
+                      ? intervention.formationDto.titre
+                      : "Pas de Formation"
                       }}
                     </td>
                     <td>{{ intervention.heuresDisponsees }}</td>
@@ -160,18 +117,11 @@
               <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
               Examens
             </template>
-            <ExamensPromotionsListCompoenent
-              :examens="promotion.examensDto"
-              ref="examen"
-              :context="'promotion'"
-            />
+            <ExamensPromotionsListCompoenent :examens="promotion.examensDto" ref="examen" :context="'promotion'" />
           </b-tab>
           <b-tab>
             <template v-slot:title>
-              <font-awesome-icon
-                :icon="['fas', 'sort-numeric-up-alt']"
-                class="icon"
-              />
+              <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
               Notes
             </template>
 
@@ -190,7 +140,6 @@ import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
-import { saveAs } from "file-saver";
 export default {
   name: "PromotionDetailFormateur",
   props: [],
@@ -202,7 +151,7 @@ export default {
     return {
       tabIndex: 1,
       promotionId: this.$route.params.id,
-      promotion : [],
+      promotion: [],
       itemsEtudients: [],
       ville: "",
       onglet: 1,
@@ -233,9 +182,13 @@ export default {
       promotionApi
         .getGrillePositionnement(this.promotionId)
         .then((response) => {
-          console.log(response);
-          const blob = new Blob([response], { type: "application/pdf" });
-          saveAs(blob, "test.pdf");
+          let bas64 = response;
+          const linkSource = `data:application/pdf;base64,${bas64}`;
+          const downloadLink = document.createElement("a");
+          const fileName = this.promotion.nom+"_"+this.promotion.centreFormationDto.nom+".pdf";
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
         });
     },
     getPromotionId() {
@@ -296,13 +249,13 @@ export default {
     },
     showModal(etuId) {
       console.log(etuId)
-      console.log(this.$refs )
+      console.log(this.$refs)
       this.$refs["modal-" + etuId].show();
     },
     hideModal(etuId) {
       this.$refs["modal-" + etuId].hide();
     },
-    ajouterAbsence(){
+    ajouterAbsence() {
       return null;
     },
   },
@@ -312,7 +265,9 @@ export default {
 };
 </script>
 
-<style src="@/assets/styles/Onglet.css"></style>
+<style src="@/assets/styles/Onglet.css">
+
+</style>
 <style scoped>
 /* .mon-titre {
   display: flex;
@@ -342,7 +297,7 @@ h1 {
   margin-bottom: 7em;
 }
 
-.identite > .nom {
+.identite>.nom {
   font-size: 1.5em;
 }
 
@@ -353,7 +308,7 @@ h1 {
   margin-top: 5em;
 }
 
-#my-card > .card-header {
+#my-card>.card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -370,7 +325,7 @@ h1 {
   justify-content: space-between;
 }
 
-.card-text > span {
+.card-text>span {
   display: inline-block;
   width: 40em;
   padding-left: 3em;
@@ -395,6 +350,7 @@ h1 {
 .ma-croix {
   margin-right: 0.6em;
 }
+
 .stickyPosition {
   position: sticky;
   top: 0px;

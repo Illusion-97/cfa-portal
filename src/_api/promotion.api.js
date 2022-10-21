@@ -213,7 +213,7 @@ function getAllByInterventionIdForSelect(idI){
 async function getGrillePositionnement(id){
   let req = "promotions/grillePositionnement/" + id;
   return axios
-  .get(req, requestOptions.headers(),{responseType:"blob"})
+  .get(req, requestOptions.headers())
   .then(response => response.data)
   .catch((error) => console.log(error));
 }
