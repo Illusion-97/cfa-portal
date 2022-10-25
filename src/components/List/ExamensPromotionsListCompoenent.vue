@@ -304,23 +304,36 @@ export default {
     };
   },
   created() {
+
+  },
+  mounted(){
+
+    if(this.context == "intervention"){
+      this.$root.$on("promoId", (data) => {
+        
+         this.getActiviteType(data)
+      })
+    }
+    else{
+      this.getActiviteType(this.$route.params.id)
+
+    }
     if (this.examens != undefined) {
       this.assigneTableItems(this.examens);
     }
-    activiteTypeApi
-      .getAllByIdPromotion(this.$route.params.id)
+  },
+  methods: {
+    getActiviteType(promoId){
+      activiteTypeApi
+      .getAllByIdPromotion(promoId)
       .then((response) => {
         this.getDataForForm(response);
         this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
         this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
       });
-  },
-
-  methods: {
+    },
     async getFile(id, pieceJointe) {
-      const response = await examenApi.getFileExamen(id);
-      console.log(response);
-    
+      const response = await examenApi.getFileExamen(id);    
       const blob = new Blob([response], { type: "application/pdf" });
 
       let link = document.createElement("a");
@@ -395,6 +408,7 @@ export default {
       this.datasFormAt = datasFormAt;
       this.datasFormCP = dataForFormCp;
       this.optionsBc = optionAt;
+
     },
     modifier(item) {
       this.tempItem = item;

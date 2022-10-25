@@ -310,7 +310,7 @@ import { devoirApi } from "@/_api/devoir.api.js";
 import { niveauApi } from "@/_api/niveau.api.js";
 
 export default {
-  name: "cnterventionListComponent",
+  name: "EtudiantsInterventionListComponent",
   components: {},
   data() {
     return {
@@ -548,7 +548,7 @@ export default {
               items.push(item);
               //Affecter les devoirs
               setTimeout(() => {
-                console.log(e.devoirs);
+             
                 for (let i = 0; i < e.devoirs.length; i++) {
                   let itemDevoir = {
                     consigne:
