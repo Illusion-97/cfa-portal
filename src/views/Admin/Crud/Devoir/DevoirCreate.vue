@@ -46,6 +46,7 @@
                         name="input-7-"
                         v-model="formDevoir.consigne">
                       ></v-textarea>
+                
                   </v-form>
                 </div>
                 </div>    

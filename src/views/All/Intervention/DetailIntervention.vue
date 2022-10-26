@@ -133,18 +133,19 @@
         <b-tab>
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'code']" class="icon" />
-            Devoirs
+            Evaluations
           </template>
-          <DevoirsInterventionListComponent />
+          <EvaluationComponent />
+
         </b-tab>
         <b-tab>
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'code']" class="icon" />
-            Evaluations
+            Devoirs
           </template>
-          <EvaluationComponent/>
-
+          <DevoirsInterventionListComponent />
         </b-tab>
+       
         <b-tab @click="reloadExam()">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
