@@ -1,10 +1,10 @@
 <template>
 
     <div class="container-fluid">
-        <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0"
+        <!-- <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0"
             class="m-2">
             {{ message }}
-        </b-alert>
+        </b-alert> -->
         <button @click="colspanClick()" class="btn btn-outline-info mt-4 mb-4">
             <span v-if="!visible ">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter evaluation
@@ -14,28 +14,37 @@
             </span>
 
         </button>
-
         <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
             <b-card>
                 <b-card-body class="d-flex justify-content-center">
                     <v-app class="w-50">
 
                         <form>
-                            <v-row justify="center">
-                                <v-col cols="12" lg="12">
-                                    <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+                            <v-row>
 
-                                </v-col >
                                 <v-col cols="12" lg="12">
-                                    <v-autocomplete rounded solo label="Compétences professionnelles"
-                                        :items="itemsCP" placeholder="Numéro fiche : Compétence professionnelle"
-                                        v-model="competences" required></v-autocomplete>
+                                                                <vue-editor v-model="content" />
+
+                                </v-col>
+                                <v-col cols="12" lg="12">
+
+                                    <v-autocomplete :items="itemsCP" rounded solo label="Compétences professionnelles"
+                                        placeholder="Numéro fiche : Compétence professionnelle"
+                                        v-model="evaluationFormation.competencesEvaluees" multiple></v-autocomplete>
+
                                 </v-col>
                                 <v-col cols="12" lg="12" align-self="center">
-                                    <v-date-picker v-model="date" locale="fr"></v-date-picker>
-
+                                    <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
+                                        transition="scale-transition" offset-y min-width="auto">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field v-model="evaluationFormation.dateEvaluation" label="Date de l'évaluation"
+                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                            </v-text-field>
+                                        </template>
+                                        <v-date-picker v-model="evaluationFormation.dateEvaluation"
+                                            @input="menu2 = false"></v-date-picker>
+                                    </v-menu>
                                 </v-col>
-                            
                                 <v-col cols="12" lg="12">
 
                                     <v-btn class="mr-4" :color="modifier?'warning' :'success'" @click="submit">
@@ -86,42 +95,37 @@
 
 </template>
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
+import  EvaluationFormation  from "../../models/EvaluationFormation";
+import {evaluationFormationApi} from"@/_api/EvaluationFormation.api.js";
+import { VueEditor } from "vue2-editor";
 
 export default {
     name: "EvaluationComponent",
+    components: { VueEditor },
     data() {
 
         return {
-            editor: ClassicEditor,
-            editorData: "<p>Description de l'évaluation. </p>",
-            editorConfig: {
-                toolbar: ['heading', '|',
-                    'alignment', '|',
-                    'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
-                    'undo', 'redo', '|',
-                    'bulletedList', 'numberedList', 'todoList', '|',
-                    'outdent', 'indent', '|',
-                ]
-            },
+            content: "<h1>Some initial content</h1>",
             items: [
             ],
+            menu: false,
+            modal: false,
             visible: false,
             message: "",
             color: "success",
             dismissCountDown: 0,
             modifier: false,
-            competences :[],
-            itemsCP :[],
-            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            itemsCP: [
+
+            ],
+            evaluationFormation: new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>",  new Array,(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))
         }
     },
-    created(){
+    created() {
         this.$root.$on("promoId", (data) => {
-        console.log("promoId")
-         this.getActiviteType(data)
-     })
+            this.getActiviteType(data)
+        })
     },
     methods: {
         getList() {
@@ -130,57 +134,60 @@ export default {
             //     console.log(response)
             //   })
         },
-        getActiviteType(promoId){
-      activiteTypeApi
-      .getAllByIdPromotion(promoId)
-      .then((response) => {
-                let competences = []
-                response.forEach(e => {
-                    console.log(e);
-                    Array.prototype.push.apply(competences ,e.competencesProfessionnellesDto)
+        getActiviteType(promoId) {
+            activiteTypeApi
+                .getAllByIdPromotion(promoId)
+                .then((response) => {
+                    let competences = []
+                    response.forEach(e => {
+                        Array.prototype.push.apply(competences, e.competencesProfessionnellesDto)
+                    });
+                    competences.forEach(e => {
+                        let item = { text: e.numeroFiche + " : " + e.libelle, value: e.id }
+                        this.itemsCP.push(item)
+                    })
+                    console.log(this.itemsCP)
                 });
-                this.itemsCP = competences
-      });
-    },
-        update(at) {
-            this.modifier = true;
-            this.visible = true;
-            this.at = at;
         },
+        // update(at) {
+        //     this.modifier = true;
+        //     this.visible = true;
+        //     this.at = at;
+        // },
         submit() {
-            this.$v.$touch()
-            //   if (this.modifier) {
-            //     activiteTypeApi.update(this.at).then(response => {
-            //       this.color = "success";
-            //       this.dismissCountDown = 6;
-            //       this.message = "l'activité type " + response.libelle + " a été modifier avec success"
-            //       this.visible = false;
-            //       this.getList()
-            //     }).catch(err => {
-            //       this.color = "danger";
-            //       this.dismissCountDown = 8;
-            //       this.message = err;
-            //     })
-            //   }
-            //   else {
-            //     activiteTypeApi.save(this.at).then(response => {
-            //       this.color = "success";
-            //       this.dismissCountDown = 6;
-            //       this.message = "l'activité type " + response.libelle + " a été ajouté avec success"
-            //       this.visible = false;
-            //       this.getList()
-            //       console.log(response)
-            //     }).catch(err => {
-            //       this.color = "danger";
-            //       this.dismissCountDown = 8;
-            //       this.message = err;
-            //     })
-            //   }
+            console.log(this.evaluationFormation);
+    
+              if (this.modifier) {
+                evaluationFormationApi.update(this.evaluationFormation).then(response => {
+                  this.color = "success";
+                  this.dismissCountDown = 6;
+                  this.message = "l'activité type " + response.libelle + " a été modifier avec success"
+                  this.visible = false;
+                  this.getList()
+                }).catch(err => {
+                  this.color = "danger";
+                  this.dismissCountDown = 8;
+                  this.message = err;
+                })
+              }
+              else {
+                activiteTypeApi.save(this.evaluationFormation).then(response => {
+                  this.color = "success";
+                  this.dismissCountDown = 6;
+                  this.message = "L'Evaluation du " + response.dateEvaluation + " a été ajouté avec success"
+                  this.visible = false;
+                  this.getList()
+                  console.log(response)
+                }).catch(err => {
+                  this.color = "danger";
+                  this.dismissCountDown = 8;
+                  this.message = err;
+                })
+              }
 
         },
         clear() {
-            this.$v.$reset()
-            //   this.at = new ActiviteType(0, 0, '', '', 4);
+            this.evaluationFormation = new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>",  new Array,(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))
         },
         colspanClick() {
             this.visible = !this.visible

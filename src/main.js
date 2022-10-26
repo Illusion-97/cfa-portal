@@ -12,7 +12,6 @@ import './plugins/fontawesome-vue'
 import './plugins/moment-vue'
 import './_helpers/filters'
 import './assets/styles/style.css'
-import './plugins/ckeditor'
 
 import jQuery from 'jquery'
 import router from './router/router.js'
