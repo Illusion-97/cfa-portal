@@ -26,10 +26,15 @@
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
+import { centreFormationApi } from "@/_api/centreFormation.api.js";
+import { promotionApi } from '@/_api/promotion.api.js';
+import { etudiantApi } from '@/_api/etudiant.api.js';
+
     export default {
         name:'HeaderFormateur',
         data(){
             return {
+                headerDisplay: "",
                 logOut : ""+window.location.origin+"/#/login",
                 title: "Bienvenue sur le portail CFA",
             }
@@ -66,17 +71,30 @@ import { utilisateurService } from "@/_services/utilisateur.service.js";
                 ))
             },
             changeDisplay(){
-                console.log(this.$route.path.split("/").splice(2)[0])
-                // console.log(this.$route.path.split("/").splice(3)[0])
                 if (this.$route.path.split("/").splice(2)[0] == 'centresFormation'){
                     if(this.$route.path.split("/").splice(2)[0] == 'centresFormation' 
                     && this.$route.path.split("/").splice(3)[0] == 'details'){
-                        return "Promotion du centre ..."
+                        centreFormationApi
+                            .getById(this.$route.params.id)
+                            .then((response) => {this.headerDisplay = response.nom
+                            console.log(this.headerDisplay)
+                            });
+                            return "Centre de "+this.headerDisplay
                     }
                     return "Centres de formation";
                 } else if (this.$route.path.split("/").splice(2)[0] == 'promotion' &&
                 this.$route.path.split("/").splice(3)[0] == 'details') {
-                    return "Détails d'une promotion"
+                    promotionApi    
+                        .getPromotionByid(this.$route.params.id)
+                        .then((response) => {this.headerDisplay = response.nom});
+                        return this.headerDisplay
+                } else if (this.$route.path.split("/").splice(2)[0] == 'etudiants' &&
+                this.$route.path.split("/").splice(3)[0] == 'details'){
+                    etudiantApi
+                        .getById(this.$route.params.id)
+                        .then((response) => {this.headerDisplay = response.utilisateurDto.prenom +" " +response.utilisateurDto.nom
+                        })
+                    return this.headerDisplay
                 } else {
                     return this.$route.path.split("/").splice(2)[0].substring(0,1).toUpperCase()+
                     this.$route.path.split("/").splice(2)[0].substring(1)

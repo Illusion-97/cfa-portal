@@ -8,8 +8,7 @@ import moment from "moment";
 import {authentication} from './modules/authentication.module.js'
 import {utilisateur} from './modules/utilisateur.module.js'
 import {planning} from './modules/planning.module.js'
-import {centreFormation} from './modules/centreFormation.module.js'
-
+import {headerValue} from './modules/headerValue.module.js'
 
 Vue.use(Vuex)
 Vue.use(VueSimpleAlert)
@@ -29,7 +28,7 @@ export default new Vuex.Store({
     authentication,
     utilisateur,
     planning,
-    centreFormation,
+    headerValue, 
   },
   plugins: [vuexLocal.plugin],
 });

@@ -72,6 +72,7 @@
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js"
 import LoginWdg2 from "../../../../components/LoginWdg2.vue";
+
 export default {
   name: "CentreFormationList",
     components:{
@@ -100,6 +101,8 @@ export default {
 
   created() {
     this.getListCentresFormation();
+    // this.$store.getters.getHeaderValue = "test"
+    console.log(this.$store.getters.getHeaderValue)
   },
   mounted() {
     this.getNextCentresFormation();
@@ -145,7 +148,8 @@ export default {
         });
     },
     click(centreFormation) {
-      this.$router.push({
+      // Vue.prototype.$headerDisplay = centreFormation.nom
+        this.$router.push({
         name: "admin_centreFormation_details",
         params: { id: centreFormation.id },
       });
