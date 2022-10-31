@@ -98,11 +98,11 @@
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import  EvaluationFormation  from "../../models/EvaluationFormation";
 import {evaluationFormationApi} from"@/_api/EvaluationFormation.api.js";
-import { VueEditor } from "vue2-editor";
+//import { VueEditor } from "vue2-editor";
 
 export default {
     name: "EvaluationComponent",
-    components: { VueEditor },
+    //components: { VueEditor },
     data() {
 
         return {
