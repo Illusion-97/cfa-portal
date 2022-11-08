@@ -8,6 +8,12 @@ import {
 export const niveauApi = {
     getAll,
 }
+/**
+ * 
+ * Récupération de tous les niveaux
+ * 
+ */
+
 function getAll(){
 
     const url = 'niveaux';

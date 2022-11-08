@@ -28,7 +28,7 @@ function getById(id){
 
 /**
  * 
- * Récuparation de toutes les absences
+ * Récupération de toutes les absences
  * 
  */
 
