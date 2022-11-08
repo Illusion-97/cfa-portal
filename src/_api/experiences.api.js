@@ -8,12 +8,26 @@ export const experiencesApi = {
   update,
 }
 
+/**
+ * Suppression d'une experiences 
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function deleteById(id) {
     return axios
       .delete(`${END_POINT}/${id}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
+
+/**
+ * Update d'une absence
+ * 
+ * @param {*} absence 
+ * @returns 
+ */
 
 function update(form) {
   return axios
