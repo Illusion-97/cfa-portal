@@ -745,14 +745,18 @@ const routes = [
     redirect: { name: "admin_utilisateur" },
     meta: { authorize: [Role.Admin] },
   },
-  //ActiviteType
+  //#######################
+  //#    ActiviteType     #
+  //#######################
   {
     path: "/admin/activites_types",
     name: "admin_activites_types",
     component: ActiviteTypeDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Utilisateur
+  //#######################
+  //#     Utilisateur     #
+  //#######################
   {
     path: "/admin/utilisateurs",
     name: "admin_utilisateur",
@@ -777,7 +781,9 @@ const routes = [
     component: DetailUser,
     meta: { authorize: [Role.Admin] },
   },
-  // Intervention
+  //#######################
+  //#     Intervention    #
+  //#######################
   {
     path: "/admin/interventions",
     name: "admin_intervention_list",
@@ -802,7 +808,9 @@ const routes = [
     component: DetailIntervention,
     meta: { authorize: [Role.Admin] },
   },
-  // Formation
+  //#######################
+  //#      Formation      #
+  //#######################
   {
     path: "/admin/formations",
     name: "admin_formation_list",
@@ -827,7 +835,9 @@ const routes = [
     component: DetailFormation,
     meta: { authorize: [Role.Admin] },
   },
-  //Promotion
+  //#######################
+  //#      Promotion      #
+  //#######################
   {
     path: "/admin/promotions",
     name: "admin_promotion_list",
@@ -852,7 +862,9 @@ const routes = [
     component: PromotionDetails,
     meta: { authorize: [Role.Admin] },
   },
-  //Adresse
+  //#######################
+  //#       Adresse       #
+  //#######################
   {
     path: "/admin/adresses",
     name: "admin_adresse_list",
@@ -877,7 +889,9 @@ const routes = [
     component: AdresseDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Conge
+  //#######################
+  //#        Conge        #
+  //#######################
   {
     path: "/admin/conges",
     name: "admin_conge_list",
@@ -902,7 +916,9 @@ const routes = [
     component: CongeDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Examen
+  //#######################
+  //#       Examen        #
+  //#######################
   {
     path: "/admin/examens",
     name: "admin_examen_list",
@@ -927,7 +943,9 @@ const routes = [
     component: ExamenDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Devoir
+  //#######################
+  //#        Devoir       #
+  //#######################
   {
     path: "/admin/devoirs",
     name: "admin_devoir_list",
@@ -952,7 +970,9 @@ const routes = [
     component: DevoirDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Entreprise
+  //#######################
+  //#     Entreprise      #
+  //#######################
   {
     path: "/admin/entreprises",
     name: "admin_entreprise_list",
@@ -983,7 +1003,9 @@ const routes = [
     component: EntrepriseDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Cursus
+  //#######################
+  //#       Cursus        #
+  //#######################
   {
     path: "/admin/cursus",
     name: "admin_cursus_list",
@@ -1008,7 +1030,9 @@ const routes = [
     component: CursusDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Note
+  //#######################
+  //#        Note         #
+  //#######################
   {
     path: "/admin/notes",
     name: "admin_note_list",
@@ -1033,7 +1057,9 @@ const routes = [
     component: NoteDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //PassageExamen
+  //#######################
+  //#    PassageExamen    #
+  //#######################
   {
     path: "/admin/passage-examen",
     name: "admin_passage-examen_list",
@@ -1058,7 +1084,9 @@ const routes = [
     component: PassageExamenDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Projet
+  //#######################
+  //#       Projet        #
+  //#######################
   {
     path: "/admin/projets",
     name: "admin_projet_list",
@@ -1083,7 +1111,9 @@ const routes = [
     component: ProjetDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Groupe
+  //#######################
+  //#       Groupe        #
+  //#######################
   {
     path: "/admin/groupes",
     name: "admin_groupe_list",
@@ -1108,7 +1138,9 @@ const routes = [
     component: GroupeDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Centre Formation
+  //#######################
+  //#   CentreFormation   #
+  //#######################
   {
     path: "/admin/centresFormation",
     name: "admin_centreFormation_list",
@@ -1133,7 +1165,9 @@ const routes = [
     component: CentreFormationDetails,
     meta: { authorize: [Role.Admin] },
   },
-  //Etudiant
+  //#######################
+  //#      Etudiant       #
+  //#######################
   {
     path: "/admin/etudiants/fiche-salarie/detail/:id",
     name: "admin_etudiant_fiche_salarie_detail",
@@ -1200,7 +1234,9 @@ const routes = [
     component: CerfaAdmin,
     meta: { authorize: [Role.Admin] },
   },
-  //Absence
+  //#######################
+  //#       Absence       #
+  //#######################
   {
     path: "/admin/absences/create",
     name: "admin_absence_create",
@@ -1230,7 +1266,9 @@ const routes = [
     redirect: { name: "cef_centreFormation_list" },
     meta: { authorize: [Role.CEF] },
   },
-  //Centre Formation
+  //#######################
+  //#   CentreFormation   #
+  //#######################
   {
     path: "/cef/centreFormations",
     name: "cef_centreFormation_list",
@@ -1255,7 +1293,9 @@ const routes = [
     component: CentreFormationDetails,
     meta: { authorize: [Role.CEF] },
   },
-  //Promo
+  //#######################
+  //#      Promotion      #
+  //#######################
   {
     path: "/cef/promotions",
     name: "cef_promotions",
@@ -1281,7 +1321,9 @@ const routes = [
     meta: { authorize: [Role.CEF] },
   },
 
-  //Etudiant
+  //#######################
+  //#       Etudiant      #
+  //#######################
   {
     path: "/cef/etudiants",
     name: "cef_etudiant",
@@ -1313,7 +1355,9 @@ const routes = [
     meta: { authorize: [Role.CEF] },
   },
 
-  //Intervention
+  //#######################
+  //#    Intervention     #
+  //#######################
   {
     path: "/cef/interventions",
     name: "cef_cours",
@@ -1339,7 +1383,9 @@ const routes = [
     meta: { authorize: [Role.CEF] },
   },
 
-  //Cursus
+  //#######################
+  //#       Cursus        #
+  //#######################
   {
     path: "/cef/cursus",
     name: "cef_cursus_list",
@@ -1365,7 +1411,9 @@ const routes = [
     meta: { authorize: [Role.CEF] },
   },
 
-  //Note
+  //#######################
+  //#        Note         #
+  //#######################
   {
     path: "/cef/notes/detail/:id",
     name: "cef_note_detail",
@@ -1384,7 +1432,9 @@ const routes = [
     component: NoteCreate,
     meta: { authorize: [Role.CEF] },
   },
-  //Absence
+  //#######################
+  //#       Absence       #
+  //#######################
   {
     path: "/cef/absences/detail/:id",
     name: "cef_absence_detail",
@@ -1403,7 +1453,9 @@ const routes = [
     component: AbsenceCreate,
     meta: { authorize: [Role.CEF] },
   },
-  //Conge
+  //#######################
+  //#        Conge        #
+  //#######################
   {
     path: "/cef/conges/detail/:id",
     name: "cef_conge_detail",
@@ -1422,7 +1474,9 @@ const routes = [
     component: CongeCreate,
     meta: { authorize: [Role.CEF] },
   },
-  //Groupe
+  //#######################
+  //#       Groupe        #
+  //#######################
   {
     path: "/cef/groupes",
     name: "cef_groupe_list",
@@ -1447,7 +1501,9 @@ const routes = [
     component: GroupeDetail,
     meta: { authorize: [Role.CEF] },
   },
-  //Projet
+  //#######################
+  //#       Projet        #
+  //#######################
   {
     path: "/cef/projets",
     name: "cef_projet_list",
@@ -1472,7 +1528,9 @@ const routes = [
     component: ProjetDetail,
     meta: { authorize: [Role.CEF] },
   },
-  //Devoir
+  //#######################
+  //#       Devoir        #
+  //#######################
   {
     path: "/cef/devoirs",
     name: "cef_devoir",
@@ -1497,7 +1555,9 @@ const routes = [
     component: DevoirDetail,
     meta: { authorize: [Role.CEF] },
   },
-  //Examen
+  //#######################
+  //#        Examen       #
+  //#######################
   {
     path: "/cef/examens",
     name: "cef_examen",
@@ -1522,7 +1582,9 @@ const routes = [
     component: ExamenDetail,
     meta: { authorize: [Role.CEF] },
   },
-  //Administratif
+  //#######################
+  //#    Administratif    #
+  //#######################
   {
     path: "/cef/administratif",
     name: "cef_document_administratif",
