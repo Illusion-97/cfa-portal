@@ -12,7 +12,8 @@ export const dossierProfessionnelApi = {
   getByIdEtudiant2,
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
-  generateDossierProByStudentAndPromo
+  generateDossierProByStudentAndPromo,
+  updateDossierProfessionnel
 }
 
 /**
@@ -134,4 +135,11 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
 
     .catch((error) => console.log(error));
 
+}
+
+function updateDossierProfessionnel(form, id) {
+  return axios
+    .put(`${END_POINT}/update/etudiant/${id}`, form,  requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }

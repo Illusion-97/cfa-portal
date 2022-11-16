@@ -9,7 +9,7 @@
           {{ item.Promotion }}
           <br />
         </h5>
-        <p class="m-top">
+        <p>
           <!-- <b-row>
             <b-col cols="2" class="info-gauche"
               ><strong class="icon-right">Descriptif</strong
@@ -50,6 +50,7 @@
               > -->
             </b-col>
           </b-row>
+          <br>
         </p>
       </li>
     </ul>

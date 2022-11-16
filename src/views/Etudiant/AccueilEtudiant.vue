@@ -68,11 +68,15 @@
       </div>
     </div>
 
+    <!-- PROCHAIN COURS -->
+    <br>
+    <b-table small head-variant="light" :items="cours" :fields="fieldsCours"></b-table>
+
     <!-- <br />
     <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
 
-    <br />
-    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table>
+    <!-- <br />
+    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> -->
 
     <!-- TABLEAU DUR POUR EXEMPLE -->
     <br />
@@ -97,7 +101,37 @@ export default {
       // formateurReferent: [],
       membres: [],
       groupes: [],
+      cours: [
+        {
+          nom: "JAVA avancé",
+          debut: "31/11/2022",
+          fin: "04/12/2022",
+          formateur: "Mohamed DERKAOUI"
+        },
+      ],
 
+      fieldsCours: [
+        {
+          key: "nom",
+          label: "Prochain Cours",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "debut",
+          label: "Début",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "fin",
+          label: "Fin",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "formateur",
+          label: "Formateur",
+          // thStyle: { width: "70%" },
+        },
+      ],
       fields: [
         {
           key: "nom",
@@ -125,7 +159,7 @@ export default {
   mounted() {
   },
 
-  beforeMount(){
+  beforeMount() {
   },
 
   methods: {

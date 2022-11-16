@@ -17,7 +17,7 @@
       <br /> -->
 
       <!--LISTE COMPETENCES PRO -->
-      <b-form-select v-model="start" :options="optionsAT(item)" @change="getValue"></b-form-select>      
+      <b-form-select v-model="start" :options="optionsAT(item)" @change="getValue"></b-form-select>
       <br>
     </div>
 
@@ -638,19 +638,62 @@ export default {
     updateExp() {
       console.log("oooo " + this.expPro.version);
 
-      experiencesApi
-        .update(
+      dossierProfessionnelApi
+        .updateDossierProfessionnel(
+          // [{
+          //   id: this.expPro.id,
+          //   tacheRealisee: this.expPro.tacheRealisee,
+          //   moyenUtilise: this.expPro.moyenUtilise,
+          //   collaborateur: this.expPro.collaborateur,
+          //   contexte: this.expPro.contexte,
+          //   information: this.expPro.information,
+          //   competenceProfessionnelleId: this.tempCompetence.id,
+          //   dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
+          //   version: this.expPro.version
+          // }]
+
           {
-            id: this.expPro.id,
-            tacheRealisee: this.expPro.tacheRealisee,
-            moyenUtilise: this.expPro.moyenUtilise,
-            collaborateur: this.expPro.collaborateur,
-            contexte: this.expPro.contexte,
-            information: this.expPro.information,
-            competenceProfessionnelleId: this.tempCompetence.id,
-            dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
-            version: this.expPro.version
+            id: this.data.item.cursus.dossierProfessionnel.id,
+            nom: "",
+            cursus: {
+              id: this.data.item.cursus.id,
+              titre: "",
+              activiteTypes: [
+                {
+                  id: "",
+                  libelle: "",
+                  numeroFiche: "",
+                  competenceProfessionnelles: [
+                    {
+                      id: this.compInModal.id,
+                      libelle: "",
+                      numeroFiche: this.compInModal.numeroFiche,
+                      version: 0,
+                      experienceProfessionnelles: null
+                    }
+                  ],
+                  version: 0
+                }
+              ],
+              version: 0
+            },
+            experienceProfessionnelles: [
+              {
+                id: this.expPro.id,
+                tacheRealisee: this.expPro.tacheRealisee,
+                moyenUtilise: this.expPro.moyenUtilise,
+                collaborateur: this.expPro.collaborateur,
+                contexte: this.expPro.contexte,
+                information: this.expPro.information,
+                competenceProfessionnelleId: this.tempCompetence.id,
+                dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
+                version: this.expPro.version
+              }
+            ],
+            version: 0
           }
+          , this.$store.getters.getUtilisateur.etudiantDto.id
+
         )
 
         // REDIRECTION
@@ -718,7 +761,7 @@ footer {
   display: none;
 }
 
-.modal-title{
+.modal-title {
   font-weight: bolder;
 }
 
