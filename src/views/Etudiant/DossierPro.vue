@@ -12,9 +12,13 @@
       <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-      <!-- LISTE COMPETENCES PRO -->
-      <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select>
-      <br />
+      <!-- OLD LISTE COMPETENCES PRO -->
+      <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select>
+      <br /> -->
+
+      <!--LISTE COMPETENCES PRO -->
+      <b-form-select v-model="start" :options="optionsAT(item)" @change="getValue"></b-form-select>
+      <br>
     </div>
 
     <!-- ACTIVITES TYPES MODALE -->
@@ -29,7 +33,7 @@
             <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
               tâches réalisées ou opérations que vous avez
               effectué et dans quelles conditions.
-              <i class="bi bi-caret-down-square-fill"></i>
+              <i class="fa-solid fa-square-caret-down"></i>
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
@@ -48,7 +52,7 @@
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">2. Précisez les
               moyens utilisés.
-              <i class="bi bi-caret-down-square-fill"></i>
+              <i class="fa-solid fa-square-caret-down"></i>
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
@@ -67,7 +71,7 @@
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal volets">3. Avec qui
               avez-vous travaillé ?
-              <i class="bi bi-caret-down-square-fill"></i>
+              <i class="fa-solid fa-square-caret-down"></i>
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
@@ -86,7 +90,7 @@
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal volets">4. Précisez le
               contexte.
-              <i class="bi bi-caret-down-square-fill"></i>
+              <i class="fa-solid fa-square-caret-down"></i>
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
@@ -104,7 +108,7 @@
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">5. Informations
               complémentaires (facultatif).
-              <i class="bi bi-caret-down-square-fill"></i>
+              <i class="fa-solid fa-square-caret-down"></i>
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
@@ -211,7 +215,7 @@
       <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-      <b-form-select v-model="item[index]" :options="optionsAT2(item)" @change="getValue2"></b-form-select>
+      <b-form-select v-model="start" :options="optionsAT2(item)" @change="getValue2"></b-form-select>
       <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
       <br />
     </div>
@@ -384,7 +388,6 @@ export default {
       //DATA TRANSFERT DEPUIS ROUTER-LINK
       data: this.$route.query.data,
       text: "test",
-      start: "start",
       select1: null,
       cursus: [],
       activites: [],
@@ -394,6 +397,7 @@ export default {
       expPro: [],
       activitesByCursus: [],
       hideDelete: false,
+      start: null,
 
       tempActivite: [],
       tempCompetence: [],
@@ -519,8 +523,8 @@ export default {
     optionsAT(item) {
       let tab = [
         {
-          value: "start",
-          text: "+ Ajouter une expérience professionnelle à :",
+          value: null,
+          text: "+ Ajouter une expérience professionnelle à la compétence :",
           disabled: true,
         },
       ];
@@ -566,7 +570,7 @@ export default {
     optionsAT2(item) {
       let tab = [
         {
-          value: "start",
+          value: null,
           text: "+ Ajouter une expérience professionnelle à :",
           disabled: true,
         },
@@ -634,19 +638,62 @@ export default {
     updateExp() {
       console.log("oooo " + this.expPro.version);
 
-      experiencesApi
-        .update(
+      dossierProfessionnelApi
+        .updateDossierProfessionnel(
+          // [{
+          //   id: this.expPro.id,
+          //   tacheRealisee: this.expPro.tacheRealisee,
+          //   moyenUtilise: this.expPro.moyenUtilise,
+          //   collaborateur: this.expPro.collaborateur,
+          //   contexte: this.expPro.contexte,
+          //   information: this.expPro.information,
+          //   competenceProfessionnelleId: this.tempCompetence.id,
+          //   dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
+          //   version: this.expPro.version
+          // }]
+
           {
-            id: this.expPro.id,
-            tacheRealisee: this.expPro.tacheRealisee,
-            moyenUtilise: this.expPro.moyenUtilise,
-            collaborateur: this.expPro.collaborateur,
-            contexte: this.expPro.contexte,
-            information: this.expPro.information,
-            competenceProfessionnelleId: this.tempCompetence.id,
-            dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
-            version: this.expPro.version
+            id: this.data.item.cursus.dossierProfessionnel.id,
+            nom: "",
+            cursus: {
+              id: this.data.item.cursus.id,
+              titre: "",
+              activiteTypes: [
+                {
+                  id: "",
+                  libelle: "",
+                  numeroFiche: "",
+                  competenceProfessionnelles: [
+                    {
+                      id: this.compInModal.id,
+                      libelle: "",
+                      numeroFiche: this.compInModal.numeroFiche,
+                      version: 0,
+                      experienceProfessionnelles: null
+                    }
+                  ],
+                  version: 0
+                }
+              ],
+              version: 0
+            },
+            experienceProfessionnelles: [
+              {
+                id: this.expPro.id,
+                tacheRealisee: this.expPro.tacheRealisee,
+                moyenUtilise: this.expPro.moyenUtilise,
+                collaborateur: this.expPro.collaborateur,
+                contexte: this.expPro.contexte,
+                information: this.expPro.information,
+                competenceProfessionnelleId: this.tempCompetence.id,
+                dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
+                version: this.expPro.version
+              }
+            ],
+            version: 0
           }
+          , this.$store.getters.getUtilisateur.etudiantDto.id
+
         )
 
         // REDIRECTION
@@ -714,6 +761,15 @@ footer {
   display: none;
 }
 
+.modal-title {
+  font-weight: bolder;
+}
+
+.fa-square-caret-down {
+  position: relative;
+  top: 4px;
+}
+
 .btn-delete {
   margin-right: 7px;
 }
@@ -767,6 +823,7 @@ h5 {
 
 .container {
   margin: 89px 0 0 421px;
+  min-height: 340px;
 }
 
 select {

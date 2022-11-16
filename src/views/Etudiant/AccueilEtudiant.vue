@@ -1,81 +1,82 @@
 <template>
   <div class="container">
-    <b-row>
-      <!-- Bloc gauche -->
-      <b-col cols="5">
-        <div id="bloc-gauche">
-          <h2>{{ utilisateur.prenom }} {{ utilisateur.nom }}</h2>
+
+    <!-- NEW CARD -->
+    <div class="info">
+      <div class="row">
+        <div class="col">
+          <!-- NOM -->
+          <h2 class="card-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}</h2>
+          <br>
+          <!-- AVATAR -->
+          <img src="@/assets/img/avatar.png" class="avatar" />
+        </div>
+
+        <div class="col col-top">
+          <!-- INFOS -->
           <span class="contact">
-            <font-awesome-icon :icon="['fas', 'envelope']" />
+            <font-awesome-icon :icon="['fas', 'envelope']" class="ico" />
+            <strong>eMail</strong>
+            <br>
             {{ utilisateur.login }}
             <br />
-            <font-awesome-icon :icon="['fas', 'phone']" />
+            <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
+            <strong>Téléphone</strong>
+            <br>
             {{ utilisateur.telephone }}
             <br />
-            <font-awesome-icon :icon="['fas', 'location-arrow']" />
+            <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
+            <strong>Ville</strong>
+            <br>
             {{ utilisateur.adresseDto.numero }} {{ utilisateur.adresseDto.rue }}
             {{ utilisateur.adresseDto.codePostale }}
             {{ utilisateur.adresseDto.ville }}
-
             <br />
           </span>
         </div>
-      </b-col>
-
-      <!-- Bloc droit -->
-      <b-col cols="7" class="bloc-droit">
-        <div id="bloc-droit">
-          <p>
-            <b-row>
-              <b-col cols="5" class="info-gauche">
-                <strong>Promotion</strong>
-                <font-awesome-icon :icon="['fas', 'graduation-cap']" />
-              </b-col>
-              <b-col cols="7" class="info-droit">
-                <ul>
-                  <li v-for="promotion in promotions" :key="promotion.id" class="promo">
-                    {{ promotion.nom }}
-                  </li>
-                </ul>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="5" class="info-gauche">
-                <strong>Nom du projet</strong>
-                <font-awesome-icon :icon="['fas', 'folder']" />
-              </b-col>
-              <b-col cols="7" class="info-droit">
-                <ul>
-                  <li v-for="projet in projets" :key="projet.id">
-                    {{ projet.nom }}
-                  </li>
-                  <!-- CFA -->
-                </ul>
-              </b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="5" class="info-gauche">
-                <strong>Nom du groupe</strong>
-                <font-awesome-icon :icon="['fas', 'user-friends']" />
-              </b-col>
-              <b-col cols="7" class="info-droit">
-                <ul>
-                  <li v-for="groupe in groupes" :key="groupe.id">
-                    {{ groupe.nom }}
-                  </li>
-                </ul>
-              </b-col>
-            </b-row>
-          </p>
+        <div class="col col-top">
+          <!-- PROMO -->
+          <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
+          <strong>Promotion</strong>
+          <ul>
+            <li v-for="promotion in promotions" :key="promotion.id">
+              {{ promotion.nom }}
+            </li>
+          </ul>
+          <br>
         </div>
-      </b-col>
-    </b-row>
+        <div class="col col-top">
+          <!-- PROJET -->
+          <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
+          <strong>Nom du projet</strong>
+          <ul>
+            <li v-for="projet in projets" :key="projet.id">
+              {{ projet.nom }}
+            </li>
+            <!-- CFA -->
+          </ul>
+
+          <!-- GROUPE -->
+          <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
+          <strong>Nom du groupe</strong>
+          <ul>
+            <li v-for="groupe in groupes" :key="groupe.id">
+              {{ groupe.nom }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCHAIN COURS -->
+    <br>
+    <b-table small head-variant="light" :items="cours" :fields="fieldsCours"></b-table>
 
     <!-- <br />
-    <b-table small head-variant="light" :items="tableauComputed"></b-table>-->
-    
-    <br />
-    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> 
+    <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
+
+    <!-- <br />
+    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> -->
 
     <!-- TABLEAU DUR POUR EXEMPLE -->
     <br />
@@ -100,7 +101,37 @@ export default {
       // formateurReferent: [],
       membres: [],
       groupes: [],
+      cours: [
+        {
+          nom: "JAVA avancé",
+          debut: "31/11/2022",
+          fin: "04/12/2022",
+          formateur: "Mohamed DERKAOUI"
+        },
+      ],
 
+      fieldsCours: [
+        {
+          key: "nom",
+          label: "Prochain Cours",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "debut",
+          label: "Début",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "fin",
+          label: "Fin",
+          // thStyle: { width: "70%" },
+        },
+        {
+          key: "formateur",
+          label: "Formateur",
+          // thStyle: { width: "70%" },
+        },
+      ],
       fields: [
         {
           key: "nom",
@@ -123,6 +154,32 @@ export default {
       arr3: [],
 
     };
+  },
+
+  mounted() {
+  },
+
+  beforeMount() {
+  },
+
+  methods: {
+    tab() {
+
+      let tab = this.arr;
+      let manager = this.cef;
+      console.log("cef " + this.cef.nom);
+
+      tab.push(
+        {
+          nom: manager.nom,
+          prenom: manager.prenom,
+          role: "Manager",
+        }
+      );
+
+      console.dir("tab > " + JSON.stringify(tab, null, 4));
+      return tab;
+    },
   },
 
   computed: {
@@ -165,41 +222,7 @@ export default {
       return tab;
     },
 
-    tab() {
-
-      let tab = this.arr;
-      let manager = this.cef;
-      // let tuteur = this.formateurReferent;
-
-      tab.push(
-        {
-          nom: manager.nom,
-          prenom: manager.prenom,
-          role: "Manager",
-        },
-        // {
-        //   nom: tuteur.nom,
-        //   prenom: tuteur.prenom,
-        //   role: "Tuteur",
-        // },
-      );
-
-      // this.membres.forEach(function (e) {
-      //   this.tab2.push(
-      //     {
-      //       nom: e.utilisateurDto.nom,
-      //       prenom: e.utilisateurDto.prenom,
-      //       role: "Membre du groupe",
-      //     }
-      //   )
-      // });
-
-      console.dir("tab > " + JSON.stringify(tab, null, 4));
-      return tab;
-
-    },
-
-    tab3(){
+    tab3() {
       let tab3 = this.arr3;
 
       tab3.push(
@@ -233,9 +256,9 @@ export default {
           prenom: "Remy",
           role: "Membre du groupe",
         },
-        
-        );
-        
+
+      );
+
       return tab3;
     }
   },
@@ -244,10 +267,6 @@ export default {
     etudiantApi
       .getPromotions(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.promotions = data));
-
-    // etudiantApi
-    //   .getFormateurReferent(this.$store.getters.getUtilisateur.etudiantDto.id)
-    //   .then((data) => (this.formateurReferent = data));
 
     etudiantApi
       .getGroupes(this.$store.getters.getUtilisateur.etudiantDto.id)
@@ -269,6 +288,23 @@ export default {
 </script>
 
 <style scoped>
+.col-top {
+  padding-top: 84px;
+}
+
+.avatar {
+  width: 187px;
+}
+
+.ico {
+  margin-right: 7px;
+}
+
+.info {
+  position: relative;
+  width: auto;
+}
+
 .promo {
   margin-bottom: 8px;
 }
@@ -288,6 +324,7 @@ h2 {
 
 .container {
   margin: 89px 0 0 421px;
+  min-height: 340px;
 }
 
 ul {
@@ -309,7 +346,7 @@ table {
 
 .bloc-droit {
   line-height: 1em;
-  margin-top: 50px;
+  margin-top: 75px;
 }
 
 #bloc-gauche svg {

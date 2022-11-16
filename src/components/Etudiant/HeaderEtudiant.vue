@@ -5,16 +5,12 @@
       alt="logo"
       class="mon-logo"
     />
-    <img
-      src="@/assets/img/institutionnel-logo.png"
-      alt="logo"
-      class="mon-logo"
-    />
     <div class="redBanner">
       <h1>Espace étudiant</h1>
       <b-button size="sm" type="button" @click="logout">
         <font-awesome-icon :icon="['fas', 'power-off']" />
-        Déconnexion</b-button
+        <strong>Déconnexion</strong>
+        </b-button
       >
     </div>
   </header>

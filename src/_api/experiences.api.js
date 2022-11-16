@@ -31,7 +31,7 @@ function deleteById(id) {
 
 function update(form) {
   return axios
-    .post(`${END_POINT}`, form,  requestOptions.headers())
+    .put(`${END_POINT}`, form,  requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

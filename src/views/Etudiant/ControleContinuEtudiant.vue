@@ -1,42 +1,46 @@
 <template>
   <div class="container">
-    <h5>Contrôles continus</h5>
-
-    <!-- <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
+    <h2>Contrôles continus</h2>
+    <br>
 
     <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
-      <b-button v-b-toggle.collapse-1 variant="primary" class="btn-volet">
+
+      <b-button v-b-toggle.index variant="primary" class="btn-volet">
         <!-- <b-button v-b-toggle="'accordion '+index" variant="primary"> -->
         <div>
           <strong>Promotion :</strong>
           {{ index.slice(1).slice(0, index.length - 2) }}
         </div>
         <div>
-          <!-- BUTTON -->
+
+          <!-- DOWNLOAD PDF -->
           <!-- <b-button size="sm" class="btn-pdf" variant="success" v-on:click="goToEvents(item)"><i
               class="bi bi-file-pdf"></i>Télécharger PDF</b-button> -->
-          <i class="bi bi-caret-down-square-fill"></i>
+          <!-- <i class="bi bi-caret-down-square-fill"></i> -->
+
+          <i class="fa-solid fa-square-caret-down"></i>
         </div>
       </b-button>
 
-      <b-collapse id="collapse-1" class="colla" visible>
+      <b-collapse :id="'index'" class="colla" visible>
         <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
         <b-table small head-variant="light" :items="item" :fields="fields"></b-table>
       </b-collapse>
+
     </div>
+
+
   </div>
 </template>
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
-import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   name: "ControleContinuEtudiant",
   data() {
     return {
       notesEtudiant: [],
-      bulletin: [],
 
       fields: [
         {
@@ -66,9 +70,9 @@ export default {
     goToEvents: function (item) {
       window.open(
         `${process.env.VUE_APP_API_URL}examens/bulletin-etudiant/` +
-          this.$store.getters.getUtilisateur.etudiantDto.id +
-          "/" +
-          item[0].id
+        this.$store.getters.getUtilisateur.etudiantDto.id +
+        "/" +
+        item[0].id
       );
     },
   },
@@ -80,18 +84,15 @@ export default {
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.notesEtudiant = data));
 
-    examenApi
-      .generateBulletinByStudentAndPromo(
-        this.$store.getters.getUtilisateur.etudiantDto.id,
-        1
-      )
-      .then((data) => (this.bulletin = data));
-
   },
 };
 </script>
 
 <style scoped>
+h2 {
+  font-weight: bolder;
+}
+
 .bi {
   margin-right: 5px;
 }
@@ -127,5 +128,6 @@ h5 {
 
 .container {
   margin: 89px 0 0 421px;
+  min-height: 340px;
 }
 </style>

@@ -259,6 +259,7 @@ function getNotesByIdEtudiant(id) {
     .then(response => response.data)
     .catch((error) => console.log(error));
 }
+
 function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
 
     let req = "etudiants/"+ id + "/etudiants-abcences-devoirs/" + search;
