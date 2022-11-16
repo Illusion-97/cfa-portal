@@ -40,8 +40,9 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp1" v-model="expPro.tacheRealisee" name="tacheRealisee"
-                placeholder="Tâches réalisées"></b-form-input>
+              <!-- <b-form-input id="exp1" v-model="expPro.tacheRealisee" name="tacheRealisee"
+                placeholder="Tâches réalisées"></b-form-input> -->
+                <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
             </b-card-body>
 
           </b-collapse>
@@ -59,8 +60,10 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp2" ref="aa" v-model="expPro.moyenUtilise" name="moyenUtilise"
-                placeholder="Moyens utilisés"></b-form-input>
+              <!-- <b-form-input id="exp2" ref="aa" v-model="expPro.moyenUtilise" name="moyenUtilise"
+                placeholder="Moyens utilisés"></b-form-input> -->
+                <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
+
             </b-card-body>
 
           </b-collapse>
@@ -78,8 +81,10 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp3" v-model="expPro.collaborateur" name="collaborateur" placeholder="Collaborateurs">
-              </b-form-input>
+              <!-- <b-form-input id="exp3" v-model="expPro.collaborateur" name="collaborateur" placeholder="Collaborateurs">
+              </b-form-input> -->
+              <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
+
             </b-card-body>
 
           </b-collapse>
@@ -97,7 +102,9 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp4" v-model="expPro.contexte" name="contexte" placeholder="Contexte"></b-form-input>
+              <!-- <b-form-input id="exp4" v-model="expPro.contexte" name="contexte" placeholder="Contexte"></b-form-input> -->
+              <vue-editor v-model="expPro.contexte" id="exp4" name="contexte" placeholder="Contexte" />
+
             </b-card-body>
 
           </b-collapse>
@@ -115,8 +122,9 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp5" v-model="expPro.information" name="information" placeholder="Informations">
-              </b-form-input>
+              <!-- <b-form-input id="exp5" v-model="expPro.information" name="information" placeholder="Informations">
+              </b-form-input> -->
+              <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
 
           </b-collapse>
@@ -239,8 +247,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp1" v-model="expPro.tacheRealisee" name="tacheRealisee"
-                placeholder="Tâches réalisées"></b-form-input>
+              <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
+
             </b-card-body>
 
           </b-collapse>
@@ -258,8 +266,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp2" ref="aa" v-model="expPro.moyenUtilise" name="moyenUtilise"
-                placeholder="Moyens utilisés"></b-form-input>
+              <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
+
             </b-card-body>
 
           </b-collapse>
@@ -277,8 +285,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp3" v-model="expPro.collaborateur" name="collaborateur" placeholder="Collaborateurs">
-              </b-form-input>
+              <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
+
             </b-card-body>
 
           </b-collapse>
@@ -296,7 +304,7 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp4" v-model="expPro.contexte" name="contexte" placeholder="Contexte"></b-form-input>
+              <vue-editor v-model="expPro.contexte" id="exp4" name="contexte" placeholder="Contexte" />
             </b-card-body>
 
           </b-collapse>
@@ -314,8 +322,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <b-form-input id="exp5" v-model="expPro.information" name="information" placeholder="Informations">
-              </b-form-input>
+              <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
+
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -379,10 +387,13 @@ import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 import { experiencesApi } from "@/_api/experiences.api.js";
 import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
+import { VueEditor } from "vue2-editor";
 
 export default {
   name: "Selects",
-  components: {},
+  components: {
+    VueEditor
+  },
   data: function () {
     return {
       //DATA TRANSFERT DEPUIS ROUTER-LINK
