@@ -178,6 +178,24 @@ export const fieldsActiviteType = [
   },
 ]
 
+export const fieldsCompetencePro = [
+  {
+    key: "libelle",
+    label: "Libelle ",
+  },
+  {
+    key: "numeroFiche",
+    label: "Numero Fiche",
+    class: "text-center",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "20%" },
+    thClass: "text-center",
+  },
+]
+
 export const fieldsEntreprise = [
   {
     key: "Details",

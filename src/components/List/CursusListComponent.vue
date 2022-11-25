@@ -67,6 +67,7 @@
       </div>
     </div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
+      
       <template #cell(action)="row">
         <b-button block variant="info" @click="gotoDetailCursus(row.item)">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
@@ -75,6 +76,11 @@
         <b-button block variant="warning" @click="showModal(row.item)">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" /> Modifier
         </b-button>
+        
+        <v-btn class="mt-2" color="info" dark @click="gotoActiviteTypeCursus(row.item)">
+            <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
+            Voir les activitées type associées
+          </v-btn>
         <b-modal hide-footer :ref="'modal-' + row.item.id">
           <template #modal-title>
             <div class="text-center">
@@ -153,7 +159,6 @@
 import { cursusApi } from "@/_api/cursus.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 import { fieldsCursus } from "@/assets/js/fields.js";
-
 
 export default {
   name: "CursusListComponent",
@@ -245,10 +250,12 @@ export default {
       console.log(response)
       this.hideModal(item);
       });
-      
-      
-      
-  
+    },
+    gotoActiviteTypeCursus(cursus){
+      this.$router.push({
+        name: "admin_activites_types",
+        params: { id: cursus.id },
+      });
     },
     createCursus() {
       let route = this.$route.path.split("/").splice(1);
