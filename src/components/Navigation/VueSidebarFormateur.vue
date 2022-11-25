@@ -61,11 +61,6 @@ export default {
           icon: "bx-briefcase-alt",
         },
         {
-          link: "admin_activites_types",
-          name: "Activités Types",
-          icon: "bx-blanket",
-        },
-        {
           link: "admin_entreprise_list",
           name: "Entreprises",
           icon: "bx-building-house",

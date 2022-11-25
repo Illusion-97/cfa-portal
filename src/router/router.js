@@ -181,7 +181,8 @@ import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreForma
 import CentreFormationDetails from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetails.vue";
 //Activité Type 
 import ActiviteTypeDetail from "@/views/Admin/Crud/ActiviteType/ActiviteTypeDetail.vue";
-
+//Competence Pro
+import CompetenceProDetail from "@/views/Admin/Crud/CompetenceProfessionnelle/CompetenceProDetail.vue";
 //#######################
 //#       CEF           #
 //#######################
@@ -746,10 +747,19 @@ const routes = [
     meta: { authorize: [Role.Admin] },
   },
   //#######################
+  //#    CompetencePro    #
+  //#######################
+  {
+    path: "/admin/competence_pro/:id",
+    name: "admin_competence_pro",
+    component: CompetenceProDetail,
+    meta: { authorize: [Role.Admin] },
+  },
+  //#######################
   //#    ActiviteType     #
   //#######################
   {
-    path: "/admin/activites_types",
+    path: "/admin/activites_types/:id",
     name: "admin_activites_types",
     component: ActiviteTypeDetail,
     meta: { authorize: [Role.Admin] },

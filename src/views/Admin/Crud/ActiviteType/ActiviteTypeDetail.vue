@@ -55,11 +55,12 @@
               <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
             </v-btn>
           </div>
-          <v-btn class="mt-2" color="info" dark>
+          <v-btn class="mt-2" color="info" dark @click="showModal(row.item)">
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
             Voir les compétences associées
           </v-btn>
         </v-app>
+        <CompetenceProModal v-show="isModalVisible" @close="closeModal" :cps="competence" v-on:close="onClickClose" />
       </template>
     </b-table>
   </div>
@@ -71,6 +72,8 @@ import { required } from 'vuelidate/lib/validators'
 import { activiteTypeApi } from '@/_api/activiteType.api.js'
 import { fieldsActiviteType } from "@/assets/js/fields.js";
 import ActiviteType from "../../../../models/ActiviteType"
+import CompetenceProModal from "@/components/Modal/CompetenceProfessionnelleModal.vue";
+import { competenceProfessionnelleApi } from "@/_api/competenceProfessionnelle.api.js";
 
 export default {
   name: "activiteTypeDetail",
@@ -82,10 +85,13 @@ export default {
     },
 
   },
-  components: {},
+  components: {
+    CompetenceProModal,
+  },
   data() {
     return {
 
+      competence: [],
       libelle: "",
       numeroFiche: "",
       message: "",
@@ -93,10 +99,15 @@ export default {
       visible: false,
       items: [
       ],
-      at: new ActiviteType(0, 0, '', '', 4),
+      at: new ActiviteType(0, 0, '', '', 0),
       fields: fieldsActiviteType,
       dismissCountDown: 0,
-      modifier: false
+      modifier: false,
+      isModalVisible: false,
+      form :{
+         cpsDto:[],
+      },
+     
     };
   },
   computed: {
@@ -113,16 +124,26 @@ export default {
       !this.$v.at.numeroFiche.required && errors.push('Numéro Fiche is required.')
       return errors
     },
+    cpsComputed(){
+      return this.form.cpsDto;
+    }
   },
   created() {
     this.getList();
   },
   methods: {
     getList() {
-      activiteTypeApi.getActiviteTypesByCursus(4).then(response => {
+      activiteTypeApi.getActiviteTypesByCursus(this.$route.params.id).then(response => {
         this.items = response;
-        console.log(response)
       })
+    },
+    gotoCompetenceProActiviteType(items){
+      this.$router.push({
+        name: "admin_competence_pro",
+        params: { id: items.id },
+        
+      });
+      console.log("test id activite : " + items.id)
     },
     update(at) {
       this.modifier = true;
@@ -216,6 +237,26 @@ export default {
           this.message = err;
         });
     },
+      async showModal(item) {
+        this.isModalVisible = true;
+        this.competence = await competenceProfessionnelleApi.getAllByIdActiviteType(item.id);
+
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      },
+      goBack() {
+        this.$router.go(-1);
+      },
+      onClickClose(cps) {
+        this.form.cpsDto = cps;
+      },
+      removeFromlist(index) {
+        this.form.cpsDto.splice(index, 1);
+      },
+      clickCp(){
+        this.isModalVisible = true;
+      }
   },
 };
 </script>
