@@ -1,7 +1,5 @@
 <template>
   <div>
-  Un admin peut gérer les absences d’un élève  <br/>
-  Pouvoir signer le dossier projet & livret évaluation & le dossier professionnel des élèves. Si non validation, envoyer mail à l’élève. <br/>
     <section>
       <div class="container-fluid mt-4">
         <b-tabs content-class="mt-3" fill>
@@ -82,20 +80,7 @@
               Dossiers
             </template>
             <div>
-              <table class="table">
-                <thead class="">
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="mon-tr">
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+              <LivretEvaluationComponent />
             </div>
           </b-tab>
 
@@ -108,7 +93,7 @@
               Divers
             </template>
             <div>
-              <table class="table table-divers">
+              <!-- <table class="table table-divers">
                 <tbody>
                   <tr>
                     <td>Email :</td>
@@ -139,8 +124,8 @@
                     <td>Fiche entreprise DG2 :</td>
                     <td>entreprise</td>
                   </tr>
-                </tbody>
-              </table>
+                </tbody> -->
+              <!-- </table> -->
             </div>
           </b-tab>
         </b-tabs>
@@ -155,13 +140,13 @@ import { noteApi } from "@/_api/note.api.js";
 import { absenceApi } from "@/_api/absence.api.js";
 import { congeApi } from "@/_api/conge.api.js";
 import { maitreApprentissageApi } from "@/_api/maitreApprentissage.api.js";
-
+import  LivretEvaluationComponent  from"@/components/Formateur/LivretEvaluationComponent"
 import "@/assets/styles/CrudDetail.css";
 
 export default {
   name: "EtudiantDetail",
-  components: {
- },
+  components: { LivretEvaluationComponent },
+
   data() {
   return {
     absences: [],

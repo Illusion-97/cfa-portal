@@ -5,7 +5,7 @@
     </div>
     <section class="container-fluid mt-4">
       <b-tabs content-class="mt-3" fill v-model="tabIndex">
-        <b-tab active>
+        <b-tab active  title-link-class="tabColor">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
             Details
@@ -79,7 +79,7 @@
                     <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
                       v-model="items.noteInfoPersonnel"></b-form-textarea>
                   </div>
-                  <b-button v-if="ajouterInfo == false" variant="info" @click="ajouterInfo = true">
+                  <b-button v-if="ajouterInfo == false" @click="ajouterInfo = true">
                     <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
                     Ajouter
                   </b-button>
@@ -123,14 +123,14 @@
             </div>
           </div>
         </b-tab>
-        <b-tab>
+        <b-tab  title-link-class="tabColor">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
             Etudiants
           </template>
           <EtudiantsInterventionListComponent />
         </b-tab>
-        <b-tab>
+        <b-tab  title-link-class="tabColor">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'code']" class="icon" />
             Evaluations
@@ -138,7 +138,7 @@
           <EvaluationComponent />
 
         </b-tab>
-        <b-tab>
+        <b-tab  title-link-class="tabColor">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'code']" class="icon" />
             Devoirs
@@ -146,7 +146,7 @@
           <DevoirsInterventionListComponent />
         </b-tab>
        
-        <b-tab @click="reloadExam()">
+        <b-tab @click="reloadExam()"  title-link-class="tabColor">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
             Examens
@@ -156,8 +156,8 @@
               :context="'intervention'"  />
           </div>
         </b-tab>
-        <b-tab>
-          <template v-slot:title>
+        <b-tab title-link-class="tabColor">
+          <template v-slot:title class="text-info">
             <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
             Notes
           </template>
@@ -622,5 +622,10 @@ tr th {
 
 .right-border {
   border-right: 3px solid gainsboro;
+}
+</style>
+<style>
+.tabColor{
+  color: #2D001E;
 }
 </style>

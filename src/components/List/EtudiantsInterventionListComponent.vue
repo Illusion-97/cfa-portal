@@ -13,8 +13,8 @@
       :items="items"
       :fields="fields"
       striped
-      responsive="sm"
-      :per-page="perPage"
+      stacked = "md"
+            :per-page="perPage"
       :current-page="currentPage"
     >
       <!-- Header sup -->
@@ -106,6 +106,7 @@
                   :fields="fieldsAbseces"
                   dark
                   bordered
+                  stacked = "md"
                 ></b-table>
               </b-card-body>
             </b-collapse>
@@ -130,6 +131,7 @@
                   :fields="fieldsDevoirs"
                   dark
                   bordered
+                  stacked = "md"
                 ></b-table>
               </b-card-body>
             </b-collapse>
@@ -197,7 +199,6 @@
         >
           <b-form-spinbutton
             inline
-            id="demo-sb"
             v-model="row.item.fin"
             min="0"
             max="5"

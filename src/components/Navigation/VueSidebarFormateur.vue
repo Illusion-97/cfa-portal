@@ -1,20 +1,9 @@
 <template>
   <div>
-    
-      <SideBarComponentFormateur
-        :menuTitle="menuTitle"
-        :isSearch="isSearch"
-        :menuItems="items"
-        :isMenuOpen="isMenuOpen"
-        :isExitButton="isExitButton"
-        :profileImg="profileImg"
-        :bgColor="bgColor"
-        :menuLogo="menuLogo"
-      />
-   
+    <SideBarComponentFormateur :menuTitle="menuTitle" :isSearch="isSearch" :menuItems="items" :isMenuOpen="isMenuOpen"
+      :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
   </div>
 </template>
-
 <script>
 import SideBarComponentFormateur from "@/components/Navigation/SideBarComponentFormateur.vue";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
@@ -82,10 +71,10 @@ export default {
   methods: {
     findUserRole() {
       if (utilisateurService.isAdmin()) {
-       this.items = this.menuItemsAdmin 
+        this.items = this.menuItemsAdmin
       } else if (utilisateurService.isFormateur()) {
         this.items = this.menuItemsFormateur;
-      } 
+      }
     },
   },
   created() {

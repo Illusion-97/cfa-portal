@@ -1171,10 +1171,10 @@ const routes = [
     meta: { authorize: [Role.Admin] },
   },
   {
-    path: "/admin/etudiants/details/:id",
+    path: "/admin/etudiants/details/:id/:idPromotion",
     name: "admin_etudiant_details",
     component: EtudiantDetails,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Admin,Role.Formateur] },
   },
   {
     path: "/admin/etudiants/fiche-salarie",

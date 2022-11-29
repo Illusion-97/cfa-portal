@@ -9,6 +9,7 @@ export const evaluationFormationApi = {
   save,
   update,
   deleteEF,
+  getAllByIdPromotionAndActiviteTypeId,
 };
 
 // function getAll(){
@@ -27,16 +28,22 @@ function getById(id) {
     .catch((error) => console.log(error));
 }
 
-
-function save(at) {
+function getAllByIdPromotionAndActiviteTypeId(idPrmo,idAt) {
   return axios
-    .post(`${END_POINT}`,at, requestOptions.headers())
+    .get(`${END_POINT}/${idPrmo}/${idAt}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
-function update(at) {
+
+function save(ev) {
   return axios
-    .put(`${END_POINT}`,at, requestOptions.headers())
+    .post(`${END_POINT}`,ev, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+function update(ev) {
+  return axios
+    .put(`${END_POINT}`,ev, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

@@ -20,7 +20,7 @@
       >
         {{ message }}
       </b-alert>
-      <b-collapse v-model="visible" id="collapseFormulaire">
+      <b-collapse v-model="visible" >
         <section class="section-form d-flex flex-column justify-content-around">
           <div class="d-flex flex-row">
             <label class="libelle-width">Titre de l'examen :</label>
