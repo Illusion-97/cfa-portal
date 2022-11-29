@@ -22,10 +22,10 @@
                         <form>
                             <v-row>
 
-                                <v-col cols="12" lg="12">
+                                <!-- <v-col cols="12" lg="12">
                                     <vue-editor v-model="evaluationFormation.contenu" :editor-toolbar="customToolbar" />
 
-                                </v-col>
+                                </v-col> -->
                                 <v-col cols="12" lg="12">
 
                                     <v-autocomplete :items="itemsCP" rounded solo label="Compétences professionnelles"
@@ -62,8 +62,6 @@
                                         Vider
                                     </v-btn>
                                 </v-col>
-
-
                             </v-row>
                         </form>
                     </v-app>
@@ -98,21 +96,21 @@
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import EvaluationFormation from "../../models/EvaluationFormation";
 import { evaluationFormationApi } from "@/_api/evaluationFormation.api.js";
-import { VueEditor } from "vue2-editor";
+//import { VueEditor } from "vue2-editor";
 
 export default {
     name: "EvaluationComponent",
-    components: { VueEditor },
+    components: {}, //VueEditor },
     data() {
 
         return {
-            customToolbar: [
-                [{ 'size': ['small', false, 'large', 'huge'] }],
-                ["bold", "italic", "underline"],
-                [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }],
-                [{ list: "ordered" }, { list: "bullet" }],
-                [{ 'indent': '-1' }, { 'indent': '+1' }],
-            ],
+            // customToolbar: [
+            //     [{ 'size': ['small', false, 'large', 'huge'] }],
+            //     ["bold", "italic", "underline"],
+            //     [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }],
+            //     [{ list: "ordered" }, { list: "bullet" }],
+            //     [{ 'indent': '-1' }, { 'indent': '+1' }],
+            // ],
             items: [
             ],
             menu: false,
