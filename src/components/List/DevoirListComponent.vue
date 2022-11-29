@@ -28,7 +28,7 @@
         v-if="isAction"
         >Ajouter</router-link
       >-->
-      <button class="btn btn-info" v-on:click=ajouterDevoir v-if="isAction">
+      <button class="btn btn-secondary" v-on:click=ajouterDevoir v-if="isAction">
               Ajouter 
             </button>
     </div>

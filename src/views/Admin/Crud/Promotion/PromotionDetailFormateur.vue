@@ -12,17 +12,17 @@
               <table class="table">
                 <thead class="">
                   <tr>
-                    <th v-if="isAdmin"> Détails étudiant</th>
+                    <th > Détails étudiant</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th v-if="isAdmin">Action</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="etudiant in promotion.etudiantsDto" :key="etudiant.id" class="mon-tr">
-                    <td width=13% v-if="isAdmin">
+                    <td>
                       <b-button @click="clickEtudiant(etudiant)" size="sm" class="mr-2">
                         Afficher détails
                       </b-button>
@@ -33,7 +33,7 @@
                     <td>
                       {{ etudiant.utilisateurDto.telephone }}
                     </td>
-                    <td width=16% v-if="isAdmin">
+                    <td >
                       <b-button block variant="danger" @click="showModal(etudiant.utilisateurDto.id)">
                         <font-awesome-icon :icon="['fas', 'clock']" />
                         Déclarer Absence
@@ -193,7 +193,6 @@ export default {
     },
     getPromotionId() {
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        console.log(response);
         this.promotion = response;
       });
       this.$root.$on("afficherNotes", (data) => {
@@ -211,21 +210,12 @@ export default {
     },
     clickEtudiant(etudiant) {
       let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
+      if (route[0] == "admin" || route[0] == "formateur") {
         this.$router.push({
           name: "admin_etudiant_details",
-          params: { id: etudiant.id },
-        });
-      } else if (route[0] == "referent") {
-        this.$router.push({
-          name: "referent_etudiant_detail",
-          params: { id: etudiant.id },
-        });
-      } else if (route[0] == "cef") {
-        this.$router.push({
-          name: "cef_etudiant_detail",
-          params: { id: etudiant.id },
-        });
+          params: { id: etudiant.id ,
+            idPromotion: this.$route.params.id  },
+        })
       }
     },
     clickIntervention(intervention) {

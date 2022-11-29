@@ -39,6 +39,10 @@ axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 // Vue.use(VueCookies)
 
 new Vue({
+  created(){
+    const html = document.documentElement // returns the html tag
+    html.setAttribute('lang', 'fr')
+  },
   router,
   store,
   vuetify,

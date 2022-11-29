@@ -1,11 +1,12 @@
 export default class EvaluationFormation {
   
-  constructor(id, version,blocEvaluationId,contenu,competencesEvaluees,dateEvaluation) {
+  constructor(id, version,blocEvaluationId,contenu,competencesEvalueesId,dateEvaluation, interventionId) {
     this.id = id;
     this.version = version;
     this.bocEvaluationId = blocEvaluationId;
     this.contenu = contenu;
-    this.competencesEvaluees = competencesEvaluees;
-    this.dateEvaluation =dateEvaluation
+    this.competencesEvalueesId = competencesEvalueesId;
+    this.dateEvaluation = dateEvaluation;
+    this.interventionId = interventionId;
   }
 }

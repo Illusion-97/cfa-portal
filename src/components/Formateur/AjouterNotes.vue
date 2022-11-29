@@ -4,48 +4,20 @@
       {{ titleNote }}
     </h3>
     <section v-bind:class="[afficherNotes]">
-      <div
-        v-if="context == 'intervention'"
-        class="d-flex alig-item-center justify-content-between m-4"
-      >
+      <div v-if="context == 'intervention'" class="d-flex alig-item-center justify-content-between m-4">
         <form class="form-inline form" @submit="submit">
-          <input
-            id="saisie"
-            placeholder="Rechercher"
-            type="text"
-            class="form-control"
-            v-model="saisie"
-          />
+          <input id="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
-        <b-form-select
-          class="select w-50"
-          v-model="selected"
-          :options="options"
-          value-field="item"
-          text-field="name"
-          disabled-field="notEnabled"
-          @input="changePromotion"
-        ></b-form-select>
+        <b-form-select class="select w-50" v-model="selected" :options="options" value-field="item" text-field="name"
+          disabled-field="notEnabled" @input="changePromotion"></b-form-select>
       </div>
-      <b-table
-        hover
-        :items="items"
-        :fields="fields"
-        :per-page="perPage"
-        :current-page="currentPage"
-      >
+      <b-table hover :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage">
         <template #cell(note)="row">
           <div v-if="row.item.modifier || !row.item.ajouter">
-            <b-form-spinbutton
-              id="demo-sb"
-              v-model="row.item.note"
-              min="1"
-              max="20"
-              step="0.5"
-            ></b-form-spinbutton>
+            <b-form-spinbutton id="demo-sb" v-model="row.item.note" min="1" max="20" step="0.5"></b-form-spinbutton>
           </div>
           <div v-else>
             {{ row.item.note }}
@@ -55,20 +27,10 @@
           <div v-if="!row.item.ajouter || row.item.modifier">
             <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
               <b-form-radio-group class="pt-2" id="radio-group-2">
-                <b-form-radio
-                  v-model="row.item.satisfaction"
-                  :aria-describedby="ariaDescribedby"
-                  name="some-radios"
-                  value="Oui"
-                  >Oui</b-form-radio
-                >
-                <b-form-radio
-                  v-model="row.item.satisfaction"
-                  :aria-describedby="ariaDescribedby"
-                  name="some-radios"
-                  value="Non"
-                  >Non</b-form-radio
-                >
+                <b-form-radio v-model="row.item.satisfaction" :aria-describedby="ariaDescribedby" name="some-radios"
+                  value="Oui">Oui</b-form-radio>
+                <b-form-radio v-model="row.item.satisfaction" :aria-describedby="ariaDescribedby" name="some-radios"
+                  value="Non">Non</b-form-radio>
               </b-form-radio-group>
             </b-form-group>
           </div>
@@ -79,11 +41,7 @@
         <template #cell(Action)="row">
           <div v-if="!row.item.ajouter">
             <b-form>
-              <b-button
-                block
-                variant="success"
-                @click="showMsgBox(row.item, true)"
-              >
+              <b-button block variant="success" @click="showMsgBox(row.item, true)">
                 <font-awesome-icon :icon="['fas', 'plus-square']" />
                 Ajouter
               </b-button>
@@ -91,43 +49,27 @@
           </div>
           <div v-else>
             <div v-if="row.item.modifier">
-              <b-button
-                block
-                variant="success"
-                @click="showMsgBox(row.item, false)"
-                type="submit"
-              >
+              <b-button block variant="success" @click="showMsgBox(row.item, false)" type="submit">
                 <font-awesome-icon :icon="['fas', 'check-square']" />
-                Valider</b-button
-              >
+                Valider
+              </b-button>
 
               <b-button block variant="warning" @click="AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" />
-                Annuler</b-button
-              >
+                Annuler
+              </b-button>
             </div>
             <div v-else>
-              <b-button
-                block
-                variant="primary"
-                @click="modifierNotes(row.item)"
-              >
+              <b-button block variant="primary" @click="modifierNotes(row.item)">
                 <font-awesome-icon :icon="['fas', 'edit']" />
-                Modifier</b-button
-              >
+                Modifier
+              </b-button>
             </div>
           </div>
         </template>
       </b-table>
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
-        pills
-        size="lg"
-        class="customPagination"
-      ></b-pagination>
+      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" pills
+        size="lg" class="customPagination"></b-pagination>
     </section>
   </section>
 </template>
@@ -149,7 +91,7 @@ export default {
       boxOne: "",
       tempItemNote: null,
       tempItemSati: null,
-      perPage: 2,
+      perPage: 6,
       currentPage: 1,
       saisie: "",
       options: [{ item: "All", name: "Tout les promotions" }],
@@ -180,18 +122,10 @@ export default {
         {
           key: "Action",
           label: "Action",
-          thStyle: { width: "10%" },
+          thStyle: { width: "10%" },  
         },
       ],
       items: [
-        //   id:2,
-        //   nom: 'Geneva',
-        //   prenom: 'Wilson',
-        //   note:14,satisfaction:'Oui' ,
-        //    _cellVariants: {  satisfaction: '' },
-        //      modifier :false,
-        //      ajouter :true
-        // },
       ],
     };
   },
@@ -261,10 +195,6 @@ export default {
         });
     },
     assignValueItems(data) {
-      // {id:1, nom: 'Dickerson', prenom: 'Macdonald',note :17,satisfaction :'Oui',
-      //  _cellVariants: {  satisfaction: '' },
-      //   modifier :false,
-      //   ajouter :true,}
       let items = [];
       for (let i = 0; i < data.length; i++) {
         items.push(this.setNoteDatToItem(data[i]));
@@ -410,4 +340,5 @@ export default {
 </script>
 
 <style scoped src="@/assets/styles/CrudListComponent.css">
+
 </style>

@@ -6,7 +6,7 @@
             {{ message }}
         </b-alert> -->
         <button @click="colspanClick()" class="btn btn-outline-info mt-4 mb-4">
-            <span v-if="!visible ">
+            <span v-if="!visible">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter evaluation
             </span>
             <span v-else>
@@ -23,22 +23,22 @@
                             <v-row>
 
                                 <v-col cols="12" lg="12">
-                                                                <vue-editor v-model="content" />
+                                    <vue-editor v-model="evaluationFormation.contenu" :editor-toolbar="customToolbar" />
 
                                 </v-col>
                                 <v-col cols="12" lg="12">
 
                                     <v-autocomplete :items="itemsCP" rounded solo label="Compétences professionnelles"
                                         placeholder="Numéro fiche : Compétence professionnelle"
-                                        v-model="evaluationFormation.competencesEvaluees" multiple></v-autocomplete>
-
+                                        v-model="evaluationFormation.competencesEvalueesId" multiple></v-autocomplete>
                                 </v-col>
                                 <v-col cols="12" lg="12" align-self="center">
                                     <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
                                         transition="scale-transition" offset-y min-width="auto">
                                         <template v-slot:activator="{ on, attrs }">
-                                            <v-text-field v-model="evaluationFormation.dateEvaluation" label="Date de l'évaluation"
-                                                prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on">
+                                            <v-text-field v-model="evaluationFormation.dateEvaluation"
+                                                label="Date de l'évaluation" prepend-icon="mdi-calendar" readonly
+                                                v-bind="attrs" v-on="on">
                                             </v-text-field>
                                         </template>
                                         <v-date-picker v-model="evaluationFormation.dateEvaluation"
@@ -47,23 +47,21 @@
                                 </v-col>
                                 <v-col cols="12" lg="12">
 
-                                    <v-btn class="mr-4" :color="modifier?'warning' :'success'" @click="submit">
+                                    <v-btn class="mr-4" :color="modifier ? 'warning' : 'success'" @click="submit">
 
-                                        <span v-if="!modifier ">
+                                        <span v-if="!modifier">
                                             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                                         </span>
                                         <span v-else>
                                             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
                                         </span>
-                                        {{modifier?'Modifier' :'Ajouter'}}
+                                        {{ modifier ? 'Modifier' : 'Ajouter' }}
                                     </v-btn>
                                     <v-btn color="secondary" @click="clear">
                                         <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" />
                                         Vider
                                     </v-btn>
                                 </v-col>
-
-
                             </v-row>
                         </form>
                     </v-app>
@@ -96,17 +94,23 @@
 </template>
 <script>
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
-import  EvaluationFormation  from "../../models/EvaluationFormation";
-import {evaluationFormationApi} from"@/_api/EvaluationFormation.api.js";
-//import { VueEditor } from "vue2-editor";
+import EvaluationFormation from "../../models/EvaluationFormation";
+import { evaluationFormationApi } from "@/_api/evaluationFormation.api";
+import { VueEditor } from "vue2-editor";
 
 export default {
     name: "EvaluationComponent",
-    //components: { VueEditor },
+    components: { VueEditor },
     data() {
 
         return {
-            content: "<h1>Some initial content</h1>",
+            customToolbar: [
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                ["bold", "italic", "underline"],
+                [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{ 'indent': '-1' }, { 'indent': '+1' }],
+            ],
             items: [
             ],
             menu: false,
@@ -119,7 +123,7 @@ export default {
             itemsCP: [
 
             ],
-            evaluationFormation: new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>",  new Array,(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))
+            evaluationFormation: new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>", new Array, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), this.$route.params.id)
         }
     },
     created() {
@@ -128,12 +132,6 @@ export default {
         })
     },
     methods: {
-        getList() {
-            //   activiteTypeApi.getActiviteTypesByCursus(4).then(response => {
-            //     this.items = response;
-            //     console.log(response)
-            //   })
-        },
         getActiviteType(promoId) {
             activiteTypeApi
                 .getAllByIdPromotion(promoId)
@@ -146,48 +144,42 @@ export default {
                         let item = { text: e.numeroFiche + " : " + e.libelle, value: e.id }
                         this.itemsCP.push(item)
                     })
-                    console.log(this.itemsCP)
                 });
         },
-        // update(at) {
-        //     this.modifier = true;
-        //     this.visible = true;
-        //     this.at = at;
-        // },
         submit() {
-            console.log(this.evaluationFormation);
-    
-              if (this.modifier) {
+
+            if (this.modifier) {
                 evaluationFormationApi.update(this.evaluationFormation).then(response => {
-                  this.color = "success";
-                  this.dismissCountDown = 6;
-                  this.message = "l'activité type " + response.libelle + " a été modifier avec success"
-                  this.visible = false;
-                  this.getList()
+                    this.color = "success";
+                    this.dismissCountDown = 6;
+                    this.message = "L'Evaluation du " + response.dateEvaluation + " a été modifier avec success"
+                    this.visible = false;
+                    this.getList()
                 }).catch(err => {
-                  this.color = "danger";
-                  this.dismissCountDown = 8;
-                  this.message = err;
+                    this.color = "danger";
+                    this.dismissCountDown = 8;
+                    this.message = err;
                 })
-              }
-              else {
-                activiteTypeApi.save(this.evaluationFormation).then(response => {
-                  this.color = "success";
-                  this.dismissCountDown = 6;
-                  this.message = "L'Evaluation du " + response.dateEvaluation + " a été ajouté avec success"
-                  this.visible = false;
-                  this.getList()
-                  console.log(response)
+            }
+            else {
+                console.log(this.evaluationFormation)
+                evaluationFormationApi.save(this.evaluationFormation).then(response => {
+                    this.color = "success";
+                    this.dismissCountDown = 6;
+                    this.message = "L'Evaluation du " + response.dateEvaluation + " a été ajouté avec success"
+                    this.visible = false;
+                    this.getList()
+                    console.log(response)
                 }).catch(err => {
-                  this.color = "danger";
-                  this.dismissCountDown = 8;
-                  this.message = err;
+                    this.color = "danger";
+                    this.dismissCountDown = 8;
+                    this.message = err;
                 })
-              }
+            }
 
         },
         clear() {
-            this.evaluationFormation = new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>",  new Array,(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10))
+            this.evaluationFormation = new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>", new Array, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), this.$route.params.id)
         },
         colspanClick() {
             this.visible = !this.visible
