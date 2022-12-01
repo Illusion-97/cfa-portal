@@ -26,6 +26,7 @@ export const etudiantApi = {
     getNotesByIdEtudiant,
     getEtudiantsByInterventionIdwithDevoirsAndAbsence,
     fetchAllEtudiantDG2Http,
+    getAccueilEtudiant
 }
 
 /**
@@ -287,3 +288,17 @@ function fetchAllEtudiantDG2Http(logInUser) {
     });
   
   }
+
+  /**
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+function getAccueilEtudiant(id) {
+
+    let req = `/${END_POINT}/accueil-etudiant/` + id;
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}

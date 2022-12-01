@@ -18,19 +18,17 @@
             <font-awesome-icon :icon="['fas', 'envelope']" class="ico" />
             <strong>eMail</strong>
             <br>
-            {{ utilisateur.login }}
+            {{ accueil.login }}
             <br />
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
             <br>
-            {{ utilisateur.telephone }}
+            {{ accueil.telephone }}
             <br />
             <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
             <strong>Ville</strong>
             <br>
-            {{ utilisateur.adresseDto.numero }} {{ utilisateur.adresseDto.rue }}
-            {{ utilisateur.adresseDto.codePostale }}
-            {{ utilisateur.adresseDto.ville }}
+            {{ accueil.ville }}
             <br />
           </span>
         </div>
@@ -38,11 +36,8 @@
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotion</strong>
-          <ul>
-            <li v-for="promotion in promotions" :key="promotion.id">
-              {{ promotion.nom }}
-            </li>
-          </ul>
+          <br>
+          {{ accueil.promotion }}
           <br>
         </div>
         <div class="col col-top">
@@ -50,8 +45,8 @@
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
           <ul>
-            <li v-for="projet in projets" :key="projet.id">
-              {{ projet.nom }}
+            <li v-for="projet in accueil.projets" :key="projet.id">
+              {{ projet[0] }}
             </li>
             <!-- CFA -->
           </ul>
@@ -59,125 +54,105 @@
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
-          <ul>
-            <li v-for="groupe in groupes" :key="groupe.id">
-              {{ groupe.nom }}
-            </li>
-          </ul>
+          <br>
+          {{ accueil.groupes[0] }}
         </div>
       </div>
     </div>
 
     <!-- PROCHAIN COURS -->
     <br>
-    <b-table small head-variant="light" :items="cours" :fields="fieldsCours"></b-table>
+    <b-table-simple small head-variant="light">
+      <b-thead head-variant="dark">
+        <b-tr>
+          <b-th>Prochain cours</b-th>
+          <b-th>Début</b-th>
+          <b-th>Fin</b-th>
+          <b-th>Formateur</b-th>
+        </b-tr>
+      </b-thead>
+      <b-tbody>
+        <b-tr>
+          <b-td>{{ accueil.prochainCours[0].formationTitre }}</b-td>
+          <b-td>{{ accueil.prochainCours[0].interventionDateDebut }}</b-td>
+          <b-td>{{ accueil.prochainCours[0].interventionDateFin }}</b-td>
+          <b-td>{{ accueil.prochainCours[0].formateurNom }}</b-td>
+        </b-tr>
+      </b-tbody>
+    </b-table-simple>
 
-    <!-- <br />
-    <b-table small head-variant="light" :items="tableauComputed"></b-table> -->
+    <!-- PROCHAIN COURS -->
+    <!-- <br>
+    <b-table small head-variant="light" :items="accueil.prochainCours" :fields="fieldsCours"></b-table> -->
 
-    <!-- <br />
-    <b-table small head-variant="light" :items="tab" :fields="fields"></b-table> -->
-
-    <!-- TABLEAU DUR POUR EXEMPLE -->
-    <br />
-    <b-table small head-variant="light" :items="tab3" :fields="fields"></b-table>
+    <!-- MEMBRES-->
+    <b-table small head-variant="light" :items="tabOut"></b-table>
   </div>
 </template>
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
-import { projetApi } from "@/_api/projet.api.js";
-import { groupeApi } from "@/_api/groupe.api.js";
-import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
   name: "AccueilEtudiant",
 
   data() {
     return {
-      promotions: [],
-      projets: [],
-      cef: [],
-      // formateurReferent: [],
-      membres: [],
-      groupes: [],
-      cours: [
-        {
-          nom: "JAVA avancé",
-          debut: "31/11/2022",
-          fin: "04/12/2022",
-          formateur: "Mohamed DERKAOUI"
-        },
-      ],
-
+      accueil: [],
       fieldsCours: [
         {
-          key: "nom",
+          key: "formationTitre",
           label: "Prochain Cours",
           // thStyle: { width: "70%" },
         },
         {
-          key: "debut",
+          key: "interventionDateDebut",
           label: "Début",
           // thStyle: { width: "70%" },
         },
         {
-          key: "fin",
+          key: "interventionDateFin",
           label: "Fin",
           // thStyle: { width: "70%" },
         },
         {
-          key: "formateur",
+          key: "formateurNom",
           label: "Formateur",
           // thStyle: { width: "70%" },
         },
       ],
       fields: [
         {
-          key: "nom",
           label: "Nom",
           // thStyle: { width: "70%" },
         },
-        {
-          key: "prenom",
-          label: "Prenom",
-          // thStyle: { width: "20%" },
-        },
-        {
-          key: "role",
-          label: "Rôle",
-          // thStyle: { width: "10%" },
-        },
       ],
-
-      arr: [],
-      arr3: [],
 
     };
   },
 
-  mounted() {
-  },
-
-  beforeMount() {
-  },
-
   methods: {
-    tab() {
+    tabOut() {
 
-      let tab = this.arr;
-      let manager = this.cef;
-      console.log("cef " + this.cef.nom);
+      let tab = [];
+      let mb = this.accueil.membreEtudiantDtos[0];
 
-      tab.push(
-        {
-          nom: manager.nom,
-          prenom: manager.prenom,
-          role: "Manager",
-        }
-      );
+      mb.forEach(function (i) {
+        tab.push(
+          {
+            Nom: i.membreNom,
+            Prenom: i.membrePrenom,
+            Rôle: i.membreRole[0],
+          },
+        )
+      })
 
-      console.dir("tab > " + JSON.stringify(tab, null, 4));
+      tab.push({
+        Nom: this.accueil.managerNom,
+        Prenom: this.accueil.managerPrenom,
+        Rôle: this.accueil.managerRole,
+      });
+
       return tab;
     },
   },
@@ -186,103 +161,12 @@ export default {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
     },
-
-    tableauComputed() {
-      // CEF / MANAGER
-      let cefNom = this.cef.nom;
-      let cefPrenom = this.cef.prenom;
-
-      let tab = [
-        {
-          Nom: cefNom,
-          Prenom: cefPrenom,
-          Rôle: "Manager",
-        },
-      ];
-
-      // MAITRE D'APPRENTISSAGE / TUTEUR
-      let maitreNom = this.formateurReferent.nom;
-      let maitrePrenom = this.formateurReferent.prenom;
-
-      tab.push({
-        Nom: maitreNom,
-        Prenom: maitrePrenom,
-        Rôle: "Tuteur",
-      });
-
-      // MEMBRES
-      let membres = this.membres;
-      membres.forEach(function (item) {
-        tab.push({
-          Nom: item.utilisateurDto.nom,
-          Prenom: item.utilisateurDto.prenom,
-          Rôle: "Membre du groupe",
-        });
-      });
-      return tab;
-    },
-
-    tab3() {
-      let tab3 = this.arr3;
-
-      tab3.push(
-        {
-          nom: "Baron Gomez",
-          prenom: "Laurence",
-          role: "Manager",
-        },
-        {
-          nom: "Merckling",
-          prenom: "Jerome",
-          role: "Tuteur",
-        },
-        {
-          nom: "Chevallereau",
-          prenom: "Valentin",
-          role: "Membre du groupe",
-        },
-        {
-          nom: "Ben Gamra",
-          prenom: "Feres",
-          role: "Membre du groupe",
-        },
-        {
-          nom: "Pires",
-          prenom: "William",
-          role: "Membre du groupe",
-        },
-        {
-          nom: "Charpentier",
-          prenom: "Remy",
-          role: "Membre du groupe",
-        },
-
-      );
-
-      return tab3;
-    }
   },
 
   created() {
     etudiantApi
-      .getPromotions(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.promotions = data));
-
-    etudiantApi
-      .getGroupes(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((response) => (this.groupes = response));
-
-    projetApi
-      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.projets = data));
-
-    groupeApi
-      .getEtudiants(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.membres = data));
-
-    promotionApi
-      .getCef(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((response) => (this.cef = response));
+      .getAccueilEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.accueil = data));
   },
 };
 </script>
