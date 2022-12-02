@@ -139,7 +139,6 @@ export default {
   methods: {
 
     edit(eva) {
-      console.log(this.utilisateur)
       eva.bloc.formateurEvaluateurId = this.utilisateur.formateurDto.id
       eva.bloc.dateSignature = new Date(Date.now()).toISOString()
       blocEvaluationApi.update(eva.bloc).then(response => {

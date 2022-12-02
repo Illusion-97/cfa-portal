@@ -200,6 +200,11 @@ import CefExamen from "@/views/Cef/Crud/Examen/CefExamen.vue";
 //Devoir
 import CefDevoir from "@/views/Cef/Crud/Devoir/CefDevoir.vue";
 
+//Signature
+import SignatureFormateur from"@/views/Formateur/SignatureFormateur.vue"
+import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
+
+
 //          #######################
 //          #       ROUTES        #
 //          #######################
@@ -217,6 +222,7 @@ const routes = [
   { path: "/forgot-password", name: "forgot", component: Forgot },
   { path: "/reset-password", name: "reset", component: Reset },
   { path: "*", component: NotFound },
+  
   // { path: '/secure', name: 'secure', component: secure},
 
   //#######################
@@ -343,11 +349,22 @@ const routes = [
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
   { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
-
+  {
+    path: "/etudiant/signature",
+    name: "signature_etudiant",
+    component : SignatureEtudiant,
+    meta: { authorize: [Role.Etudiant] },
+  },
   //#######################
   //#       FORMATEUR     #
   //#######################
  // Home Formateur
+ {
+  path: "/formateur/signature",
+  name: "signature_formateur",
+  component : SignatureFormateur,
+  meta: { authorize: [Role.Formateur] },
+},
  {
   path: "/formateur/home",
   name: "formateur_home",

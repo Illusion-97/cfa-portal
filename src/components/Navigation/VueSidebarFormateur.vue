@@ -33,6 +33,11 @@ export default {
           name: "Promotions",
           icon: "bx-briefcase-alt",
         },
+        {
+          link: "signature_formateur",
+          name: "Signature",
+          icon: "bx-pen",
+        },
       ],
       menuItemsAdmin: [
         { link: "admin_utilisateur", name: "Utilisateur", icon: "bx-user" },

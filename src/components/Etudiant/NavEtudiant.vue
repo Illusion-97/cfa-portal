@@ -39,6 +39,12 @@
               <i class="fa-solid fa-folder-closed"></i>
               Dossiers projets</a>
           </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'signature_etudiant' }">
+              <i class="fa-solid fa-pen"></i>
+              Signature
+            </router-link>
+          </li>
         </ul>
       </div>
     </nav>
