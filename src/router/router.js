@@ -211,6 +211,8 @@ const routes = [
   //#######################
 
   { path: "/", redirect: { name: "home" } },
+  // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
+  // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/home", name: "home", component: Home },
   { path: "/login", name: "login", component: LoginPage },
   { path: "/forgot-password", name: "forgot", component: Forgot },
