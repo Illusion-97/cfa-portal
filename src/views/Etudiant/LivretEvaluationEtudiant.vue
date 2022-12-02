@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Livret d'évaluation</h2>
     <br>
-    <b-table small head-variant="light" :items="tableauComputed" :fields="fields">
+    <b-table small head-variant="light" :items="livret" :fields="fields">
       <template v-slot:cell(TODO)>
         <button class="btn mr-2 btn-success btn-sm" type="button">
           <i class="fa-solid fa-file-pdf"></i>
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
+// import { examenApi } from "@/_api/examen.api.js";
+import { livretApi } from "../../_api/livret.api.js";
 
 export default {
   name: "LivretEvaluationEtudiant",
@@ -23,9 +24,9 @@ export default {
       livret: [],
       fields: [
         {
-          key: "Promotion",
+          key: "cursus",
           label: "Promotion",
-          thStyle: { width: "25%" },
+          thStyle: { width: "35%" },
           sortable: true,
         },
         {
@@ -35,12 +36,7 @@ export default {
           formatter: () => { return "Bouton Telechargement"; },
         },
         {
-          key: "Satisfaction",
-          label: "Satisfation",
-          thStyle: { width: "25%" },
-        },
-        {
-          key: "Observation",
+          key: "observation",
           label: "Observation",
           thStyle: { width: "25%" },
         },
@@ -55,26 +51,30 @@ export default {
   },
 
   computed: {
-    tableauComputed() {
-      let livret = this.livret;
-      let tab = [];
+    // tableauComputed() {
+    //   let livret = this.livret;
+    //   let tab = [];
 
-      livret.forEach(function (item) {
-        tab.push({
-          Promotion: item.promotions[0],
-          Examen: item.examen,
-          Competence: item.competences[0],
-          Satisfaction: item.satisfactions[0] || item.satisfactions[1],
-          Observation: item.observations[0] || item.observations[1],
-        });
-      });
-      return tab;
-    },
+    //   livret.forEach(function (item) {
+    //     tab.push({
+    //       Promotion: item.promotions[0],
+    //       Examen: item.examen,
+    //       Competence: item.competences[0],
+    //       Satisfaction: item.satisfactions[0] || item.satisfactions[1],
+    //       Observation: item.observations[0] || item.observations[1],
+    //     });
+    //   });
+    //   return tab;
+    // },
   },
 
   created() {
-    examenApi
-      .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
+    // examenApi
+    //   .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
+    //   .then((data) => (this.livret = data));
+
+    livretApi 
+      .getlivretEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.livret = data));
 
   },
