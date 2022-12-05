@@ -45,6 +45,12 @@
               Signature
             </router-link>
           </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_absences' }">
+              <i class="bi bi-folder"></i>
+              Absences</router-link
+            >
+          </li>
         </ul>
       </div>
     </nav>
