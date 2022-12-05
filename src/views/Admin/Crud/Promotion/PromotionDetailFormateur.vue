@@ -13,7 +13,7 @@
                 <thead class="">
                   <tr>
                     <th v-if="isAdmin"> Détails étudiant</th>
-                    <th>Nom</th>
+                    <th>Nom </th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
@@ -34,7 +34,7 @@
                       {{ etudiant.utilisateurDto.telephone }}
                     </td>
                     <td width=16% v-if="isAdmin">
-                      <b-button block variant="danger" @click="showModal(etudiant.utilisateurDto.id)">
+                      <b-button block variant="danger" @click="showModal(etudiant.utilisateurDto)">
                         <font-awesome-icon :icon="['fas', 'clock']" />
                         Déclarer Absence
                       </b-button>
@@ -82,7 +82,7 @@
               Interventions
             </template>
             <div id="interventions">
-              <b-button variant="primary" class="m-4" @click="getGrille">Télècharger grille de positionnement</b-button>
+              <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de positionnement</b-button>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -248,9 +248,9 @@ export default {
       }
     },
     showModal(etuId) {
-      console.log(etuId)
+      console.log(etuId.id)
       console.log(this.$refs)
-      this.$refs["modal-" + etuId].show();
+      this.$refs["modal-" + etuId.id].show();
     },
     hideModal(etuId) {
       this.$refs["modal-" + etuId].hide();

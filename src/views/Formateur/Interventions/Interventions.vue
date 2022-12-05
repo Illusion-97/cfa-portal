@@ -1,8 +1,5 @@
 <template>
   <div class="container-fluide">
-    <div>
-      <HeaderFormateur :title="title" />
-    </div>
     <div class="header-list m-4">
       <form class="form-inline form" @submit="search">
         <input
@@ -69,15 +66,11 @@
 <script>
 import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
-import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 export default {
   name: "Intervention-Formateur",
-  components: {
-    HeaderFormateur,
-  },
+  components: {  },
   data() {
     return {
-      title: "Mes interventions",
       items: [],
       fields: courseFieldsFormateur,
       currentPage: 1,
@@ -97,7 +90,7 @@ export default {
   },
   methods: {
     fillList() {
-      console.log(this.$store.getters.getUtilisateur);
+      console.log(this.$store.getters.getUtilisateur)
       formateurApi
         .getInterventionsByFormateurId(
           this.$store.getters.getUtilisateur.formateurDto.id,
@@ -106,6 +99,9 @@ export default {
           this.key
         )
         .then((data) => {
+          console.log("hello")
+          console.log(data)
+
           this.items = data;
         });
     },

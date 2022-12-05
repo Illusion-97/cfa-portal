@@ -72,6 +72,7 @@ import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vu
 import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
 import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
+import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
 //#######################
 //#       FORMATEUR     #
@@ -342,6 +343,7 @@ const routes = [
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
   { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
+  { path: "/etudiant/absences", name: "etudiant_absences", component: AbsenceEtudiant},
 
   //#######################
   //#       FORMATEUR     #
@@ -1108,7 +1110,6 @@ const routes = [
     component: GroupeDetail,
     meta: { authorize: [Role.Admin] },
   },
-  //Centre Formation
   {
     path: "/admin/centresFormation",
     name: "admin_centreFormation_list",

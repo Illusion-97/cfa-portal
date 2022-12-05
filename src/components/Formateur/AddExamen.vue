@@ -195,15 +195,17 @@ export default {
         this.selectedCompConcernees;
 
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
-      bodyFormData.append("file", this.file);
-      examenApi.save(bodyFormData).then((response) => {
-        this.showAlert(response.titre, false);
-        setTimeout(() => {
-          this.$emit("updateExamens");
-          this.visible = false;
-        }, 500);
-      });
-      //  .catch((error) => this.showAlert(response.titre, true));
+      bodyFormData.append("file", this.file)
+
+      examenApi
+        .save(bodyFormData)
+        .then((response) => {
+          this.showAlert(response.titre, false);
+          setTimeout(() => {
+            this.$emit("updateExamens");
+            this.visible = false;
+          }, 500);
+        });
     },
     showAlert(titre, isErr) {
       if (isErr) {

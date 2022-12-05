@@ -40,6 +40,12 @@
               Dossiers projets</a
             >
           </li>
+          <li class="sidemenu__item">
+            <router-link :to="{ name: 'etudiant_absences' }">
+              <i class="bi bi-folder"></i>
+              Absences</router-link
+            >
+          </li>
         </ul>
       </div>
     </nav>

@@ -7,8 +7,10 @@ export const absenceApi = {
   getById,
   getAllAbsences,
   save,
+  update,
   deleteAbsence,
   getAllByIdEtudiant,
+  getJustificatifByAbsenceId,
 };
 
 /**
@@ -52,6 +54,12 @@ export async function save(absence) {
     .catch((error) => console.log(error));
 }
 
+function update(abs) {
+  return axios
+    .put(`${END_POINT}`,abs, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
 /**
  * Suppression d'une absence 
  * 
@@ -80,4 +88,13 @@ function getAllByIdEtudiant(id) {
         .get(req, requestOptions.headers())
         .then((response) => response.data)
         .catch((error) => console.log(error));
+}
+
+async function getJustificatifByAbsenceId(idAbsence){
+  let req = `${END_POINT}/justificatif/${idAbsence}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 }

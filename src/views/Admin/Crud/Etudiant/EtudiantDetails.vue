@@ -32,7 +32,9 @@
                     <td>{{ absence.dateDebut }}</td>
                     <td>{{ absence.dateFin }}</td>
                     <td>{{ absence.typeAbsence }}</td>
-                    <td>{{ absence.justificatif }}</td>      
+                    <td>
+                       <b-button variant="primary" @click="getJustificatif(absence.id, absence.dateDebut, absence.dateFin)">Télécharger justificatif</b-button>
+                    </td>      
                   </tr>
                 </tbody>
               </table>
@@ -112,24 +114,23 @@
                 <tbody>
                   <tr>
                     <td>Email :</td>
-                    <td> {{etudiant.utilisateurDto.login}} </td>
+                    <td> {{etudiant.email}} </td>
                   </tr>
                   <tr>
                     <td>Téléphone :</td>
-                    <td> {{etudiant.utilisateurDto.telephone}} </td>
+                    <td> {{etudiant.telephone}} </td>
                   </tr>
                   <tr>
                     <td>Adresse :</td>
-                    <td> {{etudiant.utilisateurDto.adresseDto.libelle}} - {{etudiant.utilisateurDto.adresseDto.codePostal}}
-                      {{etudiant.utilisateurDto.adresseDto.ville}} </td>
+                    <td> {{etudiant.adresse}} </td>
                   </tr>
                   <tr>
                     <td>Date de naissance :</td>
-                    <td> {{etudiant.utilisateurDto.dateDeNaissance}} </td>
+                    <td> {{etudiant.dateNaissance}} </td>
                   </tr>
                   <tr>
                     <td>Tuteur :</td>
-                    <td> {{maitreApprentissage.utilisateurDto.prenom}} {{maitreApprentissage.utilisateurDto.nom}}</td>
+                    <td> {{maitreApprentissage}} </td>
                   </tr>
                   <tr> 
                     <td class=td-width >Fiche contact DG2 :</td>
@@ -164,8 +165,17 @@ export default {
  },
   data() {
   return {
+    etu: [],
     absences: [],
-    etudiant: [],
+    etudiant: {
+      email: "",
+      telephone: "",
+      adresse: "",
+      dateNaissance: "",
+      tuteur: "",
+      ficheContactDG2: "",
+      ficheEntrepriseDG2: "",
+    },
     notes: [],
     maitreApprentissage: {
       utilisateurDto: {}
@@ -176,31 +186,47 @@ created() {
   this.fetchEtudiantDatas();
 },
 methods: {
+  getJustificatif(idAbsence, dateDebut, dateFin){
+    absenceApi
+      .getJustificatifByAbsenceId(idAbsence)
+      .then((response) => {
+        let bas64 = response;
+        const linkSource = `data:application/pdf;base64,${bas64}`;
+        const downloadLink = document.createElement("a");
+        const fileName = "Justificatif_Absence_" +this.etu.utilisateurDto.nom+this.etu.utilisateurDto.prenom+ 
+          dateDebut.substring(10,0) + "_" + dateFin.substring(10,0) + ".pdf";
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      })
+  },
   fetchEtudiantDatas(){
   etudiantApi
     .getById(this.$route.params.id)
-    .then((response) => {this.etudiant = response
-    console.log("etudiant")
-    console.log(this.etudiant)
+    .then((response) => {
+      this.etu = response
+      this.etudiant.email = this.etu.utilisateurDto.login || "Pas d'informations"
+      this.etudiant.telephone = this.etu.utilisateurDto.telephone || "Pas d'informations"
+      this.etudiant.adresse = this.etu.utilisateurDto.adresse || "Pas d'informations"
+      this.etudiant.dateNaissance = this.etu.utilisateurDto.dateDeNaissance || "Pas d'informations"
+      this.etudiant.ficheContactDG2 = this.etu.utilisateurDto.ficheContactDG2 || "Pas d'informations"
+      this.etudiant.ficheEntrepriseDG2 = this.etu.utilisateurDto.ficheEntrepriseDG2 || "Pas d'informations"
     })
 
     .then(() => noteApi
       .getAllByIdEtudiant(this.$route.params.id)
       .then((response) => {this.notes = response
-      console.log("notes")
-      console.log(this.notes)
       }))
 
     .then(() => absenceApi
       .getAllByIdEtudiant(this.$route.params.id)
-      .then((response) => {this.absences = response
-      console.log("absences")
-      console.log(this.absences)
-      }))
+      .then((response) => {this.absences = response})
+      )
     
     .then(() => maitreApprentissageApi
       .getMaitreApprentissageByEtudiantId(this.$route.params.id)
-      .then((response) => {this.maitreApprentissage = response}))
+      .then((response) => {this.maitreApprentissage = response.utilisateurDto.prenom + " " +response.utilisateurDto.nom
+      }))
   },
 
   // },
