@@ -95,6 +95,7 @@ export default {
                 downloadLink.href = linkSource;
                 downloadLink.download = fileName;
                 downloadLink.click();
+                console.log("test")
             })
         }, 
     },
