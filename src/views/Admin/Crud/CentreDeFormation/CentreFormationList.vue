@@ -101,8 +101,6 @@ export default {
 
   created() {
     this.getListCentresFormation();
-    // this.$store.getters.getHeaderValue = "test"
-    console.log(this.$store.getters.getHeaderValue)
   },
   mounted() {
     this.getNextCentresFormation();

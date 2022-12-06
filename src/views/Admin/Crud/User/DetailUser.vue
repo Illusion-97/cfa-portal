@@ -6,7 +6,7 @@
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </a>
 
     <!-- <b-card no-body id="my-card">

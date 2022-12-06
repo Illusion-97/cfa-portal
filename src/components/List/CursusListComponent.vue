@@ -244,12 +244,11 @@ export default {
       });
     },
     modifierCursus(item){
-      cursusApi.save(item).then (response => {
+      cursusApi.save(item)
       this.items = null;
       this.refreshList()
-      console.log(response)
+      //console.log(response)
       this.hideModal(item);
-      });
     },
     gotoActiviteTypeCursus(cursus){
       this.$router.push({
@@ -275,7 +274,7 @@ export default {
       
       cursusApi
         .getAllByPage(0, this.perPage)
-        .then((response) => {this.items = response; console.log(response)});
+        .then((response) => {this.items = response;});
       cursusApi
         .getCount()
         .then(

@@ -6,7 +6,7 @@
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </a>
 
     <BodyTitle :title="vue_title" class="mb-5"/>    
@@ -292,7 +292,6 @@ export default {
       this.isCursusModalVisible = false;
     },
     onClickCursusClose(cursus) {
-      // console.log("cursus = ", cursus);
       this.form.cursusDto = cursus;
     },
 

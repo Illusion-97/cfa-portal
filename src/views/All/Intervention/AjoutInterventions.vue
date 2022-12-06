@@ -2,7 +2,7 @@
   <section class="mb-4">
     <span @click="goBack" class="h5 previous d-block">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </span>
     <h1 class="text-center">{{ title }} une intervention</h1>
     <div class="container">
@@ -183,10 +183,8 @@
       },
       previewFiles(evt) {
         this.form.support = evt.target.files[0].name;
-        // console.log(this.form.support);
       },
       getPromotions(promo) {
-        // console.log("get promo", promo);
         this.form.promotionsDto = promo;
       },
       getTrainers(trainer) {

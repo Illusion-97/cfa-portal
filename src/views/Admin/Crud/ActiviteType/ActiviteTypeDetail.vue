@@ -63,6 +63,14 @@
         <CompetenceProModal v-show="isModalVisible" @close="closeModal" :cps="competence" v-on:close="onClickClose" />
       </template>
     </b-table>
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Précédent
+    </a>
   </div>
 </template>
 
@@ -172,7 +180,7 @@ export default {
           this.message = "l'activité type " + response.libelle + " a été ajouté avec success"
           this.visible = false;
           this.getList()
-          console.log(response)
+          //console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;
@@ -258,6 +266,9 @@ export default {
         this.isModalVisible = true;
       }
   },
+  goBack() {
+      this.$router.go(-1);
+    },
 };
 </script>
 <style>

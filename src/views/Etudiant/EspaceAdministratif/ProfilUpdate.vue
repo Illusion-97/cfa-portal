@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <span class="h5" style="cursor:pointer; color:black;text-decoration:none;" @click="goBack">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </span>
     <BodyTitle :title="vue_title" />
 
@@ -231,7 +231,6 @@
           .then(() =>
             this.$router.push({name: "etudiant_profil"}))
           .catch((error) => {
-            // console.log(error.response.data);
             if (
               error.response.data ==
               "Un utilisateur utilise déjà cette adresse mail"
@@ -270,7 +269,6 @@
         const regex = new RegExp(
           "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"
         );
-        // console.log("regex.test() : ", regex.test(password));
         return regex.test(password);
       },
       frontEndDateFormat(date) {

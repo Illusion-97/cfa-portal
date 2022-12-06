@@ -7,7 +7,7 @@
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </a>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
           <button class="btn btn-info" v-on:click=updateFichePoste>

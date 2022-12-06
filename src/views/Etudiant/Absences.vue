@@ -66,8 +66,6 @@ export default {
             absenceApi
                 .getAllByIdEtudiant(idEtudiant)
                 .then((response) => {this.absences = response
-                
-                console.log(this.absence)
                 })
         },
         onSubmit(event){
@@ -83,7 +81,6 @@ export default {
         }, 
         
         getJustificatif(idAbsence, dateDebut, dateFin){
-            console.log(this.$store.getters.getUtilisateur.nom)
             absenceApi
             .getJustificatifByAbsenceId(idAbsence)
             .then((response) => {
@@ -95,7 +92,6 @@ export default {
                 downloadLink.href = linkSource;
                 downloadLink.download = fileName;
                 downloadLink.click();
-                console.log("test")
             })
         }, 
     },

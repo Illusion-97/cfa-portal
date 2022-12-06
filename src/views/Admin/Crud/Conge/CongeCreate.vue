@@ -6,7 +6,7 @@
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </a>
 
     <BodyTitle :title="vue_title" />
@@ -171,7 +171,6 @@ export default {
       congeApi.save(this.form).then(() => this.goBack());
     },
     pageChange(pageNum) {
-      // console.log("pageNum : ", pageNum);
       utilisateurApi
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.utilisateurs = response));

@@ -107,6 +107,9 @@ export default {
       fields: fieldsIntervention,
       showLoginWdg2Card: false,
       loading: false,
+      dismissCountDown: null,
+      color: null,
+      message: null,
     };
   },
   created() {
@@ -121,7 +124,7 @@ export default {
         // .getAllIntervention()
         .then((data) => {
           this.items = data;
-          console.log(data);
+          //console.log(data);
         });
       this.countIntervention();
     },

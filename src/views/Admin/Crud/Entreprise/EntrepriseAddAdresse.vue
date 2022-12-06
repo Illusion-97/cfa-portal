@@ -65,7 +65,7 @@
       style="cursor:pointer; color:black;text-decoration:none;"
     >
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </a>
 
     </div>
@@ -109,7 +109,6 @@ export default {
   created() {
   
     if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-      // console.log(this.$route.params.id);
       adresseApi.getById(this.$route.params.id).then(response => {
         this.form = response
         this.vue_title = "Modification d'une adresse";
