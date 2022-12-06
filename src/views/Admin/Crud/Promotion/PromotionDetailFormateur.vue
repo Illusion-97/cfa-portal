@@ -238,8 +238,6 @@ export default {
       }
     },
     showModal(etuId) {
-      console.log(etuId.id)
-      console.log(this.$refs)
       this.$refs["modal-" + etuId.id].show();
     },
     hideModal(etuId) {

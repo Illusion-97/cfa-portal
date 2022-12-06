@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     fillList() {
-      console.log(this.$store.getters.getUtilisateur)
       formateurApi
         .getInterventionsByFormateurId(
           this.$store.getters.getUtilisateur.formateurDto.id,
@@ -99,8 +98,6 @@ export default {
           this.key
         )
         .then((data) => {
-          console.log("hello")
-          console.log(data)
 
           this.items = data;
         });

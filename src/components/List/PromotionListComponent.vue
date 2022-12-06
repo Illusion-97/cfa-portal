@@ -202,7 +202,7 @@ export default {
         promotionApi
         .getAllByPage(this.currentPage, this.perPage)
         .then((response) => {this.promotions = response
-          console.log(response)
+          //console.log(response)
         })
 
           })

@@ -254,10 +254,6 @@ export default {
       this.getList();
     },
     getList(){
-      // entrepriseApi.getAllEntreprises()
-      //   .then((response) => {this.items = response 
-      //   console.log(response)});
-      
       entrepriseApi
         .getAllByPage(0, this.perPage, this.saisie)
         .then((response) => (this.items = response));
@@ -273,7 +269,6 @@ export default {
     edit() {
       this.$v.$touch()
       if (this.modifier) {
-        console.log();
         entrepriseApi.update(this.entreprise).then(response => {
           this.color = "success";
           this.dismissCountDown = 6;

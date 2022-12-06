@@ -33,7 +33,7 @@
     "semantic-ui-css": "^2.4.1",
     "signature_pad": "^4.1.4",
     "to-fast-properties": "^4.0.0",
-    "v-perfect-signature": "^1.1.5",
+    "v-perfect-signature": "^1.1.11",
     "v-switch-case": "^1.0.3",
     "vue": "^2.6.14",
     "vue-cookies": "^1.7.4",

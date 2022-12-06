@@ -204,8 +204,6 @@ export default {
       event.preventDefault();
       this.formDevoir.interventionId = this.$route.params.id;
       if (this.formDevoir.consigne != "" && this.formDevoir.dateDebut != null && this.formDevoir.dateFin != null) {
-          console.log("dateDebut juste avant")
-          console.log(this.formDevoir);
           devoirApi
             .save(this.formDevoir)
             .then((response) => {

@@ -158,8 +158,8 @@ export default {
     },
 
     submit() {
-        console.log(this.token);
-        console.log(resetpassword);
+        //console.log(this.token);
+        //console.log(resetpassword);
         const resetpassword = new ResetPassword(this.token, this.password);
         resetService.reset(resetpassword).then((data) => {
           if (data.status == 500) {

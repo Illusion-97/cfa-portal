@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <router-link :to="{ name: 'admin_dashboard' }" class="h5" style="cursor:pointer; color:black;text-decoration:none;">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </router-link>
 
     <BodyTitle :title="vue_title" />
@@ -291,8 +291,6 @@ import { contratApi } from "../../../../_api/contrat.api";
         // this.form.dateDeNaissance = this.backEndDateFormat(
         //   this.form.dateDeNaissance
         // );
-        
-        console.log("form : ", this.form);
 
         utilisateurApi
           .save(this.form)
@@ -318,7 +316,6 @@ import { contratApi } from "../../../../_api/contrat.api";
                 });
 
                 }),
-                console.log(this.contrat)
                 contratApi.save(this.contrat)
             }
           
@@ -353,7 +350,6 @@ import { contratApi } from "../../../../_api/contrat.api";
         const regex = new RegExp(
           "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"
         );
-        // console.log("regex.test() : ", regex.test(password));
         return regex.test(password);
       },
       // frontEndDateFormat(date) {

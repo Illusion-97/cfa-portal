@@ -5,7 +5,7 @@
     <router-link :to="{ name: 'admin_entreprise_list' }" class="h5"
       style="cursor:pointer; color:black;text-decoration:none;">
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Precedent
+      Précédent
     </router-link>
     <b-form class="form mt-4" @submit="submit">
       <!-- <b-form-group>
@@ -107,7 +107,6 @@
         this.$route.params.id != "" &&
         this.$route.params.id != 0
       ) {
-        // console.log(this.$route.params.id);
         entrepriseApi.getById(this.$route.params.id).then((response) => {
           this.form = response;
           this.vue_title = "Modifier une entreprise";

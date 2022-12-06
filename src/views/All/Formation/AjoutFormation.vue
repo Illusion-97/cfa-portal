@@ -4,7 +4,7 @@
         <router-link :to="{ name: 'admin_formation_list' }" class="h5"
             style="cursor:pointer; color:black;text-decoration:none;">
             <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-            Precedent
+            Précédent
         </router-link>
         <h1 class="text-center">Ajouter une formation</h1>
         <div class="container">

@@ -3,7 +3,7 @@
     <div id="bg-detail">
       <span @click="goBack" class="h5 icon-link text-light">
         <font-awesome-icon :icon="['fas', 'chevron-left']" />
-        Precedent
+        Précédent
       </span>
       <div class="float-right mr-2" style="font-size:20px">
         <a class="" href="#" id="navbardrop" data-toggle="dropdown">

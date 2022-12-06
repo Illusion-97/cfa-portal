@@ -2,7 +2,7 @@
     <section>
         <!-- TODO : afficher ou non les boutons supprimer et modifier en fonction du role. ADMIN=> afficher:oui.REF => afficher:non  -->
         <a @click="goBack()" class="h5" style="cursor:pointer; color:black;text-decoration:none;">
-            <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" /> Precedent
+            <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" /> Précédent
         </a>
         <h1 class="text-center">Modifier une intervention</h1>
         <div class="container">
@@ -160,7 +160,6 @@
             },
             previewFiles(evt) {
                 this.form.support = evt.target.files[0].name;
-                // console.log(this.form.support);
             },
             default () {
                 if (this.form.formationDto.id != this.defaultFormation)
@@ -183,7 +182,6 @@
                 .get("http://localhost:8085/AppliCFABack/promotions")
                 .then((response) => {
                     this.opts = response.data;
-                    // console.log(this.opts);
                 })
                 .catch((err) => console.error(err));
 
@@ -191,7 +189,6 @@
                 .get("http://localhost:8085/AppliCFABack/formations")
                 .then((response) => {
                     this.courses = response.data;
-                    // console.log(this.courses);
                 })
                 .catch((err) => console.error(err));
             // this.default();
