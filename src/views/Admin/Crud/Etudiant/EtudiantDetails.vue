@@ -80,7 +80,7 @@
               Dossiers
             </template>
             <div>
-              <LivretEvaluationComponent />
+              <LivretEvaluationComponent :renderComponent =true />
             </div>
           </b-tab>
 
