@@ -1,7 +1,5 @@
 <template>
   <div>
-  Un admin peut gérer les absences d’un élève  <br/>
-  Pouvoir signer le dossier projet & livret évaluation & le dossier professionnel des élèves. Si non validation, envoyer mail à l’élève. <br/>
     <section>
       <div class="container-fluid mt-4">
         <b-tabs content-class="mt-3" fill>
