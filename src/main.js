@@ -37,9 +37,24 @@ axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 //axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
 
 // Vue.use(VueCookies)
+Vue.filter('etatLivret', function (value) {
+  let res = ''
+  switch (value) {
+    case 'ENATTENTEDEVALIDATION':
+      res = "En attente de validation par le formateur."
+      break;
+    case 'VALIDEPARLEFORMATEUR':
+      res = "Validé par le formateur."
+      break;
+    case 'VALIDEPARLETUDIANT':
+      res = "Validé par l'étudiant."
+      break;
+  }
 
+  return res;
+})
 new Vue({
-  created(){
+  created() {
     const html = document.documentElement // returns the html tag
     html.setAttribute('lang', 'fr')
   },
