@@ -84,21 +84,9 @@
               Dossiers
             </template>
             <div>
-              <table class="table">
-                <thead class="">
-                  <tr>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="mon-tr">
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+              <LivretEvaluationComponent  />
             </div>
+
           </b-tab>
 
           <b-tab>
@@ -156,12 +144,14 @@ import { noteApi } from "@/_api/note.api.js";
 import { absenceApi } from "@/_api/absence.api.js";
 import { congeApi } from "@/_api/conge.api.js";
 import { maitreApprentissageApi } from "@/_api/maitreApprentissage.api.js";
+import  LivretEvaluationComponent  from"@/components/Formateur/LivretEvaluationComponent"
 
 import "@/assets/styles/CrudDetail.css";
 
 export default {
   name: "EtudiantDetail",
   components: {
+    LivretEvaluationComponent,
  },
   data() {
   return {
