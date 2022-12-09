@@ -188,52 +188,7 @@ export default {
                 this.modifier = false;
             }
         },
-        supprimer(item) {
-            console.log(item)
-            //   const h = this.$createElement;
-            //   const titleVNode = h("div", {
-            //     domProps: {
-            //       innerHTML: "<h4 style='color: red'>Suppresion Activité Type</h4>",
-            //     },
-            //   });
-            //   const messageVNode = h("div", { class: ["foobar"] }, [
-            //     h("h5", { class: [] }, [
-            //       "Voulez-vous supprimer l'activité type : ",
-            //     ]),
-            //     h("h5", { class: [] }, [
-            //       item.libelle
-            //     ])
-            //   ]);
-            //   this.$bvModal
-            //     .msgBoxConfirm([messageVNode], {
-            //       title: [titleVNode],
-            //       centered: true,
-            //       size: "md",
-            //     })
-            //     .then((value) => {
-            //       if (value) {
-            //         activiteTypeApi.deleteAt(item.id).then((response) => {
-            //           if (response === "suppression effectuée") {
-            //             this.color = "success";
-            //             this.dismissCountDown = 6;
-            //             this.message = "l'activité type " + item.libelle + " a été supprimé avec success"
-            //             this.visible = false;
-            //             this.getList()
-            //           }
-            //           else {
-            //             this.color = "danger";
-            //             this.dismissCountDown = 8;
-            //             this.message = response;
-            //           }
-            //         });
-            //       }
-            //     })
-            //     .catch((err) => {
-            //       this.color = "danger";
-            //       this.dismissCountDown = 8;
-            //       this.message = err;
-            //     });
-        },
+      
     }
 
 }
