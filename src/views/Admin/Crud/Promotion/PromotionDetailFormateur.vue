@@ -149,6 +149,7 @@ export default {
     ExamensPromotionsListCompoenent,
     AjouterNotes,
   },
+  
   data() {
     return {
       tabIndex: 1,
