@@ -157,6 +157,7 @@ export default {
     },
   },
   data() {
+    
     return {
       showFormExamen: true, 
       selectedActivitesTypes: [],
