@@ -20,6 +20,7 @@ export default {
 
     };
   },
+  
   computed: {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
