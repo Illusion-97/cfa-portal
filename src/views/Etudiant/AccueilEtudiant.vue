@@ -76,7 +76,7 @@
           <b-td>{{ accueil.prochainCours[0].formationTitre }}</b-td>
           <b-td>{{ accueil.prochainCours[0].interventionDateDebut }}</b-td>
           <b-td>{{ accueil.prochainCours[0].interventionDateFin }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].formateurNom }}</b-td>
+          <b-td>{{ accueil.prochainCours[0].formateurNom!=null ?accueil.prochainCours[0].formateurNom :'Pas de formation'}}</b-td>
         </b-tr>
       </b-tbody>
     </b-table-simple>

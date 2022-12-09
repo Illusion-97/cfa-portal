@@ -203,7 +203,7 @@ import CefDevoir from "@/views/Cef/Crud/Devoir/CefDevoir.vue";
 
 //Signature
 import SignatureFormateur from"@/views/Formateur/SignatureFormateur.vue"
-// import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
+import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
 
 
 //          #######################
@@ -353,6 +353,12 @@ const routes = [
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
   { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
   { path: "/etudiant/absences", name: "etudiant_absences", component: AbsenceEtudiant},
+  {
+    path: "/etudiant/signature",
+    name: "signature_etudiant",
+    component : SignatureEtudiant,
+    meta: { authorize: [Role.Etudiant] },
+  },
 
   //#######################
   //#       FORMATEUR     #

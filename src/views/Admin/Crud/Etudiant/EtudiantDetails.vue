@@ -6,94 +6,10 @@
           <b-tab active>
             <template v-slot:title>
               <font-awesome-icon
-                :icon="['fas', 'user-graduate']"
+                :icon="['fa', 'info']"
                 class="icon"
               />
-              Absences
-            </template>
-            <div>
-              <table class="table">
-                <thead class="">
-                  <tr>
-                    <th>date début absence</th>
-                    <th>date fin absence</th>
-                    <th>type absence</th>
-                    <th>justificatif</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="absence in absences"
-                    :key="absence.id"
-                    class="mon-tr"
-                  >
-                    <td>{{ absence.dateDebut }}</td>
-                    <td>{{ absence.dateFin }}</td>
-                    <td>{{ absence.typeAbsence }}</td>
-                    <td>
-                       <b-button variant="primary" @click="getJustificatif(absence.id, absence.dateDebut, absence.dateFin)">Télécharger justificatif</b-button>
-                    </td>      
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </b-tab>
-          <b-tab>
-            <template v-slot:title>
-              <font-awesome-icon
-                :icon="['fas', 'user-graduate']"
-                class="icon"
-              />
-              Notes
-            </template>
-            <div>
-              <table class="table">
-                <thead class="">
-                  <tr>
-                    <th>Note obtenue</th>
-                    <th>satisfaction</th>
-                    <th>observation</th>
-                    <th>examenId</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="note in notes"
-                    :key="note.id"
-                    class="mon-tr"
-                  >
-                    <td>{{ note.noteObtenue }}</td>
-                    <td>{{ note.satisfaction }}
-
-                    </td>
-                    <td>{{ note.observation }}</td>
-                    <td>{{ note.examenId }}</td>      
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </b-tab>
-          <b-tab>
-            <template v-slot:title>
-              <font-awesome-icon
-                :icon="['fas', 'user-graduate']"
-                class="icon"
-              />
-              Dossiers
-            </template>
-            <div>
-              <LivretEvaluationComponent  />
-            </div>
-
-          </b-tab>
-
-          <b-tab>
-            <template v-slot:title>
-              <font-awesome-icon
-                :icon="['fas', 'user-graduate']"
-                class="icon"
-              />
-              Divers
+              Détails
             </template>
             <div>
               <table class="table table-divers">
@@ -130,6 +46,91 @@
               </table>
             </div>
           </b-tab>
+          <b-tab >
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'users']"
+                class="icon"
+              />
+              Absences
+            </template>
+            <div>
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th>date début absence</th>
+                    <th>date fin absence</th>
+                    <th>type absence</th>
+                    <th>justificatif</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="absence in absences"
+                    :key="absence.id"
+                    class="mon-tr"
+                  >
+                    <td>{{ absence.dateDebut }}</td>
+                    <td>{{ absence.dateFin }}</td>
+                    <td>{{ absence.typeAbsence }}</td>
+                    <td>
+                       <b-button variant="primary" @click="getJustificatif(absence.id, absence.dateDebut, absence.dateFin)">Télécharger justificatif</b-button>
+                    </td>      
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'tasks']"
+                class="icon"
+              />
+              Notes
+            </template>
+            <div>
+              <table class="table">
+                <thead class="">
+                  <tr>
+                    <th>Note obtenue</th>
+                    <th>satisfaction</th>
+                    <th>observation</th>
+                    <th>examenId</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="note in notes"
+                    :key="note.id"
+                    class="mon-tr"
+                  >
+                    <td>{{ note.noteObtenue }}</td>
+                    <td>{{ note.satisfaction }}
+
+                    </td>
+                    <td>{{ note.observation }}</td>
+                    <td>{{ note.examenId }}</td>      
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon
+                :icon="['fas', 'file-code']"
+                class="icon"
+              />
+              Livret d'évaluation
+            </template>
+            <div>
+              <LivretEvaluationComponent  />
+            </div>
+
+          </b-tab>
+
+          
         </b-tabs>
       </div>
     </section>
@@ -165,9 +166,7 @@ export default {
       ficheEntrepriseDG2: "",
     },
     notes: [],
-    maitreApprentissage: {
-      utilisateurDto: {}
-    },
+    maitreApprentissage: "Pas d'informations",
   };
 },
 created() {
@@ -213,7 +212,12 @@ methods: {
     
     .then(() => maitreApprentissageApi
       .getMaitreApprentissageByEtudiantId(this.$route.params.id)
-      .then((response) => {this.maitreApprentissage = response.utilisateurDto.prenom + " " +response.utilisateurDto.nom
+      .then((response) => {
+   if (response.utilisateurDto != undefined) {
+    this.maitreApprentissage = response.utilisateurDto.prenom  + " " +response.utilisateurDto.nom
+   }
+   
+       
       }))
   },
 

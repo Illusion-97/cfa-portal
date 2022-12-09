@@ -1,10 +1,7 @@
 <template>
   <section v-if="(livretEvaluation != null)">
-   
-    <div >
-      
-     
-<h3   class="m-4  text-center">Etât du liveret : {{livretEvaluation.etat | etatLivret }} </h3>
+    <div>
+      <h3 class="m-4  text-center">Etât du liveret : {{ livretEvaluation.etat | etatLivret }} </h3>
       <b-card no-body class="mb-1" v-for="(eva, i ) in atEvaluations" :key="eva.at.id">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 class="btn-accordion">{{ eva.at.libelle }}</b-button>
@@ -17,17 +14,17 @@
 
                 <div class=" render" v-for="evalAt in eva.evaluation" :key="evalAt.id" v-html="evalAt.contenu"></div>
                 <br>
-                <form v-if="(eva.bloc !=null)">
-                  <v-radio-group  v-model=" eva.bloc.criteresSatisfaits" column>
-                    <v-radio label="Avoir satisfait aux critères issus des référentiels du titre professionnel attendus pour la réalisation de cette
-activité-type." :value=true></v-radio>
+                <form v-if="(eva.bloc != null)">
+                  <v-radio-group  v-model="eva.bloc.criteresSatisfaits" column>
+                    <v-radio  label="Avoir satisfait aux critères issus des référentiels du titre professionnel attendus pour la réalisation de cette
+                      activité-type." :value=true></v-radio>
                     <v-radio label="Ne pas avoir satisfait aux critères issus des référentiels du titre professionnel."
                       :value=false></v-radio>
                   </v-radio-group>
-                  <div >
+                  <div>
 
                   </div>
-                  <v-textarea   rows="2" v-model="eva.bloc.commentaireInsatisfaction" label="Commentaire Insatisfaction">
+                  <v-textarea rows="2" v-model="eva.bloc.commentaireInsatisfaction" label="Commentaire Insatisfaction">
                   </v-textarea>
                   <v-textarea rows="2" v-model="eva.bloc.commentaireEvaluationsComplementaires"
                     label="Commentaire Evaluations Complementaires"></v-textarea>
@@ -42,7 +39,7 @@ activité-type." :value=true></v-radio>
                 </form>
               </div>
               <div v-else>
-                <h4>
+                <h4 v-if="(eva.bloc!= null)">
                   <span>
                     <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'check']" />
                   </span>
@@ -69,14 +66,14 @@ activité-type." :value=true></v-radio>
     <v-app class="mt-4 mb-4">
       <h3 class="text-center mt-4 text-white bg-dark ">Validation global du livret</h3>
       <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0" class="m-2">
-      {{ message }}
-    </b-alert>
-      <form  class="mt-4" >
-  
+        {{ message }}
+      </b-alert>
+      <form class="mt-4">
+
         <v-textarea rows="2" v-model="livretEvaluation.observation" label="Commentaire globale du livret">
         </v-textarea>
 
-        <v-btn class="mr-4" color="success" @click=" UpdateLivret">
+        <v-btn class="mr-4" color="success" @click="UpdateLivret">
           <span>
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
           </span>
@@ -98,7 +95,7 @@ import { blocEvaluationApi } from "@/_api/blocEvaluation.api.js";
 export default {
 
   name: "LivretEvaluationComponent",
- 
+
   data() {
     return {
       visible: false,
@@ -110,7 +107,7 @@ export default {
       promotion: null,
       livretEvaluation: null,
       utilisateur: this.$store.getters.getUtilisateur,
-      reload : true,
+      reload: true,
     }
   },
   watch: {
@@ -123,27 +120,20 @@ export default {
   },
   created() {
     this.getPrmotion();
-   
+
   },
 
   methods: {
     async forceRerender() {
-      // Remove MyComponent from the DOM
-      //this.renderComponent = false;
-
-			// Wait for the change to get flushed to the DOM
       await this.$nextTick();
-
-      // Add the component back in
-     // this.renderComponent = true;
     },
     edit(eva) {
       eva.bloc.formateurEvaluateurId = this.utilisateur.formateurDto.id
       eva.bloc.dateSignature = new Date(Date.now()).toISOString()
+      eva.bloc.evaluationsFormationsId = eva.evaluation.map(e =>e.id)
       blocEvaluationApi.update(eva.bloc).then(response => {
         eva.bloc = response
         eva.valide = true;
-
       }).catch(err => {
         console.log(err)
       })
@@ -151,24 +141,24 @@ export default {
     modifier(eva) {
       eva.valide = false;
     },
-    UpdateLivret(){
+    UpdateLivret() {
       let livret = this.livretEvaluation;
       livret.etat = "VALIDEPARLEFORMATEUR"
-      
-      livretEvaluationApi.update(livret).then(response =>{
-       this.livretEvaluation = response;
-       this.color = "success";
-          this.dismissCountDown = 6;
-          this.message = "le Livret d'évaluation a été modifier avec success"
-          setTimeout(() => {
-            this.forceRerender();
-          }, 6000);
-    
+
+      livretEvaluationApi.update(livret).then(response => {
+        this.livretEvaluation = response;
+        this.color = "success";
+        this.dismissCountDown = 6;
+        this.message = "le Livret d'évaluation a été modifier avec success"
+        setTimeout(() => {
+          this.forceRerender();
+        }, 6000);
+
       }).catch(err => {
-          this.color = "danger";
-          this.dismissCountDown = 6;
-          this.message = err;
-        })
+        this.color = "danger";
+        this.dismissCountDown = 6;
+        this.message = err;
+      })
     },
     // getBlocEvaluation(idAt,idLivret){
     //   blocEvaluationApi.getByIdAtAndIdLivret(idAt,idLivret).then(response => {
@@ -178,9 +168,9 @@ export default {
     getLivertEvaluation(idEtu, idCursus) {
       livretEvaluationApi.getByIdEtudiantAndIdCursus(idEtu, idCursus).then(response => {
         this.livretEvaluation = response;
-      
-         // this.getActivitesTypes(this.$route.params.idPromotion)
-  
+
+        // this.getActivitesTypes(this.$route.params.idPromotion)
+
       }).catch(err => console.log(err))
     },
     getPrmotion() {
