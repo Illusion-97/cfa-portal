@@ -160,7 +160,6 @@
             },
             previewFiles(evt) {
                 this.form.support = evt.target.files[0].name;
-                // console.log(this.form.support);
             },
             default () {
                 if (this.form.formationDto.id != this.defaultFormation)
@@ -183,7 +182,6 @@
                 .get("http://localhost:8085/AppliCFABack/promotions")
                 .then((response) => {
                     this.opts = response.data;
-                    // console.log(this.opts);
                 })
                 .catch((err) => console.error(err));
 
@@ -191,10 +189,8 @@
                 .get("http://localhost:8085/AppliCFABack/formations")
                 .then((response) => {
                     this.courses = response.data;
-                    // console.log(this.courses);
                 })
                 .catch((err) => console.error(err));
-            // this.default();
         },
     };
 </script>

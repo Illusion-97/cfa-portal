@@ -179,10 +179,8 @@
       },
       previewFiles(evt) {
         this.form.support = evt.target.files[0].name;
-        // console.log(this.form.support);
       },
       getPromotions(promo) {
-        // console.log("get promo", promo);
         this.form.promotionsDto = promo;
       },
       getTrainers(trainer) {

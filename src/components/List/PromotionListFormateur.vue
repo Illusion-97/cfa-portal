@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div>
-      <HeaderFormateur :title="'Promotions'" />
-    </div>
     <div class="container-fluid mt-4">
       <div class="header-list">
         <form class="form-inline form" @submit="submit">
@@ -77,11 +74,9 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
-import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 export default {
   name: "PromotionListComponent",
   components: {
-    HeaderFormateur,
   },
   props: {
     isAction: {

@@ -292,7 +292,6 @@ import { contratApi } from "../../../../_api/contrat.api";
         //   this.form.dateDeNaissance
         // );
         
-        console.log("form : ", this.form);
 
         utilisateurApi
           .save(this.form)
@@ -353,7 +352,6 @@ import { contratApi } from "../../../../_api/contrat.api";
         const regex = new RegExp(
           "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"
         );
-        // console.log("regex.test() : ", regex.test(password));
         return regex.test(password);
       },
       // frontEndDateFormat(date) {

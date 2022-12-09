@@ -117,7 +117,9 @@
               <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
               Examens
             </template>
-            <ExamensPromotionsListCompoenent :examens="promotion.examensDto" ref="examen" :context="'promotion'" />
+            <div>
+              <ExamensPromotionsListCompoenent :examens="promotion.examensDto" ref="examen" :context="'promotion'" />
+            </div>
           </b-tab>
           <b-tab>
             <template v-slot:title>
@@ -192,8 +194,9 @@ export default {
         });
     },
     getPromotionId() {
+      
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        this.promotion = response;
+        this.promotion = response
       });
       this.$root.$on("afficherNotes", (data) => {
         if (data) {
@@ -238,8 +241,6 @@ export default {
       }
     },
     showModal(etuId) {
-      console.log(etuId.id)
-      console.log(this.$refs)
       this.$refs["modal-" + etuId.id].show();
     },
     hideModal(etuId) {

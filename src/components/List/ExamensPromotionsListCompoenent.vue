@@ -304,13 +304,10 @@ export default {
     };
   },
   created() {
-
   },
   mounted(){
-
     if(this.context == "intervention"){
-      this.$root.$on("promoId", (data) => {
-        
+      this.$root.$on("promoId", (data) => {      
          this.getActiviteType(data)
       })
     }
@@ -341,8 +338,6 @@ export default {
       link.download = pieceJointe + ".pdf";
       link.click();
       URL.revokeObjectURL(link.href);
-      console.log("URL => " +  link.href)
-      console.log("after click");
     },
     updateExamens() {
       examenApi

@@ -95,7 +95,6 @@ export default {
   created() {
   
     if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-      // console.log(this.$route.params.id);
       cursusApi.getById(this.$route.params.id).then(response => {
         this.form = response
         this.vue_title = "Modification d'un cursus";

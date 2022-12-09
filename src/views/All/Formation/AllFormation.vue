@@ -196,9 +196,6 @@ export default {
         });
       this.countFormation();
     },
-    // assigneTableItems(formations) {
-    //   console.log(formations);
-    // },
     gotoDetailDg2(row) {
       let link = "https://dawan.org/Training/show/" + row.item.slug;
       Object.assign(document.createElement("a"), {

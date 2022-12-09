@@ -47,7 +47,7 @@
           </li>
           <li class="sidemenu__item">
             <router-link :to="{ name: 'etudiant_absences' }">
-              <i class="bi bi-folder"></i>
+              <i class="fa-sharp fa-solid fa-clock"></i>
               Absences</router-link
             >
           </li>

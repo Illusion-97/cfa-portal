@@ -30,13 +30,8 @@ export const utilisateur = {
   mutations: {
     SET_UTILISATEUR(state, data) {
       state.utilisateur = data;
-      console.log("state :")
-      console.log(state)
-      console.log("data :")
-      console.log(data)
       //Si referent, on lui ajoute le role
       if (data.id) {
-        
         utilisateurApi.isReferent(data.id).then((response) => {
           if (response)
             state.utilisateur.rolesDto.push({

@@ -139,8 +139,6 @@
       },
       saveChange() {
         this.$emit('input', this.formateur);
-        // console.log("modal",this.formateur);
-        // $("#modal").modal('hide');
       }
     },
     computed: {

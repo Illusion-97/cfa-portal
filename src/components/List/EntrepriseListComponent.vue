@@ -273,7 +273,6 @@ export default {
     edit() {
       this.$v.$touch()
       if (this.modifier) {
-        console.log();
         entrepriseApi.update(this.entreprise).then(response => {
           this.color = "success";
           this.dismissCountDown = 6;

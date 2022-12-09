@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluide">
+  <div class="container-fluide">   
     <div class="header-list m-4">
       <form class="form-inline form" @submit="search">
         <input
@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     fillList() {
-      console.log(this.$store.getters.getUtilisateur)
       formateurApi
         .getInterventionsByFormateurId(
           this.$store.getters.getUtilisateur.formateurDto.id,
@@ -99,9 +98,6 @@ export default {
           this.key
         )
         .then((data) => {
-          console.log("hello")
-          console.log(data)
-
           this.items = data;
         });
     },

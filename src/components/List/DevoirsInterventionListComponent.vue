@@ -195,7 +195,6 @@ export default {
              } 
             item.modifier = true;
             item.dateDebut = new Date(item.dateDebut)
-            console.log(item.dateDebut)
         },  
         AnnulerModif(item, transItem) {
             item.consigne =  transItem.consigne,

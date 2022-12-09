@@ -121,7 +121,6 @@ export default {
 
   methods: {
     deleteDossier(id) {
-      console.log("id : " + id);
       dossierProfessionnelApi.deleteDossierProfessionnel(id);
     },
 
@@ -150,7 +149,6 @@ export default {
       );
 
       console.dir("gdos > " + JSON.stringify(gdos, null, 4));
-      console.log("gdos.cursusDto.id > " + gdos.cursusDto.id);
 
       return gdos.id;
     },

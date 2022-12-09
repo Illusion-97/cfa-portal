@@ -260,8 +260,6 @@ export default {
         };
         this.items.push(item);
       });
-
-      console.log(users);
     },
     makeToast(variant) {
       // genere une notif si l'import du fichier est reussi ou non

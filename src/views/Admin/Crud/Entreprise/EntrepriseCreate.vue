@@ -107,7 +107,6 @@
         this.$route.params.id != "" &&
         this.$route.params.id != 0
       ) {
-        // console.log(this.$route.params.id);
         entrepriseApi.getById(this.$route.params.id).then((response) => {
           this.form = response;
           this.vue_title = "Modifier une entreprise";

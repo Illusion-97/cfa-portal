@@ -469,9 +469,6 @@ export default {
 
     // LANCE LA MODALE DE LA COMPETENCE CHOISIE
     getValue(value) {
-      // console.log("getValue > " + value);
-      // console.dir("getValue > " + JSON.stringify(value, null, 4));
-
       this.compInModal = value;
 
       // console.dir(
@@ -500,7 +497,6 @@ export default {
       );
 
       this.expPro = res || res2;
-      console.log("expPro " + this.expPro);
 
       // SWITCH DELETE EXP PRO
       if (this.expPro.tacheRealisee ||
@@ -517,9 +513,6 @@ export default {
 
     // LANCE LA MODALE DE LA COMPETENCE CHOISIE
     getValue2(value) {
-      console.log("getValue > " + value);
-      console.dir("getValue > " + JSON.stringify(value, null, 4));
-
       this.compInModal = value;
 
       // console.dir(
@@ -605,7 +598,6 @@ export default {
     // ENVOIE FORMULAIRE
     onSubmit(event) {
       event.preventDefault();
-      // console.log("ici"),
       dossierProfessionnelApi
         .saveDossierProfessionnel(
           this.$store.getters.getUtilisateur.etudiantDto.id,
@@ -647,7 +639,6 @@ export default {
     },
 
     updateExp() {
-      console.log("oooo " + this.expPro.version);
 
       dossierProfessionnelApi
         .updateDossierProfessionnel(

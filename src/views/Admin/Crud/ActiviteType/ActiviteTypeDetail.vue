@@ -143,7 +143,6 @@ export default {
         params: { id: items.id },
         
       });
-      console.log("test id activite : " + items.id)
     },
     update(at) {
       this.modifier = true;

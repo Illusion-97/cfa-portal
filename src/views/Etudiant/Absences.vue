@@ -1,9 +1,6 @@
 <template>
     <div class="container">
-            <template>
-            <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
-            Absences
-            </template>
+        <h2>Absence</h2>
             <div>
             <table class="table table-striped">
                 <thead class="">
@@ -66,8 +63,6 @@ export default {
             absenceApi
                 .getAllByIdEtudiant(idEtudiant)
                 .then((response) => {this.absences = response
-                
-                console.log(this.absence)
                 })
         },
         onSubmit(event){
@@ -77,13 +72,9 @@ export default {
             bodyFormData.append("fileJustificatif", this.fileJustificatif);
             absenceApi
                 .update(bodyFormData)
-                // .then((response) => {
-                //     console.log(response)
-                // })
         }, 
         
         getJustificatif(idAbsence, dateDebut, dateFin){
-            console.log(this.$store.getters.getUtilisateur.nom)
             absenceApi
             .getJustificatifByAbsenceId(idAbsence)
             .then((response) => {
@@ -95,7 +86,6 @@ export default {
                 downloadLink.href = linkSource;
                 downloadLink.download = fileName;
                 downloadLink.click();
-                console.log("test")
             })
         }, 
     },
@@ -108,7 +98,10 @@ export default {
 }
 </script>
 <style scoped>
+h2 {
+  font-weight: bolder;
+}
     .th-width-justificatif{
-        width: 4    0%
+        width: 40%
     }
 </style>

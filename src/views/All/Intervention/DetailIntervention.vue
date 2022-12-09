@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div>
-      <HeaderFormateur :title="getTitle" :subTitle="getSubTitle" />
-    </div>
     <section class="container-fluid mt-4">
-      <b-tabs content-class="mt-3" fill v-model="tabIndex">
+      <v-app>
+        <b-tabs content-class="mt-3" fill v-model="tabIndex">
         <b-tab active  title-link-class="tabColor">
           <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
-            Details
+            Détails
           </template>
           <div class="m-4 flex-xl-column">
             <div class="d-flex justify-content-start">
@@ -143,7 +141,9 @@
             <font-awesome-icon :icon="['fas', 'code']" class="icon" />
             Devoirs
           </template>
-          <DevoirsInterventionListComponent />
+            <div>
+              <DevoirsInterventionListComponent />
+            </div>
         </b-tab>
        
         <b-tab @click="reloadExam()"  title-link-class="tabColor">
@@ -161,12 +161,13 @@
             <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
             Notes
           </template>
-
           <div>
             <AjouterNotes :context="'intervention'" />
           </div>
         </b-tab>
       </b-tabs>
+      </v-app>
+      
     </section>
   </div>
 </template>
@@ -177,7 +178,6 @@ import { interventionApi } from "@/_api/intervention.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 // import { absenceApi } from "@/_api/absence.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
-import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
 import DevoirsInterventionListComponent from "@/components/List/DevoirsInterventionListComponent";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
@@ -185,7 +185,6 @@ import EvaluationComponent from "@/components/Formateur/EvaluationComponent"
 export default {
   name: "DetailIntervention",
   components: {
-    HeaderFormateur,
     EtudiantsInterventionListComponent,
     DevoirsInterventionListComponent,
     ExamensPromotionsListCompoenent,
@@ -194,7 +193,6 @@ export default {
   },
   data() {
     return {
-
       tabIndex: 1,
       examensByInterventionId: [],
       interventionId: this.$route.params.id,
