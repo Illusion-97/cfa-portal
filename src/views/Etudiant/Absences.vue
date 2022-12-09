@@ -19,7 +19,15 @@
                     <td>{{ absence.dateFin }}</td>
                     <td>{{ absence.typeAbsence }}</td>
                     <td v-if="!absence.justificatif">
-                       <b-form-file v-model="fileJustificatif" class="" plain></b-form-file>
+
+
+                        <v-app>
+                            <v-file-input class="p-0"
+                            v-model="fileJustificatif"
+                            accept="image/*"
+                            label="File input"
+                            ></v-file-input>
+                        </v-app>
                        <div class="d-flex justify-content-start">
                             <b-form @submit="onSubmit(absence)">
                                 <b-button
@@ -31,8 +39,9 @@
                                     Valider</b-button
                                 >
                             </b-form>
-                            <b-button
-                                class="btn-warning mt-3"     
+                            <b-button v-if="fileJustificatif != null"
+                                @click="annulationUpload"
+                                class="btn-warning mt-3" 
                                 ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                                 Annuler</b-button
                             >
@@ -66,14 +75,15 @@ export default {
                 })
         },
         onSubmit(event){
+            console.log(this.fileJustificatif.name)
             var bodyFormData = new FormData();
-            event.justificatif = this.fileJustificatif.name
+            event.justificatif = this.
+            console.log(this.ileJustificatif.name)
             bodyFormData.append("absence", JSON.stringify(event))
             bodyFormData.append("fileJustificatif", this.fileJustificatif);
             absenceApi
                 .update(bodyFormData)
         }, 
-        
         getJustificatif(idAbsence, dateDebut, dateFin){
             absenceApi
             .getJustificatifByAbsenceId(idAbsence)
@@ -88,6 +98,9 @@ export default {
                 downloadLink.click();
             })
         }, 
+        annulationUpload(){
+            this.fileJustificatif = null
+        }
     },
     data(){
         return {
