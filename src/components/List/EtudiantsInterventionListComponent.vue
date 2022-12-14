@@ -624,7 +624,6 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, ms));
     },
     showModal(item) {
-      console.log(this.$refs)
       this.$refs["modal-" + item.id].show();
     },
     hideModal(item) {

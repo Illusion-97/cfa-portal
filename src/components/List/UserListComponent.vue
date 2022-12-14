@@ -260,16 +260,12 @@ export default {
         };
         this.items.push(item);
       });
-
-      //console.log(users);
     },
     makeToast(variant) {
-      // genere une notif si l'import du fichier est reussi ou non
       utilisateurApi
-        .uploadUser(this.userId, this.formData) // appel du service pour l'upload
+        .uploadUser(this.userId, this.formData) 
         .then((res) => {
           this.variant = variant;
-          // this.toast_message = res.data;
           this.file_imported != ""
             ? (this.toast_message = res.data)
             : (this.toast_message = "Fichier introuvable");
@@ -278,7 +274,6 @@ export default {
             : (this.variant = "danger"); // change la couleur du toast en fonction du statuscode
         })
         .then(() => {
-          // genere le toast
           this.$bvToast.toast(this.toast_message, {
             title: "Import des utilisateurs",
             autoHideDelay: 5000,
@@ -286,14 +281,12 @@ export default {
           });
         })
         .then(() => {
-          // une fois l'upload reussi => on met à jour la liste
           this.refreshList();
           document.getElementById("file").value = "";
           this.formData = null;
         });
     },
     handleFileUpload() {
-      // recupere les donnée du fichier uploadé
       this.file_imported = this.$refs.file.files[0];
       this.formData = new FormData();
       this.formData.append("file", this.file_imported);
@@ -346,51 +339,7 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-    // deleteUtilisateur(userId) {
-    //   var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-    //   if (res) {
-    //     utilisateurApi.deleteUtilisateur(userId).then(() => this.refreshList());
-    //   }
-    // },
-    // detailUtilisateur(id) {
-    //   switch (this.selected_role) {
-    //     case "":
-    //       this.$router.push({
-    //         name: "admin_user_detail",
-    //         params: {
-    //           id: id,
-    //         },
-    //       });
-    //       break;
-    //     case "ETUDIANT":
-    //       utilisateurApi.getById(id).then((response) =>
-    //         this.$router.push({
-    //           name: "admin_etudiant_detail",
-    //           params: {
-    //             id: response.etudiantDto.id,
-    //           },
-    //         })
-    //       );
-    //       break;
-    // case "FORMATEUR":
-    //   console.log("pas de page detail pour formateur")
-    //   break;
-    // case "REFERENT":
-    //   console.log("pas de page detail pour referent")
-    //   break;
-    // case "CEF":
-    //   console.log("pas de page detail pour cef")
-    //   break;
-    // case "ADMIN":
-    //   console.log("pas de page detail pour admin")
-    //   break;
-    //   // }
-    // },
-    // clickList(utilisateur) {
-    //   this.utilisateur_input = utilisateur.prenom;
-    //   this.$emit("click-list", utilisateur);
-    // },
-    // open the card to let the user login to webservice DG2
+  
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
     },
@@ -412,10 +361,9 @@ export default {
           this.dismissCountDown = 8;
           this.message = err;
           this.loading = false;
-        }); //methode à créer dans le service _api
+        });
       this.refreshList();
     },
-    // close the card for the login to webservice DG2
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
     },

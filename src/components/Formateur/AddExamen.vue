@@ -3,14 +3,14 @@
     <div class="d-flex justify-content-end">
       <b-button
         variant="secondary"
-        :aria-expanded="visible ? 'true' : 'false'"
-        @click="visible = !visible"
-        class="btnAddExamen"
-        ><font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
-        Ajouter un examen</b-button
-      >
+        v-b-toggle.collapseExamen
+        v-show="showFormExamen"
+        @click="showFormExamen = !showFormExamen"
+        class="btnAddExamen">
+        <font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
+        Ajouter un examen 
+      </b-button>
     </div>
-    <b-container>
       <b-alert
         :show="dismissCountDown"
         dismissible
@@ -20,7 +20,7 @@
       >
         {{ message }}
       </b-alert>
-      <b-collapse v-model="visible" >
+      <b-collapse id="collapseExamen">
         <section class="section-form d-flex flex-column justify-content-around">
           <div class="d-flex flex-row">
             <label class="libelle-width">Titre de l'examen :</label>
@@ -61,7 +61,6 @@
               required
             ></b-form-datepicker>
           </div>
-
           <div class="d-flex flex-row">
             <b-form-group
               label="Sélectionner des activités types :"
@@ -116,28 +115,33 @@
               ></b-form-spinbutton>
             </div>
           </div>
-          <div class="d-flex flex-row justify-content-end">
-            <b-form @submit="onSubmit">
-              <b-button
+          <div>
+            <b-form @submit="onSubmit" class="d-flex flex-row justify-content-end bFormBtnValider">
+              <v-btn
+                v-b-toggle.collapseExamen
+                @click="showFormExamen = !showFormExamen"
+                color="success"
+                dark
                 type="submit"
-                class="btnAddExamen btnValiderAnnuler btn-success mr-4"
-                ><font-awesome-icon
+                class="btnFormExamen btnFormExamenValider">
+                <font-awesome-icon
                   :icon="['fas', 'plus-square']"
-                  class="icon"
-                />
-                Valider</b-button
-              >
+                  class="icon"/>
+                  Valider
+              </v-btn>
+              <v-btn
+                  color="warning"
+                  class="btnFormExamen"
+                  v-b-toggle.collapseExamen
+                  @click="showFormExamen = !showFormExamen"
+                  ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                  Annuler
+              </v-btn>
+
             </b-form>
-            <b-button
-              class="btnAddExamen btnValiderAnnuler btn-warning"
-              v-b-toggle.collapseFormulaire     
-              ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-              Annuler</b-button
-            >
           </div>
         </section>
       </b-collapse>
-    </b-container>
   </div>
 </template>
 
@@ -153,12 +157,13 @@ export default {
     },
   },
   data() {
+    
     return {
+      showFormExamen: true, 
       selectedActivitesTypes: [],
       selectedCompConcernees: [],
       dismissSecs: 5,
       dataForBlocsConcernes: [],
-      visible: false,
       examenDto: {
         id: 0,
         version: 0,
@@ -203,14 +208,13 @@ export default {
           this.showAlert(response.titre, false);
           setTimeout(() => {
             this.$emit("updateExamens");
-            this.visible = false;
           }, 500);
         });
     },
     showAlert(titre, isErr) {
       if (isErr) {
-        // this.message = "Erreur d'ajout de l'examen " + titre ;
-        // this.dismissCountDownErr = this.dismissSecs
+        this.message = "Erreur d'ajout de l'examen " + titre ;
+        this.dismissCountDownErr = this.dismissSecs
       } else {
         this.message = "L'examen " + titre + " a bien été rajouté avec succès";
         this.dismissCountDown = this.dismissSecs;
@@ -263,7 +267,7 @@ export default {
   right: 10px;
   width: 12vw;
   height: 4vh;
-  margin-bottom: 20px;
+
 }
 .form-selec-competences {
   margin-top: 2vh;
@@ -327,5 +331,17 @@ export default {
 }
 .form-select-warp-text {
   overflow-wrap: break-word;
+}
+.btnAddExamen {
+      position: relative;
+      right: 0px;
+      width: 12vw;
+      height: 100%;
+}
+.btnFormExamen{
+  width: 8vw;
+}
+.btnFormExamenValider{
+  margin-right: 2vw;
 }
 </style>

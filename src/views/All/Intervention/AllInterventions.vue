@@ -121,10 +121,8 @@ export default {
     fillList() {
       interventionApi
         .getIntervention(this.currentPage, this.perPage, this.keyword)
-        // .getAllIntervention()
         .then((data) => {
           this.items = data;
-          //console.log(data);
         });
       this.countIntervention();
     },

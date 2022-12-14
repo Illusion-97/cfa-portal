@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluide">
+  <div class="container-fluide">   
     <div class="header-list m-4">
       <form class="form-inline form" @submit="search">
         <input
@@ -98,7 +98,6 @@ export default {
           this.key
         )
         .then((data) => {
-
           this.items = data;
         });
     },

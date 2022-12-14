@@ -102,9 +102,6 @@ export default {
       } else {
         const user = new EmailRecover(this.email);
         mailService.mail(user).then((data) => {
-
-          //console.log("data" + data);
-
           if (data.status == 500) {
             this.errorMail.checkMail = "Erreur serveur. Veuillez contacter l'administrateur ou réessayer ultérieurement.";
           } 

@@ -191,7 +191,6 @@
                     this.courses = response.data;
                 })
                 .catch((err) => console.error(err));
-            // this.default();
         },
     };
 </script>

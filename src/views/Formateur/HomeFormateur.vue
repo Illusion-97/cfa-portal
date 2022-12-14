@@ -1,9 +1,5 @@
 <template>
   <section>
-    
-    <div id="header">
-        <HeaderFormateur :title= "'Bienvenue sur le portail CFA '+utilisateur.prenom+' '+ utilisateur.nom"/>
-      </div>
     <div id="grid-container">
       <div id="trainer-planning">
         <Planning />
@@ -13,12 +9,10 @@
 </template>
 
 <script>
-import HeaderFormateur from"@/components/Navigation/HeaderFormateur.vue";
 import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "",
   components: {
-    HeaderFormateur,
     Planning,
   },
   data() {

@@ -304,19 +304,15 @@ export default {
     };
   },
   created() {
-
   },
   mounted(){
-
     if(this.context == "intervention"){
-      this.$root.$on("promoId", (data) => {
-        
+      this.$root.$on("promoId", (data) => {      
          this.getActiviteType(data)
       })
     }
     else{
       this.getActiviteType(this.$route.params.id)
-
     }
     if (this.examens != undefined) {
       this.assigneTableItems(this.examens);
@@ -327,9 +323,13 @@ export default {
       activiteTypeApi
       .getAllByIdPromotion(promoId)
       .then((response) => {
-        this.getDataForForm(response);
-        this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
-        this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+        this.getDataForForm(response); 
+        if(this.context == "interventions"){
+          this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
+          this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+        }
+      
+
       });
     },
     async getFile(id, pieceJointe) {
@@ -341,8 +341,6 @@ export default {
       link.download = pieceJointe + ".pdf";
       link.click();
       URL.revokeObjectURL(link.href);
-      console.log("URL => " +  link.href)
-      console.log("after click");
     },
     updateExamens() {
       examenApi
@@ -372,10 +370,6 @@ export default {
       let datasFormAt = [];
       let dataForFormCp = [];
       let optionAt = [];
-      // // 1 :[
-      //   { (numFiche) text : 1 , (id)value :1 }
-      //   {text : 2 , value :2 }
-      // ]
       for (let i = 0; i < data.length; i++) {
         let option = {
           value: data[i].id,
@@ -408,7 +402,6 @@ export default {
       this.datasFormAt = datasFormAt;
       this.datasFormCP = dataForFormCp;
       this.optionsBc = optionAt;
-
     },
     modifier(item) {
       this.tempItem = item;
@@ -458,9 +451,6 @@ export default {
             });
           }
         })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     onSubmit(item) {
       let examenDtoSave = {

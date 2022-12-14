@@ -139,7 +139,6 @@
       },
       saveChange() {
         this.$emit('input', this.formateur);
-        // $("#modal").modal('hide');
       }
     },
     computed: {

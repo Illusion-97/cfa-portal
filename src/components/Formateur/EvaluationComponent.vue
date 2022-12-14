@@ -162,7 +162,6 @@ export default {
                 })
             }
             else {
-                console.log(this.evaluationFormation)
                 evaluationFormationApi.save(this.evaluationFormation).then(response => {
                     this.color = "success";
                     this.dismissCountDown = 6;
