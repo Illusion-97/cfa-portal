@@ -74,6 +74,23 @@
           />
         </div>
       </div>
+      <div class="etudiant p-2">
+        <button
+          name="button2"
+          outlined
+          @click="openLoginWdg2"
+          class="btn btn-outline-info"
+        >
+          Mise à jour des étudiants
+        </button>
+        <div class="login-wdg2">
+          <login-wdg-2
+            v-if="showLoginWdg2Card"
+            @logInUser="logInUserWdg2Etudiant"
+            @wdg2Close="wdg2Close"
+          />
+        </div>
+      </div>
     </div>
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
@@ -146,6 +163,7 @@
 </template>
 
 <script>
+import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
@@ -350,6 +368,26 @@ export default {
 
       utilisateurApi
         .fetchAllUsersDG2Http({ logInUser: value })
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
+      this.refreshList();
+    },
+    async logInUserWdg2Etudiant(value) {
+      this.showLoginWdg2Card = false;
+      this.loading = true;
+
+      etudiantApi
+        .fetchAllEtudiantDG2Http({ logInUser: value })
         .then((response) => {
           this.color = "success";
           this.dismissCountDown = 6;
