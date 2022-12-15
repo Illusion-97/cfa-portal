@@ -244,11 +244,14 @@ function findAllSupportByInterventionId(id) {
  * @returns 
  */
 function fetchAllInterventionsDG2Http(logInUser) {
-    return axios.get(`${END_POINT}/dg2`, {
-      headers: {
-        Authorization: requestOptions.headers(),
-        "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
-      },
-    });
+    let headers = requestOptions.headers();
+
+  headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
+
+  console.log(headers)
+
+  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
+
+  );
   
   }
