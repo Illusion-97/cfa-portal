@@ -224,15 +224,15 @@ async function getGrillePositionnement(id){
  * @returns Liste des promo de dg2
  */
 function fetchAllPromotionDG2Http(logInUser) {
-  // console.log(logInUser);
-  // console.log(logInUser.logInUser.email);
-  return axios.get(`${END_POINT}/dg2`, {
-    headers: {
-      // Authorization: 'Bearer ' + store.getters.getToken, 
-      Authorization: requestOptions.headers(),
-      "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
-    },
-  });
+  let headers = requestOptions.headers();
+
+  headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
+
+  console.log(headers)
+
+  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
+
+  );
 }
 
 function getAllByCentreFormationIdPagination(idCentreFormation, page, size){
