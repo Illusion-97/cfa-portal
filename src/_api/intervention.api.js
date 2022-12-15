@@ -33,7 +33,7 @@ export const interventionApi = {
  * @returns affiche les interventions par page
  */
 function getIntervention(page, size, keyword = "") {
-    const url = `${process.env.VUE_APP_API_URL}/${END_POINT}/${page - 1}/${size}/${keyword}`
+    const url = `${process.env.VUE_APP_PROD_API_URL}/${END_POINT}/${page - 1}/${size}/${keyword}`
     return axios
         .get(url, requestOptions.headers())
         .then(response => response.data)
