@@ -279,7 +279,7 @@ function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
 
 /* test de recup de la requete import dg2 */
 function fetchAllEtudiantDG2Http(logInUser) {
-    return axios.get(`${process.env.VUE_APP_API_URL}${END_POINT}/dg2`, {
+    return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, {
       headers: {
         // Authorization: 'Bearer ' + store.getters.getToken, 
         Authorization: requestOptions.headers(),
