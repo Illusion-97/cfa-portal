@@ -1,6 +1,6 @@
 import axios from "axios";
 import { requestOptions } from "@/_helpers/request-options.js";
-import store from '@/store/store.js';
+//import store from '@/store/store.js';
 
 const END_POINT = "cursus";
 
