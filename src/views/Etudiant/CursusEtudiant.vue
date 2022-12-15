@@ -10,15 +10,6 @@
           <br />
         </h5>
         <p>
-          <!-- <b-row>
-            <b-col cols="2" class="info-gauche"
-              ><strong class="icon-right">Descriptif</strong
-              ><font-awesome-icon :icon="['fas', 'book']"
-            /></b-col>
-            <b-col cols="10">
-              {{ item.Descriptif }}
-            </b-col>
-          </b-row> -->
           <b-row>
             <b-col cols="2" class="info-gauche">
               <strong class="icon-right">Durée</strong>
@@ -39,7 +30,6 @@
             </b-col>
             <b-col cols="10">
               <b-table small head-variant="light" :items="item.Planning"></b-table>
-
               <!-- BOUTON TELECHARGER -->
               <!-- <b-button variant="success" size="sm">
                 <font-awesome-icon
