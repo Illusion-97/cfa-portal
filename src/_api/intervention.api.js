@@ -33,7 +33,7 @@ export const interventionApi = {
  * @returns affiche les interventions par page
  */
 function getIntervention(page, size, keyword = "") {
-    const url = `${process.env.VUE_APP_PROD_API_URL}/${END_POINT}/${page - 1}/${size}/${keyword}`
+    const url = `/${END_POINT}/${page - 1}/${size}/${keyword}`
     return axios
         .get(url, requestOptions.headers())
         .then(response => response.data)
@@ -240,18 +240,17 @@ function findAllSupportByInterventionId(id) {
 /**
  * Récupération des centres de DG2
  * 
- * @param {*} logInUser utilisateur 
- * @returns 
+ * @param {*} logInUser (id user)) 
+ * @returns Liste des interventions de dawan
  */
 function fetchAllInterventionsDG2Http(logInUser) {
     let headers = requestOptions.headers();
+    let req = `/${END_POINT}/dg2`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  console.log(headers)
+  //console.log(headers)
 
-  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
-
-  );
+  return axios.get(req, headers);
   
   }

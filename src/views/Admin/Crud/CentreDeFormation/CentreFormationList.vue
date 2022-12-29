@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="container-fluid">
     <div class="header-list">
       <!-- <form class="form-inline form" @submit="submit">
         <input
@@ -66,6 +67,7 @@
     <div class="text-center m-4" v-if="loadingScroll || !stopScroll">
       <b-spinner variant="primary" label="Text Centered"></b-spinner>
     </div>
+  </div>
   </div>
 </template>
 

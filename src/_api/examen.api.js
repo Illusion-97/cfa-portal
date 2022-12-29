@@ -13,7 +13,8 @@ export const examenApi = {
   getLivretEvaluation,
   getExamensByInterventionId,
   getFileExamen,
-  generateBulletinByStudentAndPromo
+  generateBulletinByStudentAndPromo,
+  getBulletinEtudiant,
 };
 
 /**
@@ -134,6 +135,15 @@ function getLivretEvaluation(id) {
  */
 function generateBulletinByStudentAndPromo(etudiantId, promoId) {
   let req = `/${END_POINT}/bulletin-etudiant/` + etudiantId + "/" + promoId;
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getBulletinEtudiant(id){
+  let req = `/${END_POINT}/examens/bulletin-etudiant/`+ id
+
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

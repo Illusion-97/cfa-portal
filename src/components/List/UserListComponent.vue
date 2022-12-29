@@ -78,16 +78,16 @@
         <button
           name="button2"
           outlined
-          @click="openLoginWdg2"
+          @click="openLoginWdg2Etudiant"
           class="btn btn-outline-info"
         >
           Mise à jour des étudiants
         </button>
         <div class="login-wdg2">
           <login-wdg-2
-            v-if="showLoginWdg2Card"
+            v-if="showLoginWdg2CardEtudiant"
             @logInUser="logInUserWdg2Etudiant"
-            @wdg2Close="wdg2Close"
+            @wdg2Close="wdg2CloseEtudiant"
           />
         </div>
       </div>
@@ -104,10 +104,11 @@
           un utilisateur</router-link>
       </div> -->
 
-    <small class="form-text info-text ml-1 mt-4 mb-2">
+    <!-- <small class="form-text info-text ml-1 mt-4 mb-2">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
       Mise à jour des user dg2 en attente de la requête
-    </small>
+    </small> -->
+    <br>
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
@@ -236,6 +237,7 @@ export default {
       formData: null,
 
       showLoginWdg2Card: false,
+      showLoginWdg2CardEtudiant: false,
       loading: false,
     };
   },
@@ -326,6 +328,7 @@ export default {
     },
     getRoles() {
       utilisateursRoleApi.getAll().then((data) => (this.roles = data));
+      //console.log(this.roles)
     },
     onSelected() {
       utilisateursRoleApi
@@ -335,6 +338,7 @@ export default {
     submit(e) {
       e.preventDefault();
       this.refreshList();
+      this.saisie = "";
     },
     pageChange(pageNum) {
       utilisateurApi
@@ -347,9 +351,13 @@ export default {
         .then((response) => this.assigneTableItems(response));
     },
     refreshList() {
+      console.log(this.selected_role)
       utilisateurApi
         .getByRoleByPage(this.selected_role, 0, this.perPage, this.saisie)
-        .then((response) => this.assigneTableItems(response));
+        .then((response) => {this.assigneTableItems(response), console.log(response)} );
+        
+
+        
 
       utilisateurApi
         .getCountByRole(this.selected_role, this.saisie)
@@ -360,6 +368,9 @@ export default {
   
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
+    },
+    openLoginWdg2Etudiant() {
+      this.showLoginWdg2CardEtudiant = true;
     },
     // fetch courses from webservice DG2
     async logInUserWdg2(value) {
@@ -383,7 +394,7 @@ export default {
       this.refreshList();
     },
     async logInUserWdg2Etudiant(value) {
-      this.showLoginWdg2Card = false;
+      this.showLoginWdg2CardEtudiant = false;
       this.loading = true;
 
       etudiantApi
@@ -404,6 +415,9 @@ export default {
     },
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
+    },
+    wdg2CloseEtudiant(value){
+      this.showLoginWdg2CardEtudiant = value;
     },
   },
 };

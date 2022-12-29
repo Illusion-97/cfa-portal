@@ -12,7 +12,6 @@ export const etudiantApi = {
     getCount,
     save,
     deleteEtudiant,
-
     getFormateurReferent,
     getPromotions,
     getNotesById,
@@ -273,21 +272,21 @@ function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
 /**
  * Récupération des etudiants de DG2
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} logInUser (id user) 
+ * @returns Liste des étudiants de dawan
  */
 
-/* test de recup de la requete import dg2 */
 function fetchAllEtudiantDG2Http(logInUser) {
-    let headers = requestOptions.headers();
+
+  let headers = requestOptions.headers();
+
+  let req = `/${END_POINT}/dg2`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  console.log(headers)
+  //console.log(headers)
 
-  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
-
-  );
+  return axios.get(req, headers);
   
   }
 

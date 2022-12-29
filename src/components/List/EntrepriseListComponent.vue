@@ -288,7 +288,7 @@ export default {
           this.message = "L'entreprise " + response.raisonSociale + " a été ajouté avec succès"
           this.visible = false;
           this.getList()
-          console.log(response)
+          //console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;

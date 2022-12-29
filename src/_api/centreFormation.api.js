@@ -125,32 +125,19 @@ function getCount(search = ""){
 /**
  * Récupération des centres de DG2
  * 
- * @param {*} id 
- * @returns 
+ * @param {*} logInUser (id user)
+ * @returns Liste des centres de dawan
  */
-
-/* test de recup de la requete import dg2 */
-//  function fetchAllCentreDeFormationsDG2Http(logInUser) {
-//   // console.log(logInUser);
-//   // console.log(logInUser.logInUser.email);
-//   return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, {
-//     headers: {
-//       // Authorization: 'Bearer ' + store.getters.getToken, 
-//       Authorization: requestOptions.headers(),
-//       "X-AUTH-TOKEN": `${logInUser.logInUser.email}:${logInUser.logInUser.password}`,
-//     },
-//   });
-
-// }
 function fetchAllCentreDeFormationsDG2Http(logInUser) {
 
   let headers = requestOptions.headers();
 
+  let req = `/${END_POINT}/dg2`;
+
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  console.log(headers)
+  //console.log(headers)
 
-  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
-
-  );
+  return axios.get(req, headers);
+  
 }

@@ -141,18 +141,18 @@ function getPromotionsById(id) {
 
 /**
  * 
- * @param {*} logInUser 
- * @returns 
+ * @param {*} logInUser (id user)
+ * @returns Liste des cursus de dawan
  */
-/* test de recup de la requete import dg2 */
+
 function fetchAllCursusDG2Http(logInUser) {
   let headers = requestOptions.headers();
+  let req = `/${END_POINT}/dg2`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  console.log(headers)
+  //console.log(headers)
 
-  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
-
-  );
+  return axios.get(req, headers);
+  
 }
