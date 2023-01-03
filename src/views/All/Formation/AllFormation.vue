@@ -92,7 +92,7 @@
                       @click="gotoDetailCursus(row.item)"
                     >
                       <font-awesome-icon :icon="['fas', 'eye']" />
-                    </b-button>
+                    Voir </b-button>
                   </template>
                 </b-table>
               </b-card-body>
@@ -124,8 +124,8 @@
                       variant="info"
                       @click="gotoDetailIntervention(row.item)"
                     >
-                      <font-awesome-icon :icon="['fas', 'eye']" />
-                    </b-button> </template
+                       <font-awesome-icon :icon="['fas', 'eye']" />
+                    Voir </b-button> </template
                 ></b-table>
               </b-card-body>
             </b-collapse>

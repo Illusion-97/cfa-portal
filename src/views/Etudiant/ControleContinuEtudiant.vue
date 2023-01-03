@@ -35,6 +35,7 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
+import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   name: "ControleContinuEtudiant",
@@ -67,10 +68,10 @@ export default {
 
   methods: {
     // TELECHARGER PDF
+    //tester requete en prod
     goToEvents: function (item) {
       window.open(
-        `${process.env.VUE_APP_PROD_API_URL}examens/bulletin-etudiant/` +
-        this.$store.getters.getUtilisateur.etudiantDto.id +
+        examenApi.getBulletinEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id) +
         "/" +
         item[0].id
       );

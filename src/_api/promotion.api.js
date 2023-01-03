@@ -220,19 +220,19 @@ async function getGrillePositionnement(id){
 
 /**
  * 
- * @param {*} logInUser (email et mot de passe itulisateur)
- * @returns Liste des promo de dg2
+ * @param {*} logInUser (email et mot de passe utilisateur)
+ * @returns Liste des promotions de dg2
  */
 function fetchAllPromotionDG2Http(logInUser) {
   let headers = requestOptions.headers();
+  let req = `/${END_POINT}/dg2`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  console.log(headers)
+  //console.log(headers)
 
-  return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
-
-  );
+  return axios.get(req, headers);
+  
 }
 
 function getAllByCentreFormationIdPagination(idCentreFormation, page, size){

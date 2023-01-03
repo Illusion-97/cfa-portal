@@ -1,5 +1,5 @@
 <template>
-  <div id="CentreFormationListComponent">
+  <div class="CentreFormationListComponent">
     <div class="updateListLocation">
       <button name="button2" outlined @click="openLoginWdg2" class="btn btn-info">
         Mise à jour des centres 
