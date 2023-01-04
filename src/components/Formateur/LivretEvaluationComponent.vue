@@ -2,6 +2,7 @@
   <section v-if="(livretEvaluation != null)">
     <div>
       <h3 class="m-4  text-center">Etât du liveret : {{ livretEvaluation.etat | etatLivret }} </h3>
+      <b-button v-if="livretEvaluation.etat != 'ENATTENTEDEVALIDATION'" variant="primary" class="m-4" @click="generer">Télécharger liveret d'évaluation</b-button>
       <b-card no-body class="mb-1" v-for="(eva, i ) in atEvaluations" :key="eva.at.id">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 class="btn-accordion">{{ eva.at.libelle }}</b-button>
@@ -11,18 +12,15 @@
             <v-app>
               <div v-if="eva.valide == false">
                 <h3>Evaluations: </h3>
-
-                <div class=" render" v-for="evalAt in eva.evaluation" :key="evalAt.id" v-html="evalAt.contenu"></div>
-                <br>
+                <div class=" render mb-4 mt-4" v-for="evalAt in eva.evaluation" :key="evalAt.id" v-html="evalAt.contenu" ></div>
                 <form v-if="(eva.bloc != null)">
-                  <v-radio-group  v-model="eva.bloc.criteresSatisfaits" column>
-                    <v-radio  label="Avoir satisfait aux critères issus des référentiels du titre professionnel attendus pour la réalisation de cette
+                  <v-radio-group v-model="eva.bloc.criteresSatisfaits" column>
+                    <v-radio label="Avoir satisfait aux critères issus des référentiels du titre professionnel attendus pour la réalisation de cette
                       activité-type." :value=true></v-radio>
                     <v-radio label="Ne pas avoir satisfait aux critères issus des référentiels du titre professionnel."
                       :value=false></v-radio>
                   </v-radio-group>
                   <div>
-
                   </div>
                   <v-textarea rows="2" v-model="eva.bloc.commentaireInsatisfaction" label="Commentaire Insatisfaction">
                   </v-textarea>
@@ -39,7 +37,7 @@
                 </form>
               </div>
               <div v-else>
-                <h4 v-if="(eva.bloc!= null)">
+                <h4 v-if="(eva.bloc != null)">
                   <span>
                     <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'check']" />
                   </span>
@@ -127,10 +125,22 @@ export default {
     async forceRerender() {
       await this.$nextTick();
     },
+    generer() {
+
+      livretEvaluationApi.generer(this.livretEvaluation.etudiantId, this.livretEvaluation.titreProfessionnelId).then(response => {
+        let bas64 = response;
+        const linkSource = `data:application/pdf;base64,${bas64}`;
+        const downloadLink = document.createElement("a");
+        const fileName = this.livretEvaluation.titreProfessionnelTitre + ".pdf";
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      })
+    },
     edit(eva) {
       eva.bloc.formateurEvaluateurId = this.utilisateur.formateurDto.id
       eva.bloc.dateSignature = new Date(Date.now()).toISOString()
-      eva.bloc.evaluationsFormationsId = eva.evaluation.map(e =>e.id)
+      eva.bloc.evaluationsFormationsId = eva.evaluation.map(e => e.id)
       blocEvaluationApi.update(eva.bloc).then(response => {
         eva.bloc = response
         eva.valide = true;

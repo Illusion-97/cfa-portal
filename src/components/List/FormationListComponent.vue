@@ -1,5 +1,15 @@
 <template>
+
   <div class="container-fluid">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      :variant="color"
+      @dismissed="dismissCountDown = 0"
+    >
+      {{ message }}
+    </b-alert>
     <div class="updateListFormation">
       <button-2 name="button2" outlined @click="openLoginWdg2" class="button2">
         Mise à jour des formations 
@@ -140,6 +150,9 @@ export default {
       perPage: 10,
       pageCount: 0,
       saisie: "",
+      dismissCountDown: null,
+      message: "",
+      color: "success",
 
       formation_input: "",
     };
@@ -207,12 +220,24 @@ export default {
       this.showLoginWdg2Card = true;
     },
     // fetch courses from webservice DG2
-    async logInUserWdg2(value) {
+    logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      await this.centreFormationApi.fetchAllFormationDG2Http({ logInUser: value });
+      this.formationApi.fetchAllFormationDG2Http({ logInUser: value }).then(response =>{
+        this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data
+          this.loading = false;
+          this.fillList()
+          console.log(response)
+      }).catch(err =>{
+        this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+      });
       this.loading = false;
-      await this.loadLocations();
+      this.loadLocations();
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {

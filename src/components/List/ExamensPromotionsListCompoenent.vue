@@ -328,8 +328,11 @@ export default {
       .getAllByIdPromotion(promoId)
       .then((response) => {
         this.getDataForForm(response);
-        this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
+        if (this.context == "intervention") {
+          this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
         this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+        }
+
       });
     },
     async getFile(id, pieceJointe) {

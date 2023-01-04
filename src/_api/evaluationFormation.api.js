@@ -10,16 +10,15 @@ export const evaluationFormationApi = {
   update,
   deleteEF,
   getAllByIdPromotionAndActiviteTypeId,
+  getAllByInterventionId,
 };
 
-// function getAll(){
-//   return axios
-//     .get(`${END_POINT}`, requestOptions.headers())
-//     .then((response) => response.data)
-//     .catch((error) => console.log(error));
-// }
-
-
+function getAllByInterventionId(id){
+  return axios
+    .get(`${END_POINT}/intervention/${id}`, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
 
 function getById(id) {
   return axios

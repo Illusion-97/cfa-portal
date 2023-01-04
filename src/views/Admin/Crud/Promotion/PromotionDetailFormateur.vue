@@ -108,8 +108,6 @@
                   </tr>
                 </tbody>
               </table>
-              <a href="./testGR.pdf" download>Resume</a>
-              <vue-pdf-app pdf="./test.pdf"></vue-pdf-app>
             </div>
           </b-tab>
           <b-tab @click="reloadExam()">
@@ -117,7 +115,9 @@
               <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
               Examens
             </template>
-            <ExamensPromotionsListCompoenent :examens="promotion.examensDto" ref="examen" :context="'promotion'" />
+            <div>
+              <ExamensPromotionsListCompoenent :examens="promotion.examensDto" ref="examen" :context="'promotion'" />
+            </div>
           </b-tab>
           <b-tab>
             <template v-slot:title>
@@ -147,6 +147,7 @@ export default {
     ExamensPromotionsListCompoenent,
     AjouterNotes,
   },
+  
   data() {
     return {
       tabIndex: 1,
@@ -192,8 +193,9 @@ export default {
         });
     },
     getPromotionId() {
+      
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        this.promotion = response;
+        this.promotion = response
       });
       this.$root.$on("afficherNotes", (data) => {
         if (data) {

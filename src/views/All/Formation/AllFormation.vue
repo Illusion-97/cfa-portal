@@ -1,5 +1,16 @@
 <template>
   <section>
+    <b-alert
+    class="m-4"
+      :show="dismissCountDown"
+      dismissible
+      fade
+      :variant="color"
+      @dismissed="dismissCountDown = 0"
+      
+    >
+      {{ message }}
+    </b-alert>
     <div class="d-flex flex-row align-items-end justify-content-between">
       <form class="form-inline p-2" @submit="search">
         <input

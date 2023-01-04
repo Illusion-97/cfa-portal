@@ -68,27 +68,26 @@
                 </b-card-body>
             </b-card>
         </b-collapse>
-        <!-- <b-table :items="items" :fields="fields" striped responsive="sm">
+        <b-table :items="evaluationFormations" :fields="fields" striped responsive="sm">
+            <template #cell(contenu)="row">
+                <div class=" m-4"  v-html="row.item.contenu"></div>
+            </template>
       <template #cell(action)="row">
         <v-app>
-          <div class="d-flex align-items-center justify-content-between">
+        
 
             <v-btn class="m-0  widthBtn" color="error" @click="supprimer(row.item)">
               <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
 
               Supprimer
             </v-btn>
-            <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)">
+            <v-btn class="m-0 widthBtn mt-4" color="warning" dark @click="update(row.item)">
               <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
             </v-btn>
-          </div>
-          <v-btn class="mt-2" color="info" dark>
-            <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
-            Voir les compétences associées
-          </v-btn>
+          
         </v-app>
       </template>
-    </b-table> -->
+    </b-table>
     </div>
 
 </template>
@@ -123,15 +122,39 @@ export default {
             itemsCP: [
 
             ],
-            evaluationFormation: new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>", new Array, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), this.$route.params.id)
+            evaluationFormations: [],
+            evaluationFormation: new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>", new Array, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), this.$route.params.id),
+            fields : [
+  {
+    key: "contenu",
+    label: "Contenu ",
+  },
+  {
+    key: "dateEvaluation",
+    label: "Date évaluation",
+    class: "text-center",
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "20%" },
+    thClass: "text-center",
+  },
+]
         }
     },
     created() {
         this.$root.$on("promoId", (data) => {
             this.getActiviteType(data)
         })
+        this.getEvaluationFormation()
     },
     methods: {
+        getEvaluationFormation(){
+            evaluationFormationApi.getAllByInterventionId(this.$route.params.id).then(response => {
+            this.evaluationFormations = response;
+        })
+        },
         getActiviteType(promoId) {
             activiteTypeApi
                 .getAllByIdPromotion(promoId)
@@ -154,7 +177,7 @@ export default {
                     this.dismissCountDown = 6;
                     this.message = "L'Evaluation du " + response.dateEvaluation + " a été modifier avec success"
                     this.visible = false;
-                    this.getList()
+                    this.getEvaluationFormation()
                 }).catch(err => {
                     this.color = "danger";
                     this.dismissCountDown = 8;
@@ -162,13 +185,12 @@ export default {
                 })
             }
             else {
-                console.log(this.evaluationFormation)
                 evaluationFormationApi.save(this.evaluationFormation).then(response => {
                     this.color = "success";
                     this.dismissCountDown = 6;
                     this.message = "L'Evaluation du " + response.dateEvaluation + " a été ajouté avec success"
                     this.visible = false;
-                    this.getList()
+                    this.getEvaluationFormation()
                     console.log(response)
                 }).catch(err => {
                     this.color = "danger";
@@ -188,6 +210,18 @@ export default {
                 this.modifier = false;
             }
         },
+        update(item){
+            this.clear();
+            this.evaluationFormation.contenu = item.contenu;
+            this.evaluationFormation.dateEvaluation = item.dateEvaluation;
+            this.modifier = true
+            this.visible = true;
+        },
+        supprimer(item){
+            evaluationFormationApi.deleteEF(item.id).then(() =>{
+                this.getEvaluationFormation()
+            })
+        }
       
     }
 
