@@ -323,20 +323,12 @@ export default {
       activiteTypeApi
       .getAllByIdPromotion(promoId)
       .then((response) => {
-<<<<<<< HEAD
         this.getDataForForm(response); 
         if(this.context == "interventions"){
           this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
           this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
         }
       
-=======
-        this.getDataForForm(response);
-        if (this.context == "intervention") {
-          this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
-        this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
-        }
->>>>>>> FinalBranche
 
       });
     },
