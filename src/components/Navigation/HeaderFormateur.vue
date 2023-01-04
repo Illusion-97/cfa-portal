@@ -1,5 +1,5 @@
 <template>
-    <div class="navHeader">
+    <div class="navHeader mb-4">
         <b-row class="pHeader h-100 d-flex align-items-center">
             <b-col class=" col-9 d-flex justify-content-center">
                 <div class="title-header">

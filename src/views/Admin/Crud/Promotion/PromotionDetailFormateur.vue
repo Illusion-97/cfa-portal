@@ -108,8 +108,6 @@
                   </tr>
                 </tbody>
               </table>
-              <a href="./testGR.pdf" download>Resume</a>
-              <vue-pdf-app pdf="./test.pdf"></vue-pdf-app>
             </div>
           </b-tab>
           <b-tab @click="reloadExam()">

@@ -312,7 +312,7 @@ import { niveauApi } from "@/_api/niveau.api.js";
 
 export default {
   name: "EtudiantsInterventionListComponent",
-  components: {},
+
   data() {
     return {
       perPage: 9,
@@ -549,7 +549,6 @@ export default {
               items.push(item);
               //Affecter les devoirs
               setTimeout(() => {
-             
                 for (let i = 0; i < e.devoirs.length; i++) {
                   let itemDevoir = {
                     consigne:
@@ -568,7 +567,7 @@ export default {
                   };
                   itemsDevoirs.push(itemDevoir);
                 }
-              }, 300);
+              }, 500);
             });
             this.items = items;
           } else {

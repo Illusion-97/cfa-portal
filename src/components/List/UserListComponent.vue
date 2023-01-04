@@ -1,6 +1,7 @@
 <template>
-  <div id="adminDashboard">
+  <div id="adminDashboard" class="container-fluid">
     <b-alert
+    class="m-4 "
       :show="dismissCountDown"
       dismissible
       fade
@@ -25,7 +26,6 @@
         disabled="disabled"
       />
     </div>
-
     <div class="d-flex flex-row align-items-end justify-content-between">
       <form class="form-inline p-2" @submit="submit">
         <input
