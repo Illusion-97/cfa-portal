@@ -8,18 +8,51 @@
       <!-- <span>{{ data.item.cursus.dossierProfessionnel.cursus.activiteTypes }}</span> -->
     </h5>
 
+    <!-- ACTIVITES TYPES SELECTEURS -->
     <div v-for="(item, index) in data.item.cursus.dossierProfessionnel.cursus.activiteTypes" :key="index">
-      <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
-
-      <!-- OLD LISTE COMPETENCES PRO -->
-      <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select>
-      <br /> -->
 
       <!--LISTE COMPETENCES PRO -->
       <b-form-select v-model="start" :options="optionsAT(item)" @change="getValue"></b-form-select>
       <br>
     </div>
+
+    <!-- DIPLOMES FACULTATIFS DUR-->
+    <h6>Diplômes facultatifs</h6>
+    <b-form-select v-model="start" :options="diplomes" @change="goDiplome"></b-form-select>
+    <br>
+
+    <!-- DIPLOMES FACULTATIFS DYN-->
+    <h6>Diplômes facultatifs dynamique</h6>
+    <b-form-select v-model="start" v-bind:selected="value === null" :options="optionDiplome()" @change="goDiplome">
+      <b-form-select-option @click="goDiplome()" :value=null>+ Ajouter un diplôme</b-form-select-option>
+    </b-form-select>
+    <br>
+
+    <!-- DIPLOMES MODALE -->
+    <b-modal id="ddd" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <br>
+          <b-button size="sm" variant="success" type="submit" @click="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Créer</span>
+          </b-button>
+          <b-button size="sm" variant="danger" type="submit" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
+        </form>
+      </template>
+    </b-modal>
+
+    <!-- ANNEXES DUR-->
+    <h6>Annexes dur</h6>
+    <b-form-select v-model="start" :options="annexes"></b-form-select>
 
     <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
@@ -40,9 +73,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <!-- <b-form-input id="exp1" v-model="expPro.tacheRealisee" name="tacheRealisee"
-                placeholder="Tâches réalisées"></b-form-input> -->
-                <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
+              <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee"
+                placeholder="Tâches réalisées" />
             </b-card-body>
 
           </b-collapse>
@@ -62,7 +94,7 @@
             <b-card-body>
               <!-- <b-form-input id="exp2" ref="aa" v-model="expPro.moyenUtilise" name="moyenUtilise"
                 placeholder="Moyens utilisés"></b-form-input> -->
-                <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
+              <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
 
             </b-card-body>
 
@@ -247,7 +279,8 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
+              <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee"
+                placeholder="Tâches réalisées" />
 
             </b-card-body>
 
@@ -286,9 +319,7 @@
             <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
-
             </b-card-body>
-
           </b-collapse>
         </b-card>
 
@@ -377,8 +408,6 @@
         </b-button>
       </div>
     </b-modal>
-
-
   </div>
 </template>
 
@@ -388,6 +417,8 @@ import { experiencesApi } from "@/_api/experiences.api.js";
 import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import { VueEditor } from "vue2-editor";
+import { validationMixin } from 'vuelidate'
+import { required, maxLength, email } from 'vuelidate/lib/validators'
 
 export default {
   name: "Selects",
@@ -409,12 +440,58 @@ export default {
       activitesByCursus: [],
       hideDelete: false,
       start: null,
-
+      diplomes: [
+        {
+          value: null,
+          text: "Vos diplômes",
+          disabled: false,
+        },
+        {
+          value: null,
+          text: "+ Ajouter un diplôme",
+          disabled: false,
+        },
+        {
+          value: null,
+          text: "Diplome A",
+          disabled: true,
+        },
+        {
+          value: null,
+          text: "Diplome B",
+          disabled: true,
+        },
+        {
+          value: null,
+          text: "Diplome C",
+          disabled: true,
+        }
+      ],
+      annexes: [
+        {
+          value: null,
+          text: "+ Ajouter une annexe",
+          disabled: false,
+        },
+        {
+          value: null,
+          text: "Annexes A",
+          disabled: true,
+        },
+        {
+          value: null,
+          text: "Annexes B",
+          disabled: true,
+        },
+        {
+          value: null,
+          text: "Annexes C",
+          disabled: true,
+        }
+      ],
       tempActivite: [],
       tempCompetence: [],
-
       dpId: 0,
-
       form: {
         id: 0,
         nom: "",
@@ -444,7 +521,6 @@ export default {
           competenceProfessionnelleId: 0
         }],
       },
-
       formExp: {
         id: 0,
         tacheRealisee: "",
@@ -453,12 +529,44 @@ export default {
         contexte: "",
         information: "",
         competenceProfessionnelleId: 0,
-      }
+      },
 
+      // FORM DIPLOME
+      name: '',
+      email: '',
+      select: null,
+      items: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+      ],
+      checkbox: false,
     };
   },
 
   methods: {
+    optionDiplome() {
+      console.log("test");
+      let tab = [
+        {
+          value: null,
+          text: "Vos diplômes",
+          disabled: false,
+        },
+      ];
+      for (let i = 0; i < this.data.item.cursus.dossierProfessionnel.diplomeFacultatifs.length; i++) {
+        tab.push(
+          {
+            value: this.data.item.cursus.dossierProfessionnel.diplomeFacultatifs[i],
+            text: this.data.item.cursus.dossierProfessionnel.diplomeFacultatifs[i].intitule,
+            disabled: true,
+          }
+        )
+      }
+      console.dir("tab > " + JSON.stringify(tab, null, 4));
+      return tab;
+    },
 
     // RESET MODALE
     resetModal: function () {
@@ -522,6 +630,14 @@ export default {
       this.$bvModal.show("exp-pro-modal");
       this.tempCompetence = value;
     },
+
+    //LANCE LA MODALE DIPLOMES
+    goDiplome() {
+      this.$bvModal.show("ddd");
+      console.log("launch");
+    },
+
+    //LANCE LA MODALE ANNEXES
 
     // OPTIONS DES ACTIVITES TYPES - MODIFIER
     optionsAT(item) {
@@ -717,10 +833,19 @@ export default {
           // TEST MARCHE PAS 
           // this.optionsAT()
         );
+    },
 
-
-    }
-
+    // FORM DIPLOME
+    submit() {
+      this.$v.$touch()
+    },
+    clear() {
+      this.$v.$reset()
+      this.name = ''
+      this.email = ''
+      this.select = null
+      this.checkbox = false
+    },
   },
 
   created() {
@@ -734,6 +859,8 @@ export default {
     activiteTypeApi
       .getActiviteTypesByCursus(this.data.item.id)
       .then((data) => (this.activitesByCursus = data));
+
+    this.test();
 
     // console.log("Dossier Professionnel > " + this.data);
     // console.dir(
@@ -754,7 +881,52 @@ export default {
     // }
 
   },
+
+  // FORM DIPLOME
+  mixins: [validationMixin],
+
+  validations: {
+    name: { required, maxLength: maxLength(10) },
+    email: { required, email },
+    select: { required },
+    checkbox: {
+      checked(val) {
+        return val
+      },
+    },
+  },
+
+  computed: {
+    checkboxErrors() {
+      const errors = []
+      if (!this.$v.checkbox.$dirty) return errors
+      !this.$v.checkbox.checked && errors.push('You must agree to continue!')
+      return errors
+    },
+    selectErrors() {
+      const errors = []
+      if (!this.$v.select.$dirty) return errors
+      !this.$v.select.required && errors.push('Item is required')
+      return errors
+    },
+    nameErrors() {
+      const errors = []
+      if (!this.$v.name.$dirty) return errors
+      !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
+      !this.$v.name.required && errors.push('Name is required.')
+      return errors
+    },
+    emailErrors() {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors.push('Must be valid e-mail')
+      !this.$v.email.required && errors.push('E-mail is required')
+      return errors
+    },
+  },
 };
+
+
 </script>
 
 <style scoped>
