@@ -265,9 +265,6 @@ export default {
         this.isModalVisible = true;
       }
   },
-  goBack() {
-      this.$router.go(-1);
-    },
 };
 </script>
 <style>

@@ -1,8 +1,8 @@
 <template>
   <section v-if="(livretEvaluation != null)">
     <div>
-      <h3 class="m-4  text-center">Etât du liveret : {{ livretEvaluation.etat | etatLivret }} </h3>
-      <b-button v-if="livretEvaluation.etat != 'ENATTENTEDEVALIDATION'" variant="primary" class="m-4" @click="generer">Télécharger liveret d'évaluation</b-button>
+      <h3 class="m-4  text-center">Etât du livret : {{ livretEvaluation.etat | etatLivret }} </h3>
+      <b-button v-if="livretEvaluation.etat != 'ENATTENTEDEVALIDATION'" variant="primary" class="m-4" @click="generer">Télécharger livret d'évaluation</b-button>
       <b-card no-body class="mb-1" v-for="(eva, i ) in atEvaluations" :key="eva.at.id">
         <b-card-header header-tag="header" class="p-1" role="tab">
           <b-button block v-b-toggle.accordion-1 class="btn-accordion">{{ eva.at.libelle }}</b-button>
