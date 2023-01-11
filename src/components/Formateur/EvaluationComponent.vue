@@ -24,7 +24,7 @@
 
                                 <v-col cols="12" lg="12">
                                     <vue-editor v-model="evaluationFormation.contenu" :editor-toolbar="customToolbar" />
-
+                                    <!-- <mc-wysiwyg v-model="evaluationFormation.contenu"></mc-wysiwyg> -->
                                 </v-col>
                                 <v-col cols="12" lg="12">
 
@@ -95,7 +95,8 @@
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import EvaluationFormation from "../../models/EvaluationFormation";
 import { evaluationFormationApi } from "@/_api/evaluationFormation.api";
-import { VueEditor } from "vue2-editor";
+import { VueEditor} from "vue2-editor";
+//import VueWysiwyg from '@mycure/wysiwyg';
 
 export default {
     name: "EvaluationComponent",
