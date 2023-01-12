@@ -176,7 +176,7 @@ export default {
                 evaluationFormationApi.update(this.evaluationFormation).then(response => {
                     this.color = "success";
                     this.dismissCountDown = 6;
-                    this.message = "L'Evaluation du " + response.dateEvaluation + " a été modifier avec success"
+                    this.message = "L'Evaluation du " + response.dateEvaluation + " a été modifier avec succès"
                     this.visible = false;
                     this.getEvaluationFormation()
                 }).catch(err => {
