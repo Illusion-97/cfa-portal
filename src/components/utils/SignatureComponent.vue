@@ -21,7 +21,7 @@
 
             </div>
             <div class="m-4">
-                <b-button @click="toDataURL()" class="mr-2" variant="outline-primary">Sauvegarder</b-button>
+                <b-button @click="toDataURL()" class="mr-2" variant="outline-primary">Sauvgarder</b-button>
                 <b-button @click="clear()" class="mr-2" variant="outline-primary">Vider</b-button>
                 <b-button variant="warning" @click="AnnulerModif">
                     <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
