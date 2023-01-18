@@ -17,7 +17,7 @@
               </router-link>
             </a>
             <a>
-              <router-link :to="{ name: '' }">
+              <router-link :to="{ name: 'Visuel_projet_etudiant' }">
               Consulter
               </router-link>
             </a>
