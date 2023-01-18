@@ -26,6 +26,7 @@
     "js-cookie": "^3.0.1",
     "jspdf": "^2.5.1",
     "moment-timezone": "^0.5.37",
+    "node": "^19.4.0",
     "npm": "^8.19.2",
     "pdfjs": "^2.4.6",
     "postcss-loader": "^4.3.0",

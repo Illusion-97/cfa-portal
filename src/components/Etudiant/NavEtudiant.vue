@@ -35,9 +35,11 @@
           </li>
           <!--TODO -->
           <li class="sidemenu__item disabled-link">
-            <a href="#">
+           <!-- TEST -->
+            <router-link :to="{ name: 'etudiant_dossierprojet' }">
               <i class="fa-solid fa-folder-closed"></i>
-              Dossiers projets</a>
+              Dossiers projets
+              </router-link>
           </li>
           <li class="sidemenu__item">
             <router-link :to="{ name: 'signature_etudiant' }">

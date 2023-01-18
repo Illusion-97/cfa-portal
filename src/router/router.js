@@ -71,6 +71,11 @@ import CursusEtudiant from "@/views/Etudiant/CursusEtudiant.vue";
 import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vue";
 import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
 import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
+
+// test import de la vue etudiant dossier projet
+
+import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
+
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -350,6 +355,10 @@ const routes = [
   { path: "/etudiant/controle", name: "etudiant_controle", component: ControleContinuEtudiant },
   { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
+  
+  // test chemin dossier projets
+  { path: "/etudiant/dossierprojets", name: "etudiant_dossierprojet", component: DossierProjetEtudiant },
+
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
   { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
   { path: "/etudiant/absences", name: "etudiant_absences", component: AbsenceEtudiant},
@@ -1643,7 +1652,7 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
-  if (to.path !== "/login") {
+  if (to.path == "/login") {
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn) return next({ path: "/login" });
