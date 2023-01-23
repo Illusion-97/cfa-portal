@@ -2,96 +2,115 @@
     <div class="container">
     <h2>Dossiers projets</h2>
 
-    <b-table small head-variant="light" :items="dossierProjetEtudiant" :fields="fields">
-      <template #cell(dossierProjet)="row">
-        {{row.item.dossierProjet | dossierProjets }}
+<!-- bare de Rechercher -->
+
+    <!-- <div class="updateListPromotion">
+      <div class="d-flex flex-row align-items-end justify-content-between">
+        <form class="form-inline form" @submit="submit">
+          <input
+            id="saisie"
+            name="saisie"
+            placeholder="Rechercher"
+            type="text"
+            class="form-control"
+            v-model="saisie"
+          />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+          </button>
+        </form>
+      </div> -->
+    <!-- </div> -->
+
+    <b-table small head-variant="light" :items="items" :fields="fields">
+      <template #cell(dossierProjetFields)="row">
+        {{ row.item.dossierProjet.nom }}
+        {{ row.item.dossierProjet.id }}
       </template>
-z
 
-          <div class="div-btn-right">
+      <template #cell(action)>
+            <div class="div-btn-right">
 
-            <!-- BOUTON CREER -->
+            <!-- BOUTON TELECHARGER -->
             <router-link :to="{
-              name: 'creer_dossier_projet',
+
+              // ajouter page TELECHARGER (idem pour les autres bouttons)
+              name: 'LIEN PAGE TELECHARGER',
               query: { data: data },
             }">
-              <b-button size="sm" class="mr-2" variant="success">
-                <i class="fa-solid fa-square-plus"></i>
-                Exemple Bouton
+              <b-button size="sm" class="mr-2" variant="link">
+                Télécharger
+              </b-button>
+            </router-link>
+            |
+            <!-- BOUTON MODIFIER -->
+            <router-link :to="{
+              name: '',
+              query: { data: data },
+            }">
+              <b-button size="sm" class="mr-2" variant="link">
+                Modifier
+              </b-button>
+            </router-link>
+            |
+            <!-- BOUTON SUPPRIMER -->
+            <router-link :to="{
+              name: '',
+              query: { data: data },
+            }">
+              <b-button size="sm" class="mr-2" variant="link">
+                Supprimer
               </b-button>
             </router-link>
 
           </div>
+      </template>
 
     </b-table>
 
-    <!-- INFOS -->
-    <p id="info">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-      <strong id="title-info">Informations</strong>
-      <br />
-      <span class="fsize14">
-        Les fichiers doivent étre <b>inferieur à 500 MB</b>.
-      </span>
-    </p>
+            <!-- BOUTON AJOUTER -->
+            <router-link :to="{
+              name: '',
+              query: { data: data },
+            }">
+              <b-button size="sm" class="mr-2" variant="success">
+              <i class="fa-solid fa-square-plus"></i>
+                Ajouter un projet
+              </b-button>
+            </router-link>
+
+<!-- PAGINATION -->
+
+
 
   </div>
 </template>
 
 <script>
-import { dossierProjetlApi } from "@/_api/dossierProjet.api.js";
+import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
+import { dossierProjetFields } from "@/assets/js/fields.js";
 
 export default {
   name: "DossierProjets",
   data() {
     return {
-      dossierProjetEtudiant: [],
       dossierProjet: [],
+      items: [],
 
-      fields: [
-
-        {
-          key: "Date",
-          label: "Date",
-          thStyle: { width: "30%" },
-        },
-        {
-          key: "DossierProjet",
-          label: "Dossier projet",
-          thStyle: { width: "40%" },
-        },
-    
-        {
-          key: "Action",
-          label: "Actions",
-          thStyle: { width: "30%" },
-        },
-      ],
+      fields: dossierProjetFields
     };
   },
 
   methods: {
-
-    getByIdEtudiant(data, dossierProjet) {
-
-      let gdos;
-
-      gdos = dossierProjet.find(
-        // element.??dto.id elemnt de la base de donnée ?
-        (element) => element./*??*/Dto.id == data.item.id
-      );
-
-      console.dir("gdos > " + JSON.stringify(gdos, null, 4));
-
-      return gdos.id;
-    },
+ 
   },
 
   created() {
-    dossierProjetlApi
-      .getById(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.dp = data));
+    dossierProjetApi
+      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.items = data));
   },
+  
 };
 </script>
 

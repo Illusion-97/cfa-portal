@@ -1652,7 +1652,7 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
-  if (to.path == "/login") {
+  if (to.path !== "/login") {
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn) return next({ path: "/login" });
