@@ -1,93 +1,101 @@
 <template>
-    <section id="services" class="text-center">
-        <div class="col-12 text-center text-white">
-            <a>
-              <router-link :to="{ name: 'creer_dossier_projet' }">
-              Créer un projet
-              </router-link>
-            </a>
-            <a>
-              <router-link :to="{ name: 'modifier_dossier_projet' }">
-              Modifier
-              </router-link>
-            </a>
-            <a>
-              <router-link :to="{ name: '' }">
-              Télécharger
-              </router-link>
-            </a>
-            <a>
-              <router-link :to="{ name: 'Visuel_projet_etudiant' }">
-              Consulter
-              </router-link>
-            </a>
-        </div>
-        <div class="container">            
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="service">
-                        <h5>Block 1</h5>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                            classical Latin literature from</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service">
-                        <h5>Block 2</h5>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                            classical Latin literature from</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service">
-                        <h5>Block 3</h5>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
-                            classical Latin literature from</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+    <h2>Dossiers projets</h2>
+
+    <b-table small head-variant="light" :items="dossierProjetEtudiant" :fields="fields">
+      <template #cell(dossierProjet)="row">
+        {{row.item.dossierProjet | dossierProjets }}
+      </template>
+z
+
+          <div class="div-btn-right">
+
+            <!-- BOUTON CREER -->
+            <router-link :to="{
+              name: 'creer_dossier_projet',
+              query: { data: data },
+            }">
+              <b-button size="sm" class="mr-2" variant="success">
+                <i class="fa-solid fa-square-plus"></i>
+                Exemple Bouton
+              </b-button>
+            </router-link>
+
+          </div>
+
+    </b-table>
+
+    <!-- INFOS -->
+    <p id="info">
+      <font-awesome-icon :icon="['fas', 'info-circle']" />
+      <strong id="title-info">Informations</strong>
+      <br />
+      <span class="fsize14">
+        Les fichiers doivent étre <b>inferieur à 500 MB</b>.
+      </span>
+    </p>
+
+  </div>
 </template>
 
 <script>
-// import { dossierProfessionnelApi } from '@_api/dossierProjet.api.js'
+import { dossierProjetlApi } from "@/_api/dossierProjet.api.js";
 
-export default ({
-    name: "DossierProjetEtudiant" 
-        
+export default {
+  name: "DossierProjets",
+  data() {
+    return {
+      dossierProjetEtudiant: [],
+      dossierProjet: [],
 
-})
+      fields: [
+
+        {
+          key: "Date",
+          label: "Date",
+          thStyle: { width: "30%" },
+        },
+        {
+          key: "DossierProjet",
+          label: "Dossier projet",
+          thStyle: { width: "40%" },
+        },
+    
+        {
+          key: "Action",
+          label: "Actions",
+          thStyle: { width: "30%" },
+        },
+      ],
+    };
+  },
+
+  methods: {
+
+    getByIdEtudiant(data, dossierProjet) {
+
+      let gdos;
+
+      gdos = dossierProjet.find(
+        // element.??dto.id elemnt de la base de donnée ?
+        (element) => element./*??*/Dto.id == data.item.id
+      );
+
+      console.dir("gdos > " + JSON.stringify(gdos, null, 4));
+
+      return gdos.id;
+    },
+  },
+
+  created() {
+    dossierProjetlApi
+      .getById(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.dp = data));
+  },
+};
 </script>
 
 <style scoped>
-
-/* ajout */
-.service {
-    padding: 32px;
-    background-color: #fff;
-    box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.08);
-}
-
-#main-grp-btn_frm button, a {
-
-    background-color: #F54D4D;
-
-    color: white;
-
-    padding: 12px 20px;
-
-    border: none;
-
-    cursor: pointer;
-
-    margin-left: 10px;
-
-    border-radius: 200px;
-
-}
-/* fin ajout */
-
 h2 {
   font-weight: bolder;
 }

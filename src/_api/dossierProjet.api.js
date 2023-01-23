@@ -35,7 +35,7 @@ function getById(id){
  * @returns 
  */
 
-  function getByIdEtudiant(id){
+  function c(id){
     let req = `${END_POINT}/etudiant/${id}`;
   
     return  axios
