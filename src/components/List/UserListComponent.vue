@@ -1,6 +1,6 @@
 <template>
   <div id="adminDashboard" class="container-fluid">
-    <b-alert
+    <!-- <b-alert
     class="m-4 "
       :show="dismissCountDown"
       dismissible
@@ -16,7 +16,7 @@
         indeterminate
         color="red darken-1"
       ></v-progress-circular>
-    </div>
+    </div> -->
     <div class="text-align-left" id="groupe-input" v-if="!isAction">
       <label class="col-1">utilisateur</label>
       <input
