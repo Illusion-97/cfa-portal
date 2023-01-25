@@ -76,6 +76,7 @@ import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelE
 
 import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
 
+
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -209,6 +210,10 @@ import CefDevoir from "@/views/Cef/Crud/Devoir/CefDevoir.vue";
 //Signature
 import SignatureFormateur from"@/views/Formateur/SignatureFormateur.vue"
 import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
+
+// TUTEUR 
+import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
+
 
 
 //          #######################
@@ -1632,7 +1637,16 @@ const routes = [
     component: AskDocumentAdministratif,
     meta: { authorize: [Role.CEF] },
   },
+
+  //#######################
+  //#    Tuteur           #
+  //#######################
+
+  { path: "/tuteur", name: "tuteur_acceuil", component: AccueilTuteur },
+
 ];
+
+
 
 const router = new VueRouter({
   //mode: "history",

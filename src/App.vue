@@ -13,11 +13,17 @@
         <router-view />
         <FooterEtudiant />
       </div>
+      <div v-else-if="path == 'tuteur'" id="maintuteur">
+        <HeaderTuteur />
+        <router-view/>
+      </div>
       <router-view v-else class="monBody" />
+      
     </div>
   </div>
 </template>
 <script>
+import HeaderTuteur from "@/components/Navigation/HeaderTuteur.vue"
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue"
 import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
@@ -32,6 +38,7 @@ export default {
     FooterEtudiant,
     NavEtudiant,
     HeaderEtudiant,
+    HeaderTuteur,
   },
   methods: {},
   computed: {
