@@ -9,7 +9,8 @@ export const dossierProjetApi = {
     save,
     getAll,
     getByIdEtudiant,
-
+    getAllByPage,
+    getCount,
 }
 
 /**
@@ -87,5 +88,27 @@ function getById(id){
     return axios
       .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
       .then((response) => response.data)
+      .catch((error) => console.log(error));
+  }
+
+  function getAllByPage(page, size, search) {
+    let req = "";
+
+    if (search == "") req = `/${END_POINT}/${page}/${size}`;
+    else req = `/${END_POINT}/${page}/${size}?search=${search}`;
+    
+
+    return axios 
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+  }
+
+  function getCount(search = "") {
+    let req = `/${END_POINT}/count/${search}`;
+  
+    return axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data["nb"])
       .catch((error) => console.log(error));
   }

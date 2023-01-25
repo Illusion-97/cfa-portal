@@ -2,26 +2,22 @@
     <div class="container">
     <h2>Dossiers projets</h2>
 
-<!-- bare de Rechercher -->
+<!-- BARE DE RECHERCHE -->
+     <form class="form-inline p-2" @submit="submit">
+        <input
+          id="saisie"
+          name="saisie"
+          type="text"
+          class="form-control"
+          placeholder="Rechercher"
+          v-model="saisie"
+        />
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+        </button>
+      </form>
 
-    <!-- <div class="updateListPromotion">
-      <div class="d-flex flex-row align-items-end justify-content-between">
-        <form class="form-inline form" @submit="submit">
-          <input
-            id="saisie"
-            name="saisie"
-            placeholder="Rechercher"
-            type="text"
-            class="form-control"
-            v-model="saisie"
-          />
-          <button class="btn-submit" type="submit">
-            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
-          </button>
-        </form>
-      </div> -->
-    <!-- </div> -->
-
+<!-- TABLEAU ITEM -->
     <b-table small head-variant="light" :items="items" :fields="fields">
       <template #cell(dossierProjetFields)="row">
         {{ row.item.dossierProjet.nom }}
@@ -34,8 +30,8 @@
             <!-- BOUTON TELECHARGER -->
             <router-link :to="{
 
-              // ajouter page TELECHARGER (idem pour les autres bouttons)
-              name: 'LIEN PAGE TELECHARGER',
+              // ajouter lien vers page TELECHARGER (idem pour les autres bouttons)
+              name: /* ICI !! --> */'',
               query: { data: data },
             }">
               <b-button size="sm" class="mr-2" variant="link">
@@ -45,7 +41,7 @@
             |
             <!-- BOUTON MODIFIER -->
             <router-link :to="{
-              name: '',
+              name: 'creer_dossier_modifier',
               query: { data: data },
             }">
               <b-button size="sm" class="mr-2" variant="link">
@@ -55,7 +51,7 @@
             |
             <!-- BOUTON SUPPRIMER -->
             <router-link :to="{
-              name: '',
+              name: 'etudiant_dossierprojet',
               query: { data: data },
             }">
               <b-button size="sm" class="mr-2" variant="link">
@@ -68,16 +64,16 @@
 
     </b-table>
 
-            <!-- BOUTON AJOUTER -->
-            <router-link :to="{
-              name: '',
-              query: { data: data },
-            }">
-              <b-button size="sm" class="mr-2" variant="success">
-              <i class="fa-solid fa-square-plus"></i>
-                Ajouter un projet
-              </b-button>
-            </router-link>
+<!-- BOUTON AJOUTER un projet -->
+    <router-link :to="{
+      name: 'creer_dossier_projet',
+      query: { data: data },
+    }">
+    <b-button size="sm" class="mr-2" variant="success">
+      <i class="fa-solid fa-square-plus"></i>
+        Ajouter un projet
+    </b-button>
+    </router-link>
 
 <!-- PAGINATION -->
 
@@ -96,21 +92,53 @@ export default {
     return {
       dossierProjet: [],
       items: [],
+      perPage: 3,
+      saisie: "",
+      pageCount: 0,
 
       fields: dossierProjetFields
     };
-  },
-
-  methods: {
- 
   },
 
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.items = data));
+    console.log(this.fields.content);
   },
-  
+
+  methods: {
+    
+    // delete() {
+    //   dossierProjetApi
+    //   .deleteDossierProjet(this.items.id, )
+    //   .then((data) => (this.items = data));
+    // },
+
+    submit(e) {
+      e.preventDefault();
+      dossierProjetApi
+        .getAllByPage(0, this.perPage, this.saisie)
+        .then((response) => (this.items = response));
+        console.log(this.items);
+
+      dossierProjetApi
+        .getCount(this.saisie)
+        .then((response) => (this.pageCount = Math.ceil(response/this.perPage)));
+    },
+
+
+  //   pageChange(pageNum) {
+  //   dossierProjetApi
+  //     .getAllByPage(
+  //       this.items,
+  //       pageNum - 1,
+  //       this.perPage,
+  //       this.saisie
+  //     )
+  //     .then((response) => this.assigneTableItems(response));
+  //   },
+  },
 };
 </script>
 
@@ -218,5 +246,9 @@ h4 {
 
 #title-info {
   padding-left: 7px;
+}
+
+#saisie {
+  margin-right: 10px;
 }
 </style>
