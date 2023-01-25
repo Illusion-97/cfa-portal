@@ -251,7 +251,7 @@
 
     
     <h6>Annexes</h6>
-    <b-form-select v-model="start" :options="annexes" @change="goAnnexe">
+    <b-form-select v-model="start" :options="annexes" @change="getAnnexe">
     </b-form-select>
 
     <b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
@@ -289,8 +289,8 @@
             @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
           <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
             @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="date" :error-messages="emailErrors" label="Date" required
-            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
+            <v-text-field v-model="email" :error-messages="emailErrors" label="Date" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
             <br>
           </b-card-header>
           </b-card>
@@ -561,6 +561,11 @@ export default {
         facultatif: [
         {
           value: null,
+          text: "+ Ajouter : ",
+          disabled: true,
+        },
+        {
+          value: null,
           text: "+ Ajouter un diplôme, titre, CQP, attestation de formation facultatif ",
           disabled: false,
         },
@@ -721,7 +726,7 @@ export default {
     },
 
     //LANCE LA MODALE ANNEXES
-    goAnnexe() {
+    getAnnexe() {
       this.$bvModal.show("ddd");
       console.log("launch");
     },
@@ -952,7 +957,7 @@ export default {
       .getActiviteTypesByCursus(this.data.item.id)
       .then((data) => (this.activitesByCursus = data));
 
-    this.test();
+   // this.test();
 
     // console.log("Dossier Professionnel > " + this.data);
     // console.dir(
