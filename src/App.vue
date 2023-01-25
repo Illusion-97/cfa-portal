@@ -2,10 +2,17 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'home'" />
-      <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
+      <div
+        v-else-if="
+          path == 'formateur' ||
+          path == 'referent' ||
+          path == 'cef' ||
+          path == 'admin'
+        "
+      >
         <VueSidebarFormateur />
         <HeaderFormateur />
-        <router-view/>
+        <router-view />
       </div>
       <div v-else-if="path == 'etudiant'" id="mainEtudiant">
         <HeaderEtudiant />
@@ -15,17 +22,16 @@
       </div>
       <div v-else-if="path == 'tuteur'" id="maintuteur">
         <HeaderTuteur />
-        <router-view/>
+        <router-view />
       </div>
       <router-view v-else class="monBody" />
-      
     </div>
   </div>
 </template>
 <script>
-import HeaderTuteur from "@/components/Navigation/HeaderTuteur.vue"
-import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue"
-import VueSidebarFormateur from"@/components/Navigation/VueSidebarFormateur.vue";
+import HeaderTuteur from "@/components/Navigation/HeaderTuteur.vue";
+import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
+import VueSidebarFormateur from "@/components/Navigation/VueSidebarFormateur.vue";
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
 import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
@@ -60,8 +66,8 @@ export default {
 }
 
 #mainEtudiant *:focus {
-    outline: none;
-     border-color: inherit;
+  outline: none;
+  border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -71,7 +77,7 @@ export default {
   color: #fff;
   background-color: #565656;
   /* background-color: #b8d8d8; */
-  border-color:#565656;
+  border-color: #565656;
   /* width: 70%; */
   padding: 0.3rem 14px;
 }
@@ -79,5 +85,4 @@ export default {
 #mainEtudiant .table td {
   padding: 0.3rem 14px !important;
 }
-
 </style>
