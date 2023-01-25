@@ -9,8 +9,8 @@ export const dossierProjetApi = {
     save,
     getAll,
     getByIdEtudiant,
-    getAllByPage,
-    getCount,
+    // getAllByPage,
+    // getCount,
 }
 
 /**
@@ -91,24 +91,24 @@ function getById(id){
       .catch((error) => console.log(error));
   }
 
-  function getAllByPage(page, size, search) {
-    let req = "";
+  // function getAllByPage(page, size, search) {
+  //   let req = "";
 
-    if (search == "") req = `/${END_POINT}/${page}/${size}`;
-    else req = `/${END_POINT}/${page}/${size}?search=${search}`;
+  //   if (search == "") req = `/${END_POINT}/${page}/${size}`;
+  //   else req = `/${END_POINT}/${page}/${size}?search=${search}`;
     
 
-    return axios 
-    .get(req, requestOptions.headers())
-    .then(response => response.data)
-    .catch((error) => console.log(error));
-  }
+  //   return axios 
+  //   .get(req, requestOptions.headers())
+  //   .then(response => response.data)
+  //   .catch((error) => console.log(error));
+  // }
 
-  function getCount(search = "") {
-    let req = `/${END_POINT}/count/${search}`;
+  // function getCount(search = "") {
+  //   let req = `/${END_POINT}/count/${search}`;
   
-    return axios
-      .get(req, requestOptions.headers())
-      .then(response => response.data["nb"])
-      .catch((error) => console.log(error));
-  }
+  //   return axios
+  //     .get(req, requestOptions.headers())
+  //     .then(response => response.data["nb"])
+  //     .catch((error) => console.log(error));
+  // }
