@@ -2,12 +2,10 @@
   <div class="container">
     <h2>Dossiers professionnels</h2>
 
-
     <!-- TABLEAU TEST -->
-    <b-table small head-variant="light" :items="dp.promotions" >
+    <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
       <template #cell(Cursus)="data">
         {{ data.item.cursus.titre }}
-        
       </template>
 
       <template #cell(DossierPro)="data">
@@ -68,71 +66,9 @@
         </div>
 
       </template>
-      
-      
     </b-table>
-
+  
     <!-- INFOS -->
-    
-    <div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true" color="red" >
-   Cursus
-  </button>
-  <div style="overflow:scroll;">
-  <button type="button" class="list-group-item list-group-item-action">Concepteur développeur d'application</button>
-  <button type="button" class="list-group-item list-group-item-action">Manager de projet en ingénierie logicielle</button>
-</div>
-</div>
-<br/>
-
-<div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
-  Annexes
-  </button>
-  <div style="overflow:scroll;">
-  <button type="button" class="list-group-item list-group-item-action">annexe 1</button>
-  <button type="button" class="list-group-item list-group-item-action">annexe 2</button>
-  <button type="button" class="list-group-item list-group-item-action">annexe 3</button>
-  <button type="button" class="list-group-item list-group-item-action">+ ajouter une annexe</button>
-</div>
-</div>
-<br/>
-
-<div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
-   Ajouts facultatif
-  </button>
-  <div style="overflow:scroll;">
-  <button type="button" class="list-group-item list-group-item-action">Experience pro 2022</button>
-  <button type="button" class="list-group-item list-group-item-action">+</button>
-</div>
-</div>
-<br/>
-
-<div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
-   Activités types
-  </button>
-  <div style="overflow:scroll;" > 
-  <button type="button" class="list-group-item list-group-item-action">ac type 1</button>
-  <button type="button" class="list-group-item list-group-item-action">ac type 2</button>
-  <button type="button" class="list-group-item list-group-item-action">ac type 3</button>
-</div>
-</div>
-<br/>
-<div class="list-group">
-  <button type="button" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
-   Ex compétences Pro
-  </button>
-  <div style="overflow:scroll;">
-  <button type="button" class="list-group-item list-group-item-action">Concevoir une application</button>
-  <button type="button" class="list-group-item list-group-item-action">Développer une application mobile</button>
-  <button type="button" class="list-group-item list-group-item-action">+ ajouter une compétence professionnel</button>
-</div>
-</div>
-
-<br/>
-<br/>
     <p id="info">
       <font-awesome-icon :icon="['fas', 'info-circle']" />
       <strong id="title-info">Informations</strong>
@@ -148,7 +84,6 @@
       </span>
     </p>
   </div>
-  
 </template>
 
 <script>
@@ -172,46 +107,8 @@ export default {
       fields: [
         {
           key: "Cursus",
-          label: "",
-          thStyle: { width: "10%" },
-        },
-        {
-          key: "DossierPro",
-          label: "",
-        },
-        {
-          key: "Activité",
-          label: "",
-          thStyle: { width: "60" },
-        },
-        {
-          key: "DossierPro",
-          label: "",
-        },
-        
-        {
-          key: "Annexes",
-          label: "",
-          thStyle: { width: "60" },
-        },
-        {
-          key: "DossierPro",
-          label: "",
-        },
-
-        {
-          key: "ExPro",
-          label: "",
-          thStyle: { width: "60" },
-        },
-        {
-          key: "DossierPro",
-          label: "",
-        },
-        {
-          key: "Ajout facultatif",
-          label: "",
-          thStyle: { width: "60" },
+          label: "Cursus",
+          thStyle: { width: "70%" },
         },
         {
           key: "DossierPro",
@@ -370,7 +267,4 @@ h4 {
 #title-info {
   padding-left: 7px;
 }
-
-
-
 </style>

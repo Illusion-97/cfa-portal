@@ -1,5 +1,4 @@
 <template>
-
   <!-- CONTAINER UPDATE DOSSIER -->
   <div class="container" v-if="data.item.cursus.dossierProfessionnel">
     <h5>
@@ -9,25 +8,16 @@
     </h5>
 
     <!-- ACTIVITES TYPES SELECTEURS -->
-    <div v-for="(item, index) in data.item.cursus.dossierProfessionnel.cursus.activiteTypes" :key="index">
+  <div v-for="(item, index) in data.item.cursus.dossierProfessionnel.cursus.activiteTypes" :key="index">
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
       <!--LISTE COMPETENCES PRO -->
       <b-form-select v-model="start" :options="optionsAT(item)" @change="getValue"></b-form-select>
       <br>
     </div>
+    
 
-    <!-- DIPLOMES FACULTATIFS DUR-->
-    <h6>Diplômes facultatifs</h6>
-    <b-form-select v-model="start" :options="diplomes" @change="goDiplome"></b-form-select>
-    <br>
-
-    <!-- DIPLOMES FACULTATIFS DYN-->
-    <h6>Diplômes facultatifs dynamique</h6>
-    <b-form-select v-model="start" v-bind:selected="value === null" :options="optionDiplome()" @change="goDiplome">
-      <b-form-select-option @click="goDiplome()" :value=null>+ Ajouter un diplôme</b-form-select-option>
-    </b-form-select>
-    <br>
+  
 
     <!-- DIPLOMES MODALE -->
     <b-modal id="ddd" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
@@ -51,8 +41,7 @@
     </b-modal>
 
     <!-- ANNEXES DUR-->
-    <h6>Annexes dur</h6>
-    <b-form-select v-model="start" :options="annexes"></b-form-select>
+   
 
     <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
@@ -260,6 +249,85 @@
       <br />
     </div>
 
+    
+    <h6>Annexes</h6>
+    <b-form-select v-model="start" :options="annexes" @change="goAnnexe">
+    </b-form-select>
+
+    <b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+         
+            <v-file-input v-model="start" :options="annexes" @change="getAnnexe"  multiple>      
+    </v-file-input>
+          <b-button size="sm" variant="" type="submit" @click="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Valider</span>
+          </b-button>
+        </form>
+      </template>
+    </b-modal>
+  
+ 
+    
+<br/>
+    <h6>Facultatif</h6>
+    <b-form-select v-model="start" :options="facultatif" @change="goFacultafif">
+    </b-form-select>   
+    
+    <b-modal id="bbb" size="xl" title="" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+          <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+         
+          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="date" :error-messages="emailErrors" label="Date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+
+        <br/>
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+        <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+          document facultatif illustrant la pratique professionnelle            
+            </b-button>
+         
+          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+            <b-button size="sm" variant="success" type="submit" @click="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Créer</span>
+          </b-button>
+          <b-button size="sm" variant="danger" type="submit" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
+       
+        </form>
+      </template>
+    </b-modal>
+
+
+   
+    
+
     <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
@@ -409,6 +477,7 @@
       </div>
     </b-modal>
   </div>
+
 </template>
 
 <script>
@@ -419,6 +488,7 @@ import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import { VueEditor } from "vue2-editor";
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email } from 'vuelidate/lib/validators'
+
 
 export default {
   name: "Selects",
@@ -476,19 +546,32 @@ export default {
         {
           value: null,
           text: "Annexes A",
-          disabled: true,
+          disabled: false,
         },
         {
           value: null,
           text: "Annexes B",
-          disabled: true,
+          disabled: false,
         },
         {
           value: null,
           text: "Annexes C",
-          disabled: true,
+          disabled: false,
+        }],
+        facultatif: [
+        {
+          value: null,
+          text: "+ Ajouter un diplôme, titre, CQP, attestation de formation facultatif ",
+          disabled: false,
+        },
+        {
+          value: null,
+          text: "+ Ajouter un document facultatif illustrant la pratique professionnelle",
+          disabled: false,
         }
+       
       ],
+      
       tempActivite: [],
       tempCompetence: [],
       dpId: 0,
@@ -638,7 +721,16 @@ export default {
     },
 
     //LANCE LA MODALE ANNEXES
+    goAnnexe() {
+      this.$bvModal.show("ddd");
+      console.log("launch");
+    },
 
+    goFacultafif() {
+      this.$bvModal.show("bbb");
+      console.log("launch");
+    },
+   
     // OPTIONS DES ACTIVITES TYPES - MODIFIER
     optionsAT(item) {
       let tab = [
