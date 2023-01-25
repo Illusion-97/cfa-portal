@@ -1,9 +1,9 @@
 <template>
-    <div class="container">
+  <div class="container">
     <h2>Dossiers projets</h2>
 
-<!-- BARE DE RECHERCHE -->
-     <!-- <form class="form-inline p-2" @submit="submit">
+    <!-- BARE DE RECHERCHE -->
+    <!-- <form class="form-inline p-2" @submit="submit">
         <input
           id="saisie"
           name="saisie"
@@ -17,7 +17,7 @@
         </button>
       </form> -->
 
-<!-- TABLEAU ITEM -->
+    <!-- TABLEAU ITEM -->
     <b-table small head-variant="light" :items="items" :fields="fields">
       <template #cell(dossierProjetFields)="row">
         {{ row.item.dossierProjet.nom }}
@@ -25,59 +25,67 @@
       </template>
 
       <template #cell(action)>
-            <div class="div-btn-right">
+        <div class="div-btn-right">
+          <!-- BOUTON TELECHARGER -->
+          <b-button
+            size="sm"
+            class="mr-2"
+            variant="success"
+            v-on:click="voirDossier(data.item.id)"
+          >
+            <!-- <i class="bi bi-eye"></i> -->
+            <i class="fa-solid fa-file-pdf"></i>
+            télécharger
+          </b-button>
 
-            <!-- BOUTON TELECHARGER -->
-            <b-button size="sm" class="mr-2" variant="success" v-on:click="
-            voirDossier(data.item.id)">
-              <!-- <i class="bi bi-eye"></i> -->
-              <i class="fa-solid fa-file-pdf"></i> 
-                télécharger
-            </b-button>
-            
-            <!-- BOUTON MODIFIER -->
-            <router-link :to="{
+          <!-- BOUTON MODIFIER -->
+          <router-link
+            :to="{
               name: 'creer_dossier_modifier',
               query: { data: data },
-            }">
-              <b-button size="sm" class="mr-2" variant="primary" v-on:click="
-              updateDossier()">
-                <i class="fa-solid fa-square-pen"></i>
-                Modifier
-              </b-button>
-            </router-link>
+            }"
+          >
+            <b-button
+              size="sm"
+              class="mr-2"
+              variant="primary"
+              v-on:click="updateDossier()"
+            >
+              <i class="fa-solid fa-square-pen"></i>
+              Modifier
+            </b-button>
+          </router-link>
 
-            <!-- BOUTON SUPPRIMER -->
-            <router-link :to="{
+          <!-- BOUTON SUPPRIMER -->
+          <router-link
+            :to="{
               name: 'etudiant_dossierprojet',
               query: { data: data },
-            }">
+            }"
+          >
             <b-button size="sm" class="mr-2" variant="danger">
-              <i class="fa-solid fa-trash"></i>              
-                Supprimer
-              </b-button>
-            </router-link>
-
-          </div>
+              <i class="fa-solid fa-trash"></i>
+              Supprimer
+            </b-button>
+          </router-link>
+        </div>
       </template>
-
     </b-table>
 
-<!-- BOUTON AJOUTER un projet -->
-    <router-link :to="{
-      name: 'creer_dossier_projet',
-      query: { data: data },
-    }">
-    <b-button size="sm" class="mr-2" variant="success">
-      <i class="fa-solid fa-square-plus"></i>
+    <!-- BOUTON AJOUTER un projet -->
+    <router-link
+      :to="{
+        name: 'creer_dossier_projet',
+        query: { data: data },
+      }"
+    >
+      <b-button size="sm" class="mr-2" variant="success">
+        <i class="fa-solid fa-square-plus"></i>
         Créer
-    </b-button>
+      </b-button>
     </router-link>
 
-<!-- PAGINATION -->
-
-
-
+    <!-- PAGINATION -->
   </div>
 </template>
 
@@ -91,11 +99,12 @@ export default {
     return {
       dossierProjet: [],
       items: [],
+      data: "",
       // perPage: 3,
       // saisie: "",
       // pageCount: 0,
 
-      fields: dossierProjetFields
+      fields: dossierProjetFields,
     };
   },
 
@@ -106,14 +115,12 @@ export default {
   },
 
   methods: {
-    
-
     voirDossier(promotionId) {
       window.open(
         "http://localhost:8085/dossierProjet/etudiant/" +
-        this.$store.getters.getUtilisateur.etudiantDto.id +
-        "/" +
-        promotionId
+          this.$store.getters.getUtilisateur.etudiantDto.id +
+          "/" +
+          promotionId
       );
     },
 
