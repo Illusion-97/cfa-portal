@@ -1,5 +1,7 @@
 <template>
     <section>
+      <component v-bind:is="currentTabComponent"></component>
+    
     </section>
 </template>
 

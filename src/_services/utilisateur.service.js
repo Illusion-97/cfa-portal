@@ -6,6 +6,7 @@ export const utilisateurService = {
     isReferent,
     isFormateur,
     isEtudiant,
+    isTuteur,
 };
 
 
@@ -68,6 +69,20 @@ function isEtudiant(){
 
     for(let i=0; i<roles.length; i++)
         if(roles[i].intitule == "ETUDIANT")
+            return true;
+
+    return false;
+    
+}
+
+function isTuteur(){
+    let roles = store.getters.getUtilisateur.rolesDto;
+
+    if(!roles.length)
+        return false;
+
+    for(let i=0; i<roles.length; i++)
+        if(roles[i].intitule == "Tuteur") 
             return true;
 
     return false;
