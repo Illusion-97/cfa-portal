@@ -22,12 +22,7 @@
       </div>
       <div v-else-if="path == 'tuteur'" id="maintuteur">
         <HeaderTuteur />
-<<<<<<< HEAD
-        <router-view/>
-        <FooterTuteur/>
-=======
         <router-view />
->>>>>>> 782b1e35b78c034422e79b19ab3c4e950e23157f
       </div>
       <router-view v-else class="monBody" />
     </div>
