@@ -61,6 +61,8 @@ import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
 import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
 import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfessionnel.vue";
 import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue";
+import DossierProjetCreer from "@/views/Etudiant/DossierProjet_Etudiant_Creer.vue";
+import DossierProjetModifier from "@/views/Etudiant/DossierProjet_Etudiant_Modifier.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
 
@@ -373,6 +375,10 @@ const routes = [
     component : SignatureEtudiant,
     meta: { authorize: [Role.Etudiant] },
   },
+
+  //new routes espace Dossier Projet
+  { path: "/etudiant/creerprojet", name: "creer_dossier_projet", component: DossierProjetCreer },
+  { path: "/etudiant/modifier", name: "creer_dossier_modifier", component: DossierProjetModifier },
 
   //#######################
   //#       FORMATEUR     #

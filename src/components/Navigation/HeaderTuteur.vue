@@ -29,6 +29,7 @@
   </div>
 </template>
 
+
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
 
@@ -65,6 +66,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
@@ -91,6 +93,15 @@ export default {
   height: 50%;
   right: 0%;
 }
+ 
+.navHeader .logo-details {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+
 
 .btnHeader {
   position: relative;
