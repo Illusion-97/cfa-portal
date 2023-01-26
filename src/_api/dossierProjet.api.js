@@ -91,7 +91,7 @@ function getById(id){
       .catch((error) => console.log(error));
   }
 
-  // function getAllByPage(page, size, search) {
+  // function getAllByPage(page, size, search = "") {
   //   let req = "";
 
   //   if (search == "") req = `/${END_POINT}/${page}/${size}`;

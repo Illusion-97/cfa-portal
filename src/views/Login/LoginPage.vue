@@ -193,6 +193,9 @@ export default {
             if (roles.includes("ETUDIANT")){
               router.push("etudiant");
             }
+            if (roles.includes("PRESTATAIREEXTERNE")){
+              router.push("tuteur");
+            }
           })
           .catch((error) => {
             // console.log(error);
