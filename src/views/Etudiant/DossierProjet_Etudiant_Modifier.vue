@@ -1,4 +1,32 @@
+ <!-- <option disabled="disabled" value>+Ajouter une composante du projet </option>
+                                <b-form-select v-model="start" :options="options" @change="getValue"/>
+                                    <b-collapse v-model="start" :options="options" accordion="my-accordion">
+                                        <b-card-body>
+                                            <vue-editor v-model="options.content"/>
+                                        </b-card-body>
+                                    </b-collapse>
+                              
+                                <b-card>
+                                    <b-form-select v-model="selectedOption" :options="options"  />
+                                    <b-card no-body class="card-body" v-if="selectedOption">
+                                        <b-card-header header-tag="header" role="tab">
+                                        </b-card-header>
+                                    </b-card>
+                                </b-card> -->
 
+                                <!-- <div>
+                        <b-card  no-body class="mb-1">
+                            <b-card-header header-tag="header" class="p-1" role="tab">
+                                <b-form-select block v-b-toggle.accordion-1 variant="primary" v-model="selectedOption" :options="options" @change="handleSelectionChange"/>
+                                    <b-collapse hidden V-for="item in options" :key="options.index" visible accordion="my-accordion" role="tabpanel"> -->
+                                        <!-- v-for="item in options" :key="item.index" -->
+                                        <!-- <b-card-body>
+                                            <vue-editor v-model="options.content" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
+                                        </b-card-body>
+                                </b-collapse>
+                            </b-card-header>
+                        </b-card>
+            </div> -->
 <template>
 
     <div>
