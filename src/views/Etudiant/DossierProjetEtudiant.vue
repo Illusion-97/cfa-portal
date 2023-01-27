@@ -108,6 +108,21 @@ export default {
     };
   },
 
+  generer(item){
+      
+      // dossierPeojetApi.generer(item.idetudiant,item.id).then(response =>{
+      //   let bas64 = response;
+    // })
+
+      let bas64 = "je suis TOTO !!!!";
+          const linkSource = `data:application/pdf;base64,${bas64}`;
+          const downloadLink = document.createElement("a");
+          const fileName = item.titreProfessionnelTitre+".pdf";
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+    },
+
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
