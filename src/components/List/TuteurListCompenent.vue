@@ -2,7 +2,8 @@
   <div id="adminDashboard" class="container-fluid">
       
     <!-- BARRE DE RECHERCHE -->
-    <div class="d-flex flex-row align-items-end justify-content-between">
+    <div class="d-flex flex-row align-items-start">
+      <h2 class="p-2">Liste des étudiants</h2>
       <form class="form-inline p-2" @submit="submit">
         <input
           id="saisie"
@@ -86,6 +87,7 @@ export default {
       pageCount: 0,
       saisie: "",
       users: [],
+      selected_role: "",
 
       //   AFFICHAGE DONNEE EN DURE
       items: [
