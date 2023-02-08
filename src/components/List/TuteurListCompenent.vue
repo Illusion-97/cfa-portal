@@ -91,18 +91,18 @@ export default {
 
       //   AFFICHAGE DONNEE EN DURE
       items: [
-        {
-          nom: "totonom",
-          prenom: "toto",
-          email: "totomail",
-          telephone: "totophone",
-        },
-        {
-          nom: "titinom",
-          prenom: "titi",
-          email: "titimail",
-          telephone: "titiphone",
-        },
+        // {
+        //   nom: "totonom",
+        //   prenom: "toto",
+        //   email: "totomail",
+        //   telephone: "totophone",
+        // },
+        // {
+        //   nom: "titinom",
+        //   prenom: "titi",
+        //   email: "titimail",
+        //   telephone: "titiphone",
+        // },
       ],
       fields: etudiantFields,
     };
@@ -113,33 +113,33 @@ export default {
     },
   },
   created() {
-    // this.refreshList();
+    this.refreshList();
   },
 
   methods: {
-    // assigneTableItems(users) {
-    //   this.items = [];
-    //   users.forEach((e) => {
-    //     let item = {
-    //       nom: e.nom,
-    //       prenom: e.prenom,
-    //       login: e.login,
-    //       rolesDto: e.rolesDto,
-    //       civilite: e.civilite,
-    //       telephone: e.telephone,
-    //       adresse:
-    //         e.adresseDto != null
-    //           ? e.adresseDto.libelle +
-    //             " " +
-    //             e.adresseDto.codePostal +
-    //             " " +
-    //             e.adresseDto.ville
-    //           : "Pas d'adresse",
-    //       dateDeNaissance: e.dateDeNaissance,
-    //     };
-    //     this.items.push(item);
-    //   });
-    // },
+    assigneTableItems(users) {
+      this.items = [];
+      users.forEach((e) => {
+        let item = {
+          nom: e.nom,
+          prenom: e.prenom,
+          login: e.login,
+          rolesDto: e.rolesDto,
+          civilite: e.civilite,
+          telephone: e.telephone,
+          adresse:
+            e.adresseDto != null
+              ? e.adresseDto.libelle +
+                " " +
+                e.adresseDto.codePostal +
+                " " +
+                e.adresseDto.ville
+              : "Pas d'adresse",
+          dateDeNaissance: e.dateDeNaissance,
+        };
+        this.items.push(item);
+      });
+    },
 
     submit(e) {
       e.preventDefault();
