@@ -144,7 +144,6 @@ export default {
     submit(e) {
       e.preventDefault();
       this.refreshList();
-      this.saisie = "";
     },
     pageChange(pageNum) {
       utilisateurApi
@@ -161,7 +160,7 @@ export default {
       utilisateurApi
         .getByRoleByPage(this.selected_role, 0, this.perPage, this.saisie)
         .then((response) => {
-          this.assigneTableItems(response), console.log(response);
+          this.assigneTableItems(response, console.log(response));
         });
 
       utilisateurApi
