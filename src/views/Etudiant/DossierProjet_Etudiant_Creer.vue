@@ -1,19 +1,4 @@
 <template>
-    <!-- tr : tableau
-        tbody : rgrp tr en tb
-         -->
-    <!--<nav v-for="(item, id) in options" :key="item.id"> 
-                                <b-card no-body class="mb-1">
-                                    <b-card-header header-tag="header" class="p-1" role="tab">
-                                        <b-button  class="b-btn" block v-b-toggle="'accordion-'+ (id + 1) " variant="primary">{{item.name}}</b-button>
-                                    </b-card-header>
-                                    <b-collapse :id="'accordion-'+ (id + 1)" class="titre-details-modal volets" visible accordion="my-accordion" role="tabpanel">
-                                        <b-card-body>
-                                        <vue-editor v-model="item.content" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" readonly />
-                                        </b-card-body>
-                                    </b-collapse>
-                                </b-card>
-                        </nav> -->
     <div id="main-cr-prj">
         <div>
             <p>Nouveau dossier projet</p>
@@ -21,14 +6,14 @@
         </div>
         <div>
             <!-- Composants Importer Un Dossier -->
-            <section id="comp-doss-prjt" v-show="showSec1">
+            <section id="comp-doss-prjt" >
                 <div class="comp-doss">
                     <p>Importer un dossier :</p>
                     <v-button class="btn btn-danger" type="button" id="btn1" @click="showSection2"
                         :style="sectionStyle">{{ button }}</v-button>
                 </div>
 
-                <div v-show="showSec2 === false" id="test">
+                <div v-show="showSec2" id="test">
                     <section class="comp-imp">
                         <div class="mb-3">
                             <label for="formFile" class="form-label"></label>
@@ -42,18 +27,16 @@
                     </section>
                 </div>
             </section>
-
-            <p v-show="showSec1 == showSec2">Ou</p>
-
+            <p>Ou</p>
             <!-- Composants Créer Un Dossier Projet -->
-            <section v-show="showSec2">
+            <section >
                 <div class="comp-doss">
                     <p>Créer un dossier :</p>
                     <v-button class="btn btn-danger" type="button" id="btn1" @click="showSection1"
                         :style="sectionStyle2">{{ button }}</v-button>
                 </div>
 
-                <div v-show="showSec1 === false"> <!---->
+                <div v-show="showSec1"> <!---->
                     <div>
                         <section>
                             <v-nav id="navbar-btn">
@@ -182,7 +165,7 @@
 
 
                                     </v-card-body>
-                                    
+                                    <p></p>
                                     <v-btn id="btn-annuler">Annuler</v-btn>
                                     <v-btn id="btn-save">Sauvegarder</v-btn>
                                 </v-card>
@@ -211,8 +194,8 @@ export default {
             nom_projet: "projet_cfa",
             nom_candidat: "JIYAR",
             prenom_candidat: "Anas",
-            showSec1: true,
-            showSec2: true,
+            showSec1: false,
+            showSec2: false,
             marginSpaceImp: true,
             marginSpaceCre: true,
             button: 'Ouvrir',
@@ -378,9 +361,6 @@ export default {
         actionBt3() {
             this.activeBt3 = !this.activeBt3;
         },
-        submitData() { },
-        getById() { },
-        save() { },
         handleSelectionChange(selectedOption) {
             this.selectedOption = selectedOption;
             document.getElementById('accordion1').visible;
