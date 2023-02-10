@@ -2,7 +2,8 @@
   <div id="adminDashboard" class="container-fluid">
       
     <!-- BARRE DE RECHERCHE -->
-    <div class="d-flex flex-row align-items-end justify-content-between">
+    <div class="d-flex flex-row align-items-start">
+      <h2 class="p-2">Liste des étudiants</h2>
       <form class="form-inline p-2" @submit="submit">
         <input
           id="saisie"
@@ -86,21 +87,22 @@ export default {
       pageCount: 0,
       saisie: "",
       users: [],
+      selected_role: "",
 
       //   AFFICHAGE DONNEE EN DURE
       items: [
-        {
-          nom: "totonom",
-          prenom: "toto",
-          email: "totomail",
-          telephone: "totophone",
-        },
-        {
-          nom: "titinom",
-          prenom: "titi",
-          email: "titimail",
-          telephone: "titiphone",
-        },
+        // {
+        //   nom: "totonom",
+        //   prenom: "toto",
+        //   email: "totomail",
+        //   telephone: "totophone",
+        // },
+        // {
+        //   nom: "titinom",
+        //   prenom: "titi",
+        //   email: "titimail",
+        //   telephone: "titiphone",
+        // },
       ],
       fields: etudiantFields,
     };
@@ -111,33 +113,33 @@ export default {
     },
   },
   created() {
-    // this.refreshList();
+    this.refreshList();
   },
 
   methods: {
-    // assigneTableItems(users) {
-    //   this.items = [];
-    //   users.forEach((e) => {
-    //     let item = {
-    //       nom: e.nom,
-    //       prenom: e.prenom,
-    //       login: e.login,
-    //       rolesDto: e.rolesDto,
-    //       civilite: e.civilite,
-    //       telephone: e.telephone,
-    //       adresse:
-    //         e.adresseDto != null
-    //           ? e.adresseDto.libelle +
-    //             " " +
-    //             e.adresseDto.codePostal +
-    //             " " +
-    //             e.adresseDto.ville
-    //           : "Pas d'adresse",
-    //       dateDeNaissance: e.dateDeNaissance,
-    //     };
-    //     this.items.push(item);
-    //   });
-    // },
+    assigneTableItems(users) {
+      this.items = [];
+      users.forEach((e) => {
+        let item = {
+          nom: e.nom,
+          prenom: e.prenom,
+          login: e.login,
+          rolesDto: e.rolesDto,
+          civilite: e.civilite,
+          telephone: e.telephone,
+          adresse:
+            e.adresseDto != null
+              ? e.adresseDto.libelle +
+                " " +
+                e.adresseDto.codePostal +
+                " " +
+                e.adresseDto.ville
+              : "Pas d'adresse",
+          dateDeNaissance: e.dateDeNaissance,
+        };
+        this.items.push(item);
+      });
+    },
 
     submit(e) {
       e.preventDefault();

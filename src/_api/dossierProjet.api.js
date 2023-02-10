@@ -9,6 +9,7 @@ export const dossierProjetApi = {
     save,
     getAll,
     getByIdEtudiant,
+    generer,
     // getAllByPage,
     // getCount,
 }
@@ -87,6 +88,13 @@ function getById(id){
   function deleteDossierProjet(id,idetudiant){
     return axios
       .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+  }
+
+  function generer(idEtu,idCursus) {
+    return axios
+      .get(`${END_POINT}/generer/${idEtu}/${idCursus}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }

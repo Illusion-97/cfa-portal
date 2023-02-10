@@ -27,16 +27,15 @@
       <template #cell(action)>
         <div class="div-btn-right">
           <!-- BOUTON TELECHARGER -->
-          <b-button
-            size="sm"
-            class="mr-2"
-            variant="success"
-            v-on:click="voirDossier(data.item.id)"
+
+          <button
+            class="btn mr-2 btn-success btn-sm"
+            type="button"
+            v-on:click="generer(toto)"
           >
-            <!-- <i class="bi bi-eye"></i> -->
             <i class="fa-solid fa-file-pdf"></i>
-            télécharger
-          </b-button>
+            Télécharger
+          </button>
 
           <!-- BOUTON MODIFIER -->
           <router-link
@@ -92,6 +91,7 @@
 <script>
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
 import { dossierProjetFields } from "@/assets/js/fields.js";
+import { livretEvaluationApi } from "@/_api/livretEvaluation.api.js";
 
 export default {
   name: "DossierProjet",
@@ -100,6 +100,22 @@ export default {
       dossierProjet: [],
       items: [],
       data: "",
+      toto: [
+        {
+          dateSignature: "2022-12-01",
+          etat: "VALIDEPARLEFORMATEUR",
+          etudiantId: 226,
+          formateurEvaluateurId: 0,
+          id: 251,
+          observation:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ",
+          organismeFormationId: 17,
+          titreProfessionnelId: 6,
+          titreProfessionnelTitre:
+            "Titre professionnel Concepteur Développeur d'Applications Java",
+          version: 0,
+        },
+      ],
       // perPage: 3,
       // saisie: "",
       // pageCount: 0,
@@ -140,6 +156,20 @@ export default {
     //     .getCount(this.saisie)
     //     .then((response) => (this.pageCount = Math.ceil(response/this.perPage)));
     // },
+
+    generer(toto) {
+      livretEvaluationApi
+        .generer(226, toto.titreProfessionnelId)
+        .then((response) => {
+          let bas64 = response;
+          const linkSource = `data:application/pdf;base64,${bas64}`;
+          const downloadLink = document.createElement("a");
+          const fileName = toto.titreProfessionnelTitre + ".pdf";
+          downloadLink.href = linkSource;
+          downloadLink.download = fileName;
+          downloadLink.click();
+        });
+    },
   },
 };
 </script>
