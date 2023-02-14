@@ -30,7 +30,7 @@ export const utilisateurApi = {
   mail,
 };
 
-const END_POINT = "etudiants";
+const END_POINT = "utilisateurs";
 const ADRESSE = "adresse";
 const ENTREPRISE = "entreprise";
 

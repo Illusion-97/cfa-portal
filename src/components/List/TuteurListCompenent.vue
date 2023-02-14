@@ -1,6 +1,6 @@
 <template>
   <div id="adminDashboard" class="container-fluid">
-      
+
     <!-- BARRE DE RECHERCHE -->
     <div class="d-flex flex-row align-items-start">
       <h2 class="p-2">Liste des étudiants</h2>
@@ -20,25 +20,42 @@
     </div>
 
     <!-- TABLEAU -->
-    <b-table :items="items" :fields="fields" striped responsive="sm">
-      <template #cell(etudiantFields)="row">
-        {{ row.item.nom }}
-        {{ row.item.prenom }}
-        {{ row.item.email }}
-        {{ row.item.telephone }}
-      </template>
-
-      <template #cell(action)>
-        <div class="div-btn-right">
-
-          <!-- BOUTON AFFICHER -->
-          <b-button id="tableau" size="sm" class="mr-2">
-            <i class="bi bi-eye"></i>
-            AFFICHER
-          </b-button>
-        </div>
-      </template>
-    </b-table>
+    <v-card-body>
+      <v-simple-table
+        :items="paginatedData"
+        :page.sync="page"
+        :items-per-page="itemsPerPage"
+      >
+        <thead style="background-color: #08092D;">
+        <tr>
+          <td style="color: white">
+            <strong>nom</strong> 
+          </td>
+          <td style="color: white">
+            <strong>prenom</strong> 
+          </td>
+          <td style="color: white">
+            <strong>mail</strong> 
+          </td>
+          <td style="color: white">
+            <strong>téléphone</strong> 
+          </td>
+          <td style="color: white">
+            <strong>action</strong> 
+          </td>
+        </tr>        
+        </thead>
+        <tbody>
+          <tr  v-for="etudiant in etudiants" :key="etudiant.id">
+          <td>{{etudiant.utilisateurDto.nom}}</td>
+          <td>{{etudiant.utilisateurDto.prenom}}</td>
+          <td>{{etudiant.utilisateurDto.login}}</td>
+          <td>{{etudiant.utilisateurDto.téléphone}}</td>
+          <td><button>consulter</button></td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+    </v-card-body>
 
     <paginate
       :page-count="pageCount"
@@ -61,92 +78,38 @@
 </template>
 
 <script>
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import { tuteurApi } from "@/_api/tuteur.api.js";
 import { etudiantFields } from "@/assets/js/fieldsTuteur.js";
 export default {
-  name: "UserListComponent",
-  props: {
-    isAction: {
-      type: Boolean,
-      default: false,
-    },
-    utilisateurProp: {
-      default: null,
-    },
-  },
-  watch: {
-    utilisateurProp() {
-      if (this.utilisateurProp != null)
-        this.utilisateur_input = `${this.utilisateurProp.prenom}`;
-    },
-  },
-
   data() {
     return {
-      perPage: 7,
+      perPage: 1,
       pageCount: 0,
       saisie: "",
-      users: [],
-      selected_role: "",
-
-      //   AFFICHAGE DONNEE EN DURE
-      items: [
-        // {
-        //   nom: "totonom",
-        //   prenom: "toto",
-        //   email: "totomail",
-        //   telephone: "totophone",
-        // },
-        // {
-        //   nom: "titinom",
-        //   prenom: "titi",
-        //   email: "titimail",
-        //   telephone: "titiphone",
-        // },
-      ],
-      fields: etudiantFields,
+      etudiants: [],
+      etudiantFields,
     };
   },
+
   computed: {
     nbPageComputed() {
       return this.pageCount;
     },
   },
+
   created() {
     this.refreshList();
+    // console.log(this.$store.getters.getUtilisateur.tuteurDto.id);
   },
 
   methods: {
-    assigneTableItems(users) {
-      this.items = [];
-      users.forEach((e) => {
-        let item = {
-          nom: e.nom,
-          prenom: e.prenom,
-          login: e.login,
-          rolesDto: e.rolesDto,
-          civilite: e.civilite,
-          telephone: e.telephone,
-          adresse:
-            e.adresseDto != null
-              ? e.adresseDto.libelle +
-                " " +
-                e.adresseDto.codePostal +
-                " " +
-                e.adresseDto.ville
-              : "Pas d'adresse",
-          dateDeNaissance: e.dateDeNaissance,
-        };
-        this.items.push(item);
-      });
-    },
-
     submit(e) {
       e.preventDefault();
       this.refreshList();
     },
+
     pageChange(pageNum) {
-      utilisateurApi
+      tuteurApi
         .getByRoleByPage(
           this.selected_role,
           pageNum - 1,
@@ -155,16 +118,14 @@ export default {
         )
         .then((response) => this.assigneTableItems(response));
     },
-    refreshList() {
-      console.log(this.selected_role);
-      utilisateurApi
-        .getByRoleByPage(this.selected_role, 0, this.perPage, this.saisie)
-        .then((response) => {
-          this.assigneTableItems(response, console.log(response));
-        });
 
-      utilisateurApi
-        .getCountByRole(this.selected_role, this.saisie)
+    refreshList() {
+      tuteurApi.getEtudiantByTuteurByPage(0, this.perPage).then((response) => {
+        this.etudiants = response;
+      });
+
+      tuteurApi
+        .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
