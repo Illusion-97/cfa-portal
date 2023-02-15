@@ -23,6 +23,7 @@ export const interventionApi = {
     findTrainerByInterventionId,
     findAllSupportByInterventionId,
     fetchAllInterventionsDG2Http,
+    fetchInterventionsDG2ByIdPromotion,
 }
 
 /**
@@ -253,4 +254,25 @@ function fetchAllInterventionsDG2Http(logInUser) {
 
   return axios.get(req, headers);
   
+  }
+
+  /**
+ * Récupération des centres de DG2 par promotion
+ * 
+ * @param {*} logInUser (id user)  promoId (id de la promo)
+ * @returns Liste des interventions par promo
+ */
+
+function fetchInterventionsDG2ByIdPromotion(logInUser, promoId){
+
+    let headers = requestOptions.headers();
+    //console.log(promoId);
+    //console.log(logInUser);
+    let req = `/${END_POINT}/dg2/${promoId}`;
+
+    headers.headers["X-AUTH-TOKEN"] = `${logInUser.email}:${logInUser.password}`;
+
+    //console.log(headers)
+
+    return axios.get(req, headers);
   }
