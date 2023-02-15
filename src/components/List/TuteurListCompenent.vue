@@ -1,6 +1,5 @@
 <template>
   <div id="adminDashboard" class="container-fluid">
-
     <!-- BARRE DE RECHERCHE -->
     <div class="d-flex flex-row align-items-start">
       <h2 class="p-2">Liste des étudiants</h2>
@@ -26,37 +25,38 @@
         :page.sync="page"
         :items-per-page="itemsPerPage"
       >
-        <thead style="background-color: #08092D;">
-        <tr>
-          <td style="color: white">
-            <strong>nom</strong> 
-          </td>
-          <td style="color: white">
-            <strong>prenom</strong> 
-          </td>
-          <td style="color: white">
-            <strong>mail</strong> 
-          </td>
-          <td style="color: white">
-            <strong>téléphone</strong> 
-          </td>
-          <td style="color: white">
-            <strong>action</strong> 
-          </td>
-        </tr>        
+        <thead style="background-color: #08092d">
+          <tr>
+            <td style="color: white">
+              <strong>nom</strong>
+            </td>
+            <td style="color: white">
+              <strong>prenom</strong>
+            </td>
+            <td style="color: white">
+              <strong>mail</strong>
+            </td>
+            <td style="color: white">
+              <strong>téléphone</strong>
+            </td>
+            <td style="color: white">
+              <strong>action</strong>
+            </td>
+          </tr>
         </thead>
         <tbody>
-          <tr  v-for="etudiant in etudiants" :key="etudiant.id">
-          <td>{{etudiant.utilisateurDto.nom}}</td>
-          <td>{{etudiant.utilisateurDto.prenom}}</td>
-          <td>{{etudiant.utilisateurDto.login}}</td>
-          <td>{{etudiant.utilisateurDto.téléphone}}</td>
-          <td><button>consulter</button></td>
+          <tr v-for="etudiant in etudiants" :key="etudiant.id">
+            <td>{{ etudiant.utilisateurDto.nom }}</td>
+            <td>{{ etudiant.utilisateurDto.prenom }}</td>
+            <td>{{ etudiant.utilisateurDto.login }}</td>
+            <td>{{ etudiant.utilisateurDto.téléphone }}</td>
+            <td><button>consulter</button></td>
           </tr>
         </tbody>
       </v-simple-table>
     </v-card-body>
 
+    <!-- PAGINATION -->
     <paginate
       :page-count="pageCount"
       :page-range="1"
@@ -83,7 +83,7 @@ import { etudiantFields } from "@/assets/js/fieldsTuteur.js";
 export default {
   data() {
     return {
-      perPage: 1,
+      perPage: 7,
       pageCount: 0,
       saisie: "",
       etudiants: [],
@@ -120,9 +120,11 @@ export default {
     },
 
     refreshList() {
-      tuteurApi.getEtudiantByTuteurByPage(0, this.perPage).then((response) => {
-        this.etudiants = response;
-      });
+      tuteurApi
+        .getEtudiantByTuteurByPage(0, this.perPage, this.saisie)
+        .then((response) => {
+          this.etudiants = response;
+        });
 
       tuteurApi
         .getCount(this.saisie)

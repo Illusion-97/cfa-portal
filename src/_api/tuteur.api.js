@@ -17,8 +17,8 @@ const END_POINT = "tuteur";
  * @param {*} size 
  * @returns 
  */
-function getEtudiantByTuteurByPage(page, size) {
-  let req = `/${END_POINT}/1/etudiants/${page}/${size}`;
+function getEtudiantByTuteurByPage(page, size, search= "") {
+  let req = `/${END_POINT}/1/etudiants/${page}/${size}/${search}`;
 
   return axios
     .get(req, requestOptions.headers())
