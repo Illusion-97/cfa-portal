@@ -123,7 +123,12 @@ h2 {
 }
 
 .container {
-  margin: 89px 0 0 421px;
+  /* margin: 100px 1px 0 350px; */
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-right: 0px;
+  margin-left: 350px;
+
   min-height: 340px;
 }
 
