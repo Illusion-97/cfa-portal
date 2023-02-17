@@ -1,5 +1,6 @@
 <template>
   <div id="adminDashboard" class="container-fluid">
+
     <!-- BARRE DE RECHERCHE -->
     <div class="d-flex flex-row align-items-start">
       <h2 class="p-2">Liste des étudiants</h2>
@@ -19,13 +20,8 @@
     </div>
 
     <!-- TABLEAU -->
-    <v-card-body>
-      <v-simple-table
-        :items="paginatedData"
-        :page.sync="page"
-        :items-per-page="itemsPerPage"
-      >
-        <thead style="background-color: #08092d">
+      <v-simple-table>
+        <thead style="background-color: #08092d" >
           <tr>
             <td style="color: white">
               <strong>nom</strong>
@@ -39,7 +35,7 @@
             <td style="color: white">
               <strong>téléphone</strong>
             </td>
-            <td style="color: white">
+            <td style="color: white" class="text-center">
               <strong>action</strong>
             </td>
           </tr>
@@ -49,21 +45,29 @@
             <td>{{ etudiant.utilisateurDto.nom }}</td>
             <td>{{ etudiant.utilisateurDto.prenom }}</td>
             <td>{{ etudiant.utilisateurDto.login }}</td>
-            <td>{{ etudiant.utilisateurDto.téléphone }}</td>
-            <td><button>consulter</button></td>
+            <td>{{ etudiant.utilisateurDto.telephone }}</td>
+            <td>
+              <router-link :to="{
+                name: 'tuteur/detailetudiant',
+                query: { data: etudiant.id },
+              }">
+              <b-button block variant="info">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+              </b-button>
+              </router-link>
+            </td>
           </tr>
         </tbody>
       </v-simple-table>
-    </v-card-body>
 
     <!-- PAGINATION -->
-    <paginate
+    <paginate 
       :page-count="pageCount"
       :page-range="1"
       :margin-pages="2"
       :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
+      :prev-text="'Précédent'"
+      :next-text="'Suivant'"
       :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
@@ -74,12 +78,18 @@
       :active-class="'active'"
     >
     </paginate>
+
+    <v-pagination
+      total-visible="5"
+      v-model="page"
+      :length="6"
+      @input="pageChange"
+    ></v-pagination>
   </div>
 </template>
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
-import { etudiantFields } from "@/assets/js/fieldsTuteur.js";
 export default {
   data() {
     return {
@@ -87,7 +97,8 @@ export default {
       pageCount: 0,
       saisie: "",
       etudiants: [],
-      etudiantFields,
+      page: 1,
+      tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
 
@@ -98,8 +109,7 @@ export default {
   },
 
   created() {
-    this.refreshList();
-    // console.log(this.$store.getters.getUtilisateur.tuteurDto.id);
+    this.refreshList();   
   },
 
   methods: {
@@ -110,24 +120,21 @@ export default {
 
     pageChange(pageNum) {
       tuteurApi
-        .getByRoleByPage(
-          this.selected_role,
-          pageNum - 1,
-          this.perPage,
-          this.saisie
-        )
-        .then((response) => this.assigneTableItems(response));
+      .getEtudiantByTuteurByPage(this.tuteurId, pageNum -1, this.perPage)
+      .then((response) => { 
+        this.etudiants = response
+      });
     },
 
     refreshList() {
       tuteurApi
-        .getEtudiantByTuteurByPage(0, this.perPage, this.saisie)
+        .getEtudiantByTuteurByPage(this.tuteurId, 0, this.perPage, this.saisie)
         .then((response) => {
           this.etudiants = response;
         });
 
       tuteurApi
-        .getCount(this.saisie)
+        .getCount(this.tuteurId, this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );

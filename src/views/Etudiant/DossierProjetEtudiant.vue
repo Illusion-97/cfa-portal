@@ -84,6 +84,13 @@
       </b-button>
     </router-link>
 
+
+              <router-link :to="{
+                name: 'tuteur/detailetudiant',
+                query: { data: etudiant.id },
+              }">
+                <b-button color="primary" icon="fa-solid fa-eye">consulter</b-button>
+              </router-link>
     <!-- PAGINATION -->
   </div>
 </template>

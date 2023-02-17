@@ -5,6 +5,7 @@ import { requestOptions } from "@/_helpers/request-options.js";
 export const tuteurApi = {
 
   getEtudiantByTuteurByPage,
+  getCountSearch,
   getCount, 
   
 };
@@ -17,8 +18,9 @@ const END_POINT = "tuteur";
  * @param {*} size 
  * @returns 
  */
-function getEtudiantByTuteurByPage(page, size, search= "") {
-  let req = `/${END_POINT}/1/etudiants/${page}/${size}/${search}`;
+function getEtudiantByTuteurByPage(id, page, size, search = "") {
+ 
+  let req = `/${END_POINT}/${id}/etudiants/${page}/${size}/${search}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -40,8 +42,19 @@ function getEtudiantByTuteurByPage(page, size, search= "") {
  * @param {*} search 
  * @returns 
  */
-function getCount(search = "") {
-  let req = `/${END_POINT}/count/${search}`;
+function getCountSearch(id, search = "") {
+  let req = `/${END_POINT}/${id}/count/${search}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
+}
+
+
+
+function getCount(id) {
+  let req = `/${END_POINT}/${id}/count`;
 
   return axios
     .get(req, requestOptions.headers())
