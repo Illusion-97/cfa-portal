@@ -61,13 +61,13 @@
       </v-simple-table>
 
     <!-- PAGINATION -->
-    <paginate 
+    <paginate
       :page-count="pageCount"
       :page-range="1"
       :margin-pages="2"
       :click-handler="pageChange"
-      :prev-text="'Précédent'"
-      :next-text="'Suivant'"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
       :container-class="'pagination float-right'"
       :page-class="'page-item'"
       :page-link-class="'page-link'"
@@ -78,35 +78,25 @@
       :active-class="'active'"
     >
     </paginate>
-
-    <v-pagination
-      total-visible="5"
-      v-model="page"
-      :length="6"
-      @input="pageChange"
-    ></v-pagination>
   </div>
 </template>
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
+
 export default {
   data() {
     return {
-      perPage: 7,
+      perPage: 2,
       pageCount: 0,
       saisie: "",
       etudiants: [],
-      page: 1,
+      
       tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
 
-  computed: {
-    nbPageComputed() {
-      return this.pageCount;
-    },
-  },
+
 
   created() {
     this.refreshList();   
@@ -116,6 +106,7 @@ export default {
     submit(e) {
       e.preventDefault();
       this.refreshList();
+      this.saisie ="";
     },
 
     pageChange(pageNum) {
@@ -133,11 +124,9 @@ export default {
           this.etudiants = response;
         });
 
-      tuteurApi
-        .getCount(this.tuteurId, this.saisie)
-        .then(
-          (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        );
+      tuteurApi.getAllEtudiantsByTuteurIdBySearch(this.tuteurId, this.saisie).then((response) => {
+        this.pageCount = Math.ceil(response / this.perPage, console.log(this.pageCount))
+      })
     },
   },
 };
