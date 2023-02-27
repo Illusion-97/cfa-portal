@@ -1,67 +1,81 @@
 <template>
-  <div id="sidemenu">
-    <nav v-show="navOpen">
-      <div class="sidemenu__wrapper">
-        <ul class="sidemenu__list">
-          <li class="sidemenu__item">
+  <div
+    class="sidebar"
+  >
+    <div style="display: flex ; flex-direction:column; justify-content: space-between; flex-grow: 1; max-height: calc(100% - 60px); ">
+      <div
+        id="my-scroll"
+        style="margin: 6px 14px 0 14px;"
+      >
+        <ul
+          class="nav-list"
+          style="overflow: visible;"
+        >
+
+
+          <li >
             <router-link :to="{ name: 'etudiant_accueil' }">
               <i class="fa-solid fa-house"></i>
               Accueil
             </router-link>
           </li>
-          <li class="sidemenu__item">
+          <li >
             <router-link :to="{ name: 'etudiant_cursus' }">
               <i class="fa-solid fa-user-graduate"></i>
               Cursus
             </router-link>
           </li>
-          <li class="sidemenu__item">
+          <li >
             <router-link :to="{ name: 'etudiant_controle' }">
               <i class="fa-solid fa-book"></i>
               Contrôles continus
             </router-link>
           </li>
-          <li class="sidemenu__item">
+          <li >
             <router-link :to="{ name: 'etudiant_livret' }">
               <i class="fa-solid fa-address-card"></i>
               Livrets d'évaluation
             </router-link>
           </li>
-          <li class="sidemenu__item">
+          <li >
             <router-link :to="{ name: 'etudiant_dossierprofessionnel' }">
               <i class="fa-solid fa-folder"></i>
               Dossiers professionnels
             </router-link>
           </li>
           <!--TODO -->
-          <li class="sidemenu__item disabled-link">
+          <li>
            <!-- TEST -->
             <router-link :to="{ name: 'etudiant_dossierprojet' }">
               <i class="fa-solid fa-folder-closed"></i>
               Dossiers projets
               </router-link>
           </li>
-          <li class="sidemenu__item">
+          <li >
             <router-link :to="{ name: 'signature_etudiant' }">
               <i class="fa-solid fa-pen"></i>
               Signature
             </router-link>
           </li>
-          <li class="sidemenu__item">
+          <li >
             <router-link :to="{ name: 'etudiant_absences' }">
               <i class="fa-sharp fa-solid fa-clock"></i>
               Absences</router-link
             >
           </li>
+
+
+
+
         </ul>
       </div>
-    </nav>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "sidemenu",
+  name: "sidebar",
   data() {
     return {
       navOpen: true,
@@ -71,120 +85,306 @@ export default {
 </script>
 
 
-<style scoped>
-i {
-  margin-right: 3px;
-}
 
-nav {
-  width: fit-content;
-}
-
-#sidemenu {
-  margin: 50px 0 0 50px;
-  position: absolute;
-}
-
-#sidemenu nav {
-  background: #e11b28;
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 99;
-  border-radius: 0 10px 10px 10px;
-}
-
-#sidemenu .sidemenu__btn {
-  display: block;
-  width: 50px;
-  height: 50px;
-  background: #e11b28;
-  border: none;
-  position: relative;
-  z-index: 100;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  outline: none;
-}
-
-#sidemenu .sidemenu__btn span {
-  display: block;
-  width: 20px;
-  height: 2px;
-  margin: auto;
-  background: white;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  transition: all 0.4s ease;
-}
-
-#sidemenu .sidemenu__btn span.top {
-  transform: translateY(-8px);
-}
-
-#sidemenu .sidemenu__btn span.bottom {
-  transform: translateY(8px);
-}
-
-#sidemenu .sidemenu__btn.active .top {
-  transform: rotate(-45deg);
-}
-
-#sidemenu .sidemenu__btn.active .mid {
-  transform: translateX(-20px) rotate(360deg);
-  opacity: 0;
-}
-
-#sidemenu .sidemenu__btn.active .bottom {
-  transform: rotate(45deg);
-}
-
-#sidemenu .sidemenu__wrapper {
-  /* padding-top: 50px; */
-  padding: 10px;
-}
-
-#sidemenu .sidemenu__list {
-  padding-top: 50px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#sidemenu .sidemenu__item a {
-  text-decoration: none;
-  line-height: 1.6em;
-  font-size: 1.1em;
-  padding: 0.5em;
-  display: block;
-  color: white;
-  transition: 0.4s ease;
-}
-
-#sidemenu .sidemenu__item a:hover {
-  /* background: #b8d8d8;
-  color: #e11b28;
-  border-radius: 5px; */
-}
-
-.translateX-enter {
-  transform: translateX(-200px);
-  opacity: 0;
-}
-
-.translateX-enter-active,
-.translateX-leave-active {
-  transform-origin: top left 0;
-  transition: 0.2s ease;
-}
-
-.translateX-leave-to {
-  transform: translateX(-200px);
-  opacity: 0;
+<style>
+  /* Google Font Link */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+  @import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  body {
+    transition: all 0.5s ease;
+  }
+  .menu-logo {
+    width: 30px;
+    margin: 0 10px 0 10px;
+  }
+  .sidebar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    min-height: min-content;
+    /* overflow-y: auto; */
+    width: 78px;
+    background: var(--bg-color);
+    /* padding: 6px 14px 0 14px; */
+    z-index: 99;
+    transition: all 0.5s ease;
+  }
+  .sidebar.open {
+    width: 250px;
+  }
+  .sidebar .logo-details {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .sidebar .logo-details .icon {
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .sidebar .logo-details .logo_name {
+    color: var(--logo-title-color);
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .sidebar.open .logo-details .icon,
+  .sidebar.open .logo-details .logo_name {
+    opacity: 1;
+  }
+  .sidebar .logo-details #btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 22px;
+    transition: all 0.4s ease;
+    font-size: 23px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+  .sidebar.open .logo-details #btn {
+    text-align: right;
+  }
+  .sidebar i {
+    color: var(--icons-color);
+    height: 60px;
+    min-width: 50px;
+    font-size: 28px;
+    text-align: center;
+    line-height: 60px;
+  }
+  .sidebar .nav-list {
+    margin-top: 20px;
+    /* margin-bottom: 60px; */
+    /* height: 100%; */
+    /* min-height: min-content; */
+  }
+  .sidebar li {
+    position: relative;
+    margin: 8px 0;
+    list-style: none;
+  }
+  .sidebar li .tooltip {
+    position: absolute;
+    top: -20px;
+    left: calc(100% + 15px);
+    z-index: 3;
+    background: var(--items-tooltip-color);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: 0s;
+  }
+  .sidebar li:hover .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .sidebar.open li .tooltip {
+    display: none;
+  }
+  .sidebar input {
+    font-size: 15px;
+    color: var(--serach-input-text-color);
+    font-weight: 400;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    width: 50px;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+    background: var(--secondary-color);
+  }
+  .sidebar.open input {
+    padding: 0 20px 0 50px;
+    width: 100%;
+  }
+  .sidebar .bx-search {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 22px;
+    background: var(--secondary-color);
+    color: var(--icons-color);
+  }
+  .sidebar.open .bx-search:hover {
+    background: var(--secondary-color);
+    color: var(--icons-color);
+  }
+  .sidebar .bx-search:hover {
+    background: var(--menu-items-hover-color);
+    color: var(--bg-color);
+  }
+  .sidebar li .a-modifided {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: var(--bg-color);
+  }
+  .sidebar li .a-modifided:hover {
+    background: var(--menu-items-hover-color);
+  }
+  .sidebar li .a-modifided .links_name {
+    color: var(--menu-items-text-color);
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+  }
+  .sidebar.open li .a-modifided .links_name {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sidebar li .a-modifided:hover .links_name,
+  .sidebar li .a-modifided:hover i {
+    transition: all 0.5s ease;
+    color: var(--bg-color);
+  }
+  .sidebar li i {
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+  .sidebar div.profile {
+    position: relative;
+    height: 60px;
+    width: 78px;
+    /* left: 0;
+    bottom: 0; */
+    padding: 10px 14px;
+    background: var(--secondary-color);
+    transition: all 0.5s ease;
+    overflow: hidden;
+  }
+  .sidebar.open div.profile {
+    width: 250px;
+    display: none;
+  }
+  .sidebar div .profile-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .sidebar div img {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+  .sidebar div.profile .name,
+  .sidebar div.profile .job {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--menu-footer-text-color);
+    white-space: nowrap;
+  }
+  .sidebar div.profile .job {
+    font-size: 12px;
+  }
+  .sidebar .profile #log_out {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: var(--secondary-color);
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 0px;
+    transition: all 0.5s ease;
+  }
+  .sidebar.open .profile #log_out {
+    width: 50px;
+    background: var(--secondary-color);
+    opacity: 0;
+  }
+  .sidebar.open .profile:hover #log_out {
+    opacity: 1;
+  }
+  .sidebar.open .profile #log_out:hover {
+    opacity: 1;
+    color: red;
+  }
+  .sidebar .profile #log_out:hover {
+    color: red;
+  }
+  .home-section {
+    position: relative;
+    background: var(--home-section-color);
+    min-height: 100vh;
+    top: 0;
+    left: 78px;
+    width: calc(100% - 78px);
+    transition: all 0.5s ease;
+    z-index: 2;
+  }
+  .sidebar.open ~ .home-section {
+    left: 250px;
+    width: calc(100% - 250px);
+  }
+  .home-section .text {
+    display: inline-block;
+    color: var(--bg-color);
+    font-size: 25px;
+    font-weight: 500;
+    margin: 18px;
+  }
+  .my-scroll-active {
+    overflow-y: auto;
+  }
+  #my-scroll {
+    overflow-y: auto;
+    height: calc(100% - 60px);
+  }
+  #my-scroll::-webkit-scrollbar{
+    display:none;
+    /* background-color: rgba(255, 255, 255, 0.2); 
+    width: 10px;
+    border-radius:5px  */
+  }
+  /* #my-scroll::-webkit-scrollbar-thumb{
+    background-color: red;
+    border-radius:5px 
+  }
+  #my-scroll::-webkit-scrollbar-button:vertical:start:decrement{
+    display:none;
+  }
+  #my-scroll::-webkit-scrollbar-button:vertical:end:increment{
+    display:none;
+  } */
+  @media (max-width: 420px) {
+    .sidebar li .tooltip {
+      display: none;
+    }
 }
 </style>
