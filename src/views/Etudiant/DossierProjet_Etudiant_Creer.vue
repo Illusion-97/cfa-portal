@@ -23,7 +23,7 @@
             <!-- Composants Importer Un Dossier -->
             <section id="comp-doss-prjt" v-show="showSec1">
                 <div class="comp-doss">
-                    <p>Importer un dossier :</p>
+                    <p style="padding-right: 79%;">Importer un dossier :</p>
                     <v-button class="btn btn-danger" type="button" id="btn1" @click="showSection2"
                         :style="sectionStyle">{{ button }}</v-button>
                 </div>
@@ -48,7 +48,7 @@
             <!-- Composants Créer Un Dossier Projet -->
             <section v-show="showSec2">
                 <div class="comp-doss">
-                    <p>Créer un dossier :</p>
+                    <p style="padding-right: 81%;">Créer un dossier :</p>
                     <v-button class="btn btn-danger" type="button" id="btn1" @click="showSection1"
                         :style="sectionStyle2">{{ button }}</v-button>
                 </div>
@@ -403,12 +403,12 @@ export default {
         //  Boutons au meme axe Y
         sectionStyle() {
             return {
-                'margin-left': this.marginSpaceImp ? '77%' : '78%'
+                // 'margin-left': this.marginSpaceImp ? '77%' : '78%'
             }
         },
         sectionStyle2() {
             return {
-                'margin-left': this.marginSpaceImp ? '79%' : '80%'
+                // 'margin-left': this.marginSpaceImp ? '79%' : '80%'
             }
         },
         totalPages() {
@@ -429,8 +429,10 @@ export default {
     background-color: none;
     padding: 20px;
     margin: 0% 20% 0% 22%;
-    min-width: 1170px;
-    min-height: 100%;
+    width: 70%;
+    
+    /* min-width: 1170px;
+     */
 }
 
 
@@ -443,19 +445,20 @@ export default {
     background-color: #F55050;
     display: flex;
     align-items: center;
-    position: relative;
+    /* position: relative; */
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     border-color: black;
 }
 
 #comp-doss-prjt {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .comp-doss p {
     color: white;
-    padding: 15px 0px 0px 15px;
+    padding-top: 15px;
+    padding-left: 15px;
 }
 
 .comp-doss button {

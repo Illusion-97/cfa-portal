@@ -81,8 +81,8 @@ nav {
 }
 
 #sidemenu {
-  margin: 50px 0 0 50px;
   position: absolute;
+  margin: 90px 0 0 50px;
 }
 
 #sidemenu nav {
