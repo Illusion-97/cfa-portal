@@ -61,6 +61,8 @@ import Absences from "@/views/Etudiant/EspacePedagogique/Absences.vue";
 import Devoirs from "@/views/Etudiant/EspacePedagogique/Devoirs.vue";
 import DossierProfessionel from "@/views/Etudiant/EspacePedagogique/DossierProfessionnel.vue";
 import DossierProjet from "@/views/Etudiant/EspacePedagogique/DossierProjet.vue";
+import DossierProjetCreer from "@/views/Etudiant/DossierProjet_Etudiant_Creer.vue";
+import DossierProjetModifier from "@/views/Etudiant/DossierProjet_Etudiant_Modifier.vue";
 import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
 
@@ -71,6 +73,12 @@ import CursusEtudiant from "@/views/Etudiant/CursusEtudiant.vue";
 import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vue";
 import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
 import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
+
+// test import de la vue etudiant dossier projet
+
+import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
+
+
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -204,6 +212,10 @@ import CefDevoir from "@/views/Cef/Crud/Devoir/CefDevoir.vue";
 //Signature
 import SignatureFormateur from"@/views/Formateur/SignatureFormateur.vue"
 import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
+
+// TUTEUR 
+import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
+
 
 
 //          #######################
@@ -350,6 +362,10 @@ const routes = [
   { path: "/etudiant/controle", name: "etudiant_controle", component: ControleContinuEtudiant },
   { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
   { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
+  
+  // test chemin dossier projets
+  { path: "/etudiant/dossierprojets", name: "etudiant_dossierprojet", component: DossierProjetEtudiant },
+
   { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
   { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
   { path: "/etudiant/absences", name: "etudiant_absences", component: AbsenceEtudiant},
@@ -359,6 +375,10 @@ const routes = [
     component : SignatureEtudiant,
     meta: { authorize: [Role.Etudiant] },
   },
+
+  //new routes espace Dossier Projet
+  { path: "/etudiant/creerprojet", name: "creer_dossier_projet", component: DossierProjetCreer },
+  { path: "/etudiant/modifier", name: "creer_dossier_modifier", component: DossierProjetModifier },
 
   //#######################
   //#       FORMATEUR     #
@@ -1623,7 +1643,16 @@ const routes = [
     component: AskDocumentAdministratif,
     meta: { authorize: [Role.CEF] },
   },
+
+  //#######################
+  //#    Tuteur           #
+  //#######################
+
+  { path: "/tuteur", name: "tuteur_acceuil", component: AccueilTuteur },
+
 ];
+
+
 
 const router = new VueRouter({
   //mode: "history",

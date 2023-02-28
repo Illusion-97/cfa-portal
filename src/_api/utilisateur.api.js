@@ -336,21 +336,21 @@ function uploadUser(id, file) {
  * @param {*} user 
  * @returns 
  */
-function mail(user){
+function mail(user) {
   return axios
     .post(`${process.env.VUE_APP_URL}forgot`, requestOptions.headers()), {
       email: user.email,
     }
-    .then((response) => {
-      if (response.data) 
-      return response;
-    })
-    .catch(function (error) {
-      if (error.response) {
-        
-        return error.response;
-      }
-    });
+      .then((response) => {
+        if (response.data)
+          return response;
+      })
+      .catch(function (error) {
+        if (error.response) {
+
+          return error.response;
+        }
+      });
 }
 function fetchAllUsersDG2Http(logInUser) {
   //console.log(logInUser);
@@ -362,5 +362,5 @@ function fetchAllUsersDG2Http(logInUser) {
   //console.log(headers)
 
   return axios.get(req, headers);
-  
+
 }
