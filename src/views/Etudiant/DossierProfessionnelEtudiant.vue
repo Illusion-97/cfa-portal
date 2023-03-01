@@ -1,88 +1,90 @@
 <template>
-  <div class="container">
-    <h2>Dossiers professionnels</h2>
+  <div class="container-fluid" id="container">
+    <div id="dos">
+      <h2>Dossiers professionnels</h2>
 
-    <!-- TABLEAU TEST -->
-    <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
-      <template #cell(Cursus)="data">
-        {{ data.item.cursus.titre }}
-      </template>
+      <!-- TABLEAU TEST -->
+      <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
+        <template #cell(Cursus)="data">
+          {{ data.item.cursus.titre }}
+        </template>
 
-      <template #cell(DossierPro)="data">
+        <template #cell(DossierPro)="data">
 
-        <!-- IF DOSSIER PRESENT -->
-        <div v-if="data.item.cursus.dossierProfessionnel != null">
-          <div class="div-btn-right">
+          <!-- IF DOSSIER PRESENT -->
+          <div v-if="data.item.cursus.dossierProfessionnel != null">
+            <div class="div-btn-right">
 
-            <!-- BOUTON VOIR -->
-            <b-button size="sm" class="mr-2" variant="primary" v-on:click="
-            voirDossier(data.item.id)">
-              <!-- <i class="bi bi-eye"></i> -->
-              <i class="fa-solid fa-file-pdf"></i> Voir
-            </b-button>
-
-            <!-- BOUTON UPDATE -->
-            <router-link :to="{
-              name: 'modifier_dossier_pro',
-              query: { data: data },
-            }">
+              <!-- BOUTON VOIR -->
               <b-button size="sm" class="mr-2" variant="primary" v-on:click="
-              updateDossier()">
-                <i class="fa-solid fa-square-pen"></i>
-                Modifier
+              voirDossier(data.item.id)">
+                <!-- <i class="bi bi-eye"></i> -->
+                <i class="fa-solid fa-file-pdf"></i> Voir
               </b-button>
-            </router-link>
 
-            <!-- BOUTON DELETE -->
-            <!-- <b-button size="sm" class="mr-2" variant="danger" v-on:click="
-            deleteDossier(data.item.cursus.dossierProfessionnel.id)">
-              <i class="bi bi-dash-circle"></i>
-              Supprimer
-            </b-button> -->
+              <!-- BOUTON UPDATE -->
+              <router-link :to="{
+                name: 'modifier_dossier_pro',
+                query: { data: data },
+              }">
+                <b-button size="sm" class="mr-2" variant="primary" v-on:click="
+                updateDossier()">
+                  <i class="fa-solid fa-square-pen"></i>
+                  Modifier
+                </b-button>
+              </router-link>
+
+              <!-- BOUTON DELETE -->
+              <!-- <b-button size="sm" class="mr-2" variant="danger" v-on:click="
+              deleteDossier(data.item.cursus.dossierProfessionnel.id)">
+                <i class="bi bi-dash-circle"></i>
+                Supprimer
+              </b-button> -->
+            </div>
           </div>
-        </div>
 
-        <!-- ELSE DOSSIER ABSENT -->
-        <div v-else>
-          <div class="div-btn-right">
+          <!-- ELSE DOSSIER ABSENT -->
+          <div v-else>
+            <div class="div-btn-right">
 
-            <!-- BOUTON CREER -->
-            <router-link :to="{
-              name: 'creer_dossier_pro',
-              query: { data: data },
-            }">
-              <b-button size="sm" class="mr-2" variant="success">
-                <i class="fa-solid fa-square-plus"></i>
-                Créer
+              <!-- BOUTON CREER -->
+              <router-link :to="{
+                name: 'creer_dossier_pro',
+                query: { data: data },
+              }">
+                <b-button size="sm" class="mr-2" variant="success">
+                  <i class="fa-solid fa-square-plus"></i>
+                  Créer
+                </b-button>
+              </router-link>
+
+              <!-- BOUTON UPDATE -->
+              <b-button size="sm" class="mr-2" variant="primary">
+                <i class="fa-solid fa-cloud"></i>
+                Uploader
               </b-button>
-            </router-link>
-
-            <!-- BOUTON UPDATE -->
-            <b-button size="sm" class="mr-2" variant="primary">
-              <i class="fa-solid fa-cloud"></i>
-               Uploader
-            </b-button>
+            </div>
           </div>
-        </div>
 
-      </template>
-    </b-table>
+        </template>
+      </b-table>
 
-    <!-- INFOS -->
-    <p id="info">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-      <strong id="title-info">Informations</strong>
-      <br />
-      <span class="fsize14">
-        Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
-        dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image et
-        doivent être au format <b>png</b> ou <b>jpg</b>.
+      <!-- INFOS -->
+      <p id="info">
+        <font-awesome-icon :icon="['fas', 'info-circle']" />
+        <strong id="title-info">Informations</strong>
         <br />
-        Vous pouvez utiliser l'outil gratuit disponible sur
-        <a href="https://www.img2go.com/fr/compresser-image">https://www.img2go.com/fr/compresser-image</a>
-        pour réduire leur taille.
-      </span>
-    </p>
+        <span class="fsize14">
+          Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
+          dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image et
+          doivent être au format <b>png</b> ou <b>jpg</b>.
+          <br />
+          Vous pouvez utiliser l'outil gratuit disponible sur
+          <a href="https://www.img2go.com/fr/compresser-image">https://www.img2go.com/fr/compresser-image</a>
+          pour réduire leur taille.
+        </span>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -179,14 +181,19 @@ h2 {
   color: red;
 }
 
-.test {
+/* .test {
   margin-top: 10px;
-}
+} */
 
-.container {
+/* .container {
   margin: 89px 0 0 421px;
   min-height: 340px;
-}
+} */
+#container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+    }
 
 .fa-folder-open {
   color: #4caf50;

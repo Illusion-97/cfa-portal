@@ -62,7 +62,7 @@ header {
 
 button {
   position: absolute;
-  right: 60px;
+  right: 1.9%;
   top: 100px;
   background-color: #e11b28;
   border: none;

@@ -23,7 +23,7 @@
             <!-- Composants Importer Un Dossier -->
             <section id="comp-doss-prjt" v-show="showSec1">
                 <div class="comp-doss">
-                    <p style="padding-right: 79%;">Importer un dossier :</p>
+                    <p>Importer un dossier :</p>
                     <v-button class="btn btn-danger" type="button" id="btn1" @click="showSection2"
                         :style="sectionStyle">{{ button }}</v-button>
                 </div>
@@ -48,7 +48,7 @@
             <!-- Composants Créer Un Dossier Projet -->
             <section v-show="showSec2">
                 <div class="comp-doss">
-                    <p style="padding-right: 81%;">Créer un dossier :</p>
+                    <p>Créer un dossier :</p>
                     <v-button class="btn btn-danger" type="button" id="btn1" @click="showSection1"
                         :style="sectionStyle2">{{ button }}</v-button>
                 </div>
@@ -428,7 +428,7 @@ export default {
 #main-cr-prj {
     background-color: none;
     padding: 20px;
-    margin: 0% 20% 0% 22%;
+    margin: 5% 20% 0% 21%;
     width: 70%;
     
     /* min-width: 1170px;
@@ -444,11 +444,13 @@ export default {
 .comp-doss {
     background-color: #F55050;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     /* position: relative; */
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     border-color: black;
+    padding: 0 3% 0 0;
 }
 
 #comp-doss-prjt {
@@ -457,13 +459,14 @@ export default {
 
 .comp-doss p {
     color: white;
-    padding-top: 15px;
-    padding-left: 15px;
+    padding-top: 1%;
+    padding-left: 1%;
 }
 
 .comp-doss button {
     background-color: #F55050;
     color: white;
+    /* margin: 0 5% 0 55%; */
 }
 
 /* 

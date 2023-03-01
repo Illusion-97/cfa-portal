@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid" id="container">
       <SignatureComponent/>
     </div>
   </template>
@@ -15,4 +15,11 @@
   };
   </script>
   <style scoped>
+  #container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+        /* margin: 5% 0% 0% 21%; */
+        /* padding-bottom: 15%; */
+    }
   </style>
