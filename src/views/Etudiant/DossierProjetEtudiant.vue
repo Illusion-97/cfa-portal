@@ -3,9 +3,9 @@
     <h2>Dossiers projets</h2>
 
     <!-- TABLEAU ITEM -->
-    <b-table small head-variant="light" :items="items" :fields="fields">
-      <template #cell(dossierProjetFields)="row">
-        {{ row.item.dossierProjet.nom }}
+    <b-table small head-variant="light" :items="items" :fields="fields" >
+      <template #cell(fields)="row">
+        {{ row.nom }}
       </template>
 
       <template #cell(action)>
@@ -14,14 +14,13 @@
           <!-- CONSULTER  -->
           <router-link
             :to="{
-              name: 'tuteur/detailetudiant',
-             // query: { data: etudiant.id },
+              name: 'creer_dossier_projet',
+             // query: { data: items[index].id },
             }"
           >
             <b-button
               size="sm"
               class="mr-2"
-              variant="primary"
             >
               <i class="fa-solid fa-eye"></i>
               consulter
@@ -32,7 +31,7 @@
           <router-link
             :to="{
               name: 'creer_dossier_modifier',
-              query: { data: data },
+             // query: { data: items[].id },
             }"
           >
             <b-button
@@ -46,14 +45,14 @@
           </router-link>
 
           <!-- BOUTON TELECHARGER -->
-          <button
+          <b-button
             class="btn mr-2 btn-success btn-sm"
             type="button"
-            v-on:click="generer(toto)"
+            v-on:click="generer(telecharger)"
           >
             <i class="fa-solid fa-file-pdf"></i>
             Télécharger
-          </button>
+          </b-button>
         </div>
       </template>
     </b-table>
@@ -62,7 +61,6 @@
     <router-link
       :to="{
         name: 'creer_dossier_projet',
-        //query: { data: data },
       }"
     >
       <b-button size="sm" class="mr-2" variant="success">
@@ -70,6 +68,7 @@
         Créer
       </b-button>
     </router-link>
+
     <!-- PAGINATION -->
   </div>
 </template>
@@ -84,16 +83,16 @@ export default {
     return {
       dossierProjet: [],
       items: [],
-      data: "",
-      toto: [],
+      telecharger: [],
       fields: dossierProjetFields,
+      etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
     };
   },
 
   created() {
     dossierProjetApi
-      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.items = data));
+      .getByIdEtudiant(this.etudiantId)
+      .then((data) => (this.items = data, console.log(this.items[0].id)));
   },
 };
 </script>
@@ -103,104 +102,8 @@ h2 {
   font-weight: bolder;
 }
 
-/* .div-btn-right {
-  display: flex;
-  flex-flow: row-reverse;
-} */
-.dnone {
-  display: none;
-}
-
-.oui {
-  color: red;
-}
-
-.test {
-  margin-top: 10px;
-}
-
 .container {
   margin: 89px auto;
   min-height: 340px;
-}
-
-.fa-folder-open {
-  color: #4caf50;
-}
-
-.fa-upload {
-  color: #4caf50;
-}
-
-.redOu {
-  color: red;
-  font-style: italic;
-}
-
-.table {
-  margin-top: 30px;
-}
-
-.consignes {
-  margin: 30px 0 0 0;
-}
-
-#btn-creer-dossier {
-  margin: 0 auto;
-  display: block;
-}
-
-.card {
-  max-width: 30rem !important;
-  margin-right: 30px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-}
-
-.card .btn {
-  width: auto;
-}
-
-#div-cards-dossier {
-  display: flex;
-  margin-bottom: 30px;
-}
-
-.card-text {
-  font-size: 14px;
-}
-
-.fsize14 {
-  font-size: 14px;
-}
-
-#info {
-  margin-bottom: 50px;
-}
-
-#div-cards-dossier h4 {
-  font-size: 1.25rem;
-}
-
-.card-body .btn {
-  width: -webkit-fill-available;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-h5 {
-  margin-bottom: 31px;
-  font-weight: bolder;
-}
-
-h4 {
-  font-size: 1rem !important;
-  font-weight: bolder;
-}
-
-#title-info {
-  padding-left: 7px;
 }
 </style>
