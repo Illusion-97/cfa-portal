@@ -10,16 +10,22 @@
 
       <template #cell(action)>
         <div class="div-btn-right">
+
           <!-- CONSULTER  -->
           <router-link
             :to="{
               name: 'tuteur/detailetudiant',
-              // query: { data: etudiant.id },
+             // query: { data: etudiant.id },
             }"
           >
-            <b-button color="primary" icon="fa-solid fa-eye"
-              >consulter</b-button
+            <b-button
+              size="sm"
+              class="mr-2"
+              variant="primary"
             >
+              <i class="fa-solid fa-eye"></i>
+              consulter
+            </b-button>
           </router-link>
 
           <!-- BOUTON MODIFIER -->
@@ -33,7 +39,6 @@
               size="sm"
               class="mr-2"
               variant="primary"
-              v-on:click="updateDossier()"
             >
               <i class="fa-solid fa-square-pen"></i>
               Modifier
@@ -94,12 +99,108 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  font-weight: bolder;
+}
+
+/* .div-btn-right {
+  display: flex;
+  flex-flow: row-reverse;
+} */
+.dnone {
+  display: none;
+}
+
+.oui {
+  color: red;
+}
+
+.test {
+  margin-top: 10px;
+}
+
+.container {
+  margin: 89px auto;
+  min-height: 340px;
+}
+
+.fa-folder-open {
+  color: #4caf50;
+}
+
+.fa-upload {
+  color: #4caf50;
+}
+
+.redOu {
+  color: red;
+  font-style: italic;
+}
+
+.table {
+  margin-top: 30px;
+}
+
+.consignes {
+  margin: 30px 0 0 0;
+}
+
 #btn-creer-dossier {
   margin: 0 auto;
   display: block;
 }
 
-#saisie {
-  margin-right: 10px;
+.card {
+  max-width: 30rem !important;
+  margin-right: 30px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.card .btn {
+  width: auto;
+}
+
+#div-cards-dossier {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.card-text {
+  font-size: 14px;
+}
+
+.fsize14 {
+  font-size: 14px;
+}
+
+#info {
+  margin-bottom: 50px;
+}
+
+#div-cards-dossier h4 {
+  font-size: 1.25rem;
+}
+
+.card-body .btn {
+  width: -webkit-fill-available;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+h5 {
+  margin-bottom: 31px;
+  font-weight: bolder;
+}
+
+h4 {
+  font-size: 1rem !important;
+  font-weight: bolder;
+}
+
+#title-info {
+  padding-left: 7px;
 }
 </style>

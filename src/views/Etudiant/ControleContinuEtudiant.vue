@@ -128,7 +128,7 @@ h5 {
 }
 
 .container {
-  margin: 89px 0 0 421px;
+  margin: 89px auto;
   min-height: 340px;
 }
 </style>

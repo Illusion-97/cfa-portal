@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SideBarComponentFormateur :menuTitle="menuTitle" :isSearch="isSearch" :menuItems="items" :isMenuOpen="isMenuOpen"
+    <SideBarComponentFormateur :menuTitle="menuTitle" :isSearch="isSearch"  :isMenuOpen="isMenuOpen"
       :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
   </div>
 </template>
