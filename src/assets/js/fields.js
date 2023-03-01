@@ -239,12 +239,12 @@ export const dossierProjetFields = [
   {
     key: "nom",
     label: "Nom",
-    thStyle: { width: "30%" },
+    thStyle: { width: "50%" },
   },
   {
     key: "Action",
     label: "Action",
-    thStyle: { width: "30%" },
+    thStyle: { width: "50%" },
   },
 ];
 // Example
