@@ -215,7 +215,7 @@ import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
 
 // TUTEUR 
 import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
-
+import DetailEtudiant from "@/views/Tuteur/DetailEtudiant.vue";
 
 
 //          #######################
@@ -1649,7 +1649,7 @@ const routes = [
   //#######################
 
   { path: "/tuteur", name: "tuteur_acceuil", component: AccueilTuteur },
-
+  { path: "/tuteur/detailEtudiant", name: "detail_etudiant", component: DetailEtudiant},
 ];
 
 
