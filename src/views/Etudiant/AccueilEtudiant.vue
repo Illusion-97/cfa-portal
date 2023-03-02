@@ -18,26 +18,29 @@
             <font-awesome-icon :icon="['fas', 'envelope']" class="ico" />
             <strong>eMail</strong>
             <br>
-            {{ accueil.login }}
+            {{ utilisateur.login }}
             <br />
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
             <br>
-            {{ accueil.telephone }}
+            {{ utilisateur.telephone }}
             <br />
             <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
             <strong>Ville</strong>
             <br>
-            {{ accueil.ville }}
+            {{ utilisateur.adresseDto.ville }}
             <br />
           </span>
         </div>
         <div class="col col-top">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
-          <strong>Promotion</strong>
+          <strong>Promotion actuel</strong>
           <br>
-          {{ accueil.promotion }}
+          <!-- <li v-for="etudiant.promotionsDto " :key="etudiant.id">
+              {{ etudiant.promotionsDto }}
+            </li> -->
+          {{ etudiant.promotionsDto[0].cursusDto.titre }}
           <br>
         </div>
         <div class="col col-top">
@@ -45,41 +48,25 @@
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
           <ul>
-            <li v-for="projet in accueil.projets" :key="projet.id">
-              {{ projet[0] }}
+            <li>
+              {{ etudiant.groupesDto[0].projetsDto[0].nom }}
             </li>
-            <!-- CFA -->
           </ul>
 
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
           <br>
-          {{ accueil.groupes[0] }}
+            {{ etudiant.groupesDto[0].nom }}
         </div>
       </div>
     </div>
 
     <!-- PROCHAIN COURS -->
     <br>
-    <b-table-simple small head-variant="light">
-      <b-thead head-variant="dark">
-        <b-tr>
-          <b-th>Prochain cours</b-th>
-          <b-th>Début</b-th>
-          <b-th>Fin</b-th>
-          <b-th>Formateur</b-th>
-        </b-tr>
-      </b-thead>
-      <b-tbody>
-        <b-tr>
-          <b-td>{{ accueil.prochainCours[0].formationTitre }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].interventionDateDebut }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].interventionDateFin }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].formateurNom!=null ?accueil.prochainCours[0].formateurNom :'Pas de formation'}}</b-td>
-        </b-tr>
-      </b-tbody>
-    </b-table-simple>
+    <div id="student-planning">
+      <PlanningEtudiant />
+    </div>
 
     <!-- PROCHAIN COURS -->
     <!-- <br>
@@ -92,13 +79,18 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
-
+import PlanningEtudiant from "@/components/utils/PlanningEtudiant.vue";
 export default {
   name: "AccueilEtudiant",
+  components: {
+    PlanningEtudiant
+  },
 
   data() {
     return {
-      accueil: [],
+      item: {},
+      etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
+      utilisateurId: this.$store.getters.getUtilisateur.id,
       fieldsCours: [
         {
           key: "formationTitre",
@@ -132,6 +124,11 @@ export default {
   },
 
   methods: {
+
+    getEtudiant(){
+        etudiantApi.getById(this.etudiantId)
+        .then(response => this.item = response)
+      },
     tabOut() {
 
       let tab = [];
@@ -161,12 +158,18 @@ export default {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
     },
+    etudiant(){
+      return this.item
+    }
   },
 
   created() {
+    this.getEtudiant();
+    console.log(this.etudiantId);
     etudiantApi
-      .getAccueilEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.accueil = data));
+      .getGroupes(this.utilisateurId)
+      .then((data) => (this.groupes = data));
+      
   },
 };
 </script>
@@ -251,4 +254,11 @@ table {
 ul {
   margin-bottom: 0 !important;
 }
+
+/* #student-planning {
+    grid-row: 2;
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: center;
+  } */
 </style>

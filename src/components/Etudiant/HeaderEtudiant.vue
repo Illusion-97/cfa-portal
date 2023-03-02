@@ -1,10 +1,5 @@
 <template>
   <header>
-    <img
-      src="@/assets/img/institutionnel-logo.png"
-      alt="logo"
-      class="mon-logo"
-    />
     <div class="redBanner">
       <h1>Espace étudiant</h1>
       <b-button size="sm" type="button" @click="logout">
@@ -43,7 +38,8 @@ h1 {
   color: white;
   position: relative;
   top: 1.76em;
-  left: 4.4em;
+  right: 150px;
+  text-align: center;
 }
 
 header {

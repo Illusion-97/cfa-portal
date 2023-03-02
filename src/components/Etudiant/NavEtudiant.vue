@@ -1,72 +1,30 @@
 <template>
-  <div id="sidemenu">
-    <nav v-show="navOpen">
-      <div class="sidemenu__wrapper">
-        <ul class="sidemenu__list">
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_accueil' }">
-              <i class="fa-solid fa-house"></i>
-              Accueil
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_cursus' }">
-              <i class="fa-solid fa-user-graduate"></i>
-              Cursus
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_controle' }">
-              <i class="fa-solid fa-book"></i>
-              Contrôles continus
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_livret' }">
-              <i class="fa-solid fa-address-card"></i>
-              Livrets d'évaluation
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_dossierprofessionnel' }">
-              <i class="fa-solid fa-folder"></i>
-              Dossiers professionnels
-            </router-link>
-          </li>
-          <!--TODO -->
-          <li class="sidemenu__item disabled-link">
-           <!-- TEST -->
-            <router-link :to="{ name: 'etudiant_dossierprojet' }">
-              <i class="fa-solid fa-folder-closed"></i>
-              Dossiers projets
-              </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'signature_etudiant' }">
-              <i class="fa-solid fa-pen"></i>
-              Signature
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_absences' }">
-              <i class="fa-sharp fa-solid fa-clock"></i>
-              Absences</router-link
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <div>
+    <SideBarComponentFormateur :menuTitle="menuTitle" :isSearch="isSearch"  :isMenuOpen="isMenuOpen"
+      :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
   </div>
 </template>
-
 <script>
+import SideBarComponentFormateur from "@/components/Navigation/SideBarComponentEtudiant.vue";
+
 export default {
-  name: "sidemenu",
+  name: "VueSidebarFormateur",
+  components: { SideBarComponentFormateur },
   data() {
     return {
-      navOpen: true,
+      userRole: "",
+      isSearch: false,
+      menuTitle: "DAWAN",
+      isMenuOpen: true,
+      isExitButton: false,
+      profileImg: "",
+      bgColor: "#e11b28",
+      menuLogo: "",
+ 
+
     };
   },
+
 };
 </script>
 
