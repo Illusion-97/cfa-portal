@@ -3,19 +3,19 @@
     <h2>Dossiers projets</h2>
 
     <!-- TABLEAU ITEM -->
-    <b-table small head-variant="light" :items="items" :fields="fields" >
+    <b-table small head-variant="light" :items="items" :fields="fields"  primary-key="id">
       <template #cell(fields)="row">
         {{ row.nom }}
       </template>
 
-      <template #cell(action)>
+      <template  #cell(action)>
         <div class="div-btn-right">
 
           <!-- CONSULTER  -->
           <router-link
             :to="{
               name: 'creer_dossier_projet',
-             // query: { data: items[index].id },
+              //query: { data: data },
             }"
           >
             <b-button
@@ -81,18 +81,17 @@ export default {
   name: "DossierProjet",
   data() {
     return {
-      dossierProjet: [],
       items: [],
       telecharger: [],
       fields: dossierProjetFields,
-      etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
-    };
+
+     };
   },
 
   created() {
     dossierProjetApi
-      .getByIdEtudiant(this.etudiantId)
-      .then((data) => (this.items = data, console.log(this.items[0].id)));
+      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.items = data, console.log(this.items[1].id)));
   },
 };
 </script>

@@ -38,7 +38,7 @@ h1 {
   color: white;
   position: relative;
   top: 1.76em;
-  right: 150px;
+  right: 5%;
   text-align: center;
 }
 
