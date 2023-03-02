@@ -238,18 +238,13 @@ export const fieldsEntreprise = [
 export const dossierProjetFields = [
   {
     key: "nom",
-    label: "Nom projet",
-    thStyle: { width: "30%" },
-  },
-  {
-    key: "id",
-    label: "projet id",
-    thStyle: { width: "30%" },
+    label: "Nom",
+    thStyle: { width: "50%" },
   },
   {
     key: "Action",
     label: "Action",
-    thStyle: { width: "30%" },
+    thStyle: { width: "50%" },
   },
 ];
 // Example
