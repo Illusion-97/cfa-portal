@@ -403,12 +403,12 @@ export default {
         //  Boutons au meme axe Y
         sectionStyle() {
             return {
-                'margin-left': this.marginSpaceImp ? '77%' : '78%'
+                // 'margin-left': this.marginSpaceImp ? '77%' : '78%'
             }
         },
         sectionStyle2() {
             return {
-                'margin-left': this.marginSpaceImp ? '79%' : '80%'
+                // 'margin-left': this.marginSpaceImp ? '79%' : '80%'
             }
         },
         totalPages() {
@@ -428,9 +428,11 @@ export default {
 #main-cr-prj {
     background-color: none;
     padding: 20px;
-    margin: 0% 20% 0% 22%;
-    min-width: 1170px;
-    min-height: 100%;
+    margin: 5% 20% 0% 21%;
+    width: 70%;
+    
+    /* min-width: 1170px;
+     */
 }
 
 
@@ -442,25 +444,29 @@ export default {
 .comp-doss {
     background-color: #F55050;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
+    /* position: relative; */
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     border-color: black;
+    padding: 0 3% 0 0;
 }
 
 #comp-doss-prjt {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .comp-doss p {
     color: white;
-    padding: 15px 0px 0px 15px;
+    padding-top: 1%;
+    padding-left: 1%;
 }
 
 .comp-doss button {
     background-color: #F55050;
     color: white;
+    /* margin: 0 5% 0 55%; */
 }
 
 /* 

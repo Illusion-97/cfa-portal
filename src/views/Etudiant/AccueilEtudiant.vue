@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" id="container">
 
     <!-- NEW CARD -->
     <div class="info">
@@ -206,10 +206,17 @@ h2 {
   margin-bottom: 30px;
 }
 
-.container {
+/* .container {
   margin: 89px 0 0 421px;
   min-height: 340px;
-}
+} */
+
+#container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+        /* margin: 5% 0% 0% 21%; */
+    }
 
 ul {
   list-style-type: none;

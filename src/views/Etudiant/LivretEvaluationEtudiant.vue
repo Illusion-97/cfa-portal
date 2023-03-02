@@ -1,19 +1,19 @@
-<template>
-  <div class="container">
-    <h2>Livret d'évaluation</h2>
-    <br>
-    <b-table small head-variant="light" :items="livret" :fields="fields">
-      <template #cell(etat)="row">
-        {{row.item.etat | etatLivret }}
-      </template>
-      <template #cell(TODO) ="row">
-        <button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(row.item)" >
-          <i class="fa-solid fa-file-pdf"></i>
-          Télécharger
-        </button>
-      </template>
-      
-    </b-table>
+<template> 
+  <div class="container-fluid" id="container">
+      <h2>Livret d'évaluation</h2>
+      <br>
+      <b-table small head-variant="light" :items="livret" :fields="fields">
+        <template #cell(etat)="row">
+          {{row.item.etat | etatLivret }}
+        </template>
+        <template #cell(TODO) ="row">
+          <button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(row.item)" >
+            <i class="fa-solid fa-file-pdf"></i>
+            Télécharger
+          </button>
+        </template>
+        
+      </b-table>
   </div>
 </template>
 
@@ -122,9 +122,11 @@ h2 {
   width: 18px;
 }
 
-.container {
-  margin: 89px 0 0 421px;
-  min-height: 340px;
+#container {
+  width: 75%;
+  margin: 5% 0 0 21%;
+  /* margin: 5% 0% 0% 21%; */
+  /* min-height: 340px; */
 }
 
 h5 {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" id="container">
     <h2>Dossiers projets</h2>
 
     <!-- BARE DE RECHERCHE -->
@@ -190,4 +190,13 @@ export default {
 #saisie {
   margin-right: 10px;
 }
+
+#container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+        /* margin: 5% 0% 0% 21%; */
+        /* padding-bottom: 15%; */
+    }
+
 </style>

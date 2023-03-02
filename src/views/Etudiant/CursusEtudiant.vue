@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" id="container">
     <h2>Cursus</h2>
     <br>
     <ul>
@@ -96,10 +96,12 @@ h2 {
   font-weight: bolder;
 }
 
-.container {
-  margin: 89px 0 0 421px;
-  min-height: 340px;
-}
+#container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+        /* margin: 5% 0% 0% 21%; */
+    }
 
 h5 {
   margin-bottom: 17px;

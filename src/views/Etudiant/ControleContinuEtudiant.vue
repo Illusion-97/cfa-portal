@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" id="container">
     <h2>Contrôles continus</h2>
     <br>
 
@@ -127,8 +127,15 @@ h5 {
   font-weight: bolder;
 }
 
-.container {
-  margin: 89px 0 0 421px;
+/* .container {
+  margin: 5% 20% 0% 21%;
   min-height: 340px;
-}
+} */
+
+#container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+      /* margin: 5% 0% 0% 21%; */
+    }
 </style>

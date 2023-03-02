@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid" id="container">
         <h2>Absence</h2>
             <div>
             <table class="table table-striped">
@@ -116,5 +116,12 @@ h2 {
 }
     .th-width-justificatif{
         width: 40%
+    }
+
+    #container 
+    {
+      width: 75%;
+      margin: 5% 0 0 21%;
+      /* margin: 5% 0% 0% 21%; */
     }
 </style>
