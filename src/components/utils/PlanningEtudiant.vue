@@ -70,7 +70,7 @@
                       :key="formateur.id">
                       <p>
                         <span class="font-weight-bold">Formateur : </span>
-                        {{ intervention.formateurDto }}
+                        {{ formateur.utilisateurDto.prenom }} {{ formateur.utilisateurDto.nom }}
                       </p>
                     </div>
                   </div>
