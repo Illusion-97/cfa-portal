@@ -3,42 +3,27 @@
     <h2>Dossiers projets</h2>
 
     <!-- TABLEAU ITEM -->
-    <b-table small head-variant="light" :items="items" :fields="fields"  primary-key="id">
+    <b-table
+      small
+      head-variant="light"
+      :items="items"
+      :fields="fields"
+      primary-key="id"
+    >
       <template #cell(fields)="row">
         {{ row.nom }}
       </template>
 
-      <template  #cell(action)>
+      <template #cell(action)>
         <div class="div-btn-right">
-
-          <!-- CONSULTER  -->
-          <router-link
-            :to="{
-              name: 'creer_dossier_projet',
-              //query: { data: data },
-            }"
-          >
-            <b-button
-              size="sm"
-              class="mr-2"
-            >
-              <i class="fa-solid fa-eye"></i>
-              consulter
-            </b-button>
-          </router-link>
-
           <!-- BOUTON MODIFIER -->
           <router-link
             :to="{
               name: 'creer_dossier_modifier',
-             // query: { data: items[].id },
+              // query: { data: items[].id },
             }"
           >
-            <b-button
-              size="sm"
-              class="mr-2"
-              variant="primary"
-            >
+            <b-button size="sm" class="mr-2" variant="primary">
               <i class="fa-solid fa-square-pen"></i>
               Modifier
             </b-button>
@@ -84,14 +69,13 @@ export default {
       items: [],
       telecharger: [],
       fields: dossierProjetFields,
-
-     };
+    };
   },
 
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.items = data, console.log(this.items[1].id)));
+      .then((data) => ((this.items = data), console.log(this.items[1].id)));
   },
 };
 </script>
