@@ -16,17 +16,10 @@
 
       <template #cell(action)="row">
           <!-- BOUTON MODIFIER -->
-          <router-link
-            :to="{
-              name: 'creer_dossier_modifier',
-              query: { data: row.item.id },
-            }"
-          >
-            <b-button size="sm" class="mr-2" variant="primary">
+            <b-button size="sm" class="mr-2" variant="primary" @click="gotoDossierProjet(row.item.id)">
               <i class="fa-solid fa-square-pen"></i>
               Modifier
             </b-button>
-          </router-link>
 
           <!-- BOUTON TELECHARGER -->
           <b-button
@@ -64,37 +57,28 @@ export default {
   name: "DossierProjet",
   data() {
     return {
-      dossierProjet: [],
       items: [],
       telecharger: [],
       fields: dossierProjetFields,
     };
   },
+methods: {
+
+  gotoDossierProjet(items) {
+    this.$router.push({
+      name: "creer_dossier_modifier",
+        params: { id: items.id },
+      });
+  },
+        },
 
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => ((this.items = data), console.log(this.items[1].id)));
+      .then((data) => ((this.items = data)));
   },
 };
 </script>
 
-<style scoped>
-h2 {
-  font-weight: bolder;
-}
-
-.container {
-  margin: 89px auto;
-  min-height: 340px;
-}
-
-#container 
-    {
-      width: 75%;
-      margin: 5% 0 0 3%;
-        /* margin: 5% 0% 0% 21%; */
-        /* padding-bottom: 15%; */
-    }
-
+<style scoped src="@/assets/styles/StyleEtudiant.css">
 </style>

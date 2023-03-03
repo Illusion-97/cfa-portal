@@ -164,7 +164,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped src="@/assets/styles/StyleEtudiant.css">
 h2 {
   font-weight: bolder;
 }
@@ -189,11 +189,7 @@ h2 {
   margin: 89px 0 0 421px;
   min-height: 340px;
 } */
-#container 
-    {
-      width: 75%;
-      margin: 5% 0 0 3%;
-    }
+
 
 .fa-folder-open {
   color: #4caf50;
