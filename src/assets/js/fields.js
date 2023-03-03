@@ -233,6 +233,20 @@ export const fieldsEntreprise = [
     thClass: "text-center",
   },
 ]
+
+export const dossierProfessionnelFields = [
+  {
+    key: "Dossiers Professionnels",
+    label: "Nom Dossier",
+    thStyle: { width: "30%" },
+  },
+  {
+    key: "Action",
+    label: "Action",
+    thStyle: { width: "30%" },
+  },
+];
+
 // Example
 // export const nom_variable = [
 //   { key: "champs1", label: "nom_colonne1",sortable(triable):true/false (optionnel) },

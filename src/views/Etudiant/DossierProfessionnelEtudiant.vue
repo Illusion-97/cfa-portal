@@ -3,11 +3,12 @@
     <h2>Dossiers professionnels</h2>
 
     <!-- TABLEAU TEST -->
-    <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
+    <!--<b-table small head-variant="light" :items="dp.promotions" :fields="fields">-->
+      <b-table hover :items="dp.promotions" :fields="fields">
       <template #cell(Cursus)="data">
         {{ data.item.cursus.titre }}
       </template>
-
+      
       <template #cell(DossierPro)="data">
 
         <!-- IF DOSSIER PRESENT -->
@@ -65,29 +66,17 @@
           </div>
         </div>
 
-      </template>
-    </b-table>
-  
-    <!-- INFOS -->
-    <p id="info">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-      <strong id="title-info">Informations</strong>
-      <br />
-      <span class="fsize14">
-        Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
-        dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image et
-        doivent être au format <b>png</b> ou <b>jpg</b>.
-        <br />
-        Vous pouvez utiliser l'outil gratuit disponible sur
-        <a href="https://www.img2go.com/fr/compresser-image">https://www.img2go.com/fr/compresser-image</a>
-        pour réduire leur taille.
-      </span>
-    </p>
-  </div>
+      </template>    
+</b-table>
+</div>
 </template>
+
+
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+
+
 //erreur avec l'import à corriger import "bootstrap-icons/font/bootstrap-icons.css";
 
 
@@ -103,7 +92,6 @@ export default {
       cursus: [],
       dp: [],
       dossierProfessionnel: [],
-
       fields: [
         {
           key: "Cursus",
@@ -134,6 +122,9 @@ export default {
     },
 
     updateDossier() {
+      dossierProfessionnelApi
+      .updateDossierProfessionnel(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.dp = data));
     },
 
     getDossierId(data, dossierProfessionnel) {
@@ -159,6 +150,13 @@ export default {
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));
   },
+
+  uploadFile() {
+      dossierProfessionnelApi
+      .generateDossierProByStudentAndPromo(this.$store.getters.getDossierId.etudiantDto.id.promotionId)
+      .then((data => (this.dp=data)))
+      },
+    
 };
 </script>
 

@@ -206,7 +206,7 @@ import SignatureFormateur from"@/views/Formateur/SignatureFormateur.vue"
 import SignatureEtudiant from"@/views/Etudiant/SignatureEtudiant.vue"
 
 //Tuteur
-import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
+//import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
 
 //          #######################
 //          #       ROUTES        #
@@ -764,9 +764,9 @@ const routes = [
   //#    Tuteur           #
   //#######################
 
-  { path: "/tuteur", 
+  /*{ path: "/tuteur", 
     name: "tuteur_acceuil", 
-    component: AccueilTuteur },
+    component: AccueilTuteur },r*/
 
 
   //#######################

@@ -2,7 +2,7 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'home'" />
-      <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin' || path == 'tuteur'" >
+      <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'" >
         <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view/>
