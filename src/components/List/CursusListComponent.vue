@@ -67,56 +67,60 @@
       </div>
     </div>
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      
       <template #cell(action)="row">
         <b-button block variant="info" @click="gotoDetailCursus(row.item)">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
         </b-button>
 
         <b-button block variant="warning" @click="showModal(row.item)">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" /> Modifier
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+          Modifier
         </b-button>
-        
-        <v-btn class="mt-2" color="info" dark @click="gotoActiviteTypeCursus(row.item)">
-            <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
-            Voir les activitées type associées
-          </v-btn>
+
+        <v-btn
+          class="mt-2"
+          color="info"
+          dark
+          @click="gotoActiviteTypeCursus(row.item)"
+        >
+          <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
+          Voir les activitées type associées
+        </v-btn>
         <b-modal hide-footer :ref="'modal-' + row.item.id">
           <template #modal-title>
-            <div class="text-center">
-              Modifier le cursus
-            </div>
+            <div class="text-center">Modifier le cursus</div>
           </template>
           <b-form @submit="modifierCursus(row.item)">
-              <v-text-field
-                  v-model="row.item.niveau"
-                    label="Niveau*"
-                    type="number"
-                    required
-                  ></v-text-field>
-      
-              <div class="w-100 d-flex justify-content-center">
-                <v-text-field
-                  v-model="row.item.sigle"
-                    label="Sigle*"
-                    required
-                  ></v-text-field>
-              </div>
-        
-              <div class="w-100 d-flex justify-content-center">
-                <v-text-field
-                  v-model="row.item.millesime"
-                    label="Millesime*"
-                    type="number"
-                    required
-                  ></v-text-field>
-              </div>
-              <small>*indique les champs requis</small>
-           
+            <v-text-field
+              v-model="row.item.niveau"
+              label="Niveau*"
+              type="number"
+              required
+            ></v-text-field>
 
-            <b-button type="submit" class="mt-3" variant="warning" block
-              >
-              <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />Modifier</b-button
+            <div class="w-100 d-flex justify-content-center">
+              <v-text-field
+                v-model="row.item.sigle"
+                label="Sigle*"
+                required
+              ></v-text-field>
+            </div>
+
+            <div class="w-100 d-flex justify-content-center">
+              <v-text-field
+                v-model="row.item.millesime"
+                label="Millesime*"
+                type="number"
+                required
+              ></v-text-field>
+            </div>
+            <small>*indique les champs requis</small>
+
+            <b-button type="submit" class="mt-3" variant="warning" block>
+              <font-awesome-icon
+                class="mr-1"
+                :icon="['fas', 'pen']"
+              />Modifier</b-button
             >
           </b-form>
           <b-button
@@ -124,13 +128,11 @@
             variant="danger"
             block
             @click="hideModal(row.item)"
-            >
+          >
             Annuler</b-button
           >
         </b-modal>
-        
       </template>
-      
     </b-table>
 
     <paginate
@@ -151,7 +153,6 @@
     >
       >
     </paginate>
-    
   </div>
 </template>
 
@@ -243,14 +244,14 @@ export default {
         params: { id: cursus.id },
       });
     },
-    modifierCursus(item){
-      cursusApi.save(item)
+    modifierCursus(item) {
+      cursusApi.save(item);
       this.items = null;
-      this.refreshList()
+      this.refreshList();
       //console.log(response)
       this.hideModal(item);
     },
-    gotoActiviteTypeCursus(cursus){
+    gotoActiviteTypeCursus(cursus) {
       this.$router.push({
         name: "admin_activites_types",
         params: { id: cursus.id },
@@ -271,18 +272,17 @@ export default {
     },
 
     refreshList() {
-      
-      cursusApi
-        .getAllByPage(0, this.perPage)
-        .then((response) => {this.items = response;});
+      cursusApi.getAllByPage(0, this.perPage).then((response) => {
+        this.items = response;
+      });
       cursusApi
         .getCount()
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        ).catch(err => {
+        )
+        .catch((err) => {
           console.log(err);
-        })
-
+        });
     },
     deleteCursus(cursusId) {
       cursusApi.deleteCursus(cursusId).then(() => this.refreshList());

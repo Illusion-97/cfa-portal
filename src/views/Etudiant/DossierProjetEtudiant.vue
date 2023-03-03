@@ -15,21 +15,26 @@
       </template>
 
       <template #cell(action)="row">
-          <!-- BOUTON MODIFIER -->
-            <b-button size="sm" class="mr-2" variant="primary" @click="gotoDossierProjet(row.item.id)">
-              <i class="fa-solid fa-square-pen"></i>
-              Modifier
-            </b-button>
+        <!-- BOUTON MODIFIER -->
+        <b-button
+          size="sm"
+          class="mr-2"
+          variant="primary"
+          @click="gotoDossierProjet(row.item.id)"
+        >
+          <i class="fa-solid fa-square-pen"></i>
+          Modifier
+        </b-button>
 
-          <!-- BOUTON TELECHARGER -->
-          <b-button
-            class="btn mr-2 btn-success btn-sm"
-            type="button"
-            v-on:click="generer(telecharger)"
-          >
-            <i class="fa-solid fa-file-pdf"></i>
-            Télécharger
-          </b-button>
+        <!-- BOUTON TELECHARGER -->
+        <b-button
+          class="btn mr-2 btn-success btn-sm"
+          type="button"
+          v-on:click="generer(telecharger)"
+        >
+          <i class="fa-solid fa-file-pdf"></i>
+          Télécharger
+        </b-button>
       </template>
     </b-table>
 
@@ -62,20 +67,20 @@ export default {
       fields: dossierProjetFields,
     };
   },
-methods: {
-
-  gotoDossierProjet(items) {
-    this.$router.push({
-      name: "creer_dossier_modifier",
-        params: { id: items.id },
+  methods: {
+    gotoDossierProjet(item) {
+      console.log(item);
+      this.$router.push({
+        name: "creer_dossier_modifier",
+        params: { id: item },
       });
+    },
   },
-        },
 
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => ((this.items = data)));
+      .then((data) => (this.items = data));
   },
 };
 </script>
