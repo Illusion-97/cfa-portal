@@ -538,13 +538,8 @@ export default {
     } */
 
 #container {
-<<<<<<< HEAD
-    // background-color: black;
-=======
-  background-color: black;
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
 
-  display: flex;
+  display: block;
 }
 
 #container2 {

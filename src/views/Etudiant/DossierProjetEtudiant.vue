@@ -3,9 +3,6 @@
     <h2>Dossiers projets</h2>
 
     <!-- TABLEAU ITEM -->
-<<<<<<< HEAD
-    <b-table small head-variant="light" :items="items" :fields="fields" >
-=======
     <b-table
       small
       head-variant="light"
@@ -13,38 +10,16 @@
       :fields="fields"
       primary-key="id"
     >
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
-      <template #cell(fields)="row">
+      <template #cell(DossierProjet)="row">
         {{ row.nom }}
       </template>
 
-      <template #cell(action)>
-        <div class="div-btn-right">
-<<<<<<< HEAD
-
-          <!-- CONSULTER  -->
-          <router-link
-            :to="{
-              name: 'creer_dossier_projet',
-             // query: { data: items[index].id },
-            }"
-          >
-            <b-button
-              size="sm"
-              class="mr-2"
-            >
-              <i class="fa-solid fa-eye"></i>
-              consulter
-            </b-button>
-          </router-link>
-
-=======
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
+      <template #cell(action)="row">
           <!-- BOUTON MODIFIER -->
           <router-link
             :to="{
               name: 'creer_dossier_modifier',
-              // query: { data: items[].id },
+              query: { data: row.item.id },
             }"
           >
             <b-button size="sm" class="mr-2" variant="primary">
@@ -62,7 +37,6 @@
             <i class="fa-solid fa-file-pdf"></i>
             Télécharger
           </b-button>
-        </div>
       </template>
     </b-table>
 
@@ -94,22 +68,13 @@ export default {
       items: [],
       telecharger: [],
       fields: dossierProjetFields,
-<<<<<<< HEAD
-      etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
-=======
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
     };
   },
 
   created() {
     dossierProjetApi
-<<<<<<< HEAD
-      .getByIdEtudiant(this.etudiantId)
-      .then((data) => (this.items = data, console.log(this.items[0].id)));
-=======
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => ((this.items = data), console.log(this.items[1].id)));
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
   },
 };
 </script>

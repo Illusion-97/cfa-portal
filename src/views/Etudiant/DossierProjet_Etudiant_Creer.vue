@@ -478,30 +478,6 @@ export default {
     showSection2() {
       this.showSec2 = !this.showSec2;
     },
-<<<<<<< HEAD
-    computed: {
-        //  Boutons au meme axe Y
-        sectionStyle() {
-            return {
-                // 'margin-left': this.marginSpaceImp ? '77%' : '78%'
-            }
-        },
-        sectionStyle2() {
-            return {
-                // 'margin-left': this.marginSpaceImp ? '79%' : '80%'
-            }
-        },
-        totalPages() {
-            return Math.ceil(this.items.length / this.itemsPerPage);
-        },
-        paginatedItems() {
-            let start = (this.page - 1) * this.itemsPerPage;
-            let end = start + this.itemsPerPage;
-            return this.items.slice(start, end);
-        }
-    }
-}
-=======
     actionBt1() {
       this.activeBt1 = !this.activeBt1;
     },
@@ -578,27 +554,16 @@ export default {
     },
   },
 };
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
 </script>
 
 <style scoped>
 /* margin : haut droit bas gauche */
 #main-cr-prj {
-<<<<<<< HEAD
-    background-color: none;
-    padding: 20px;
-    margin: 5% 20% 0% 21%;
-    width: 70%;
-    
-    /* min-width: 1170px;
-     */
-=======
   background-color: none;
   padding: 20px;
   margin: 0% 20% 0% 22%;
   min-width: 1170px;
   min-height: 100%;
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
 }
 
 .v-btn-toggle {
@@ -607,33 +572,6 @@ export default {
 }
 
 .comp-doss {
-<<<<<<< HEAD
-    background-color: #F55050;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* position: relative; */
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-color: black;
-    padding: 0 3% 0 0;
-}
-
-#comp-doss-prjt {
-    margin-bottom: 15px;
-}
-
-.comp-doss p {
-    color: white;
-    padding-top: 1%;
-    padding-left: 1%;
-}
-
-.comp-doss button {
-    background-color: #F55050;
-    color: white;
-    /* margin: 0 5% 0 55%; */
-=======
   background-color: #f55050;
   display: flex;
   align-items: center;
@@ -655,7 +593,6 @@ export default {
 .comp-doss button {
   background-color: #f55050;
   color: white;
->>>>>>> PaginationEtudiantCreeAnnexeEtTuteurDetail
 }
 
 /* 
@@ -665,9 +602,8 @@ export default {
     } */
 
 #container {
-  background-color: black;
 
-  display: flex;
+  display: block;
 }
 
 #container2 {
