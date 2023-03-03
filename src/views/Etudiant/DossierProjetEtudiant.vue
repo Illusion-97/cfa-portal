@@ -3,35 +3,18 @@
     <h2>Dossiers projets</h2>
 
     <!-- TABLEAU ITEM -->
-    <b-table small head-variant="light" :items="items" :fields="fields" >
-      <template #cell(fields)="row">
+    <b-table small head-variant="light" :items="items" :fields="fields"  primary-key="id">
+      <template #cell(dossierProjet)="row">
         {{ row.nom }}
       </template>
 
-      <template #cell(action)>
-        <div class="div-btn-right">
-
-          <!-- CONSULTER  -->
-          <router-link
-            :to="{
-              name: 'creer_dossier_projet',
-             // query: { data: items[index].id },
-            }"
-          >
-            <b-button
-              size="sm"
-              class="mr-2"
-            >
-              <i class="fa-solid fa-eye"></i>
-              consulter
-            </b-button>
-          </router-link>
-
+      <template  #cell(action)="row">
+        
           <!-- BOUTON MODIFIER -->
           <router-link
             :to="{
               name: 'creer_dossier_modifier',
-             // query: { data: items[].id },
+              query: { data: row.item.id },
             }"
           >
             <b-button
@@ -53,7 +36,7 @@
             <i class="fa-solid fa-file-pdf"></i>
             Télécharger
           </b-button>
-        </div>
+        
       </template>
     </b-table>
 
@@ -81,18 +64,17 @@ export default {
   name: "DossierProjet",
   data() {
     return {
-      dossierProjet: [],
       items: [],
       telecharger: [],
       fields: dossierProjetFields,
-      etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
-    };
+
+     };
   },
 
   created() {
     dossierProjetApi
-      .getByIdEtudiant(this.etudiantId)
-      .then((data) => (this.items = data, console.log(this.items[0].id)));
+      .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.items = data, console.log(this.items[1].id)));
   },
 };
 </script>

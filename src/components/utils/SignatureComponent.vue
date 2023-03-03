@@ -2,7 +2,7 @@
     <section>
         <div class="m-4" v-if="(modifier == false)">
 
-            <h3 class="pr-4">Votre signature :</h3>
+            <h3 class="pr-4"><strong>Votre signature :</strong></h3>
             <div>
                 <img :src="src" class="border border-dark mt-2" alt="">
 
