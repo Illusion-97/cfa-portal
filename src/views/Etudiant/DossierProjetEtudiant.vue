@@ -4,34 +4,17 @@
 
     <!-- TABLEAU ITEM -->
     <b-table small head-variant="light" :items="items" :fields="fields"  primary-key="id">
-      <template #cell(fields)="row">
+      <template #cell(dossierProjet)="row">
         {{ row.nom }}
       </template>
 
-      <template  #cell(action)>
-        <div class="div-btn-right">
-
-          <!-- CONSULTER  -->
-          <router-link
-            :to="{
-              name: 'creer_dossier_projet',
-              //query: { data: data },
-            }"
-          >
-            <b-button
-              size="sm"
-              class="mr-2"
-            >
-              <i class="fa-solid fa-eye"></i>
-              consulter
-            </b-button>
-          </router-link>
-
+      <template  #cell(action)="row">
+        
           <!-- BOUTON MODIFIER -->
           <router-link
             :to="{
               name: 'creer_dossier_modifier',
-             // query: { data: items[].id },
+              query: { data: row.item.id },
             }"
           >
             <b-button
@@ -53,7 +36,7 @@
             <i class="fa-solid fa-file-pdf"></i>
             Télécharger
           </b-button>
-        </div>
+        
       </template>
     </b-table>
 
