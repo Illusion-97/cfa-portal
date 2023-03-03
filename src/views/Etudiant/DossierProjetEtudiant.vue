@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     gotoDossierProjet(item) {
-      console.log(item);
       this.$router.push({
         name: "creer_dossier_modifier",
         params: { id: item },
