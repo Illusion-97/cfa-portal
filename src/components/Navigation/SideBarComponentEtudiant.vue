@@ -427,7 +427,7 @@ body {
 }
 .sidebar li .a-modifided .links_name {
   color: var(--menu-items-text-color);
-  font-size: 14px;  
+  font-size: 12px;  
   font-weight: bold;
   white-space: nowrap;
   opacity: 0;

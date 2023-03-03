@@ -118,17 +118,10 @@ h2 {
         width: 40%
     }
 
-<<<<<<< HEAD
     #container 
     {
       width: 75%;
       margin: 5% 0 0 21%;
       /* margin: 5% 0% 0% 21%; */
     }
-=======
-    .container {
-  margin: 89px auto;
-  min-height: 340px;
-}
->>>>>>> ModifEtudiantConsulterId
 </style>
