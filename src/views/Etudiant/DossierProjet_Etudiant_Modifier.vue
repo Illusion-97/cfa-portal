@@ -405,7 +405,7 @@ export default {
     } */
 
 #container {
-    background-color: black;
+    // background-color: black;
 
     display: flex;
 }

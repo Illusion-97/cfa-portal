@@ -18,7 +18,7 @@
   #container 
     {
       width: 75%;
-      margin: 5% 0 0 21%;
+      margin: 5% 0 0 3%;
         /* margin: 5% 0% 0% 21%; */
         /* padding-bottom: 15%; */
     }
