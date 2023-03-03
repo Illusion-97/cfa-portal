@@ -12,6 +12,7 @@ export const noteApi = {
     getAllNotes,
     getAllByPrmotionIdAndExamenId,
     getAllByInterventionIdAndExamenId,
+    getAllNoteByIdEtudiant,
 }
 
 const END_POINT = "notes";
@@ -95,6 +96,16 @@ function deleteNote(id) {
  */
 function getAllByIdEtudiant(id) {
     let req = `notes/etudiant/${id}`;
+
+    return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
+
+
+function getAllNoteByIdEtudiant(id) {
+    let req = `notes/note-etudiant/${id}`;
 
     return axios
         .get(req, requestOptions.headers())

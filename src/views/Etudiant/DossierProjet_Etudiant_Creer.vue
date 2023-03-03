@@ -2,7 +2,15 @@
     <div id="main-cr-prj">
         <div>
             <p>Nouveau dossier projet</p>
-            <p>Nom : {{ nom_projet }}</p>
+            <v-col md="5">
+            <v-text-field 
+            v-model="nom_projet"
+            variant="filled"
+            icon="mdi-close-circle"
+            clearable
+            label="Nom du dossier projet"
+            type="text"
+            @click:clear="clearMessage"></v-text-field></v-col>
         </div>
         <div>
             <!-- Composants Importer Un Dossier -->
@@ -22,7 +30,7 @@
                         <br> 
                         <div class="imp-doss-btn">
                             <v-btn id="btn-annuler">Annuler</v-btn>
-                            <v-btn id="btn-save">Sauvegarder</v-btn>
+                            <v-btn @click="submit" id="btn-save">Sauvegarder</v-btn>
                         </div>
                     </section>
                 </div>
@@ -66,13 +74,13 @@
                                     <v-card-body v-show="active === 1" name="page Info">
                                         <v-card>
                                             <v-card-text disabled>
-                                                <v-card-title> Candidat : {{ prenom_candidat + " " + nom_candidat
-                                                }}</v-card-title>
-                                                <v-card-title> Année : 2023/2028</v-card-title>
+                                                <v-card-title> Candidat : {{ etudiants.utilisateurDto.prenom }}  
+                                                {{ etudiants.utilisateurDto.nom }}</v-card-title>
+                                                <v-card-title> Année : {{ promotions.dateDebut }}/{{ etudiants.promotionsDto.dateFin }}</v-card-title>
                                                 <v-card-subtitle>{{ nom_projet }}</v-card-subtitle>
                                             </v-card-text>
-                                            <vue-editor v-model="info.content" id="exp1" name="tacheRealisee"
-                                                placeholder="Tâches réalisées" readonly />
+                                            <vue-editor v-model="infos" id="exp1" name="tacheRealisee"
+                                                placeholder="Informations du Projet" readonly />
                                         </v-card>
                                     </v-card-body>
 
@@ -129,8 +137,8 @@
                                         <v-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible
                                             accordion="my-accordion">
                                             <v-card-body>
-                                                <vue-editor v-model="resume.content" id="exp1" name="tacheRealisee"
-                                                    placeholder="Tâches réalisées" readonly />
+                                                <vue-editor v-model="resumes" id="exp1" name="tacheRealisee"
+                                                    placeholder="Résumé du Projet" readonly />
                                             </v-card-body>
                                         </v-collapse>
                                     </v-card-body>
@@ -139,23 +147,22 @@
                                         <v-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible
                                             accordion="my-accordion">
                                             <v-card-body>
-                                                <vue-editor v-model="content.content" id="exp1" name="tacheRealisee"
-                                                    placeholder="Tâches réalisées" readonly />
+                                                <vue-editor v-model="contenus" id="exp1" name="tacheRealisee"
+                                                    placeholder="Contenu du Projet" readonly />
                                             </v-card-body>
                                         </v-collapse>
                                     </v-card-body>
 
                                     <v-card-body v-show="active === 5" name="page Annexe">
                                         <v-card-title>Liste des annexes</v-card-title>
-                                        <v-simple-table :headers="headers" :items="paginatedData" :page.sync="page"
-                                            :items-per-page="itemsPerPage">
+                                        <v-simple-table>
                                             <thead>
                                                 <tr>
                                                     <th class="text-left">File</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="item in annexe" :key="item.id">
+                                                <tr v-for="item in annexes" :key="item.id">
                                                     <td><v-file-input multiple :show-size="500" label="File input"></v-file-input></td>
                                                 </tr>
                                             </tbody>
@@ -166,8 +173,8 @@
 
                                     </v-card-body>
                                     <p></p>
-                                    <v-btn id="btn-annuler">Annuler</v-btn>
-                                    <v-btn id="btn-save">Sauvegarder</v-btn>
+                                    <v-btn id="btn-annuler" @click="clear">Annuler</v-btn>
+                                    <v-btn id="btn-save" @click="submit">Sauvegarder</v-btn>
                                 </v-card>
                             </section>
                             
@@ -183,17 +190,29 @@
 
 <script>
 
-//import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
+import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 import { VueEditor } from "vue2-editor";
+import { promotionApi } from '../../_api/promotion.api';
 
 export default {
     name: "DossierProjetCreer",
     components: { VueEditor },
     data: () => {
         return {
-            nom_projet: "projet_cfa",
-            nom_candidat: "JIYAR",
-            prenom_candidat: "Anas",
+            marker: true,
+      iconIndex: 0,
+      icons: [
+        'mdi-emoticon',
+        'mdi-emoticon-cool',
+        'mdi-emoticon-dead',
+        'mdi-emoticon-excited',
+        'mdi-emoticon-happy',
+        'mdi-emoticon-neutral',
+        'mdi-emoticon-sad',
+        'mdi-emoticon-tongue',
+      ],
+            nom_projet:"",
             showSec1: false,
             showSec2: false,
             marginSpaceImp: true,
@@ -206,44 +225,12 @@ export default {
             page: 1,
             pageCount: 0,
             itemsPerPage: 4,
-
-            info: [
-                {
-                    name: 'Infos',
-                    id: 1,
-                    content: "",
-                    key: "",
-                    btn_id: 1
-                }
-            ],
-            comp_c: [
-                {
-                    name: 'Compétences Couvertes',
-                    id: 1,
-                    content: "",
-                    key: "",
-                    btn_id: 2,
-
-                }
-            ],
-            resume: [
-                {
-                    name: 'Résumé',
-                    id: 1,
-                    content: "",
-                    key: "",
-                    btn_id: 3
-                }
-            ],
-            content: [
-                {
-                    name: 'Contenu',
-                    id: 1,
-                    content: "",
-                    key: "",
-                    btn_id: 4
-                }
-            ],
+            etudiants: [],
+            promotions:[],
+            infos:[],
+            contenus:[],
+            resumes:[],
+            annexes:[],
             annexe: [
                 {
                     name: 'Annexe',
@@ -345,6 +332,24 @@ export default {
         }
     },
     methods: {
+        toggleMarker () {
+        this.marker = !this.marker
+      },
+      sendMessage () {
+        this.resetIcon()
+        this.clearMessage()
+      },
+      clearMessage () {
+        this.message = ''
+      },
+      resetIcon () {
+        this.iconIndex = 0
+      },
+      changeIcon () {
+        this.iconIndex === this.icons.length - 1
+          ? this.iconIndex = 0
+          : this.iconIndex++
+      },
         showSection1() {
             this.showSec1 = !this.showSec1;
 
@@ -361,23 +366,38 @@ export default {
         actionBt3() {
             this.activeBt3 = !this.activeBt3;
         },
-        handleSelectionChange(selectedOption) {
-            this.selectedOption = selectedOption;
-            document.getElementById('accordion1').visible;
+        submit() {
+            dossierProjetApi
+            .save(this.infos,1)
+            .then((data) => (this.infos = data));
         },
-        async getData() {
-            const response = await fetch('your_api_url')
-            this.data = response.data
+        getEtudiant(){
+            etudiantApi
+            .getById(3)
+            .then((response) => (this.etudiants = response));
         },
-        created() {
-            this.getData()
+        getPromotion(){
+            promotionApi
+            .getCursusByIdEtudiant(3)
+            .then((response) => (this.promotions = response,console.log(response)));
         },
+        clear(){
+            this.infos.reset();
+            this.resumes.reset();
+            this.contenus.reset();
+            this.annexes.reset();
+        }
 
         // createdd() {
         //     dossierProjetlApi
         //     .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
         //     .then((data) => (this.dp = data));
         // }
+    },
+    created(){
+        this.getEtudiant();
+        this.getPromotion();
+        this.clear();
     },
     computed: {
         //  Boutons au meme axe Y
