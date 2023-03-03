@@ -90,7 +90,9 @@ export default {
       perPage: 2,
       pageCount: 0,
       saisie: "",
-      etudiants: [],  
+      etudiants: [],
+      
+      tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
 
@@ -109,7 +111,7 @@ export default {
 
     pageChange(pageNum) {
       tuteurApi
-      .getEtudiantByTuteurByPage(this.$store.getters.getUtilisateur.tuteurDto.id, pageNum -1, this.perPage)
+      .getEtudiantByTuteurByPage(this.tuteurId, pageNum -1, this.perPage)
       .then((response) => { 
         this.etudiants = response
       });
@@ -122,9 +124,8 @@ export default {
           this.etudiants = response;
         });
 
-      tuteurApi.getAllEtudiantsByTuteurIdBySearch(this.tuteurId, this.saisie)
-        .then((response) => {
-          this.pageCount = Math.ceil(response / this.perPage, console.log(this.pageCount))
+      tuteurApi.getAllEtudiantsByTuteurIdBySearch(this.tuteurId, this.saisie).then((response) => {
+        this.pageCount = Math.ceil(response / this.perPage, console.log(this.pageCount))
       })
     },
   },
