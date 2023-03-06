@@ -37,10 +37,9 @@
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotion actuel</strong>
           <br>
-          <!-- <li v-for="etudiant.promotionsDto " :key="etudiant.id">
-              {{ etudiant.promotionsDto }}
-            </li> -->
-          {{ etudiant.promotionsDto[0].cursusDto.titre }}
+          <li v-for="item in etudiant.promotionsDto" :key="item.id">
+              {{ item.cursusDto.titre }}
+            </li>
           <br>
         </div>
         <div class="col col-top">
@@ -48,8 +47,8 @@
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
           <ul>
-            <li>
-              {{ etudiant.groupesDto[0].projetsDto[0].nom }}
+            <li v-for="item in etudiant.dossierProjet" :key="item.id">
+              {{ item.nom }}
             </li>
           </ul>
 
@@ -57,7 +56,9 @@
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
           <br>
-            {{ etudiant.groupesDto[0].nom }}
+            <li v-for="item in etudiant.groupesDto" :key="item.id">
+              {{ item.nom }}
+            </li>
         </div>
       </div>
     </div>
@@ -165,7 +166,6 @@ export default {
 
   created() {
     this.getEtudiant();
-    console.log(this.etudiantId);
     etudiantApi
       .getGroupes(this.utilisateurId)
       .then((data) => (this.groupes = data));
@@ -174,7 +174,7 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/StyleEtudiant.css">
+<style scoped>
 .col-top {
   padding-top: 84px;
 }
