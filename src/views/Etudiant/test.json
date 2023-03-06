@@ -1,0 +1,287 @@
+{
+    "id": 226,
+    "version": 1,
+    "utilisateurDto": {
+        "id": 443,
+        "version": 0,
+        "login": "etudiant@dawan.fr",
+        "password": "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86",
+        "prenom": "etudiantPrenom",
+        "nom": "etudiantNom",
+        "civilite": "mr",
+        "dateDeNaissance": "2001-11-13",
+        "telephone": "+33606060606",
+        "telephoneFixe": null,
+        "adresseDto": {
+            "id": 1,
+            "version": 0,
+            "libelle": "4 Av Eugène et Marc
+  Dulout", "ville": "Pessac", "codePostal": "33600", "idDg2": 0, "country": null
+        },
+        "entrepriseDto": null,
+        "rolesDto": [
+            {
+                "id": 1,
+                "version": 0,
+                "intitule": "ETUDIANT",
+                "utilisateursDto": null
+            }
+        ],
+        "etudiantDto": null,
+        "formateurDto": null,
+        "tuteurDto": null,
+        "cefDto": null,
+        "idDg2": 3,
+        "centreFormationId": 0
+    },
+    "promotionsDto": [
+        {
+            "id": 227,
+            "version": 0,
+            "nom": "titre-professionnel-developpeur-web-et-web-mobile-tp-01280m03-01-01-2022-5",
+            "dateDebut": "2022-01-03",
+            "dateFin": "2022-12-31",
+            "cefDto": null,
+            "etudiantsDto": null,
+            "interventionsDto": [
+                {
+                    "id": 2,
+                    "version": 0,
+                    "dateDebut": "2022-01-08",
+                    "dateFin": "2022-01-15",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                },
+                {
+                    "id": 5,
+                    "version": 0,
+                    "dateDebut": "2023-01-02",
+                    "dateFin": "2023-01-06",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                }
+            ],
+            "examensDto": null,
+            "centreFormationDto": null,
+            "referentPedagogiqueDto": null,
+            "cursusDto": {
+                "id": 11,
+                "version": 0,
+                "titre": "Titre professionnel Développeur web et web mobile (TP-01280m03)",
+                "formationsDto": null,
+                "duree": "80.00",
+                "slug": "titre-professionnel-developpeur-web-et-web-mobile-tp-01280m03",
+                "idDg2": 101235,
+                "niveau": 0,
+                "sigle": null,
+                "millesime": null,
+                "codeTitre": null
+            },
+            "centreFormationAdresseVille": null
+        },
+        {
+            "id": 132,
+            "version": 10,
+            "nom": "titre-professionnel-concepteur-developpeur-d-applications-tp-01281m03-04-01-2021-1",
+            "dateDebut": "2021-01-04",
+            "dateFin": "2021-12-31",
+            "cefDto": null,
+            "etudiantsDto": null,
+            "interventionsDto": [
+                {
+                    "id": 1,
+                    "version": 0,
+                    "dateDebut": "2021-01-01",
+                    "dateFin": "2021-01-31",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                },
+                {
+                    "id": 3,
+                    "version": 0,
+                    "dateDebut": "2021-02-01",
+                    "dateFin": "2021-02-28",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                },
+                {
+                    "id": 4,
+                    "version": 0,
+                    "dateDebut": "2021-03-01",
+                    "dateFin": "2021-03-31",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                }
+            ],
+            "examensDto": null,
+            "centreFormationDto": null,
+            "referentPedagogiqueDto": null,
+            "cursusDto": {
+                "id": 6,
+                "version": 19,
+                "titre": "Titre professionnel Concepteur Développeur
+  d'Applications Java", "formationsDto": null, "duree": "75.00", "slug":
+  "titre-professionnel-concepteur-developpeur-d-applications-tp-01281m03",
+                "idDg2": 101229,
+                "niveau": 0,
+                "sigle": null,
+                "millesime": null,
+                "codeTitre": null
+            },
+            "centreFormationAdresseVille": null
+        },
+        {
+            "id": 438,
+            "version": 0,
+            "nom": "Promo test pour la prod",
+            "dateDebut": "2023-01-02",
+            "dateFin": "2023-12-29",
+            "cefDto": null,
+            "etudiantsDto": null,
+            "interventionsDto": [
+                {
+                    "id": 6,
+                    "version": 0,
+                    "dateDebut": "2023-01-16",
+                    "dateFin": "2023-01-20",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                },
+                {
+                    "id": 7,
+                    "version": 0,
+                    "dateDebut": "2023-01-02",
+                    "dateFin": "2023-01-06",
+                    "formationDto": null,
+                    "interventionMereDto": null,
+                    "promotionsDto": null,
+                    "formateursDto": null,
+                    "promotionsId": null,
+                    "noteInfoPersonnel": null,
+                    "heuresDisponsees": 0
+                }
+            ],
+            "examensDto": null,
+            "centreFormationDto": null,
+            "referentPedagogiqueDto": null,
+            "cursusDto": {
+                "id": 4,
+                "version": 0,
+                "titre": "Titre professionnel Concepteur Développeur
+  d'Applications .NET", "formationsDto": null, "duree": "75.00", "slug":
+  "titre-professionnel-concepteur-developpeur-dapplications-net",
+                "idDg2": 101822,
+                "niveau": 0,
+                "sigle": null,
+                "millesime": null,
+                "codeTitre": null
+            },
+            "centreFormationAdresseVille": null
+        }
+    ],
+    "groupesDto": [
+        {
+            "id": 1,
+            "version": 0,
+            "nom": "Groupe CFA",
+            "etudiantsDto": null
+        }
+    ],
+    "dossierProfessionnel": [
+        {
+            "id": 2,
+            "version": 0,
+            "nom": "",
+            "cursusDto": {
+                "id": 11,
+                "version": 0,
+                "titre": "Titre professionnel Développeur web et web mobile (TP-01280m03)",
+                "formationsDto": null,
+                "duree": "80.00",
+                "slug": "titre-professionnel-developpeur-web-et-web-mobile-tp-01280m03",
+                "idDg2": 101235,
+                "niveau": 0,
+                "sigle": null,
+                "millesime": null,
+                "codeTitre": null
+            },
+            "experienceProfessionnelleDtos": null,
+            "etudiantDto": null,
+            "annexeDtos": null,
+            "facultatifDto": null
+        }
+    ],
+    "dossierProjet": [
+        {
+            "id": 1,
+            "version": 1,
+            "nom": "toto",
+            "projet": {
+                "id": 2,
+                "version": 0,
+                "nom": "CFA",
+                "description": "Description",
+                "groupeDto": null
+            }
+        },
+        {
+            "id": 3,
+            "version": 2,
+            "nom": "tutu",
+            "projet": {
+                "id": 2,
+                "version": 0,
+                "nom": "CFA",
+                "description": "Description",
+                "groupeDto": null
+            }
+        },
+        {
+            "id": 4,
+            "version": 2,
+            "nom": "titi",
+            "projet": {
+                "id": 2,
+                "version": 0,
+                "nom": "CFA",
+                "description": "Description",
+                "groupeDto": null
+            }
+        }
+    ],
+    "tuteurDto": {
+        "id": 1,
+        "version": 0,
+        "utilisateurDto": null
+    }
+}
