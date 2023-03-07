@@ -209,8 +209,8 @@ export default {
     methods:{
         getdossProjEtudiant(){
             dossierProjetApi
-            .getByIdEtudiant(1)
-            .then((response) => (this.dossProjs = response));
+            .getByIdEtudiant(226)
+            .then((response) => (this.dossProjs = response,console.log(response)));
         },
         getCongeEtudiant(){
             congeApi
