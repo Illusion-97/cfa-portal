@@ -810,7 +810,7 @@ export default {
             ],
             version: 0
           }
-          , this.$store.getters.getUtilisateur.etudiantDto.id
+          , this.$store.getters.getUtilisateur.etudiantDto.id ,console.log()
 
         )
 
