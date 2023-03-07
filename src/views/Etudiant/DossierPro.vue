@@ -15,9 +15,74 @@
       <b-form-select v-model="start" :options="optionsAT(item)" @change="getValue"></b-form-select>
       <br>
     </div>
-    
 
-  
+    <!--Annexe -->
+    <h6>Annexes</h6>
+    
+    <b-form-select id="select-file" v-model="selectedFile" :options="annexes" @change="getAnnexe">
+      <b-form-select-option v-for="(file, index) in fileList"  v-bind:value="file" :key="index" >{{ file }}</b-form-select-option>
+    </b-form-select>
+    
+    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
+    </v-file-input>
+    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Nom du fichier" /><br/> 
+    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
+      </b-modal>
+
+  <br/>
+    <h6>Facultatif</h6>
+    <b-form-select v-model="start" :options="facultatif" @change="goFacultafif">
+    </b-form-select>   
+    
+    <b-modal id="bbb" size="xl" title="" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+          <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+         
+          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="email" :error-messages="emailErrors" label="Date" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+
+        <br/>
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+        <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+          document facultatif illustrant la pratique professionnelle            
+            </b-button>
+         
+          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+            <b-button size="sm" variant="success" type="submit" @click="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Créer</span>
+          </b-button>
+          <b-button size="sm" variant="danger" type="submit" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
+       
+        </form>
+      </template>
+    </b-modal>
 
     <!-- DIPLOMES MODALE -->
     <b-modal id="ddd" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
@@ -442,67 +507,7 @@
         </b-card>
 
 
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">
-              6.Annexes             
-              <i class="bi bi-caret-down-square-fill"></i>
-            </b-Button>
-          </b-card-header>
-          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
-
-            <!-- INSERT EXP -->
-            <b-card-body>                          
-            <v-file-input v-model="start" :options="annexes" @change="getAnnexe"  multiple>      
-    </v-file-input>
-            </b-card-body>
-          </b-collapse>
-        </b-card>
-
-
-
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">
-              7.Facultatifs          
-              <i class="bi bi-caret-down-square-fill"></i>
-            </b-Button>
-          </b-card-header>
-          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
-     
-          <b-card no-body class="mb-1">
-        
-            <b-button class="btn btn-light">
-              diplôme, titre, CQP, attestation de formation facultatif          
-            </b-button>    
-          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="  Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
-          <v-text-field v-model="email" :error-messages="emailErrors" label="  Organisme" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="email" :error-messages="emailErrors" label="  Date" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <br>
-          
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-
-        <br/>
-        <b-card no-body class="mb-1">    
-            <b-button class="btn btn-light">
-          document facultatif illustrant la pratique professionnelle            
-            </b-button>
-         
-          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="  Intitulé" required
-            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
-            <br>
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-    </b-collapse>
-    </b-card>
-
-    <br/>
+   
         <div id="div-save">
           <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
