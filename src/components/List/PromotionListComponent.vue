@@ -93,14 +93,48 @@
           <td>{{ promotion.dateFin | formatDate }}</td>
           <td>{{ promotion.centreFormationDto.nom }}</td>
           <td>
-            <b-button
-              block
-              variant="info"
-              @click="gotoDetailPromotion(promotion)"
-            >
-              <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
-            </b-button>
-          </td>
+              <b-button
+                block
+                variant="info"
+                @click="gotoDetailPromotion(promotion)"
+              >
+                <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
+              </b-button>
+              <b-button
+                block
+                variant="warning"
+                @click="openLoginWdg2EtudiantBypromo(promotion)"
+
+              >
+                Import Etudiant de la promo
+              </b-button>
+              <br>
+
+              <div class="login-wdg2">
+                <login-wdg-2
+                  v-if="showLoginWdg2CardEtudiantByPromo"
+                  @logInUser="importEtudiantPromo"
+                  @wdg2Close="wdg2CloseEtudiantByPromo"
+                />
+              </div>
+
+              <b-button
+                  block
+                  variant="success"
+                  @click="openLoginWdg2InterventionBypromo(promotion)"
+
+                >
+                  Import Intervention de la promo
+                </b-button>
+                
+                <div class="login-wdg2">
+                  <login-wdg-2
+                    v-if="showLoginWdg2CardInterventionByPromo"
+                    @logInUser="importInterventionByPromo"
+                    @wdg2Close="wdg2CloseInterventionByPromo"
+                  />
+                </div>
+           </td>
         </tr>
       </tbody>
     </table>
@@ -127,6 +161,8 @@
 
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
+import { etudiantApi } from '@/_api/etudiant.api.js';
+import { interventionApi } from '@/_api/intervention.api.js';
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "PromotionListComponent",
@@ -160,6 +196,8 @@ export default {
       saisie: "",
       promotion_input: "",
       showLoginWdg2Card: false,
+      showLoginWdg2CardEtudiantByPromo: false,
+      showLoginWdg2CardInterventionByPromo: false,
       loading: false,
     };
   },
@@ -228,35 +266,71 @@ export default {
         params: { id: promo.id },
       });
     },
-    // dblClick(promotion) {
-    //   let route = this.$route.path.split("/").splice(1);
+    openLoginWdg2InterventionBypromo(promotion) {
+      this.showLoginWdg2CardInterventionByPromo = true;
+      this.promotion = promotion;
+    },
+    wdg2CloseInterventionByPromo(value){
+      this.showLoginWdg2CardInterventionByPromo = value;
+    },
+    async importInterventionByPromo(value){
+      
+      this.showLoginWdg2CardInterventionByPromo = false;
+      this.loading = true;
+     
+      console.log(this.promotion)
+      let promoId = this.promotion.idDg2;
 
-    //   if (route[0] == "admin")
-    //     this.$router.push({
-    //       name: "admin_promotion_detail",
-    //       params: { id: promotion.id },
-    //     });
-    //   else if (route[0] == "referent")
-    //     this.$router.push({
-    //       name: "referent_promotion_detail",
-    //       params: { id: promotion.id },
-    //     });
-    //   else if (route[0] == "formateur")
-    //     this.$router.push({
-    //       name: "formateur_promotion_detail",
-    //       params: { id: promotion.id },
-    //     });
-    //   else if (route[0] == "cef")
-    //     this.$router.push({
-    //       name: "cef_promotion_detail",
-    //       params: { id: promotion.id },
-    //     });
-    //   else if (route[0] == "etudiant")
-    //     this.$router.push({
-    //       name: "etudiant_promotion_detail",
-    //       params: { id: promotion.id },
-    //     });
-    // },
+      interventionApi
+        .fetchInterventionsDG2ByIdPromotion(value, promoId)
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+           this.refreshList();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
+     
+    },
+    openLoginWdg2EtudiantBypromo(promotion) {
+      this.showLoginWdg2CardEtudiantByPromo = true;
+      this.promotion = promotion;
+    },
+    wdg2CloseEtudiantByPromo(value){
+      this.showLoginWdg2CardEtudiantByPromo = value;
+    },
+    async importEtudiantPromo(value){
+      
+      this.showLoginWdg2CardEtudiantByPromo = false;
+      this.loading = true;
+      //let promoId = promotion.id
+      //console.log(promotion.id)
+      console.log(this.promotion)
+      let promoId = this.promotion.idDg2;
+
+      etudiantApi
+        .fetchAllEtudiantDG2HttpByIdPromotion(value, promoId)
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+           this.refreshList();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
+     
+    },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
@@ -265,6 +339,7 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
+      console.log(value);
       promotionApi
         .fetchAllPromotionDG2Http({ logInUser: value })
         .then((response) => {
