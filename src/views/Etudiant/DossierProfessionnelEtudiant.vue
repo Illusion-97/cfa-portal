@@ -3,14 +3,13 @@
     <div id="dos">
       <h2>Dossiers professionnels</h2>
 
-    <!-- TABLEAU TEST -->
-    <!--<b-table small head-variant="light" :items="dp.promotions" :fields="fields">-->
-      <b-table hover :items="dp.promotions" :fields="fields">
-      <template #cell(Cursus)="data">
-        {{ data.item.cursus.titre }}
-      </template>
-      
-      <template #cell(DossierPro)="data">
+      <!-- TABLEAU TEST -->
+      <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
+        <template #cell(Cursus)="data">
+          {{ data.item.cursus.titre }}
+        </template>
+
+        <template #cell(DossierPro)="data">
 
           <!-- IF DOSSIER PRESENT -->
           <div v-if="data.item.cursus.dossierProfessionnel != null">
@@ -67,9 +66,26 @@
             </div>
           </div>
 
-      </template>    
-</b-table>
-</div>
+        </template>
+      </b-table>
+
+      <!-- INFOS -->
+      <p id="info">
+        <font-awesome-icon :icon="['fas', 'info-circle']" />
+        <strong id="title-info">Informations</strong>
+        <br />
+        <span class="fsize14">
+          Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
+          dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image et
+          doivent être au format <b>png</b> ou <b>jpg</b>.
+          <br />
+          Vous pouvez utiliser l'outil gratuit disponible sur
+          <a href="https://www.img2go.com/fr/compresser-image">https://www.img2go.com/fr/compresser-image</a>
+          pour réduire leur taille.
+        </span>
+      </p>
+    </div>
+  </div>
 </template>
 
 
