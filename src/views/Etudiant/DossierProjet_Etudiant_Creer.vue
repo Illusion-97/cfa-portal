@@ -726,7 +726,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped src="@/assets/styles/StyleEtudiant.css">
 /* margin : haut droit bas gauche */
 #main-cr-prj {
   background-color: none;
@@ -771,10 +771,7 @@ export default {
         padding: 5px 5px 5px 5px;
     } */
 
-#container {
 
-  display: block;
-}
 
 #container2 {
   display: flex;

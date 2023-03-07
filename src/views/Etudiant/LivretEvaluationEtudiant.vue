@@ -108,11 +108,7 @@ export default {
 };
 </script>
 
-<style scoped>
-h2 {
-  font-weight: bolder;
-}
-
+<style scoped src="@/assets/styles/StyleEtudiant.css">
 .bi {
   margin-right: 5px;
 }
@@ -120,13 +116,6 @@ h2 {
 .btn-donwload {
   color: #fff;
   width: 18px;
-}
-
-#container {
-  width: 75%;
-  margin: 5% 0 0 3%;
-  /* margin: 5% 0% 0% 21%; */
-  /* min-height: 340px; */
 }
 
 h5 {

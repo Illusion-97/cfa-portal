@@ -98,7 +98,7 @@ h2 {
 
 #container 
     {
-      width: 75%;
+      width: 95%;
       margin: 5% 0 0 3%;
         /* margin: 5% 0% 0% 21%; */
     }

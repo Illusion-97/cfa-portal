@@ -1,13 +1,14 @@
 <template>
   <div class="container-fluid" id="container">
-
     <!-- NEW CARD -->
     <div class="info">
       <div class="row">
         <div class="col">
           <!-- NOM -->
-          <h2 class="card-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}</h2>
-          <br>
+          <h2 class="card-name">
+            {{ utilisateur.prenom }} {{ utilisateur.nom }}
+          </h2>
+          <br />
           <!-- AVATAR -->
           <img src="@/assets/img/avatar.png" class="avatar" />
         </div>
@@ -17,17 +18,17 @@
           <span class="contact">
             <font-awesome-icon :icon="['fas', 'envelope']" class="ico" />
             <strong>eMail</strong>
-            <br>
+            <br >
             {{ utilisateur.login }}
             <br />
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
-            <br>
+            <br >
             {{ utilisateur.telephone }}
             <br />
             <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
             <strong>Ville</strong>
-            <br>
+            <br >
             {{ utilisateur.adresseDto.ville }}
             <br />
           </span>
@@ -36,34 +37,36 @@
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotion actuel</strong>
-          <br>
-          <!-- <li v-for="etudiant.promotionsDto " :key="etudiant.id">
-              {{ etudiant.promotionsDto }}
-            </li> -->
-          {{ etudiant.promotionsDto[0].cursusDto.titre }}
-          <br>
+          <br >
+          <li v-for="item in etudiant.promotionsDto" :key="item.id">
+            {{ item.cursusDto.titre }}
+          </li>
+          <!-- {{ etudiant.promotionsDto[0].cursusDto.titre }} -->
+          <br >
         </div>
         <div class="col col-top">
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
           <ul>
-            <li>
-              {{ etudiant.groupesDto[0].projetsDto[0].nom }}
+            <li v-for="item in etudiant.dossierProjet" :key="item.id">
+              {{ item.nom }}
             </li>
           </ul>
 
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
-          <br>
-            {{ etudiant.groupesDto[0].nom }}
+          <br >
+          <li v-for="item in etudiant.groupesDto" :key="item.id">
+            {{ item.nom }}
+          </li>
         </div>
       </div>
     </div>
 
     <!-- PROCHAIN COURS -->
-    <br>
+    <br >
     <div id="student-planning">
       <PlanningEtudiant />
     </div>
@@ -83,13 +86,13 @@ import PlanningEtudiant from "@/components/utils/PlanningEtudiant.vue";
 export default {
   name: "AccueilEtudiant",
   components: {
-    PlanningEtudiant
+    PlanningEtudiant,
   },
 
   data() {
     return {
       item: {},
-      etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
+      etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
       utilisateurId: this.$store.getters.getUtilisateur.id,
       fieldsCours: [
         {
@@ -119,30 +122,26 @@ export default {
           // thStyle: { width: "70%" },
         },
       ],
-
     };
   },
 
   methods: {
-
-    getEtudiant(){
-        etudiantApi.getById(this.etudiantId)
-        .then(response => this.item = response)
-      },
+    getEtudiant() {
+      etudiantApi
+        .getById(this.etudiantId)
+        .then((response) => (this.item = response));
+    },
     tabOut() {
-
       let tab = [];
       let mb = this.accueil.membreEtudiantDtos[0];
 
       mb.forEach(function (i) {
-        tab.push(
-          {
-            Nom: i.membreNom,
-            Prenom: i.membrePrenom,
-            Rôle: i.membreRole[0],
-          },
-        )
-      })
+        tab.push({
+          Nom: i.membreNom,
+          Prenom: i.membrePrenom,
+          Rôle: i.membreRole[0],
+        });
+      });
 
       tab.push({
         Nom: this.accueil.managerNom,
@@ -158,18 +157,16 @@ export default {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
     },
-    etudiant(){
-      return this.item
-    }
+    etudiant() {
+      return this.item;
+    },
   },
 
   created() {
     this.getEtudiant();
-    console.log(this.etudiantId);
     etudiantApi
       .getGroupes(this.utilisateurId)
       .then((data) => (this.groupes = data));
-      
   },
 };
 </script>
@@ -200,10 +197,6 @@ h5 {
   margin-top: 55px;
 }
 
-h2 {
-  font-weight: bolder;
-}
-
 .contact {
   margin-top: 0;
   margin-bottom: 30px;
@@ -213,14 +206,6 @@ h2 {
   margin: 89px 0 0 421px;
   min-height: 340px;
 } */
-
-#container 
-    {
-      width: 75%;
-      margin: 5% 0 0 3%;
-      background-color: white;
-        /* margin: 5% 0% 0% 21%; */
-    }
 
 ul {
   list-style-type: none;

@@ -1,0 +1,16 @@
+#container 
+    {
+      width: 95%;
+      margin: 5% 0 0 3%;
+
+    }
+
+    
+.container {
+  margin: 89px auto;
+  min-height: 340px;
+}
+
+h2 {
+  font-weight: bolder;
+}

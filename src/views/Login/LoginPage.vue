@@ -74,6 +74,9 @@
             :sitekey="sitekey"
             :loadRecaptchaScript="true"
           >
+            <div v-if="isInvalid" class="my-invalid-feedback">
+              Identifiant ou mot de passe incorrects !
+            </div>
             <button
               color="error"
               class="btn btn-primary"
@@ -174,6 +177,8 @@ export default {
       if (this.$v.form.$invalid) {
         this.password = "";
         this.email = "";
+        this.isInvalid = true;
+        this.isInvalidInput = true;
       } else {
         authenticationApi
           .login(this.email, this.password, captchaToken)
@@ -187,22 +192,21 @@ export default {
             if (roles.includes("CEF")) {
               router.push("cef");
             }
-            if  ( /*roles.includes("ETUDIANT") || */ roles.includes("FORMATEUR")) {
+            if (
+              /*roles.includes("ETUDIANT") || */ roles.includes("FORMATEUR")
+            ) {
               router.push("home");
             }
-            if (roles.includes("ETUDIANT")){
+            if (roles.includes("ETUDIANT")) {
               router.push("etudiant");
             }
-            if (roles.includes("TUTEUR")){
+            if (roles.includes("TUTEUR")) {
               router.push("tuteur");
             }
           })
           .catch((error) => {
             // console.log(error);
-            if (
-              error.response.data.message ==
-              "Erreur : identifiants incorrects !"
-            ) {
+            if (error) {
               this.isInvalid = true;
               this.isInvalidInput = true;
             }
@@ -280,7 +284,7 @@ h2 {
   text-align: center;
 }
 
-.cardActionForgot{
+.cardActionForgot {
   margin-bottom: 30px;
 }
 
@@ -555,9 +559,8 @@ input[type="text"]:placeholder {
 .foot-lnk {
   text-align: center;
 }
-#btn-login-connexion{
-    width: auto !important;
+#btn-login-connexion {
+  width: auto !important;
 }
-
 </style>
 

@@ -929,7 +929,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped src="@/assets/styles/StyleEtudiant.css">
 /* TEMPORAIRE BUG */
 footer {
   display: none;
@@ -993,11 +993,6 @@ a:hover {
 h5 {
   margin: 0 0 30px 0;
   font-weight: bolder;
-}
-
-.container {
-  margin: 89px auto;
-  min-height: 340px;
 }
 
 select {
