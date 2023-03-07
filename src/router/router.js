@@ -770,6 +770,15 @@ const routes = [
     meta: { authorize: [Role.Referent] },
   },
 
+   //#######################
+  //#    Tuteur           #
+  //#######################
+
+  /*{ path: "/tuteur", 
+    name: "tuteur_acceuil", 
+    component: AccueilTuteur },r*/
+
+
   //#######################
   //#       ADMIN         #
   //#######################

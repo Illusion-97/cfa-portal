@@ -1,5 +1,4 @@
 <template>
-
   <!-- CONTAINER UPDATE DOSSIER -->
   <div class="container" v-if="data.item.cursus.dossierProfessionnel">
     <h5>
@@ -9,7 +8,7 @@
     </h5>
 
     <!-- ACTIVITES TYPES SELECTEURS -->
-    <div v-for="(item, index) in data.item.cursus.dossierProfessionnel.cursus.activiteTypes" :key="index">
+  <div v-for="(item, index) in data.item.cursus.dossierProfessionnel.cursus.activiteTypes" :key="index">
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
       <!--LISTE COMPETENCES PRO -->
@@ -17,17 +16,73 @@
       <br>
     </div>
 
-    <!-- DIPLOMES FACULTATIFS DUR-->
-    <h6>Diplômes facultatifs</h6>
-    <b-form-select v-model="start" :options="diplomes" @change="goDiplome"></b-form-select>
-    <br>
-
-    <!-- DIPLOMES FACULTATIFS DYN-->
-    <h6>Diplômes facultatifs dynamique</h6>
-    <b-form-select v-model="start" v-bind:selected="value === null" :options="optionDiplome()" @change="goDiplome">
-      <b-form-select-option @click="goDiplome()" :value=null>+ Ajouter un diplôme</b-form-select-option>
+    <!--Annexe -->
+    <h6>Annexes</h6>
+    
+    <b-form-select id="select-file" v-model="selectedFile" :options="annexes" @change="getAnnexe">
+      <b-form-select-option v-for="(file, index) in fileList"  v-bind:value="file" :key="index" >{{ file }}</b-form-select-option>
     </b-form-select>
-    <br>
+    
+    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
+    </v-file-input>
+    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Nom du fichier" /><br/> 
+    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
+      </b-modal>
+
+  <br/>
+    <h6>Facultatif</h6>
+    <b-form-select v-model="start" :options="facultatif" @change="goFacultafif">
+    </b-form-select>   
+    
+    <b-modal id="bbb" size="xl" title="" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+          <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+         
+          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="email" :error-messages="emailErrors" label="Date" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+
+        <br/>
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+        <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+          document facultatif illustrant la pratique professionnelle            
+            </b-button>
+         
+          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+            <b-button size="sm" variant="success" type="submit" @click="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Créer</span>
+          </b-button>
+          <b-button size="sm" variant="danger" type="submit" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
+       
+        </form>
+      </template>
+    </b-modal>
 
     <!-- DIPLOMES MODALE -->
     <b-modal id="ddd" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
@@ -51,8 +106,7 @@
     </b-modal>
 
     <!-- ANNEXES DUR-->
-    <h6>Annexes dur</h6>
-    <b-form-select v-model="start" :options="annexes"></b-form-select>
+   
 
     <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
@@ -260,6 +314,100 @@
       <br />
     </div>
 
+    
+    <h6>Annexes</h6>
+    
+    <b-form-select id="select-file" v-model="selectedFile" :options="annexes" @change="getAnnexe">
+      <b-form-select-option v-for="(file, index) in fileList"  v-bind:value="file" :key="index" >{{ file }}</b-form-select-option>
+    </b-form-select>
+    
+    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
+    </v-file-input>
+    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Nom du fichier" /><br/> 
+    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
+      </b-modal>
+      
+  
+   <!-- <b-form-select id="fileList"  v-model="start" :options="annexes" @change="getAnnexe" >
+    </b-form-select>
+
+    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+         
+ <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput" @change="uploadFile"  multiple>      
+    </v-file-input>
+   <b-button size="sm" variant="success"  @click="valider">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Validé</span>
+          </b-button>
+        </form>
+      </template>
+    </b-modal>-->
+  
+   
+
+    
+    
+<br/>
+    <h6>Facultatif</h6>
+    <b-form-select v-model="start" :options="facultatif" @change="goFacultafif">
+    </b-form-select>   
+    
+    <b-modal id="bbb" size="xl" title="" centered scrollable no-close-on-esc hide-footer>
+      <template>
+        <form>
+          <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+         
+          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="email" :error-messages="emailErrors" label="Date" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+
+        <br/>
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+        <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
+          document facultatif illustrant la pratique professionnelle            
+            </b-button>
+         
+          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
+            <br>
+          </b-card-header>
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+            <b-button size="sm" variant="success" type="submit" @click="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Créer</span>
+          </b-button>
+          <b-button size="sm" variant="danger" type="submit" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
+       
+        </form>
+      </template>
+    </b-modal>
+
+
+   
+    
+
     <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
@@ -353,17 +501,18 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
-
+              <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
 
+
+   
         <div id="div-save">
           <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Créer</span>
+            <span class="icon-right">Valider</span>
           </b-button>
         </div>
 
@@ -409,6 +558,7 @@
       </div>
     </b-modal>
   </div>
+
 </template>
 
 <script>
@@ -419,6 +569,7 @@ import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import { VueEditor } from "vue2-editor";
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email } from 'vuelidate/lib/validators'
+
 
 export default {
   name: "Selects",
@@ -474,21 +625,44 @@ export default {
           disabled: false,
         },
         {
-          value: null,
           text: "Annexes A",
-          disabled: true,
+          disabled: false,
         },
         {
           value: null,
           text: "Annexes B",
-          disabled: true,
+          disabled: false,
         },
         {
           value: null,
           text: "Annexes C",
+          disabled: false,
+        }],
+
+         fileName: '',
+        fileList: [],
+      selectedFile: null,
+
+        facultatif: [
+        {
+          value: null,
+          text: "+ Ajouter : ",
           disabled: true,
+        },
+        {
+          value: null,
+          text: "+ Ajouter un diplôme, titre, CQP, attestation de formation facultatif ",
+          disabled: false,
+        },
+        {
+          value: null,
+          text: "+ Ajouter un document facultatif illustrant la pratique professionnelle",
+          disabled: false,
         }
+       
       ],
+
+   
       tempActivite: [],
       tempCompetence: [],
       dpId: 0,
@@ -638,7 +812,24 @@ export default {
     },
 
     //LANCE LA MODALE ANNEXES
+    getAnnexe() {
+      this.$bvModal.show("ddd");
+      console.log("launch");
+    },
 
+   
+
+
+    addItems()
+    {
+      this.$bvModal.addItems("ddd");
+    },
+
+    goFacultafif() {
+      this.$bvModal.show("bbb");
+      console.log("launch");
+    },
+   
     // OPTIONS DES ACTIVITES TYPES - MODIFIER
     optionsAT(item) {
       let tab = [
@@ -745,6 +936,19 @@ export default {
               information: this.expPro.information,
               competenceProfessionnelleId: this.tempCompetence.id
             }],
+
+            annexes: [{
+             id:0,
+             libelle:"",
+             pieceJointe:""
+            }],
+
+            facultatifs: [{
+             id:0,
+             organisme:"",
+             intitule:"",
+             date:""
+            }],
           },
         )
         // REDIRECTION
@@ -834,6 +1038,26 @@ export default {
           // this.optionsAT()
         );
     },
+    onFileSelected(event) {
+      this.selectedFile = event.target.files[0];
+    },
+    saveFile() {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.fileName);
+      // submit formData to server using axios or other method
+    },
+    addFile() {
+      if (this.fileName) {
+      // Ajouter le nom de fichier saisi
+      this.fileList.push(this.fileName);
+    } else if (this.selectedFile) {
+      // Ajouter le fichier sélectionné
+      this.fileList.push(this.selectedFile);
+    }
+    // Réinitialiser les propriétés data
+    this.fileName = '';
+    this.selectedFile = '';
+  },
 
     // FORM DIPLOME
     submit() {
@@ -860,7 +1084,7 @@ export default {
       .getActiviteTypesByCursus(this.data.item.id)
       .then((data) => (this.activitesByCursus = data));
 
-    this.test();
+   // this.test();
 
     // console.log("Dossier Professionnel > " + this.data);
     // console.dir(
@@ -1015,5 +1239,15 @@ select {
 
 .icon-right {
   margin-left: 7px;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
