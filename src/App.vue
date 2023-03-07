@@ -35,7 +35,6 @@ import VueSidebarFormateur from "@/components/Navigation/VueSidebarFormateur.vue
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
 import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
-import HeaderTuteur from "@/components/Navigation/HeaderTuteur.vue";
 
 
 export default {
