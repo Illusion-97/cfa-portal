@@ -83,6 +83,8 @@
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import PlanningEtudiant from "@/components/utils/PlanningEtudiant.vue";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
+
 export default {
   name: "AccueilEtudiant",
   components: {
@@ -163,6 +165,20 @@ export default {
   },
 
   created() {
+
+        utilisateurApi
+      .getPlanningById(this.$store.getters.getUtilisateur.id)
+      .then((response) => this.$store.dispatch("setPlanning", response, console.log(response)));
+
+      if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
+        this.$router.push({
+          name: "admin_dashboard",
+        });
+      }
+      if(this.isFormateur){
+        this.$router.push({name: "formateur_home"})
+      }
+
     this.getEtudiant();
     etudiantApi
       .getGroupes(this.utilisateurId)
