@@ -10,7 +10,17 @@ export const projetApi = {
   save,
   deleteProjet,
   getByIdEtudiant,
+  getAll,
 };
+
+function getAll(){
+  let req = `/${END_POINT}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
 
 /**
  * Récupération du projet en fonction de son id

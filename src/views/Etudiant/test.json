@@ -285,3 +285,59 @@
         "utilisateurDto": null
     }
 }
+// TABLEAU 1
+[
+    {
+        "id": 3,
+        "noteObtenue": 20,
+        "examen": "Spring",
+        "promotions": [
+            "titre-professionnel-developpeur-web-et-web-mobile-tp-01280m03-01-01-2022-5"
+        ],
+        "date": "2022-06-03",
+        "etudiantId": 226
+    },
+    {
+        "id": 4,
+        "noteObtenue": 13,
+        "examen": "Vue.js",
+        "promotions": [
+            "titre-professionnel-developpeur-web-et-web-mobile-tp-01280m03-01-01-2022-5"
+        ],
+        "date": "2022-12-16",
+        "etudiantId": 226
+    },
+    {
+        "id": 5,
+        "noteObtenue": 9,
+        "examen": "Angular",
+        "promotions": [
+            "titre-professionnel-developpeur-web-et-web-mobile-tp-01280m03-01-01-2022-5"
+        ],
+        "date": "2022-06-22",
+        "etudiantId": 226
+    }
+]
+// TABLEAU 2
+[
+    {
+        "id": 1,
+        "noteObtenue": 14,
+        "examen": "Java Initiation",
+        "promotions": [
+            "titre-professionnel-concepteur-developpeur-d-applications-tp-01281m03-04-01-2021-1"
+        ],
+        "date": "2022-06-01",
+        "etudiantId": 226
+    },
+    {
+        "id": 2,
+        "noteObtenue": 14,
+        "examen": "JPA Hibernate",
+        "promotions": [
+            "titre-professionnel-concepteur-developpeur-d-applications-tp-01281m03-04-01-2021-1"
+        ],
+        "date": "2022-06-02",
+        "etudiantId": 226
+    }
+]

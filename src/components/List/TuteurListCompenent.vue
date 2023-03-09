@@ -47,14 +47,14 @@
             <td>{{ etudiant.utilisateurDto.login }}</td>
             <td>{{ etudiant.utilisateurDto.telephone }}</td>
             <td>
-              <router-link :to="{
+              <!-- <router-link :to="{
                 name: 'detail_etudiant',
                 query: { data: etudiant.id },
-              }">
-              <b-button block variant="info">
+              }"> -->
+              <b-button block variant="info" @click="goToEtudiant(etudiant.id)">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
               </b-button>
-              </router-link>
+              <!-- </router-link> -->
             </td>
           </tr>
         </tbody>
@@ -83,6 +83,8 @@
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
+import { projetApi } from "@/_api/projet.api.js";
+
 
 export default {
   data() {
@@ -91,12 +93,10 @@ export default {
       pageCount: 0,
       saisie: "",
       etudiants: [],
-      
+      toto: [],
       tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
-
-
 
   created() {
     this.refreshList();   
@@ -109,6 +109,13 @@ export default {
       this.saisie ="";
     },
 
+    goToEtudiant(item) {
+      this.$router.push({
+        name: "detail_etudiant",
+        params: { id: item },
+      });
+    },
+
     pageChange(pageNum) {
       tuteurApi
       .getEtudiantByTuteurByPage(this.tuteurId, pageNum -1, this.perPage)
@@ -117,16 +124,20 @@ export default {
       });
     },
 
+
+
     refreshList() {
       tuteurApi
         .getEtudiantByTuteurByPage(this.tuteurId, 0, this.perPage, this.saisie)
         .then((response) => {
-          this.etudiants = response;
+          this.etudiants = response
         });
 
       tuteurApi.getAllEtudiantsByTuteurIdBySearch(this.tuteurId, this.saisie).then((response) => {
-        this.pageCount = Math.ceil(response / this.perPage, console.log(this.pageCount))
+        this.pageCount = Math.ceil(response / this.perPage)
       })
+
+      projetApi.getAll().then((response) => { this.toto = response })
     },
   },
 };

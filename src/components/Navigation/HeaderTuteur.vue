@@ -16,6 +16,8 @@
         </div>
       </div>
 
+      <div class="Titre"><h1>Espace étudiant</h1></div>
+
       <!-- BUTTON DECONNEXION -->
       <b-col class="d-flex justify-content-end">
         <div>
@@ -112,5 +114,10 @@ export default {
   height: 100%;
   border: 5px;
   right: 100%;
+}
+
+.Titre {
+  width: 45%;
+  text-align: right;
 }
 </style>
