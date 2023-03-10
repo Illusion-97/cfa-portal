@@ -79,7 +79,7 @@ export default {
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.items = data));
+      .then((data) => (this.items = data, console.log(this.items)));
   },
 };
 </script>
