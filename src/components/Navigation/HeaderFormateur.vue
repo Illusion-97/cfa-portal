@@ -64,6 +64,9 @@ import { etudiantApi } from '@/_api/etudiant.api.js';
             isEtudiant() {
                 return utilisateurService.isEtudiant();
             },
+            isTuteur() {
+                return utilisateurService.isTuteur();
+            },
  
         },
         methods: {
