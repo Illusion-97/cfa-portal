@@ -24,8 +24,12 @@
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
             <br >
-            {{ utilisateur.telephone }}
-            <br />
+            <div v-if="utilisateur.telephone = null">
+              {{ utilisateur.telephone }}
+            </div>
+            <div v-else>
+              {{ utilisateur.telephoneFixe }}
+            </div>
             <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
             <strong>Ville</strong>
             <br >
@@ -36,7 +40,7 @@
         <div class="col col-top">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
-          <strong>Promotion actuel</strong>
+          <strong>Promotions</strong>
           <br >
           <li v-for="item in etudiant.promotionsDto" :key="item.id">
             {{ item.cursusDto.titre }}
@@ -49,11 +53,10 @@
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
           <ul>
-            <li v-for="item in etudiant.dossierProjet" :key="item.id">
+            <li v-for="item in projets" :key="item.id">
               {{ item.nom }}
             </li>
           </ul>
-
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
@@ -82,6 +85,7 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
+import { projetApi } from "@/_api/projet.api.js";
 import PlanningEtudiant from "@/components/utils/PlanningEtudiant.vue";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 
@@ -94,6 +98,7 @@ export default {
   data() {
     return {
       item: {},
+      projets: [],
       etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
       utilisateurId: this.$store.getters.getUtilisateur.id,
       fieldsCours: [
@@ -183,6 +188,9 @@ export default {
     etudiantApi
       .getGroupes(this.utilisateurId)
       .then((data) => (this.groupes = data));
+
+    projetApi.getByIdEtudiant(this.etudiantId).then((data) => (this.projets = data));
+    console.log("projet " + this.projets);
   },
 };
 </script>
