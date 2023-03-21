@@ -18,37 +18,43 @@
           <span class="contact">
             <font-awesome-icon :icon="['fas', 'envelope']" class="ico" />
             <strong>eMail</strong>
-            <br >
+            <br>
             {{ utilisateur.login }}
             <br />
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
-            <br >
-            <div v-if="utilisateur.telephone = null">
+            <br>
+            <div v-if="utilisateur.telephone != null">
               {{ utilisateur.telephone }}
             </div>
-            <div v-else>
+            <div v-else-if="utilisateur.telephoneFixe != null">
               {{ utilisateur.telephoneFixe }}
+            </div>
+            <div v-else>
+              Pas de numéro de téléphone renseigner.
             </div>
             <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
             <strong>Ville</strong>
-            <br >
-            {{ utilisateur.adresseDto.ville }}
+            <br>
+            <div>
+              {{ utilisateur.adresseDto.ville !=null? utilisateur.adresseDto.ville  : "Pas de ville renseigner."}}
+            </div>
             <br />
           </span>
         </div>
-        <div class="col col-top">
+        <div class="col col-top" v-if="etudiant.promotionsDto != null">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotions</strong>
-          <br >
+          <br>
           <li v-for="item in etudiant.promotionsDto" :key="item.id">
             {{ item.cursusDto.titre }}
           </li>
           <!-- {{ etudiant.promotionsDto[0].cursusDto.titre }} -->
-          <br >
+          <br>
         </div>
-        <div class="col col-top">
+        <div class="col col-top" v-else>Pas de promotion actuel.</div>
+        <div class="col col-top" v-if="projets != null">
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
@@ -60,16 +66,17 @@
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
-          <br >
+          <br>
           <li v-for="item in etudiant.groupesDto" :key="item.id">
             {{ item.nom }}
           </li>
         </div>
+        <div class="col col-top" v-else>Aucun projet créer.</div>
       </div>
     </div>
 
     <!-- PROCHAIN COURS -->
-    <br >
+    <br>
     <div id="student-planning">
       <PlanningEtudiant />
     </div>
@@ -170,19 +177,20 @@ export default {
   },
 
   created() {
+    // console.log(this.$store.getters.getUtilisateur);
 
-        utilisateurApi
+    utilisateurApi
       .getPlanningById(this.$store.getters.getUtilisateur.id)
-      .then((response) => this.$store.dispatch("setPlanning", response, console.log(response)));
+      .then((response) => this.$store.dispatch("setPlanning", response));
 
-      if(this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN"){
-        this.$router.push({
-          name: "admin_dashboard",
-        });
-      }
-      if(this.isFormateur){
-        this.$router.push({name: "formateur_home"})
-      }
+    if (this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN") {
+      this.$router.push({
+        name: "admin_dashboard",
+      });
+    }
+    if (this.isFormateur) {
+      this.$router.push({ name: "formateur_home" })
+    }
 
     this.getEtudiant();
     etudiantApi
@@ -190,7 +198,7 @@ export default {
       .then((data) => (this.groupes = data));
 
     projetApi.getByIdEtudiant(this.etudiantId).then((data) => (this.projets = data));
-    console.log("projet " + this.projets);
+    // console.log("projet " + this.projets);
   },
 };
 </script>

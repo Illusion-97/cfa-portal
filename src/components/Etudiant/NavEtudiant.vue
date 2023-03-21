@@ -1,15 +1,15 @@
 <template>
   <div>
-    <SideBarComponentFormateur :menuTitle="menuTitle" :isSearch="isSearch"  :isMenuOpen="isMenuOpen"
+    <sideBarEtudiant :menuTitle="menuTitle" :isSearch="isSearch"  :isMenuOpen="isMenuOpen"
       :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
   </div>
 </template>
 <script>
-import SideBarComponentFormateur from "@/components/Navigation/SideBarComponentEtudiant.vue";
+import sideBarEtudiant from "@/components/Navigation/SideBarComponentEtudiant.vue";
 
 export default {
   name: "VueSidebarFormateur",
-  components: { SideBarComponentFormateur },
+  components: { sideBarEtudiant },
   data() {
     return {
       userRole: "",
