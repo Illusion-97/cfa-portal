@@ -1650,7 +1650,7 @@ const routes = [
   //#######################
 
   { path: "/tuteur", name: "tuteur_acceuil", component: AccueilTuteur },
-  { path: "/tuteur/detailEtudiant", name: "detail_etudiant", component: DetailEtudiant},
+  { path: "/tuteur/detailEtudiant/:id", name: "detail_etudiant", component: DetailEtudiant},
 ];
 
 

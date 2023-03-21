@@ -58,8 +58,7 @@
                 <div
                   v-for="intervention in item"
                   :key="intervention.id"
-                  class="intervention"
-                >
+                  class="intervention">
                   <p class="font-weight-bold h5">
                     {{ intervention.formationDto.titre }}
                   </p>
@@ -68,14 +67,19 @@
                   </p>
                   <div
                     v-for="formateur in intervention.formateurDto"
-                    :key="formateur.id"
-                  >
+                    :key="formateur.id">
                     <p>
                       <span class="font-weight-bold">Formateur : </span>
-                      {{ formateur.utilisateurDto.prenom }}
-                      {{ formateur.utilisateurDto.nom }}
+                      {{ formateur.utilisateurDto.nom }} {{ formateur.utilisateurDto.prenom }}
                     </p>
                   </div>
+                  <router-link v-if="isFormateur"
+                    :to="{ name: 'formateur_intervention_detail',
+                      params: { id: intervention.idIntervention },}">
+                    <font-awesome-icon
+                      :icon="['fas', 'external-link-alt']"
+                      class="icon text-primary"/>
+                  </router-link>
                 </div>
               </td>
             </tr>
@@ -85,18 +89,15 @@
     </div>
   </div>
 </template>
-  
-  <script>
+
+<script>
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 export default {
-  name: "PlanningEtudiant",
+  name: "Planning",
   data() {
     return {
       date: new Date(),
     };
-  },
-  created() {
-    //console.log(this.intervention.formateurDto)
   },
   computed: {
     dateAujourdhui() {
@@ -160,9 +161,9 @@ export default {
     isFormateur() {
       return utilisateurService.isFormateur();
     },
-    isEtudiant() {
+    isEtudiant(){
       return utilisateurService.isEtudiant();
-    },
+    }
   },
   methods: {
     triage(data) {
@@ -226,8 +227,8 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 table {
   text-align: center;
   table-layout: fixed;
@@ -259,4 +260,3 @@ table {
   /* border-right: 1px solid black; */
 }
 </style>
-  
