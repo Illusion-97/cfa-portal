@@ -9,6 +9,7 @@
       :items="items"
       :fields="fields"
       primary-key="id"
+      v-if="items != null"
     >
       <template #cell(DossierProjet)="row">
         {{ row.nom }}
@@ -37,6 +38,9 @@
         </b-button>
       </template>
     </b-table>
+    <div v-else>
+      Pas de dossier projet veuillez en créer un.
+    </div>
 
     <!-- BOUTON AJOUTER un projet -->
     <router-link
@@ -79,7 +83,7 @@ export default {
   created() {
     dossierProjetApi
       .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.items = data, console.log(this.items)));
+      .then((data) => (this.items = data));
   },
 };
 </script>
