@@ -249,6 +249,7 @@
       <br />
     </div>
 
+    <!--Annexe-->
     
     <h6>Annexes</h6>
     <b-form-select id="select-file" v-model="selectedAnnexe"  @change="getAnnexe" >
