@@ -9,7 +9,7 @@
       :items="items"
       :fields="fields"
       primary-key="id"
-      v-if="items != null"
+      v-if="items"
     >
       <template #cell(DossierProjet)="row">
         {{ row.nom }}

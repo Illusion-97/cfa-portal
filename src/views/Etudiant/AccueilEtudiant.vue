@@ -24,10 +24,10 @@
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
             <br>
-            <div v-if="utilisateur.telephone != null">
+            <div v-if="utilisateur.telephone">
               {{ utilisateur.telephone }}
             </div>
-            <div v-else-if="utilisateur.telephoneFixe != null">
+            <div v-else-if="utilisateur.telephoneFixe">
               {{ utilisateur.telephoneFixe }}
             </div>
             <div v-else>
@@ -42,7 +42,7 @@
             <br />
           </span>
         </div>
-        <div class="col col-top" v-if="etudiant.promotionsDto != null">
+        <div class="col col-top" v-if="etudiant.promotionsDto">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotions</strong>
@@ -54,7 +54,7 @@
           <br>
         </div>
         <div class="col col-top" v-else>Pas de promotion actuel.</div>
-        <div class="col col-top" v-if="projets != null">
+        <div class="col col-top" v-if="projets">
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
