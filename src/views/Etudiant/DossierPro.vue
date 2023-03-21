@@ -16,75 +16,8 @@
       <br>
     </div>
 
-    <!--Annexe -->
-    <h6>Annexes</h6>
-    
-    <b-form-select id="select-file" v-model="selectedFile" :options="annexes" @change="getAnnexe">
-      <b-form-select-option v-for="(file, index) in fileList"  v-bind:value="file" :key="index" >{{ file }}</b-form-select-option>
-    </b-form-select>
-    
-    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
-      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
-    </v-file-input>
-    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Nom du fichier" /><br/> 
-    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
-      </b-modal>
-
-  <br/>
-    <h6>Facultatif</h6>
-    <b-form-select v-model="start" :options="facultatif" @change="goFacultafif">
-    </b-form-select>   
-    
-    <b-modal id="bbb" size="xl" title="" centered scrollable no-close-on-esc hide-footer>
-      <template>
-        <form>
-          <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
-              diplôme, titre, CQP, attestation de formation facultatif
-             
-            </b-button>
-         
-          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
-          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="email" :error-messages="emailErrors" label="Date" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <br>
-          </b-card-header>
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-
-        <br/>
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
-          document facultatif illustrant la pratique professionnelle            
-            </b-button>
-         
-          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
-            <br>
-          </b-card-header>
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-            <b-button size="sm" variant="success" type="submit" @click="submit">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Créer</span>
-          </b-button>
-          <b-button size="sm" variant="danger" type="submit" class="icon-right">
-            <i class="fa-solid fa-circle-xmark"></i>
-            <span class="icon-right">Annuler</span>
-          </b-button>
-       
-        </form>
-      </template>
-    </b-modal>
-
-    <!-- DIPLOMES MODALE -->
+   
+    <!-- DIPLOMES MODALE 
     <b-modal id="ddd" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
       <template>
         <form>
@@ -103,11 +36,13 @@
           </b-button>
         </form>
       </template>
-    </b-modal>
+    </b-modal>-->
 
     <!-- ANNEXES DUR-->
    
 
+    <!-- ACTIVITES TYPES MODALE -->
+   
     <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
@@ -316,18 +251,22 @@
 
     
     <h6>Annexes</h6>
-    
-    <b-form-select id="select-file" v-model="selectedFile" :options="annexes" @change="getAnnexe">
-      <b-form-select-option v-for="(file, index) in fileList"  v-bind:value="file" :key="index" >{{ file }}</b-form-select-option>
+    <b-form-select id="select-file" v-model="selectedAnnexe"  @change="getAnnexe" >
+     
+      <b-form-select-option v-for="(annexe, index) in fileList"  v-bind:value="annexe" :key="index" >{{ annexe }}</b-form-select-option>
+    <b-form-select-option>
+      <b-button>+ Ajouter des annexes</b-button>
+  </b-form-select-option>
     </b-form-select>
-    
-    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer >
+      <b-form @submit="onSubmit">
       <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
     </v-file-input>
-    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Nom du fichier" /><br/> 
+    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Libelle" /><br/> 
     <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
+  </b-form>
       </b-modal>
-      
+   
   
    <!-- <b-form-select id="fileList"  v-model="start" :options="annexes" @change="getAnnexe" >
     </b-form-select>
@@ -346,52 +285,26 @@
       </template>
     </b-modal>-->
   
-   
 
-    
     
 <br/>
     <h6>Facultatif</h6>
-    <b-form-select v-model="start" :options="facultatif" @change="goFacultafif">
-    </b-form-select>   
     
-    <b-modal id="bbb" size="xl" title="" centered scrollable no-close-on-esc hide-footer>
+    <b-form-select v-model="start" :options="facultatif" @change="goDiplome">
+    </b-form-select>   
+   
+    <!-- DIPLOMES MODALE -->
+    <b-modal id="bbb" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
       <template>
         <form>
-          <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
-              diplôme, titre, CQP, attestation de formation facultatif
-             
-            </b-button>
-         
           <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
             @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
           <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
             @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="email" :error-messages="emailErrors" label="Date" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="date" :error-messages="dateErrors" label="date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
             <br>
-          </b-card-header>
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-
-        <br/>
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">
-          document facultatif illustrant la pratique professionnelle            
-            </b-button>
-         
-          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
-            <br>
-          </b-card-header>
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-            <b-button size="sm" variant="success" type="submit" @click="submit">
+          <b-button size="sm" variant="success" type="submit" @click="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Créer</span>
           </b-button>
@@ -399,16 +312,13 @@
             <i class="fa-solid fa-circle-xmark"></i>
             <span class="icon-right">Annuler</span>
           </b-button>
-       
         </form>
       </template>
     </b-modal>
 
 
    
-    
-
-    <!-- ACTIVITES TYPES MODALE -->
+  <!-- ACTIVITES TYPES MODALE -->
     <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
 
@@ -506,6 +416,74 @@
           </b-collapse>
         </b-card>
 
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">6. Annexes
+              <i class="bi bi-caret-down-square-fill"></i>
+            </b-button>
+          </b-card-header>
+          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
+
+            <b-card-body>
+               <b-form-select id="select-file" v-model="selectedAnnexe" :options="annexe" @change="getAnnexe" >
+      <b-form-select-option v-for="(annexe, index) in fileList"  v-bind:value="annexe" :key="index" >{{ annexe }}</b-form-select-option>
+    </b-form-select>
+    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
+    </v-file-input>
+    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Libelle" /><br/> 
+    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
+      </b-modal>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
+
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1" role="tab">
+            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">7. Facultatif
+              <i class="bi bi-caret-down-square-fill"></i>
+            </b-button>
+          </b-card-header>
+          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
+
+            <b-card-body>
+             
+          <b-card>
+      
+            <b-button block variant="light" disabled="false">
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+         
+          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
+          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="date" :error-messages="dateErrors" label="Date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
+            <br>
+        
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+
+        <b-card>
+         
+        <b-button block variant="light" disabled="false">
+          document facultatif illustrant la pratique professionnelle            
+            </b-button>
+         
+          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
+          
+       
+          </b-card>
+          <b-card-body>
+        </b-card-body>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
+ 
 
    
         <div id="div-save">
@@ -568,7 +546,7 @@ import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import { VueEditor } from "vue2-editor";
 import { validationMixin } from 'vuelidate'
-import { required, maxLength, email } from 'vuelidate/lib/validators'
+import { required, maxLength, email, date } from 'vuelidate/lib/validators'
 
 
 export default {
@@ -576,7 +554,7 @@ export default {
   components: {
     VueEditor
   },
-  data: function () {
+  data () {
     return {
       //DATA TRANSFERT DEPUIS ROUTER-LINK
       data: this.$route.query.data,
@@ -618,7 +596,7 @@ export default {
           disabled: true,
         }
       ],
-      annexes: [
+      annexe: [
         {
           value: null,
           text: "+ Ajouter une annexe",
@@ -641,7 +619,7 @@ export default {
 
          fileName: '',
         fileList: [],
-      selectedFile: null,
+        selectedAnnexe: null,
 
         facultatif: [
         {
@@ -666,6 +644,7 @@ export default {
       tempActivite: [],
       tempCompetence: [],
       dpId: 0,
+
       form: {
         id: 0,
         nom: "",
@@ -694,6 +673,21 @@ export default {
           information: "",
           competenceProfessionnelleId: 0
         }],
+        annexe :[{
+              id:0,
+              version:0,
+              libelle:"",
+              pieceJointe:"",
+              dossierProfessionnelId:0
+            }],
+            facultatif:[{
+              id:0,
+              version:0,
+              date:"",
+              intitule:"",
+              organisme:"",
+              dossierProfessionnelId:0
+            }]
       },
       formExp: {
         id: 0,
@@ -708,6 +702,7 @@ export default {
       // FORM DIPLOME
       name: '',
       email: '',
+      date: '',
       select: null,
       items: [
         'Item 1',
@@ -729,11 +724,11 @@ export default {
           disabled: false,
         },
       ];
-      for (let i = 0; i < this.data.item.cursus.dossierProfessionnel.diplomeFacultatifs.length; i++) {
+      for (let i = 0; i < this.data.item.cursus.dossierProfessionnel.facultatif.length; i++) {
         tab.push(
           {
-            value: this.data.item.cursus.dossierProfessionnel.diplomeFacultatifs[i],
-            text: this.data.item.cursus.dossierProfessionnel.diplomeFacultatifs[i].intitule,
+            value: this.data.item.cursus.dossierProfessionnel.facultatif[i],
+            text: this.data.item.cursus.dossierProfessionnel.facultatif[i].intitule,
             disabled: true,
           }
         )
@@ -807,7 +802,7 @@ export default {
 
     //LANCE LA MODALE DIPLOMES
     goDiplome() {
-      this.$bvModal.show("ddd");
+      this.$bvModal.show("bbb");
       console.log("launch");
     },
 
@@ -825,10 +820,10 @@ export default {
       this.$bvModal.addItems("ddd");
     },
 
-    goFacultafif() {
+    /*goFacultafif() {
       this.$bvModal.show("bbb");
       console.log("launch");
-    },
+    },*/
    
     // OPTIONS DES ACTIVITES TYPES - MODIFIER
     optionsAT(item) {
@@ -904,6 +899,7 @@ export default {
 
     // ENVOIE FORMULAIRE
     onSubmit(event) {
+      try{
       event.preventDefault();
       dossierProfessionnelApi
         .saveDossierProfessionnel(
@@ -937,25 +933,39 @@ export default {
               competenceProfessionnelleId: this.tempCompetence.id
             }],
 
-            annexes: [{
-             id:0,
-             libelle:"",
-             pieceJointe:""
+            annexe :[{
+              id:0,
+              version:0,
+              libelle:"",
+              pieceJointe:"",
+              dossierProfessionnelId:0
             }],
-
-            facultatifs: [{
-             id:0,
-             organisme:"",
-             intitule:"",
-             date:""
-            }],
+            facultatif:[{
+              id:0,
+              version:0,
+              date:"",
+              intitule:"",
+              organisme:"",
+              dossierProfessionnelId:0
+            }]
           },
+
+          this.$store.getters.getUtilisateur.etudiantDto.id
+
         )
         // REDIRECTION
-        .then(() =>
-          this.$bvModal.hide("exp-pro-modal"),
-          this.$bvModal.show("modal-success")
-        );
+        .then((data) =>
+         (this.form = data, console.log(data)),
+         this.$bvModal.hide("exp-pro-modal"),
+          this.$bvModal.show("modal-success"));
+
+
+        }
+        catch(error){
+            console.error('Error:', error);
+        }
+
+
     },
 
     updateExp() {
@@ -1012,9 +1022,28 @@ export default {
                 version: this.expPro.version
               }
             ],
+            annexe :[{
+              id:0,
+              version:0,
+              libelle:"",
+              pieceJointe:"",
+              dossierProfessionnelId:0,
+              
+            }],
+
+            facultatif:[{
+              id:0,
+              version:0,
+              date:"",
+              intitule:"",
+              organisme:"",
+              dossierProfessionnelId:0
+            }],
+
             version: 0
-          }
-          , this.$store.getters.getUtilisateur.etudiantDto.id ,console.log()
+          },
+
+           this.$store.getters.getUtilisateur.etudiantDto.id
 
         )
 
@@ -1039,24 +1068,24 @@ export default {
         );
     },
     onFileSelected(event) {
-      this.selectedFile = event.target.files[0];
+      this.selectedAnnexe= event.target.files[0];
     },
     saveFile() {
       const formData = new FormData();
-      formData.append('file', this.selectedFile, this.fileName);
+      formData.append('annexe', this.selectedAnnexe, this.fileName);
       // submit formData to server using axios or other method
     },
     addFile() {
       if (this.fileName) {
       // Ajouter le nom de fichier saisi
       this.fileList.push(this.fileName);
-    } else if (this.selectedFile) {
+    } else if (this.selectedAnnexe) {
       // Ajouter le fichier sélectionné
-      this.fileList.push(this.selectedFile);
+      this.fileList.push(this.selectedAnnexe);
     }
     // Réinitialiser les propriétés data
     this.fileName = '';
-    this.selectedFile = '';
+    this.selectedAnnexe = '';
   },
 
     // FORM DIPLOME
@@ -1083,6 +1112,8 @@ export default {
     activiteTypeApi
       .getActiviteTypesByCursus(this.data.item.id)
       .then((data) => (this.activitesByCursus = data));
+
+      
 
    // this.test();
 
@@ -1112,6 +1143,7 @@ export default {
   validations: {
     name: { required, maxLength: maxLength(10) },
     email: { required, email },
+    date: {required, date},
     select: { required },
     checkbox: {
       checked(val) {
@@ -1147,13 +1179,20 @@ export default {
       !this.$v.email.required && errors.push('E-mail is required')
       return errors
     },
+    dateErrors() {
+      const errors = []
+      if (!this.$v.date.$dirty) return errors
+      !this.$v.date.date && errors.push('Must be valid date')
+      !this.$v.date.required && errors.push('date is required')
+      return errors
+    },
   },
 };
 
 
 </script>
 
-<style scoped src="@/assets/styles/StyleEtudiant.css">
+<style scoped>
 /* TEMPORAIRE BUG */
 footer {
   display: none;
@@ -1219,6 +1258,8 @@ h5 {
   font-weight: bolder;
 }
 
+
+
 select {
   display: block;
 }
@@ -1230,6 +1271,12 @@ select {
 .titre-details-modal {
   text-align: left;
   padding: 6px 25px;
+}
+.container {
+  margin: 89px 0 0 180px;
+  padding-top: 0%;
+  padding-bottom: 10%;
+  min-height: 350px;
 }
 
 .card-header button {
