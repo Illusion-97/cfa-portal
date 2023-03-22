@@ -7,18 +7,18 @@
         <v-btn-toggle w-100 role="group">
           <v-btn w-100 id="bt1" block v-b-toggle="'bt1'" @click="active = 1" variant="plain"
             style="color: white; background-color: #08092d">Infos etudiant</v-btn>
-          <v-btn w-100 id="bt2" class="" block v-b-toggle="'bt2'" @click="active = 2" variant="plain"
+          <v-btn w-100 id="bt2"  block v-b-toggle="'bt2'" @click="active = 2" variant="plain"
             style="color: white; background-color: #08092d">Contrôle continue</v-btn>
-          <v-btn w-100 id="bt3" class="" block v-b-toggle="'bt3'" @click="active = 3" variant="plain"
+          <v-btn w-100 id="bt3"  block v-b-toggle="'bt3'" @click="active = 3" variant="plain"
             style="color: white; background-color: #08092d">Planning</v-btn>
-          <v-btn w-100 id="bt4" class="" block v-b-toggle="'bt4'" @click="active = 4" variant="plain"
+          <v-btn w-100 id="bt4"  block v-b-toggle="'bt4'" @click="active = 4" variant="plain"
             style="color: white; background-color: #08092d">Dossiers projets</v-btn>
-          <v-btn w-100 id="bt5" class="" block v-b-toggle="'bt5'" @click="active = 5" variant="plain"
+          <v-btn w-100 id="bt5"  block v-b-toggle="'bt5'" @click="active = 5" variant="plain"
             style="color: white; background-color: #08092d">Dossiers professionnels</v-btn>
-          <v-btn w-100 id="bt6" class="" block v-b-toggle="'bt6'" @click="active = 6" variant="plain"
+          <v-btn w-100 id="bt6"  block v-b-toggle="'bt6'" @click="active = 6" variant="plain"
             style="color: white; background-color: #08092d">Congé
           </v-btn>
-          <v-btn w-100 id="bt7" class="" block v-b-toggle="'bt7'" @click="active = 7" variant="plain"
+          <v-btn w-100 id="bt7"  block v-b-toggle="'bt7'" @click="active = 7" variant="plain"
             style="color: white; background-color: #08092d">Absences</v-btn>
         </v-btn-toggle>
       </nav>
@@ -201,11 +201,12 @@
               </tr>
             </tbody>
           </v-simple-table>
-
+          <br>
+          <div>TEST TABLEAU</div>
           <!-- TEST -->
           <!-- MARCHE PEUT ETRE AVEC UNE MISE A JOUR DE VUETIFY -->
-          <!-- <v-data-table :items-per-page="itemsPerPage" :headers="absenceFields" :items="absences" item-value="dateDebut" class="elevation-1">
-          </v-data-table> -->
+          <v-data-table :items-per-page="itemsPerPage" :headers="absenceFields" :items="absences" item-value="dateDebut" class="elevation-1">
+          </v-data-table>
         </v-card-body>
       </v-card>
     </div>

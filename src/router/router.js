@@ -352,15 +352,15 @@ const routes = [
   },
 
   //new routes espace Etudiant
-  { path: "/etudiant", name: "etudiant_accueil", component: AccueilEtudiant },
-  { path: "/etudiant/cursus", name: "etudiant_cursus", component: CursusEtudiant },
-  { path: "/etudiant/controle", name: "etudiant_controle", component: ControleContinuEtudiant },
-  { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant },
-  { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant },
-  { path: "/etudiant/dossierprojets", name: "etudiant_dossierprojet", component: DossierProjetEtudiant },
-  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro },
-  { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro },
-  { path: "/etudiant/absences", name: "etudiant_absences", component: AbsenceEtudiant},
+  { path: "/etudiant", name: "etudiant_accueil", component: AccueilEtudiant, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/cursus", name: "etudiant_cursus", component: CursusEtudiant, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/controle", name: "etudiant_controle", component: ControleContinuEtudiant, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/livret", name: "etudiant_livret", component: LivretEvaluationEtudiant, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/dossierprofessionnel", name: "etudiant_dossierprofessionnel", component: DossierProfessionnelEtudiant, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/dossierprojets", name: "etudiant_dossierprojet", component: DossierProjetEtudiant, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/creerdossierpro", name: "creer_dossier_pro", component: DossierPro, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/modifierdossierpro", name: "modifier_dossier_pro", component: DossierPro, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/absences", name: "etudiant_absences", component: AbsenceEtudiant, meta: { authorize: [Role.Etudiant] }, },
   {
     path: "/etudiant/signature",
     name: "signature_etudiant",
@@ -1653,13 +1653,13 @@ const routes = [
     path: "/tuteur", 
     name: "tuteur_acceuil", 
     component: AccueilTuteur,
-    // meta: { authorize: [Role.TUTEUR]}
+    meta: { authorize: [Role.TUTEUR]},
   },
   { 
     path: "/tuteur/detailEtudiant/:id", 
     name: "detail_etudiant", 
     component: DetailEtudiant,
-    // meta: { authorize: [Role.TUTEUR]}
+    meta: { authorize: [Role.TUTEUR]},
   },
 ];
 
