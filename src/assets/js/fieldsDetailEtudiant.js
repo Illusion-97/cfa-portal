@@ -34,8 +34,8 @@ export const congeFields = [
 ];
 
 export const absenceFields = [
-    { key: "dateDebut", label: "Abscence"},
-    { key: "dateFin", label: "Abscence"},
+    { key: "dateDebut", title: "Absent de"},
+    { key: "dateFin", title: "à"},
 ]
 
 export const planningFields = [

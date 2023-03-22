@@ -37,7 +37,7 @@
             <strong>Ville</strong>
             <br>
             <div>
-              {{ utilisateur.adresseDto.ville !=null? utilisateur.adresseDto.ville  : "Pas de ville renseigner."}}
+              {{ utilisateur.adresseDto.ville? utilisateur.adresseDto.ville : "Pas de ville renseigner."}}
             </div>
             <br />
           </span>

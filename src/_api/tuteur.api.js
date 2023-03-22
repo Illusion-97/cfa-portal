@@ -9,15 +9,13 @@ export const tuteurApi = {
   getCount, 
   getAllEtudiantsByTuteurId,
   getAllEtudiantsByTuteurIdBySearch,
-  
 };
 
 const END_POINT = "tuteur";
 
 /**
  * 
- * @param {*} page 
- * @param {*} size 
+ * @param {*} search 
  * @returns 
  */
 function getEtudiantByTuteurByPage(id, page, size, search = "") {

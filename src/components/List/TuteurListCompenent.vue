@@ -83,23 +83,20 @@
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
-import { projetApi } from "@/_api/projet.api.js";
-
 
 export default {
   data() {
     return {
-      perPage: 2,
+      perPage: 8,
       pageCount: 0,
       saisie: "",
       etudiants: [],
-      toto: [],
       tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
 
   created() {
-    this.refreshList();   
+    this.refreshList(); 
   },
 
   methods: {
@@ -124,8 +121,6 @@ export default {
       });
     },
 
-
-
     refreshList() {
       tuteurApi
         .getEtudiantByTuteurByPage(this.tuteurId, 0, this.perPage, this.saisie)
@@ -136,12 +131,9 @@ export default {
       tuteurApi.getAllEtudiantsByTuteurIdBySearch(this.tuteurId, this.saisie).then((response) => {
         this.pageCount = Math.ceil(response / this.perPage)
       })
-
-      projetApi.getAll().then((response) => { this.toto = response })
     },
   },
 };
 </script>
+
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-<style scoped lang="css">
-</style>

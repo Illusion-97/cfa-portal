@@ -1649,8 +1649,18 @@ const routes = [
   //#    Tuteur           #
   //#######################
 
-  { path: "/tuteur", name: "tuteur_acceuil", component: AccueilTuteur },
-  { path: "/tuteur/detailEtudiant/:id", name: "detail_etudiant", component: DetailEtudiant},
+  { 
+    path: "/tuteur", 
+    name: "tuteur_acceuil", 
+    component: AccueilTuteur,
+    // meta: { authorize: [Role.TUTEUR]}
+  },
+  { 
+    path: "/tuteur/detailEtudiant/:id", 
+    name: "detail_etudiant", 
+    component: DetailEtudiant,
+    // meta: { authorize: [Role.TUTEUR]}
+  },
 ];
 
 
