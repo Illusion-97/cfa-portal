@@ -22,9 +22,9 @@
         </b-button>
       </template>
     </b-table>
-    <div v-else>
-      Pas de dossier projet veuillez en créer un.
-    </div>
+    <ul v-else>
+      <li>Pas de dossier projet veuillez en créer un.</li>
+    </ul>
 
     <!-- BOUTON AJOUTER un projet -->
     <router-link :to="{
@@ -58,7 +58,7 @@ export default {
           let bas64 = response;
           const linkSource = `data:application/pdf;base64,${bas64}`;
           const downloadLink = document.createElement("a");
-          const fileName = "dossier-projet-"+ nomDossierProjet +".pdf";
+          const fileName = "dossier-projet-" + nomDossierProjet + ".pdf";
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();

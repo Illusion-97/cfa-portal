@@ -1,19 +1,23 @@
-<template> 
+<template>
   <div class="container-fluid" id="container">
-      <h2>Livret d'évaluation</h2>
-      <br>
-      <b-table small head-variant="light" :items="livret" :fields="fields">
-        <template #cell(etat)="row">
-          {{row.item.etat | etatLivret }}
-        </template>
-        <template #cell(TODO) ="row">
-          <button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(row.item)" >
-            <i class="fa-solid fa-file-pdf"></i>
-            Télécharger
-          </button>
-        </template>
-        
-      </b-table>
+    <h2>Livret d'évaluation</h2>
+    <br>
+
+    <b-table small head-variant="light" :items="livret" :fields="fields" v-if="livret">
+      <template #cell(etat)="row">
+        {{ row.item.etat | etatLivret }}
+      </template>
+      <template #cell(TODO)="row">
+        <button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(row.item)">
+          <i class="fa-solid fa-file-pdf"></i>
+          Télécharger
+        </button>
+      </template>
+
+    </b-table>
+    <ul v-else>
+      <li>Pas livret d'évalutation.</li>
+    </ul>
   </div>
 </template>
 
@@ -46,7 +50,7 @@ export default {
           thStyle: { width: "15%" },
           formatter: () => { return "Bouton Telechargement"; },
         },
-    
+
         {
           key: "observation",
           label: "Observation",
@@ -60,16 +64,16 @@ export default {
     formatName() {
       return "ICONE POUR DL PDF";
     },
-    generer(item){
-      
-      livretEvaluationApi.generer(item.etudiantId,item.titreProfessionnelId).then(response =>{
+    generer(item) {
+
+      livretEvaluationApi.generer(item.etudiantId, item.titreProfessionnelId).then(response => {
         let bas64 = response;
-          const linkSource = `data:application/pdf;base64,${bas64}`;
-          const downloadLink = document.createElement("a");
-          const fileName = item.titreProfessionnelTitre+".pdf";
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
+        const linkSource = `data:application/pdf;base64,${bas64}`;
+        const downloadLink = document.createElement("a");
+        const fileName = item.titreProfessionnelTitre + ".pdf";
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
       })
 
     },
@@ -98,10 +102,11 @@ export default {
     //   .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
     //   .then((data) => (this.livret = data));
 
-    livretEvaluationApi 
+    livretEvaluationApi
       .getlivretEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => {this.livret = data
-      console.log(data)
+      .then((data) => {
+        this.livret = data
+        console.log(data)
       });
 
   },

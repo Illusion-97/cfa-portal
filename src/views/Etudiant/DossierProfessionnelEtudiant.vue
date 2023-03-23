@@ -4,7 +4,7 @@
       <h2>Dossiers professionnels</h2>
 
       <!-- TABLEAU TEST -->
-      <b-table small head-variant="light" :items="dp.promotions" :fields="fields">
+      <b-table small head-variant="light" :items="dp.promotions" :fields="fields" v-if="dp.promotions">
         <template #cell(Cursus)="data">
           {{ data.item.cursus.titre }}
         </template>
@@ -17,7 +17,7 @@
 
               <!-- BOUTON VOIR -->
               <b-button size="sm" class="mr-2" variant="primary" v-on:click="
-              voirDossier(data.item.id)">
+                voirDossier(data.item.id)">
                 <!-- <i class="bi bi-eye"></i> -->
                 <i class="fa-solid fa-file-pdf"></i> Voir
               </b-button>
@@ -28,7 +28,7 @@
                 query: { data: data },
               }">
                 <b-button size="sm" class="mr-2" variant="primary" v-on:click="
-                updateDossier()">
+                  updateDossier()">
                   <i class="fa-solid fa-square-pen"></i>
                   Modifier
                 </b-button>
@@ -68,9 +68,13 @@
 
         </template>
       </b-table>
+      <ul v-else>
+        <li>Pas de dossier professionnel.</li>
+      </ul>
+
 
       <!-- INFOS -->
-      <p id="info">
+      <p id="info" v-if="dp.promotions">
         <font-awesome-icon :icon="['fas', 'info-circle']" />
         <strong id="title-info">Informations</strong>
         <br />
@@ -140,8 +144,8 @@ export default {
 
     updateDossier() {
       dossierProfessionnelApi
-      .updateDossierProfessionnel(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.dp = data));
+        .updateDossierProfessionnel(this.$store.getters.getUtilisateur.etudiantDto.id)
+        .then((data) => (this.dp = data));
     },
 
     getDossierId(data, dossierProfessionnel) {
@@ -169,11 +173,11 @@ export default {
   },
 
   uploadFile() {
-      dossierProfessionnelApi
+    dossierProfessionnelApi
       .generateDossierProByStudentAndPromo(this.$store.getters.getDossierId.etudiantDto.id.promotionId)
-      .then((data => (this.dp=data)))
-      },
-    
+      .then((data => (this.dp = data)))
+  },
+
 };
 </script>
 

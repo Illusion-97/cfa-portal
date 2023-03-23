@@ -2,7 +2,7 @@
   <div class="container-fluid" id="container">
     <h2>Cursus</h2>
     <br>
-    <ul>
+    <ul v-if="cursusComputed">
       <li v-for="item in cursusComputed" :key="item.id">
         <h5>
           {{ item.Titre }} -
@@ -43,6 +43,9 @@
           <br>
         </p>
       </li>
+    </ul>
+    <ul v-else>
+      <li>Pas de cursus attribué.</li>
     </ul>
   </div>
 </template>
@@ -96,12 +99,11 @@ h2 {
   font-weight: bolder;
 }
 
-#container 
-    {
-      width: 95%;
-      margin: 5% 0 0 3%;
-        /* margin: 5% 0% 0% 21%; */
-    }
+#container {
+  width: 95%;
+  margin: 5% 0 0 3%;
+  /* margin: 5% 0% 0% 21%; */
+}
 
 h5 {
   margin-bottom: 17px;

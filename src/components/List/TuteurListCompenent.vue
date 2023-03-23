@@ -2,7 +2,7 @@
   <div id="adminDashboard" class="container-fluid">
 
     <!-- BARRE DE RECHERCHE -->
-    <div class="d-flex flex-row align-items-start">
+    <div class="d-flex flex-row align-items-start" v-if="etudiants">
       <h2 class="p-2">Liste des étudiants</h2>
       <form class="form-inline p-2" @submit="submit">
         <input
@@ -20,7 +20,7 @@
     </div>
 
     <!-- TABLEAU -->
-      <v-simple-table>
+      <v-simple-table v-if="etudiants">
         <thead style="background-color: #08092d" >
           <tr>
             <td style="color: white">
@@ -59,6 +59,7 @@
           </tr>
         </tbody>
       </v-simple-table>
+      <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
     <paginate
@@ -76,6 +77,7 @@
       :prev-link-class="'page-link'"
       :next-link-class="'page-link'"
       :active-class="'active'"
+      v-if="etudiants"
     >
     </paginate>
   </div>
