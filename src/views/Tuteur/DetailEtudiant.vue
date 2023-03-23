@@ -25,76 +25,85 @@
 
       <v-card id="x">
         <!--Tableau Infos Etudiant-->
-        <v-card-body v-show="active === 1" name="page Info">
+        <v-card v-show="active === 1" name="Info">
           <v-card-text>
             <v-card-title disabled>Nom : {{ infos.nom }}</v-card-title>
             <v-card-title disabled>Prenom : {{ infos.prenom }}</v-card-title>
-            <v-card-title disabled>Date de naissance : {{ infos.dateDeNaissance }}</v-card-title>
-            <v-card-title disabled>Adresse : {{ infos.adresse }}</v-card-title>
-            <v-card-title disabled>Télephone : {{ infos.telephone }}</v-card-title>
-            <v-card-title disabled>Télephone fixe : {{ infos.telephoneFix }}</v-card-title>
+            <v-card-title disabled>Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigner." }}</v-card-title>
+            <v-card-title disabled>Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigner." }}</v-card-title>
+            <v-card-title disabled>Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigner." }}</v-card-title>
+            <v-card-title disabled>Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigner." }}</v-card-title>
+            <v-card-title disabled>Adresse mail : {{ infos.login }}</v-card-title>
           </v-card-text>
-        </v-card-body>
+        </v-card>
 
+
+        <!-- NE FONCTIONNE PAS CAR DOUBLE TABLEAU  -->
         <!-- Tableau Controle Continu -->
-        <v-card-body v-show="active === 2" name="controle continu">
+        <!-- <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="page" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer @page-count="pageCount = $event">
+            class="elevation-1" hide-default-footer @page-count="pageCountControleContinue = $event" v-if="notes.length != 0">
           </v-data-table>
+          <v-card-title v-else>Pas de controle continu.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCountControleContinue" v-if="notes.length != 0"></v-pagination>
           </div>
-        </v-card-body>
+        </v-card> -->
 
         <!-- Tableau Planning -->
-        <v-card-body v-show="active === 3" name="planning">
-          <v-data-table :headers="planningFields" :items="promo" :page.sync="page" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer @page-count="pageCount = $event">
+        <v-card v-show="active === 3" name="planning">
+          <v-data-table :headers="planningFields" :items="promos" :page.sync="page" :items-per-page="itemsPerPage"
+            class="elevation-1" hide-default-footer @page-count="pageCountPlanning = $event" v-if="promos.length != 0">
           </v-data-table>
+          <v-card-title v-else>Pas de planning.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCountPlanning" v-if="promos.length != 0"></v-pagination>
           </div>
-        </v-card-body>
+        </v-card>
 
         <!-- Tableau Dossier Projet -->
-        <v-card-body v-show="active === 4" name="dossier projet">
-          <v-data-table :headers="dossProjFields" :items="dossProj" :page.sync="page" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer @page-count="pageCount = $event">
+        <v-card v-show="active === 4" name="dossier projet">
+          <v-data-table :headers="dossProjFields" :items="dossProjs" :page.sync="page" :items-per-page="itemsPerPage"
+            class="elevation-1" hide-default-footer @page-count="pageCountDossierProjet = $event" v-if="dossProjs.length != 0">
           </v-data-table>
+          <v-card-title v-else>Pas de dossier projet.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCountDossierProjet" v-if="dossProjs.length != 0"></v-pagination>
           </div>
-        </v-card-body>
+        </v-card>
 
         <!-- Tableau Dossier Professionnel -->
-        <v-card-body v-show="active === 5" name="dossier professionnel">
+        <v-card v-show="active === 5" name="dossier professionnel">
           <v-data-table :headers="dossProfFields" :items="dossProfs" :page.sync="page" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer @page-count="pageCount = $event">
+            class="elevation-1" hide-default-footer @page-count="pageCountDossierProfessionnel = $event" v-if="dossProfs.length != 0">
           </v-data-table>
+          <v-card-title v-else>Pas de dossier professionnel.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCountDossierProfessionnel" v-if="dossProfs.length != 0"></v-pagination>
           </div>
-        </v-card-body>
+        </v-card>
 
         <!-- Tableau Congé -->
-        <v-card-body v-show="active === 6" name="page Annexe">
+        <v-card v-show="active === 6" name="congé">
           <v-data-table :headers="congeFields" :items="conges" :page.sync="page" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer @page-count="pageCount = $event">
+            class="elevation-1" hide-default-footer @page-count="pageCountConge = $event" v-if="conges.length != 0">
           </v-data-table>
+          <v-card-title v-else>Pas de congé.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCountConge" v-if="conges.length != 0"></v-pagination>
           </div>
-        </v-card-body>
+        </v-card>
 
         <!-- Tableau Absences -->
-        <v-card-body v-show="active === 7" name="page Annexe">
+        <v-card v-show="active === 7" name="absences">
           <v-data-table :headers="absenceFields" :items="absences" :page.sync="page" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer @page-count="pageCount = $event">
+            class="elevation-1" hide-default-footer @page-count="pageCountAbsence = $event" v-if="absences.length != 0">
           </v-data-table>
+          <v-card-title v-else>Pas d'absence.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
+            <v-pagination v-model="page" :length="pageCountAbsence" v-if="absences.length != 0"></v-pagination>
           </div>
-        </v-card-body>
+        </v-card>
       </v-card>
     </div>
   </div>
@@ -121,23 +130,27 @@ export default {
       name: "DetailEtudiant",
       active: undefined,
       page: 1,
-      pageCount: 0,
-      itemsPerPage: 2,
-      index: 1,
+      pageCountControleContinue: 0,
+      pageCountPlanning: 0,
+      pageCountDossierProjet: 0,
+      pageCountDossierProfessionnel: 0,
+      pageCountConge: 0,
+      pageCountAbsence: 0,
+      itemsPerPage: 3,
       etudiantId: 0,
-      promos: [],
-      conges: [],
-      absences: [],
-      dossProfs: [],
-      dossProjs: [],
       infos: [],
       notes: [],
+      promos: [],
+      dossProjs: [],
+      dossProfs: [],
+      conges: [],
+      absences: [],
       notesFields,
       planningFields,
+      dossProjFields,
+      dossProfFields,
       congeFields,
       absenceFields,
-      dossProfFields,
-      dossProjFields,
     };
   },
   methods: {
@@ -149,7 +162,7 @@ export default {
     getnoteEtudiant() {
       etudiantApi
         .getNotesByIdEtudiant(this.etudiantId)
-        .then((response) => (this.notes = response));
+        .then((response) => (this.notes = response, console.log(this.notes)));
     },
 
     getplanningEtudiant() {
@@ -181,11 +194,7 @@ export default {
     getabsenceEtudiant() {
       absenceApi
         .getAllByIdEtudiant(this.etudiantId)
-        .then((response) => (this.absences = response, console.log(this.absences)));
-    },
-
-    indexIncre() {
-      return this.index++;
+        .then((response) => (this.absences = response));
     },
   },
 
