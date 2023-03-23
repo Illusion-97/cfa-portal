@@ -2,25 +2,23 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'home'" />
-      <div
-        v-else-if="
-          path == 'formateur' ||
-          path == 'referent' ||
-          path == 'cef' ||
-          path == 'admin'
-        "
-      >
+      <div v-else-if="
+        path == 'formateur' ||
+        path == 'referent' ||
+        path == 'cef' ||
+        path == 'admin'
+      ">
         <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view />
       </div>
-      <div v-else-if="path == 'etudiant'" id="mainEtudiant">
+      <div v-else-if="path == 'etudiant'">
         <HeaderEtudiant />
         <NavEtudiant />
         <router-view />
         <FooterEtudiant />
       </div>
-      <div v-else-if="path == 'tuteur'" id="maintuteur">
+      <div v-else-if="path == 'tuteur'">
         <HeaderTuteur />
         <router-view />
       </div>
@@ -61,6 +59,7 @@ export default {
   padding-left: 5em;
   padding-right: 5em;
 }
+
 #mainEtudiant {
   min-height: calc(100vh - 13.2em);
   position: relative;

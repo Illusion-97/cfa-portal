@@ -106,7 +106,7 @@ export default {
       .getlivretEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => {
         this.livret = data
-        console.log(data)
+        // console.log(data)
       });
 
   },
