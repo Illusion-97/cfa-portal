@@ -16,10 +16,11 @@ import { Role } from "@/_helpers/role.js";
 //  - REFERENT
 //  - ADMIN
 //  - CEF
+//  - TUTEUR
 
-//          #######################
-//          #       IMPORTS       #
-//          #######################
+//#######################
+//#       IMPORTS       #
+//#######################
 
 //#######################
 //#       GLOBAL        #
@@ -1662,8 +1663,6 @@ const routes = [
     meta: { authorize: [Role.TUTEUR]},
   },
 ];
-
-
 
 const router = new VueRouter({
   //mode: "history",
