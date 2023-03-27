@@ -3,6 +3,9 @@
     <HomeEtudiant v-if="isEtudiant" />
     <HomeFormateur v-else-if="isFormateur" />
     <HomeTuteur v-else-if="isTuteur" />
+    <HomeReferent v-else-if="isReferent" />
+    <HomeCEF v-else-if="isCEF" />
+    <HomeAdmin v-else-if="isAdmin" />
     <NotFound v-else />
   </section>
 </template>
@@ -12,6 +15,9 @@ import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HomeEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
 import HomeFormateur from "@/views/Formateur/HomeFormateur.vue";
+import HomeReferent from "@/views/Tuteur/AcceuilTuteur.vue";
+import HomeAdmin from "@/views/Tuteur/AcceuilTuteur.vue";
+import HomeCEF from "@/views/Tuteur/AcceuilTuteur.vue";
 import HomeTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
 import NotFound from "@/views/NotFound.vue"
 export default {
@@ -19,6 +25,9 @@ export default {
   components: {
     HomeEtudiant,
     HomeFormateur,
+    HomeReferent,
+    HomeAdmin,
+    HomeCEF,
     HomeTuteur,
     NotFound
   },
@@ -37,6 +46,15 @@ export default {
     isTuteur() {
       return utilisateurService.isTuteur();
     },
+    isReferent() {
+      return utilisateurService.isReferent();
+    },
+    isCEF() {
+      return utilisateurService.isCEF();
+    },
+    isAdmin() {
+      return utilisateurService.isAdmin();
+    },
   },
   created() {
 
@@ -44,11 +62,6 @@ export default {
       .getPlanningById(this.$store.getters.getUtilisateur.id)
       .then((response) => this.$store.dispatch("setPlanning", response));
 
-    if (this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN") {
-      this.$router.push({
-        name: "admin_dashboard",
-      });
-    }
     if (this.isFormateur) {
       this.$router.push({ name: "formateur_home" })
     }
@@ -57,6 +70,15 @@ export default {
     }
     else if (this.isTuteur) {
       this.$router.push({ name: "tuteur_acceuil" })
+    }
+    else if (this.isReferent) {
+      this.$router.push({ name: "referent_dashboard" })
+    }
+    else if (this.isCEF) {
+      this.$router.push({ name: "cef_dashboard" })
+    }
+    else if (this.isAdmin) {
+      this.$router.push({ name: "admin_dashboard" })
     }
   },
 };
