@@ -17,7 +17,8 @@ export const controleContinuFields = [
 
 // PB 
 export const notesFields = [
-    { value: "nom.", text:"Examen", sortable: false },
+    { value: "examen", text:"Examen", sortable: false },
+    { value: "noteObtenue", text:"Notes", sortable: false }
 
 ]
 

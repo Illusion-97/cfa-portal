@@ -1,7 +1,7 @@
 <template>
   <div id="main-cr-prj">
     <div>
-
+      <v-col><v-btn id="btn-retour" @click="retour()">Retour</v-btn></v-col>
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
         <v-btn-toggle w-100 role="group">
@@ -40,7 +40,7 @@
 
         <!-- NE FONCTIONNE PAS CAR DOUBLE TABLEAU  -->
         <!-- Tableau Controle Continu -->
-        <!-- <v-card v-show="active === 2" name="controle continu">
+        <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="page" :items-per-page="itemsPerPage"
             class="elevation-1" hide-default-footer @page-count="pageCountControleContinue = $event" v-if="notes.length != 0">
           </v-data-table>
@@ -48,7 +48,7 @@
           <div class="text-center pt-2">
             <v-pagination v-model="page" :length="pageCountControleContinue" v-if="notes.length != 0"></v-pagination>
           </div>
-        </v-card> -->
+        </v-card>
 
         <!-- Tableau Planning -->
         <v-card v-show="active === 3" name="planning">
@@ -155,13 +155,17 @@ export default {
   },
   methods: {
 
+    retour() {
+        history.back();
+    },
+
     getinfoEtudiant() {
       utilisateurApi.getById(this.etudiantId).then((response) => (this.infos = response));
     },
 
     getnoteEtudiant() {
       etudiantApi
-        .getNotesByIdEtudiant(this.etudiantId)
+        .getAllNoteByIdEtudiant(this.etudiantId)
         .then((response) => (this.notes = response, console.log(this.notes)));
     },
 
@@ -222,6 +226,10 @@ export default {
 
 .v-btn-toggle {
   width: 14%;
+}
+
+#btn-retour{
+  margin-left: 94%;
 }
 
 #x {

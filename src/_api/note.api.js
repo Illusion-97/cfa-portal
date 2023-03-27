@@ -9,6 +9,7 @@ export const noteApi = {
     deleteNote,
     getAllByIdExamen,
     getAllByIdEtudiant,
+    getAllByIdEtudiantNoPromotionTitle,
     getAllNotes,
     getAllByPrmotionIdAndExamenId,
     getAllByInterventionIdAndExamenId,
@@ -103,9 +104,23 @@ function getAllByIdEtudiant(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * 
+ * @param {*} id etudiant
+ * @returns affiche toutes les notes par étudiant
+ */
+function getAllByIdEtudiantNoPromotionTitle(id) {
+    let req = `notes/etudiant/${id}`;
+
+    return axios
+        .get(req, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
+
 
 function getAllNoteByIdEtudiant(id) {
-    let req = `notes/note-etudiant/${id}`;
+    let req = `notes/note-etudiant-list/${id}`;
 
     return axios
         .get(req, requestOptions.headers())
