@@ -115,7 +115,7 @@ import { congeApi } from "@/_api/conge.api.js";
 import { absenceApi } from "@/_api/absence.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import { noteApi } from "@/_api/note.api.js";
 import { promotionApi } from "@/_api/promotion.api.js";
 import { notesFields } from "@/assets/js/fieldsDetailEtudiant.js";
 import { planningFields } from "@/assets/js/fieldsDetailEtudiant.js";
@@ -164,7 +164,7 @@ export default {
     },
 
     getnoteEtudiant() {
-      etudiantApi
+      noteApi
         .getAllNoteByIdEtudiant(this.etudiantId)
         .then((response) => (this.notes = response, console.log(this.notes)));
     },
