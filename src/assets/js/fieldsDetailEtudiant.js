@@ -56,5 +56,5 @@ export const congeFields = [
 
 export const absenceFields = [
     { value: 'dateDebut', text: 'Absent du', sortable: false },
-    { value: 'dateFin', text: 'Aux', sortable: false }
+    { value: 'dateFin', text: 'Au', sortable: false }
 ]
