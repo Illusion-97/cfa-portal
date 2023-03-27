@@ -136,7 +136,7 @@ export default {
       pageCountDossierProfessionnel: 0,
       pageCountConge: 0,
       pageCountAbsence: 0,
-      itemsPerPage: 3,
+      itemsPerPage: 4,
       etudiantId: 0,
       infos: [],
       notes: [],
@@ -203,6 +203,7 @@ export default {
   },
 
   created() {
+    console.log(this.$route.params.id);
     this.etudiantId = this.$route.params.id;
     this.getinfoEtudiant();
     this.getnoteEtudiant();

@@ -58,11 +58,9 @@
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
-          <ul>
             <li v-for="item in projets" :key="item.id">
               {{ item.nom }}
             </li>
-          </ul>
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>

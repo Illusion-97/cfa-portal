@@ -15,9 +15,9 @@ import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import HomeEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
 import HomeFormateur from "@/views/Formateur/HomeFormateur.vue";
-import HomeReferent from "@/views/Tuteur/AcceuilTuteur.vue";
-import HomeAdmin from "@/views/Tuteur/AcceuilTuteur.vue";
-import HomeCEF from "@/views/Tuteur/AcceuilTuteur.vue";
+import HomeReferent from "@/views/Referent/ReferentDashboard.vue";
+import HomeAdmin from "@/views/Admin/AdminDashboard.vue";
+import HomeCEF from "@/views/Cef/Crud/CentreFormation/CefCentreFormation.vue";
 import HomeTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
 import NotFound from "@/views/NotFound.vue"
 export default {
