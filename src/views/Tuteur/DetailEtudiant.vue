@@ -155,6 +155,10 @@ export default {
   },
   methods: {
 
+    retour() {
+        history.back();
+    },
+    
     getinfoEtudiant() {
       utilisateurApi.getById(this.etudiantId).then((response) => (this.infos = response));
     },
