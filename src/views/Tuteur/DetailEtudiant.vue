@@ -1,7 +1,7 @@
 <template>
   <div id="main-cr-prj">
     <div>
-      <v-col ><v-btn @click="retour()">Retour</v-btn></v-col>
+      <v-col><v-btn id="btn-retour" @click="retour()">Retour</v-btn></v-col>
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
         <v-btn-toggle w-100 role="group">
@@ -158,7 +158,7 @@ export default {
     retour() {
         history.back();
     },
-    
+
     getinfoEtudiant() {
       utilisateurApi.getById(this.etudiantId).then((response) => (this.infos = response));
     },
@@ -225,6 +225,10 @@ export default {
 
 .v-btn-toggle {
   width: 14%;
+}
+
+#btn-retour{
+  margin-left: 94%;
 }
 
 #x {
