@@ -1,7 +1,7 @@
 <template>
   <div id="main-cr-prj">
     <div>
-
+      <v-col ><v-btn @click="retour()">Retour</v-btn></v-col>
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
         <v-btn-toggle w-100 role="group">
