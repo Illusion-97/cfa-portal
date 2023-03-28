@@ -4,7 +4,7 @@
         <div>
             <table class="table table-striped" v-if="absences">
                 <thead class="">
-                    <tr>
+                    <tr class="bg-dark text-white" >
                         <th>Date debut</th>
                         <th>Date fin</th>
                         <th>Type d'absence</th>

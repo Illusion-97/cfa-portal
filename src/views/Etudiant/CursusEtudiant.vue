@@ -29,7 +29,7 @@
               <font-awesome-icon :icon="['fas', 'calendar-alt']" />
             </b-col>
             <b-col cols="10">
-              <b-table small head-variant="light" :items="item.Planning"></b-table>
+              <b-table small head-variant="dark" :items="item.Planning"></b-table>
               <!-- BOUTON TELECHARGER -->
               <!-- <b-button variant="success" size="sm">
                 <font-awesome-icon

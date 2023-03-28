@@ -25,7 +25,7 @@
 
         <b-collapse :id="'index'" class="colla" visible>
           <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
-          <b-table small head-variant="light" :items="item" :fields="fields"></b-table>
+          <b-table small head-variant="dark" :items="item" :fields="fields"></b-table>
         </b-collapse>
 
       </div>

@@ -102,7 +102,7 @@
                 <b-table
                   sticky-header
                   :items="row.item.itemsAbsences"
-                  head-variant="light"
+                  head-variant="dark"
                   :fields="fieldsAbseces"
                   dark
                   bordered
@@ -127,7 +127,7 @@
                 <b-table
                   sticky-header
                   :items="row.item.itemsDevoirs"
-                  head-variant="light"
+                  head-variant="dark"
                   :fields="fieldsDevoirs"
                   dark
                   bordered

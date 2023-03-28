@@ -58,9 +58,11 @@
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
+          <ul>
             <li v-for="item in projets" :key="item.id">
               {{ item.nom }}
             </li>
+          </ul>
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
@@ -84,7 +86,7 @@
     <b-table small head-variant="light" :items="accueil.prochainCours" :fields="fieldsCours"></b-table> -->
 
     <!-- MEMBRES-->
-    <b-table small head-variant="light" :items="tabOut"></b-table>
+    <b-table small head-variant="dark" :items="tabOut"></b-table>
   </div>
 </template>
 
