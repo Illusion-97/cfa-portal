@@ -3,7 +3,7 @@
     <h2>Contrôles continus</h2>
     <br>
 
-    <ul v-if="notesEtudiant.length != 0">
+    <ul v-if="notesEtudiant">
       <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
 
         <b-button v-b-toggle.index variant="primary" class="btn-volet">
@@ -88,9 +88,6 @@ export default {
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.notesEtudiant = data));
-
-      console.log(this.notesEtudiant);
-
   },
 };
 </script>
