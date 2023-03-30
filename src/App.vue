@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div>
-      <router-view v-if="path == 'home'" />
+      <router-view v-if="path == 'login'" />
       <div v-else-if="
         path == 'formateur' ||
         path == 'referent' ||

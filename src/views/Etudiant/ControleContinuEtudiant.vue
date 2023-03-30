@@ -3,7 +3,7 @@
     <h2>Contrôles continus</h2>
     <br>
 
-    <ul v-if="notesEtudiant">
+    <ul v-if="notesEtudiant && this.$store.getters.getUtilisateur.etudiantDto">
       <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
 
         <b-button v-b-toggle.index variant="primary" class="btn-volet">
@@ -87,7 +87,7 @@ export default {
   created() {
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.notesEtudiant = data));
+      .then((data) => (this.notesEtudiant = data, console.log(this.notesEtudiant)));
   },
 };
 </script>

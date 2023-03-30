@@ -2,7 +2,7 @@
   <div class="container-fluid" id="container">
     <h2>Cursus</h2>
     <br>
-    <ul v-if="cursusComputed">
+    <ul v-if="cursus && this.$store.getters.getUtilisateur.etudiantDto">
       <li v-for="item in cursusComputed" :key="item.id">
         <h5>
           {{ item.Titre }} -
