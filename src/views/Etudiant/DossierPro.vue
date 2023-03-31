@@ -1,6 +1,6 @@
 <template>
-  <!-- CONTAINER UPDATE DOSSIER -->
-  <div class="container" v-if="data.item.cursus.dossierProfessionnel">
+
+<div class="container" v-if="data.item.cursus.dossierProfessionnel">
     <h5>
       Modifier le dossier professionnel :
       <span>{{ data.item.cursus.titre }}</span>
@@ -17,174 +17,6 @@
     </div>
 
    
-    <!-- DIPLOMES MODALE 
-    <b-modal id="ddd" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
-      <template>
-        <form>
-          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
-          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <br>
-          <b-button size="sm" variant="success" type="submit" @click="submit">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Créer</span>
-          </b-button>
-          <b-button size="sm" variant="danger" type="submit" class="icon-right">
-            <i class="fa-solid fa-circle-xmark"></i>
-            <span class="icon-right">Annuler</span>
-          </b-button>
-        </form>
-      </template>
-    </b-modal>-->
-
-    <!-- ANNEXES DUR-->
-   
-
-    <!-- ACTIVITES TYPES MODALE -->
-   
-    <!-- ACTIVITES TYPES MODALE -->
-    <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-      scrollable no-close-on-esc @hidden="resetModal" hide-footer>
-
-      <!-- FORMULAIRE -->
-      <b-form @submit="onSubmit">
-        <!-- ACCORDEON EXP 1 -->
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
-              tâches réalisées ou opérations que vous avez
-              effectué et dans quelles conditions.
-              <i class="fa-solid fa-square-caret-down"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-
-            <!-- INSERT EXP -->
-            <b-card-body>
-              <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee"
-                placeholder="Tâches réalisées" />
-            </b-card-body>
-
-          </b-collapse>
-        </b-card>
-
-        <!-- ACCORDEON EXP 2 -->
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">2. Précisez les
-              moyens utilisés.
-              <i class="fa-solid fa-square-caret-down"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-
-            <!-- INSERT EXP -->
-            <b-card-body>
-              <!-- <b-form-input id="exp2" ref="aa" v-model="expPro.moyenUtilise" name="moyenUtilise"
-                placeholder="Moyens utilisés"></b-form-input> -->
-              <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
-
-            </b-card-body>
-
-          </b-collapse>
-        </b-card>
-
-        <!-- ACCORDEON EXP 3 -->
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal volets">3. Avec qui
-              avez-vous travaillé ?
-              <i class="fa-solid fa-square-caret-down"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-
-            <!-- INSERT EXP -->
-            <b-card-body>
-              <!-- <b-form-input id="exp3" v-model="expPro.collaborateur" name="collaborateur" placeholder="Collaborateurs">
-              </b-form-input> -->
-              <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
-
-            </b-card-body>
-
-          </b-collapse>
-        </b-card>
-
-        <!-- ACCORDEON EXP 4 -->
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal volets">4. Précisez le
-              contexte.
-              <i class="fa-solid fa-square-caret-down"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
-
-            <!-- INSERT EXP -->
-            <b-card-body>
-              <!-- <b-form-input id="exp4" v-model="expPro.contexte" name="contexte" placeholder="Contexte"></b-form-input> -->
-              <vue-editor v-model="expPro.contexte" id="exp4" name="contexte" placeholder="Contexte" />
-
-            </b-card-body>
-
-          </b-collapse>
-        </b-card>
-
-        <!-- ACCORDEON EXP 5 -->
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">5. Informations
-              complémentaires (facultatif).
-              <i class="fa-solid fa-square-caret-down"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
-
-            <!-- INSERT EXP -->
-            <b-card-body>
-              <!-- <b-form-input id="exp5" v-model="expPro.information" name="information" placeholder="Informations">
-              </b-form-input> -->
-              <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
-            </b-card-body>
-
-          </b-collapse>
-        </b-card>
-
-
-        <div id="div-save">
-
-          <!-- BOUTON DELETE EXP -->
-          <!-- MARCHE PAS -->
-          <!-- <div v-if="test()">
-              YOOOOOOOOOOOO
-          </div> -->
-          <!-- <div v-if="res == undefined">
-              YOOOOOOOOOOOO
-          </div> -->
-          <!-- <div v-else>
-              XXXXXXXXXX
-          </div> -->
-
-
-          <div v-if="hideDelete == true">
-            <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
-              <font-awesome-icon :icon="['fas', 'trash']" />
-              <span class="icon-right">Supprimer</span>
-            </b-button>
-          </div>
-
-          <!-- BOUTON UPDATE -->
-          <b-button size="sm" variant="primary" @click="updateExp()" class="btn-delete">
-            <i class="fa-solid fa-square-pen"></i>
-            <span class="icon-right">Mettre à jour</span>
-          </b-button>
-
-        </div>
-
-      </b-form>
-    </b-modal>
-
     <!-- LAUCHN MODALE TEST -->
     <!-- <b-button v-b-modal.modal-success>test modale dossier créer</b-button>
     <br>
@@ -239,6 +71,11 @@
       <span>{{ data.item.cursus.titre }}</span>
     </h5>
 
+    <v-col cols="12" sm="6"  md="4">
+      <v-text-field  type="text" label="Nom du dossier professionnel" v-model="form.nom" variant="filled"  clearable >
+</v-text-field><br/>
+    </v-col>
+
     <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index">
 
       <!-- ACTIVITES TYPES SELECTEURS -->
@@ -249,82 +86,15 @@
       <br />
     </div>
 
-    <!--Annexe-->
+
+    <b-form @submit="onSubmit">
     
-    <h6>Annexes</h6>
-    <b-form-select id="select-file" v-model="selectedAnnexe"  @change="getAnnexe" >
-     
-      <b-form-select-option v-for="(annexe, index) in fileList"  v-bind:value="annexe" :key="index" >{{ annexe }}</b-form-select-option>
-    <b-form-select-option>
-      <b-button>+ Ajouter des annexes</b-button>
-  </b-form-select-option>
-    </b-form-select>
-    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer >
-      <b-form @submit="onSubmit">
-      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
-    </v-file-input>
-    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Libelle" /><br/> 
-    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
-  </b-form>
-      </b-modal>
-   
-  
-   <!-- <b-form-select id="fileList"  v-model="start" :options="annexes" @change="getAnnexe" >
-    </b-form-select>
-
-    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
-      <template>
-        <form>
-         
- <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput" @change="uploadFile"  multiple>      
-    </v-file-input>
-   <b-button size="sm" variant="success"  @click="valider">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Validé</span>
-          </b-button>
-        </form>
-      </template>
-    </b-modal>-->
-  
-
-    
-<br/>
-    <h6>Facultatif</h6>
-    
-    <b-form-select v-model="start" :options="facultatif" @change="goDiplome">
-    </b-form-select>   
-   
-    <!-- DIPLOMES MODALE -->
-    <b-modal id="bbb" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
-      <template>
-        <form>
-          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
-          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="date" :error-messages="dateErrors" label="date" required
-            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
-            <br>
-          <b-button size="sm" variant="success" type="submit" @click="submit">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Créer</span>
-          </b-button>
-          <b-button size="sm" variant="danger" type="submit" class="icon-right">
-            <i class="fa-solid fa-circle-xmark"></i>
-            <span class="icon-right">Annuler</span>
-          </b-button>
-        </form>
-      </template>
-    </b-modal>
-
-
-   
-  <!-- ACTIVITES TYPES MODALE -->
-    <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
+    <!-- ACTIVITES TYPES MODALE -->
+  <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
 
       <!-- FORMULAIRE -->
-      <b-form @submit="onSubmit">
+     
         <!-- ACCORDEON EXP 1 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
@@ -412,91 +182,192 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
-            </b-card-body>
-          </b-collapse>
-        </b-card>
-
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">6. Annexes
-              <i class="bi bi-caret-down-square-fill"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
-
-            <b-card-body>
-               <b-form-select id="select-file" v-model="selectedAnnexe" :options="annexe" @change="getAnnexe" >
-      <b-form-select-option v-for="(annexe, index) in fileList"  v-bind:value="annexe" :key="index" >{{ annexe }}</b-form-select-option>
-    </b-form-select>
-    <b-modal id="ddd"  size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
-      <v-file-input id="fileA" v-model="start" :options="annexes" ref="fileInput"  @change="onFileSelected"  multiple>      
-    </v-file-input>
-    <input type="text" class="form-control" id="filename" v-model="fileName" placeholder="Libelle" /><br/> 
-    <button type="submit" class="btn btn-success" @click.prevent="addFile">Ajouter</button>
-      </b-modal>
-            </b-card-body>
-          </b-collapse>
-        </b-card>
-
-        <b-card no-body class="mb-1">
-          <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">7. Facultatif
-              <i class="bi bi-caret-down-square-fill"></i>
-            </b-button>
-          </b-card-header>
-          <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
-
-            <b-card-body>
-             
-          <b-card>
-      
-            <b-button block variant="light" disabled="false">
-              diplôme, titre, CQP, attestation de formation facultatif
-             
-            </b-button>
-         
-          <v-text-field v-model="name" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
-          <v-text-field v-model="email" :error-messages="emailErrors" label="Organisme" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="date" :error-messages="dateErrors" label="Date" required
-            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
-            <br>
-        
-          </b-card>
-          <b-card-body>
-        </b-card-body>
-
-        <b-card>
-         
-        <b-button block variant="light" disabled="false">
-          document facultatif illustrant la pratique professionnelle            
-            </b-button>
-         
-          <v-text-field v-model="nom" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.nom.$touch()" @blur="$v.nom.$touch()"></v-text-field>
-          
-       
-          </b-card>
-          <b-card-body>
-        </b-card-body>
+              <vue-editor v-model="expPro.collaborateur" id="exp5" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
  
+       </b-modal>
 
+        <!--<div v-if="hideDelete == true">
+            <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
+              <font-awesome-icon :icon="['fas', 'trash']" />
+              <span class="icon-right">Supprimer</span>
+            </b-button>
+          </div>
+
+            BOUTON UPDATE 
+           <b-button size="sm" variant="primary" @click="updateExp()" class="btn-delete">
+            <i class="fa-solid fa-square-pen"></i>
+            <span class="icon-right">Mettre à jour</span>
+          </b-button>-->
+
+ 
    
-        <div id="div-save">
+    
+   
+
+    <!-- MODALE SUCCESS DOSSIER UPDATE -->
+    <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre expérience professionnelle à correctement été mis à jour.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-update-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
+
+    <!-- MODALE SUCCESS DOSSIER DELETE -->
+    <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre expérience professionnelle à correctement supprimé.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-delete-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
+
+    <h6>Annexes</h6>
+<b-form-select id="select-file" v-model="selectedAnnexes" @change="getAnnexe" >
+  <b-form-select-option v-for="annexe in annexes" :key="annexe.id" :value="annexe">
+    {{ annexe.libelle }}
+  </b-form-select-option>
+  <b-form-select-option >
+    <b-button  >+ Ajouter des annexes </b-button>
+  </b-form-select-option>
+</b-form-select>
+
+<b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+  <v-file-input id="fileA" v-model="newAnnexe.pieceJointe" ref="fileInput"></v-file-input>
+  <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" /><br/>
+  <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
+</b-modal>
+
+    <!--<h6>Annexes</h6>
+    <b-form-select id="select-file" v-model="form.annexeDtos" @change="getAnnexe" >
+      <b-form-select-option v-for="annexeDtos in annexe" :key="annexeDtos.id" :value="annexeDtos">
+        {{ annexeDtos.libelle }}
+      </b-form-select-option>
+      <b-form-select-option >
+      <b-button @click="showModal" >+ Ajouter des annexes </b-button>
+      </b-form-select-option>
+    </b-form-select>
+    
+    <b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      
+        <v-file-input id="fileA" v-model="newAnnexe.pieceJointe"  ref="fileInput" >    
+        </v-file-input>
+        <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle"  /><br/>
+        <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
+     
+      </b-modal>-->
+
+     <!-- <h6>Annexes</h6>
+    <v-list-group  style="background-color: whitesmoke;">
+            <v-list-item>
+              <v-file-input id="fileA" v-model="newAnnexe.pieceJointe" :options="this.form.annexeDtos" ref="fileInput">    
+        </v-file-input>
+      </v-list-item>
+        <v-list-item>
+        <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" />
+      </v-list-item>
+      <v-list-item>
+          <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
+          </v-list-item>
+    <br/>
+            
+      </v-list-group>-->
+
+    
+<br/>
+  <!--  <h6>Facultatif</h6>
+    
+    <b-form-select id="select-doc" v-model="form.facultatifDto" @change="goDiplome">
+      <b-form-select-option v-for="facultatifDto in facultatif" :key="facultatifDto.id" :value="facultatifDto">
+        {{ facultatifDto.intitule }}
+      </b-form-select-option>
+      <b-form-select-option >
+      <b-button  >+ Ajouter </b-button>
+      </b-form-select-option>
+    </b-form-select>   
+   
+   
+    <b-modal id="bbb" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
+      <template>
+      
+       
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" ></v-text-field>
+          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
+            <br>
+       
+            <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button>
+      </template>
+    </b-modal>-->
+
+    <h6>Facultatif</h6>
+    <v-list-group v-model="form.facultatifDto" class="">
+
+      
+
+    
+            <v-list-item>          
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          <v-list-item> 
+          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()" style="background-color: white;"></v-text-field>
+            </v-list-item>
+            <v-list-item> 
+            <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()" style="background-color: white;"></v-text-field>
+            </v-list-item>              
+         <br/>
+
+        <!--   <b-button block variant="danger" >
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+           <b-button block variant="danger" >document facultatif illustrant la pratique professionnelle</b-button>
+  <v-list-group >
+            <v-list-item>          
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          </v-list-group>-->
+          
+    <br/>
+    <v-list-item>
+            <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button><br/>
+          </v-list-item>
+      </v-list-group>
+
+<br/>
+    
+    <div id="div-save">
           <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Valider</span>
           </b-button>
-        </div>
 
+          <b-button size="sm" variant="danger" type="submit" @click.prevent="goBack()" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
+
+        </div>
       </b-form>
-    </b-modal>
 
     <!-- MODALE SUCCESS DOSSIER CREE -->
     <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
@@ -538,6 +409,7 @@
     </b-modal>
   </div>
 
+
 </template>
 
 <script>
@@ -555,92 +427,31 @@ export default {
   components: {
     VueEditor
   },
+
+ 
   data () {
     return {
       //DATA TRANSFERT DEPUIS ROUTER-LINK
       data: this.$route.query.data,
       text: "test",
-      select1: null,
       cursus: [],
       activites: [],
       options: [],
       selectActivite: [],
       compInModal: [],
       expPro: [],
+      select1:null,
       activitesByCursus: [],
       hideDelete: false,
       start: null,
       diplomes: [
-        {
-          value: null,
-          text: "Vos diplômes",
-          disabled: false,
-        },
-        {
-          value: null,
-          text: "+ Ajouter un diplôme",
-          disabled: false,
-        },
-        {
-          value: null,
-          text: "Diplome A",
-          disabled: true,
-        },
-        {
-          value: null,
-          text: "Diplome B",
-          disabled: true,
-        },
-        {
-          value: null,
-          text: "Diplome C",
-          disabled: true,
-        }
+
       ],
-      annexe: [
-        {
-          value: null,
-          text: "+ Ajouter une annexe",
-          disabled: false,
-        },
-        {
-          text: "Annexes A",
-          disabled: false,
-        },
-        {
-          value: null,
-          text: "Annexes B",
-          disabled: false,
-        },
-        {
-          value: null,
-          text: "Annexes C",
-          disabled: false,
-        }],
-
-         fileName: '',
-        fileList: [],
-        selectedAnnexe: null,
-
-        facultatif: [
-        {
-          value: null,
-          text: "+ Ajouter : ",
-          disabled: true,
-        },
-        {
-          value: null,
-          text: "+ Ajouter un diplôme, titre, CQP, attestation de formation facultatif ",
-          disabled: false,
-        },
-        {
-          value: null,
-          text: "+ Ajouter un document facultatif illustrant la pratique professionnelle",
-          disabled: false,
-        }
-       
-      ],
-
+      annexes: [],// la liste des annexes existantes
+      selectedAnnexes: [], // la liste des annexes sélectionnées dans le formulaire
+    newAnnexes: [], // la liste des nouvelles annexes ajoutées dans le formulaire
+      
+  facultatif: [],
    
       tempActivite: [],
       tempCompetence: [],
@@ -650,7 +461,7 @@ export default {
         id: 0,
         nom: "",
 
-        cursus: {
+        cursusDto: {
           id: 0,
           titre: "",
 
@@ -665,7 +476,7 @@ export default {
           }],
         },
 
-        experienceProfessionnelles: [{
+        experienceProfessionnelleDtos: [{
           id: 0,
           tacheRealisee: "",
           moyenUtilise: "",
@@ -674,22 +485,12 @@ export default {
           information: "",
           competenceProfessionnelleId: 0
         }],
-        annexe :[{
-              id:0,
-              version:0,
-              libelle:"",
-              pieceJointe:"",
-              dossierProfessionnelId:0
-            }],
-            facultatif:[{
-              id:0,
-              version:0,
-              date:"",
-              intitule:"",
-              organisme:"",
-              dossierProfessionnelId:0
-            }]
+
+        annexeDtos : [],
+
+        facultatifDto: []
       },
+
       formExp: {
         id: 0,
         tacheRealisee: "",
@@ -712,6 +513,23 @@ export default {
         'Item 4',
       ],
       checkbox: false,
+      newFacultatif: {
+             id:0,
+             version:0,
+             intitule: "",
+             organisme: "",
+             date: "",
+             dossierProfessionnelId:0
+            },
+
+            newAnnexe: {
+              id:0,
+              version:0,
+              libelle:'',
+              pieceJointe:null,
+              dossierProfessionnelId:0
+               
+            }
     };
   },
 
@@ -806,6 +624,10 @@ export default {
       this.$bvModal.show("bbb");
       console.log("launch");
     },
+    gofacult() {
+      this.$bvModal.show("cc");
+      console.log("launch");
+    },
 
     //LANCE LA MODALE ANNEXES
     getAnnexe() {
@@ -813,7 +635,6 @@ export default {
       console.log("launch");
     },
 
-   
 
 
     addItems()
@@ -899,17 +720,16 @@ export default {
     },
 
     // ENVOIE FORMULAIRE
-    onSubmit(event) {
+  onSubmit() {
       try{
-      event.preventDefault();
-      dossierProfessionnelApi
+   dossierProfessionnelApi
         .saveDossierProfessionnel(
           this.$store.getters.getUtilisateur.etudiantDto.id,
           {
             id: 0,
-            nom: "",
+            nom: this.form.nom,
 
-            cursus: {
+            cursusDto: {
               id: this.data.item.cursus.id,
               titre: this.data.item.cursus.titre,
 
@@ -924,7 +744,7 @@ export default {
               }],
             },
 
-            experienceProfessionnelles: [{
+            experienceProfessionnelleDtos: [{
               id: 0,
               tacheRealisee: this.expPro.tacheRealisee,
               moyenUtilise: this.expPro.moyenUtilise,
@@ -934,33 +754,41 @@ export default {
               competenceProfessionnelleId: this.tempCompetence.id
             }],
 
-            annexe :[{
+          /* [
+            {
               id:0,
               version:0,
-              libelle:"",
-              pieceJointe:"",
+              libelle:this.newAnnexe.libelle,
+              pieceJointe:this.newAnnexe.pieceJointe,
               dossierProfessionnelId:0
-            }],
-            facultatif:[{
+            }
+           ] ,*/
+          annexeDtos:  [this.selectedAnnexes, this.annexes],
+
+            facultatifDto: [{
               id:0,
               version:0,
-              date:"",
-              intitule:"",
-              organisme:"",
+              intitule: this.newFacultatif.intitule,
+              organisme: this.newFacultatif.organisme,
+              date: this.newFacultatif.date,
               dossierProfessionnelId:0
-            }]
+    }
+             ]
+     
           },
 
           this.$store.getters.getUtilisateur.etudiantDto.id
 
         )
+       
         // REDIRECTION
         .then((data) =>
          (this.form = data, console.log(data)),
          this.$bvModal.hide("exp-pro-modal"),
           this.$bvModal.show("modal-success"));
-
-
+          
+         
+        
         }
         catch(error){
             console.error('Error:', error);
@@ -968,6 +796,47 @@ export default {
 
 
     },
+
+  addFacultatifs() {
+    this.facultatif.push(this.newFacultatif);
+      //console.log(this.facultatif);
+      this.newFacultatif = {
+              id:0,
+              version:0,
+              date:"",
+              intitule:"",
+              organisme:"",
+              dossierProfessionnelId:0
+            }
+          },
+
+   addAnnexe() {
+   /* this.annexe.push(this.newAnnexe);
+console.log(this.form.annexeDtos);
+        this.newAnnexe = {
+             id:0,
+             version:0,
+             libelle:"",
+             pieceJointe:null,
+             dossierProfessionnelId:0}*/
+           // ajouter la nouvelle annexe à la liste des nouvelles annexes
+    this.annexes.push({...this.newAnnexe});
+    // vider les champs du formulaire
+    this.newAnnexe = {
+      id: 0,
+      version: 0,
+      libelle: "",
+      pieceJointe: "",
+      dossierProfessionnelId: 0
+    };  
+  
+},
+    
+ 
+  
+
+    
+  
 
     updateExp() {
 
@@ -988,7 +857,7 @@ export default {
           {
             id: this.data.item.cursus.dossierProfessionnel.id,
             nom: "",
-            cursus: {
+            cursusDto: {
               id: this.data.item.cursus.id,
               titre: "",
               activiteTypes: [
@@ -1010,7 +879,7 @@ export default {
               ],
               version: 0
             },
-            experienceProfessionnelles: [
+            experienceProfessionnelleDtos: [
               {
                 id: this.expPro.id,
                 tacheRealisee: this.expPro.tacheRealisee,
@@ -1023,7 +892,7 @@ export default {
                 version: this.expPro.version
               }
             ],
-            annexe :[{
+            annexeDtos :[{
               id:0,
               version:0,
               libelle:"",
@@ -1032,7 +901,7 @@ export default {
               
             }],
 
-            facultatif:[{
+            facultatifDto:[{
               id:0,
               version:0,
               date:"",
@@ -1068,27 +937,8 @@ export default {
           // this.optionsAT()
         );
     },
-    onFileSelected(event) {
-      this.selectedAnnexe= event.target.files[0];
-    },
-    saveFile() {
-      const formData = new FormData();
-      formData.append('annexe', this.selectedAnnexe, this.fileName);
-      // submit formData to server using axios or other method
-    },
-    addFile() {
-      if (this.fileName) {
-      // Ajouter le nom de fichier saisi
-      this.fileList.push(this.fileName);
-    } else if (this.selectedAnnexe) {
-      // Ajouter le fichier sélectionné
-      this.fileList.push(this.selectedAnnexe);
-    }
-    // Réinitialiser les propriétés data
-    this.fileName = '';
-    this.selectedAnnexe = '';
-  },
 
+   
     // FORM DIPLOME
     submit() {
       this.$v.$touch()
@@ -1098,9 +948,17 @@ export default {
       this.name = ''
       this.email = ''
       this.select = null
+      this.form.nom = ''
+      this.data = ''
       this.checkbox = false
     },
+
+    goBack() {
+      window.history.back();
+    },
   },
+
+  
 
   created() {
     cursusApi

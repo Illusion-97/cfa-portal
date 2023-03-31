@@ -163,6 +163,7 @@ export default {
   },
 
   created() {
+    console.log(this.data);
     dossierProfessionnelApi
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));

@@ -111,9 +111,22 @@ function deleteDossierProfessionnel(id) {
     .catch((error) => console.log(error));
 }
 
+/** 
+@param {*} id 
+ * @param {*} form
+ * @returns 
+ */
+const config = {
+  headers: {
+    'Content-Type' : 'multipart/form-data'
+  }};
+
 function saveDossierProfessionnel(id, form) {
+  console.log(form);
+  
   return axios
-    .post(`${END_POINT}/save/etudiant/${id}`, form, requestOptions.headers())
+  
+    .post(`${END_POINT}/save/etudiant/${id}`, form, config, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
@@ -136,6 +149,13 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
     .catch((error) => console.log(error));
 
 }
+
+/** 
+@param {*} id 
+ * @param {*} form
+ * @returns 
+ */
+
 
 function updateDossierProfessionnel(form, id) {
   return axios
