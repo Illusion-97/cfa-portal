@@ -3,7 +3,7 @@
     <h2>Contrôles continus</h2>
     <br>
 
-    <ul v-if="notesEtudiant.length != 0">
+    <ul v-if="notesEtudiant && this.$store.getters.getUtilisateur.etudiantDto">
       <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
 
         <b-button v-b-toggle.index variant="primary" class="btn-volet">
@@ -25,7 +25,7 @@
 
         <b-collapse :id="'index'" class="colla" visible>
           <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
-          <b-table small head-variant="light" :items="item" :fields="fields"></b-table>
+          <b-table small head-variant="dark" :items="item" :fields="fields"></b-table>
         </b-collapse>
 
       </div>
@@ -87,10 +87,7 @@ export default {
   created() {
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.notesEtudiant = data));
-
-      console.log(this.notesEtudiant);
-
+      .then((data) => (this.notesEtudiant = data, console.log(this.notesEtudiant)));
   },
 };
 </script>

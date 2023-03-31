@@ -3,7 +3,7 @@
     <h2>Dossiers projets</h2>
 
     <!-- TABLEAU ITEM -->
-    <b-table small head-variant="light" :items="items" :fields="fields" primary-key="id" v-if="items">
+    <b-table small head-variant="dark" :items="items" :fields="fields" primary-key="id" v-if="items && this.$store.getters.getUtilisateur.etudiantDto">
       <template #cell(DossierProjet)="row">
         {{ row.nom }}
       </template>

@@ -4,7 +4,7 @@
       <h2>Dossiers professionnels</h2>
 
       <!-- TABLEAU TEST -->
-      <b-table small head-variant="light" :items="dp.promotions" :fields="fields" v-if="dp.promotions">
+      <b-table small head-variant="dark" :items="dp.promotions" :fields="fields" v-if="dp.promotions">
         <template #cell(Cursus)="data">
           {{ data.item.cursus.titre }}
         </template>

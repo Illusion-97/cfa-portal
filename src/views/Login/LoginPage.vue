@@ -260,7 +260,6 @@ h2 {
 
 .wrapper {
   margin-top: 5em;
-  margin-left: -10em;
   display: flex;
   align-items: center;
   flex-direction: column;

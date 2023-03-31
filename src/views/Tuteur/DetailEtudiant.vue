@@ -1,6 +1,6 @@
 <template>
   <div id="main-cr-prj">
-    <div>
+    <div v-if="infos">
       <v-col><v-btn id="btn-retour" @click="retour()">Retour</v-btn></v-col>
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
@@ -106,6 +106,7 @@
         </v-card>
       </v-card>
     </div>
+    <div v-else>Aucun d'étail de l'étudiant</div>
   </div>
 </template>
 
@@ -160,13 +161,13 @@ export default {
     },
 
     getinfoEtudiant() {
-      utilisateurApi.getById(this.etudiantId).then((response) => (this.infos = response));
+      utilisateurApi.getById(this.etudiantId).then((response) => (this.infos = response, console.log(this.infos.length)));
     },
 
     getnoteEtudiant() {
       noteApi
         .getAllNoteByIdEtudiant(this.etudiantId)
-        .then((response) => (this.notes = response, console.log(this.notes)));
+        .then((response) => (this.notes = response));
     },
 
     getplanningEtudiant() {
@@ -203,7 +204,6 @@ export default {
   },
 
   created() {
-    console.log(this.$route.params.id);
     this.etudiantId = this.$route.params.id;
     this.getinfoEtudiant();
     this.getnoteEtudiant();

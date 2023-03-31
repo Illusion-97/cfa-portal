@@ -37,12 +37,12 @@
             <strong>Ville</strong>
             <br>
             <div>
-              {{ utilisateur.adresseDto.ville ? utilisateur.adresseDto.ville : "Pas de ville renseigner." }}
+              {{ utilisateur.adresseDto ? utilisateur.adresseDto.ville : "Pas de ville renseigner." }}
             </div>
             <br />
           </span>
         </div>
-        <div class="col col-top" v-if="etudiant.promotionsDto">
+        <div class="col col-top" v-if="item">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotions</strong>
@@ -58,9 +58,9 @@
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
-            <li v-for="item in projets" :key="item.id">
-              {{ item.nom }}
-            </li>
+          <li v-for="item in projets" :key="item.id">
+            {{ item.nom }}
+          </li>
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
@@ -75,16 +75,17 @@
 
     <!-- PROCHAIN COURS -->
     <br>
-    <div id="student-planning">
+    <div id="student-planning" v-if="this.$store.getters.getPlanning">
       <PlanningEtudiant />
     </div>
+    <div v-else>Pas de planning.</div>
 
     <!-- PROCHAIN COURS -->
     <!-- <br>
     <b-table small head-variant="light" :items="accueil.prochainCours" :fields="fieldsCours"></b-table> -->
 
     <!-- MEMBRES-->
-    <b-table small head-variant="light" :items="tabOut"></b-table>
+    <b-table small head-variant="dark" :items="tabOut"></b-table>
   </div>
 </template>
 
@@ -175,8 +176,6 @@ export default {
   },
 
   created() {
-    // console.log(this.$store.getters.getUtilisateur);
-
     utilisateurApi
       .getPlanningById(this.$store.getters.getUtilisateur.id)
       .then((response) => this.$store.dispatch("setPlanning", response));
@@ -196,7 +195,6 @@ export default {
       .then((data) => (this.groupes = data));
 
     projetApi.getByIdEtudiant(this.etudiantId).then((data) => (this.projets = data));
-    // console.log("projet " + this.projets);
   },
 };
 </script>

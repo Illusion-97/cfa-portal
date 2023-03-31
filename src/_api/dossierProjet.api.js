@@ -22,7 +22,7 @@ export const dossierProjetApi = {
  */
 
 function getById(id){
-    let req = `${END_POINT}/${id}`;
+    let req = `${END_POINT}/generer/${id}`;
   
     return  axios
         .get(req, requestOptions.headers())
