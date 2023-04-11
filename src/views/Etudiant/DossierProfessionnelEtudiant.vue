@@ -4,7 +4,8 @@
       <h2>Dossiers professionnels</h2>
 
       <!-- TABLEAU TEST -->
-      <b-table small head-variant="dark" :items="dp.promotions" :fields="fields" v-if="dp.promotions">
+      <b-table small head-variant="dark" :items="dp.promotions" :fields="fields"
+        v-if="dp.promotions != 0 && this.$store.getters.getUtilisateur.etudiantDto">
         <template #cell(Cursus)="data">
           {{ data.item.cursus.titre }}
         </template>
@@ -74,7 +75,7 @@
 
 
       <!-- INFOS -->
-      <p id="info" v-if="dp.promotions">
+      <p id="info" v-if="dp.promotions != 0 && this.$store.getters.getUtilisateur.etudiantDto">
         <font-awesome-icon :icon="['fas', 'info-circle']" />
         <strong id="title-info">Informations</strong>
         <br />
@@ -170,6 +171,7 @@ export default {
     dossierProfessionnelApi
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));
+      
   },
 
   uploadFile() {

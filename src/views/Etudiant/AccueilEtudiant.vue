@@ -42,7 +42,7 @@
             <br />
           </span>
         </div>
-        <div class="col col-top" v-if="item">
+        <div class="col col-top" v-if="etudiant.promotionsDto != 0">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
           <strong>Promotions</strong>
@@ -54,7 +54,7 @@
           <br>
         </div>
         <div class="col col-top" v-else>Pas de promotion actuel.</div>
-        <div class="col col-top" v-if="projets">
+        <div class="col col-top" v-if="projets.length != 0">
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
@@ -85,7 +85,7 @@
     <b-table small head-variant="light" :items="accueil.prochainCours" :fields="fieldsCours"></b-table> -->
 
     <!-- MEMBRES-->
-    <b-table small head-variant="dark" :items="tabOut"></b-table>
+    <!-- <b-table small head-variant="dark" :items="tabOut"></b-table> -->
   </div>
 </template>
 
