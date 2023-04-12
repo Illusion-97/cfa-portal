@@ -485,9 +485,164 @@
           </b-collapse>
         </b-card>
  
-
    
-        <div id="div-save">
+
+    <!-- MODALE SUCCESS DOSSIER UPDATE -->
+    <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre expérience professionnelle à correctement été mis à jour.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-update-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
+
+    <!-- MODALE SUCCESS DOSSIER DELETE -->
+    <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre expérience professionnelle à correctement supprimé.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-delete-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
+
+    <h6>Annexes</h6>
+<b-form-select id="select-file" v-model="selectedAnnexes" @change="getAnnexe" >
+  <b-form-select-option v-for="annexe in annexes" :key="annexe.id" :value="annexe">
+    {{ annexe.libelle }}
+  </b-form-select-option>
+  <b-form-select-option >
+    <b-button  >+ Ajouter des annexes </b-button>
+  </b-form-select-option>
+</b-form-select>
+
+<b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+  <v-file-input id="fileA" v-model="newAnnexe.pieceJointe" ref="fileInput"></v-file-input>
+  <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" /><br/>
+  <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
+</b-modal>
+
+    <!--<h6>Annexes</h6>
+    <b-form-select id="select-file" v-model="form.annexeDtos" @change="getAnnexe" >
+      <b-form-select-option v-for="annexeDtos in annexe" :key="annexeDtos.id" :value="annexeDtos">
+        {{ annexeDtos.libelle }}
+      </b-form-select-option>
+      <b-form-select-option >
+      <b-button @click="showModal" >+ Ajouter des annexes </b-button>
+      </b-form-select-option>
+    </b-form-select>
+    
+    <b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      
+        <v-file-input id="fileA" v-model="newAnnexe.pieceJointe"  ref="fileInput" >    
+        </v-file-input>
+        <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle"  /><br/>
+        <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
+     
+      </b-modal>-->
+
+     <!-- <h6>Annexes</h6>
+    <v-list-group  style="background-color: whitesmoke;">
+            <v-list-item>
+              <v-file-input id="fileA" v-model="newAnnexe.pieceJointe" :options="this.form.annexeDtos" ref="fileInput">    
+        </v-file-input>
+      </v-list-item>
+        <v-list-item>
+        <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" />
+      </v-list-item>
+      <v-list-item>
+          <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
+          </v-list-item>
+    <br/>
+            
+      </v-list-group>-->
+
+    
+<br/>
+  <!--  <h6>Facultatif</h6>
+    
+    <b-form-select id="select-doc" v-model="form.facultatifDto" @change="goDiplome">
+      <b-form-select-option v-for="facultatifDto in facultatif" :key="facultatifDto.id" :value="facultatifDto">
+        {{ facultatifDto.intitule }}
+      </b-form-select-option>
+      <b-form-select-option >
+      <b-button  >+ Ajouter </b-button>
+      </b-form-select-option>
+    </b-form-select>   
+   
+   
+    <b-modal id="bbb" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
+      <template>
+      
+       
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" ></v-text-field>
+          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+            <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
+            <br>
+       
+            <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button>
+      </template>
+    </b-modal>-->
+
+    <h6>Facultatif</h6>
+    <v-list-group v-model="form.facultatifDto" class="">
+      <b-button block variant="danger" >
+              diplôme, titre, CQP, attestation de formation facultatif        
+            </b-button>
+    
+            <v-list-item>          
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          <v-list-item> 
+          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
+            @input="$v.email.$touch()" @blur="$v.email.$touch()" style="background-color: white;"></v-text-field>
+            </v-list-item>
+            <v-list-item> 
+            <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
+            @input="$v.date.$touch()" @blur="$v.date.$touch()" style="background-color: white;"></v-text-field>
+            </v-list-item> 
+            <b-button block variant="danger" >
+              document facultatif illustrant la pratique professionnelle
+            </b-button>
+            <v-list-item>          
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
+          </v-list-item>
+                    
+         <br/>
+
+        <!--   <b-button block variant="danger" >
+              diplôme, titre, CQP, attestation de formation facultatif
+             
+            </b-button>
+           <b-button block variant="danger" >document facultatif illustrant la pratique professionnelle</b-button>
+  <v-list-group >
+            <v-list-item>          
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          </v-list-group>-->
+          
+    <br/>
+    <v-list-item>
+            <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button><br/>
+          </v-list-item>
+      </v-list-group>
+
+<br/>
+    
+    <div id="div-save">
           <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
