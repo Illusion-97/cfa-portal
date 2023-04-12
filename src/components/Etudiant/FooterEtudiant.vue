@@ -7,8 +7,10 @@
       <img src="@/assets/img/institutionnel-logo.png" alt="logo" class="mon-logo" />
       <br>
       <br>
+      
       <div class="row">
         <div class="col-4">
+
           <h5>Contact</h5>
           09 72 37 73 73
           <br>
@@ -20,6 +22,7 @@
           <br>
           France - Belgique - Suisse
         </div>
+
         <div class="col-4">
           <h5>Découvrez Dawan</h5>
           <a href="https://www.dawan.fr/a-propos/presentation-de-la-societe">Présentation de notre organisme de
@@ -35,6 +38,7 @@
           <br>
           <a href="https://www.dawan.fr/a-propos/la-societe/mentions-legales">Mentions légales</a>
         </div>
+        
         <div class="col-4 contact">
           <h5>Suivez-nous</h5>
 
@@ -82,8 +86,13 @@
 <style scoped>
 img {
   position: relative;
-  left: 138px;
-  top: 10px;
+  left: 13.7%;
+  /*top: 10px; */
+}
+
+.col-4
+{
+  width: 100%;
 }
 
 .row {
@@ -132,17 +141,19 @@ a:active {
 
 .content {
   position: absolute;
-  left: 436px;
   top: 122px;
   color: rgb(255, 255, 255);
   font-size: 12px;
-  width: 1110px;
+  width: 95%;
 }
 
 footer {
-  position: relative;
+  position: absolute;
   bottom: 0;
+  width: 100%;
+  height: 5%;
+  /*bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
 }
 </style>

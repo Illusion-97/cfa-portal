@@ -1,13 +1,14 @@
 <template>
-  <div class="container">
-
+  <div class="container-fluid" id="container">
     <!-- NEW CARD -->
     <div class="info">
       <div class="row">
         <div class="col">
           <!-- NOM -->
-          <h2 class="card-name">{{ utilisateur.prenom }} {{ utilisateur.nom }}</h2>
-          <br>
+          <h2 class="card-name">
+            {{ utilisateur.prenom }} {{ utilisateur.nom }}
+          </h2>
+          <br />
           <!-- AVATAR -->
           <img src="@/assets/img/avatar.png" class="avatar" />
         </div>
@@ -18,87 +19,94 @@
             <font-awesome-icon :icon="['fas', 'envelope']" class="ico" />
             <strong>eMail</strong>
             <br>
-            {{ accueil.login }}
+            {{ utilisateur.login }}
             <br />
             <font-awesome-icon :icon="['fas', 'phone']" class="ico" />
             <strong>Téléphone</strong>
             <br>
-            {{ accueil.telephone }}
-            <br />
+            <div v-if="utilisateur.telephone">
+              {{ utilisateur.telephone }}
+            </div>
+            <div v-else-if="utilisateur.telephoneFixe">
+              {{ utilisateur.telephoneFixe }}
+            </div>
+            <div v-else>
+              Pas de numéro de téléphone renseigner.
+            </div>
             <font-awesome-icon :icon="['fas', 'location-arrow']" class="ico" />
             <strong>Ville</strong>
             <br>
-            {{ accueil.ville }}
+            <div>
+              {{ utilisateur.adresseDto ? utilisateur.adresseDto.ville : "Pas de ville renseigner." }}
+            </div>
             <br />
           </span>
         </div>
-        <div class="col col-top">
+        <div class="col col-top" v-if="etudiant.promotionsDto != 0">
           <!-- PROMO -->
           <font-awesome-icon :icon="['fas', 'graduation-cap']" class="ico" />
-          <strong>Promotion</strong>
+          <strong>Promotions</strong>
           <br>
-          {{ accueil.promotion }}
+          <li v-for="item in etudiant.promotionsDto" :key="item.id">
+            {{ item.cursusDto.titre }}
+          </li>
+          <!-- {{ etudiant.promotionsDto[0].cursusDto.titre }} -->
           <br>
         </div>
-        <div class="col col-top">
+        <div class="col col-top" v-else>Pas de promotion actuel.</div>
+        <div class="col col-top" v-if="projets.length != 0">
           <!-- PROJET -->
           <font-awesome-icon :icon="['fas', 'folder']" class="ico" />
           <strong>Nom du projet</strong>
-          <ul>
-            <li v-for="projet in accueil.projets" :key="projet.id">
-              {{ projet[0] }}
-            </li>
-            <!-- CFA -->
-          </ul>
-
+          <li v-for="item in projets" :key="item.id">
+            {{ item.nom }}
+          </li>
           <!-- GROUPE -->
           <font-awesome-icon :icon="['fas', 'user-friends']" class="ico" />
           <strong>Nom du groupe</strong>
           <br>
-          {{ accueil.groupes[0] }}
+          <li v-for="item in etudiant.groupesDto" :key="item.id">
+            {{ item.nom }}
+          </li>
         </div>
+        <div class="col col-top" v-else>Aucun projet créer.</div>
       </div>
     </div>
 
     <!-- PROCHAIN COURS -->
     <br>
-    <b-table-simple small head-variant="light">
-      <b-thead head-variant="dark">
-        <b-tr>
-          <b-th>Prochain cours</b-th>
-          <b-th>Début</b-th>
-          <b-th>Fin</b-th>
-          <b-th>Formateur</b-th>
-        </b-tr>
-      </b-thead>
-      <b-tbody>
-        <b-tr>
-          <b-td>{{ accueil.prochainCours[0].formationTitre }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].interventionDateDebut }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].interventionDateFin }}</b-td>
-          <b-td>{{ accueil.prochainCours[0].formateurNom!=null ?accueil.prochainCours[0].formateurNom :'Pas de formation'}}</b-td>
-        </b-tr>
-      </b-tbody>
-    </b-table-simple>
+    <div id="student-planning" v-if="this.$store.getters.getPlanning">
+      <PlanningEtudiant />
+    </div>
+    <div v-else>Pas de planning.</div>
 
     <!-- PROCHAIN COURS -->
     <!-- <br>
     <b-table small head-variant="light" :items="accueil.prochainCours" :fields="fieldsCours"></b-table> -->
 
     <!-- MEMBRES-->
-    <b-table small head-variant="light" :items="tabOut"></b-table>
+    <!-- <b-table small head-variant="dark" :items="tabOut"></b-table> -->
   </div>
 </template>
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
+import { projetApi } from "@/_api/projet.api.js";
+import PlanningEtudiant from "@/components/utils/PlanningEtudiant.vue";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 
 export default {
   name: "AccueilEtudiant",
+  components: {
+    PlanningEtudiant,
+  },
 
   data() {
     return {
-      accueil: [],
+      item: {},
+      projets: [],
+      etudiantId: this.$store.getters.getUtilisateur.etudiantDto.id,
+      utilisateurId: this.$store.getters.getUtilisateur.id,
       fieldsCours: [
         {
           key: "formationTitre",
@@ -127,25 +135,26 @@ export default {
           // thStyle: { width: "70%" },
         },
       ],
-
     };
   },
 
   methods: {
+    getEtudiant() {
+      etudiantApi
+        .getById(this.etudiantId)
+        .then((response) => (this.item = response));
+    },
     tabOut() {
-
       let tab = [];
       let mb = this.accueil.membreEtudiantDtos[0];
 
       mb.forEach(function (i) {
-        tab.push(
-          {
-            Nom: i.membreNom,
-            Prenom: i.membrePrenom,
-            Rôle: i.membreRole[0],
-          },
-        )
-      })
+        tab.push({
+          Nom: i.membreNom,
+          Prenom: i.membrePrenom,
+          Rôle: i.membreRole[0],
+        });
+      });
 
       tab.push({
         Nom: this.accueil.managerNom,
@@ -161,12 +170,31 @@ export default {
     utilisateur() {
       return this.$store.getters.getUtilisateur;
     },
+    etudiant() {
+      return this.item;
+    },
   },
 
   created() {
+    utilisateurApi
+      .getPlanningById(this.$store.getters.getUtilisateur.id)
+      .then((response) => this.$store.dispatch("setPlanning", response));
+
+    if (this.$store.getters.getUtilisateur.rolesDto.length == 1 && this.$store.getters.getUtilisateur.rolesDto[0] == "ADMIN") {
+      this.$router.push({
+        name: "admin_dashboard",
+      });
+    }
+    if (this.isFormateur) {
+      this.$router.push({ name: "formateur_home" })
+    }
+
+    this.getEtudiant();
     etudiantApi
-      .getAccueilEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.accueil = data));
+      .getGroupes(this.utilisateurId)
+      .then((data) => (this.groupes = data));
+
+    projetApi.getByIdEtudiant(this.etudiantId).then((data) => (this.projets = data));
   },
 };
 </script>
@@ -197,19 +225,15 @@ h5 {
   margin-top: 55px;
 }
 
-h2 {
-  font-weight: bolder;
-}
-
 .contact {
   margin-top: 0;
   margin-bottom: 30px;
 }
 
-.container {
+/* .container {
   margin: 89px 0 0 421px;
   min-height: 340px;
-}
+} */
 
 ul {
   list-style-type: none;
@@ -244,4 +268,11 @@ table {
 ul {
   margin-bottom: 0 !important;
 }
+
+/* #student-planning {
+    grid-row: 2;
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: center;
+  } */
 </style>

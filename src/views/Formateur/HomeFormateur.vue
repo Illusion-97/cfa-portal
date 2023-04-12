@@ -45,7 +45,7 @@ export default {
   justify-content: center;
 }
 
-#identite > .nom {
+#identite>.nom {
   font-size: 25px;
   text-transform: uppercase;
 }
