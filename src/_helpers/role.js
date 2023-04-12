@@ -4,4 +4,5 @@ export const Role = {
     Referent: 'REFERENT',
     Formateur: 'FORMATEUR',
     Etudiant: 'ETUDIANT',
+    Tuteur: 'TUTEUR',
 }

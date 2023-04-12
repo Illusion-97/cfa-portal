@@ -91,7 +91,7 @@
                 <b-table
                   sticky-header
                   :items="row.item.cursus"
-                  head-variant="light"
+                  head-variant="dark"
                   :fields="fieldsCursus"
                   dark
                   bordered
@@ -124,7 +124,7 @@
                 <b-table
                   sticky-header
                   :items="row.item.interventions"
-                  head-variant="light"
+                  head-variant="dark"
                   :fields="fieldsIntervention"
                   dark
                   bordered

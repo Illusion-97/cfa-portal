@@ -2,7 +2,7 @@
   <div id="adminDashboard" class="container-fluid">
 
     <!-- BARRE DE RECHERCHE -->
-    <div class="d-flex flex-row align-items-start">
+    <div class="d-flex flex-row align-items-start" v-if="etudiants">
       <h2 class="p-2">Liste des étudiants</h2>
       <form class="form-inline p-2" @submit="submit">
         <input
@@ -20,7 +20,7 @@
     </div>
 
     <!-- TABLEAU -->
-      <v-simple-table>
+      <v-simple-table v-if="etudiants">
         <thead style="background-color: #08092d" >
           <tr>
             <td style="color: white">
@@ -59,6 +59,7 @@
           </tr>
         </tbody>
       </v-simple-table>
+      <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
     <paginate
@@ -76,6 +77,7 @@
       :prev-link-class="'page-link'"
       :next-link-class="'page-link'"
       :active-class="'active'"
+      v-if="etudiants"
     >
     </paginate>
   </div>
@@ -83,23 +85,20 @@
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
-import { projetApi } from "@/_api/projet.api.js";
-
 
 export default {
   data() {
     return {
-      perPage: 2,
+      perPage: 8,
       pageCount: 0,
       saisie: "",
       etudiants: [],
-      toto: [],
       tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
 
   created() {
-    this.refreshList();   
+    this.refreshList(); 
   },
 
   methods: {
@@ -124,8 +123,6 @@ export default {
       });
     },
 
-
-
     refreshList() {
       tuteurApi
         .getEtudiantByTuteurByPage(this.tuteurId, 0, this.perPage, this.saisie)
@@ -136,12 +133,9 @@ export default {
       tuteurApi.getAllEtudiantsByTuteurIdBySearch(this.tuteurId, this.saisie).then((response) => {
         this.pageCount = Math.ceil(response / this.perPage)
       })
-
-      projetApi.getAll().then((response) => { this.toto = response })
     },
   },
 };
 </script>
+
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-<style scoped lang="css">
-</style>

@@ -2,7 +2,7 @@
   <div class="container-fluid" id="container">
     <h2>Cursus</h2>
     <br>
-    <ul>
+    <ul v-if="cursus.length != 0 && this.$store.getters.getUtilisateur.etudiantDto">
       <li v-for="item in cursusComputed" :key="item.id">
         <h5>
           {{ item.Titre }} -
@@ -29,7 +29,7 @@
               <font-awesome-icon :icon="['fas', 'calendar-alt']" />
             </b-col>
             <b-col cols="10">
-              <b-table small head-variant="light" :items="item.Planning"></b-table>
+              <b-table small head-variant="dark" :items="item.Planning"></b-table>
               <!-- BOUTON TELECHARGER -->
               <!-- <b-button variant="success" size="sm">
                 <font-awesome-icon
@@ -43,6 +43,9 @@
           <br>
         </p>
       </li>
+    </ul>
+    <ul v-else>
+      <li>Pas de cursus attribué.</li>
     </ul>
   </div>
 </template>
@@ -96,12 +99,11 @@ h2 {
   font-weight: bolder;
 }
 
-#container 
-    {
-      width: 95%;
-      margin: 5% 0 0 3%;
-        /* margin: 5% 0% 0% 21%; */
-    }
+#container {
+  width: 95%;
+  margin: 5% 0 0 3%;
+  /* margin: 5% 0% 0% 21%; */
+}
 
 h5 {
   margin-bottom: 17px;
