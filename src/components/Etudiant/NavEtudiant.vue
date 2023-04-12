@@ -1,70 +1,30 @@
 <template>
-  <div id="sidemenu">
-    <nav v-show="navOpen">
-      <div class="sidemenu__wrapper">
-        <ul class="sidemenu__list">
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_accueil' }">
-              <i class="fa-solid fa-house"></i>
-              Accueil
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_cursus' }">
-              <i class="fa-solid fa-user-graduate"></i>
-              Cursus
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_controle' }">
-              <i class="fa-solid fa-book"></i>
-              Contrôles continus
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_livret' }">
-              <i class="fa-solid fa-address-card"></i>
-              Livrets d'évaluation
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_dossierprofessionnel' }">
-              <i class="fa-solid fa-folder"></i>
-              Dossiers professionnels
-            </router-link>
-          </li>
-          <!--TODO -->
-          <li class="sidemenu__item disabled-link">
-            <a href="#">
-              <i class="fa-solid fa-folder-closed"></i>
-              Dossiers projets</a>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'signature_etudiant' }">
-              <i class="fa-solid fa-pen"></i>
-              Signature
-            </router-link>
-          </li>
-          <li class="sidemenu__item">
-            <router-link :to="{ name: 'etudiant_absences' }">
-              <i class="fa-sharp fa-solid fa-clock"></i>
-              Absences</router-link
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <div>
+    <sideBarEtudiant :menuTitle="menuTitle" :isSearch="isSearch"  :isMenuOpen="isMenuOpen"
+      :isExitButton="isExitButton" :profileImg="profileImg" :bgColor="bgColor" :menuLogo="menuLogo" />
   </div>
 </template>
-
 <script>
+import sideBarEtudiant from "@/components/Navigation/SideBarComponentEtudiant.vue";
+
 export default {
-  name: "sidemenu",
+  name: "VueSidebarFormateur",
+  components: { sideBarEtudiant },
   data() {
     return {
-      navOpen: true,
+      userRole: "",
+      isSearch: false,
+      menuTitle: "DAWAN",
+      isMenuOpen: true,
+      isExitButton: false,
+      profileImg: "",
+      bgColor: "#e11b28",
+      menuLogo: "",
+ 
+
     };
   },
+
 };
 </script>
 
@@ -79,20 +39,18 @@ nav {
 }
 
 #sidemenu {
-  margin: 50px 0 0 50px;
   position: absolute;
+  margin: 3% 0 0 3%;
 }
 
 #sidemenu nav {
-  background: #e11b28;
+  background: #e11b28; 
   position: relative;
-  top: 0;
-  left: 0;
   z-index: 99;
   border-radius: 0 10px 10px 10px;
 }
 
-#sidemenu .sidemenu__btn {
+/* #sidemenu .sidemenu__btn {
   display: block;
   width: 50px;
   height: 50px;
@@ -140,18 +98,19 @@ nav {
 
 #sidemenu .sidemenu__btn.active .bottom {
   transform: rotate(45deg);
-}
+} */
 
 #sidemenu .sidemenu__wrapper {
-  /* padding-top: 50px; */
-  padding: 10px;
+  /* padding-top: 505px;
+  padding: 10px;  */
 }
 
 #sidemenu .sidemenu__list {
-  padding-top: 50px;
   list-style: none;
+  /* padding-top: 50px;
+  
   padding: 0;
-  margin: 0;
+  margin: 0; */
 }
 
 #sidemenu .sidemenu__item a {
@@ -165,12 +124,12 @@ nav {
 }
 
 #sidemenu .sidemenu__item a:hover {
-  /* background: #b8d8d8;
+  background: #b8d8d8;
   color: #e11b28;
-  border-radius: 5px; */
+  border-radius: 5px;
 }
 
-.translateX-enter {
+/* .translateX-enter {
   transform: translateX(-200px);
   opacity: 0;
 }
@@ -183,6 +142,6 @@ nav {
 
 .translateX-leave-to {
   transform: translateX(-200px);
-  opacity: 0;
-}
+  opacity: 0; 
+}*/
 </style>

@@ -1,34 +1,38 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" id="container">
     <h2>Contrôles continus</h2>
     <br>
 
-    <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
+    <ul v-if="notesEtudiant && this.$store.getters.getUtilisateur.etudiantDto">
+      <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
 
-      <b-button v-b-toggle.index variant="primary" class="btn-volet">
-        <!-- <b-button v-b-toggle="'accordion '+index" variant="primary"> -->
-        <div>
-          <strong>Promotion :</strong>
-          {{ index.slice(1).slice(0, index.length - 2) }}
-        </div>
-        <div>
+        <b-button v-b-toggle.index variant="primary" class="btn-volet">
+          <!-- <b-button v-b-toggle="'accordion '+index" variant="primary"> -->
+          <div>
+            <strong>Promotion :</strong>
+            {{ index.slice(1).slice(0, index.length - 2) }}
+          </div>
+          <div>
 
-          <!-- DOWNLOAD PDF -->
-          <!-- <b-button size="sm" class="btn-pdf" variant="success" v-on:click="goToEvents(item)"><i
+            <!-- DOWNLOAD PDF -->
+            <!-- <b-button size="sm" class="btn-pdf" variant="success" v-on:click="goToEvents(item)"><i
               class="bi bi-file-pdf"></i>Télécharger PDF</b-button> -->
-          <!-- <i class="bi bi-caret-down-square-fill"></i> -->
+            <!-- <i class="bi bi-caret-down-square-fill"></i> -->
 
-          <i class="fa-solid fa-square-caret-down"></i>
-        </div>
-      </b-button>
+            <i class="fa-solid fa-square-caret-down"></i>
+          </div>
+        </b-button>
 
-      <b-collapse :id="'index'" class="colla" visible>
-        <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
-        <b-table small head-variant="light" :items="item" :fields="fields"></b-table>
-      </b-collapse>
+        <b-collapse :id="'index'" class="colla" visible>
+          <!-- <b-collapse v-bind:id="'accordion '+index" class="mt-2"> -->
+          <b-table small head-variant="dark" :items="item" :fields="fields"></b-table>
+        </b-collapse>
 
-    </div>
-
+      </div>
+    </ul>
+    <ul v-else>
+      <li>Pas de note.</li>
+    </ul>
 
   </div>
 </template>
@@ -83,8 +87,7 @@ export default {
   created() {
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.notesEtudiant = data));
-
+      .then((data) => (this.notesEtudiant = data, console.log(this.notesEtudiant)));
   },
 };
 </script>
@@ -127,8 +130,18 @@ h5 {
   font-weight: bolder;
 }
 
-.container {
-  margin: 89px 0 0 421px;
+/* .container {
+  margin: 5% 20% 0% 21%;
   min-height: 340px;
+} */
+
+#container {
+  width: 95%;
+  margin: 5% 0 0 3%;
+  /* margin: 5% 0% 0% 21%; */
+}
+
+ul {
+  list-style-type: none;
 }
 </style>

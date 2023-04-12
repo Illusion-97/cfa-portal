@@ -19,8 +19,10 @@ export default {
   components: {
     PromotionDetailFormateur,
   },
+  methods: {
   goBack() {
       this.$router.go(-1);
     },
+  }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid" id="container">
       <SignatureComponent/>
     </div>
   </template>
@@ -14,5 +14,5 @@
     },
   };
   </script>
-  <style scoped>
+  <style scoped src="@/assets/styles/StyleEtudiant.css">
   </style>

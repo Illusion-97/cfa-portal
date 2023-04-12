@@ -12,6 +12,9 @@
                     <div v-if="isFormateur">
                         {{ path }} - Espace Formateur
                     </div>
+                    <div v-if="isTuteur">
+                        {{ path }} - Espace Tuteur
+                    </div>
                 </div>
             </b-col>
             <b-col class="d-flex justify-content-end">
@@ -61,6 +64,10 @@ import { etudiantApi } from '@/_api/etudiant.api.js';
             isEtudiant() {
                 return utilisateurService.isEtudiant();
             },
+            isTuteur() {
+                return utilisateurService.isTuteur();
+            },
+ 
         },
         methods: {
             logout() {

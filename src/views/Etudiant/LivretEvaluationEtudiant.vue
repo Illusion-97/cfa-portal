@@ -1,19 +1,23 @@
 <template>
-  <div class="container">
+  <div class="container-fluid" id="container">
     <h2>Livret d'évaluation</h2>
     <br>
-    <b-table small head-variant="light" :items="livret" :fields="fields">
+
+    <b-table small head-variant="dark" :items="livret" :fields="fields" v-if="livret.length != 0 && this.$store.getters.getUtilisateur.etudiantDto">
       <template #cell(etat)="row">
-        {{row.item.etat | etatLivret }}
+        {{ row.item.etat | etatLivret }}
       </template>
-      <template #cell(TODO) ="row">
-        <button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(row.item)" >
+      <template #cell(TODO)="row">
+        <button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(row.item)">
           <i class="fa-solid fa-file-pdf"></i>
           Télécharger
         </button>
       </template>
-      
+
     </b-table>
+    <ul v-else>
+      <li>Pas livret d'évalutation.</li>
+    </ul>
   </div>
 </template>
 
@@ -46,7 +50,7 @@ export default {
           thStyle: { width: "15%" },
           formatter: () => { return "Bouton Telechargement"; },
         },
-    
+
         {
           key: "observation",
           label: "Observation",
@@ -60,16 +64,16 @@ export default {
     formatName() {
       return "ICONE POUR DL PDF";
     },
-    generer(item){
-      
-      livretEvaluationApi.generer(item.etudiantId,item.titreProfessionnelId).then(response =>{
+    generer(item) {
+
+      livretEvaluationApi.generer(item.etudiantId, item.titreProfessionnelId).then(response => {
         let bas64 = response;
-          const linkSource = `data:application/pdf;base64,${bas64}`;
-          const downloadLink = document.createElement("a");
-          const fileName = item.titreProfessionnelTitre+".pdf";
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
+        const linkSource = `data:application/pdf;base64,${bas64}`;
+        const downloadLink = document.createElement("a");
+        const fileName = item.titreProfessionnelTitre + ".pdf";
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
       })
 
     },
@@ -98,21 +102,18 @@ export default {
     //   .getLivretEvaluation(this.$store.getters.getUtilisateur.etudiantDto.id)
     //   .then((data) => (this.livret = data));
 
-    livretEvaluationApi 
+    livretEvaluationApi
       .getlivretEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => {this.livret = data
-      console.log(data)
+      .then((data) => {
+        this.livret = data
+        // console.log(data)
       });
 
   },
 };
 </script>
 
-<style scoped>
-h2 {
-  font-weight: bolder;
-}
-
+<style scoped src="@/assets/styles/StyleEtudiant.css">
 .bi {
   margin-right: 5px;
 }
@@ -120,11 +121,6 @@ h2 {
 .btn-donwload {
   color: #fff;
   width: 18px;
-}
-
-.container {
-  margin: 89px 0 0 421px;
-  min-height: 340px;
 }
 
 h5 {

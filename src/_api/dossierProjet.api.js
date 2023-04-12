@@ -9,7 +9,9 @@ export const dossierProjetApi = {
     save,
     getAll,
     getByIdEtudiant,
-
+    generer,
+    // getAllByPage,
+    // getCount,
 }
 
 /**
@@ -20,7 +22,7 @@ export const dossierProjetApi = {
  */
 
 function getById(id){
-    let req = `${END_POINT}/${id}`;
+    let req = `${END_POINT}/generer/${id}`;
   
     return  axios
         .get(req, requestOptions.headers())
@@ -35,7 +37,8 @@ function getById(id){
  * @returns 
  */
 
-  function getByIdEtudiant(id){
+    
+    function getByIdEtudiant(id){
     let req = `${END_POINT}/etudiant/${id}`;
   
     return  axios
@@ -88,3 +91,32 @@ function getById(id){
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
+
+  function generer(idEtu,idCursus) {
+    return axios
+      .get(`${END_POINT}/generer/${idEtu}/${idCursus}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+  }
+
+  // function getAllByPage(page, size, search = "") {
+  //   let req = "";
+
+  //   if (search == "") req = `/${END_POINT}/${page}/${size}`;
+  //   else req = `/${END_POINT}/${page}/${size}?search=${search}`;
+    
+
+  //   return axios 
+  //   .get(req, requestOptions.headers())
+  //   .then(response => response.data)
+  //   .catch((error) => console.log(error));
+  // }
+
+  // function getCount(search = "") {
+  //   let req = `/${END_POINT}/count/${search}`;
+  
+  //   return axios
+  //     .get(req, requestOptions.headers())
+  //     .then(response => response.data["nb"])
+  //     .catch((error) => console.log(error));
+  // }

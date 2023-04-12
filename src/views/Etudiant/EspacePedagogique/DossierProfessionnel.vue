@@ -39,7 +39,7 @@
     
     </div>
 </template>
-<script>
+<script >
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { fileApi } from "@/_api/file.api.js"
 import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js"
