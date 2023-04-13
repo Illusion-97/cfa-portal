@@ -62,24 +62,9 @@
       <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-      v-if="etudiants"
-    >
-    </paginate>
+    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)" :length="pageCount" color="#E91E63" circle v-if="etudiants.length"></v-pagination>
+
+
   </div>
 </template>
 
@@ -93,6 +78,7 @@ export default {
       pageCount: 0,
       saisie: "",
       etudiants: [],
+      page: 1,
       tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
@@ -106,6 +92,7 @@ export default {
       e.preventDefault();
       this.refreshList();
       this.saisie ="";
+      this.page = 1;
     },
 
     goToEtudiant(item) {

@@ -54,7 +54,7 @@ export default {
   methods: {
     generer(id, nomDossierProjet) {
       dossierProjetApi
-        .getById(id).then(response => {
+        .genererDossier(id).then(response => {
           let bas64 = response;
           const linkSource = `data:application/pdf;base64,${bas64}`;
           const downloadLink = document.createElement("a");
