@@ -1,7 +1,7 @@
 <template>
   <div id="main-cr-prj">
-    <div v-if="infos">
-      <v-col><v-btn id="btn-retour" @click="retour()">Retour</v-btn></v-col>
+    <v-btn id="btn-retour" @click="retour()">Retour</v-btn>
+    <div v-if="this.$store.getters.getUtilisateur.tuteurDto">
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
         <v-btn-toggle w-100 role="group">
@@ -16,8 +16,7 @@
           <v-btn w-100 id="bt5" block v-b-toggle="'bt5'" @click="active = 5" variant="plain"
             style="color: white; background-color: #08092d">Dossiers professionnels</v-btn>
           <v-btn w-100 id="bt6" block v-b-toggle="'bt6'" @click="active = 6" variant="plain"
-            style="color: white; background-color: #08092d">Congé
-          </v-btn>
+            style="color: white; background-color: #08092d">Congé</v-btn>
           <v-btn w-100 id="bt7" block v-b-toggle="'bt7'" @click="active = 7" variant="plain"
             style="color: white; background-color: #08092d">Absences</v-btn>
         </v-btn-toggle>

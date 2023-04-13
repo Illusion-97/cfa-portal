@@ -62,7 +62,7 @@
       <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
-    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)" :length="pageCount" color="#E91E63" circle v-if="etudiants.length"></v-pagination>
+    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)" :length="pageCount" color="#E91E63" circle v-if="etudiants"></v-pagination>
 
 
   </div>
