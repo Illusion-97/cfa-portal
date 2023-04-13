@@ -2,7 +2,7 @@
     <div class="container-fluid" id="container">
         <h2>Absence</h2>
         <div>
-            <table class="table table-striped" v-if="absences && this.$store.getters.getUtilisateur.etudiantDto">
+            <table class="table table-striped" v-if="absences.length != 0 && this.$store.getters.getUtilisateur.etudiantDto">
                 <thead class="">
                     <tr class="bg-dark text-white" >
                         <th>Date debut</th>

@@ -3,7 +3,7 @@
     <h2>Livret d'évaluation</h2>
     <br>
 
-    <b-table small head-variant="dark" :items="livret" :fields="fields" v-if="livret && this.$store.getters.getUtilisateur.etudiantDto">
+    <b-table small head-variant="dark" :items="livret" :fields="fields" v-if="livret.length != 0 && this.$store.getters.getUtilisateur.etudiantDto">
       <template #cell(etat)="row">
         {{ row.item.etat | etatLivret }}
       </template>
