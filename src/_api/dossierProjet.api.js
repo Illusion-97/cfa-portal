@@ -10,6 +10,7 @@ export const dossierProjetApi = {
     getAll,
     getByIdEtudiant,
     generer,
+    genererDossier,
     // getAllByPage,
     // getCount,
 }
@@ -22,7 +23,7 @@ export const dossierProjetApi = {
  */
 
 function getById(id){
-    let req = `${END_POINT}/generer/${id}`;
+    let req = `${END_POINT}/${id}`;
   
     return  axios
         .get(req, requestOptions.headers())
@@ -97,6 +98,15 @@ function getById(id){
       .get(`${END_POINT}/generer/${idEtu}/${idCursus}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
+  }
+
+  function genererDossier(id){
+    let req = `${END_POINT}/generer/${id}`;
+  
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
   }
 
   // function getAllByPage(page, size, search = "") {
