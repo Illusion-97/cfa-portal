@@ -2,12 +2,7 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'login'" />
-      <div v-else-if="
-        path == 'formateur' ||
-        path == 'referent' ||
-        path == 'cef' ||
-        path == 'admin'
-      ">
+      <div v-else-if=" path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
         <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view />
@@ -18,9 +13,10 @@
         <router-view />
         <FooterEtudiant />
       </div>
-      <div v-else-if="path == 'tuteur'" id="maintuteur">
+      <div v-else-if="path == 'tuteur'">
         <HeaderTuteur />
         <router-view />
+        <CSSTuteur />
       </div>
       <router-view v-else class="monBody" />
     </div>
@@ -33,7 +29,7 @@ import VueSidebarFormateur from "@/components/Navigation/VueSidebarFormateur.vue
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
 import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
-
+import CSSTuteur from "@/assets/styles/StyleTuteur.css";
 
 export default {
   name: "App",
@@ -44,6 +40,7 @@ export default {
     NavEtudiant,
     HeaderEtudiant,
     HeaderTuteur,
+    CSSTuteur,
   },
   methods: {},
   computed: {

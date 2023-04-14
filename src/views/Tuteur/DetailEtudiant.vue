@@ -1,7 +1,10 @@
 <template>
   <div id="main-cr-prj">
+    
+    <!-- Button retour -->
     <v-btn id="btn-retour" @click="retour()">Retour</v-btn>
     <div v-if="this.$store.getters.getUtilisateur.tuteurDto">
+
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
         <v-btn-toggle w-100 role="group">
@@ -36,8 +39,6 @@
           </v-card-text>
         </v-card>
 
-
-        <!-- NE FONCTIONNE PAS CAR DOUBLE TABLEAU  -->
         <!-- Tableau Controle Continu -->
         <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="pageNotes" :items-per-page="itemsPerPage"
@@ -215,23 +216,4 @@ export default {
 };
 </script>
 
-<style>
-#main-cr-prj {
-  background-color: none;
-  margin: 0% 0% 0% 3%;
-  min-width: 1170px;
-  min-height: 100%;
-}
-
-.v-btn-toggle {
-  width: 14%;
-}
-
-#btn-retour {
-  margin-left: 94%;
-}
-
-#x {
-  margin: 0% 2% 0% 0%;
-}
-</style>
+<style scoped />
