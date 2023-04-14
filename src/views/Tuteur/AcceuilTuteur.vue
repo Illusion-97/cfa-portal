@@ -12,22 +12,55 @@
       </form>
     </div>
 
-    <!-- test -->
-    <v-data-table :headers="etudiantFields" :items="etudiants" :page.sync="page" :items-per-page="perPage"
-      class="elevation-1" hide-default-footer >
-    </v-data-table>
+    <!-- TABLEAU -->
+      <v-simple-table v-if="etudiants">
 
-  
+        <!-- EN-TETE -->
+        <thead style="background-color: #08092d" >
+          <tr>
+            <td style="color: white">
+              <strong>nom</strong>
+            </td>
+            <td style="color: white">
+              <strong>prenom</strong>
+            </td>
+            <td style="color: white">
+              <strong>mail</strong>
+            </td>
+            <td style="color: white">
+              <strong>téléphone</strong>
+            </td>
+            <td style="color: white" class="text-center">
+              <strong>action</strong>
+            </td>
+          </tr>
+        </thead>
+
+        <!-- CONTENUE DE LA TABLE -->
+        <tbody>
+          <tr v-for="etudiant in etudiants" :key="etudiant.id">
+            <td>{{ etudiant.utilisateurDto.nom }}</td>
+            <td>{{ etudiant.utilisateurDto.prenom }}</td>
+            <td>{{ etudiant.utilisateurDto.login }}</td>
+            <td>{{ etudiant.utilisateurDto.telephone }}</td>
+            <td>
+              <b-button block variant="info" @click="goToEtudiant(etudiant.id)">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+              </b-button>
+            </td>
+          </tr>
+        </tbody>
+      </v-simple-table>
+      <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
+
     <!-- PAGINATION -->
-    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)"
-      :length="pageCount" color="#E91E63" circle v-if="etudiants"></v-pagination>
-
+    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)" :length="pageCount" color="#E91E63" circle v-if="etudiants"></v-pagination>
+  
   </div>
 </template>
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
-import etudiantFields from "@/assets/js/fieldsTuteur.js";
 
 export default {
   data() {
@@ -36,14 +69,13 @@ export default {
       pageCount: 0,
       saisie: "",
       etudiants: [],
-      etudiantFields,
       page: 1,
       tuteurId: this.$store.getters.getUtilisateur.tuteurDto.id,
     };
   },
 
   created() {
-    this.refreshList();
+    this.refreshList(); 
   },
 
   methods: {
@@ -62,7 +94,7 @@ export default {
     submit(e) {
       e.preventDefault();
       this.refreshList();
-      this.saisie = "";
+      this.saisie ="";
       this.page = 1;
     },
 
@@ -75,10 +107,10 @@ export default {
 
     pageChange(pageNum) {
       tuteurApi
-        .getEtudiantByTuteurByPage(this.tuteurId, pageNum - 1, this.perPage)
-        .then((response) => {
-          this.etudiants = response
-        });
+      .getEtudiantByTuteurByPage(this.tuteurId, pageNum -1, this.perPage)
+      .then((response) => { 
+        this.etudiants = response
+      });
     },
   },
 };
