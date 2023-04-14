@@ -11,7 +11,7 @@
       <template #cell(action)="row">
         <!-- BOUTON MODIFIER -->
         <b-button size="sm" class="mr-2" variant="primary" @click="gotoDossierProjet(row.item.id)">
-          <i class="fa-solid fa-square-pen"></i>
+          <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
           Modifier
         </b-button>
 
