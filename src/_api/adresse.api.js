@@ -60,7 +60,7 @@ function getAllAdresses() {
 }
 
 /**
-* Méthode de recherche
+* Méthode de recherche pour les adresses
 * 
 * @param {*} search 
 * @returns 

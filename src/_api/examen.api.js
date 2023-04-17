@@ -31,6 +31,13 @@ function getById(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * Récupération des examens par intervention
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 async  function getExamensByInterventionId(id) {
   let req = `/${END_POINT}/interventions/${id}`;
     return await  axios 
@@ -117,7 +124,8 @@ function getLivretEvaluation(id) {
   .then(response => response.data)
   .catch((error) => console.log(error));
 }
-/***
+/**
+ * Récupération des 
  * 
  */
  async function getFileExamen(id){
@@ -140,6 +148,13 @@ function generateBulletinByStudentAndPromo(etudiantId, promoId) {
     .then(response => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération des examens par bulletin-etudiant
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function getBulletinEtudiant(id){
   let req = `/${END_POINT}/examens/bulletin-etudiant/`+ id
