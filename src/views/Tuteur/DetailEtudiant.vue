@@ -1,7 +1,10 @@
 <template>
   <div id="main-cr-prj">
-    <div v-if="infos">
-      <v-col><v-btn id="btn-retour" @click="retour()">Retour</v-btn></v-col>
+    
+    <!-- Button retour -->
+    <v-btn id="btn-retour" @click="retour()">Retour</v-btn>
+    <div v-if="this.$store.getters.getUtilisateur.tuteurDto">
+
       <!-- Nom des categorie du tableau -->
       <nav id="navbar-btn">
         <v-btn-toggle w-100 role="group">
@@ -16,8 +19,7 @@
           <v-btn w-100 id="bt5" block v-b-toggle="'bt5'" @click="active = 5" variant="plain"
             style="color: white; background-color: #08092d">Dossiers professionnels</v-btn>
           <v-btn w-100 id="bt6" block v-b-toggle="'bt6'" @click="active = 6" variant="plain"
-            style="color: white; background-color: #08092d">Congé
-          </v-btn>
+            style="color: white; background-color: #08092d">Congé</v-btn>
           <v-btn w-100 id="bt7" block v-b-toggle="'bt7'" @click="active = 7" variant="plain"
             style="color: white; background-color: #08092d">Absences</v-btn>
         </v-btn-toggle>
@@ -37,8 +39,6 @@
           </v-card-text>
         </v-card>
 
-
-        <!-- NE FONCTIONNE PAS CAR DOUBLE TABLEAU  -->
         <!-- Tableau Controle Continu -->
         <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="pageNotes" :items-per-page="itemsPerPage"
@@ -135,7 +135,7 @@ export default {
       pageDossProfessionnel: 1,
       pageConge: 1,
       pageAbsence: 1,
-      itemsPerPage: 2,
+      itemsPerPage: 8,
       etudiantId: 0,
       infos: [],
       notes: [],
@@ -216,23 +216,4 @@ export default {
 };
 </script>
 
-<style>
-#main-cr-prj {
-  background-color: none;
-  margin: 0% 0% 0% 3%;
-  min-width: 1170px;
-  min-height: 100%;
-}
-
-.v-btn-toggle {
-  width: 14%;
-}
-
-#btn-retour {
-  margin-left: 94%;
-}
-
-#x {
-  margin: 0% 2% 0% 0%;
-}
-</style>
+<style scoped />

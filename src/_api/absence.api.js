@@ -90,6 +90,12 @@ function getAllByIdEtudiant(id) {
         .catch((error) => console.log(error));
 }
 
+/**
+ * Récupération des justificatif en fonction de l'absence
+ * 
+ * @param {*} idAbsence 
+ * @returns 
+ */
 async function getJustificatifByAbsenceId(idAbsence){
   let req = `${END_POINT}/justificatif/${idAbsence}`;
 

@@ -30,6 +30,7 @@ export const etudiantApi = {
 }
 
 /**
+ * Récupération d'un etudiant par sont id
  * 
  * @param {*} id 
  * @returns 
@@ -44,6 +45,7 @@ function getById(id) {
 }
 
 /**
+ * Récupération des étudiants par page, size, search 
  * 
  * @param {*} page 
  * @param {*} size 
@@ -60,6 +62,7 @@ function getAllByPage(page, size, search = "") {
 }
 
 /**
+ * Méthode de recherche 
  * 
  * @param {*} search 
  * @returns 
@@ -74,6 +77,7 @@ function getCount(search = "") {
 }
 
 /**
+ * Save d'un dossier projet 
  * 
  * @param {*} form 
  * @returns 
@@ -89,6 +93,7 @@ function save(form) {
 }
 
 /**
+ * Delete d'un dossier projet par dossier projet
  * 
  * @param {*} id 
  * @returns 
@@ -103,6 +108,7 @@ function deleteEtudiant(id) {
 }
 
 /**
+ * Récupération d'un formateur par l'id etudiant
  * 
  * @param {*} id 
  * @returns 
@@ -122,6 +128,7 @@ function getFormateurReferent(id) {
 //Pour l'instant, on affiche le referent de la premiere promotion recu par l'api
 
 /**
+ * Récupération d'une promotions par l'id etudiant
  * 
  * @param {*} id 
  * @returns 
@@ -136,6 +143,7 @@ function getPromotions(id) {
 }
 
 /**
+ * Récupération Notes par etudiant
  * 
  * @param {*} id 
  * @param {*} page 
@@ -152,6 +160,7 @@ function getNotesById(id, page, size) {
 }
 
 /**
+ * Méthode de recherche pour notes
  * 
  * @returns 
  */
@@ -165,6 +174,7 @@ function getCountNotes() {
 }
 
 /**
+ * Méthode de recherche pour devoirs
  * 
  * @returns 
  */
@@ -178,6 +188,7 @@ function getCountDevoirs() {
 }
 
 /**
+ * Récupération des devoir par etudiant
  * 
  * @param {*} id 
  * @param {*} page 
@@ -194,6 +205,7 @@ function getDevoirsById(id, page, size) {
 }
 
 /**
+ * Récupération des abscence par etudiant
  * 
  * @param {*} id 
  * @param {*} page 
@@ -210,6 +222,7 @@ function getAbsencesById(id, page, size) {
 }
 
 /**
+ * Méthode de recherche pour absence
  * 
  * @returns 
  */
@@ -223,6 +236,7 @@ function getCountAbsence() {
 }
 
 /**
+ * Récupération des groupes par etudiant
  * 
  * @param {*} id 
  * @returns 
@@ -236,6 +250,7 @@ function getGroupes(id){
 }
 
 /**
+ * Récupération des intervention par etudiant pour la semaine
  * 
  * @param {*} id 
  * @returns 
@@ -249,6 +264,7 @@ function getInterventionByIdEtudiantByWeek(id){
 }
 
 /**
+ * Récupération des notes par etudiant 
  * 
  * @param {*} id 
  * @returns 
@@ -260,6 +276,14 @@ function getNotesByIdEtudiant(id) {
     .then(response => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération d'un etudiant par intervention qui ont des devoir et absence
+ * 
+ * @param {*} id 
+ * @param {*} search 
+ * @returns 
+ */
 
 function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
 
@@ -290,6 +314,15 @@ function fetchAllEtudiantDG2Http(logInUser) {
   return axios.get(req, headers);
   
   }
+
+  /**
+   * Récupération des etudiants depuis Dawan.org en fonction de promotion 
+   * 
+   * @param {*} logInUser 
+   * @param {*} promoId 
+   * @returns 
+   */
+
   function fetchAllEtudiantDG2HttpByIdPromotion(logInUser, promoId){
     let headers = requestOptions.headers();
     console.log(promoId);
@@ -304,6 +337,7 @@ function fetchAllEtudiantDG2Http(logInUser) {
   }
 
   /**
+ * TODO a retirer si plus utiliser
  * 
  * @param {*} id 
  * @returns 

@@ -111,12 +111,28 @@ function deleteDossierProfessionnel(id) {
     .catch((error) => console.log(error));
 }
 
+/**
+ * Save du DossierProfessionnel par etudiant 
+ * 
+ * @param {*} id 
+ * @param {*} form 
+ * @returns 
+ */
+
 function saveDossierProfessionnel(id, form) {
   return axios
     .post(`${END_POINT}/save/etudiant/${id}`, form, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
+
+/**
+ * Génération d'un DossierProfessionnel par etudiant et promotion
+ * 
+ * @param {*} etudiantId 
+ * @param {*} promotionId 
+ * @returns 
+ */
 
 function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
   let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${promotionId}`;
@@ -136,6 +152,14 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
     .catch((error) => console.log(error));
 
 }
+
+/**
+ * Update du DossierPRofessionnel par etudiant 
+ * 
+ * @param {*} form 
+ * @param {*} id 
+ * @returns 
+ */
 
 function updateDossierProfessionnel(form, id) {
   return axios
