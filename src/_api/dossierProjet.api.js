@@ -108,7 +108,7 @@ function getById(id){
   }
 
   /**
-   * Génération du dossier projet par etudiant 
+   * Récupération du dossier projet de l'etudiant 
    * 
    * @param {*} id 
    * @returns 
