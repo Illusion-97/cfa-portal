@@ -2,16 +2,19 @@
    <div id="main-cr-prj">
       <div>
          <nav class="d-inline" id="navproj">
- 
+            <v-card-title>Nouveau dossier projet</v-card-title>
+
             <v-row>
                <!-- Ajout du nom au dossier projet -->
                <v-col md="5">
-                <v-card-title>Nouveau dossier projet</v-card-title>
                   <v-text-field v-model="DossierProjet.nom" variant="filled" 
                      icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
                </v-col>
                <!-- Ajout du projet au dossier projet -->
                <v-col md="5">
+                  <v-select-list :items="DossierProjet.projet">
+
+                  </v-select-list>
                   <b-form-select v-model="DossierProjet.projet">
                      <option :value="null" disabled>
                         -- Choisissez un projet existant --
@@ -23,9 +26,9 @@
                </v-col>
                <v-col>
                   <!-- Bouton retour en arrière -->
-                  <button class="btn btn-secondary" variant="flat" @click="retour()">
+                  <b-button  @click="retour()">
                       Retour
-                  </button>
+                  </b-button>
                </v-col>
             </v-row>
          </nav>
@@ -40,25 +43,30 @@
                </v-btn>
             </div>
             <v-expand-transition>
-               <v-card id="listImportDoss" v-show="showSec2">
+               <section v-show="showSec2">
+               <v-card id="listImportDoss" >
                   <section class="comp-imp">
                    
-                     <v-card class="mb-3">
-                      <v-list>
+                     <v-card class="mb-10">
+                      
                         <v-file-input show-size placeholder="Info du Dossier Projet : pdf,png ... taille max : 500 mo" type="file" />
                         <v-file-input show-size placeholder="Compétences Couvertes du Dossier Projet : pdf,png ... taille max : 500 mo" type="file" />
                         <v-file-input show-size placeholder="Contenu du Dossier Projet : pdf,png ... taille max : 500 mo" type="file" />
                         <v-file-input show-size placeholder="Resume du Dossier Projet : pdf,png ... taille max : 500 mo" type="file" />
-                      </v-list>
+                        <v-file-input show-size placeholder="Annexes du Dossier Projet : pdf,png ... taille max : 500 mo" type="file" />
+                     
                       </v-card>
-                     <v-card>
-                        <v-card-body>
-                           <button id="btn-annuler" class="btn btn-secondary" @click="clear()">Annuler</button>
-                           <button id="btn-save" class="btn btn-success" @click="submit()">Sauvegarder</button>
-                        </v-card-body>
-                     </v-card>
                   </section>
                 </v-card>
+                <div class="d-flex justify-content-center">
+                               <div class="text-left" style="width:15%">
+                                   <button class="btn btn-secondary" @click="clear()">Annuler</button>
+                               </div>
+                               <div class="text-right" style="width:15%">
+                                   <button class="btn btn-success" @click="submit()">Sauvegarder</button>
+                               </div>
+                           </div>
+               </section>
             </v-expand-transition>
          </section>
          <!-- ******************************************************** -->
@@ -91,10 +99,10 @@
                               <v-card-body v-show="active === 1" name="page Info">
                                  <v-card>
                                     <v-card-text disabled>
-                                       <v-card-title>  Candidat : {{ etudiants.utilisateurDto.prenom }}  {{ etudiants.utilisateurDto.nom }}</v-card-title>
+                                       <!-- <v-card-title>  Candidat : {{ etudiants.utilisateurDto.prenom }}  {{ etudiants.utilisateurDto.nom }}</v-card-title> -->
                                        <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
                                        <v-card-subtitle>Dossier : {{ DossierProjet.nom }}</v-card-subtitle>
-                                       <v-card-title>  Année : {{ etudiants.promotionsDto[0].dateDebut}}/{{etudiants.promotionsDto[0].dateFin}}</v-card-title>
+                                       <!-- <v-card-title>  Année : {{ etudiants.promotionsDto[0].dateDebut}}/{{etudiants.promotionsDto[0].dateFin}}</v-card-title> -->
                                     </v-card-text>
                                     <vue-editor v-model="DossierProjet.infoDossierProjets.information_projet" 
                                        id="exp1"  placeholder="Informations du Projet" readonly />
@@ -156,22 +164,23 @@
                                     <tbody>
                                        <tr v-for="(annexe, index) in DossierProjet.annexeDossierProjets" :key="annexe.id">
                                           <td>
-                                             <v-file-input v-model="annexe.pieceJointe" label="Annexes du Dossier Projet" accept="image/*" :id="'fileInput_' + index" @change="'onFileChange' + index"></v-file-input>
-                                             {{ annexe }} + {{ annexe.id }}
-                                             <v-btn class="btn btn-secondary mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
+                                             <v-file-input v-model="annexe.pieceJointe" label="Annexes du Dossier Projet" 
+                                             accept="image/*" :id="'fileInput_' + index" @change="'onFileChange' + index"></v-file-input>
+                                             <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
                                           </td>
                                        </tr>
                                     </tbody>
                                  </v-simple-table>
                               </v-card-body>
-                              <v-card>
-                                 <v-card-body>
-                                    <p></p>
-                                    <button id="btn-annuler" class="btn btn-secondary" @click="clear()">Annuler</button>
-                                    <button id="btn-save" class="btn btn-success" @click="submit()">Sauvegarder</button>
-                                 </v-card-body>
-                              </v-card>
                            </v-card>
+                           <div class="d-flex justify-content-center">
+                               <div class="text-left" style="width:15%">
+                                   <button class="btn btn-secondary" @click="clear()">Annuler</button>
+                               </div>
+                               <div class="text-right" style="width:15%">
+                                   <button class="btn btn-success" @click="submit()">Sauvegarder</button>
+                               </div>
+                           </div>
                         </section>
                      </section>
                   </div>
@@ -183,9 +192,9 @@
                </p>
                <div class="div-ok">
                   <router-link class="nav-item first" :to="'/etudiant/dossierprojets'">
-                     <b-button variant="primary" @click="$bvModal.hide('modal-delete-success')">
+                     <button variant="primary" @click="$bvModal.hide('modal-delete-success')">
                         Continuer
-                     </b-button>
+                     </button>
                   </router-link>
                </div>
             </b-modal>
@@ -210,9 +219,8 @@
          iconIndex: 0,
          showSec1: false,
          showSec2: false,
-         active: undefined,
-         active_cp:undefined,
-         clicked: false,
+         active: 1,
+         idEtu:this.$store.getters.getUtilisateur.etudiantDto.id,
          etudiants: [],
          infos: [],
          contenus: [],
@@ -321,10 +329,8 @@
            ],
          };
    
-         const utilisateurId = this.$store.getters.getUtilisateur.etudiantDto.id;
-   
          dossierProjetApi
-           .create(dossierProjet, utilisateurId, annexeData)
+           .create(dossierProjet, this.idEtu, annexeData)
            .then(async (data) => {
              this.DossierProjet = data;
              this.$bvModal.show("modal-delete-success");
@@ -339,7 +345,7 @@
        //Récupération des infos de l'etudiant 
         getEtudiant() {
           etudiantApi
-            .getById(this.$store.getters.getUtilisateur.etudiantDto.id)
+            .getById(this.idEtu)
             .then((response) => (this.etudiants = response));
         },
  
@@ -394,7 +400,7 @@
        this.getEtudiant();
        this.getActiviteTypeByCursus();
        this.getPromotion();
- 
+       console.log(this.idEtu);
      },
      computed: {
        //**** Style Déroulement des sections Importer et Creation ****
@@ -431,16 +437,11 @@
    #main-cr-prj {
    background-color: none;
    padding: 20px;
-   margin: 0% 2% 100vmin 2%;
-   min-width: 100vm;
+   margin: 0% 2% 0% 2%;
+   /*min-width: 100vm;*/
    height: 100vmin;
    }
-   #navproj {
-   display: grid;
-   }
-   .groupeCompoDp{
- 
-   }
+
    .v-btn-toggle {
    display: inline-flex;
    width: 20%;
@@ -458,9 +459,6 @@
    button {
    border-radius: 50px;
    }
-   #comp-doss-prjt {
-   margin-bottom: 10px;
-   }
    .comp-doss p {
    color: white;
    padding: 15px 0px 0px 15px;
@@ -469,47 +467,21 @@
    background-color: #495057;
    color: white;
    }
-   #container {
-   background-color: black;
-   display: flex;
-   }
-   #container2 {
-   display: flex;
-   min-width: 500px;
-   padding-top: 10px;
-   }
-   #container2 p {
-   padding-left: 10px;
-   }
    .comp-imp {
-   display: inline-block;
+   margin: 0%;
    background-color: none;
-   width: 90%;
-   }
-   #imp-file {
-   margin-left: 20%;
-   }
-   .imp-doss-btn {
-   padding: 15px 0px 0px 15px;
-   background-color: none;
-   display: inline-block;
+   width: 100%;
    }
    #btn-save {
    right: 34%;
    position: absolute;
    }
    #btn-annuler {
-   text-align: left;
-   color: #fffcfc;
    left: 34%;
    position: absolute;
    }
    #btn1, #btn2 {
    background-color: transparent;
-   width: 50vm;
    }
- 
-   #listImportDoss{
-    background-color: aqua;
-   }
+
  </style>
