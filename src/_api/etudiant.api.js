@@ -44,6 +44,7 @@ function getById(id) {
 }
 
 /**
+ * Récupération des étudiants par page, size, search 
  * 
  * @param {*} page 
  * @param {*} size 
@@ -60,6 +61,7 @@ function getAllByPage(page, size, search = "") {
 }
 
 /**
+ * Méthode de recherche 
  * 
  * @param {*} search 
  * @returns 
@@ -74,6 +76,7 @@ function getCount(search = "") {
 }
 
 /**
+ * Save d'un dossier projet 
  * 
  * @param {*} form 
  * @returns 
@@ -89,6 +92,7 @@ function save(form) {
 }
 
 /**
+ * Delete d'un dossier projet par dossier projet
  * 
  * @param {*} id 
  * @returns 

@@ -135,7 +135,7 @@ export default {
       pageDossProfessionnel: 1,
       pageConge: 1,
       pageAbsence: 1,
-      itemsPerPage: 2,
+      itemsPerPage: 8,
       etudiantId: 0,
       infos: [],
       notes: [],

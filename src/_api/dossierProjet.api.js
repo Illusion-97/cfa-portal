@@ -37,7 +37,6 @@ function getById(id){
  * @param {*} id 
  * @returns 
  */
-
     
     function getByIdEtudiant(id){
     let req = `${END_POINT}/etudiant/${id}`;
@@ -93,12 +92,27 @@ function getById(id){
       .catch((error) => console.log(error));
   }
 
+  /**
+   * Génération du dossier projet par etudiant et cursus
+   * 
+   * @param {*} idEtu 
+   * @param {*} idCursus 
+   * @returns 
+   */
+
   function generer(idEtu,idCursus) {
     return axios
       .get(`${END_POINT}/generer/${idEtu}/${idCursus}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }
+
+  /**
+   * Génération du dossier projet par etudiant 
+   * 
+   * @param {*} id 
+   * @returns 
+   */
 
   function genererDossier(id){
     let req = `${END_POINT}/generer/${id}`;

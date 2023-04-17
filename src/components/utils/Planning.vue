@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="this.$store.getters.getPlanning.length != 0">
     <div class="row">
       <div class="offset-2 col-md-10">
         <div class="row">
@@ -54,28 +54,26 @@
           </thead>
           <tbody>
             <tr>
-              <td v-for="item in edt" :key="item.id">
+              <td v-for="items in edt" :key="items.id">
                 <div
-                  v-for="intervention in item"
-                  :key="intervention.id"
+                  v-for="item in items"
+                  :key="item.id"
                   class="intervention">
                   <p class="font-weight-bold h5">
-                    {{ intervention.formationDto.titre }}
+                    {{ item.formationDto.titre }}
                   </p>
-                  <p class="text-justify">
-                    {{ intervention.formationDto.contenu }}
-                  </p>
+   
                   <div
-                    v-for="formateur in intervention.formateurDto"
-                    :key="formateur.id">
+                    v-for="item in items"
+                    :key="item.formateurDto.id">
                     <p>
                       <span class="font-weight-bold">Formateur : </span>
-                      {{ formateur.prenom }} {{ formateur.nom }}
+                      {{ item.formateurDto.utilisateurDto.nom }} {{ item.formateurDto.utilisateurDto.prenom }}
                     </p>
                   </div>
                   <router-link v-if="isFormateur"
                     :to="{ name: 'formateur_intervention_detail',
-                      params: { id: intervention.idIntervention },}">
+                      params: { id: idIntervention },}">
                     <font-awesome-icon
                       :icon="['fas', 'external-link-alt']"
                       class="icon text-primary"/>

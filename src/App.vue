@@ -15,8 +15,8 @@
       </div>
       <div v-else-if="path == 'tuteur'">
         <HeaderTuteur />
-        <router-view />
         <CSSTuteur />
+        <router-view />
       </div>
       <router-view v-else class="monBody" />
     </div>

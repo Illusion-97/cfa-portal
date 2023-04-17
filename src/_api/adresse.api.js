@@ -19,10 +19,10 @@ const END_POINT = "adresses";
  * @param {*} id 
  * @returns 
  */
-function getById(id){
+function getById(id) {
     let req = `/adresses/${id}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
@@ -37,38 +37,38 @@ function getById(id){
  * @returns 
  */
 
-function getAllByPage(page, size, search = ""){
+function getAllByPage(page, size, search = "") {
     let req = `/${END_POINT}/${page}/${size}/${search}`;
-  
-    return  axios
+
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
         .catch((error) => console.log(error));
-  }
+}
 
-  /**
- * 
- * Récupération de toutes les adresses
- * 
- */
+/**
+* 
+* Récupération de toutes les adresses
+* 
+*/
 
 function getAllAdresses() {
     return axios
-      .get(`${END_POINT}`, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-  }
+        .get(`${END_POINT}`, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
 
-  /**
- * Méthode de recherche
- * 
- * @param {*} search 
- * @returns 
- */
-function getCount(search = ""){
+/**
+* Méthode de recherche
+* 
+* @param {*} search 
+* @returns 
+*/
+function getCount(search = "") {
     let req = `/adresses/count/${search}`;
 
-    return  axios
+    return axios
         .get(req, requestOptions.headers())
         .then(response => response.data["nb"])
         .catch((error) => console.log(error));
@@ -82,7 +82,7 @@ function getCount(search = ""){
  */
 
 function save(form) {
-    let req =  "adresses";
+    let req = "adresses";
 
     return axios
         .post(req, form, requestOptions.headers())
@@ -98,7 +98,7 @@ function save(form) {
  * @returns 
  */
 function deleteAdresse(id) {
-    let req =  `adresses/${id}`;
+    let req = `adresses/${id}`;
 
     return axios
         .delete(req, requestOptions.headers())

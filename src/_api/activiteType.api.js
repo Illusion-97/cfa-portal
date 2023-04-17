@@ -13,6 +13,11 @@ export const activiteTypeApi = {
   deleteAt,
 };
 
+/**
+ * Récupération de toutes les Activités types
+ * 
+ */
+
 function getAll(){
   return axios
     .get(`${END_POINT}`, requestOptions.headers())
@@ -36,6 +41,12 @@ function getAllByIdPromotion(id){
         .catch((error) => console.log(error)); 
 }
 
+/**
+ * Récupération d'une Activités types par promotions
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 function getById(id) {
   return axios
     .get(`${END_POINT}/${id}/promotions`, requestOptions.headers())
