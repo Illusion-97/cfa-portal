@@ -125,8 +125,9 @@ function getLivretEvaluation(id) {
   .catch((error) => console.log(error));
 }
 /**
- * Récupération des 
+ * Récupération du fichier d'éxamens 
  * 
+ * @param {*} id examen
  */
  async function getFileExamen(id){
   let req = "examens/file/" + id;
