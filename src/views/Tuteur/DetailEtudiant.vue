@@ -27,13 +27,13 @@
         <!--Tableau Infos Etudiant-->
         <v-card v-show="active === 1" name="Info">
           <v-card-text>
-            <v-card-title disabled>Nom : {{ infos.nom }}</v-card-title>
-            <v-card-title disabled>Prenom : {{ infos.prenom }}</v-card-title>
-            <v-card-title disabled>Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
-            <v-card-title disabled>Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
-            <v-card-title disabled>Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
-            <v-card-title disabled>Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
-            <v-card-title disabled>Adresse mail : {{ infos.login }}</v-card-title>
+            <v-card-title disabled>Nom : {{ infos.utilisateurDto.nom }}</v-card-title>
+            <v-card-title disabled>Prenom : {{ infos.utilisateurDto.prenom }}</v-card-title>
+            <v-card-title disabled>Date de naissance : {{ infos.utilisateurDto.dateDeNaissance? infos.utilisateurDto.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
+            <v-card-title disabled>Adresse : {{ infos.utilisateurDto.adresseDto? infos.utilisateurDto.adresseDto.libelle + " " + infos.utilisateurDto.adresseDto.ville + " " + infos.utilisateurDto.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
+            <v-card-title disabled>Télephone : {{ infos.utilisateurDto.telephone? infos.utilisateurDto.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
+            <v-card-title disabled>Télephone fixe : {{ infos.utilisateurDto.telephoneFixe? infos.utilisateurDto.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
+            <v-card-title disabled>Adresse mail : {{ infos.utilisateurDto.login }}</v-card-title>
           </v-card-text>
         </v-card>
 
@@ -42,7 +42,7 @@
         <!-- Tableau Controle Continu -->
         <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="pageNotes" :items-per-page="itemsPerPage"
-            hide-default-footer class="elevation-1" v-if="notes.length">
+            hide-default-footer class="h1" v-if="notes.length">
           </v-data-table>
           <v-card-title v-else>Pas de controle continu.</v-card-title>
           <div class="text-center pt-2">
@@ -53,7 +53,7 @@
         <!-- Tableau Planning -->
         <v-card v-show="active === 3" name="planning">
           <v-data-table :headers="planningFields" :items="promos" :page.sync="pagePromos" :items-per-page="itemsPerPage"
-            class="elevation-1" hide-default-footer v-if="promos.length">
+            class="elevation-2 title-size" hide-default-footer v-if="promos.length">
           </v-data-table>
           <v-card-title v-else>Pas de planning.</v-card-title>
           <div class="text-center pt-2">
@@ -114,7 +114,7 @@
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
 import { congeApi } from "@/_api/conge.api.js";
 import { absenceApi } from "@/_api/absence.api.js";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 import { noteApi } from "@/_api/note.api.js";
 import { promotionApi } from "@/_api/promotion.api.js";
@@ -161,7 +161,7 @@ export default {
     },
 
     getinfoEtudiant() {
-      utilisateurApi.getById(this.etudiantId).then((response) => (this.infos = response));
+      etudiantApi.getById(this.etudiantId).then((response) => (this.infos = response));
     },
 
     getnoteEtudiant() {
@@ -234,5 +234,8 @@ export default {
 
 #x {
   margin: 0% 2% 0% 0%;
+}
+.my-data-table {
+  font-size: 106px;
 }
 </style>
