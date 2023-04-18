@@ -1,57 +1,37 @@
 <template>
-  <div class="container-fluide">   
+  <div class="container-fluide">
+
+    <!-- BARRE DE RECHERCHE -->
     <div class="header-list m-4">
       <form class="form-inline form" @submit="search">
-        <input
-          id="saisie"
-          name="saisie"
-          placeholder="Rechercher"
-          type="text"
-          class="form-control"
-          v-model="key"
-        />
+        <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="key" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
       </form>
     </div>
+
+    <!-- LIST DES INTERVENTIONS -->
     <div class="row d-flex justify-content-arround m-2 scrol">
-      <div
-        v-for="item in items"
-        :key="item.id"
-        @click="click(item)"
-        class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card"
-      >
-        <b-card
-          header-text-variant="white"
-          header-tag="header"
-          header-bg-variant="dark"
-          footer-tag="footer"
-          footer-bg-variant="success"
-          footer-border-variant="dark"
-          style="max-width: 32rem"
-          class="card-Promotions col d-flex flex-row align-items-center"
-        >
-          <b-card-header
-            class="
-              d-flex
-              justify-content-center
-              bg-white
-              text-secondary
-              col
-              font-weight-bold
-            "
-          >
+      <div v-for="item in items" :key="item.id" @click="click(item)"
+        class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card">
+        <b-card header-text-variant="white" header-tag="header" header-bg-variant="dark" footer-tag="footer"
+          footer-bg-variant="success" footer-border-variant="dark" style="max-width: 32rem"
+          class="card-Promotions col d-flex flex-row align-items-center">
+          <b-card-header class="
+                  d-flex
+                  justify-content-center
+                  bg-white
+                  text-secondary
+                  col
+                  font-weight-bold
+                ">
             {{ item.formationDto != null ? item.formationDto.titre : 'Pas de formation' }}
           </b-card-header>
-          <b-card-text
-            class="mt-4 d-flex justify-content-center bg-white text-secondary"
-          >
+          <b-card-text class="mt-4 d-flex justify-content-center bg-white text-secondary">
             Date du debut : {{ item.dateDebut | formatDate }}
           </b-card-text>
-          <b-card-footer
-            class="d-flex justify-content-center bg-white text-secondary"
-          >
+          <b-card-footer class="d-flex justify-content-center bg-white text-secondary">
             Date de fin : {{ item.dateFin | formatDate }}
           </b-card-footer>
         </b-card>
@@ -68,7 +48,7 @@ import { courseFieldsFormateur } from "@/assets/js/fields.js";
 import { formateurApi } from "@/_api/formateur.api";
 export default {
   name: "Intervention-Formateur",
-  components: {  },
+  components: {},
   data() {
     return {
       items: [],
@@ -89,31 +69,23 @@ export default {
     this.getNextInterventions();
   },
   methods: {
+    // INTERVENTION
     fillList() {
       formateurApi
-        .getInterventionsByFormateurId(
-          this.$store.getters.getUtilisateur.formateurDto.id,
-          1,
-          this.perPage,
-          this.key
-        )
+        .getInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, 1, this.perPage, this.key)
         .then((data) => {
           this.items = data;
         });
     },
     countIntervention() {
       formateurApi
-        .countInterventionsByFormateurId(
-          this.$store.getters.getUtilisateur.formateurDto.id,
-          this.key
-        )
+        .countInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
     getNextInterventions() {
-       window.onscroll = () => {
+      window.onscroll = () => {
         let bottomOfWindow =
-          window.scrollY + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
+          window.scrollY + window.innerHeight + 1 >= document.documentElement.offsetHeight;
 
         if (bottomOfWindow && this.stopScrol == false) {
           this.currentPage++;
@@ -123,12 +95,7 @@ export default {
     },
     pageChange(perPage) {
       formateurApi
-        .getInterventionsByFormateurId(
-          this.$store.getters.getUtilisateur.formateurDto.id,
-          1,
-          perPage,
-          this.key
-        )
+        .getInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, 1, perPage, this.key)
         .then((data) => {
           this.items = data;
           this.loading = false;
@@ -140,6 +107,8 @@ export default {
           }
         });
     },
+
+    // OTHER
     search(evt) {
       evt.preventDefault();
       this.fillList();
@@ -156,17 +125,18 @@ export default {
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
 <style scoped>
 .scrol {
   min-height: 101vh;
   overflow: hidden;
 }
+
 .card-Promotions {
   border-radius: 5px;
   min-height: 28vh;
 }
+
 .card-Promotions:hover {
   border: 3px solid red;
   cursor: pointer;

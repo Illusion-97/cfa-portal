@@ -17,16 +17,15 @@
       </div>
     </div>
     <div class="row">
+
+      <!-- EN-TETE -->
       <div class="col-md-2" align="center">
-        <b-calendar
-          v-model="date"
-          value-as-date
-          hide-header
-          :start-weekday="1"
-          :date-disabled-fn="dateDisabled"
-        ></b-calendar>
+        <b-calendar v-model="date" value-as-date hide-header :start-weekday="1"
+          :date-disabled-fn="dateDisabled"></b-calendar>
       </div>
       <div class="col-md-10">
+
+        <!-- AFFICHAGE DES DATES -->
         <table class="table">
           <thead>
             <tr>
@@ -52,31 +51,27 @@
               </th>
             </tr>
           </thead>
+
+          <!-- AFFICHAGE DES INTERVENTION -->
           <tbody>
             <tr>
               <td v-for="items in edt" :key="items.id">
-                <div
-                  v-for="item in items"
-                  :key="item.id"
-                  class="intervention">
+                <div v-for="item in items" :key="item.id" class="intervention">
                   <p class="font-weight-bold h5">
                     {{ item.formationDto.titre }}
                   </p>
-   
-                  <div
-                    v-for="item in items"
-                    :key="item.formateurDto.id">
+
+                  <div v-for="item in items" :key="item.formateurDto.id">
                     <p>
                       <span class="font-weight-bold">Formateur : </span>
                       {{ item.formateurDto.utilisateurDto.nom }} {{ item.formateurDto.utilisateurDto.prenom }}
                     </p>
                   </div>
-                  <router-link v-if="isFormateur"
-                    :to="{ name: 'formateur_intervention_detail',
-                      params: { id: idIntervention },}">
-                    <font-awesome-icon
-                      :icon="['fas', 'external-link-alt']"
-                      class="icon text-primary"/>
+                  <router-link v-if="isFormateur" :to="{
+                    name: 'formateur_intervention_detail',
+                    params: { id: idIntervention },
+                  }">
+                    <font-awesome-icon :icon="['fas', 'external-link-alt']" class="icon text-primary" />
                   </router-link>
                 </div>
               </td>
@@ -159,7 +154,7 @@ export default {
     isFormateur() {
       return utilisateurService.isFormateur();
     },
-    isEtudiant(){
+    isEtudiant() {
       return utilisateurService.isEtudiant();
     }
   },
@@ -251,6 +246,7 @@ table {
   width: 95%;
   margin: 0 auto;
 }
+
 .table thead th,
 .table td,
 .table th {

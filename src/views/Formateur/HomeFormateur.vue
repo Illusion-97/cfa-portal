@@ -2,6 +2,7 @@
   <section>
     <div id="grid-container">
       <div id="trainer-planning">
+        <!-- A MODIFIER -->
         <Planning />
       </div>
     </div>

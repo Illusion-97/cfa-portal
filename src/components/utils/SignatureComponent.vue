@@ -1,5 +1,7 @@
 <template>
     <section>
+
+        <!-- AFFICHAGE DE LA SIGNATURE SI EXISTANTE -->
         <div class="m-4" v-if="(modifier == false)">
 
             <h3 class="pr-4">Votre signature :</h3>
@@ -13,6 +15,7 @@
                 Modifier</b-button>
         </div>
 
+        <!-- CREATION D'UNE SIGNATURE SI NON EXISTANTE -->
         <div v-else>
             <div class="m-4">
 

@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="container-fluid mt-4">
+
+      <!-- BARRE DE RECHERCHE -->
       <div class="header-list">
         <form class="form-inline form" @submit="submit">
           <input
@@ -16,6 +18,8 @@
           </button>
         </form>
       </div>
+
+      <!-- LIST DES PROMOTIONS -->
       <div class="row d-flex justify-content-arround">
         <div
           v-for="promotion in promotionsComputed"

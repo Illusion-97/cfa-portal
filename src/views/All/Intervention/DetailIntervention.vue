@@ -3,171 +3,191 @@
     <section class="container-fluid mt-4">
       <v-app>
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
-        <b-tab active  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
-            Détails
-          </template>
-          <div class="m-4 flex-xl-column">
-            <div class="d-flex justify-content-start">
-              <h3 class="
-                  order-0
-                  mr-4
-                  pr-2
-                  d-flex
-                  align-items-center
-                  right-border
-                  start
-                ">
-                {{
-                trainers.length > 1
-                ? "Formateurs affectés"
-                : "Formateur affecté"
-                }}
-              </h3>
-              <div v-for="t in trainers" :key="t.id">
-                <h4>
-                  {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
-                </h4>
-              </div>
-            </div>
-            <div class="separation"></div>
-            <div class="d-flex justify-content-start mt-2">
-              <h3 class="
-                  order-0
-                  mr-4
-                  pr-2
-                  d-flex
-                  align-items-center
-                  right-border
-                  start
-                ">
-                {{
-                promo.length > 1
-                ? "Promotions associées"
-                : "Promotion associé"
-                }}
-              </h3>
-              <div class="d-flex flex-column">
-                <h4 v-for="p in promo" :key="p.id" class="pt-2">
-                  {{ p.nom }}
-                </h4>
-              </div>
 
-            </div>
-            <div class="separation"></div>
-            <div class="d-flex justify-content-start mt-2">
-              <h3 class="
-                  order-0
-                  mr-4
-                  pr-2
-                  d-flex
-                  align-items-center
-                  right-border
-                  start
-                ">
-                Note info personnel
-              </h3>
-              <div class="container-note-info-personel">
-                <div v-if="items.noteInfoPersonnel == null" class="d-flex justify-content-between align-items-center">
-                  <h4 v-if="ajouterInfo == false">
-                    Pas d'information disponible
+          <!-- TABLE DETAILS -->
+          <!-- A MODIFIER -->
+          <b-tab active title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
+              Détails
+            </template>
+            <div class="m-4 flex-xl-column">
+
+              <!-- Formateur affecté -->
+              <div class="d-flex justify-content-start">
+                <h3 class="
+                        order-0
+                        mr-4
+                        pr-2
+                        d-flex
+                        align-items-center
+                        right-border
+                        start
+                      ">
+                  {{
+                    trainers.length > 1
+                    ? "Formateurs affectés"
+                    : "Formateur affecté"
+                  }}
+                </h3>
+                <div v-for="t in trainers" :key="t.id">
+                  <h4>
+                    {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
                   </h4>
-                  <div v-else-if="ajouterInfo == true" class="w-75">
-                    <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                      v-model="items.noteInfoPersonnel"></b-form-textarea>
-                  </div>
-                  <b-button v-if="ajouterInfo == false" @click="ajouterInfo = true">
-                    <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
-                    Ajouter
-                  </b-button>
-                  <div v-else class="d-flex flex-xl-column">
-                    <b-button variant="success" @click="updateIntervention()">
-                      <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-                      Valider
-                    </b-button>
-                    <b-button class="mt-2" variant="warning" @click="annulerModif()">
-                      <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                      Annuler
-                    </b-button>
-                  </div>
-                </div>
-
-                <div v-else class="d-flex justify-content-between align-items-center">
-                  <h4 v-if="modifierInfo == false">
-                    {{ items.noteInfoPersonnel }}
-                  </h4>
-                  <div v-else class="w-75">
-                    <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                      v-model="items.noteInfoPersonnel"></b-form-textarea>
-                  </div>
-
-                  <b-button variant="primary" @click="modifierInfoPerso()" v-if="modifierInfo ==false">
-                    <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-                    Modifier
-                  </b-button>
-                  <div v-else class="d-flex flex-xl-column">
-                    <b-button variant="success" @click="updateIntervention()">
-                      <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-                      Valider
-                    </b-button>
-                    <b-button class="mt-2" variant="warning" @click="annulerModif()">
-                      <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                      Annuler
-                    </b-button>
-                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </b-tab>
-        <b-tab  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
-            Etudiants
-          </template>
-          <EtudiantsInterventionListComponent />
-        </b-tab>
-        <b-tab  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'code']" class="icon" />
-            Evaluations
-          </template>
-          <EvaluationComponent />
 
-        </b-tab>
-        <b-tab  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'code']" class="icon" />
-            Devoirs
-          </template>
+              <!-- Promotion associé -->
+              <div class="separation"></div>
+              <div class="d-flex justify-content-start mt-2">
+                <h3 class="
+                        order-0
+                        mr-4
+                        pr-2
+                        d-flex
+                        align-items-center
+                        right-border
+                        start
+                      ">
+                  {{
+                    promo.length > 1
+                    ? "Promotions associées"
+                    : "Promotion associé"
+                  }}
+                </h3>
+                <div class="d-flex flex-column">
+                  <h4 v-for="p in promo" :key="p.id" class="pt-2">
+                    {{ p.nom }}
+                  </h4>
+                </div>
+
+              </div>
+
+              <!-- Note info personnel -->
+              <div class="separation"></div>
+              <div class="d-flex justify-content-start mt-2">
+                <h3 class="
+                        order-0
+                        mr-4
+                        pr-2
+                        d-flex
+                        align-items-center
+                        right-border
+                        start
+                      ">
+                  Note info personnel
+                </h3>
+                <div class="container-note-info-personel">
+                  <div v-if="items.noteInfoPersonnel == null" class="d-flex justify-content-between align-items-center">
+                    <h4 v-if="ajouterInfo == false">
+                      Pas d'information disponible
+                    </h4>
+                    <div v-else-if="ajouterInfo == true" class="w-75">
+                      <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
+                        v-model="items.noteInfoPersonnel"></b-form-textarea>
+                    </div>
+                    <b-button v-if="ajouterInfo == false" @click="ajouterInfo = true">
+                      <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
+                      Ajouter
+                    </b-button>
+                    <div v-else class="d-flex flex-xl-column">
+                      <b-button variant="success" @click="updateIntervention()">
+                        <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
+                        Valider
+                      </b-button>
+                      <b-button class="mt-2" variant="warning" @click="annulerModif()">
+                        <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                        Annuler
+                      </b-button>
+                    </div>
+                  </div>
+
+                  <div v-else class="d-flex justify-content-between align-items-center">
+                    <h4 v-if="modifierInfo == false">
+                      {{ items.noteInfoPersonnel }}
+                    </h4>
+                    <div v-else class="w-75">
+                      <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
+                        v-model="items.noteInfoPersonnel"></b-form-textarea>
+                    </div>
+
+                    <b-button variant="primary" @click="modifierInfoPerso()" v-if="modifierInfo == false">
+                      <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+                      Modifier
+                    </b-button>
+                    <div v-else class="d-flex flex-xl-column">
+                      <b-button variant="success" @click="updateIntervention()">
+                        <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
+                        Valider
+                      </b-button>
+                      <b-button class="mt-2" variant="warning" @click="annulerModif()">
+                        <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                        Annuler
+                      </b-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-tab>
+
+          <!-- TABLE ETUDIANTS -->
+          <!-- A MODIFIER -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
+              Etudiants
+            </template>
+            <EtudiantsInterventionListComponent />
+          </b-tab>
+
+          <!-- TABLE EVALUATIONS -->
+          <!-- A MODIFIER -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'code']" class="icon" />
+              Evaluations
+            </template>
+            <EvaluationComponent />
+
+          </b-tab>
+
+          <!-- TABLE DEVOIRS -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'code']" class="icon" />
+              Devoirs
+            </template>
             <div>
               <DevoirsInterventionListComponent />
             </div>
-        </b-tab>
-       
-        <b-tab @click="reloadExam()"  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
-            Examens
-          </template>
-          <div>
-            <ExamensPromotionsListCompoenent ref="examen" :examens="examensByInterventionId"
-              :context="'intervention'"  />
-          </div>
-        </b-tab>
-        <b-tab title-link-class="tabColor">
-          <template v-slot:title class="text-info">
-            <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
-            Notes
-          </template>
-          <div>
-            <AjouterNotes :context="'intervention'" />
-          </div>
-        </b-tab>
-      </b-tabs>
+          </b-tab>
+
+          <!-- TABLE EXAMENS -->
+          <b-tab @click="reloadExam()" title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
+              Examens
+            </template>
+            <div>
+              <ExamensPromotionsListCompoenent ref="examen" :examens="examensByInterventionId"
+                :context="'intervention'" />
+            </div>
+          </b-tab>
+
+          <!-- TABLE NOTES -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title class="text-info">
+              <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
+              Notes
+            </template>
+            <div>
+              <AjouterNotes :context="'intervention'" />
+            </div>
+          </b-tab>
+        </b-tabs>
       </v-app>
-      
+
     </section>
   </div>
 </template>
@@ -269,11 +289,13 @@ export default {
   },
 
   methods: {
+    // EXAMENS
     getExamensByInterventionId() {
       examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
         this.examensByInterventionId = response;
       })
     },
+
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.examensByInterventionId);
 
@@ -290,6 +312,8 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+
+    // INTERVENTION
     getId() {
       interventionApi.getInterventionById(this.interventionId).then((data) => {
         this.status = data.status;
@@ -366,6 +390,7 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
+
     // // Devoir
     // getAssignement() {
     //   interventionApi
@@ -423,12 +448,14 @@ export default {
           break;
       }
     },
+
     // Formateur
     getTrainer() {
       interventionApi
         .findTrainerByInterventionId(this.interventionId)
         .then((data) => (this.trainers = data));
     },
+
     // Absence
     // getAbsences() {
     //   for (let i = 0; i < this.students.length; i++) {
@@ -491,6 +518,7 @@ export default {
           break;
       }
     },
+
     // Promotion
     goToPromotionDetail(id) {
       // const route = this.$route.path.split("/").splice(1);
@@ -511,9 +539,7 @@ export default {
 };
 </script>
 
-<style src="@/assets/styles/Onglet.css">
-
-</style>
+<style src="@/assets/styles/Onglet.css"></style>
 
 <style scoped>
 .start {
@@ -623,7 +649,7 @@ tr th {
 }
 </style>
 <style>
-.tabColor{
+.tabColor {
   color: #2D001E;
 }
 </style>
