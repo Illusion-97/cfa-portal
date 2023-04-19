@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Planning from "@/components/utils/Planning.vue";
+import Planning from "@/components/utils/PlanningEtudiant.vue";
 export default {
   name: "",
   components: {

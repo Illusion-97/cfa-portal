@@ -64,7 +64,7 @@
                   <div v-for="item in items" :key="item.formateurDto.id">
                     <p>
                       <span class="font-weight-bold">Formateur : </span>
-                      {{ item.formateurDto.utilisateurDto.nom }} {{ item.formateurDto.utilisateurDto.prenom }}
+                      {{ item.formationDto.utilisateurDto.nom }} {{ item.formateurDto.utilisateurDto.prenom }}
                     </p>
                   </div>
                   <router-link v-if="isFormateur" :to="{
@@ -102,6 +102,7 @@ export default {
       //On veut récupérer l'edt de la semaine correspondant à la date donnée en propriété du composant
       let result = [];
       let edtTot = this.$store.getters.getPlanning;
+      console.log(this.$store.getters.getPlanning);
       //on vérifie toutes les journée (dates)
       for (let i = 0; i < edtTot.length; i++) {
         //Si l'écart entre ma date de référence et la date testée est > 6 jours, on passe
@@ -132,6 +133,7 @@ export default {
       }
 
       // return result;
+      console.log(this.triage(result));
       return this.triage(result);
     },
     dateSemaine() {

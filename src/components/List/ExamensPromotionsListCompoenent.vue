@@ -13,7 +13,7 @@
       <!-- LIST DES EXAMENS -->
       <b-table :items="items" :fields="fields" striped responsive="sm">
 
-        <!-- //details -->
+        <!-- details -->
         <template #cell(Details)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
             {{ row.detailsShowing ? "Masquer" : "Afficher" }}
@@ -259,7 +259,6 @@ export default {
     }
   },
   methods: {
-
     // AJOUT D'UN EXAMEN
     getActiviteType(promoId) {
       activiteTypeApi
@@ -324,8 +323,11 @@ export default {
         datasFormAt.push(option);
         optionAt.push(optionForAt);
         let tabCompetences = [];
-        for (
-          let j = 0;
+        if (data[i].competencesProfessionnellesDto) {
+          
+          for (
+            let j = 0;
+            console.log(data[i]),
           j < data[i].competencesProfessionnellesDto.length;
           j++
         ) {
@@ -337,6 +339,7 @@ export default {
           };
           tabCompetences.push(competence);
         }
+      }
         let at = new Object();
         at[data[i].id] = tabCompetences;
         dataForFormCp.push(at);
@@ -346,7 +349,7 @@ export default {
       this.optionsBc = optionAt;
     },
 
-
+    // MODIFIER UN EXAMEN
     modifier(item) {
       this.tempItem = item;
       item.modifier = true;
