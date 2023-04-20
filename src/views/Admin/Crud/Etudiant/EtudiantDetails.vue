@@ -58,10 +58,10 @@
               <table class="table">
                 <thead class="">
                   <tr>
-                    <th>date début absence</th>
-                    <th>date fin absence</th>
-                    <th>type absence</th>
-                    <th>justificatif</th>
+                    <th>Date début absence</th>
+                    <th>Date fin absence</th>
+                    <th>Type absence</th>
+                    <th>Justificatif</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -94,9 +94,9 @@
                 <thead class="">
                   <tr>
                     <th>Note obtenue</th>
-                    <th>satisfaction</th>
-                    <th>observation</th>
-                    <th>examenId</th>
+                    <th>Satisfaction</th>
+                    <th>Observation</th>
+                    <th>ExamenId</th>
                   </tr>
                 </thead>
                 <tbody>

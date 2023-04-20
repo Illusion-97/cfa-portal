@@ -111,7 +111,7 @@ export default {
     },
   },
   created() {
-    console.log(this.stopScrol);
+    //console.log(this.stopScrol);
     this.getList();
   },
   mounted() {
