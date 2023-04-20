@@ -13,11 +13,11 @@
                 <thead class="">
                   <tr>
                     <th v-if="isAdmin"> Détails étudiant</th>
+                    <th>Action</th>
                     <th>Nom </th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
