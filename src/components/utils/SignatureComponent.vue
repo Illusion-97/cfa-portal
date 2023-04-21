@@ -22,6 +22,9 @@
                 <VPerfectSignature width="50%" class="border border-dark" ref="signaturePad"
                     :stroke-options="strokeOptions" />
 
+                    <div v-if="alertsignature == true" class="my-invalid-feedback"> 
+                        Entrer une signature !
+                    </div>
             </div>
 
             <!-- ACTIONS -->
@@ -61,6 +64,7 @@ export default {
                 smoothing: 0.5,
                 streamline: 0.5
             },
+            alertsignature : false,
             signature: null,
             src: null,
             modifier: false,
@@ -107,7 +111,7 @@ export default {
                 }
             }
             else {
-                alert("Entrer une signature");
+                this.alertsignature = true;
             }
 
         },
@@ -120,7 +124,19 @@ export default {
         },
         AnnulerModif() {
             this.modifier = false;
+            this.alertsignature = false;
         }
     },
 }
 </script>
+
+<style>
+
+.my-invalid-feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 100%;
+  color: #dc3545;
+  font-weight: bolder;
+}
+</style>
