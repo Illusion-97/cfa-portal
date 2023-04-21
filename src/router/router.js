@@ -420,8 +420,8 @@ const routes = [
   },
 
   //new routes espace Dossier Projet
-  { path: "/etudiant/creerprojet", name: "creer_dossier_projet", component: DossierProjetCreer },
-  { path: "/etudiant/modifier/:id", name: "creer_dossier_modifier", component: DossierProjetModifier },
+  { path: "/etudiant/creerprojet", name: "creer_dossier_projet", component: DossierProjetCreer, meta: { authorize: [Role.Etudiant] }, },
+  { path: "/etudiant/modifier/:id", name: "creer_dossier_modifier", component: DossierProjetModifier, meta: { authorize: [Role.Etudiant] }, },
 
   //#######################
   //#       FORMATEUR     #

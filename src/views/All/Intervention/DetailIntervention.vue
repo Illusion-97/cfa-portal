@@ -79,44 +79,39 @@
                 </h3>
                 <div class="container-note-info-personel">
                   <div v-if="items.noteInfoPersonnel == null" class="d-flex justify-content-between align-items-center">
-                    <h4 v-if="ajouterInfo == false">
+                    <h4>
                       Pas d'information disponible
                     </h4>
-                    <div v-else-if="ajouterInfo == true" class="w-75">
-                      <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                        v-model="items.noteInfoPersonnel"></b-form-textarea>
-                    </div>
-                    <b-button v-if="ajouterInfo == false" @click="ajouterInfo = true">
+ 
+                    <b-button @click="items.noteInfoPersonnel = '', modifierInfo = true">
                       <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
                       Ajouter
                     </b-button>
-                    <div v-else class="d-flex flex-xl-column">
-                      <b-button variant="success" @click="updateIntervention()">
-                        <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-                        Valider
-                      </b-button>
-                      <b-button class="mt-2" variant="warning" @click="annulerModif()">
-                        <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                        Annuler
-                      </b-button>
-                    </div>
                   </div>
 
-                  <div v-else class="d-flex justify-content-between align-items-center">
-                    <h4 v-if="modifierInfo == false">
-                      {{ items.noteInfoPersonnel }}
-                    </h4>
-                    <div v-else class="w-75">
-                      <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                        v-model="items.noteInfoPersonnel"></b-form-textarea>
-                    </div>
+                  <div v-else >
+                    <div v-if="modifierInfo == false" class="d-flex justify-content-between align-items-center">
 
-                    <b-button variant="primary" @click="modifierInfoPerso()" v-if="modifierInfo == false">
-                      <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-                      Modifier
-                    </b-button>
-                    <div v-else class="d-flex flex-xl-column">
-                      <b-button variant="success" @click="updateIntervention()">
+                      <h4>
+                        {{ items.noteInfoPersonnel }}
+                      </h4>   
+                        <div class="d-flex flex-xl-column">  
+                          <b-button variant="primary" @click="modifierInfoPerso()">
+                            <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+                            Modifier
+                          </b-button>
+                        </div>
+                    </div>
+                    
+                    <div v-else class="d-flex justify-content-between align-items-center">
+
+                      <div class="w-75">
+                        <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
+                        v-model="items.noteInfoPersonnel"></b-form-textarea>
+                      </div>
+                      <div  class="d-flex flex-xl-column">
+                        
+                        <b-button variant="success" @click="updateIntervention()">
                         <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
                         Valider
                       </b-button>
@@ -124,6 +119,7 @@
                         <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                         Annuler
                       </b-button>
+                    </div >
                     </div>
                   </div>
                 </div>
@@ -321,19 +317,25 @@ export default {
         this.promo = this.items.promotionsDto;
         this.$root.$emit("promoId", data.data.promotionsDto[0].id);
       });
+      console.log(this.promo);
     },
     updateIntervention() {
-      console.log(this.items);
-      // this.items.noteInfoPersonnel = this.textInfo;
-      interventionApi
+      if (this.items.noteInfoPersonnel.length == 0 ) {
+        alert("Le champs ne peut pas être vide.");
+      }
+      else{
+
+        // this.items.noteInfoPersonnel = this.textInfo;
+        interventionApi
         .update(this.items)
         .then(() => {
         })
         .catch((err) => {
           console.log(err);
         });
-      this.ajouterInfo = false;
-      this.modifierInfo = false;
+        this.ajouterInfo = false;
+        this.modifierInfo = false;
+      }
     },
     modifierIntervention() {
       const route = this.$route.path.split("/").splice(1);
@@ -536,6 +538,7 @@ export default {
     changementOnglet(onglet) {
       this.onglet = onglet;
     },
+    
   },
 };
 </script>
