@@ -15,7 +15,6 @@
       </div>
       <div v-else-if="path == 'tuteur'">
         <HeaderTuteur />
-        <CSSTuteur />
         <router-view />
       </div>
       <router-view v-else class="monBody" />
@@ -29,7 +28,7 @@ import VueSidebarFormateur from "@/components/Navigation/VueSidebarFormateur.vue
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
 import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
-import CSSTuteur from "@/assets/styles/StyleTuteur.css";
+
 
 export default {
   name: "App",
@@ -40,7 +39,7 @@ export default {
     NavEtudiant,
     HeaderEtudiant,
     HeaderTuteur,
-    CSSTuteur,
+    
   },
   methods: {},
   computed: {
