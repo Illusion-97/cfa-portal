@@ -1,7 +1,7 @@
 <template>
     <section>
 
-        <!-- SIGNATURE -->
+        <!-- AFFICHAGE DE LA SIGNATURE SI EXISTANTE -->
         <div class="m-4" v-if="(modifier == false)">
 
             <h3 class="pr-4">Votre signature :</h3>
@@ -15,6 +15,7 @@
                 Modifier</b-button>
         </div>
 
+        <!-- CREATION D'UNE SIGNATURE SI NON EXISTANTE -->
         <div v-else>
             <div class="m-4">
 
@@ -79,6 +80,10 @@ export default {
         // RECUPERATION DES DONNEE DANS L'URL
         toDataURL() {
             const dataURL = this.$refs.signaturePad.toDataURL();
+            
+            if (dataURL != undefined) {
+
+            
             if (this.signature != null) {
                 let signature = this.signature;
                 signature.pieceJointe = dataURL;
@@ -101,6 +106,10 @@ export default {
                 }).catch(err => {
                     console.log(err)
                 })
+            }
+            }
+            else {
+                alert("Entrer une signature");
             }
 
         },
