@@ -116,4 +116,4 @@ export default {
 };
 </script>
 
-<style scoped/>
+<style scoped src="@/assets/styles/StyleTuteur.css/">

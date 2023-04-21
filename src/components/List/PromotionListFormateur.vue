@@ -119,7 +119,6 @@ export default {
     },
   },
   created() {
-    //console.log(this.stopScrol);
     this.getList();
   },
   mounted() {
