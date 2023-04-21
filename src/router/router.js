@@ -29,7 +29,7 @@ import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 import Forgot from "@/views/Login/Forgot.vue";
 import NotFound from "@/views/NotFound.vue";
-// import Forbidden from "@/views/Forbidden.vue";
+import Forbidden from "@/views/Forbidden.vue";
 import Reset from "@/views/Login/Reset.vue";
 
 // import secure from '@/components/secure.vue'
@@ -235,7 +235,7 @@ const routes = [
   { path: "/login", name: "login", component: LoginPage },
   { path: "/forgot-password", name: "forgot", component: Forgot },
   { path: "/reset-password", name: "reset", component: Reset },
-  // { path: "/403", name: "forbiden", component: Forbidden },
+  { path: "/403", name: "forbiden", component: Forbidden },
   { path: "/401", name: "Unauthorized", component: LoginPage },
   { path: "*", component: NotFound },
 
