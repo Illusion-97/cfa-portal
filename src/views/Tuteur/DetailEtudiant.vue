@@ -31,10 +31,10 @@
           <v-card-text>
             <v-card-title disabled>Nom : {{ infos.nom }}</v-card-title>
             <v-card-title disabled>Prenom : {{ infos.prenom }}</v-card-title>
-            <v-card-title disabled>Date de naissance : {{ infos.dateDeNaissance ? infos.dateDeNaissance : "Date de naissance non renseigner." }}</v-card-title>
-            <v-card-title disabled>Adresse : {{ infos.adresseDto ? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigner." }}</v-card-title>
-            <v-card-title disabled>Télephone : {{ infos.telephone ? infos.telephone : "Numéro de téléphone non renseigner." }}</v-card-title>
-            <v-card-title disabled>Télephone fixe : {{ infos.telephoneFixe ? infos.telephoneFixe : "Numéro de téléphone fixe non renseigner." }}</v-card-title>
+            <v-card-title disabled>Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
+            <v-card-title disabled>Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
+            <v-card-title disabled>Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
+            <v-card-title disabled>Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
             <v-card-title disabled>Adresse mail : {{ infos.login }}</v-card-title>
           </v-card-text>
         </v-card>

@@ -1,18 +1,20 @@
 <template>
     <section>
-        <h1>404</h1>
-        <h2>La page n'existe pas</h2>
-
+        <h1>403 Forbidden</h1>
+        <h2>You don't have access to this page</h2>
+        
+        
     <v-btn @click="goBack()">
         Go back 
     </v-btn>
     </section>
+    
 </template>
 
 <script>
 export default {
-        name:"not_found",
-    
+name:"forbidden",
+
   methods:{
     
     goBack() {
@@ -20,6 +22,7 @@ export default {
     },
   }
 }
+
     
 </script>
 
