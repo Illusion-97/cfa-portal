@@ -80,33 +80,31 @@ export default {
         // RECUPERATION DES DONNEE DANS L'URL
         toDataURL() {
             const dataURL = this.$refs.signaturePad.toDataURL();
-            
+
             if (dataURL != undefined) {
-
-            
-            if (this.signature != null) {
-                let signature = this.signature;
-                signature.pieceJointe = dataURL;
-                signatureApi.update(signature).then(response => {
-                    this.signature = response
-                    this.AnnulerModif()
-                }).catch(err => {
-                    console.log(err)
-                })
-            }
-            else {
-                let signature = {
-                    pieceJointe: dataURL,
-                    utilisateurId: this.$store.getters.getUtilisateur.id
+                if (this.signature != null) {
+                    let signature = this.signature;
+                    signature.pieceJointe = dataURL;
+                    signatureApi.update(signature).then(response => {
+                        this.signature = response
+                        this.AnnulerModif()
+                    }).catch(err => {
+                        console.log(err)
+                    })
                 }
-                signatureApi.save(signature).then(response => {
-                    this.signature = response
-                    this.AnnulerModif()
+                else {
+                    let signature = {
+                        pieceJointe: dataURL,
+                        utilisateurId: this.$store.getters.getUtilisateur.id
+                    }
+                    signatureApi.save(signature).then(response => {
+                        this.signature = response
+                        this.AnnulerModif()
 
-                }).catch(err => {
-                    console.log(err)
-                })
-            }
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
             else {
                 alert("Entrer une signature");
