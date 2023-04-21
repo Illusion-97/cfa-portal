@@ -62,26 +62,12 @@
                   </p>
 
                   <div v-for="item in items" :key="item.formateurDto.id">
-<<<<<<< HEAD
                   </div>
                   <div style="display: flex; justify-content: center;">
                     <b-button v-if="isFormateur" style="width: 50%; margin-top: 20%;" block variant="info" @click="goToIntervention(item.idIntervention)">
                       <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
                     </b-button>
                   </div>
-=======
-                    <p>
-                      <span class="font-weight-bold">Formateur : </span>
-                      {{ item.formationDto.utilisateurDto.nom }} {{ item.formateurDto.utilisateurDto.prenom }}
-                    </p>
-                  </div>
-                  <router-link v-if="isFormateur" :to="{
-                    name: 'formateur_intervention_detail',
-                    params: { id: idIntervention },
-                  }">
-                    <font-awesome-icon :icon="['fas', 'external-link-alt']" class="icon text-primary" />
-                  </router-link>
->>>>>>> commentaire-parti-admin-et-formateur
                 </div>
               </td>
             </tr>

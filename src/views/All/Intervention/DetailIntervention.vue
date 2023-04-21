@@ -289,11 +289,7 @@ export default {
   },
 
   methods: {
-<<<<<<< HEAD
-    //EXAMEN
-=======
     // EXAMENS
->>>>>>> commentaire-parti-admin-et-formateur
     getExamensByInterventionId() {
       examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
         this.examensByInterventionId = response;
