@@ -8,9 +8,13 @@
             @dismissed="dismissCountDown = 0">
             {{ message }}
       </b-alert>
+
+      <!-- CREER UN DEVOIR -->
         <div>
             <DevoirCreate />
         </div>
+
+            <!-- LIST DEVOIRS -->
             <b-table striped hover :fields="fields" :transItem="transItem" :items="items" >
                 <template #cell(consigne)="row">
                     <div v-if="row.item.modifier">

@@ -1,7 +1,11 @@
 <template>
     <section>
 
+<<<<<<< HEAD
         <!-- SIGNATURE -->
+=======
+        <!-- AFFICHAGE DE LA SIGNATURE SI EXISTANTE -->
+>>>>>>> commentaire-parti-admin-et-formateur
         <div class="m-4" v-if="(modifier == false)">
 
             <h3 class="pr-4">Votre signature :</h3>
@@ -15,6 +19,7 @@
                 Modifier</b-button>
         </div>
 
+        <!-- CREATION D'UNE SIGNATURE SI NON EXISTANTE -->
         <div v-else>
             <div class="m-4">
 

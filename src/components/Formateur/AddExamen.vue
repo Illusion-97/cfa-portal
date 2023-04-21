@@ -186,6 +186,7 @@ export default {
     };
   },
   methods: {
+    //OTHER
     onSubmit(event) {
       event.preventDefault();
       var bodyFormData = new FormData();

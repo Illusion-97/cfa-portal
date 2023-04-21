@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="container-fluid mt-4">
+
+      <!-- BARRE DE RECHERCHE -->
       <div class="header-list">
         <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
@@ -17,6 +19,8 @@
           </button>
         </form>
       </div>
+
+      <!-- LIST DES PROMOTIONS -->
       <div class="row d-flex justify-content-arround">
 
         <!-- LISTE DES PROMOTION -->

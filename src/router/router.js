@@ -29,6 +29,7 @@ import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 import Forgot from "@/views/Login/Forgot.vue";
 import NotFound from "@/views/NotFound.vue";
+// import Forbidden from "@/views/Forbidden.vue";
 import Reset from "@/views/Login/Reset.vue";
 
 // import secure from '@/components/secure.vue'
@@ -234,6 +235,8 @@ const routes = [
   { path: "/login", name: "login", component: LoginPage },
   { path: "/forgot-password", name: "forgot", component: Forgot },
   { path: "/reset-password", name: "reset", component: Reset },
+  // { path: "/403", name: "forbiden", component: Forbidden },
+  { path: "/401", name: "Unauthorized", component: LoginPage },
   { path: "*", component: NotFound },
 
   // { path: '/secure', name: 'secure', component: secure},
@@ -439,7 +442,7 @@ const routes = [
   {
     path: "/formateur",
     name: "formateur",
-    redirect: { name: "formateur_intervention" },
+    redirect: { name: "formateur_home" },
     meta: { authorize: [Role.Formateur] },
   },
   //Intervention
@@ -1723,7 +1726,6 @@ router.beforeEach((to, from, next) => {
   if (to.path == "/reset-password") {
     return next();
   }
-
   if (to.path !== "/login") {
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
@@ -1731,9 +1733,12 @@ router.beforeEach((to, from, next) => {
     //return next({ path: '/login', query: { returnUrl: to.path } });
 
     //Si la page nécessite une autorisation
-    if (authorize) {
+    if (authorize == undefined) {
+      return next({ path: from.path });
+    }    
+    else if (authorize) {
       let redirect = true;
-      //Si la page nécessite un Role particulié
+      //Si la page nécessite un Role particulier
       if (authorize.length) {
         //on regarde si l'utilisateur a une role autorisé
         for (let i = 0; i < currentUser.rolesDto.length; i++) {
@@ -1741,9 +1746,13 @@ router.beforeEach((to, from, next) => {
             redirect = false;
           }
         }
+        //l'utilisateur n'a pas de role autorisé => redirect vers /home
+        if (redirect) return next({ path: "/403" });
+        else next(); // On laisse passer la requete
       }
-      //l'utilisateur n'a pas de role autorisé => redirect vers /home
-      if (redirect) return next({ path: "/" });
+      else {
+        return next({path: "/403"});
+      }
     }
   }
   next();

@@ -34,7 +34,11 @@ Vue.component('paginate', Paginate)
 // local URL
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 // prod URL
+<<<<<<< HEAD
 //axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
+=======
+// axios.defaults.baseURL = process.env.VUE_APP_PROD_API_URL;
+>>>>>>> commentaire-parti-admin-et-formateur
 
 // Vue.use(VueCookies)
 Vue.filter('etatLivret', function (value) {

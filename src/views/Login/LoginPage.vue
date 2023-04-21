@@ -195,7 +195,7 @@ export default {
             if (
               /*roles.includes("ETUDIANT") || */ roles.includes("FORMATEUR")
             ) {
-              router.push("home");
+              router.push("formateur");
             }
             if (roles.includes("ETUDIANT")) {
               router.push("etudiant");
