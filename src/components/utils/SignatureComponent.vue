@@ -1,5 +1,7 @@
 <template>
     <section>
+
+        <!-- SIGNATURE -->
         <div class="m-4" v-if="(modifier == false)">
 
             <h3 class="pr-4">Votre signature :</h3>
@@ -20,6 +22,8 @@
                     :stroke-options="strokeOptions" />
 
             </div>
+
+            <!-- ACTIONS -->
             <div class="m-4">
                 <b-button @click="toDataURL()" class="mr-2" variant="outline-primary">Sauvegarder</b-button>
                 <b-button @click="clear()" class="mr-2" variant="outline-primary">Vider</b-button>
@@ -62,6 +66,7 @@ export default {
         }
     },
     created() {
+        // SIGNATURE
         signatureApi.getByUtilisateurId(this.$store.getters.getUtilisateur.id).then(response => {
             if (response != "") {
                 this.modifier = false
@@ -71,6 +76,7 @@ export default {
         this.src = signatureContent.srcImg();
     },
     methods: {
+        // RECUPERATION DES DONNEE DANS L'URL
         toDataURL() {
             const dataURL = this.$refs.signaturePad.toDataURL();
             if (this.signature != null) {
@@ -98,6 +104,7 @@ export default {
             }
 
         },
+        // OTHER
         clear() {
             this.$refs.signaturePad.clear();
         },

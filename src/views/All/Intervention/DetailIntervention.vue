@@ -269,6 +269,7 @@ export default {
   },
 
   methods: {
+    //EXAMEN
     getExamensByInterventionId() {
       examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
         this.examensByInterventionId = response;
@@ -290,6 +291,8 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+
+    // INTERVENTION
     getId() {
       interventionApi.getInterventionById(this.interventionId).then((data) => {
         this.status = data.status;
@@ -299,6 +302,7 @@ export default {
       });
     },
     updateIntervention() {
+      console.log(this.items);
       // this.items.noteInfoPersonnel = this.textInfo;
       interventionApi
         .update(this.items)

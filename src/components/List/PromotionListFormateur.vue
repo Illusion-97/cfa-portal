@@ -2,6 +2,7 @@
   <div>
     <div class="container-fluid mt-4">
       <div class="header-list">
+        <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
           <input
             id="saisie"
@@ -17,6 +18,8 @@
         </form>
       </div>
       <div class="row d-flex justify-content-arround">
+
+        <!-- LISTE DES PROMOTION -->
         <div
           v-for="promotion in promotionsComputed"
           :key="promotion.id"
@@ -106,6 +109,7 @@ export default {
     };
   },
   computed: {
+    // PROMOTION
     promotionsComputed() {
       return this.promotions;
     },
@@ -118,6 +122,7 @@ export default {
     this.getNextPromotions();
   },
   methods: {
+    // OTHER
     getMoths(promotion) {
       return this.getPeriod(promotion) * 12;
     },
@@ -150,6 +155,7 @@ export default {
       e.preventDefault();
       this.getList();
     },
+    // PROMOTION
     getList() {
       this.loading = true;
       promotionApi
@@ -196,6 +202,7 @@ export default {
       this.promotion_input = promotion.nom;
       this.$emit("click-list", promotion);
     },
+    // REDIRECTION 
     click(promotion) {
       let route = this.$route.path.split("/").splice(1);
 
