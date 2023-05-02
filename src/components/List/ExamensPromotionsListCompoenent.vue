@@ -327,7 +327,6 @@ export default {
           
           for (
             let j = 0;
-            console.log(data[i]),
           j < data[i].competencesProfessionnellesDto.length;
           j++
         ) {

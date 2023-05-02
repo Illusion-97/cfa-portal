@@ -317,7 +317,6 @@ export default {
         this.promo = this.items.promotionsDto;
         this.$root.$emit("promoId", data.data.promotionsDto[0].id);
       });
-      console.log(this.promo);
     },
     updateIntervention() {
       if (this.items.noteInfoPersonnel.length == 0 ) {
