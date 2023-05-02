@@ -22,6 +22,9 @@
                 <VPerfectSignature width="50%" class="border border-dark" ref="signaturePad"
                     :stroke-options="strokeOptions" />
 
+                    <div v-if="alertsignature == true" class="my-invalid-feedback"> 
+                        Entrer une signature !
+                    </div>
             </div>
 
             <!-- ACTIONS -->
@@ -61,6 +64,7 @@ export default {
                 smoothing: 0.5,
                 streamline: 0.5
             },
+            alertsignature : false,
             signature: null,
             src: null,
             modifier: false,
@@ -80,28 +84,34 @@ export default {
         // RECUPERATION DES DONNEE DANS L'URL
         toDataURL() {
             const dataURL = this.$refs.signaturePad.toDataURL();
-            if (this.signature != null) {
-                let signature = this.signature;
-                signature.pieceJointe = dataURL;
-                signatureApi.update(signature).then(response => {
-                    this.signature = response
-                    this.AnnulerModif()
-                }).catch(err => {
-                    console.log(err)
-                })
+
+            if (dataURL != undefined) {
+                if (this.signature != null) {
+                    let signature = this.signature;
+                    signature.pieceJointe = dataURL;
+                    signatureApi.update(signature).then(response => {
+                        this.signature = response
+                        this.AnnulerModif()
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
+                else {
+                    let signature = {
+                        pieceJointe: dataURL,
+                        utilisateurId: this.$store.getters.getUtilisateur.id
+                    }
+                    signatureApi.save(signature).then(response => {
+                        this.signature = response
+                        this.AnnulerModif()
+
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                }
             }
             else {
-                let signature = {
-                    pieceJointe: dataURL,
-                    utilisateurId: this.$store.getters.getUtilisateur.id
-                }
-                signatureApi.save(signature).then(response => {
-                    this.signature = response
-                    this.AnnulerModif()
-
-                }).catch(err => {
-                    console.log(err)
-                })
+                this.alertsignature = true;
             }
 
         },
@@ -114,7 +124,19 @@ export default {
         },
         AnnulerModif() {
             this.modifier = false;
+            this.alertsignature = false;
         }
     },
 }
 </script>
+
+<style>
+
+.my-invalid-feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 100%;
+  color: #dc3545;
+  font-weight: bolder;
+}
+</style>
