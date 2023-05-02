@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="context == 'intervention'">
+    <div v-if="context === 'intervention'">
       <AddExamen
         ref="addExamen"
         :context="context"
@@ -30,7 +30,6 @@
         <!-- Titre -->
         <template
           #cell(Titre)="row"
-          class="row h-100 justify-content-center align-items-center"
         >
           <div v-if="row.item.modifier">
             <b-form-input
@@ -143,7 +142,7 @@
                 Valider</b-button
               >
 
-              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                 Annuler</b-button
               >
@@ -151,7 +150,7 @@
           </div>
           <div v-else>
             <b-button
-              v-if="context == 'intervention'"
+              v-if="context === 'intervention'"
               block
               variant="primary"
               v-bind:class="classObject(row.item, true)"
@@ -170,7 +169,7 @@
               Ajouter notes</b-button
             >
             <b-button
-              v-if="context == 'intervention'"
+              v-if="context === 'intervention'"
               block
               variant="danger"
               @click="spprimerExamen(row.item)"
@@ -304,17 +303,21 @@ export default {
     };
   },
   created() {
+    console.log("Competence Professionnelle "+this.competencesProfessionnellesDto)
+    console.log("context " + this.context)
+
   },
   mounted(){
-    if(this.context == "intervention"){
+    if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {      
-         this.getActiviteType(data)
+         this.getActiviteType(data),
+             console.log(data)
       })
     }
     else{
       this.getActiviteType(this.$route.params.id)
     }
-    if (this.examens != undefined) {
+    if (this.examens !== undefined) {
       this.assigneTableItems(this.examens);
     }
   },
@@ -324,11 +327,11 @@ export default {
       .getAllByIdPromotion(promoId)
       .then((response) => {
         this.getDataForForm(response); 
-        if(this.context == "interventions"){
+        if(this.context === "intervention"){
           this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
           this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
         }
-      
+        
 
       });
     },
@@ -354,7 +357,7 @@ export default {
       // selectedActiviteType[i] 4 ou 7 ou 8
       for (let i = 0; i < selectedActiviteType.length; i++) {
         for (let k = 0; k < this.datasFormCP.length; k++) {
-          if (this.datasFormCP[k][selectedActiviteType[i]] != undefined) {
+          if (this.datasFormCP[k][selectedActiviteType[i]] !== undefined) {
             let tabOptions = this.datasFormCP[k][selectedActiviteType[i]];
             for (let j = 0; j < tabOptions.length; j++) {
               options.push(tabOptions[j]);
@@ -382,11 +385,7 @@ export default {
         datasFormAt.push(option);
         optionAt.push(optionForAt);
         let tabCompetences = [];
-        for (
-          let j = 0;
-          j < data[i].competencesProfessionnellesDto.length;
-          j++
-        ) {
+        for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
           let value = data[i].competencesProfessionnellesDto[j].id;
           let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
           let competence = {
@@ -467,7 +466,7 @@ export default {
         promotionsId: [],
       };
       if (this.changeFile) {
-        var bodyFormData = new FormData();
+        let bodyFormData = new FormData();
         bodyFormData.append("examen", JSON.stringify(examenDtoSave));
         bodyFormData.append("file", this.file);
         examenApi.save(bodyFormData).then((response) => {
@@ -562,7 +561,5 @@ export default {
 };
 </script>
 <style scoped>
-.Bolcs {
-  width: 180px;
-}
+
 </style>

@@ -157,7 +157,7 @@
           </div>
         </b-tab>
         <b-tab title-link-class="tabColor">
-          <template v-slot:title class="text-info">
+          <template v-slot:title>
             <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
             Notes
           </template>
@@ -272,6 +272,7 @@ export default {
     getExamensByInterventionId() {
       examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
         this.examensByInterventionId = response;
+        console.log(this.$route)
       })
     },
     reloadExam() {

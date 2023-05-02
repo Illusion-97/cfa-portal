@@ -220,7 +220,7 @@
          showSec1: false,
          showSec2: false,
          active: 1,
-         idEtu:this.$store.getters.getUtilisateur.etudiantDto.id,
+         studentId:this.$store.getters.getUtilisateur.etudiantDto.id,
          etudiants: [],
          infos: [],
          contenus: [],
@@ -259,7 +259,7 @@
          CompetencesCouvertes.push(compid)
          console.log(CompetencesCouvertes)
          }
-         },
+       },
          
        //*********************************************************
        
@@ -345,7 +345,7 @@
        //Récupération des infos de l'etudiant 
         getEtudiant() {
           etudiantApi
-            .getById(this.idEtu)
+            .getById(this.studentId)
             .then((response) => (this.etudiants = response));
         },
  
@@ -358,14 +358,7 @@
          activiteTypeApi
          .getActiviteTypesByCursus(7)
          .then((response) => {this.activiteTypes = response})
-       },
-       clear() {
-         this.DossierProjet.contenuDossierProjets.contenu_projet = "";
-         this.DossierProjet.resumeDossierProjets.resume_projet = "";
-         this.DossierProjet.infoDossierProjets.information_projet = "";
-       },
-   
-   
+       },   
        //-----Style Input pour le nom du dp----
        toggleMarker() {
          this.marker = !this.marker;
@@ -399,8 +392,6 @@
        this.getAllProject();
        this.getEtudiant();
        this.getActiviteTypeByCursus();
-       this.getPromotion();
-       console.log(this.idEtu);
      },
      computed: {
        //**** Style Déroulement des sections Importer et Creation ****
@@ -435,7 +426,7 @@
  <style scoped>
    /* margin : haut droit bas gauche */
    #main-cr-prj {
-   background-color: none;
+   background-color: transparent;
    padding: 20px;
    margin: 0% 2% 0% 2%;
    /*min-width: 100vm;*/
@@ -469,7 +460,7 @@
    }
    .comp-imp {
    margin: 0%;
-   background-color: none;
+   background-color: transparent;
    width: 100%;
    }
    #btn-save {

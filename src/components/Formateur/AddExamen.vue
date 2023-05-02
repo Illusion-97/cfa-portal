@@ -1,5 +1,13 @@
 <template>
   <div>
+    <b-alert
+        :show="inputValid"
+        dismissible
+        fade
+        variant="danger"
+    >
+      {{ messageError }}
+    </b-alert>
     <div class="d-flex justify-content-end">
       <b-button
         variant="secondary"
@@ -31,6 +39,7 @@
               placeholder="Titre"
               required
             ></b-form-input>
+
           </div>
           <div class="d-flex flex-row">
             <label class="libelle-width">Descriptif :</label>
@@ -41,6 +50,7 @@
               v-model="examenDto.descriptif"
               placeholder="Descriptif"
             ></b-form-textarea>
+
           </div>
           <div class="d-flex flex-row">
             <label class="libelle-width">Pièce jointe :</label>
@@ -50,7 +60,9 @@
               ref="file-input"
               placeholder="Sélectionner votre pièce jointe"
               required
-            ></b-form-file>
+            >
+            </b-form-file>
+
           </div>
           <div class="d-flex flex-row">
             <label class="date-width">Date :</label>
@@ -116,10 +128,11 @@
             </div>
           </div>
           <div>
-            <b-form @submit="onSubmit" class="d-flex flex-row justify-content-end bFormBtnValider">
+            <b-form @submit="inputValidation" class="d-flex flex-row justify-content-end bFormBtnValider">
               <v-btn
-                v-b-toggle.collapseExamen
+
                 @click="showFormExamen = !showFormExamen"
+                v-b-toggle.collapseExamen
                 color="success"
                 dark
                 type="submit"
@@ -157,9 +170,10 @@ export default {
     },
   },
   data() {
-    
+
     return {
-      showFormExamen: true, 
+      showFormExamen: true,
+      formValidationToggle:undefined,
       selectedActivitesTypes: [],
       selectedCompConcernees: [],
       dismissSecs: 5,
@@ -178,20 +192,33 @@ export default {
         promotionsId: [],
       },
       message: "",
+      messageError:"",
       file: null,
       hidden: false,
       optionsBlocsCompetences: [],
       optionsCheckbox: [],
       dismissCountDown: null,
+      inputValid:false
     };
   },
+
   methods: {
+
+    inputValidation(event){
+      if (this.examenDto.titre === null || this.examenDto.descriptif === null || this.file === null || this.examenDto.dateExamen === null || this.selectedActivitesTypes === null || this.optionsBlocsCompetences === null || this.examenDto.duree ===null) {
+        this.messageError = "Vous devez renseigner une pièce jointe." ;
+        event.preventDefault();
+        this.inputValid = true
+        return;
+      }
+      this.onSubmit(event);
+    },
     onSubmit(event) {
       event.preventDefault();
-      var bodyFormData = new FormData();
-      if (this.context == "promotion") {
+      let bodyFormData = new FormData();
+      if (this.context === "promotion") {
         this.examenDto.interventionId = "via select";
-      } else if (this.context == "intervention") {
+      } else if (this.context === "intervention") {
         this.examenDto.interventionId = this.$route.params.id;
       }
 
@@ -206,6 +233,7 @@ export default {
         .save(bodyFormData)
         .then((response) => {
           this.showAlert(response.titre, false);
+          this.formValidationToggle=true;
           setTimeout(() => {
             this.$emit("updateExamens");
           }, 500);
@@ -225,7 +253,7 @@ export default {
       for (let i = 0; i < this.selectedActivitesTypes.length; i++) {
         for (let j = 0; j < this.dataForBlocsConcernes.length; j++) {
           if (
-            this.dataForBlocsConcernes[j][this.selectedActivitesTypes[i]] !=
+            this.dataForBlocsConcernes[j][this.selectedActivitesTypes[i]] !==
             undefined
           ) {
             let compsOptions =
@@ -257,9 +285,6 @@ export default {
 }
 .datepicker-width {
   width: 15vw;
-}
-.checkbox-width {
-  width: 70%;
 }
 
 .btnAddExamen {
