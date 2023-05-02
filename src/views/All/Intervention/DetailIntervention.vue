@@ -108,6 +108,9 @@
                       <div class="w-75">
                         <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
                         v-model="items.noteInfoPersonnel"></b-form-textarea>
+                        <div v-if="alertNoteInfoPersonnel == true" class="my-invalid-feedback"> 
+                          Le champs ne peut pas être vide.
+                        </div>
                       </div>
                       <div  class="d-flex flex-xl-column">
                         
@@ -213,6 +216,7 @@ export default {
       examensByInterventionId: [],
       interventionId: this.$route.params.id,
       titre: "",
+      alertNoteInfoPersonnel: false,
       items: {
         formationDto: {},
       },
@@ -301,6 +305,7 @@ export default {
       this.textInfo = this.items.noteInfoPersonnel;
     },
     annulerModif() {
+      this.alertNoteInfoPersonnel = false
       this.ajouterInfo = false;
       this.modifierInfo = false;
       this.items.noteInfoPersonnel = this.textInfo;
@@ -320,7 +325,7 @@ export default {
     },
     updateIntervention() {
       if (this.items.noteInfoPersonnel.length == 0 ) {
-        alert("Le champs ne peut pas être vide.");
+        this.alertNoteInfoPersonnel = true;
       }
       else{
 
