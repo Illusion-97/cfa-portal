@@ -2,7 +2,6 @@
   <section>
     <div id="grid-container">
       <div id="trainer-planning">
-        <!-- A MODIFIER -->
         <Planning />
       </div>
     </div>
@@ -10,7 +9,7 @@
 </template>
 
 <script>
-import Planning from "@/components/utils/PlanningEtudiant.vue";
+import Planning from "@/components/utils/Planning.vue";
 export default {
   name: "",
   components: {
