@@ -35,6 +35,7 @@ import NavEtudiant from "@/components/Etudiant/NavEtudiant.vue";
 import HeaderEtudiant from "@/components/Etudiant/HeaderEtudiant.vue";
 
 
+
 export default {
   name: "App",
   components: {
@@ -44,6 +45,7 @@ export default {
     NavEtudiant,
     HeaderEtudiant,
     HeaderTuteur,
+ 
   },
   methods: {},
   computed: {
