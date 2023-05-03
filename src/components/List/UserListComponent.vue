@@ -11,6 +11,8 @@
       <input class="col-9 form-control" type="text" :value="utilisateur_input" disabled="disabled" />
     </div>
     <div class="d-flex flex-row align-items-end justify-content-between">
+      
+      <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="submit">
         <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"
           @change="onSelected" />
@@ -19,6 +21,7 @@
         </button>
       </form>
 
+      <!-- LISTE DES ROLES -->
       <select class="custom-select m-0 p-2 w-25" v-model="selected_role" aria-label="Default select example"
         @change="refreshList()">
         <option value="">Tous les roles</option>
@@ -27,20 +30,47 @@
         </option>
       </select>
 
-      <!-- AJOUT  -->
+      <!-- AJOUT TUTEUR -->
       <div class="updateListCursus p-2">
-        <button name="button2" outlined @click="AddTuteur" class="btn btn-outline-info">
+        <button name="button2" outlined @click="showAddTuteur" class="btn btn-outline-info">
           Ajouter un Tuteur
         </button>
       </div>
 
       <b-modal hide-footer :ref="'modal-'">
-          <template #modal-title>
-            <div class="text-center">Ajout d'un Tuteur</div>
-          </template>
-          
-        </b-modal>
+        <template #modal-title>
+          <div class="text-center">Ajout d'un Tuteur</div>
+        </template>
+        <b-form @submit="addTuteur">
 
+          <div class="w-100 d-flex justify-content-center">
+            <v-text-field v-model="toto" label="Nom*" required></v-text-field>
+          </div>
+          <div class="w-100 d-flex justify-content-center">
+            <v-text-field v-model="toto" label="Prenom*" required></v-text-field>
+          </div>
+          <div class="w-100 d-flex justify-content-center">
+            <v-text-field v-model="toto" label="Login*" required></v-text-field>
+          </div>
+          <div class="w-100 d-flex justify-content-center">
+            <v-text-field v-model="toto" label="Mot de passe*" type="password" required></v-text-field>
+          </div>
+
+          <select class="custom-select m-0 p-2 w-100" v-model="toto" aria-label="Default select example"
+            @change="refreshList()">
+           <option></option>
+          </select>
+
+          <small>*indique les champs requis</small>
+
+          <b-button type="submit" class="mt-3" variant="success" block>
+            Ajouter</b-button>
+        </b-form>
+        <b-button class="mt-3" variant="danger" block @click="hideModal">
+          Annuler</b-button>
+      </b-modal>
+
+      <!-- MAJ UTILISATEURS -->
       <div class="updateListCursus p-2">
         <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
           Mise à jour des utilisateurs
@@ -49,6 +79,8 @@
           <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
         </div>
       </div>
+
+      <!-- MAJ ETUDIANT -->
       <div class="etudiant p-2">
         <button name="button2" outlined @click="openLoginWdg2Etudiant" class="btn btn-outline-info">
           Mise à jour des étudiants
@@ -76,6 +108,8 @@
       Mise à jour des user dg2 en attente de la requête
     </small> -->
     <br>
+
+    <!-- LISTE DES UTILISATEURS -->
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
@@ -147,6 +181,7 @@ export default {
       dismissCountDown: null,
       message: "",
       color: "success",
+      toto: "",
       users: [],
       userId: this.$store.getters.getUtilisateur.id,
       roles: [],
@@ -365,8 +400,15 @@ export default {
         });
       this.refreshList();
     },
-    AddTuteur() {
+    showAddTuteur() {
       this.$refs["modal-"].show();
+      this.toto = "";
+    },
+    hideModal() {
+      this.$refs["modal-"].hide();
+    },
+    addTuteur() {
+      this.hideModal();
     },
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
