@@ -13,6 +13,7 @@ export const dossierProfessionnelApi = {
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
   generateDossierProByStudentAndPromo,
+  genererDossierProfessionnel,
   updateDossierProfessionnel
 }
 
@@ -121,12 +122,16 @@ const config = {
     'Content-Type' : 'multipart/form-data'
   }};
 
-function saveDossierProfessionnel(id, form) {
+function saveDossierProfessionnel(id, form, file) {
   console.log(form);
-  
+  const formData = new FormData();
+  formData.append('dossierProfessionnel', JSON.stringify(form))
+  if (Array.isArray(file)) {
+    file.forEach(f => formData.append('pieceJointe', f));
+  }
+
   return axios
-  
-    .post(`${END_POINT}/save/etudiant/${id}`, form, config, requestOptions.headers())
+    .post(`${END_POINT}/save/etudiant/${id}`, formData, config)
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
@@ -162,4 +167,15 @@ function updateDossierProfessionnel(form, id) {
     .put(`${END_POINT}/update/etudiant/${id}`, form,  requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+
+function genererDossierProfessionnel(idDossierPro){
+  let req = `${END_POINT}/generer/${idDossierPro}`;
+
+  return axios
+  .get(req, requestOptions.headers())
+  .then(response => response.data)
+  .catch((error) => console.log(error));
+
 }

@@ -81,7 +81,7 @@
       <!-- ACTIVITES TYPES SELECTEURS -->
       <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-      <b-form-select v-model="start" :options="optionsAT2(item)" @change="getValue2"></b-form-select>
+      <b-form-select v-model="form.experienceProfessionnelleDtos" :options="optionsAT2(item)" @change="getValue2"></b-form-select>
       <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
       <br />
     </div>
@@ -94,7 +94,7 @@
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
 
       <!-- FORMULAIRE -->
-     
+    <b-form @submit.prevent="addExp">
         <!-- ACCORDEON EXP 1 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
@@ -186,26 +186,49 @@
             </b-card-body>
           </b-collapse>
         </b-card>
- 
-       </b-modal>
 
-        <!--<div v-if="hideDelete == true">
+   
+        </b-form>
+        <div v-if="hideDelete == true">
             <b-button size="sm" variant="danger" class="btn-delete" @click="deleteExp()">
               <font-awesome-icon :icon="['fas', 'trash']" />
               <span class="icon-right">Supprimer</span>
             </b-button>
           </div>
 
-            BOUTON UPDATE 
-           <b-button size="sm" variant="primary" @click="updateExp()" class="btn-delete">
+          <div>
+            <!--BOUTON UPDATE-->
+           <b-button v-b-modal.modal-update-success size="sm" variant="primary" @click="updateExp()" class="btn-delete">
             <i class="fa-solid fa-square-pen"></i>
             <span class="icon-right">Mettre à jour</span>
-          </b-button>-->
+          </b-button>
+        </div>
+   
+          <div id="div-save">
+          <!-- BOUTON SAVE EXP -->
+          <b-button size="sm" variant="success" type="submit" @click="addExp">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Ajouter</span>
+          </b-button>
 
- 
-   
-    
-   
+        </div>
+
+       </b-modal>
+
+       
+
+        <!-- MODALE SUCCESS expP CREE -->
+    <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre Experience Professionnelle a correctement été ajoutées.s
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-success')">
+          Continuer
+        </b-button>
+      </div>
+    </b-modal>
 
     <!-- MODALE SUCCESS DOSSIER UPDATE -->
     <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
@@ -248,6 +271,8 @@
   <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" /><br/>
   <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
 </b-modal>
+
+
 
     <!--<h6>Annexes</h6>
     <b-form-select id="select-file" v-model="form.annexeDtos" @change="getAnnexe" >
@@ -316,11 +341,11 @@
 
     <h6>Facultatif</h6>
     <v-list-group v-model="form.facultatifDto" class="">
-
-      
-
     
-            <v-list-item>          
+      <b-button block variant="danger"  >
+              diplôme, titre, CQP, attestation de formation facultatif            
+            </b-button>  
+            <v-list-item>        
             <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
             @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
           </v-list-item>
@@ -331,8 +356,12 @@
             <v-list-item> 
             <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
             @input="$v.date.$touch()" @blur="$v.date.$touch()" style="background-color: white;"></v-text-field>
-            </v-list-item>              
-         <br/>
+            </v-list-item> 
+            <b-button block variant="danger" >document facultatif illustrant la pratique professionnelle</b-button>           
+            <v-list-item>          
+            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
+          </v-list-item>  
 
         <!--   <b-button block variant="danger" >
               diplôme, titre, CQP, attestation de formation facultatif
@@ -344,12 +373,11 @@
             <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
             @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
           </v-list-item>
-          </v-list-group>-->
+          </v-list-group>
           
-    <br/>
     <v-list-item>
             <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button><br/>
-          </v-list-item>
+          </v-list-item>-->
       </v-list-group>
 
 <br/>
@@ -526,7 +554,7 @@ export default {
               id:0,
               version:0,
               libelle:'',
-              pieceJointe:null,
+              pieceJointe:'',
               dossierProfessionnelId:0
                
             }
@@ -832,11 +860,7 @@ console.log(this.form.annexeDtos);
   
 },
     
- 
-  
 
-    
-  
 
     updateExp() {
 
@@ -937,6 +961,21 @@ console.log(this.form.annexeDtos);
           // this.optionsAT()
         );
     },
+
+    addExp() {
+      this.expPro.push(this.form.experienceProfessionnelleDtos);
+      console.log(this.expPro);
+      this.formExp = {
+           id:0,  
+           tacheRealisee:"",
+           moyenUtilise:"",
+           collaborateur:"",
+           contexte:"",
+           information:""
+            }
+          
+
+},
 
    
     // FORM DIPLOME
