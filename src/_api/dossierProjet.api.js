@@ -7,10 +7,11 @@ export const dossierProjetApi = {
     getById,
     deleteDossierProjet,
     save,
+    create,
     getAll,
     getByIdEtudiant,
     generer,
-    genererDossier,
+    genererDossier
     // getAllByPage,
     // getCount,
 }
@@ -37,6 +38,7 @@ function getById(id){
  * @param {*} id 
  * @returns 
  */
+
     
     function getByIdEtudiant(id){
     let req = `${END_POINT}/etudiant/${id}`;
@@ -70,10 +72,30 @@ function getById(id){
  * @returns 
  */
 
-  function save(form,id) {
-    return axios
-      .post(`${END_POINT}/save/${id}`, form, requestOptions.headers())
-      .then((response) => response.data)
+  function save(id, dpDto, file) {
+    const formData = new FormData();
+    formData.append('dossierProjet', dpDto);
+    file.forEach(f => formData.append('pieceJointe', f));
+
+    return axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((response) => response.data)
+      .catch((error) => console.log(error));
+  }
+
+
+  function create(id, dpDto, file) {
+    const formData = new FormData();
+    formData.append('dossierProjet', dpDto);
+    file.forEach(f => formData.append('pieceJointe', f));
+
+    return axios.post(`${END_POINT}/creation/etudiant/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((response) => response.data)
       .catch((error) => console.log(error));
   }
   
@@ -94,10 +116,10 @@ function getById(id){
 
   /**
    * Génération du dossier projet par etudiant et cursus
-   * 
-   * @param {*} idEtu 
-   * @param {*} idCursus 
-   * @returns 
+   *
+   * @param {*} idEtu
+   * @param {*} idCursus
+   * @returns
    */
 
   function generer(idEtu,idCursus) {
@@ -108,10 +130,10 @@ function getById(id){
   }
 
   /**
-   * Récupération du dossier projet de l'etudiant 
-   * 
-   * @param {*} id 
-   * @returns 
+   * Récupération du dossier projet de l'etudiant
+   *
+   * @param {*} id
+   * @returns
    */
 
   function genererDossier(id){

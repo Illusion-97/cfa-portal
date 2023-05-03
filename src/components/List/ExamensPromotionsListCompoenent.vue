@@ -21,7 +21,10 @@
         </template>
 
         <!-- Titre -->
-        <template #cell(Titre)="row" class="row h-100 justify-content-center align-items-center">
+        <template
+          #cell(Titre)="row"
+          class="row h-100 justify-content-center align-items-center"
+        >
           <div v-if="row.item.modifier">
             <b-form-input id="input-default" placeholder="" v-model="row.item.Titre">
               {{ row.item.Titre }}
@@ -113,12 +116,19 @@
           <div v-else>
             <b-button v-if="context == 'intervention'" block variant="primary" v-bind:class="classObject(row.item, true)"
               @click="modifier(row.item)">
+            <b-button
+              v-if="context === 'intervention'"
+              block
+              variant="primary"
+              v-bind:class="classObject(row.item, true)"
+              @click="modifier(row.item)"
+            >
               <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
               Modifier</b-button>
             <b-button block variant="success" v-bind:class="classObject(row.item, false)" @click="ajouterNotes(row.item)">
               <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
               Ajouter notes</b-button>
-            <b-button v-if="context == 'intervention'" block variant="danger" @click="spprimerExamen(row.item)">
+            <b-button v-if="context === 'intervention'" block variant="danger" @click="spprimerExamen(row.item)">
               <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
               Supprimer</b-button>
           </div>
@@ -245,16 +255,17 @@ export default {
   },
   created() {
   },
-  mounted() {
-    if (this.context == "intervention") {
+  mounted(){
+    if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
-        this.getActiviteType(data)
+         this.getActiviteType(data),
+             console.log(data)
       })
     }
-    else {
+    else{
       this.getActiviteType(this.$route.params.id)
     }
-    if (this.examens != undefined) {
+    if (this.examens !== undefined) {
       this.assigneTableItems(this.examens);
     }
   },
@@ -262,19 +273,19 @@ export default {
     // AJOUT D'UN EXAMEN
     getActiviteType(promoId) {
       activiteTypeApi
-        .getAllByIdPromotion(promoId)
-        .then((response) => {
-          this.getDataForForm(response);
-          if (this.context == "interventions") {
-            this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
-            this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
-          }
+      .getAllByIdPromotion(promoId)
+      .then((response) => {
+        this.getDataForForm(response); 
+        if(this.context === "intervention"){
+          this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
+          this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+        }
 
 
-        });
+      });
     },
     async getFile(id, pieceJointe) {
-      const response = await examenApi.getFileExamen(id);
+      const response = await examenApi.getFileExamen(id);    
       const blob = new Blob([response], { type: "application/pdf" });
 
       let link = document.createElement("a");
@@ -295,7 +306,7 @@ export default {
       // selectedActiviteType[i] 4 ou 7 ou 8
       for (let i = 0; i < selectedActiviteType.length; i++) {
         for (let k = 0; k < this.datasFormCP.length; k++) {
-          if (this.datasFormCP[k][selectedActiviteType[i]] != undefined) {
+          if (this.datasFormCP[k][selectedActiviteType[i]] !== undefined) {
             let tabOptions = this.datasFormCP[k][selectedActiviteType[i]];
             for (let j = 0; j < tabOptions.length; j++) {
               options.push(tabOptions[j]);
@@ -323,13 +334,7 @@ export default {
         datasFormAt.push(option);
         optionAt.push(optionForAt);
         let tabCompetences = [];
-        if (data[i].competencesProfessionnellesDto) {
-          
-          for (
-            let j = 0;
-          j < data[i].competencesProfessionnellesDto.length;
-          j++
-        ) {
+        for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
           let value = data[i].competencesProfessionnellesDto[j].id;
           let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
           let competence = {
@@ -338,7 +343,6 @@ export default {
           };
           tabCompetences.push(competence);
         }
-      }
         let at = new Object();
         at[data[i].id] = tabCompetences;
         dataForFormCp.push(at);
@@ -415,7 +419,7 @@ export default {
         promotionsId: [],
       };
       if (this.changeFile) {
-        var bodyFormData = new FormData();
+        let bodyFormData = new FormData();
         bodyFormData.append("examen", JSON.stringify(examenDtoSave));
         bodyFormData.append("file", this.file);
         examenApi.save(bodyFormData).then((response) => {
@@ -510,7 +514,5 @@ export default {
 };
 </script>
 <style scoped>
-.Bolcs {
-  width: 180px;
-}
+
 </style>
