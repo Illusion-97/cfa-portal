@@ -112,16 +112,15 @@ function deleteDossierProfessionnel(id) {
     .catch((error) => console.log(error));
 }
 
-<<<<<<< HEAD
 /** 
-@param {*} id 
+   @param {*} id 
  * @param {*} form
  * @returns 
  */
-const config = {
-  headers: {
-    'Content-Type' : 'multipart/form-data'
-  }};
+// const config = {
+//   headers: {
+//     'Content-Type' : 'multipart/form-data'
+//   }};
 
 function saveDossierProfessionnel(id, form, file) {
   console.log(form);
@@ -130,8 +129,8 @@ function saveDossierProfessionnel(id, form, file) {
   if (Array.isArray(file)) {
     file.forEach(f => formData.append('pieceJointe', f));
   }
+}
 
-=======
 /**
  * Save du DossierProfessionnel par etudiant 
  * 
@@ -140,13 +139,12 @@ function saveDossierProfessionnel(id, form, file) {
  * @returns 
  */
 
-function saveDossierProfessionnel(id, form) {
->>>>>>> 220f2a901033991d8385aa42189d1f374d9a8944
-  return axios
-    .post(`${END_POINT}/save/etudiant/${id}`, formData, config)
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
-}
+// function saveDossierProfessionnel(id, form) {
+//   return axios
+//     .post(`${END_POINT}/save/etudiant/${id}`, formData, config)
+//     .then((response) => response.data)
+//     .catch((error) => console.log(error));
+// }
 
 /**
  * Génération d'un DossierProfessionnel par etudiant et promotion
