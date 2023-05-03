@@ -2,7 +2,7 @@
   <div>
 
     <!-- AJOUT D'UN EXAMEN -->
-    <div v-if="context == 'intervention'">
+    <div v-if="context === 'intervention'">
       <AddExamen ref="addExamen" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
@@ -108,14 +108,13 @@
                 <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
                 Valider</b-button>
 
-              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                 Annuler</b-button>
             </b-form>
           </div>
           <div v-else>
-            <b-button v-if="context == 'intervention'" block variant="primary" v-bind:class="classObject(row.item, true)"
-              @click="modifier(row.item)">
+
             <b-button
               v-if="context === 'intervention'"
               block
@@ -258,8 +257,7 @@ export default {
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
-         this.getActiviteType(data),
-             console.log(data)
+         this.getActiviteType(data)
       })
     }
     else{
@@ -343,7 +341,7 @@ export default {
           };
           tabCompetences.push(competence);
         }
-        let at = new Object();
+        let at = {};
         at[data[i].id] = tabCompetences;
         dataForFormCp.push(at);
       }

@@ -4,7 +4,7 @@
       {{ titleNote }}
     </h3>
     <section v-bind:class="[afficherNotes]">
-      <div v-if="context == 'intervention'" class="d-flex alig-item-center justify-content-between m-4">
+      <div v-if="context === 'intervention'" class="d-flex alig-item-center justify-content-between m-4">
 
         <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
@@ -69,7 +69,7 @@
               </b-button>
 
               <!-- ANNULER -->
-              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" />
                 Annuler
               </b-button>
@@ -92,8 +92,9 @@
 </template>
 
 <script>
-import { noteApi } from "@/_api/note.api.js";
-import { promotionApi } from "@/_api/promotion.api.js";
+import {noteApi} from "@/_api/note.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
+
 export default {
   props: {
     context: {
@@ -152,7 +153,7 @@ export default {
       this.titleNote = data.Titre;
       this.afficherNotes = "";
       this.idExamen = data.id;
-      if (this.context == "intervention") {
+      if (this.context === "intervention") {
         promotionApi
           .getAllByInterventionIdForSelect(this.$route.params.id)
           .then((responce) => {
@@ -165,7 +166,7 @@ export default {
             });
           });
         this.getByIntervention();
-      } else if (this.context == "promotion") {
+      } else if (this.context === "promotion") {
         this.getByPromotion(this.$route.params.id);
       }
     });
@@ -208,7 +209,7 @@ export default {
     // PROMOTION
     changePromotion() {
       this.items = [];
-      if (this.selected != "All") {
+      if (this.selected !== "All") {
         this.getByPromotion(this.selected);
       } else {
         this.getByIntervention();
@@ -217,10 +218,10 @@ export default {
     // SATISFACTION
     getsatisfactionItem(satisfaction, note) {
       let result = "";
-      if (note == 0 && satisfaction == null) {
+      if (note === 0 && satisfaction == null) {
         return result;
       }
-      if (satisfaction == "OUI") {
+      if (satisfaction === "OUI") {
         result = "Oui";
       } else {
         result = "Non";
@@ -304,28 +305,27 @@ export default {
       this.ajouterSatisfaction();
     },
     setNoteDatToItem(noteData) {
-      let item = {
+      return {
         id: noteData.id,
         version: noteData.version,
         nom: noteData.etudiantNoteUtilisateurNom,
         prenom: noteData.etudiantNoteUtilisateurPrenom,
         note: noteData.noteObtenue,
         satisfaction: this.getsatisfactionItem(
-          noteData.satisfaction,
-          noteData.noteObtenue
+            noteData.satisfaction,
+            noteData.noteObtenue
         ),
-        _cellVariants: { satisfaction: "" },
+        _cellVariants: {satisfaction: ""},
         modifier: false,
-        ajouter: noteData.noteObtenue == 0 ? false : true,
+        ajouter: noteData.noteObtenue !== 0,
         etudiantNoteId: noteData.etudiantNoteId,
         examenId: noteData.examenId,
         ville: noteData.ville,
       };
-      return item;
     },
     geIndexForItem(id) {
       for (let i = 0; i < this.items.length; i++) {
-        if (id == this.items[i].id) {
+        if (id === this.items[i].id) {
           return i;
         }
       }
@@ -333,8 +333,8 @@ export default {
     },
     ajouterSatisfaction() {
       for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].satisfaction != "") {
-          if (this.items[i].satisfaction == "Oui") {
+        if (this.items[i].satisfaction !== "") {
+          if (this.items[i].satisfaction === "Oui") {
             this.items[i]._cellVariants.satisfaction = "success";
           } else {
             this.items[i]._cellVariants.satisfaction = "danger";

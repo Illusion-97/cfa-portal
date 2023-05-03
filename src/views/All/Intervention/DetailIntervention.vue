@@ -70,14 +70,14 @@
               </h3>
               <div class="container-note-info-personel">
                 <div v-if="items.noteInfoPersonnel == null" class="d-flex justify-content-between align-items-center">
-                  <h4 v-if="ajouterInfo == false">
+                  <h4 v-if="ajouterInfo === false">
                     Pas d'information disponible
                   </h4>
-                  <div v-else-if="ajouterInfo == true" class="w-75">
+                  <div v-else-if="ajouterInfo === true" class="w-75">
                     <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
                       v-model="items.noteInfoPersonnel"></b-form-textarea>
                   </div>
-                  <b-button v-if="ajouterInfo == false" @click="ajouterInfo = true">
+                  <b-button v-if="ajouterInfo === false" @click="ajouterInfo = true">
                     <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
                     Ajouter
                   </b-button>
@@ -88,8 +88,8 @@
                     </b-button>
                   </div>
 
-                  <div v-else >
-                    <div v-if="modifierInfo == false" class="d-flex justify-content-between align-items-center">
+                  <div> <!--v-else-->
+                    <div v-if="modifierInfo === false" class="d-flex justify-content-between align-items-center">
 
                       <h4>
                         {{ items.noteInfoPersonnel }}
@@ -124,6 +124,7 @@
                 </div>
               </div>
             </div>
+          </div>
           </b-tab>
 
           <!-- TABLE ETUDIANTS -->
@@ -232,10 +233,6 @@ export default {
     };
   },
   computed: {
-    // showAlert() {
-    //   if (this.status == 202) return "d-block";
-    //   return "d-none";
-    // },
     getTitle() {
       return this.items.formationDto.titre;
     },
