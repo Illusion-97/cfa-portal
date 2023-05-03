@@ -60,7 +60,7 @@
               </router-link>
 
               <!-- BOUTON UPDATE -->
-              <b-button size="sm" class="mr-2" variant="primary">
+              <b-button size="sm" class="mr-2" variant="primary" @click.prevent="uploadFile()">
                 <i class="fa-solid fa-cloud"></i>
                 Uploader
               </b-button>
@@ -168,6 +168,7 @@ export default {
   },
 
   created() {
+    console.log(this.data);
     dossierProfessionnelApi
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));
@@ -177,9 +178,21 @@ export default {
   uploadFile() {
     dossierProfessionnelApi
       .generateDossierProByStudentAndPromo(this.$store.getters.getDossierId.etudiantDto.id.promotionId)
-      .then((data => (this.dp = data)))
-  },
-
+      .then(data => {
+        this.dp = data;
+        // Add any additional logic to handle the response data here
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle any errors that occur during the API call here
+      });
+    },
+    /*uploadFile() {
+      dossierProfessionnelApi
+      .genererDossierProfessionnel(idDossierPro)
+      .then((data => (this.dp=data)))
+      },*/
+    
 };
 </script>
 

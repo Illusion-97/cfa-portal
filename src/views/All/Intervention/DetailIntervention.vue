@@ -3,128 +3,131 @@
     <section class="container-fluid mt-4">
       <v-app>
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
-        <b-tab active  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
-            Détails
-          </template>
-          <div class="m-4 flex-xl-column">
-            <div class="d-flex justify-content-start">
-              <h3 class="
-                  order-0
-                  mr-4
-                  pr-2
-                  d-flex
-                  align-items-center
-                  right-border
-                  start
-                ">
-                {{
-                trainers.length > 1
-                ? "Formateurs affectés"
-                : "Formateur affecté"
-                }}
-              </h3>
-              <div v-for="t in trainers" :key="t.id">
-                <h4>
-                  {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
-                </h4>
-              </div>
-            </div>
-            <div class="separation"></div>
-            <div class="d-flex justify-content-start mt-2">
-              <h3 class="
-                  order-0
-                  mr-4
-                  pr-2
-                  d-flex
-                  align-items-center
-                  right-border
-                  start
-                ">
-                {{
-                promo.length > 1
-                ? "Promotions associées"
-                : "Promotion associé"
-                }}
-              </h3>
-              <div class="d-flex flex-column">
-                <h4 v-for="p in promo" :key="p.id" class="pt-2">
-                  {{ p.nom }}
-                </h4>
+
+          <!-- TABLE DETAILS -->
+          <!-- A MODIFIER -->
+          <b-tab active title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
+              Détails
+            </template>
+            <div class="m-4 flex-xl-column">
+
+              <!-- Formateur affecté -->
+              <div class="d-flex justify-content-start">
+                <h3 class="
+                        order-0
+                        mr-4
+                        pr-2
+                        d-flex
+                        align-items-center
+                        right-border
+                        start
+                      ">
+                  {{
+                    trainers.length > 1
+                        ? "Formateurs affectés"
+                        : "Formateur affecté"
+                  }}
+                </h3>
+                <div v-for="t in trainers" :key="t.id">
+                  <h4>
+                    {{ t.utilisateurDto.nom }} {{ t.utilisateurDto.prenom }}
+                  </h4>
+                </div>
               </div>
 
-            </div>
-            <div class="separation"></div>
-            <div class="d-flex justify-content-start mt-2">
-              <h3 class="
-                  order-0
-                  mr-4
-                  pr-2
-                  d-flex
-                  align-items-center
-                  right-border
-                  start
-                ">
-                Note info personnel
-              </h3>
-              <div class="container-note-info-personel">
-                <div v-if="items.noteInfoPersonnel == null" class="d-flex justify-content-between align-items-center">
-                  <h4 v-if="ajouterInfo === false">
-                    Pas d'information disponible
+              <!-- Promotion associé -->
+              <div class="separation"></div>
+              <div class="d-flex justify-content-start mt-2">
+                <h3 class="
+                        order-0
+                        mr-4
+                        pr-2
+                        d-flex
+                        align-items-center
+                        right-border
+                        start
+                      ">
+                  {{
+                    promo.length > 1
+                        ? "Promotions associées"
+                        : "Promotion associé"
+                  }}
+                </h3>
+                <div class="d-flex flex-column">
+                  <h4 v-for="p in promo" :key="p.id" class="pt-2">
+                    {{ p.nom }}
                   </h4>
-                  <div v-else-if="ajouterInfo === true" class="w-75">
-                    <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                      v-model="items.noteInfoPersonnel"></b-form-textarea>
-                  </div>
-                  <b-button v-if="ajouterInfo === false" @click="ajouterInfo = true">
-                    <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
-                    Ajouter
-                  </b-button>
-                  <div v-else class="d-flex flex-xl-column">
-                    <b-button variant="success" @click="updateIntervention()">
-                      <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-                      Valider
+                </div>
+
+              </div>
+
+              <!-- Note info personnel -->
+              <div class="separation"></div>
+              <div class="d-flex justify-content-start mt-2">
+                <h3 class="
+                        order-0
+                        mr-4
+                        pr-2
+                        d-flex
+                        align-items-center
+                        right-border
+                        start
+                      ">
+                  Note info personnel
+                </h3>
+                <div class="container-note-info-personel">
+                  <div v-if="items.noteInfoPersonnel == null" class="d-flex justify-content-between align-items-center">
+                    <h4>
+                      Pas d'information disponible
+                    </h4>
+
+                    <b-button @click="items.noteInfoPersonnel = '', modifierInfo = true">
+                      <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
+                      Ajouter
                     </b-button>
                   </div>
 
-                  <div> <!--v-else-->
-                    <div v-if="modifierInfo === false" class="d-flex justify-content-between align-items-center">
+                  <div v-else >
+                    <div v-if="modifierInfo == false" class="d-flex justify-content-between align-items-center">
 
                       <h4>
                         {{ items.noteInfoPersonnel }}
                       </h4>
-                        <div class="d-flex flex-xl-column">
-                          <b-button variant="primary" @click="modifierInfoPerso()">
-                            <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-                            Modifier
-                          </b-button>
-                        </div>
+                      <div class="d-flex flex-xl-column">
+                        <b-button variant="primary" @click="modifierInfoPerso()">
+                          <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+                          Modifier
+                        </b-button>
+                      </div>
                     </div>
 
                     <div v-else class="d-flex justify-content-between align-items-center">
 
                       <div class="w-75">
                         <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                        v-model="items.noteInfoPersonnel"></b-form-textarea>
+                                         v-model="items.noteInfoPersonnel"></b-form-textarea>
+                        <div v-if="alertNoteInfoPersonnel == true" class="my-invalid-feedback">
+                          Le champs ne peut pas être vide.
+                        </div>
                       </div>
                       <div  class="d-flex flex-xl-column">
 
                         <b-button variant="success" @click="updateIntervention()">
-                        <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-                        Valider
-                      </b-button>
-                      <b-button class="mt-2" variant="warning" @click="annulerModif()">
-                        <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                        Annuler
-                      </b-button>
-                    </div >
+                          <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
+                          Valider
+                        </b-button>
+                        <b-button class="mt-2" variant="warning" @click="annulerModif()">
+                          <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                          Annuler
+                        </b-button>
+                      </div >
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           </b-tab>
 
           <!-- TABLE ETUDIANTS -->
@@ -167,13 +170,13 @@
             </template>
             <div>
               <ExamensPromotionsListCompoenent ref="examen" :examens="examensByInterventionId"
-                :context="'intervention'" />
+                                               :context="'intervention'" />
             </div>
           </b-tab>
 
           <!-- TABLE NOTES -->
           <b-tab title-link-class="tabColor">
-            <template v-slot:title class="text-info">
+            <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
               Notes
             </template>
@@ -191,13 +194,13 @@
 <script>
 import { examenApi } from "@/_api/examen.api.js";
 import { interventionApi } from "@/_api/intervention.api.js";
-import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 // import { absenceApi } from "@/_api/absence.api.js";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
 import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
-import DevoirsInterventionListComponent from "@/components/List/DevoirsInterventionListComponent";
-import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 import EvaluationComponent from "@/components/Formateur/EvaluationComponent"
+import DevoirsInterventionListComponent from "@/components/List/DevoirsInterventionListComponent";
+import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
+import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 export default {
   name: "DetailIntervention",
   components: {
@@ -213,6 +216,7 @@ export default {
       examensByInterventionId: [],
       interventionId: this.$route.params.id,
       titre: "",
+      alertNoteInfoPersonnel: false,
       items: {
         formationDto: {},
       },
@@ -233,6 +237,10 @@ export default {
     };
   },
   computed: {
+    // showAlert() {
+    //   if (this.status == 202) return "d-block";
+    //   return "d-none";
+    // },
     getTitle() {
       return this.items.formationDto.titre;
     },
@@ -281,11 +289,13 @@ export default {
   },
 
   methods: {
+    // EXAMENS
     getExamensByInterventionId() {
       examenApi.getExamensByInterventionId(this.interventionId).then((response) => {
         this.examensByInterventionId = response;
       })
     },
+
     reloadExam() {
       this.$refs.examen.assigneTableItems(this.examensByInterventionId);
 
@@ -295,6 +305,7 @@ export default {
       this.textInfo = this.items.noteInfoPersonnel;
     },
     annulerModif() {
+      this.alertNoteInfoPersonnel = false
       this.ajouterInfo = false;
       this.modifierInfo = false;
       this.items.noteInfoPersonnel = this.textInfo;
@@ -302,6 +313,8 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+
+    // INTERVENTION
     getId() {
       interventionApi.getInterventionById(this.interventionId).then((data) => {
         this.status = data.status;
@@ -312,18 +325,18 @@ export default {
     },
     updateIntervention() {
       if (this.items.noteInfoPersonnel.length == 0 ) {
-        alert("Le champs ne peut pas être vide.");
+        this.alertNoteInfoPersonnel = true;
       }
       else{
 
         // this.items.noteInfoPersonnel = this.textInfo;
         interventionApi
-        .update(this.items)
-        .then(() => {
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+            .update(this.items)
+            .then(() => {
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         this.ajouterInfo = false;
         this.modifierInfo = false;
       }
@@ -349,8 +362,8 @@ export default {
     // Etudiant
     getStudents() {
       interventionApi
-        .findStudentsByPromoInterventionId(this.interventionId)
-        .then((data) => (this.students = data));
+          .findStudentsByPromoInterventionId(this.interventionId)
+          .then((data) => (this.students = data));
       // .then(() => this.getAbsences());
     },
     goToStudentDetail(id) {
@@ -384,6 +397,7 @@ export default {
       }
       window.open(routeData.href, "_blank");
     },
+
     // // Devoir
     // getAssignement() {
     //   interventionApi
@@ -441,12 +455,14 @@ export default {
           break;
       }
     },
+
     // Formateur
     getTrainer() {
       interventionApi
-        .findTrainerByInterventionId(this.interventionId)
-        .then((data) => (this.trainers = data));
+          .findTrainerByInterventionId(this.interventionId)
+          .then((data) => (this.trainers = data));
     },
+
     // Absence
     // getAbsences() {
     //   for (let i = 0; i < this.students.length; i++) {
@@ -509,6 +525,7 @@ export default {
           break;
       }
     },
+
     // Promotion
     goToPromotionDetail(id) {
       // const route = this.$route.path.split("/").splice(1);
@@ -525,6 +542,7 @@ export default {
     changementOnglet(onglet) {
       this.onglet = onglet;
     },
+
   },
 };
 </script>
@@ -639,7 +657,7 @@ tr th {
 }
 </style>
 <style>
-.tabColor{
+.tabColor {
   color: #2D001E;
 }
 </style>
