@@ -5,16 +5,24 @@
     </h3>
     <section v-bind:class="[afficherNotes]">
       <div v-if="context == 'intervention'" class="d-flex alig-item-center justify-content-between m-4">
+
+        <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
           <input id="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
+
+        <!-- SELECT DES PROMOTION -->
         <b-form-select class="select w-50" v-model="selected" :options="options" value-field="item" text-field="name"
           disabled-field="notEnabled" @input="changePromotion"></b-form-select>
       </div>
+
+      <!-- LISTE DES NOTES -->
       <b-table hover :items="items" :fields="fields" :per-page="perPage" :current-page="currentPage">
+
+        <!-- NOTE -->
         <template #cell(note)="row">
           <div v-if="row.item.modifier || !row.item.ajouter">
             <b-form-spinbutton id="demo-sb" v-model="row.item.note" min="1" max="20" step="0.5"></b-form-spinbutton>
@@ -23,6 +31,8 @@
             {{ row.item.note }}
           </div>
         </template>
+
+        <!-- SATISFACTION -->
         <template #cell(satisfaction)="row">
           <div v-if="!row.item.ajouter || row.item.modifier">
             <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
@@ -39,6 +49,8 @@
           </div>
         </template>
         <template #cell(Action)="row">
+
+          <!-- AJOUTER -->
           <div v-if="!row.item.ajouter">
             <b-form>
               <b-button block variant="success" @click="showMsgBox(row.item, true)">
@@ -47,6 +59,8 @@
               </b-button>
             </b-form>
           </div>
+
+          <!-- MODIFIER -->
           <div v-else>
             <div v-if="row.item.modifier">
               <b-button block variant="success" @click="showMsgBox(row.item, false)" type="submit">
@@ -54,11 +68,14 @@
                 Valider
               </b-button>
 
+              <!-- ANNULER -->
               <b-button block variant="warning" @click="AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" />
                 Annuler
               </b-button>
             </div>
+
+            <!-- MODIFIER -->
             <div v-else>
               <b-button block variant="primary" @click="modifierNotes(row.item)">
                 <font-awesome-icon :icon="['fas', 'edit']" />
@@ -68,8 +85,8 @@
           </div>
         </template>
       </b-table>
-      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" pills
-        size="lg" class="customPagination"></b-pagination>
+      <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" pills size="lg"
+        class="customPagination"></b-pagination>
     </section>
   </section>
 </template>
@@ -122,7 +139,7 @@ export default {
         {
           key: "Action",
           label: "Action",
-          thStyle: { width: "10%" },  
+          thStyle: { width: "10%" },
         },
       ],
       items: [
@@ -130,6 +147,7 @@ export default {
     };
   },
   created() {
+    // NOTES
     this.$root.$on("examen", (data) => {
       this.titleNote = data.Titre;
       this.afficherNotes = "";
@@ -161,6 +179,7 @@ export default {
     this.ajouterSatisfaction();
   },
   methods: {
+    // NOTES
     getByIntervention() {
       noteApi
         .getAllByInterventionIdAndExamenId(this.$route.params.id, this.idExamen)
@@ -175,14 +194,6 @@ export default {
           this.assignValueItems(response);
         });
     },
-    changePromotion() {
-      this.items = [];
-      if (this.selected != "All") {
-        this.getByPromotion(this.selected);
-      } else {
-        this.getByIntervention();
-      }
-    },
     submit() {
       noteApi
         .getAllByInterventionIdAndExamenId(
@@ -194,34 +205,16 @@ export default {
           this.assignValueItems(response);
         });
     },
-    assignValueItems(data) {
-      let items = [];
-      for (let i = 0; i < data.length; i++) {
-        items.push(this.setNoteDatToItem(data[i]));
+    // PROMOTION
+    changePromotion() {
+      this.items = [];
+      if (this.selected != "All") {
+        this.getByPromotion(this.selected);
+      } else {
+        this.getByIntervention();
       }
-      this.items = items;
-      this.ajouterSatisfaction();
     },
-    setNoteDatToItem(noteData) {
-      let item = {
-        id: noteData.id,
-        version: noteData.version,
-        nom: noteData.etudiantNoteUtilisateurNom,
-        prenom: noteData.etudiantNoteUtilisateurPrenom,
-        note: noteData.noteObtenue,
-        satisfaction: this.getsatisfactionItem(
-          noteData.satisfaction,
-          noteData.noteObtenue
-        ),
-        _cellVariants: { satisfaction: "" },
-        modifier: false,
-        ajouter: noteData.noteObtenue == 0 ? false : true,
-        etudiantNoteId: noteData.etudiantNoteId,
-        examenId: noteData.examenId,
-        ville: noteData.ville,
-      };
-      return item;
-    },
+    // SATISFACTION
     getsatisfactionItem(satisfaction, note) {
       let result = "";
       if (note == 0 && satisfaction == null) {
@@ -234,6 +227,7 @@ export default {
       }
       return result;
     },
+    // SAVE
     showMsgBox(item, isAjouter) {
       let myItem = this.items[this.geIndexForItem(item.id)];
       this.boxOne = "";
@@ -300,6 +294,35 @@ export default {
         this.ajouterSatisfaction();
       });
     },
+    // OTHER
+    assignValueItems(data) {
+      let items = [];
+      for (let i = 0; i < data.length; i++) {
+        items.push(this.setNoteDatToItem(data[i]));
+      }
+      this.items = items;
+      this.ajouterSatisfaction();
+    },
+    setNoteDatToItem(noteData) {
+      let item = {
+        id: noteData.id,
+        version: noteData.version,
+        nom: noteData.etudiantNoteUtilisateurNom,
+        prenom: noteData.etudiantNoteUtilisateurPrenom,
+        note: noteData.noteObtenue,
+        satisfaction: this.getsatisfactionItem(
+          noteData.satisfaction,
+          noteData.noteObtenue
+        ),
+        _cellVariants: { satisfaction: "" },
+        modifier: false,
+        ajouter: noteData.noteObtenue == 0 ? false : true,
+        etudiantNoteId: noteData.etudiantNoteId,
+        examenId: noteData.examenId,
+        ville: noteData.ville,
+      };
+      return item;
+    },
     geIndexForItem(id) {
       for (let i = 0; i < this.items.length; i++) {
         if (id == this.items[i].id) {
@@ -339,6 +362,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>

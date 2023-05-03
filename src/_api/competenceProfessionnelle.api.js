@@ -12,6 +12,11 @@ export const competenceProfessionnelleApi = {
   getAllByIdActiviteType,
 };
 
+/**
+ * Récupération des compétences professionnelle 
+ * 
+ * @returns 
+ */
 
 function getAll(){
     return axios
@@ -20,6 +25,13 @@ function getAll(){
       .catch((error) => console.log(error));
 }
   
+/**
+ * Récupération des compétences professionnelle par promotions 
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+
 function getById(id) {
     return axios
       .get(`${END_POINT}/${id}/promotions`, requestOptions.headers())
@@ -69,6 +81,13 @@ function deleteAt(id) {
       .then((response) => response.data)
       .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération d'une compétence professionnelle par activiteType
+ * 
+ * @param {*} id 
+ * @returns 
+ */
 
 function getAllByIdActiviteType(id) {
   let req =  `${END_POINT}/activiteType/${id}`;

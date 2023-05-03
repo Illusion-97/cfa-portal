@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div class="Titre"><h1>Espace étudiant</h1></div>
+      <div class="Titre"><h1>Espace Tuteur</h1></div>
 
       <!-- BUTTON DECONNEXION -->
       <b-col class="d-flex justify-content-end">

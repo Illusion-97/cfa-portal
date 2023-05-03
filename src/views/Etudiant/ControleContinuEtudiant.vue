@@ -3,7 +3,7 @@
     <h2>Contrôles continus</h2>
     <br>
 
-    <ul v-if="notesEtudiant && this.$store.getters.getUtilisateur.etudiantDto">
+    <ul v-if="notesEtudiant2.length  && this.$store.getters.getUtilisateur.etudiantDto">
       <div v-for="(item, index) in notesEtudiant" :key="item.id" class="redAcc">
 
         <b-button v-b-toggle.index variant="primary" class="btn-volet">
@@ -40,12 +40,14 @@
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { examenApi } from "@/_api/examen.api.js";
+import { noteApi } from "@/_api/note.api.js";
 
 export default {
   name: "ControleContinuEtudiant",
   data() {
     return {
       notesEtudiant: [],
+      notesEtudiant2: [], 
 
       fields: [
         {
@@ -87,7 +89,10 @@ export default {
   created() {
     etudiantApi
       .getNotesByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-      .then((data) => (this.notesEtudiant = data, console.log(this.notesEtudiant)));
+      .then((data) => (this.notesEtudiant = data));
+
+    noteApi.getAllNoteByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+      .then((data) => (this.notesEtudiant2 = data))
   },
 };
 </script>

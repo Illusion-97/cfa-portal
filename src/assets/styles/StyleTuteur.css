@@ -1,0 +1,59 @@
+.header-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5%;
+  }
+  
+  .header-list>form {
+    width: 50%;
+  }
+  
+  #saisie,.select{
+    border-radius: 20px;
+    width: 400px;
+    /* background: #000; */
+  }
+  
+  .btn-submit {
+    border: 0;
+    background-color: inherit;
+    border-radius: 100%;
+    width: 2.5em;
+    margin-left: -3em;
+  }
+    
+  #groupe-input {
+    width: 50%;
+  }
+  
+  .table th {
+    border-top: 0;
+  }
+  
+  .mon-tr:hover {
+    background-color: rgb(216, 213, 213) !important;
+    cursor: pointer;
+  }
+  
+  .delete-input:hover {
+    cursor: pointer;
+  }
+
+  #main-cr-prj {
+    background-color: none;
+    margin: 0% 0% 0% 3%;
+    min-width: 1170px;
+    min-height: 100%;
+  }
+  
+  .v-btn-toggle {
+    width: 14%;
+  }
+  
+  #btn-retour {
+    margin-left: 94%;
+  }
+  
+  #x {
+    margin: 0% 2% 0% 0%;
+  }

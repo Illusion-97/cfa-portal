@@ -86,88 +86,105 @@
                       <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
                       Valider
                     </b-button>
-                    <b-button class="mt-2" variant="warning" @click="annulerModif()">
-                      <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                      Annuler
-                    </b-button>
-                  </div>
-                </div>
-
-                <div v-else class="d-flex justify-content-between align-items-center">
-                  <h4 v-if="modifierInfo == false">
-                    {{ items.noteInfoPersonnel }}
-                  </h4>
-                  <div v-else class="w-75">
-                    <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
-                      v-model="items.noteInfoPersonnel"></b-form-textarea>
                   </div>
 
-                  <b-button variant="primary" @click="modifierInfoPerso()" v-if="modifierInfo ==false">
-                    <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-                    Modifier
-                  </b-button>
-                  <div v-else class="d-flex flex-xl-column">
-                    <b-button variant="success" @click="updateIntervention()">
-                      <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
-                      Valider
-                    </b-button>
-                    <b-button class="mt-2" variant="warning" @click="annulerModif()">
-                      <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                      Annuler
-                    </b-button>
+                  <div>
+                    <div v-if="modifierInfo == false" class="d-flex justify-content-between align-items-center">
+
+                      <h4>
+                        {{ items.noteInfoPersonnel }}
+                      </h4>
+                        <div class="d-flex flex-xl-column">
+                          <b-button variant="primary" @click="modifierInfoPerso()">
+                            <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+                            Modifier
+                          </b-button>
+                        </div>
+                    </div>
+
+                    <div v-else class="d-flex justify-content-between align-items-center">
+
+                      <div class="w-75">
+                        <b-form-textarea id="textarea-large" size="lg" placeholder="Ajouter information"
+                        v-model="items.noteInfoPersonnel"></b-form-textarea>
+                        <div v-if="alertNoteInfoPersonnel == true" class="my-invalid-feedback"> 
+                          Le champs ne peut pas être vide.
+                        </div>
+                      </div>
+                      <div  class="d-flex flex-xl-column">
+
+                        <b-button variant="success" @click="updateIntervention()">
+                        <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
+                        Valider
+                      </b-button>
+                      <b-button class="mt-2" variant="warning" @click="annulerModif()">
+                        <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
+                        Annuler
+                      </b-button>
+                    </div >
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </b-tab>
-        <b-tab  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
-            Etudiants
-          </template>
-          <EtudiantsInterventionListComponent />
-        </b-tab>
-        <b-tab  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'code']" class="icon" />
-            Evaluations
-          </template>
-          <EvaluationComponent />
+            </div>
+          </b-tab>
 
-        </b-tab>
-        <b-tab  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'code']" class="icon" />
-            Devoirs
-          </template>
+          <!-- TABLE ETUDIANTS -->
+          <!-- A MODIFIER -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
+              Etudiants
+            </template>
+            <EtudiantsInterventionListComponent />
+          </b-tab>
+
+          <!-- TABLE EVALUATIONS -->
+          <!-- A MODIFIER -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'code']" class="icon" />
+              Evaluations
+            </template>
+            <EvaluationComponent />
+
+          </b-tab>
+
+          <!-- TABLE DEVOIRS -->
+          <b-tab title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'code']" class="icon" />
+              Devoirs
+            </template>
             <div>
               <DevoirsInterventionListComponent />
             </div>
-        </b-tab>
-       
-        <b-tab @click="reloadExam()"  title-link-class="tabColor">
-          <template v-slot:title>
-            <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
-            Examens
-          </template>
-          <div>
-            <ExamensPromotionsListCompoenent ref="examen" :examens="examensByInterventionId"
-              :context="'intervention'"  />
-          </div>
-        </b-tab>
-        <b-tab title-link-class="tabColor">
-          <template v-slot:title class="text-info">
-            <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
-            Notes
-          </template>
-          <div>
-            <AjouterNotes :context="'intervention'" />
-          </div>
-        </b-tab>
-      </b-tabs>
+          </b-tab>
+
+          <!-- TABLE EXAMENS -->
+          <b-tab @click="reloadExam()" title-link-class="tabColor">
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
+              Examens
+            </template>
+            <div>
+              <ExamensPromotionsListCompoenent ref="examen" :examens="examensByInterventionId"
+                :context="'intervention'" />
+            </div>
+          </b-tab>
+
+          <!-- TABLE NOTES -->
+          <b-tab title-link-class="tabColor">
+              <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
+              Notes
+            <div>
+              <AjouterNotes :context="'intervention'" />
+            </div>
+          </b-tab>
+        </b-tabs>
       </v-app>
-      
+
     </section>
   </div>
 </template>
@@ -197,6 +214,7 @@ export default {
       examensByInterventionId: [],
       interventionId: this.$route.params.id,
       titre: "",
+      alertNoteInfoPersonnel: false,
       items: {
         formationDto: {},
       },
@@ -283,6 +301,7 @@ export default {
       this.textInfo = this.items.noteInfoPersonnel;
     },
     annulerModif() {
+      this.alertNoteInfoPersonnel = false
       this.ajouterInfo = false;
       this.modifierInfo = false;
       this.items.noteInfoPersonnel = this.textInfo;
@@ -299,16 +318,22 @@ export default {
       });
     },
     updateIntervention() {
-      // this.items.noteInfoPersonnel = this.textInfo;
-      interventionApi
+      if (this.items.noteInfoPersonnel.length == 0 ) {
+        this.alertNoteInfoPersonnel = true;
+      }
+      else{
+
+        // this.items.noteInfoPersonnel = this.textInfo;
+        interventionApi
         .update(this.items)
         .then(() => {
         })
         .catch((err) => {
           console.log(err);
         });
-      this.ajouterInfo = false;
-      this.modifierInfo = false;
+        this.ajouterInfo = false;
+        this.modifierInfo = false;
+      }
     },
     modifierIntervention() {
       const route = this.$route.path.split("/").splice(1);
@@ -511,9 +536,7 @@ export default {
 };
 </script>
 
-<style src="@/assets/styles/Onglet.css">
-
-</style>
+<style src="@/assets/styles/Onglet.css"></style>
 
 <style scoped>
 .start {
