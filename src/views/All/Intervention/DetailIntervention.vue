@@ -88,7 +88,7 @@
                     </b-button>
                   </div>
 
-                  <div v-else >
+                  <div>
                     <div v-if="modifierInfo == false" class="d-flex justify-content-between align-items-center">
 
                       <h4>
@@ -123,6 +123,7 @@
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </b-tab>
 
@@ -172,10 +173,8 @@
 
           <!-- TABLE NOTES -->
           <b-tab title-link-class="tabColor">
-            <template v-slot:title class="text-info">
               <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
               Notes
-            </template>
             <div>
               <AjouterNotes :context="'intervention'" />
             </div>

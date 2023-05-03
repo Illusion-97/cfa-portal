@@ -23,7 +23,6 @@
         <!-- Titre -->
         <template
           #cell(Titre)="row"
-          class="row h-100 justify-content-center align-items-center"
         >
           <div v-if="row.item.modifier">
             <b-form-input id="input-default" placeholder="" v-model="row.item.Titre">
@@ -115,7 +114,7 @@
           </div>
           <div v-else>
             <b-button v-if="context == 'intervention'" block variant="primary" v-bind:class="classObject(row.item, true)"
-              @click="modifier(row.item)">
+              @click="modifier(row.item)"/>
             <b-button
               v-if="context === 'intervention'"
               block
