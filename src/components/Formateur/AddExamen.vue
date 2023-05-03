@@ -132,7 +132,7 @@
               <v-btn
 
                 @click="showFormExamen = !showFormExamen"
-                v-b-toggle.collapseExamen
+                v-btn-toggle.collapseEsxamen
                 color="success"
                 dark
                 type="submit"
@@ -205,8 +205,12 @@ export default {
   methods: {
 
     inputValidation(event){
-      if (this.examenDto.titre === null || this.examenDto.descriptif === null || this.file === null || this.examenDto.dateExamen === null || this.selectedActivitesTypes === null || this.optionsBlocsCompetences === null || this.examenDto.duree ===null) {
-        this.messageError = "Vous devez renseigner une pièce jointe." ;
+      if (this.examenDto.titre === null || this.examenDto.descriptif === null ||
+          this.file === null || this.examenDto.dateExamen === null ||
+          this.selectedActivitesTypes === null || this.optionsBlocsCompetences === null ||
+          this.examenDto.duree ===null) {
+
+        this.messageError = "Vous devez renseigner tous les champs." ;
         event.preventDefault();
         this.inputValid = true
         return;
@@ -234,6 +238,11 @@ export default {
         .then((response) => {
           this.showAlert(response.titre, false);
           this.formValidationToggle=true;
+
+          let element = document.querySelector('#collapseExamen')
+          element.classList.remove("show")
+
+          console.log(document.querySelector('#collapseExamen'))
           setTimeout(() => {
             this.$emit("updateExamens");
           }, 500);
