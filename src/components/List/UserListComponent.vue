@@ -11,7 +11,7 @@
       <input class="col-9 form-control" type="text" :value="utilisateur_input" disabled="disabled" />
     </div>
     <div class="d-flex flex-row align-items-end justify-content-between">
-      
+
       <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="submit">
         <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"
@@ -41,31 +41,28 @@
         <template #modal-title>
           <div class="text-center">Ajout d'un Tuteur</div>
         </template>
-        <b-form @submit="addTuteur">
+        <v-form @submit="addTuteur">
 
           <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="toto" label="Nom*" required></v-text-field>
+            <v-text-field v-model="formulairTuteur.nom" label="Nom*" required></v-text-field>
           </div>
           <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="toto" label="Prenom*" required></v-text-field>
+            <v-text-field v-model="formulairTuteur.prenom" label="Prenom*" required></v-text-field>
           </div>
           <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="toto" label="Login*" required></v-text-field>
+            <v-text-field v-model="formulairTuteur.login" label="Login*" required></v-text-field>
           </div>
           <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="toto" label="Mot de passe*" type="password" required></v-text-field>
+            <v-text-field v-model="formulairTuteur.password" label="Mot de passe*" type="password" required></v-text-field>
           </div>
 
-          <select class="custom-select m-0 p-2 w-100" v-model="toto" aria-label="Default select example"
-            @change="refreshList()">
-           <option></option>
-          </select>
+          <b-form-select v-model="selected" :options="options"></b-form-select>
 
           <small>*indique les champs requis</small>
 
           <b-button type="submit" class="mt-3" variant="success" block>
             Ajouter</b-button>
-        </b-form>
+        </v-form>
         <b-button class="mt-3" variant="danger" block @click="hideModal">
           Annuler</b-button>
       </b-modal>
@@ -182,12 +179,45 @@ export default {
       message: "",
       color: "success",
       toto: "",
+      selected: null,
+      options: [
+        { value: null, text: 'Centre de formation*', disabled: true },
+        { value: 'a', text: 'option 1' },
+        { value: 'b', text: 'option 2' },
+        { value: { C: '3PO' }, text: 'option 3' },
+        { value: 'd', text: 'option 4' }
+      ],
       users: [],
       userId: this.$store.getters.getUtilisateur.id,
       roles: [],
       perPage: 7,
       pageCount: 0,
       saisie: "",
+      
+/*
+      formulairTuteur: [
+        login = "",//
+        password = "",//
+        prenom = "totopre", //
+        nom = "toto",//
+        civilite = ["Mr", "Mme"],
+        dateDeNaissance = null,
+        telephone = null,
+        telephoneFixe = null,
+        adresseDto = null,
+        entrepriseDto = null,
+        rolesDto = null,
+        etudiantDto = null,
+        formateurDto = null,
+        tuteurDto = null,
+        cefDto = null,
+        idDg2 = null,
+        centreFormationId = 6,
+        externalAccount = true,
+        active = true
+      ],
+*/
+
       items: [],
       fields: [
         {
@@ -408,6 +438,7 @@ export default {
       this.$refs["modal-"].hide();
     },
     addTuteur() {
+
       this.hideModal();
     },
     wdg2Close(value) {
