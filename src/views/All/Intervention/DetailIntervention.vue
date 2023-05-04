@@ -90,7 +90,7 @@
                   </div>
 
                   <div v-else >
-                    <div v-if="modifierInfo == false" class="d-flex justify-content-between align-items-center">
+                    <div v-if="modifierInfo === false" class="d-flex justify-content-between align-items-center">
 
                       <h4>
                         {{ items.noteInfoPersonnel }}

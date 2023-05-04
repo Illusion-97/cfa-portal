@@ -226,6 +226,7 @@ export default {
           this.showAlert(response.titre, false);
           let element = document.querySelector('#collapseExamen')
           element.style.display = "none"
+          this.clearInput();
           this.showFormExamen = true;
           setTimeout(() => {
             this.$emit("updateExamens");
@@ -254,6 +255,15 @@ export default {
         this.message = "L'examen " + titre + " a bien été rajouté avec succès";
         this.dismissCountDown = this.dismissSecs;
       }
+    },
+    clearInput(){
+      this.examenDto.titre = null
+      this.examenDto.descriptif = null
+      this.file = null
+      this.examenDto.dateExamen = null
+      this.selectedActivitesTypes = null
+      this.optionsBlocsCompetences = null
+      this.examenDto.duree = null
     },
     showBlocsLinked() {
       let options = [];
