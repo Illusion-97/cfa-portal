@@ -1,11 +1,29 @@
 export const utilisateursFields = [
-    { key: "id", label: "#" },
-    { key: "prenom", label: "Prénom", sortable: true },
-    { key: "nom", label: "Nom", sortable: true },
-    { key: "login", label: "Login", sortable: true },
-    { key: "password", label: "Mot de passe", sortable: true },
-    "modifier",
-    { key: "name_delete", label: "Supprimer"},
+  {
+    key: "Details",
+    label: "Détails",
+    thStyle: { width: "5%" },
+  },
+  {
+    key: "prenom",
+    label: "Prénom",
+    thStyle: { width: "5%" },
+  },
+  {
+    key: "nom",
+    label: "Nom",
+    thStyle: { width: "5%" },
+  },
+  {
+    key: "login",
+    label: "Email",
+    thStyle: { width: "5%" },
+  },
+  {
+    key: "rolesDto",
+    label: "Rôle",
+    thStyle: { width: "5%" },
+  },
 ];
 
 export const etudiantsFields = [

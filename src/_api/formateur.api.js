@@ -12,6 +12,7 @@ export const formateurApi = {
 }
 
 /**
+ * Récupération des formateur 
  * 
  * @param {*} page 
  * @param {*} size 
@@ -25,6 +26,7 @@ function getAllFormateur(page, size, key = "") {
 }
 
 /**
+ * Récupération de formateur par id
  * 
  * @param {*} id 
  * @returns 
@@ -37,6 +39,7 @@ function getFormateurById(id) {
 }
 
 /**
+ * Methode de recherche formateur
  * 
  * @param {*} key 
  * @returns 
@@ -49,6 +52,7 @@ function countFormateurs(key = "") {
 }
 
 /**
+ * Récupération des interventions par Formateur
  * 
  * @param {*} id 
  * @param {*} page 
@@ -64,6 +68,7 @@ function getInterventionsByFormateurId(id, page, size, key = "") {
 }
 
 /**
+ * Méthode de recherche pour intervention par formateur
  * 
  * @param {*} id 
  * @param {*} key 

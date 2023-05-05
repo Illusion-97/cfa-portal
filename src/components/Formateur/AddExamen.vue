@@ -1,11 +1,18 @@
 <template>
   <div>
+    <b-alert
+        :show="dissmissCountFailed"
+        dismissible
+        fade
+        variant="danger"
+    >
+      {{ messageError }}
+    </b-alert>
     <div class="d-flex justify-content-end">
       <b-button
         variant="secondary"
-        v-b-toggle.collapseExamen
         v-show="showFormExamen"
-        @click="showFormExamen = !showFormExamen"
+        @click="openToggle"
         class="btnAddExamen">
         <font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
         Ajouter un examen 
@@ -116,10 +123,8 @@
             </div>
           </div>
           <div>
-            <b-form @submit="onSubmit" class="d-flex flex-row justify-content-end bFormBtnValider">
+            <b-form @submit="inputValidation" class="d-flex flex-row justify-content-end bFormBtnValider">
               <v-btn
-                v-b-toggle.collapseExamen
-                @click="showFormExamen = !showFormExamen"
                 color="success"
                 dark
                 type="submit"
@@ -132,8 +137,7 @@
               <v-btn
                   color="warning"
                   class="btnFormExamen"
-                  v-b-toggle.collapseExamen
-                  @click="showFormExamen = !showFormExamen"
+                  @click="cancelForm"
                   ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                   Annuler
               </v-btn>
@@ -159,7 +163,7 @@ export default {
   data() {
     
     return {
-      showFormExamen: true, 
+      showFormExamen: true,
       selectedActivitesTypes: [],
       selectedCompConcernees: [],
       dismissSecs: 5,
@@ -178,20 +182,35 @@ export default {
         promotionsId: [],
       },
       message: "",
+      messageError:"",
       file: null,
       hidden: false,
       optionsBlocsCompetences: [],
       optionsCheckbox: [],
       dismissCountDown: null,
+      dissmissCountFailed:null,
     };
   },
+
   methods: {
+    inputValidation(event){
+      if (this.examenDto.titre === null || this.examenDto.descriptif === null ||
+          this.file === null || this.examenDto.dateExamen === null ||
+          this.selectedActivitesTypes === null || this.optionsBlocsCompetences === null ||
+          this.examenDto.duree ===null) {
+        this.showFailed();
+        event.preventDefault();
+        return;
+      }
+      this.onSubmit(event);
+    },
+
     onSubmit(event) {
       event.preventDefault();
-      var bodyFormData = new FormData();
-      if (this.context == "promotion") {
+      let bodyFormData = new FormData();
+      if (this.context === "promotion") {
         this.examenDto.interventionId = "via select";
-      } else if (this.context == "intervention") {
+      } else if (this.context === "intervention") {
         this.examenDto.interventionId = this.$route.params.id;
       }
 
@@ -206,10 +225,28 @@ export default {
         .save(bodyFormData)
         .then((response) => {
           this.showAlert(response.titre, false);
+          let element = document.querySelector('#collapseExamen')
+          element.style.display = "none"
+          this.clearInput();
+          this.showFormExamen = true;
           setTimeout(() => {
             this.$emit("updateExamens");
           }, 500);
         });
+    },
+    openToggle(){
+      let element = document.querySelector('#collapseExamen')
+      element.style.display = "block"
+      this.showFormExamen = false
+    },
+    cancelForm(){
+      let element = document.querySelector('#collapseExamen')
+      element.style.display = "none";
+      this.showFormExamen = true
+    },
+    showFailed(){
+      this.messageError = "Vous devez renseigner tous les champs." ;
+      this.dissmissCountFailed = this.dismissSecs;
     },
     showAlert(titre, isErr) {
       if (isErr) {
@@ -220,12 +257,19 @@ export default {
         this.dismissCountDown = this.dismissSecs;
       }
     },
+    clearInput(){
+      this.examenDto.titre = null
+      this.examenDto.descriptif = null
+      this.file = null
+      this.examenDto.dateExamen = null
+      this.examenDto.duree = null
+    },
     showBlocsLinked() {
       let options = [];
       for (let i = 0; i < this.selectedActivitesTypes.length; i++) {
         for (let j = 0; j < this.dataForBlocsConcernes.length; j++) {
           if (
-            this.dataForBlocsConcernes[j][this.selectedActivitesTypes[i]] !=
+            this.dataForBlocsConcernes[j][this.selectedActivitesTypes[i]] !==
             undefined
           ) {
             let compsOptions =
@@ -258,9 +302,6 @@ export default {
 .datepicker-width {
   width: 15vw;
 }
-.checkbox-width {
-  width: 70%;
-}
 
 .btnAddExamen {
   position: relative;
@@ -269,66 +310,7 @@ export default {
   height: 4vh;
 
 }
-.form-selec-competences {
-  margin-top: 2vh;
-  margin-bottom: 5vh !important;
-  height: 12vh !important;
-  width: 100%;
-}
 
-.cardCompetences {
-  max-width: 100%;
-  overflow: hidden;
-  white-space: normal;
-  height: auto;
-}
-
-#fluid-container {
-  padding-right: 14vw;
-  padding-left: 8vw;
-}
-
-#sm {
-  padding-left: 0px;
-}
-
-#center {
-  text-align: left;
-  padding: 17px;
-}
-
-#form {
-  padding: 0px;
-}
-
-#select-file {
-  text-align: left;
-}
-
-.row-width {
-  width: 200px;
-  margin-bottom: 15px;
-  font-size: large;
-}
-
-.lbl-duree {
-  width: 100%;
-  text-align: end;
-}
-
-/* .dropdown{
-  width: 55%;
-} */
-
-.btnExamen {
-  height: 7vh;
-  width: 9vw;
-  margin-bottom: 40px;
-  position: relative;
-}
-.btnValiderAnnuler {
-  width: 10vw;
-}
 .form-select-warp-text {
   overflow-wrap: break-word;
 }

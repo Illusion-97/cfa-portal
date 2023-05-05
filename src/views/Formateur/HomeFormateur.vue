@@ -10,6 +10,7 @@
 
 <script>
 import Planning from "@/components/utils/Planning.vue";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
   name: "",
   components: {
@@ -25,6 +26,16 @@ export default {
       return this.$store.getters.getUtilisateur;
     },
   },
+  created() {
+    utilisateurApi
+      .getPlanningById(this.$store.getters.getUtilisateur.id)
+      .then((response) => this.$store.dispatch("setPlanning", response));
+      
+    if (this.isFormateur) {
+      this.$router.push({ name: "formateur_home" })
+    }
+
+  }
 };
 </script>
 

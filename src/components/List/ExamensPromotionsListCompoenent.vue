@@ -1,43 +1,31 @@
 <template>
   <div>
-    <div v-if="context == 'intervention'">
-      <AddExamen
-        ref="addExamen"
-        :context="context"
-        @updateExamens="updateExamens"
-      />
+
+    <!-- AJOUT D'UN EXAMEN -->
+    <div v-if="context === 'intervention'">
+      <AddExamen ref="addExamen" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
-      <b-alert
-        :show="dismissCountDown"
-        dismissible
-        fade
-        variant="success"
-        @dismissed="dismissCountDown = 0"
-      >
+      <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
         {{ message }}
       </b-alert>
 
-      <!-- {{examens}} -->
-
+      <!-- LIST DES EXAMENS -->
       <b-table :items="items" :fields="fields" striped responsive="sm">
-        <!-- //details -->
+
+        <!-- details -->
         <template #cell(Details)="row">
           <b-button size="sm" @click="row.toggleDetails" class="mr-2">
             {{ row.detailsShowing ? "Masquer" : "Afficher" }}
           </b-button>
         </template>
+
         <!-- Titre -->
         <template
-          #cell(Titre)="row"
-          class="row h-100 justify-content-center align-items-center"
+            #cell(Titre)="row"
         >
           <div v-if="row.item.modifier">
-            <b-form-input
-              id="input-default"
-              placeholder=""
-              v-model="row.item.Titre"
-            >
+            <b-form-input id="input-default" placeholder="" v-model="row.item.Titre">
               {{ row.item.Titre }}
             </b-form-input>
           </div>
@@ -45,67 +33,50 @@
             {{ row.item.Titre }}
           </div>
         </template>
+
         <!-- Durée -->
         <template #cell(Duree)="row">
           <div v-if="row.item.modifier">
-            <b-form-spinbutton
-              id="demo-sb"
-              v-model="row.item.Duree"
-              min="1"
-              max="10"
-              step="0.5"
-            ></b-form-spinbutton>
+            <b-form-spinbutton id="demo-sb" v-model="row.item.Duree" min="1" max="10" step="0.5"></b-form-spinbutton>
           </div>
           <div v-else>
             {{ row.item.Duree }}
           </div>
         </template>
+
         <!-- Date -->
         <template #cell(Date)="row">
           <div v-if="row.item.modifier">
-            <b-form-datepicker
-              id="example-datepicker"
-              v-model="row.item.Date"
-              class="mb-2"
-            ></b-form-datepicker>
+            <b-form-datepicker id="example-datepicker" v-model="row.item.Date" class="mb-2"></b-form-datepicker>
           </div>
           <div v-else>
             {{ row.item.Date }}
           </div>
         </template>
+
         <!-- Bolcs Concernée -->
         <template #cell(blocs_concernes)="row">
           <div v-if="row.item.modifier">
-            <b-form-checkbox-group
-              @change="addOptionsCompetences(row.item.selectedActiviteType)"
-              size="sm"
-              v-model="row.item.selectedActiviteType"
-              :options="optionsBc"
-              name="flavour-1a"
-              class="d-flex flex-wrap justify-content-center"
-              switches
-            ></b-form-checkbox-group>
+            <b-form-checkbox-group @change="addOptionsCompetences(row.item.selectedActiviteType)" size="sm"
+                                   v-model="row.item.selectedActiviteType" :options="optionsBc" name="flavour-1a"
+                                   class="d-flex flex-wrap justify-content-center" switches></b-form-checkbox-group>
           </div>
           <div v-else>
             {{ row.item.blocs_concernes }}
           </div>
         </template>
+
         <!-- Compétences -->
         <template #cell(competences)="row">
           <div v-if="row.item.modifier">
-            <b-form-checkbox-group
-              size="sm"
-              v-model="row.item.selectedCompetencesPro"
-              :options="optionsCompetences"
-              name="flavour-1a"
-              class="d-flex flex-wrap justify-content-center"
-              switches
-            ></b-form-checkbox-group>
+            <b-form-checkbox-group size="sm" v-model="row.item.selectedCompetencesPro" :options="optionsCompetences"
+                                   name="flavour-1a" class="d-flex flex-wrap justify-content-center" switches></b-form-checkbox-group>
           </div>
           <div v-else>
             {{ row.item.competences }}
           </div>
         </template>
+
         <!-- Piéce jointe -->
         <template #cell(Piece_jointe)="row">
           <div v-if="row.item.modifier" class="w-75">
@@ -117,81 +88,57 @@
               </b-button>
             </div>
             <div v-else>
-              <b-button @click="changeFile = true" size="sm"
-                >Changer fichier</b-button
-              >
+              <b-button @click="changeFile = true" size="sm">Changer fichier</b-button>
             </div>
           </div>
 
           <p v-else>
-            <b-button
-              @click.prevent="getFile(row.item.id, row.item.Piece_jointe)"
-            >
+            <b-button @click.prevent="getFile(row.item.id, row.item.Piece_jointe)">
               <font-awesome-icon :icon="['fas', 'download']" class="icon" />
             </b-button>
           </p>
         </template>
+
         <!-- Action -->
         <template #cell(Action)="row">
           <div v-if="row.item.modifier">
             <b-form @submit="onSubmit(row.item)">
               <b-button block variant="success" type="submit">
-                <font-awesome-icon
-                  :icon="['fas', 'check-square']"
-                  class="icon"
-                />
-                Valider</b-button
-              >
+                <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
+                Valider</b-button>
 
-              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                Annuler</b-button
-              >
+                Annuler</b-button>
             </b-form>
           </div>
           <div v-else>
             <b-button
-              v-if="context == 'intervention'"
-              block
-              variant="primary"
-              v-bind:class="classObject(row.item, true)"
-              @click="modifier(row.item)"
+                v-if="context === 'intervention'"
+                block
+                variant="primary"
+                v-bind:class="classObject(row.item, true)"
+                @click="modifier(row.item)"
             >
               <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
-              Modifier</b-button
-            >
-            <b-button
-              block
-              variant="success"
-              v-bind:class="classObject(row.item, false)"
-              @click="ajouterNotes(row.item)"
-            >
+              Modifier</b-button>
+            <b-button block variant="success" v-bind:class="classObject(row.item, false)" @click="ajouterNotes(row.item)">
               <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
-              Ajouter notes</b-button
-            >
-            <b-button
-              v-if="context == 'intervention'"
-              block
-              variant="danger"
-              @click="spprimerExamen(row.item)"
-            >
+              Ajouter notes</b-button>
+            <b-button v-if="context === 'intervention'" block variant="danger" @click="spprimerExamen(row.item)">
               <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
-              Supprimer</b-button
-            >
+              Supprimer</b-button>
           </div>
         </template>
+
         <!--Description -->
         <template #row-details="row">
           <b-card v-if="row.item.modifier">
             <b-row class="mb-2">
               <b-col sm="3" class="text-sm-right"><b>Description:</b></b-col>
               <b-col>
-                <b-form-textarea
-                  id="textarea-default"
-                  placeholder="Default textarea"
-                  v-model="row.item.description"
-                ></b-form-textarea
-              ></b-col>
+                <b-form-textarea id="textarea-default" placeholder="Default textarea"
+                                 v-model="row.item.description"></b-form-textarea></b-col>
             </b-row>
           </b-card>
           <b-card v-else>
@@ -303,37 +250,40 @@ export default {
       optionsCompetences: [],
     };
   },
-  created() {
+  beforeCreate() {
+    this.getActiviteType();
   },
   mounted(){
-    if(this.context == "intervention"){
-      this.$root.$on("promoId", (data) => {      
-         this.getActiviteType(data)
+    if(this.context === "intervention"){
+      this.$root.$on("promoId", (data) => {
+        this.getActiviteType(data),
+            console.log(data)
       })
     }
     else{
       this.getActiviteType(this.$route.params.id)
     }
-    if (this.examens != undefined) {
+    if (this.examens !== undefined) {
       this.assigneTableItems(this.examens);
     }
   },
   methods: {
-    getActiviteType(promoId){
+    // AJOUT D'UN EXAMEN
+    getActiviteType(promoId) {
       activiteTypeApi
-      .getAllByIdPromotion(promoId)
-      .then((response) => {
-        this.getDataForForm(response); 
-        if(this.context == "interventions"){
-          this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
-          this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
-        }
-      
+          .getAllByIdPromotion(promoId)
+          .then((response) => {
+            this.getDataForForm(response);
+            if(this.context === "intervention"){
+              this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
+              this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+            }
 
-      });
+
+          });
     },
     async getFile(id, pieceJointe) {
-      const response = await examenApi.getFileExamen(id);    
+      const response = await examenApi.getFileExamen(id);
       const blob = new Blob([response], { type: "application/pdf" });
 
       let link = document.createElement("a");
@@ -344,17 +294,17 @@ export default {
     },
     updateExamens() {
       examenApi
-        .getExamensByInterventionId(this.$route.params.id)
-        .then((response) => {
-          this.assigneTableItems(response);
-        });
+          .getExamensByInterventionId(this.$route.params.id)
+          .then((response) => {
+            this.assigneTableItems(response);
+          });
     },
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
       // selectedActiviteType[i] 4 ou 7 ou 8
       for (let i = 0; i < selectedActiviteType.length; i++) {
         for (let k = 0; k < this.datasFormCP.length; k++) {
-          if (this.datasFormCP[k][selectedActiviteType[i]] != undefined) {
+          if (this.datasFormCP[k][selectedActiviteType[i]] !== undefined) {
             let tabOptions = this.datasFormCP[k][selectedActiviteType[i]];
             for (let j = 0; j < tabOptions.length; j++) {
               options.push(tabOptions[j]);
@@ -382,11 +332,7 @@ export default {
         datasFormAt.push(option);
         optionAt.push(optionForAt);
         let tabCompetences = [];
-        for (
-          let j = 0;
-          j < data[i].competencesProfessionnellesDto.length;
-          j++
-        ) {
+        for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
           let value = data[i].competencesProfessionnellesDto[j].id;
           let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
           let competence = {
@@ -395,7 +341,7 @@ export default {
           };
           tabCompetences.push(competence);
         }
-        let at = new Object();
+        let at = {};
         at[data[i].id] = tabCompetences;
         dataForFormCp.push(at);
       }
@@ -403,6 +349,8 @@ export default {
       this.datasFormCP = dataForFormCp;
       this.optionsBc = optionAt;
     },
+
+    // MODIFIER UN EXAMEN
     modifier(item) {
       this.tempItem = item;
       item.modifier = true;
@@ -436,22 +384,24 @@ export default {
       ]);
       // We must pass the generated VNodes as arrays
       this.$bvModal
-        .msgBoxConfirm([messageVNode], {
-          title: [titleVNode],
-          centered: true,
-          size: "md",
-        })
-        .then((value) => {
-          if (value) {
-            examenApi.deleteExamen(item.id).then((respnose) => {
-              if (respnose === "suppression effectuée") {
-                this.updateExamens();
-                this.showAlert(item.Titre, false, false);
-              }
-            });
-          }
-        })
+          .msgBoxConfirm([messageVNode], {
+            title: [titleVNode],
+            centered: true,
+            size: "md",
+          })
+          .then((value) => {
+            if (value) {
+              examenApi.deleteExamen(item.id).then((respnose) => {
+                if (respnose === "suppression effectuée") {
+                  this.updateExamens();
+                  this.showAlert(item.Titre, false, false);
+                }
+              });
+            }
+          })
     },
+
+    // OTHER
     onSubmit(item) {
       let examenDtoSave = {
         id: item.id,
@@ -467,7 +417,7 @@ export default {
         promotionsId: [],
       };
       if (this.changeFile) {
-        var bodyFormData = new FormData();
+        let bodyFormData = new FormData();
         bodyFormData.append("examen", JSON.stringify(examenDtoSave));
         bodyFormData.append("file", this.file);
         examenApi.save(bodyFormData).then((response) => {
@@ -490,10 +440,10 @@ export default {
         // this.dismissCountDownErr = this.dismissSecs
       } else {
         modifier
-          ? (this.message =
-              "L'examen " + titre + " a bien été modifier avec succès")
-          : (this.message =
-              "L'examen " + titre + " a bien été supprimer avec succès");
+            ? (this.message =
+                "L'examen " + titre + " a bien été modifier avec succès")
+            : (this.message =
+                "L'examen " + titre + " a bien été supprimer avec succès");
         this.dismissCountDown = this.dismissSecs;
       }
     },
@@ -520,9 +470,9 @@ export default {
           return a.numeroFiche - b.numeroFiche;
         });
         let competencesPro = examens[i].competencesProfessionnellesDto.sort(
-          (a, b) => {
-            return a.numeroFiche - b.numeroFiche;
-          }
+            (a, b) => {
+              return a.numeroFiche - b.numeroFiche;
+            }
         );
         for (let j = 0; j < activitesTypes.length; j++) {
           blocksConcernee += activitesTypes[j].numeroFiche + " ,";
@@ -533,8 +483,8 @@ export default {
           selectedCompetencesPro.push(competencesPro[j].id);
         }
         blocksConcernee = blocksConcernee.substring(
-          0,
-          blocksConcernee.length - 1
+            0,
+            blocksConcernee.length - 1
         );
         competences = competences.substring(0, competences.length - 1);
         let item = {
@@ -562,7 +512,5 @@ export default {
 };
 </script>
 <style scoped>
-.Bolcs {
-  width: 180px;
-}
+
 </style>

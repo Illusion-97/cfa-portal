@@ -1,94 +1,56 @@
 <template>
   <div id="adminDashboard" class="container-fluid">
-    <!-- <b-alert
-    class="m-4 "
-      :show="dismissCountDown"
-      dismissible
-      fade
-      :variant="color"
-      @dismissed="dismissCountDown = 0"
-    >
+    <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
     <div class="d-flex justify-content-center">
-      <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
-    </div> -->
+      <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
+    </div>
     <div class="text-align-left" id="groupe-input" v-if="!isAction">
       <label class="col-1">utilisateur</label>
-      <input
-        class="col-9 form-control"
-        type="text"
-        :value="utilisateur_input"
-        disabled="disabled"
-      />
+      <input class="col-9 form-control" type="text" :value="utilisateur_input" disabled="disabled" />
     </div>
     <div class="d-flex flex-row align-items-end justify-content-between">
+
+      <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          placeholder="Rechercher"
-          v-model="saisie"
-          @change="onSelected"
-        />
+        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"
+          @change="onSelected" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
       </form>
 
-      <select
-        class="custom-select m-0 p-2 w-25"
-        v-model="selected_role"
-        aria-label="Default select example"
-        @change="refreshList()"
-      >
+      <!-- LISTE DES ROLES -->
+      <select class="custom-select m-0 p-2 w-25" v-model="selected_role" aria-label="Default select example"
+        @change="refreshList()">
         <option value="">Tous les roles</option>
-        <option
-          :value="role.intitule"
-          v-for="role in rolesComputed"
-          :key="role.id"
-        >
+        <option :value="role.intitule" v-for="role in rolesComputed" :key="role.id">
           {{ role.intitule | lowercase | capitalize }}
         </option>
       </select>
+
+      <!-- AJOUT TUTEUR -->
+      <addTuteur/>
+      
+      <!-- MAJ UTILISATEURS -->
       <div class="updateListCursus p-2">
-        <button
-          name="button2"
-          outlined
-          @click="openLoginWdg2"
-          class="btn btn-outline-info"
-        >
+        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
           Mise à jour des utilisateurs
         </button>
         <div class="login-wdg2">
-          <login-wdg-2
-            v-if="showLoginWdg2Card"
-            @logInUser="logInUserWdg2"
-            @wdg2Close="wdg2Close"
-          />
+          <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
         </div>
       </div>
+
+      <!-- MAJ ETUDIANT -->
       <div class="etudiant p-2">
-        <button
-          name="button2"
-          outlined
-          @click="openLoginWdg2Etudiant"
-          class="btn btn-outline-info"
-        >
+        <button name="button2" outlined @click="openLoginWdg2Etudiant" class="btn btn-outline-info">
           Mise à jour des étudiants
         </button>
         <div class="login-wdg2">
-          <login-wdg-2
-            v-if="showLoginWdg2CardEtudiant"
-            @logInUser="logInUserWdg2Etudiant"
-            @wdg2Close="wdg2CloseEtudiant"
-          />
+          <login-wdg-2 v-if="showLoginWdg2CardEtudiant" @logInUser="logInUserWdg2Etudiant"
+            @wdg2Close="wdg2CloseEtudiant" />
         </div>
       </div>
     </div>
@@ -109,6 +71,8 @@
       Mise à jour des user dg2 en attente de la requête
     </small> -->
     <br>
+
+    <!-- LISTE DES UTILISATEURS -->
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
@@ -134,31 +98,17 @@
           <b-row class="mb-2">
             <b-col sm="2" class="text-sm-right"><b>Téléphone:</b></b-col>
             <b-col> {{ row.item.telephone }} </b-col>
-            <b-col sm="2" class="text-sm-right"
-              ><b>Date de naissance:</b></b-col
-            >
+            <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
             <b-col> {{ row.item.dateDeNaissance }} </b-col>
           </b-row>
         </b-card>
       </template>
     </b-table>
 
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
     </paginate>
   </div>
 </template>
@@ -167,10 +117,13 @@
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
+import addTuteur from "@/components/Modal/AddTuteur.vue"
+import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "UserListComponent",
   components: {
+    addTuteur,
     LoginWdg2,
   },
   props: {
@@ -194,40 +147,16 @@ export default {
       dismissCountDown: null,
       message: "",
       color: "success",
+      selected: null,
       users: [],
       userId: this.$store.getters.getUtilisateur.id,
       roles: [],
       perPage: 7,
       pageCount: 0,
       saisie: "",
+      fields: utilisateursFields,
       items: [],
-      fields: [
-        {
-          key: "Details",
-          label: "Détails",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "prenom",
-          label: "Prénom",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "nom",
-          label: "Nom",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "login",
-          label: "Email",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "rolesDto",
-          label: "Rôle",
-          thStyle: { width: "5%" },
-        },
-      ],
+      le: { width: "5%" },
       utilisateur_input: "",
       selected_role: "",
       // Gestion de l'import de fichier
@@ -271,10 +200,10 @@ export default {
           adresse:
             e.adresseDto != null
               ? e.adresseDto.libelle +
-                " " +
-                e.adresseDto.codePostal +
-                " " +
-                e.adresseDto.ville
+              " " +
+              e.adresseDto.codePostal +
+              " " +
+              e.adresseDto.ville
               : "Pas d'adresse",
           dateDeNaissance: e.dateDeNaissance,
         };
@@ -283,7 +212,7 @@ export default {
     },
     makeToast(variant) {
       utilisateurApi
-        .uploadUser(this.userId, this.formData) 
+        .uploadUser(this.userId, this.formData)
         .then((res) => {
           this.variant = variant;
           this.file_imported != ""
@@ -351,13 +280,9 @@ export default {
         .then((response) => this.assigneTableItems(response));
     },
     refreshList() {
-      console.log(this.selected_role)
       utilisateurApi
         .getByRoleByPage(this.selected_role, 0, this.perPage, this.saisie)
-        .then((response) => {this.assigneTableItems(response), console.log(response)} );
-        
-
-        
+        .then((response) => { this.assigneTableItems(response) });
 
       utilisateurApi
         .getCountByRole(this.selected_role, this.saisie)
@@ -365,7 +290,6 @@ export default {
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-  
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
     },
@@ -416,7 +340,7 @@ export default {
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
     },
-    wdg2CloseEtudiant(value){
+    wdg2CloseEtudiant(value) {
       this.showLoginWdg2CardEtudiant = value;
     },
   },

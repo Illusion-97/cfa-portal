@@ -1,10 +1,11 @@
 <template>
-
     <div class="container-fluid">
         <!-- <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0"
             class="m-2">
             {{ message }}
         </b-alert> -->
+
+        <!--  AJOUT EVALUATION -->
         <button @click="colspanClick()" class="btn btn-outline-info mt-4 mb-4">
             <span v-if="!visible">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter evaluation
@@ -68,34 +69,35 @@
                 </b-card-body>
             </b-card>
         </b-collapse>
+
+        <!-- LIST EVALUATIONS -->
         <b-table :items="evaluationFormations" :fields="fields" striped responsive="sm">
             <template #cell(contenu)="row">
-                <div class=" m-4"  v-html="row.item.contenu"></div>
+                <div class=" m-4" v-html="row.item.contenu"></div>
             </template>
-      <template #cell(action)="row">
-        <v-app>
-        
+            <template #cell(action)="row">
+                <v-app>
 
-            <v-btn class="m-0  widthBtn" color="error" @click="supprimer(row.item)">
-              <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
 
-              Supprimer
-            </v-btn>
-            <v-btn class="m-0 widthBtn mt-4" color="warning" dark @click="update(row.item)">
-              <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
-            </v-btn>
-          
-        </v-app>
-      </template>
-    </b-table>
+                    <v-btn class="m-0  widthBtn" color="error" @click="supprimer(row.item)">
+                        <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
+
+                        Supprimer
+                    </v-btn>
+                    <v-btn class="m-0 widthBtn mt-4" color="warning" dark @click="update(row.item)">
+                        <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
+                    </v-btn>
+
+                </v-app>
+            </template>
+        </b-table>
     </div>
-
 </template>
 <script>
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import EvaluationFormation from "../../models/EvaluationFormation";
 import { evaluationFormationApi } from "@/_api/evaluationFormation.api";
-import { VueEditor} from "vue2-editor";
+import { VueEditor } from "vue2-editor";
 //import VueWysiwyg from '@mycure/wysiwyg';
 
 export default {
@@ -111,8 +113,7 @@ export default {
                 [{ list: "ordered" }, { list: "bullet" }],
                 [{ 'indent': '-1' }, { 'indent': '+1' }],
             ],
-            items: [
-            ],
+            items: [],
             menu: false,
             modal: false,
             visible: false,
@@ -120,28 +121,26 @@ export default {
             color: "success",
             dismissCountDown: 0,
             modifier: false,
-            itemsCP: [
-
-            ],
+            itemsCP: [],
             evaluationFormations: [],
             evaluationFormation: new EvaluationFormation(0, 0, 0, "<p>Description de l'évaluation. </p>", new Array, (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10), this.$route.params.id),
-            fields : [
-  {
-    key: "contenu",
-    label: "Contenu ",
-  },
-  {
-    key: "dateEvaluation",
-    label: "Date évaluation",
-    class: "text-center",
-  },
-  {
-    key: "Action",
-    label: "Action",
-    thStyle: { width: "20%" },
-    thClass: "text-center",
-  },
-]
+            fields: [
+                {
+                    key: "contenu",
+                    label: "Contenu ",
+                },
+                {
+                    key: "dateEvaluation",
+                    label: "Date évaluation",
+                    class: "text-center",
+                },
+                {
+                    key: "Action",
+                    label: "Action",
+                    thStyle: { width: "20%" },
+                    thClass: "text-center",
+                },
+            ]
         }
     },
     created() {
@@ -151,11 +150,14 @@ export default {
         this.getEvaluationFormation()
     },
     methods: {
-        getEvaluationFormation(){
+        // EVALUATION
+        getEvaluationFormation() {
             evaluationFormationApi.getAllByInterventionId(this.$route.params.id).then(response => {
-            this.evaluationFormations = response;
-        })
+                this.evaluationFormations = response;
+            })
         },
+
+        // ACTIVITER TYPE
         getActiviteType(promoId) {
             activiteTypeApi
                 .getAllByIdPromotion(promoId)
@@ -170,6 +172,8 @@ export default {
                     })
                 });
         },
+
+        // OTHER
         submit() {
 
             if (this.modifier) {
@@ -211,20 +215,18 @@ export default {
                 this.modifier = false;
             }
         },
-        update(item){
+        update(item) {
             this.clear();
             this.evaluationFormation.contenu = item.contenu;
             this.evaluationFormation.dateEvaluation = item.dateEvaluation;
             this.modifier = true
             this.visible = true;
         },
-        supprimer(item){
-            evaluationFormationApi.deleteEF(item.id).then(() =>{
+        supprimer(item) {
+            evaluationFormationApi.deleteEF(item.id).then(() => {
                 this.getEvaluationFormation()
             })
         }
-      
     }
-
 }
 </script>

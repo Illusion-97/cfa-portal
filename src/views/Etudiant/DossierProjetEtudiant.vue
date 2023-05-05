@@ -11,7 +11,7 @@
       <template #cell(action)="row">
         <!-- BOUTON MODIFIER -->
         <b-button size="sm" class="mr-2" variant="primary" @click="gotoDossierProjet(row.item.id)">
-          <i class="fa-solid fa-square-pen"></i>
+          <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
           Modifier
         </b-button>
 
@@ -54,7 +54,7 @@ export default {
   methods: {
     generer(id, nomDossierProjet) {
       dossierProjetApi
-        .getById(id).then(response => {
+        .genererDossier(id).then(response => {
           let bas64 = response;
           const linkSource = `data:application/pdf;base64,${bas64}`;
           const downloadLink = document.createElement("a");

@@ -7,9 +7,11 @@ export const dossierProjetApi = {
     getById,
     deleteDossierProjet,
     save,
+    create,
     getAll,
     getByIdEtudiant,
     generer,
+    genererDossier
     // getAllByPage,
     // getCount,
 }
@@ -70,10 +72,30 @@ function getById(id){
  * @returns 
  */
 
-  function save(form,id) {
-    return axios
-      .post(`${END_POINT}/save/${id}`, form, requestOptions.headers())
-      .then((response) => response.data)
+  function save(id, dpDto, file) {
+    const formData = new FormData();
+    formData.append('dossierProjet', dpDto);
+    file.forEach(f => formData.append('pieceJointe', f));
+
+    return axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((response) => response.data)
+      .catch((error) => console.log(error));
+  }
+
+
+  function create(id, dpDto, file) {
+    const formData = new FormData();
+    formData.append('dossierProjet', dpDto);
+    file.forEach(f => formData.append('pieceJointe', f));
+
+    return axios.post(`${END_POINT}/creation/etudiant/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((response) => response.data)
       .catch((error) => console.log(error));
   }
   
@@ -92,11 +114,35 @@ function getById(id){
       .catch((error) => console.log(error));
   }
 
+  /**
+   * Génération du dossier projet par etudiant et cursus
+   *
+   * @param {*} idEtu
+   * @param {*} idCursus
+   * @returns
+   */
+
   function generer(idEtu,idCursus) {
     return axios
       .get(`${END_POINT}/generer/${idEtu}/${idCursus}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
+  }
+
+  /**
+   * Récupération du dossier projet de l'etudiant
+   *
+   * @param {*} id
+   * @returns
+   */
+
+  function genererDossier(id){
+    let req = `${END_POINT}/generer/${id}`;
+  
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
   }
 
   // function getAllByPage(page, size, search = "") {

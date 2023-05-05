@@ -1,74 +1,35 @@
 <template>
   <section>
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      variant="danger"
-      @dismissed="dismissCountDown = 0"
-    >
+    <b-alert :show="dismissCountDown" dismissible fade variant="danger" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
-    <b-table
-      :items="items"
-      :fields="fields"
-      striped
-      stacked = "md"
-            :per-page="perPage"
-      :current-page="currentPage"
-    >
+    <b-table :items="items" :fields="fields" striped stacked="md" :per-page="perPage" :current-page="currentPage">
       <!-- Header sup -->
       <template #thead-top>
         <b-tr>
           <b-th colspan="4">
             <form class="form-inline form" @submit="submit">
-              <input
-                id="saisie"
-                placeholder="Rechercher"
-                type="text"
-                class="form-control"
-                v-model="saisie"
-              />
+              <input id="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
               <button class="btn-submit" type="submit">
                 <font-awesome-icon :icon="['fas', 'search']" class="icon" />
               </button>
             </form>
           </b-th>
           <b-th class="text-center" variant="secondary" colspan="2">
-            <b-button
-              class="mb-2"
-              pill
-              variant="outline-secondary"
-              @click="$bvToast.show('my-toast')"
-            >
+            <b-button class="mb-2" pill variant="outline-secondary" @click="$bvToast.show('my-toast')">
               <font-awesome-icon :icon="['fas', 'info-circle']" />
             </b-button>
-            <b-toast
-              id="my-toast"
-              variant="warning"
-              solid
-              auto-hide-delay="50000"
-            >
+            <b-toast id="my-toast" variant="warning" solid auto-hide-delay="50000">
               <template #toast-title>
                 <div class="d-flex flex-grow-1 align-items-baseline">
-                  <b-img
-                    blank
-                    blank-color="#ff5555"
-                    class="mr-2"
-                    width="12"
-                    height="12"
-                  ></b-img>
+                  <b-img blank blank-color="#ff5555" class="mr-2" width="12" height="12"></b-img>
                   <strong class="mr-auto">Rappel Positionnements</strong>
                 </div>
               </template>
               <div v-for="niveau in niveaux" :key="niveau.valeur">
                 <div>
-                  <span
-                    class="span-positionnement"
-                    v-bind:style="{ background: niveau.codeCouleur }"
-                  >
-                    {{ niveau.valeur }}</span
-                  >
+                  <span class="span-positionnement" v-bind:style="{ background: niveau.codeCouleur }">
+                    {{ niveau.valeur }}</span>
                   <span> {{ niveau.description }}.</span>
                 </div>
               </div>
@@ -88,51 +49,24 @@
         <b-card>
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-1 class="btn-accordion"
-                >Absences</b-button
-              >
+              <b-button block v-b-toggle.accordion-1 class="btn-accordion">Absences</b-button>
             </b-card-header>
-            <b-collapse
-              id="accordion-1"
-              visible
-              accordion="my-accordion"
-              role="tabpanel"
-            >
+            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
               <b-card-body>
-                <b-table
-                  sticky-header
-                  :items="row.item.itemsAbsences"
-                  head-variant="dark"
-                  :fields="fieldsAbseces"
-                  dark
-                  bordered
-                  stacked = "md"
-                ></b-table>
+                <b-table sticky-header :items="row.item.itemsAbsences" head-variant="dark" :fields="fieldsAbseces" dark
+                  bordered stacked="md"></b-table>
               </b-card-body>
             </b-collapse>
           </b-card>
 
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-2 class="btn-accordion"
-                >Devoirs</b-button
-              >
+              <b-button block v-b-toggle.accordion-2 class="btn-accordion">Devoirs</b-button>
             </b-card-header>
-            <b-collapse
-              id="accordion-2"
-              accordion="my-accordion"
-              role="tabpanel"
-            >
+            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
               <b-card-body>
-                <b-table
-                  sticky-header
-                  :items="row.item.itemsDevoirs"
-                  head-variant="dark"
-                  :fields="fieldsDevoirs"
-                  dark
-                  bordered
-                  stacked = "md"
-                ></b-table>
+                <b-table sticky-header :items="row.item.itemsDevoirs" head-variant="dark" :fields="fieldsDevoirs" dark
+                  bordered stacked="md"></b-table>
               </b-card-body>
             </b-collapse>
           </b-card>
@@ -140,16 +74,13 @@
       </template>
       <!-- Départ -->
       <template #cell(depart)="row">
-        <div
-          v-if="row.item.depart != 'Pas défint'"
-          class="
-            text-white text-center
-            font-weight-bold
-            d-flex
-            justify-content-around
-            align-items-center
-          "
-        >
+        <div v-if="row.item.depart != 'Pas défint'" class="
+              text-white text-center
+              font-weight-bold
+              d-flex
+              justify-content-around
+              align-items-center
+            ">
           <div class="w-50" v-bind:style="{ background: row.item.bgDepart }">
             {{ row.item.depart }}
           </div>
@@ -165,61 +96,34 @@
       </template>
       <!-- Fin -->
       <template #cell(fin)="row">
-        <div
-          v-if="
-            row.item.ajouterPositionnement == false &&
-            row.item.modifierPositionnement == false
-          "
-          class="
-            text-white text-center
-            font-weight-bold
-            d-flex
-            justify-content-around
-            align-items-center
-          "
-        >
+        <div v-if="
+          row.item.ajouterPositionnement == false &&
+          row.item.modifierPositionnement == false
+        " class="
+              text-white text-center
+              font-weight-bold
+              d-flex
+              justify-content-around
+              align-items-center
+            ">
           <div v-bind:style="{ background: row.item.bgFin }" class="w-50 span-positionnement">
             {{ row.item.fin }}
           </div>
           <div>
-            <b-button
-              class="m-1 btn-sm"
-              variant="primary"
-              @click="modifier(row.item)"
-            >
+            <b-button class="m-1 btn-sm" variant="primary" @click="modifier(row.item)">
               <font-awesome-icon :icon="['fas', 'edit']" />
             </b-button>
           </div>
         </div>
-        <div
-          v-else-if="
-            row.item.ajouterPositionnement || row.item.modifierPositionnement
-          "
-          class="d-flex justify-content-around align-items-center"
-        >
-          <b-form-spinbutton
-            inline
-            v-model="row.item.fin"
-            min="0"
-            max="5"
-            step="1"
-          ></b-form-spinbutton>
-          <b-button
-            class="m-1 btn-sm"
-            variant="success"
-            @click="ajouterPositionnement(row.item)"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'plus-square']"
-            /></b-button
-          >
+        <div v-else-if="
+          row.item.ajouterPositionnement || row.item.modifierPositionnement
+        " class="d-flex justify-content-around align-items-center">
+          <b-form-spinbutton inline v-model="row.item.fin" min="0" max="5" step="1"></b-form-spinbutton>
+          <b-button class="m-1 btn-sm" variant="success" @click="ajouterPositionnement(row.item)">
+            <font-awesome-icon :icon="['fas', 'plus-square']" /></b-button>
 
-          <b-button
-            v-if="row.item.modifierPositionnement == true"
-            class="m-1 btn-sm"
-            variant="warning"
-            @click="annulerModif(row.item)"
-          >
+          <b-button v-if="row.item.modifierPositionnement == true" class="m-1 btn-sm" variant="warning"
+            @click="annulerModif(row.item)">
             <font-awesome-icon :icon="['fas', 'undo-alt']" />
           </b-button>
         </div>
@@ -241,65 +145,29 @@
           </template>
           <b-form @submit="ajouetrAbsence(row.item)">
             <b-form-group label="Type">
-              <b-form-select
-                id="input-3"
-                v-model="formModel.type"
-                :options="retardAbsence"
-                required
-              ></b-form-select>
+              <b-form-select id="input-3" v-model="formModel.type" :options="retardAbsence" required></b-form-select>
             </b-form-group>
             <b-form-group label="Du">
               <div class="w-100 d-flex justify-content-center">
-                <b-form-input
-                  v-model="formModel.dateDebut"
-                  type="date"
-                  class=""
-                ></b-form-input>
-                <b-form-input
-                  v-model="formModel.tempDebut"
-                  type="time"
-                  class=""
-                ></b-form-input>
+                <b-form-input v-model="formModel.dateDebut" type="date" class=""></b-form-input>
+                <b-form-input v-model="formModel.tempDebut" type="time" class=""></b-form-input>
               </div>
             </b-form-group>
             <b-form-group label="Au">
               <div class="w-100 d-flex justify-content-center">
-                <b-form-input
-                  v-model="formModel.dateFin"
-                  type="date"
-                  class=""
-                ></b-form-input>
-                <b-form-input
-                  v-model="formModel.tempFin"
-                  type="time"
-                  class=""
-                ></b-form-input>
+                <b-form-input v-model="formModel.dateFin" type="date" class=""></b-form-input>
+                <b-form-input v-model="formModel.tempFin" type="time" class=""></b-form-input>
               </div>
             </b-form-group>
 
-            <b-button type="submit" class="mt-3" variant="outline-success" block
-              >Ajouter</b-button
-            >
+            <b-button type="submit" class="mt-3" variant="outline-success" block>Ajouter</b-button>
           </b-form>
-          <b-button
-            class="mt-3"
-            variant="outline-danger"
-            block
-            @click="hideModal(row.item)"
-            >Annuler</b-button
-          >
+          <b-button class="mt-3" variant="outline-danger" block @click="hideModal(row.item)">Annuler</b-button>
         </b-modal>
       </template>
     </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      aria-controls="my-table"
-      pills
-      size="lg"
-      class="customPagination"
-    ></b-pagination>
+    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" pills size="lg"
+      class="customPagination"></b-pagination>
   </section>
 </template>
 
@@ -446,7 +314,7 @@ export default {
     //   now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate();
     //2022-05-04
   },
-  mounted() {},
+  mounted() { },
   computed: {
     rows() {
       return this.items.length;
@@ -459,6 +327,8 @@ export default {
         this.niveaux = responce;
       });
     },
+
+    // ABSENCE
     ajouetrAbsence(item) {
       let dateDebut = new Date(
         this.formModel.dateDebut + ":" + this.formModel.tempDebut
@@ -492,9 +362,8 @@ export default {
         this.hideModal(item);
       }
     },
-    submit() {
-      this.getItems();
-    },
+
+    // DEVOIR ET ABSENCE
     getItems() {
       etudiantApi
         .getEtudiantsByInterventionIdwithDevoirsAndAbsence(
@@ -575,6 +444,8 @@ export default {
           }
         });
     },
+
+    // OTHER
     ajouterPositionnement(item) {
       let positionnement = {};
       if (item.modifierPositionnement) {
@@ -604,6 +475,9 @@ export default {
           return this.niveaux[i].codeCouleur;
         }
       }
+    },
+    submit() {
+      this.getItems();
     },
     modifier(item) {
       item.modifierPositionnement = true;
@@ -637,16 +511,15 @@ export default {
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
-<style scoped src="@/assets/styles/BtnAccordion.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<style scoped src="@/assets/styles/BtnAccordion.css"></style>
 <style scoped>
 .absent {
   width: 50px;
   background-color: black;
   color: white;
 }
+
 .span-positionnement {
   display: inline-block;
   width: 50px;
@@ -656,23 +529,25 @@ export default {
 }
 </style>
 <style >
-.customPagination > .page-item > .page-link {
+.customPagination>.page-item>.page-link {
   color: #0d153e;
 }
-.customPagination > .page-item.active > .page-link {
+
+.customPagination>.page-item.active>.page-link {
   background-color: antiquewhite;
   background-color: #0d153e;
   border: 1px solid black;
   font-weight: bold;
   color: white;
 }
-.customPagination > .page-item.active > .page-link:hover {
+
+.customPagination>.page-item.active>.page-link:hover {
   background-color: #757a92;
   border: 2px solid black;
   font-weight: bold;
 }
 
-.customPagination > .page-item > .page-link:hover {
+.customPagination>.page-item>.page-link:hover {
   background-color: #757a92;
   border: 2px solid black;
   font-weight: bold;

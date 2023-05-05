@@ -3,6 +3,9 @@
     <section>
       <div class="container-fluid mt-4">
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
+
+          <!-- TABLE ETUDIANTS -->
+          <!-- AJOUTER UN BOUTON RETOUR -->
           <b-tab active>
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
@@ -13,11 +16,11 @@
                 <thead class="">
                   <tr>
                     <th v-if="isAdmin"> Détails étudiant</th>
+                    <th>Action</th>
                     <th>Nom </th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,7 +46,7 @@
                           <div class="text-center">
                             Ajouter une absence ou un retard pour
                             <span class="text-info font-weight-bold">{{
-                            etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom
+                              etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom
                             }}</span>
                           </div>
                         </template>
@@ -76,13 +79,16 @@
               </table>
             </div>
           </b-tab>
+
+          <!-- TABLE INTERVENTIONS -->
           <b-tab>
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'business-time']" class="icon" />
               Interventions
             </template>
             <div id="interventions">
-              <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de positionnement</b-button>
+              <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de
+                positionnement</b-button>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -97,9 +103,9 @@
                     @click="clickIntervention(intervention)" class="mon-tr">
                     <td>
                       {{
-                      intervention.formationDto != null
-                      ? intervention.formationDto.titre
-                      : "Pas de Formation"
+                        intervention.formationDto != null
+                        ? intervention.formationDto.titre
+                        : "Pas de Formation"
                       }}
                     </td>
                     <td>{{ intervention.heuresDisponsees }}</td>
@@ -110,6 +116,8 @@
               </table>
             </div>
           </b-tab>
+
+          <!-- TABLE EXAMENS -->
           <b-tab @click="reloadExam()">
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'file-alt']" class="icon" />
@@ -119,6 +127,8 @@
               <ExamensPromotionsListCompoenent :examens="promotion.examensDto" ref="examen" :context="'promotion'" />
             </div>
           </b-tab>
+
+          <!-- TABLE NOTES -->
           <b-tab>
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'sort-numeric-up-alt']" class="icon" />
@@ -147,7 +157,7 @@ export default {
     ExamensPromotionsListCompoenent,
     AjouterNotes,
   },
-  
+
   data() {
     return {
       tabIndex: 1,
@@ -186,14 +196,14 @@ export default {
           let bas64 = response;
           const linkSource = `data:application/pdf;base64,${bas64}`;
           const downloadLink = document.createElement("a");
-          const fileName = this.promotion.nom+"_"+this.promotion.centreFormationDto.nom+".pdf";
+          const fileName = this.promotion.nom + "_" + this.promotion.centreFormationDto.nom + ".pdf";
           downloadLink.href = linkSource;
           downloadLink.download = fileName;
           downloadLink.click();
         });
     },
     getPromotionId() {
-      
+
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
         this.promotion = response
       });
@@ -215,8 +225,10 @@ export default {
       if (route[0] == "admin" || route[0] == "formateur") {
         this.$router.push({
           name: "admin_etudiant_details",
-          params: { id: etudiant.id ,
-            idPromotion: this.$route.params.id  },
+          params: {
+            id: etudiant.id,
+            idPromotion: this.$route.params.id
+          },
         })
       }
     },
@@ -255,9 +267,7 @@ export default {
 };
 </script>
 
-<style src="@/assets/styles/Onglet.css">
-
-</style>
+<style src="@/assets/styles/Onglet.css"></style>
 <style scoped>
 /* .mon-titre {
   display: flex;

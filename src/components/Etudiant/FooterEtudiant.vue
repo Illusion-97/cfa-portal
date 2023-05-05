@@ -1,4 +1,5 @@
 <template>
+  <v-card>
   <footer>
     <svg viewBox="0 -20 700 110" width="100%" height="390" preserveAspectRatio="none">
       <path d="M0,10 c80,-18 230,-12 350,7 c80,13 260,17 350,-5 v100 h-700z" fill="#565656" />
@@ -81,6 +82,7 @@
       </div>
     </div>
   </footer>
+</v-card>
 </template>
 
 <style scoped>
