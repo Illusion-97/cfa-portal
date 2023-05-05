@@ -185,9 +185,6 @@ export default {
         name: "admin_dashboard",
       });
     }
-    if (this.isFormateur) {
-      this.$router.push({ name: "formateur_home" })
-    }
 
     this.getEtudiant();
     etudiantApi

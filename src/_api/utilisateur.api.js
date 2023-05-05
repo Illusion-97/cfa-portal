@@ -20,6 +20,7 @@ export const utilisateurApi = {
   getAllUtilisateursByEntreprise,
   getAllUtilisateursByAdresse,
   addUtilisateur,
+  addTuteur,
   updateUtilisateur,
   deleteUtilisateur,
   getAllUsersByName,
@@ -258,6 +259,18 @@ function getAllUtilisateursByAdresse() {
 function addUtilisateur(Utilisateur) {
   return axios
     .post(`${END_POINT}`, Utilisateur, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}
+
+/**
+ * 
+ * @param {*} tuteur 
+ * @returns 
+ */
+function addTuteur(tuteur) {
+  return axios
+    .post(`${END_POINT}`, tuteur, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

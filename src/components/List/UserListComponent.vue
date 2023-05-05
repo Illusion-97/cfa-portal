@@ -31,42 +31,8 @@
       </select>
 
       <!-- AJOUT TUTEUR -->
-      <div class="updateListCursus p-2">
-        <button name="button2" outlined @click="showAddTuteur" class="btn btn-outline-info">
-          Ajouter un Tuteur
-        </button>
-      </div>
-
-      <b-modal hide-footer :ref="'modal-'">
-        <template #modal-title>
-          <div class="text-center">Ajout d'un Tuteur</div>
-        </template>
-        <v-form @submit="addTuteur">
-
-          <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="formulairTuteur.nom" label="Nom*" required></v-text-field>
-          </div>
-          <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="formulairTuteur.prenom" label="Prenom*" required></v-text-field>
-          </div>
-          <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="formulairTuteur.login" label="Login*" required></v-text-field>
-          </div>
-          <div class="w-100 d-flex justify-content-center">
-            <v-text-field v-model="formulairTuteur.password" label="Mot de passe*" type="password" required></v-text-field>
-          </div>
-
-          <b-form-select v-model="selected" :options="options"></b-form-select>
-
-          <small>*indique les champs requis</small>
-
-          <b-button type="submit" class="mt-3" variant="success" block>
-            Ajouter</b-button>
-        </v-form>
-        <b-button class="mt-3" variant="danger" block @click="hideModal">
-          Annuler</b-button>
-      </b-modal>
-
+      <addTuteur/>
+      
       <!-- MAJ UTILISATEURS -->
       <div class="updateListCursus p-2">
         <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
@@ -151,10 +117,13 @@
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
+import addTuteur from "@/components/Modal/AddTuteur.vue"
+import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "UserListComponent",
   components: {
+    addTuteur,
     LoginWdg2,
   },
   props: {
@@ -178,74 +147,16 @@ export default {
       dismissCountDown: null,
       message: "",
       color: "success",
-      toto: "",
       selected: null,
-      options: [
-        { value: null, text: 'Centre de formation*', disabled: true },
-        { value: 'a', text: 'option 1' },
-        { value: 'b', text: 'option 2' },
-        { value: { C: '3PO' }, text: 'option 3' },
-        { value: 'd', text: 'option 4' }
-      ],
       users: [],
       userId: this.$store.getters.getUtilisateur.id,
       roles: [],
       perPage: 7,
       pageCount: 0,
       saisie: "",
-      
-/*
-      formulairTuteur: [
-        login = "",//
-        password = "",//
-        prenom = "totopre", //
-        nom = "toto",//
-        civilite = ["Mr", "Mme"],
-        dateDeNaissance = null,
-        telephone = null,
-        telephoneFixe = null,
-        adresseDto = null,
-        entrepriseDto = null,
-        rolesDto = null,
-        etudiantDto = null,
-        formateurDto = null,
-        tuteurDto = null,
-        cefDto = null,
-        idDg2 = null,
-        centreFormationId = 6,
-        externalAccount = true,
-        active = true
-      ],
-*/
-
+      fields: utilisateursFields,
       items: [],
-      fields: [
-        {
-          key: "Details",
-          label: "Détails",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "prenom",
-          label: "Prénom",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "nom",
-          label: "Nom",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "login",
-          label: "Email",
-          thStyle: { width: "5%" },
-        },
-        {
-          key: "rolesDto",
-          label: "Rôle",
-          thStyle: { width: "5%" },
-        },
-      ],
+      le: { width: "5%" },
       utilisateur_input: "",
       selected_role: "",
       // Gestion de l'import de fichier
@@ -373,16 +284,12 @@ export default {
         .getByRoleByPage(this.selected_role, 0, this.perPage, this.saisie)
         .then((response) => { this.assigneTableItems(response) });
 
-
-
-
       utilisateurApi
         .getCountByRole(this.selected_role, this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
     },
-
     openLoginWdg2() {
       this.showLoginWdg2Card = true;
     },
@@ -429,17 +336,6 @@ export default {
           this.loading = false;
         });
       this.refreshList();
-    },
-    showAddTuteur() {
-      this.$refs["modal-"].show();
-      this.toto = "";
-    },
-    hideModal() {
-      this.$refs["modal-"].hide();
-    },
-    addTuteur() {
-
-      this.hideModal();
     },
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
