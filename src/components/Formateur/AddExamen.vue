@@ -191,6 +191,7 @@ export default {
       dissmissCountFailed:null,
     };
   },
+
   methods: {
     inputValidation(event){
       if (this.examenDto.titre === null || this.examenDto.descriptif === null ||
@@ -261,8 +262,6 @@ export default {
       this.examenDto.descriptif = null
       this.file = null
       this.examenDto.dateExamen = null
-      this.selectedActivitesTypes = null
-      this.optionsBlocsCompetences = null
       this.examenDto.duree = null
     },
     showBlocsLinked() {

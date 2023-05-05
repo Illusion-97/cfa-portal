@@ -113,8 +113,6 @@
             </b-form>
           </div>
           <div v-else>
-            <b-button v-if="context === 'intervention'" block variant="primary" v-bind:class="classObject(row.item, true)"
-                      @click="modifier(row.item)"/>
             <b-button
                 v-if="context === 'intervention'"
                 block
@@ -252,7 +250,8 @@ export default {
       optionsCompetences: [],
     };
   },
-  created() {
+  beforeCreate() {
+    this.getActiviteType();
   },
   mounted(){
     if(this.context === "intervention"){
