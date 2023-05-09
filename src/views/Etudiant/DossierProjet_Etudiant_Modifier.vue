@@ -1,66 +1,41 @@
 <template>
   <div id="main-cr-prj">
     <div>
-      <nav class="d-inline" id="navproj">
-        <v-card-title>{{}}</v-card-title>
+      <nav>
 
-        <v-row>
-          <!-- Ajout du nom au dossier projet -->
-          <v-col md="5">
-            <v-text-field v-model="DossierProjet.nom" variant="filled"
-                          icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
-          </v-col>
-          <!-- Ajout du projet au dossier projet -->
-          <v-col md="5">
-            <b-form-select v-model="DossierProjet.projet">
-              <option :value="null" disabled>
-                -- Choisissez un projet existant --
-              </option>
-              <option v-for="projet in projets" :key="projet.id" :value="projet">
-                {{ projet.nom }}
-              </option>
-            </b-form-select>
-          </v-col>
-          <v-col>
-            <!-- Bouton retour en arrière -->
-            <b-button  @click="retour()">
-              Retour
-            </b-button>
-          </v-col>
-        </v-row>
+        <v-card-title>Nom du Dossier : {{dossierModif.nom}} <br> {{dossierModif.annexeDossierProjetDtos}}</v-card-title>
       </nav>
     </div>
     <div>
       <!-- ****Composants Importer Un Dossier ****-->
-      <section id="comp-doss-prjt">
+      <section>
         <div class="comp-doss">
           <p>Importer un dossier :</p>
-          <v-btn class="btn mr-2" type="button" id="btn1">
-            <v-icon class="mr-2"> {{ buttonIcon }} </v-icon>
-          </v-btn>
         </div>
-        <v-expand-transition>
-          <section>
-            <v-card id="listImportDoss" >
-              <section class="comp-imp">
 
-                <v-card class="mb-10">
-
-                  <v-file-input show-size placeholder="Importer un Dossier Projet : pdf,png ... taille max : 500 mo" type="file" />
-
-                </v-card>
-              </section>
+        <section v-if="dossierModif.dossierImport != null">
+            <v-card id="listImportDoss" class="mb-10" >
+              <v-simple-table>
+                <thead>
+                <tr>
+                  <th>test</th>
+                  <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td >
+                    {{dossierModif.dossierImport}}
+                  </td>
+                  <td><v-btn>supprimer</v-btn><v-btn>modifier</v-btn></td>
+                </tr>
+                </tbody>
+              </v-simple-table>
             </v-card>
-            <div class="d-flex justify-content-center">
-              <div class="text-left" style="width:15%">
-                <button class="btn btn-secondary" @click="clear()">Annuler</button>
-              </div>
-              <div class="text-right" style="width:15%">
-                <button class="btn btn-success" @click="submit()">Sauvegarder</button>
-              </div>
-            </div>
           </section>
-        </v-expand-transition>
+        <section v-else>
+          <v-file-input v-model="dossierModif.dossierImport" accept="image/*"></v-file-input>
+        </section>
       </section>
       <!-- ******************************************************** -->
       <v-card-title>Ou</v-card-title>
@@ -68,9 +43,6 @@
       <section>
         <div class="comp-doss">
           <p>Créer un dossier :</p>
-          <v-btn class="btn mr-2" background-color="none" type="button" id="btn2">
-            <v-icon class="ml-2"> {{ buttonIcon2 }} </v-icon>
-          </v-btn>
         </div>
         <v-expand-transition>
           <div>
@@ -107,7 +79,7 @@
                             <v-list v-for="activites in activiteTypes" :key="activites.id">
                               <div class="row align-items-center">
                                 <v-col>
-                                  <v-col class="col-md-10">
+                                  <v-col style="width: 50vw">
                                     <v-list-item-title class="">{{ activites.libelle }}</v-list-item-title>
                                   </v-col>
                                 </v-col>
@@ -153,10 +125,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(annexe, index) in DossierProjet.annexeDossierProjets" :key="annexe.id">
+                        <tr v-for="(annexe, index) in dossierModif.annexeDossierProjetDtos" :key="annexe.id">
                           <td>
-                            <v-file-input v-model="annexe.pieceJointe" label="Annexes du Dossier Projet"
-                                          accept="image/*" :id="'fileInput_' + index" @change="'onFileChange' + index"></v-file-input>
+                            {{annexe.pieceJointe}}
                             <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
                           </td>
                         </tr>
@@ -197,7 +168,6 @@
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { VueEditor } from "vue2-editor";
-import { projetApi } from "@/_api/projet.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 
 
@@ -206,20 +176,14 @@ export default {
   components: { VueEditor },
   data() {
     return {
-      marker: true,
-      iconIndex: 0,
-      showSec1: false,
-      showSec2: false,
       active: 1,
-      studentId:this.$store.getters.getUtilisateur.etudiantDto.id,
+      dossierProjetId: 0,
+      studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
       etudiants: [],
-      infos: [],
-      contenus: [],
-      resumes: [],
-      annexes: [],
-      projets: [],
       activiteTypes: [],
+      dossierModif:{},
       DossierProjet: {
+        dossierImport:"",
         nom: "",
         projet: {
           id: 0,
@@ -234,13 +198,22 @@ export default {
     };
   },
   created() {
-    this.getAllProject();
+    console.clear()
+    console.log(this.dossierModif)
+    this.getIdFromUrl();
+    this.getDossierProjetById();
     this.getEtudiant();
     this.getActiviteTypeByCursus();
   },
   methods: {
     retour() {
       history.back();
+    },
+    getIdFromUrl() {
+      const url = window.location.href;
+      const segments = url.split('/');
+      this.dossierProjetId = segments[segments.length - 1];
+      return console.log(this.dossierProjetId);
     },
     //***Partie sur les competenceCouvertes du DossierProjet***
     toggleSelectedComp(compid){
@@ -282,12 +255,12 @@ export default {
     //******************************************************
     submit() {
       const {
+        dossierImport,
         nom,
         projet,
         annexeDossierProjets,
         infoDossierProjets,
-        // eslint-disable-next-line no-unused-vars
-        competenceProfessionnelleIds,
+        competenceProfessionnelleId,
         contenuDossierProjets,
         resumeDossierProjets,
       } = this.DossierProjet;
@@ -302,6 +275,7 @@ export default {
       }
 
       const dossierProjet = {
+        dossierImport,
         nom,
         projet: {
           id: projet.id,
@@ -313,7 +287,7 @@ export default {
             information_projet: infoDossierProjets.information_projet,
           },
         ],
-        competenceProfessionnelleIds: [this.CompetencesCouvertes],
+        competenceProfessionnelleIds: [competenceProfessionnelleId],
         contenuDossierProjets: [
           {
             contenu_projet: contenuDossierProjets.contenu_projet,
@@ -344,21 +318,14 @@ export default {
           .getById(this.studentId)
           .then((response) => (this.etudiants = response, console.log(response)));
     },
-    getAllProject() {
-      projetApi.getAll().then((response) => {this.projets = response});
+    getDossierProjetById(){
+      dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.dossierModif = response, console.log( response)})
     },
-
     getActiviteTypeByCursus(){
       activiteTypeApi
           .getActiviteTypesByCursus(7)
           .then((response) => {this.activiteTypes = response})
     },
-    //-----Style Input pour le nom du dp----
-    clearMessage() {
-      this.message = "";
-    },
-    //-------------------------
-
     clear() {
       this.DossierProjet.contenuDossierProjets.contenu_projet = "";
       this.DossierProjet.resumeDossierProjets.resume_projet = "";
@@ -412,13 +379,4 @@ button {
   background-color: #495057;
   color: white;
 }
-.comp-imp {
-  margin: 0;
-  background-color: transparent;
-  width: 100%;
-}
-#btn1, #btn2 {
-  background-color: transparent;
-}
-
 </style>

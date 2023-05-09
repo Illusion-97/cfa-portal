@@ -86,17 +86,22 @@ function getById(id){
   }
 
 
-  function create(id, dpDto, file) {
+  async function create(id, dpDto, files, fileImport) {
     const formData = new FormData();
-    formData.append('dossierProjet', dpDto);
-    file.forEach(f => formData.append('pieceJointe', f));
-
-    return axios.post(`${END_POINT}/creation/etudiant/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((response) => response.data)
-      .catch((error) => console.log(error));
+    formData.append('dossierProjet', JSON.stringify(dpDto));
+    files.forEach(f => formData.append('pieceJointe', f));
+    formData.append('import', fileImport);
+    try {
+      const response = await axios.post(`${END_POINT}/creation/etudiant/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
   
   /**
