@@ -2,7 +2,7 @@
   <div>
 
     <!-- AJOUT D'UN EXAMEN -->
-    <div v-if="context == 'intervention'">
+    <div v-if="context === 'intervention'">
       <AddExamen ref="addExamen" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
@@ -22,7 +22,7 @@
 
         <!-- Titre -->
         <template
-          #cell(Titre)="row"
+            #cell(Titre)="row"
         >
           <div v-if="row.item.modifier">
             <b-form-input id="input-default" placeholder="" v-model="row.item.Titre">
@@ -58,8 +58,8 @@
         <template #cell(blocs_concernes)="row">
           <div v-if="row.item.modifier">
             <b-form-checkbox-group @change="addOptionsCompetences(row.item.selectedActiviteType)" size="sm"
-              v-model="row.item.selectedActiviteType" :options="optionsBc" name="flavour-1a"
-              class="d-flex flex-wrap justify-content-center" switches></b-form-checkbox-group>
+                                   v-model="row.item.selectedActiviteType" :options="optionsBc" name="flavour-1a"
+                                   class="d-flex flex-wrap justify-content-center" switches></b-form-checkbox-group>
           </div>
           <div v-else>
             {{ row.item.blocs_concernes }}
@@ -70,7 +70,7 @@
         <template #cell(competences)="row">
           <div v-if="row.item.modifier">
             <b-form-checkbox-group size="sm" v-model="row.item.selectedCompetencesPro" :options="optionsCompetences"
-              name="flavour-1a" class="d-flex flex-wrap justify-content-center" switches></b-form-checkbox-group>
+                                   name="flavour-1a" class="d-flex flex-wrap justify-content-center" switches></b-form-checkbox-group>
           </div>
           <div v-else>
             {{ row.item.competences }}
@@ -107,20 +107,18 @@
                 <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
                 Valider</b-button>
 
-              <b-button block variant="warning" @click="AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                 Annuler</b-button>
             </b-form>
           </div>
           <div v-else>
-            <b-button v-if="context == 'intervention'" block variant="primary" v-bind:class="classObject(row.item, true)"
-              @click="modifier(row.item)"/>
             <b-button
-              v-if="context === 'intervention'"
-              block
-              variant="primary"
-              v-bind:class="classObject(row.item, true)"
-              @click="modifier(row.item)"
+                v-if="context === 'intervention'"
+                block
+                variant="primary"
+                v-bind:class="classObject(row.item, true)"
+                @click="modifier(row.item)"
             >
               <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
               Modifier</b-button>
@@ -140,7 +138,7 @@
               <b-col sm="3" class="text-sm-right"><b>Description:</b></b-col>
               <b-col>
                 <b-form-textarea id="textarea-default" placeholder="Default textarea"
-                  v-model="row.item.description"></b-form-textarea></b-col>
+                                 v-model="row.item.description"></b-form-textarea></b-col>
             </b-row>
           </b-card>
           <b-card v-else>
@@ -252,13 +250,14 @@ export default {
       optionsCompetences: [],
     };
   },
-  created() {
+  beforeCreate() {
+    this.getActiviteType();
   },
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
-         this.getActiviteType(data),
-             console.log(data)
+        this.getActiviteType(data),
+            console.log(data)
       })
     }
     else{
@@ -272,19 +271,19 @@ export default {
     // AJOUT D'UN EXAMEN
     getActiviteType(promoId) {
       activiteTypeApi
-      .getAllByIdPromotion(promoId)
-      .then((response) => {
-        this.getDataForForm(response); 
-        if(this.context === "intervention"){
-          this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
-          this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
-        }
+          .getAllByIdPromotion(promoId)
+          .then((response) => {
+            this.getDataForForm(response);
+            if(this.context === "intervention"){
+              this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
+              this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+            }
 
 
-      });
+          });
     },
     async getFile(id, pieceJointe) {
-      const response = await examenApi.getFileExamen(id);    
+      const response = await examenApi.getFileExamen(id);
       const blob = new Blob([response], { type: "application/pdf" });
 
       let link = document.createElement("a");
@@ -295,10 +294,10 @@ export default {
     },
     updateExamens() {
       examenApi
-        .getExamensByInterventionId(this.$route.params.id)
-        .then((response) => {
-          this.assigneTableItems(response);
-        });
+          .getExamensByInterventionId(this.$route.params.id)
+          .then((response) => {
+            this.assigneTableItems(response);
+          });
     },
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
@@ -342,7 +341,7 @@ export default {
           };
           tabCompetences.push(competence);
         }
-        let at = new Object();
+        let at = {};
         at[data[i].id] = tabCompetences;
         dataForFormCp.push(at);
       }
@@ -385,21 +384,21 @@ export default {
       ]);
       // We must pass the generated VNodes as arrays
       this.$bvModal
-        .msgBoxConfirm([messageVNode], {
-          title: [titleVNode],
-          centered: true,
-          size: "md",
-        })
-        .then((value) => {
-          if (value) {
-            examenApi.deleteExamen(item.id).then((respnose) => {
-              if (respnose === "suppression effectuée") {
-                this.updateExamens();
-                this.showAlert(item.Titre, false, false);
-              }
-            });
-          }
-        })
+          .msgBoxConfirm([messageVNode], {
+            title: [titleVNode],
+            centered: true,
+            size: "md",
+          })
+          .then((value) => {
+            if (value) {
+              examenApi.deleteExamen(item.id).then((respnose) => {
+                if (respnose === "suppression effectuée") {
+                  this.updateExamens();
+                  this.showAlert(item.Titre, false, false);
+                }
+              });
+            }
+          })
     },
 
     // OTHER
@@ -441,10 +440,10 @@ export default {
         // this.dismissCountDownErr = this.dismissSecs
       } else {
         modifier
-          ? (this.message =
-            "L'examen " + titre + " a bien été modifier avec succès")
-          : (this.message =
-            "L'examen " + titre + " a bien été supprimer avec succès");
+            ? (this.message =
+                "L'examen " + titre + " a bien été modifier avec succès")
+            : (this.message =
+                "L'examen " + titre + " a bien été supprimer avec succès");
         this.dismissCountDown = this.dismissSecs;
       }
     },
@@ -471,9 +470,9 @@ export default {
           return a.numeroFiche - b.numeroFiche;
         });
         let competencesPro = examens[i].competencesProfessionnellesDto.sort(
-          (a, b) => {
-            return a.numeroFiche - b.numeroFiche;
-          }
+            (a, b) => {
+              return a.numeroFiche - b.numeroFiche;
+            }
         );
         for (let j = 0; j < activitesTypes.length; j++) {
           blocksConcernee += activitesTypes[j].numeroFiche + " ,";
@@ -484,8 +483,8 @@ export default {
           selectedCompetencesPro.push(competencesPro[j].id);
         }
         blocksConcernee = blocksConcernee.substring(
-          0,
-          blocksConcernee.length - 1
+            0,
+            blocksConcernee.length - 1
         );
         competences = competences.substring(0, competences.length - 1);
         let item = {

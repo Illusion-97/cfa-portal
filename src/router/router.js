@@ -26,7 +26,6 @@ import { Role } from "@/_helpers/role.js";
 //#######################
 //#       GLOBAL        #
 //#######################
-import Home from "@/views/Home.vue";
 import LoginPage from "@/views/Login/LoginPage.vue";
 import Forgot from "@/views/Login/Forgot.vue";
 import NotFound from "@/views/NotFound.vue";
@@ -232,7 +231,6 @@ const routes = [
   { path: "/", redirect: { name: "home" } },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
-  { path: "/home", name: "home", component: Home },
   { path: "/login", name: "login", component: LoginPage },
   { path: "/forgot-password", name: "forgot", component: Forgot },
   { path: "/reset-password", name: "reset", component: Reset },
