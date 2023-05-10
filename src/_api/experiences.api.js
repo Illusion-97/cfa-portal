@@ -6,6 +6,7 @@ const END_POINT = "/experiences";
 export const experiencesApi = {
   deleteById,
   update,
+  save,
 }
 
 /**
@@ -36,3 +37,10 @@ function update(form) {
     .catch((error) => console.log(error));
 }
 
+function save(form)
+{
+  return axios
+  .post(`${END_POINT}`, form, requestOptions.headers())
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
+}

@@ -60,11 +60,13 @@
               </router-link>
 
               <!-- BOUTON UPDATE -->
-              <b-button size="sm" class="mr-2" variant="primary" @click.prevent="uploadFile()">
-                <i class="fa-solid fa-cloud"></i>
-                Uploader
-              </b-button>
-            </div>
+              
+              <b-button type="file" id="fileImport" size="sm" class="mr-2" variant="primary" @click.prevent="uploadFile">
+      <i class="fa-solid fa-cloud"></i>
+      Uploader
+    </b-button>
+   <!--<input id="fileImport" v-model="fileImport" @change="uploadFile"/>--> 
+  </div>
           </div>
 
         </template>
@@ -98,7 +100,6 @@
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 
-
 //erreur avec l'import à corriger import "bootstrap-icons/font/bootstrap-icons.css";
 
 
@@ -111,6 +112,8 @@ export default {
   name: "DossierProfessionnelEtudiant",
   data() {
     return {
+      fileImport: {},
+      test:"",
       cursus: [],
       dp: [],
       dossierProfessionnel: [],
@@ -149,6 +152,11 @@ export default {
         .then((data) => (this.dp = data));
     },
 
+    uploadFile() {
+     
+
+    },
+
     getDossierId(data, dossierProfessionnel) {
       // console.dir(
       //   "dossierProfessionnel > " +
@@ -173,18 +181,17 @@ export default {
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));
       
-  },
+  }
+};
 
-  uploadFile() {
+  /*uploadFile() {
     dossierProfessionnelApi
       .generateDossierProByStudentAndPromo(this.$store.getters.getDossierId.etudiantDto.id.promotionId)
       .then(data => {
         this.dp = data;
-        // Add any additional logic to handle the response data here
       })
       .catch(error => {
         console.error(error);
-        // Handle any errors that occur during the API call here
       });
     },
     /*uploadFile() {
@@ -192,9 +199,11 @@ export default {
       .genererDossierProfessionnel(idDossierPro)
       .then((data => (this.dp=data)))
       },*/
-    
-};
-</script>
+
+
+
+ 
+  </script>
 
 <style scoped src="@/assets/styles/StyleEtudiant.css">
 h2 {

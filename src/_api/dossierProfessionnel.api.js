@@ -112,7 +112,6 @@ function deleteDossierProfessionnel(id) {
     .catch((error) => console.log(error));
 }
 
-<<<<<<< HEAD
 /** 
 @param {*} id 
  * @param {*} form
@@ -131,17 +130,6 @@ function saveDossierProfessionnel(id, form, file) {
     file.forEach(f => formData.append('pieceJointe', f));
   }
 
-=======
-/**
- * Save du DossierProfessionnel par etudiant 
- * 
- * @param {*} id 
- * @param {*} form 
- * @returns 
- */
-
-function saveDossierProfessionnel(id, form) {
->>>>>>> 220f2a901033991d8385aa42189d1f374d9a8944
   return axios
     .post(`${END_POINT}/save/etudiant/${id}`, formData, config)
     .then((response) => response.data)
@@ -175,13 +163,12 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
 
 }
 
-/**
- * Update du DossierPRofessionnel par etudiant 
- * 
- * @param {*} form 
- * @param {*} id 
+/** 
+@param {*} id 
+ * @param {*} form
  * @returns 
  */
+
 
 function updateDossierProfessionnel(form, id) {
   return axios

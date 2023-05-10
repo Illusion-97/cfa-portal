@@ -198,7 +198,7 @@
 
           <div>
             <!--BOUTON UPDATE-->
-           <b-button v-b-modal.modal-update-success size="sm" variant="primary" @click="updateExp()" class="btn-delete">
+           <b-button v-b-modal.modal-update-success size="sm" variant="primary" @click="updateExperiencePro()" >
             <i class="fa-solid fa-square-pen"></i>
             <span class="icon-right">Mettre à jour</span>
           </b-button>
@@ -206,7 +206,7 @@
    
           <div id="div-save">
           <!-- BOUTON SAVE EXP -->
-          <b-button size="sm" variant="success" type="submit" @click="addExp">
+          <b-button v-b-modal.modal-create-success size="sm" variant="success" type="submit" @click="addExp" >
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Ajouter</span>
           </b-button>
@@ -218,13 +218,13 @@
        
 
         <!-- MODALE SUCCESS expP CREE -->
-    <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+    <b-modal  id="modal-create-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
         Votre Experience Professionnelle a correctement été ajoutées.s
       </p>
       <div class="div-ok">
-        <b-button variant="primary" @click="$bvModal.hide('modal-success')">
+        <b-button variant="primary" @click="$bvModal.hide('modal-create-success')">
           Continuer
         </b-button>
       </div>
@@ -805,7 +805,7 @@ export default {
      
           },
 
-          this.$store.getters.getUtilisateur.etudiantDto.id
+         // this.$store.getters.getUtilisateur.etudiantDto.id
 
         )
        
@@ -962,18 +962,50 @@ console.log(this.form.annexeDtos);
         );
     },
 
-    addExp() {
-      this.expPro.push(this.form.experienceProfessionnelleDtos);
-      console.log(this.expPro);
-      this.formExp = {
-           id:0,  
-           tacheRealisee:"",
-           moyenUtilise:"",
-           collaborateur:"",
-           contexte:"",
-           information:""
-            }
+    updateExperiencePro()
+    {
+      experiencesApi.update({
           
+           id: this.expPro.id,
+           tacheRealisee: this.expPro.tacheRealisee,
+           moyenUtilise: this.expPro.moyenUtilise,
+           collaborateur: this.expPro.collaborateur,
+           contexte: this.expPro.contexte,
+           information: this.expPro.information,
+           competenceProfessionnelleId: this.tempCompetence.id,
+           dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
+           version: this.expPro.version
+      },
+           this.$store.getters.getUtilisateur.etudiantDto.id
+
+)
+
+// REDIRECTION
+.then(() =>
+  this.$bvModal.hide("exp-pro-modal"),
+  this.$bvModal.show("modal-update-success"),
+);
+},
+
+    addExp() {        
+        experiencesApi.save({
+          id: 0,
+              tacheRealisee: this.expPro.tacheRealisee,
+              moyenUtilise: this.expPro.moyenUtilise,
+              collaborateur: this.expPro.collaborateur,
+              contexte: this.expPro.contexte,
+              information: this.expPro.information,
+              competenceProfessionnelleId: this.tempCompetence.id
+          },
+           this.$store.getters.getUtilisateur.etudiantDto.id,
+           
+          
+)
+// REDIRECTION
+.then(() =>
+  this.$bvModal.hide("exp-pro-modal"),
+  this.$bvModal.show("modal-create-success")
+);
 
 },
 
