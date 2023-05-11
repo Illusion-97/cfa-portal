@@ -30,9 +30,6 @@
         </option>
       </select>
 
-      <!-- AJOUT TUTEUR -->
-      <addTuteur/>
-      
       <!-- MAJ UTILISATEURS -->
       <div class="updateListCursus p-2">
         <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
@@ -54,6 +51,10 @@
         </div>
       </div>
     </div>
+    
+    <!-- AJOUT TUTEUR -->
+    <addTuteur/>
+      
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
