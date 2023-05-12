@@ -93,7 +93,8 @@
                                 <v-row>
                                     <v-col cols="12" md="6">
                                         <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormationId"
-                                            label="Centre de formation*" :rules="required" outlined clearable required></v-select>
+                                            label="Centre de formation*" :rules="required" outlined clearable
+                                            required></v-select>
                                     </v-col>
                                     <v-col cols="12" md="6">
                                         <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise" outlined
@@ -211,7 +212,8 @@ export default {
                         let item = { text: centreFormation.nom, value: centreFormation.id }
                         this.listCentreFormation.push(item);
                     })
-                })
+                });
+            this.listCentreFormation.sort();
         },
         getEntreprise() {
             entrepriseApi
@@ -275,11 +277,10 @@ export default {
             this.formulaireTuteur.active = true
         },
         addTuteur() {
-            console.log(this.formulaireTuteur)
-
             this.formulaireTuteur.dateDeNaissance = this.date;
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
+            console.log(this.formulaireTuteur)
             utilisateurApi/*.addTuteur(this.formulaireTuteur);*/;
             this.visible = !this.visible;
 
