@@ -51,6 +51,7 @@
     "vue-template-compiler": "^2.6.14",
     "vue2-editor": "^2.10.3",
     "vuejs-paginate": "^2.1.0",
+    "vuejs3-datepicker": "^1.0.16",
     "vuelidate": "^0.7.6",
     "vuetify": "^2.6.14",
     "vuetify-datetime-picker": "^2.1.1",
