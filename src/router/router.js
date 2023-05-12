@@ -76,6 +76,7 @@ import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vu
 import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
 import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
 import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
+import DossierProfessionnels from "@/views/Etudiant/DossierProfessionnels.vue";
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -393,6 +394,14 @@ const routes = [
     component: DossierProjetEtudiant,
     meta: { authorize: [Role.Etudiant] },
   },
+
+  {
+    path: "/etudiant/dossierprofessionnels",
+    name: "etudiant_dossierpro",
+    component: DossierProfessionnels,
+    meta: { authorize: [Role.Etudiant] },
+  },
+
   {
     path: "/etudiant/creerdossierpro",
     name: "creer_dossier_pro",

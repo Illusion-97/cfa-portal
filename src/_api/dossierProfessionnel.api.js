@@ -14,7 +14,8 @@ export const dossierProfessionnelApi = {
   getAllDossierProfessionnelByEtudiantAndByCursus,
   generateDossierProByStudentAndPromo,
   genererDossierProfessionnel,
-  updateDossierProfessionnel
+  updateDossierProfessionnel,
+  handleFileUpload
 }
 
 /**
@@ -195,5 +196,18 @@ function genererDossierProfessionnel(idDossierPro){
   .get(req, requestOptions.headers())
   .then(response => response.data)
   .catch((error) => console.log(error));
+
+}
+
+function handleFileUpload(etudiantId, cursusId,file)
+{
+  const formData = new FormData();
+  if (file) {
+  formData.append('fileImport', file);
+  }
+  return axios
+    .post(`${END_POINT}/upload/${etudiantId}/${cursusId}`, formData)
+    .then((response) => response.data)
+    .catch((error) => console.log(error));
 
 }
