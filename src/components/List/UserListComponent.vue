@@ -118,7 +118,7 @@
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
-import addTuteur from "@/components/Modal/AddTuteur.vue"
+import addTuteur from "@/components/Admin/AddTuteur.vue"
 import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
