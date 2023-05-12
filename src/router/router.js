@@ -228,8 +228,7 @@ const routes = [
   //#######################
   //#       GLOBAL        #
   //#######################
-
-  { path: "/", redirect: { name: "home" } },
+  { path: "/", redirect: { name: "login" } },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/login", name: "login", component: LoginPage },
@@ -1735,6 +1734,7 @@ router.beforeEach((to, from, next) => {
     return next();
   }
   if (to.path !== "/login") {
+    //const bearer = localStorage.getItem('vuex');
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn) return next({ path: "/login" });
@@ -1754,7 +1754,7 @@ router.beforeEach((to, from, next) => {
             redirect = false;
           }
         }
-        //l'utilisateur n'a pas de role autorisé => redirect vers /home
+        //l'utilisateur n'a pas de role autorisé => redirect vers /403
         if (redirect) return next({ path: "/403" });
         else next(); // On laisse passer la requete
       }

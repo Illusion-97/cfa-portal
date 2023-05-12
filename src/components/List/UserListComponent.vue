@@ -30,9 +30,6 @@
         </option>
       </select>
 
-      <!-- AJOUT TUTEUR -->
-      <addTuteur/>
-      
       <!-- MAJ UTILISATEURS -->
       <div class="updateListCursus p-2">
         <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
@@ -54,6 +51,10 @@
         </div>
       </div>
     </div>
+    
+    <!-- AJOUT TUTEUR -->
+    <addTuteur/>
+      
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
@@ -117,7 +118,7 @@
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
-import addTuteur from "@/components/Modal/AddTuteur.vue"
+import addTuteur from "@/components/Admin/AddTuteur.vue"
 import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
