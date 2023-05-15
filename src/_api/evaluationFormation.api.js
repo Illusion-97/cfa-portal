@@ -79,7 +79,7 @@ function save(ev) {
 
 function update(ev) {
   return axios
-    .put(`${END_POINT}`,ev, requestOptions.headers())
+    .put(`${END_POINT}/update`,ev, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
