@@ -209,11 +209,10 @@ export default {
                 .getAllCentreFormations()
                 .then((data) => {
                     data.forEach(centreFormation => {
-                        let item = { text: centreFormation.nom, value: centreFormation.id }
+                        let item = { text: centreFormation.nom, value: centreFormation.id };
                         this.listCentreFormation.push(item);
                     })
                 });
-            this.listCentreFormation.sort();
         },
         getEntreprise() {
             entrepriseApi
@@ -222,8 +221,9 @@ export default {
                     data.forEach(entreprise => {
                         let item = { text: entreprise.raisonSociale }
                         this.listEntreprise.push(item);
+
                     })
-                })
+                });
         },
         getAdresse() {
             adresseApi
@@ -240,15 +240,13 @@ export default {
                 this.$refs["modal-Adresse"].show();
             else if (value == "Entreprise")
                 this.$refs["modal-Entreprise"].show();
-            else
+            else {
                 this.$refs["modal-Adresse"].hide();
-            this.$refs["modal-Entreprise"].hide();
+                this.$refs["modal-Entreprise"].hide();
+            }
         },
         hideModal() {
-            this.$refs["modal-Adresse"].hide();
-            this.$refs["modal-Entreprise"].hide();
-            this.getEntreprise();
-            this.getAdresse();
+            this.showModal();
         },
         openClick() {
             this.visible = !this.visible;
@@ -267,7 +265,7 @@ export default {
             this.formulaireTuteur.nom = "";
             this.formulaireTuteur.civilite = "";
             this.formulaireTuteur.dateDeNaissance = null;
-            this.formulaireTuteur.telephone = null;
+            this.formulaireTuteur.telephone = "";
             this.formulaireTuteur.telephoneFixe = null;
             this.formulaireTuteur.adresseDto = null;
             this.formulaireTuteur.entrepriseDto = null;
@@ -280,10 +278,9 @@ export default {
             this.formulaireTuteur.dateDeNaissance = this.date;
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
-            console.log(this.formulaireTuteur)
+            console.log(this.formulaireTuteur);
             utilisateurApi/*.addTuteur(this.formulaireTuteur);*/;
             this.visible = !this.visible;
-
         },
     }
 }          
