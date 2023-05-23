@@ -152,8 +152,8 @@ import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import { adresseApi } from "@/_api/adresse.api.js";
 import { entrepriseApi } from "@/_api/entreprise.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
-import addAdresse from "@/components/Modal/AddAdresse.vue"
-import addEntreprise from "@/components/Modal/AddEntreprise.vue"
+import addAdresse from "@/components/Modal/AddAdresse.vue";
+import addEntreprise from "@/components/Modal/AddEntreprise.vue";
 export default {
     name: "AddTuteur",
     components: {
@@ -171,15 +171,13 @@ export default {
                 dateDeNaissance: "",
                 telephone: "",
                 adresseDto: {
-                    id: null
+                    id: 0
                 },
                 entrepriseDto: {
-                    id: null
+                    id: 0
                 },
                 rolesDto: {
                     id: 5,
-                    version: 0,
-                    intitule: "TUTEUR",
                 },
                 centreFormationId: null,
                 externalAccount: true,
@@ -193,7 +191,6 @@ export default {
             adresseId: 0,
             entrepriseId: 0,
             menu: false,
-            modal: "",
             visible: false,
             required: [
                 v => !!v || 'Le champ est requis',
@@ -267,9 +264,9 @@ export default {
             this.formulaireTuteur.dateDeNaissance = null;
             this.formulaireTuteur.telephone = "";
             this.formulaireTuteur.telephoneFixe = null;
-            this.formulaireTuteur.adresseDto = null;
-            this.formulaireTuteur.entrepriseDto = null;
-            this.formulaireTuteur.rolesDto = null;
+            this.formulaireTuteur.adresseDto = 0;
+            this.formulaireTuteur.entrepriseDto = 0;
+            this.formulaireTuteur.rolesDto.id = 5;
             this.formulaireTuteur.centreFormationId = null;
             this.formulaireTuteur.externalAccount = true;
             this.formulaireTuteur.active = true
@@ -279,7 +276,7 @@ export default {
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             console.log(this.formulaireTuteur);
-            utilisateurApi/*.addTuteur(this.formulaireTuteur);*/;
+            utilisateurApi.addTuteur(this.formulaireTuteur);
             this.visible = !this.visible;
         },
     }

@@ -4,7 +4,7 @@
             <form @submit="addAdresse">
                 <v-row>
                     <v-col cols="12" md="2">
-                        <v-select :items="pays" v-model="adresseDto.country" label="Pays*" outlined clearable :rules="required" required>
+                        <v-select :items="pays" v-model="adresseDto.countryCode" label="Pays*" outlined clearable :rules="required" required>
                         </v-select>
                     </v-col>
                     <v-col cols="12" md="6">
@@ -46,7 +46,7 @@ export default {
                 ville: "",
                 codePostal: "",
                 idDg2: 0,
-                country: "",
+                countryCode: "",
             },
             pays: ['BE', 'EL', 'LT', 'PT', 'BG', 'ES', 'LU', 'RO', 'CZ', 'FR', 'HU', 'SI', 'DK', 'HR', 'MT', 'SK', 'DE', 'IT', 'NL', 'FI', 'EE', 'CY', 'AT', 'SE', 'IE', 'LV', 'PL'].sort(),
             required: [
