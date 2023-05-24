@@ -7,7 +7,7 @@
                     <v-col cols="12" md="6">
                         <div class="w-100 d-flex justify-content-center">
                             <v-text-field v-model="entrepriseDto.raisonSociale" label="Nom de l'entreprise*" outlined
-                                clearable :rules="required" required></v-text-field>
+                                clearable :rules="[ v => !!v || 'Le champ est requis']" required></v-text-field>
                         </div>
                     </v-col>
                     <v-col cols="12" md="4">
@@ -40,8 +40,8 @@
                 <!-- ADRESSE -->
                 <v-row>
                     <v-col cols="12" md="12">
-                        <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined clearable :rules="required" required
-                            @click="getAdresse()">
+                        <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined clearable
+                            :rules="required" required @click="getAdresse()">
                             <template v-slot:prepend-item>
                                 <v-list-item @click="showModal('Adresse')">
                                     <v-list-item-action>
@@ -98,19 +98,16 @@ export default {
             adresseId: 0,
             pays: ['BE', 'EL', 'LT', 'PT', 'BG', 'ES', 'LU', 'RO', 'CZ', 'FR', 'HU', 'SI', 'DK', 'HR', 'MT', 'SK', 'DE', 'IT', 'NL', 'FI', 'EE', 'CY', 'AT', 'SE', 'IE', 'LV', 'PL'].sort(),
             type: ['PUBLIC', 'PRIVER'],
-            required: [
-                v => !!v || 'Le champ est requis',
-            ],
             requiredSiret: [
                 v => !!v || 'Le champ est requis',
-                v => !!v.match("^\\d{12}$") || '12 chiffres requis',
+                v => /^\\d{12}$/.test(v) || '12 chiffres requis',
             ],
             requiredNaf: [
                 v => !!v || 'Le champ est requis',
-                v => !!v.match("^\\d{5}$") || '5 chiffres requis',
+                v => /^\\d{5}$/.test(v) || '5 chiffres requis',
             ],
             requireChiffre: [
-                v => !!v.match("^\\d+$") || 'Insérer que des chiffres',
+                v => /^\\d+$/.test(v) || 'Insérer que des chiffres',
             ],
         }
     },

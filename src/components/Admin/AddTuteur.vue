@@ -44,8 +44,11 @@
                                     </v-col>
                                     <v-col cols="12" md="6">
                                         <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.password" label="Mot de passe*" outlined
-                                                type="password" :rules="required" clearable required></v-text-field>
+                                            <v-text-field v-model="formulaireTuteur.password"
+                                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1"
+                                                label="Mot de passe*" outlined :rules="required" clearable
+                                                required></v-text-field>
                                         </div>
                                     </v-col>
                                 </v-row>
@@ -53,7 +56,8 @@
                                     <v-col cols="12" md="3">
                                         <div class="w-100 d-flex justify-content-center">
                                             <v-text-field v-model="formulaireTuteur.telephone" label="Téléphone" outlined
-                                                clearable :rules="regex"></v-text-field>
+                                                clearable
+                                                :rules="[v => /^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']"></v-text-field>
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="5">
@@ -75,8 +79,8 @@
                                             min-width="auto">
                                             <template v-slot:activator="{ on, attrs }">
                                                 <v-text-field v-model="date" label="Date de naissance"
-                                                    prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined
-                                                    clearable></v-text-field>
+                                                    prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                    outlined clearable></v-text-field>
                                             </template>
                                             <v-date-picker v-model="date" no-title scrollable>
                                                 <v-spacer></v-spacer>
@@ -170,6 +174,7 @@ export default {
                 civilite: "",
                 dateDeNaissance: "",
                 telephone: "",
+
                 adresseDto: {
                     id: 0
                 },
@@ -192,11 +197,9 @@ export default {
             entrepriseId: 0,
             menu: false,
             visible: false,
+            show1: false,
             required: [
                 v => !!v || 'Le champ est requis',
-            ],
-            regex: [
-                v => !!v.match("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$") || 'Numéro invalide',
             ],
         };
     },
