@@ -1,7 +1,7 @@
 <template>
-  <v-card>
+
   <footer>
-    <svg viewBox="0 -20 700 110" width="100%" height="390" preserveAspectRatio="none">
+    <svg viewBox="0 -20 700 110" width="100%" height="380" preserveAspectRatio="none">
       <path d="M0,10 c80,-18 230,-12 350,7 c80,13 260,17 350,-5 v100 h-700z" fill="#565656" />
     </svg>
     <div class="content">
@@ -82,7 +82,7 @@
       </div>
     </div>
   </footer>
-</v-card>
+
 </template>
 
 <style scoped>
@@ -110,7 +110,7 @@ a {
 }
 
 a:hover {
-  color: #FFF;
+  color: #03a9f4;
 }
 
 a:link {
@@ -139,6 +139,7 @@ a:active {
 
 .mon-logo {
   width: 6em;
+
 }
 
 .content {
@@ -150,12 +151,23 @@ a:active {
 }
 
 footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
-  height: 5%;
+  margin-top: 30vh;
   /*bottom: 0;
   left: 0;
   right: 0; */
+}
+@media screen and (max-width: 1920px) {
+  footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 30vh;
+    /*bottom: 0;
+    left: 0;
+    right: 0; */
+  }
 }
 </style>

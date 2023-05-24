@@ -1,9 +1,15 @@
 <template>
   <div id="main-cr-prj">
     <div>
-      <nav>
-
-        <v-card-title>Nom du Dossier : {{dossierModif.nom}} <br> {{dossierModif.annexeDossierProjetDtos}}</v-card-title>
+      <nav class="nav-align">
+        <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
+          <!-- Bouton retour en arrière -->
+          <button class="btn btn-secondary nav-item" @click="retour()">
+            Retour
+          </button>
+          <button class="btn btn-success nav-item" @click="submit()">
+            Sauvegarder
+          </button>
       </nav>
     </div>
     <div>
@@ -13,28 +19,57 @@
           <p>Importer un dossier :</p>
         </div>
 
-        <section v-if="dossierModif.dossierImport != null">
+        <section >
             <v-card id="listImportDoss" class="mb-10" >
               <v-simple-table>
                 <thead>
                 <tr>
-                  <th>test</th>
-                  <th>actions</th>
+                  <th style="width: 80%">Import</th>
+                  <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td >
-                    {{dossierModif.dossierImport}}
-                  </td>
-                  <td><v-btn>supprimer</v-btn><v-btn>modifier</v-btn></td>
+                <tr v-if="DossierProjet.dossierImport">
+
+                  <td v-if="versionImport === 0">{{DossierProjet.dossierImport}}</td>
+                  <td v-else>{{DossierProjet.dossierImport.name}}</td>
+                  <v-btn  @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</v-btn>
+
+                  <!-- Modal Confirmation Suppression Annexe -->
+                  <b-modal :id="'modal-delete-import-confirmation' " centered size="lg" no-close-on-esc hide-footer>
+                    <p>
+                      Voulez-vous supprimer cette Import : <strong>{{DossierProjet.dossierImport}}</strong> ?
+                    </p>
+                    <div class="div-ok">
+                      <button class="btn btn-success" @click="deleteImport(DossierProjet.dossierImport); $bvModal.hide('modal-delete-import-confirmation')">Valider</button>
+                      <button class="btn btn-secondary" @click="$bvModal.hide('modal-delete-import-confirmation')">Annuler</button>
+                    </div>
+                  </b-modal>
+                </tr>
+
+                <tr v-else>
+                  <td><v-file-input v-model="fileImport" accept="*"></v-file-input></td>
+                  <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="DossierProjet.dossierImport === null">Envoyer</v-btn></td>
+
+                  <!-- Modal Confirmation Envoi Import -->
+                  <b-modal :id="'modal-import-confirmation'" centered size="lg" no-close-on-esc hide-footer>
+                    <p>
+                      Voulez-vous Ajouter cette Import : <strong>{{fileImport}}</strong> ?
+                    </p>
+                    <div class="div-ok">
+                      <button class="btn btn-success" @click="submitImport(fileImport); $bvModal.hide('modal-import-confirmation')">Valider</button>
+                      <button class="btn btn-secondary" @click="$bvModal.hide('modal-import-confirmation')">Annuler</button>
+                    </div>
+                  </b-modal>
                 </tr>
                 </tbody>
               </v-simple-table>
             </v-card>
           </section>
-        <section v-else>
-          <v-file-input v-model="dossierModif.dossierImport" accept="image/*"></v-file-input>
+        <section >
+
+
+
         </section>
       </section>
       <!-- ******************************************************** -->
@@ -67,82 +102,109 @@
                           <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
                           <v-card-subtitle>Dossier : {{ DossierProjet.nom }}</v-card-subtitle>
                         </v-card-text>
-                        <vue-editor v-model="DossierProjet.infoDossierProjets.information_projet"
+                        <vue-editor v-model="DossierProjet.infoDossierProjets[0]"
                                     id="exp1"  placeholder="Informations du Projet" readonly />
                       </v-card>
                     </div>
 
                     <div v-show="active === 2" >
-                      <v-card>
-                        <div>
-                          <div class="card-body">
-                            <v-list v-for="activites in activiteTypes" :key="activites.id">
-                              <div class="row align-items-center">
-                                <v-col>
-                                  <v-col style="width: 50vw">
-                                    <v-list-item-title class="">{{ activites.libelle }}</v-list-item-title>
-                                  </v-col>
-                                </v-col>
-                                <v-col class="col-md-15">
-                                  <ul class="list-unstyled">
-                                    <v-list-item v-for="competences in activites.competencesProfessionnellesDto" :key="competences.id"
-                                                 @click="toggleSelectedComp(competences.id)" :style="selectedComp(competences.id)">
-                                      <li>
-                                        {{competences.id + ". " + competences.libelle }}
-                                      </li >
-                                    </v-list-item>
-                                  </ul>
-                                </v-col>
+                      <!--<v-card>
+                        <div class="card-body">
+                          <v-list v-for="activites in activiteTypes" :key="activites.id" style="background-color: #F2F2F2;">
+                            <div class="row align-items-center">
+                              <div class="col" id="bloc-activite">
+                                <v-list-item-title class="text-wrap" style="word-wrap: break-word;">{{ activites.libelle }}</v-list-item-title>
                               </div>
-                            </v-list>
-                          </div>
+                              <div class="col-sm-6">
+                                <ul class="list-unstyled" id="bloc-competence">
+                                  <v-list-item v-for="competences in activites.competencesProfessionnellesDto" :key="competences.id" @click="toggleSelectedComp(competences.id)" id="list-competence" :style="selectedComp(competences.id)">
+                                    <li>
+                                      {{competences.id + ". " + competences.libelle }}
+                                    </li >
+                                  </v-list-item>
+                                </ul>
+                              </div>
+                            </div>
+                          </v-list>
                         </div>
-                      </v-card>
+                      </v-card>-->
                     </div>
                     <div v-show="active === 3">
                       <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
                         <div>
-                          <vue-editor h-auto v-model="DossierProjet.resumeDossierProjets.resume_projet" id="exp1" placeholder="Résumé du Projet" readonly />
+                          <vue-editor h-auto  v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
                         </div>
                       </b-collapse>
                     </div>
                     <div v-show="active === 4" >
                       <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
                         <div>
-                          <vue-editor v-model="DossierProjet.contenuDossierProjets.contenu_projet" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
+                          <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
                         </div>
                       </b-collapse>
                     </div>
                     <div v-show="active === 5">
-                      <v-card-title>Liste des annexes</v-card-title>
-                      <v-btn class="text-right ml-2" @click="addAnnexe">
-                        Ajouter une annexe
-                      </v-btn>
-                      <v-simple-table>
-                        <thead>
-                        <tr>
-                          <th class="text-left">File</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(annexe, index) in dossierModif.annexeDossierProjetDtos" :key="annexe.id">
-                          <td>
-                            {{annexe.pieceJointe}}
-                            <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
-                          </td>
-                        </tr>
-                        </tbody>
-                      </v-simple-table>
+                      <div >
+                        <div >
+                          <v-card-title>Liste des annexes</v-card-title>
+                          <v-btn class="text-right ml-2" @click="addAnnexe">
+                            Ajouter une annexe
+                          </v-btn>
+                          <v-simple-table>
+                            <thead>
+                            <tr>
+                              <th style="width: 80%" class="text-left">File</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(files, index) in DossierProjet.annexeDossierProjets" :key="files.id">
+                              <td>
+                                <template>
+                                  {{ DossierProjet.annexeDossierProjets[index] }}
+                                </template>
+                              </td>
+                               <!--td Pour la suppression des annexes-->
+                              <td>
+                                <v-btn class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</v-btn>
+
+                                <!-- Modal Confirmation Suppression Annexe -->
+                                <b-modal :id="'modal-delete-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
+                                  <p>
+                                    Voulez-vous supprimer cette Annexe : <strong>{{ DossierProjet.annexeDossierProjets[index]}}</strong> ?
+                                  </p>
+                                  <div class="div-ok">
+                                    <button class="btn btn-success" @click="confirmDeleteAnnexe(DossierProjet.annexeDossierProjets[index], index); $bvModal.hide('modal-delete-confirmation-' + index)">Valider</button>
+                                    <button class="btn btn-secondary" @click="$bvModal.hide('modal-delete-confirmation-' + index)">Annuler</button>
+                                  </div>
+                                </b-modal>
+                              </td>
+                            </tr>
+                            <tr v-for="(files,index) in filesAnnexe" :key="files.id">
+                              <td class="col-md-9">
+                                <v-file-input v-model="files.file" accept="image/*" :id="'fileInput_' + index" label="Annexes du Dossier Projet"></v-file-input>
+                              </td>
+                              <td>
+                                <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
+                                <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file != undefined">Envoyer</v-btn>
+
+                                <!-- Modal Confirmation Envoi Annexe -->
+                                <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
+                                  <p>
+                                    Voulez-vous Ajouter cette Annexe : <strong>{{files.file}}</strong> ?
+                                  </p>
+                                  <div class="div-ok">
+                                    <button class="btn btn-success" @click="submitAnnexe(files.file, index); $bvModal.hide('modal-annexe-confirmation-' + index)">Valider</button>
+                                    <button class="btn btn-secondary" @click="$bvModal.hide('modal-annexe-confirmation-' + index)">Annuler</button>
+                                  </div>
+                                </b-modal>
+                              </td>
+                            </tr>
+                            </tbody>
+                          </v-simple-table>
+                        </div>
+                      </div>
                     </div>
                   </v-card>
-                  <div class="d-flex justify-content-center">
-                    <div class="text-left" style="width:15%">
-                      <button class="btn btn-secondary" @click="clear()">Annuler</button>
-                    </div>
-                    <div class="text-right" style="width:15%">
-                      <button class="btn btn-success" @click="submit()">Sauvegarder</button>
-                    </div>
-                  </div>
                 </section>
               </section>
             </div>
@@ -166,10 +228,8 @@
 </template>
 <script>
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
 import { VueEditor } from "vue2-editor";
-import { activiteTypeApi } from "@/_api/activiteType.api.js";
-
+//import {activiteTypeApi} from "@/_api/activiteType.api.js";
 
 export default {
   name: "DossierProjetCreer",
@@ -177,33 +237,20 @@ export default {
   data() {
     return {
       active: 1,
+      versionImport:0,
       dossierProjetId: 0,
       studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
-      etudiants: [],
+      fileImport:undefined,
       activiteTypes: [],
       dossierModif:{},
-      DossierProjet: {
-        dossierImport:"",
-        nom: "",
-        projet: {
-          id: 0,
-          nom: "",
-        },
-        annexeDossierProjets: [{ pieceJointe: null }],
-        infoDossierProjets: [{ information_projet: "" }],
-        competenceProfessionnelleId: [],
-        contenuDossierProjets: [{ contenu_projet: "" }],
-        resumeDossierProjets: [{ resume_projet: "" }],
-      }
+      filesAnnexe: [{file:undefined}],
+      DossierProjet: {},
     };
   },
   created() {
     console.clear()
-    console.log(this.dossierModif)
-    this.getIdFromUrl();
     this.getDossierProjetById();
-    this.getEtudiant();
-    this.getActiviteTypeByCursus();
+    //this.getActiviteTypeByCursus(7);
   },
   methods: {
     retour() {
@@ -213,9 +260,7 @@ export default {
       const url = window.location.href;
       const segments = url.split('/');
       this.dossierProjetId = segments[segments.length - 1];
-      return console.log(this.dossierProjetId);
     },
-    //***Partie sur les competenceCouvertes du DossierProjet***
     toggleSelectedComp(compid){
 
       const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleId;
@@ -229,108 +274,78 @@ export default {
         console.log(CompetencesCouvertes)
       }
     },
+    deleteImport(file){
+      dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
+        this.DossierProjet.dossierImport = null;
+        this.versionImport++
+      })
 
-    //*********************************************************
-
-
-    //*******Partie sur les annexes du DossierProjet*******
-    deleteAnnexe(index) {
-      this.DossierProjet.annexeDossierProjets.splice(index, 1);
+    },
+    confirmDeleteAnnexe(file, index) {
+      dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
+        this.DossierProjet.annexeDossierProjets.splice(index, 1);
+      });
     },
     addAnnexe() {
-      this.DossierProjet.annexeDossierProjets.unshift({
-        id: this.DossierProjet.annexeDossierProjets.length + 1,
-      });
-      const newAnnexe = {
-        id: this.DossierProjet.annexeDossierProjets.id,
-        version: 0,
-        pieceJointe: null,
-        dossierProjetId: 0,
-      };
-      console.log(newAnnexe.pieceJointe)
+      console.log(this.filesAnnexe)
+    this.filesAnnexe.unshift({
+      id: this.filesAnnexe.length + 1,
+    });
+    const newAnnexe = {
+    };
+    return newAnnexe;
+  },
+    deleteAnnexe(index) {
+      this.filesAnnexe.splice(index, 1);
     },
-    onFileChange(index) {
-      this.DossierProjet.annexeDossierProjets[index].pieceJointe = event.target.files[0];
+    submitImport(dossierImport, index){
+      dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
+          .then(() => console.log("Fichier importé enregistré avec succès"),this.$bvModal.hide('modal-import-confirmation-' + index))
+          .catch((error) => console.error("Erreur lors de l'enregistrement du fichier importé :", error));
     },
-    //******************************************************
-    submit() {
-      const {
-        dossierImport,
+    submitAnnexe(file, index){
+      console.log("avant annexe")
+      dossierProjetApi.updateAnnexe(file, this.dossierProjetId)
+          .then(() => console.log("Annexes importé enregistré avec succès"),
+              this.$bvModal.hide('modal-annexe-confirmation-' + index),
+          this.DossierProjet.annexeDossierProjets.push(file),
+          this.deleteAnnexe(index))
+          .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
+    },
+    async submit() {
+      // élements de DossierProjet
+      const {version, nom, projet, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets} = this.DossierProjet;
+      console.log("dossier projet submit : "+this.DossierProjet)
+      // Création de l'objet à envoyer
+      const dpDto = {
+        id:this.dossierProjetId,
+        version,
         nom,
-        projet,
-        annexeDossierProjets,
-        infoDossierProjets,
-        competenceProfessionnelleId,
-        contenuDossierProjets,
-        resumeDossierProjets,
-      } = this.DossierProjet;
-
-      // Envoi de chaque fichier
-      const annexeData = new FormData();
-      for (let i = 0; i < annexeDossierProjets.length; i++) {
-        const annexe = annexeDossierProjets[i];
-        if (annexe.pieceJointe) {
-          annexeData.append("pieceJointe", annexe.pieceJointe);
-        }
-      }
-
-      const dossierProjet = {
-        dossierImport,
-        nom,
+        etudiant: {id: this.studentId },
         projet: {
           id: projet.id,
           nom: projet.nom,
         },
-        annexeDossierProjets,
-        infoDossierProjets: [
-          {
-            information_projet: infoDossierProjets.information_projet,
-          },
-        ],
-        competenceProfessionnelleIds: [competenceProfessionnelleId],
-        contenuDossierProjets: [
-          {
-            contenu_projet: contenuDossierProjets.contenu_projet,
-          },
-        ],
-        resumeDossierProjets: [
-          {
-            resume_projet: resumeDossierProjets.resume_projet,
-          },
-        ],
+        infoDossierProjets: [infoDossierProjets[0]],
+        competenceProfessionnelleIds,
+        contenuDossierProjets: [contenuDossierProjets[0]],
+        resumeDossierProjets: [resumeDossierProjets[0]],
       };
+      await dossierProjetApi.update(dpDto).then(async (data) => {
+        this.DossierProjet = data;
+        this.$bvModal.show("modal-delete-success");
+      })
+    },
 
-      dossierProjetApi
-          .create(dossierProjet, this.idEtu, annexeData)
-          .then(async (data) => {
-            this.DossierProjet = data;
-            this.clear();
-            this.$bvModal.show("modal-delete-success");
-            console.log(data);
-          })
-          .catch((error) => {
-            console.error("Upload error:", error);
-            this.$emit("erreur", error);
-          });
-    },
-    getEtudiant() {
-      etudiantApi
-          .getById(this.studentId)
-          .then((response) => (this.etudiants = response, console.log(response)));
-    },
     getDossierProjetById(){
-      dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.dossierModif = response, console.log( response)})
+      this.getIdFromUrl();
+      dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.DossierProjet = response})
     },
-    getActiviteTypeByCursus(){
-      activiteTypeApi
-          .getActiviteTypesByCursus(7)
-          .then((response) => {this.activiteTypes = response})
-    },
-    clear() {
-      this.DossierProjet.contenuDossierProjets.contenu_projet = "";
-      this.DossierProjet.resumeDossierProjets.resume_projet = "";
-      this.DossierProjet.infoDossierProjets.information_projet = "";
-    }
+    //getActiviteTypeByCursus(id){
+    //  activiteTypeApi
+    //      .getActiviteTypesByCursus(id)
+    //      .then((response) => {this.activiteTypes = response, console.log(this.activiteTypes)})
+    //}
   },
 
 
@@ -378,5 +393,36 @@ button {
 .comp-doss button {
   background-color: #495057;
   color: white;
+}
+
+.nav-align{
+
+}
+
+.nav-item{
+  display: inline-block;
+  margin: 0 10px; /* Ajouter des marges pour séparer les éléments */
+}
+
+@media screen and (max-width: 1920px) {
+  #bloc-competence {
+    width: 100%;
+    background-color: #F2F2F2;
+  }
+  #list-competence{
+    width: 100%;
+  }
+  .row {
+    flex-wrap: wrap;
+  }
+  #bloc-activite {
+    width: 50%;
+  }
+  #main-cr-prj {
+    background-color: transparent;
+    padding: 20px;
+    margin: 0 2% 10vh 2%;
+    height: 130vh;
+  }
 }
 </style>
