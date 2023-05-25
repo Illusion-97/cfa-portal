@@ -97,8 +97,7 @@
                                 <v-row>
                                     <v-col cols="12" md="6">
                                         <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormationId"
-                                            label="Centre de formation*" :rules="required" outlined clearable
-                                            required></v-select>
+                                            label="Centre de formation" outlined clearable></v-select>
                                     </v-col>
                                     <v-col cols="12" md="6">
                                         <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise" outlined
@@ -171,18 +170,20 @@ export default {
                 password: "",
                 prenom: "",
                 nom: "",
-                civilite: "",
-                dateDeNaissance: "",
-                telephone: "",
-
-                adresseDto: {
-                    id: 0
-                },
-                entrepriseDto: {
-                    id: 0
-                },
+                civilite: null,
+                dateDeNaissance: null,
+                telephone: null,
+                // adresseDto: {
+                //     id: null
+                // },
+                // entrepriseDto: {
+                //     id: null
+                // },
                 rolesDto: {
                     id: 5,
+                    version: 0,
+                    intitule: "TUTEUR",
+                    utilisateursDto: null
                 },
                 centreFormationId: null,
                 externalAccount: true,
@@ -193,14 +194,12 @@ export default {
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
             date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-            adresseId: 0,
-            entrepriseId: 0,
+            adresseId: null,
+            entrepriseId: null,
             menu: false,
             visible: false,
             show1: false,
-            required: [
-                v => !!v || 'Le champ est requis',
-            ],
+            required: [ v => !!v || 'Le champ est requis' ],
         };
     },
     methods: {
@@ -263,21 +262,18 @@ export default {
             this.formulaireTuteur.password = "";
             this.formulaireTuteur.prenom = "";
             this.formulaireTuteur.nom = "";
-            this.formulaireTuteur.civilite = "";
+            this.formulaireTuteur.civilite = null;
             this.formulaireTuteur.dateDeNaissance = null;
-            this.formulaireTuteur.telephone = "";
+            this.formulaireTuteur.telephone = null;
             this.formulaireTuteur.telephoneFixe = null;
-            this.formulaireTuteur.adresseDto = 0;
-            this.formulaireTuteur.entrepriseDto = 0;
-            this.formulaireTuteur.rolesDto.id = 5;
+            this.formulaireTuteur.adresseDto = null;
+            this.formulaireTuteur.entrepriseDto = null;
             this.formulaireTuteur.centreFormationId = null;
-            this.formulaireTuteur.externalAccount = true;
-            this.formulaireTuteur.active = true
         },
         addTuteur() {
-            this.formulaireTuteur.dateDeNaissance = this.date;
-            this.formulaireTuteur.adresseDto.id = this.adresseId;
-            this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
+            // this.formulaireTuteur.dateDeNaissance = this.date;
+            // this.formulaireTuteur.adresseDto.id = this.adresseId;
+            // this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             console.log(this.formulaireTuteur);
             utilisateurApi.addTuteur(this.formulaireTuteur);
             this.visible = !this.visible;
