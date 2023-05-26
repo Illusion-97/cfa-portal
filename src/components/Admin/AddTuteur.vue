@@ -264,9 +264,6 @@ export default {
             this.formulaireTuteur.civilite = null;
             this.formulaireTuteur.dateDeNaissance = null;
             this.formulaireTuteur.telephone = null;
-            this.formulaireTuteur.telephoneFixe = null;
-            this.formulaireTuteur.adresseDto = null;
-            this.formulaireTuteur.entrepriseDto = null;
             this.formulaireTuteur.centreFormationId = null;
             this.formulaireTuteur.adresseDto.id = null;
             this.formulaireTuteur.entrepriseDto.id = null;
