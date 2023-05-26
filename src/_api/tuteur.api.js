@@ -9,6 +9,7 @@ export const tuteurApi = {
   getCount, 
   getAllEtudiantsByTuteurId,
   getAllEtudiantsByTuteurIdBySearch,
+  save,
 };
 
 const END_POINT = "tuteur";
@@ -66,5 +67,12 @@ function getAllEtudiantsByTuteurIdBySearch(id, search) {
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
+}
+
+function save(tuteur) {
+  return axios
+    .post(`${END_POINT}`,tuteur, requestOptions.headers())
+    .then((response) => response.data)
     .catch((error) => console.log(error));
 }

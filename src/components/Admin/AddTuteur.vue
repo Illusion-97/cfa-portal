@@ -75,19 +75,19 @@
                                     </v-col>
                                     <v-col cols="12" md="4">
                                         <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                            :return-value.sync="date" transition="scale-transition" offset-y
+                                            :return-value.sync="formulaireTuteur.dateDeNaissance" transition="scale-transition" offset-y
                                             min-width="auto">
                                             <template v-slot:activator="{ on, attrs }">
-                                                <v-text-field v-model="date" label="Date de naissance"
+                                                <v-text-field v-model="formulaireTuteur.dateDeNaissance" label="Date de naissance"
                                                     prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
                                                     outlined clearable></v-text-field>
                                             </template>
-                                            <v-date-picker v-model="date" no-title scrollable>
+                                            <v-date-picker v-model="formulaireTuteur.dateDeNaissance" no-title scrollable>
                                                 <v-spacer></v-spacer>
                                                 <v-btn text color="primary" @click="menu = false">
                                                     Cancel
                                                 </v-btn>
-                                                <v-btn text color="primary" @click="$refs.menu.save(date)">
+                                                <v-btn text color="primary" @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
                                                     OK
                                                 </v-btn>
                                             </v-date-picker>
@@ -173,33 +173,32 @@ export default {
                 civilite: null,
                 dateDeNaissance: null,
                 telephone: null,
-                // adresseDto: {
-                //     id: null
-                // },
-                // entrepriseDto: {
-                //     id: null
-                // },
-                rolesDto: {
-                    id: 5,
-                    version: 0,
-                    intitule: "TUTEUR",
-                    utilisateursDto: null
+                adresseDto: {
+                    id: null
                 },
+                entrepriseDto: {
+                    id: null
+                },
+                rolesDto: [
+                    {
+                        intitule: "TUTEUR"
+                    }
+                ],
                 centreFormationId: null,
-                externalAccount: true,
+                externalAccount: false,
                 active: true
             },
             listCentreFormation: [],
             listEntreprise: [],
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
-            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
             adresseId: null,
+            tuteurDto: {},
             entrepriseId: null,
             menu: false,
             visible: false,
             show1: false,
-            required: [ v => !!v || 'Le champ est requis' ],
+            required: [v => !!v || 'Le champ est requis'],
         };
     },
     methods: {
@@ -218,7 +217,7 @@ export default {
                 .getAllEntreprises()
                 .then((data) => {
                     data.forEach(entreprise => {
-                        let item = { text: entreprise.raisonSociale }
+                        let item = { text: entreprise.raisonSociale, value: entreprise.id }
                         this.listEntreprise.push(item);
 
                     })
@@ -269,11 +268,12 @@ export default {
             this.formulaireTuteur.adresseDto = null;
             this.formulaireTuteur.entrepriseDto = null;
             this.formulaireTuteur.centreFormationId = null;
+            this.formulaireTuteur.adresseDto.id = null;
+            this.formulaireTuteur.entrepriseDto.id = null;
         },
         addTuteur() {
-            // this.formulaireTuteur.dateDeNaissance = this.date;
-            // this.formulaireTuteur.adresseDto.id = this.adresseId;
-            // this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
+            this.formulaireTuteur.adresseDto.id = this.adresseId;
+            this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             console.log(this.formulaireTuteur);
             utilisateurApi.addTuteur(this.formulaireTuteur);
             this.visible = !this.visible;
