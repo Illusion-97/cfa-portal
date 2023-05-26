@@ -267,13 +267,15 @@ export default {
             this.formulaireTuteur.centreFormationId = null;
             this.formulaireTuteur.adresseDto.id = null;
             this.formulaireTuteur.entrepriseDto.id = null;
+            this.adresseId = null;
+            this.entrepriseId = null;
         },
         addTuteur() {
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
-            console.log(this.formulaireTuteur);
             utilisateurApi.addTuteur(this.formulaireTuteur);
             this.visible = !this.visible;
+            this.clear();
         },
     }
 }          
