@@ -111,9 +111,13 @@
                                     <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                                     Ajouter
                                 </v-btn>
-                                <v-btn color="secondary" @click="clear">
+                                <v-btn class="mr-4" color="secondary" @click="clear">
                                     <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
                                     Vider
+                                </v-btn>
+                                <v-btn class="mr-4" color="error" @click="hideComponent">
+                                    <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'trash']" />
+                                    Annuler
                                 </v-btn>
                             </v-container>
                         </form>
@@ -241,6 +245,10 @@ export default {
         },
         hideModal() {
             this.showModal();
+        },
+        hideComponent() {
+            this.clear();
+            this.$emit('hidden');
         },
         clear() {
             this.formulaireTuteur.login = "";
