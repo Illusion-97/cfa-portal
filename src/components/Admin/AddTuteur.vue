@@ -44,8 +44,11 @@
                                     </v-col>
                                     <v-col cols="12" md="6">
                                         <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.password" label="Mot de passe*" outlined
-                                                type="password" :rules="required" clearable required></v-text-field>
+                                            <v-text-field v-model="formulaireTuteur.password"
+                                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1"
+                                                label="Mot de passe*" outlined :rules="required" clearable
+                                                required></v-text-field>
                                         </div>
                                     </v-col>
                                 </v-row>
@@ -53,7 +56,8 @@
                                     <v-col cols="12" md="3">
                                         <div class="w-100 d-flex justify-content-center">
                                             <v-text-field v-model="formulaireTuteur.telephone" label="Téléphone" outlined
-                                                clearable :rules="regex"></v-text-field>
+                                                clearable
+                                                :rules="[v => /^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']"></v-text-field>
                                         </div>
                                     </v-col>
                                     <v-col cols="12" md="5">
@@ -71,19 +75,19 @@
                                     </v-col>
                                     <v-col cols="12" md="4">
                                         <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                            :return-value.sync="date" transition="scale-transition" offset-y
+                                            :return-value.sync="formulaireTuteur.dateDeNaissance" transition="scale-transition" offset-y
                                             min-width="auto">
                                             <template v-slot:activator="{ on, attrs }">
-                                                <v-text-field v-model="date" label="Date de naissance"
-                                                    prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined
-                                                    clearable></v-text-field>
+                                                <v-text-field v-model="formulaireTuteur.dateDeNaissance" label="Date de naissance"
+                                                    prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                                                    outlined clearable></v-text-field>
                                             </template>
-                                            <v-date-picker v-model="date" no-title scrollable>
+                                            <v-date-picker v-model="formulaireTuteur.dateDeNaissance" no-title scrollable>
                                                 <v-spacer></v-spacer>
                                                 <v-btn text color="primary" @click="menu = false">
                                                     Cancel
                                                 </v-btn>
-                                                <v-btn text color="primary" @click="$refs.menu.save(date)">
+                                                <v-btn text color="primary" @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
                                                     OK
                                                 </v-btn>
                                             </v-date-picker>
@@ -93,8 +97,7 @@
                                 <v-row>
                                     <v-col cols="12" md="6">
                                         <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormationId"
-                                            label="Centre de formation*" :rules="required" outlined clearable
-                                            required></v-select>
+                                            label="Centre de formation" outlined clearable></v-select>
                                     </v-col>
                                     <v-col cols="12" md="6">
                                         <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise" outlined
@@ -152,8 +155,8 @@ import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import { adresseApi } from "@/_api/adresse.api.js";
 import { entrepriseApi } from "@/_api/entreprise.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
-import addAdresse from "@/components/Modal/AddAdresse.vue"
-import addEntreprise from "@/components/Modal/AddEntreprise.vue"
+import addAdresse from "@/components/Modal/AddAdresse.vue";
+import addEntreprise from "@/components/Modal/AddEntreprise.vue";
 export default {
     name: "AddTuteur",
     components: {
@@ -167,40 +170,35 @@ export default {
                 password: "",
                 prenom: "",
                 nom: "",
-                civilite: "",
-                dateDeNaissance: "",
-                telephone: "",
+                civilite: null,
+                dateDeNaissance: null,
+                telephone: null,
                 adresseDto: {
                     id: null
                 },
                 entrepriseDto: {
                     id: null
                 },
-                rolesDto: {
-                    id: 5,
-                    version: 0,
-                    intitule: "TUTEUR",
-                },
+                rolesDto: [
+                    {
+                        intitule: "TUTEUR"
+                    }
+                ],
                 centreFormationId: null,
-                externalAccount: true,
+                externalAccount: false,
                 active: true
             },
             listCentreFormation: [],
             listEntreprise: [],
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
-            date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-            adresseId: 0,
-            entrepriseId: 0,
+            adresseId: null,
+            tuteurDto: {},
+            entrepriseId: null,
             menu: false,
-            modal: "",
             visible: false,
-            required: [
-                v => !!v || 'Le champ est requis',
-            ],
-            regex: [
-                v => !!v.match("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$") || 'Numéro invalide',
-            ],
+            show1: false,
+            required: [v => !!v || 'Le champ est requis'],
         };
     },
     methods: {
@@ -209,21 +207,21 @@ export default {
                 .getAllCentreFormations()
                 .then((data) => {
                     data.forEach(centreFormation => {
-                        let item = { text: centreFormation.nom, value: centreFormation.id }
+                        let item = { text: centreFormation.nom, value: centreFormation.id };
                         this.listCentreFormation.push(item);
                     })
                 });
-            this.listCentreFormation.sort();
         },
         getEntreprise() {
             entrepriseApi
                 .getAllEntreprises()
                 .then((data) => {
                     data.forEach(entreprise => {
-                        let item = { text: entreprise.raisonSociale }
+                        let item = { text: entreprise.raisonSociale, value: entreprise.id }
                         this.listEntreprise.push(item);
+
                     })
-                })
+                });
         },
         getAdresse() {
             adresseApi
@@ -240,15 +238,13 @@ export default {
                 this.$refs["modal-Adresse"].show();
             else if (value == "Entreprise")
                 this.$refs["modal-Entreprise"].show();
-            else
+            else {
                 this.$refs["modal-Adresse"].hide();
-            this.$refs["modal-Entreprise"].hide();
+                this.$refs["modal-Entreprise"].hide();
+            }
         },
         hideModal() {
-            this.$refs["modal-Adresse"].hide();
-            this.$refs["modal-Entreprise"].hide();
-            this.getEntreprise();
-            this.getAdresse();
+            this.showModal();
         },
         openClick() {
             this.visible = !this.visible;
@@ -265,25 +261,22 @@ export default {
             this.formulaireTuteur.password = "";
             this.formulaireTuteur.prenom = "";
             this.formulaireTuteur.nom = "";
-            this.formulaireTuteur.civilite = "";
+            this.formulaireTuteur.civilite = null;
             this.formulaireTuteur.dateDeNaissance = null;
             this.formulaireTuteur.telephone = null;
             this.formulaireTuteur.telephoneFixe = null;
             this.formulaireTuteur.adresseDto = null;
             this.formulaireTuteur.entrepriseDto = null;
-            this.formulaireTuteur.rolesDto = null;
             this.formulaireTuteur.centreFormationId = null;
-            this.formulaireTuteur.externalAccount = true;
-            this.formulaireTuteur.active = true
+            this.formulaireTuteur.adresseDto.id = null;
+            this.formulaireTuteur.entrepriseDto.id = null;
         },
         addTuteur() {
-            this.formulaireTuteur.dateDeNaissance = this.date;
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
-            console.log(this.formulaireTuteur)
-            utilisateurApi/*.addTuteur(this.formulaireTuteur);*/;
+            console.log(this.formulaireTuteur);
+            utilisateurApi.addTuteur(this.formulaireTuteur);
             this.visible = !this.visible;
-
         },
     }
 }          
