@@ -6,11 +6,14 @@ const END_POINT = "/dossierProjet";
 export const dossierProjetApi = {
     getById,
     deleteDossierProjet,
+    update,
     save,
-    create,
+    saveImport,
+    saveAnnexe,
+    updateAnnexe,
+    deleteFile,
     getAll,
     getByIdEtudiant,
-    generer,
     genererDossier
     // getAllByPage,
     // getCount,
@@ -64,41 +67,84 @@ function getById(id){
         .catch((error) => console.log(error));
   }
 
-  /**
+
+async function update(dpDto) {
+  return axios
+      .put(`${END_POINT}/update`, dpDto, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+}
+/**
  * Save du dossier projet
- * 
- * @param {*} id 
- * @param {*} form
- * @returns 
+ *
+ * @param {*} dpDto (formulaire pour info, contenu, résume & dossier projet)
+ * @returns
  */
+  async function save(dpDto) {
+    return axios
+        .post(`${END_POINT}/save`, dpDto, requestOptions.headers())
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+  }
 
-  function save(id, dpDto, file) {
-    const formData = new FormData();
-    formData.append('dossierProjet', dpDto);
-    file.forEach(f => formData.append('pieceJointe', f));
-
-    return axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
+/**
+ * Save des Annexes du dossier projet
+ *
+ * @param {*} id du dossier projet
+ * @param {*} files (liste de MultipartFile)
+ * @returns
+ */
+async function saveAnnexe(files, id) {
+  const formData = new FormData();
+  files.forEach(f => formData.append('pieceJointe', f));
+    const response = await axios.post(`${END_POINT}/save-annexe/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then((response) => response.data)
-      .catch((error) => console.log(error));
-  }
+    });
+    return response.data;
+}
 
 
-  function create(id, dpDto, file) {
+async function updateAnnexe(files, id) {
     const formData = new FormData();
-    formData.append('dossierProjet', dpDto);
-    file.forEach(f => formData.append('pieceJointe', f));
+    formData.append('pieceJointe', files);
+    const response = await axios.put(`${END_POINT}/update-annexe/${id}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    return response.data;
+}
 
-    return axios.post(`${END_POINT}/creation/etudiant/${id}`, formData, {
+/**
+ * Save de l'import du dossier projet
+ *
+ * @param {*} id du dossier projet
+ * @param {*} fileImport (file unique)
+ * @returns
+ */
+async function saveImport(fileImport, id) {
+  const formData = new FormData();
+  formData.append('import', fileImport);
+
+    const response = await axios.post(`${END_POINT}/save-import/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then((response) => response.data)
-      .catch((error) => console.log(error));
-  }
-  
+    });
+    return response.data;
+}
+
+async function deleteFile(file, id) {
+    return axios
+        .delete(`${END_POINT}/${id}?file=${file}`, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            }})
+        .then((response) => response.data)
+        .catch((error) => console.log(error));
+}
   /**
  * Suppression du dossier projet
  * 
@@ -110,21 +156,6 @@ function getById(id){
   function deleteDossierProjet(id,idetudiant){
     return axios
       .delete(`${END_POINT}/${idetudiant}/delete/${id}`, requestOptions.headers())
-      .then((response) => response.data)
-      .catch((error) => console.log(error));
-  }
-
-  /**
-   * Génération du dossier projet par etudiant et cursus
-   *
-   * @param {*} idEtu
-   * @param {*} idCursus
-   * @returns
-   */
-
-  function generer(idEtu,idCursus) {
-    return axios
-      .get(`${END_POINT}/generer/${idEtu}/${idCursus}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }

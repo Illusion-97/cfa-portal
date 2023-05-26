@@ -59,12 +59,42 @@
                 </b-button>
               </router-link>
 
-              <!-- BOUTON UPDATE -->
-              <b-button size="sm" class="mr-2" variant="primary" @click.prevent="uploadFile()">
-                <i class="fa-solid fa-cloud"></i>
-                Uploader
-              </b-button>
-            </div>
+            
+              
+             
+      <b-button type="file" id="fileImport" size="sm" class="mr-2" variant="primary" @click.prevent="openModal(data.item.cursus.id)">
+      <i class="fa-solid fa-cloud"></i>
+      Uploader
+    </b-button>
+    <router-link :to="{
+                name: 'etudiant_dossierpro',
+                query: { data: data },
+              }">
+    <b-modal v-model="showModalUpload"  @ok="uploadFile" @cancel="resetModal">
+      <b-form-group label="Nom du dossier professionnel" label-for="nomDossier">
+        <b-form-input id="nomDossier" v-model="nomDossier" />
+       <!-- <input id="cursusId" type="hidden" value="cursus" v-model="data.item.cursus.id"/>-->
+      </b-form-group>
+      <b-form-file v-model="file" label="Choisir un fichier" />
+    </b-modal>
+ </router-link>
+
+    <!--MODALE SUCCESS-->
+    <b-modal  id="modal-create-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre DossierProfessionnel est correctement été importé.
+      </p>
+      <div class="div-ok">
+        <router-link class="nav-item first" :to="'/dossierProfessionnel/dossier-professionnel'">
+          <b-button variant="primary" @click="$bvModal.hide('modal-create-success')">
+          Continuer
+        </b-button>
+                  </router-link>
+      </div>
+    </b-modal> 
+   <!--<input id="fileImport" v-model="fileImport" @change="uploadFile"/>--> 
+  </div>
           </div>
 
         </template>
@@ -98,7 +128,6 @@
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 
-
 //erreur avec l'import à corriger import "bootstrap-icons/font/bootstrap-icons.css";
 
 
@@ -111,6 +140,12 @@ export default {
   name: "DossierProfessionnelEtudiant",
   data() {
     return {
+      fileImport: {},
+      showModalUpload: false,
+      cursusId:0,
+      nomDossier: '',
+      file: null,
+      test:"",
       cursus: [],
       dp: [],
       dossierProfessionnel: [],
@@ -149,6 +184,34 @@ export default {
         .then((data) => (this.dp = data));
     },
 
+    openModal(cursusId) {
+      this.showModalUpload = true;
+      this.cursusId = cursusId;
+      console.log(this.cursusId);
+    },
+    resetModal() {
+      this.nomDossier = '';
+      this.file = null;
+      this.showModalUpload = false;
+    },
+
+    uploadFile() {
+
+  const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id;
+  
+
+  dossierProfessionnelApi.handleFileUpload(etudiantId, this.cursusId, this.file, this.nomDossier)
+    .then(data => {
+      // Réinitialiser la modal
+      this.resetModal();
+      this.dp = data;
+
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  },
+
     getDossierId(data, dossierProfessionnel) {
       // console.dir(
       //   "dossierProfessionnel > " +
@@ -173,18 +236,17 @@ export default {
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));
       
-  },
+  }
+};
 
-  uploadFile() {
+  /*uploadFile() {
     dossierProfessionnelApi
       .generateDossierProByStudentAndPromo(this.$store.getters.getDossierId.etudiantDto.id.promotionId)
       .then(data => {
         this.dp = data;
-        // Add any additional logic to handle the response data here
       })
       .catch(error => {
         console.error(error);
-        // Handle any errors that occur during the API call here
       });
     },
     /*uploadFile() {
@@ -192,9 +254,11 @@ export default {
       .genererDossierProfessionnel(idDossierPro)
       .then((data => (this.dp=data)))
       },*/
-    
-};
-</script>
+
+
+
+ 
+  </script>
 
 <style scoped src="@/assets/styles/StyleEtudiant.css">
 h2 {

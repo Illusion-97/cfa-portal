@@ -5,7 +5,6 @@
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
 
           <!-- TABLE DETAILS -->
-          <!-- A MODIFIER -->
           <b-tab active title-link-class="tabColor">
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'search-plus']" class="icon" />
@@ -131,7 +130,6 @@
           </b-tab>
 
           <!-- TABLE ETUDIANTS -->
-          <!-- A MODIFIER -->
           <b-tab title-link-class="tabColor">
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
@@ -141,7 +139,6 @@
           </b-tab>
 
           <!-- TABLE EVALUATIONS -->
-          <!-- A MODIFIER -->
           <b-tab title-link-class="tabColor">
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'code']" class="icon" />

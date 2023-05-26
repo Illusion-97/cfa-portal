@@ -182,7 +182,7 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="expPro.collaborateur" id="exp5" name="collaborateur" placeholder="Collaborateurs" />
+              <vue-editor v-model="expPro.information" id="exp5" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -199,7 +199,7 @@
 
           <div>
             <!--BOUTON UPDATE-->
-           <b-button v-b-modal.modal-update-success size="sm" variant="primary" @click="updateExp()" class="btn-delete">
+           <b-button v-b-modal.modal-update-success size="sm" variant="primary" @click="updateExperiencePro()" >
             <i class="fa-solid fa-square-pen"></i>
             <span class="icon-right">Mettre à jour</span>
           </b-button>
@@ -207,7 +207,7 @@
    
           <div id="div-save">
           <!-- BOUTON SAVE EXP -->
-          <b-button size="sm" variant="success" type="submit" @click="addExp">
+          <b-button v-b-modal.modal-create-success size="sm" variant="success" type="submit"  >
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Ajouter</span>
           </b-button>
@@ -218,18 +218,18 @@
 
        
 
-        <!-- MODALE SUCCESS expP CREE -->
-    <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <!--   MODALE SUCCESS expP CREE
+    <b-modal  id="modal-create-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
         Votre Experience Professionnelle a correctement été ajoutées.s
       </p>
       <div class="div-ok">
-        <b-button variant="primary" @click="$bvModal.hide('modal-success')">
+        <b-button variant="primary" @click="$bvModal.hide('modal-create-success')">
           Continuer
         </b-button>
       </div>
-    </b-modal>
+    </b-modal> -->
 
     <!-- MODALE SUCCESS DOSSIER UPDATE -->
     <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
@@ -272,74 +272,8 @@
   <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" /><br/>
   <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
 </b-modal>
-
-
-
-    <!--<h6>Annexes</h6>
-    <b-form-select id="select-file" v-model="form.annexeDtos" @change="getAnnexe" >
-      <b-form-select-option v-for="annexeDtos in annexe" :key="annexeDtos.id" :value="annexeDtos">
-        {{ annexeDtos.libelle }}
-      </b-form-select-option>
-      <b-form-select-option >
-      <b-button @click="showModal" >+ Ajouter des annexes </b-button>
-      </b-form-select-option>
-    </b-form-select>
-    
-    <b-modal id="ddd" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
-      
-        <v-file-input id="fileA" v-model="newAnnexe.pieceJointe"  ref="fileInput" >    
-        </v-file-input>
-        <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle"  /><br/>
-        <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
-     
-      </b-modal>-->
-
-     <!-- <h6>Annexes</h6>
-    <v-list-group  style="background-color: whitesmoke;">
-            <v-list-item>
-              <v-file-input id="fileA" v-model="newAnnexe.pieceJointe" :options="this.form.annexeDtos" ref="fileInput">    
-        </v-file-input>
-      </v-list-item>
-        <v-list-item>
-        <input type="text" class="form-control" id="filename" v-model="newAnnexe.libelle" placeholder="Libelle" />
-      </v-list-item>
-      <v-list-item>
-          <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe" >Ajouter</b-button>
-          </v-list-item>
-    <br/>
-            
-      </v-list-group>-->
-
     
 <br/>
-  <!--  <h6>Facultatif</h6>
-    
-    <b-form-select id="select-doc" v-model="form.facultatifDto" @change="goDiplome">
-      <b-form-select-option v-for="facultatifDto in facultatif" :key="facultatifDto.id" :value="facultatifDto">
-        {{ facultatifDto.intitule }}
-      </b-form-select-option>
-      <b-form-select-option >
-      <b-button  >+ Ajouter </b-button>
-      </b-form-select-option>
-    </b-form-select>   
-   
-   
-    <b-modal id="bbb" size="xl" title="Ajouter un diplôme" centered scrollable no-close-on-esc hide-footer>
-      <template>
-      
-       
-            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()" ></v-text-field>
-          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
-            @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-            <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
-            @input="$v.date.$touch()" @blur="$v.date.$touch()"></v-text-field>
-            <br>
-       
-            <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button>
-      </template>
-    </b-modal>-->
-
     <h6>Facultatif</h6>
     <v-list-group v-model="form.facultatifDto" class="">
     
@@ -357,6 +291,7 @@
             <v-list-item> 
             <v-text-field v-model="newFacultatif.date" :error-messages="dateErrors" label="date" required
             @input="$v.date.$touch()" @blur="$v.date.$touch()" style="background-color: white;"></v-text-field>
+            
             </v-list-item> 
             <b-button block variant="danger" >document facultatif illustrant la pratique professionnelle</b-button>           
             <v-list-item>          
@@ -364,21 +299,6 @@
             @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
           </v-list-item>  
 
-        <!--   <b-button block variant="danger" >
-              diplôme, titre, CQP, attestation de formation facultatif
-             
-            </b-button>
-           <b-button block variant="danger" >document facultatif illustrant la pratique professionnelle</b-button>
-  <v-list-group >
-            <v-list-item>          
-            <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
-            @input="$v.name.$touch()" @blur="$v.name.$touch()" style="background-color: white;"></v-text-field>
-          </v-list-item>
-          </v-list-group>
-          
-    <v-list-item>
-            <b-button type="submit" class="btn btn-success" @click.prevent="addFacultatifs" >Ajouter</b-button><br/>
-          </v-list-item>-->
       </v-list-group>
 
 <br/>
@@ -450,10 +370,12 @@ import { validationMixin } from 'vuelidate'
 import { required, maxLength, email, date } from 'vuelidate/lib/validators'
 
 
+
 export default {
   name: "Selects",
   components: {
     VueEditor
+  
   },
 
  
@@ -478,7 +400,7 @@ export default {
       annexes: [],// la liste des annexes existantes
       selectedAnnexes: [], // la liste des annexes sélectionnées dans le formulaire
     newAnnexes: [], // la liste des nouvelles annexes ajoutées dans le formulaire
-      
+    
   facultatif: [],
    
       tempActivite: [],
@@ -519,6 +441,7 @@ export default {
         facultatifDto: []
       },
 
+
       formExp: {
         id: 0,
         tacheRealisee: "",
@@ -533,7 +456,7 @@ export default {
       name: '',
       email: '',
       date: '',
-      select: null,
+      select: "",
       items: [
         'Item 1',
         'Item 2',
@@ -566,7 +489,7 @@ export default {
       console.log("test");
       let tab = [
         {
-          value: null,
+          value: "",
           text: "Vos diplômes",
           disabled: false,
         },
@@ -637,7 +560,7 @@ export default {
 
     // LANCE LA MODALE DE LA COMPETENCE CHOISIE
     getValue2(value) {
-      this.compInModal = value;
+     this.compInModal = value;
 
       // console.dir(
       //   "compInModal > " + JSON.stringify(this.compInModal, null, 4)
@@ -645,6 +568,16 @@ export default {
 
       this.$bvModal.show("exp-pro-modal");
       this.tempCompetence = value;
+      this.expPro = {
+        id:0,
+        tacheRealisee: "",
+              moyenUtilise: "",
+              collaborateur: "",
+              contexte: "",
+              information: "",
+              competenceProfessionnelleId: value.id
+
+      }
     },
 
     //LANCE LA MODALE DIPLOMES
@@ -679,7 +612,7 @@ export default {
     optionsAT(item) {
       let tab = [
         {
-          value: null,
+          value:"",
           text: "+ Ajouter une expérience professionnelle à la compétence :",
           disabled: true,
         },
@@ -695,10 +628,10 @@ export default {
 
           let disableValue;
 
-          const found = item.competenceProfessionnelles[i].experienceProfessionnelles.find(e => e.competenceProfessionnelleId == item.competenceProfessionnelles[i].id)
+          //const found = item.competenceProfessionnelles[i].experienceProfessionnelles.find(e => e.competenceProfessionnelleId == item.competenceProfessionnelles[i].id)
 
           // SANS EXP PRO
-          if (found == undefined) {
+          if (this.expPro == undefined) {
             disableValue = false;
 
             tab.push({
@@ -726,24 +659,47 @@ export default {
     optionsAT2(item) {
       let tab = [
         {
-          value: null,
+          value: "exp",
           text: "+ Ajouter une expérience professionnelle à :",
           disabled: true,
         },
       ];
 
+     
+
       if (item.competenceProfessionnelles) {
         for (let i = 0; i < item.competenceProfessionnelles.length; i++) {
 
-          tab.push({
-            value: item.competenceProfessionnelles[i],
-            text: item.competenceProfessionnelles[i].libelle,
-            disabled: false,
-          });
+        let disableValue;
+
+          //const found = item.competenceProfessionnelles[i].experienceProfessionnelles.find(e => e.competenceProfessionnelleId == item.competenceProfessionnelles[i].id)
+
+          // SANS EXP PRO
+          if (this.expPro == undefined) {
+            disableValue = false;
+
+            tab.push({
+              value: item.competenceProfessionnelles[i],
+              text: item.competenceProfessionnelles[i].libelle,
+              disabled: disableValue,
+
+            });
+
+            // AVEC EXP PRO
+          } else {
+            disableValue = true;
+
+            tab.push({
+              value: item.competenceProfessionnelles[i],
+              html: '<span>&#x2705</span> ' + item.competenceProfessionnelles[i].libelle,
+
+            });
+          }
 
           // <img src="@/assets/img/verifier.png" class="check" />
         }
       }
+    
       return tab;
     },
 
@@ -805,7 +761,7 @@ export default {
      
           },
 
-          this.$store.getters.getUtilisateur.etudiantDto.id
+         // this.$store.getters.getUtilisateur.etudiantDto.id
 
         )
        
@@ -839,15 +795,6 @@ export default {
           },
 
    addAnnexe() {
-   /* this.annexe.push(this.newAnnexe);
-console.log(this.form.annexeDtos);
-        this.newAnnexe = {
-             id:0,
-             version:0,
-             libelle:"",
-             pieceJointe:null,
-             dossierProfessionnelId:0}*/
-           // ajouter la nouvelle annexe à la liste des nouvelles annexes
     this.annexes.push({...this.newAnnexe});
     // vider les champs du formulaire
     this.newAnnexe = {
@@ -860,24 +807,17 @@ console.log(this.form.annexeDtos);
   
 },
     
-
+setup(){
+      const color = 'red';
+      const height = '18';
+      const width = '18';
+      return {color,width,height}
+    },
 
     updateExp() {
 
       dossierProfessionnelApi
         .updateDossierProfessionnel(
-          // [{
-          //   id: this.expPro.id,
-          //   tacheRealisee: this.expPro.tacheRealisee,
-          //   moyenUtilise: this.expPro.moyenUtilise,
-          //   collaborateur: this.expPro.collaborateur,
-          //   contexte: this.expPro.contexte,
-          //   information: this.expPro.information,
-          //   competenceProfessionnelleId: this.tempCompetence.id,
-          //   dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
-          //   version: this.expPro.version
-          // }]
-
           {
             id: this.data.item.cursus.dossierProfessionnel.id,
             nom: "",
@@ -982,18 +922,43 @@ console.log(this.form.annexeDtos);
     this.selectedAnnexe = '';
   },
 
-    addExp() {
-      this.expPro.push(this.form.experienceProfessionnelleDtos);
-      console.log(this.expPro);
-      this.formExp = {
-           id:0,  
-           tacheRealisee:"",
-           moyenUtilise:"",
-           collaborateur:"",
-           contexte:"",
-           information:""
-            }
+    updateExperiencePro()
+    {
+      experiencesApi.update({
           
+           id: this.expPro.id,
+           tacheRealisee: this.expPro.tacheRealisee,
+           moyenUtilise: this.expPro.moyenUtilise,
+           collaborateur: this.expPro.collaborateur,
+           contexte: this.expPro.contexte,
+           information: this.expPro.information,
+           competenceProfessionnelleId: this.tempCompetence.id,
+           dossierProfessionnelId: this.data.item.cursus.dossierProfessionnel.id,
+           version: this.expPro.version
+      },
+           this.$store.getters.getUtilisateur.etudiantDto.id
+
+)
+
+// REDIRECTION
+.then(() =>
+  this.$bvModal.hide("exp-pro-modal"),
+  this.$bvModal.show("modal-update-success"),
+);
+},
+
+    addExp() {        
+        experiencesApi.save(
+          this.expPro,
+           this.$store.getters.getUtilisateur.etudiantDto.id,
+           
+          
+)
+// REDIRECTION
+.then(() =>
+  this.$bvModal.hide("exp-pro-modal"),
+  this.$bvModal.show("modal-create-success")
+);
 
 },
 
@@ -1012,12 +977,14 @@ console.log(this.form.annexeDtos);
       this.checkbox = false
     },
 
+  
+
     goBack() {
       window.history.back();
     },
   },
 
-  
+
 
   created() {
     cursusApi

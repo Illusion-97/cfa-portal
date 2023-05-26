@@ -76,6 +76,7 @@ import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vu
 import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.vue";
 import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
 import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
+import DossierProfessionnels from "@/views/Etudiant/DossierProfessionnels.vue";
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -227,8 +228,7 @@ const routes = [
   //#######################
   //#       GLOBAL        #
   //#######################
-
-  { path: "/", redirect: { name: "home" } },
+  { path: "/", redirect: { name: "login" } },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/login", name: "login", component: LoginPage },
@@ -393,6 +393,14 @@ const routes = [
     component: DossierProjetEtudiant,
     meta: { authorize: [Role.Etudiant] },
   },
+
+  {
+    path: "/etudiant/dossierprofessionnels",
+    name: "etudiant_dossierpro",
+    component: DossierProfessionnels,
+    meta: { authorize: [Role.Etudiant] },
+  },
+
   {
     path: "/etudiant/creerdossierpro",
     name: "creer_dossier_pro",
@@ -1726,6 +1734,7 @@ router.beforeEach((to, from, next) => {
     return next();
   }
   if (to.path !== "/login") {
+    //const bearer = localStorage.getItem('vuex');
     const isUserLoggedIn = store.getters.isUserLoggedIn;
     //Si pas loggin, on redirect sur /login
     if (!isUserLoggedIn) return next({ path: "/login" });
@@ -1745,7 +1754,7 @@ router.beforeEach((to, from, next) => {
             redirect = false;
           }
         }
-        //l'utilisateur n'a pas de role autorisé => redirect vers /home
+        //l'utilisateur n'a pas de role autorisé => redirect vers /403
         if (redirect) return next({ path: "/403" });
         else next(); // On laisse passer la requete
       }

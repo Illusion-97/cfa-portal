@@ -214,7 +214,7 @@ export default {
       }
     },
     toPublicPage() {
-      router.push({ name: "public" });
+      router.push({ name: "login" });
     },
   },
 };

@@ -270,7 +270,7 @@ function addUtilisateur(Utilisateur) {
  */
 function addTuteur(tuteur) {
   return axios
-    .post(`${END_POINT}`, tuteur, requestOptions.headers())
+    .post(`${END_POINT}/tuteur`, tuteur, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

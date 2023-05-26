@@ -30,9 +30,6 @@
         </option>
       </select>
 
-      <!-- AJOUT TUTEUR -->
-      <addTuteur/>
-      
       <!-- MAJ UTILISATEURS -->
       <div class="updateListCursus p-2">
         <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
@@ -53,7 +50,25 @@
             @wdg2Close="wdg2CloseEtudiant" />
         </div>
       </div>
+
+      <div class="tuteur p-2">
+        <button @click="openClick()" class="btn btn-outline-info">
+          <span v-if="!visible">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
+          </span>
+          <span v-else>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+          </span>
+        </button>
+      </div>
     </div>
+
+    <!-- AJOUT TUTEUR -->
+    <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
+      <addTuteur @hidden="openClick()">
+      </addTuteur>
+    </b-collapse>
+
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
@@ -117,7 +132,7 @@
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
-import addTuteur from "@/components/Modal/AddTuteur.vue"
+import addTuteur from "@/components/Admin/AddTuteur.vue"
 import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
@@ -144,6 +159,7 @@ export default {
 
   data() {
     return {
+      visible: false,
       dismissCountDown: null,
       message: "",
       color: "success",
@@ -185,8 +201,10 @@ export default {
     this.refreshList();
     this.getRoles();
   },
-
   methods: {
+    openClick() {
+      this.visible = !this.visible;
+    },
     assigneTableItems(users) {
       this.items = [];
       users.forEach((e) => {
