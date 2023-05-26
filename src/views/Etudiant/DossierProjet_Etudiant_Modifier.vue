@@ -1,18 +1,17 @@
 <template>
-  <div id="main-cr-prj">
-    <div>
-      <nav class="nav-align">
-        <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
-          <!-- Bouton retour en arrière -->
-          <button class="btn btn-secondary nav-item" @click="retour()">
-            Retour
-          </button>
-          <button class="btn btn-success nav-item" @click="submit()">
-            Sauvegarder
-          </button>
-      </nav>
-    </div>
-    <div>
+  <div id="main-cr-prj" v-if="DossierProjet">
+    <section class="nav-align" style="display: inline-block; width: 100%">
+      <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
+      <div style="float: right">
+        <b-button  size="sm" class="mr-2" @click="retour()">
+          Retour
+        </b-button>
+        <b-button size="sm" class="mr-2" variant="primary" @click="submit()">
+          Sauvegarder
+        </b-button>
+      </div>
+    </section>
+
       <!-- ****Composants Importer Un Dossier ****-->
       <section>
         <div class="comp-doss">
@@ -85,13 +84,13 @@
               <section>
                 <nav >
                   <section class="fill-width">
-                    <v-btn-toggle role="group">
+                    <div id="btn-toggle-selection" role="group">
                       <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
                       <v-btn block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Compétences Couvertes</v-btn>
                       <v-btn block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Résumé</v-btn>
                       <v-btn block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Contenu</v-btn>
                       <v-btn block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Annexe</v-btn>
-                    </v-btn-toggle>
+                    </div>
                   </section>
                 </nav>
                 <section>
@@ -108,9 +107,9 @@
                     </div>
 
                     <div v-show="active === 2" >
-                      <!--<v-card>
+                      <v-card>
                         <div class="card-body">
-                          <v-list v-for="activites in activiteTypes" :key="activites.id" style="background-color: #F2F2F2;">
+                          <v-list v-for="activites in activiteTypes" :key="activites.id">
                             <div class="row align-items-center">
                               <div class="col" id="bloc-activite">
                                 <v-list-item-title class="text-wrap" style="word-wrap: break-word;">{{ activites.libelle }}</v-list-item-title>
@@ -127,7 +126,7 @@
                             </div>
                           </v-list>
                         </div>
-                      </v-card>-->
+                      </v-card>
                     </div>
                     <div v-show="active === 3">
                       <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
@@ -224,12 +223,11 @@
         </b-modal>
       </section>
     </div>
-  </div>
 </template>
 <script>
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
 import { VueEditor } from "vue2-editor";
-//import {activiteTypeApi} from "@/_api/activiteType.api.js";
+import {activiteTypeApi} from "@/_api/activiteType.api.js";
 
 export default {
   name: "DossierProjetCreer",
@@ -248,9 +246,9 @@ export default {
     };
   },
   created() {
-    console.clear()
+    console.clear();
     this.getDossierProjetById();
-    //this.getActiviteTypeByCursus(7);
+    this.getActiviteTypeByCursus();
   },
   methods: {
     retour() {
@@ -263,15 +261,13 @@ export default {
     },
     toggleSelectedComp(compid){
 
-      const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleId;
+      const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds;
       const index = CompetencesCouvertes.indexOf(compid)
 
       if(CompetencesCouvertes.includes(compid)){
         CompetencesCouvertes.splice(index, 1)
-        console.log(CompetencesCouvertes)
       }else{
         CompetencesCouvertes.push(compid)
-        console.log(CompetencesCouvertes)
       }
     },
     deleteImport(file){
@@ -281,41 +277,40 @@ export default {
       })
 
     },
+    addAnnexe() {
+      this.filesAnnexe.unshift({
+        id: this.filesAnnexe.length + 1,
+      });
+      const newAnnexe = {
+      };
+      return newAnnexe;
+    },
+    submitAnnexe(file, index){
+      dossierProjetApi.updateAnnexe(file, this.dossierProjetId)
+          .then(() =>
+              this.$bvModal.hide('modal-annexe-confirmation-' + index),
+              this.DossierProjet.annexeDossierProjets.push(file),
+              this.deleteAnnexe(index))
+          .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
+    },
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
         this.DossierProjet.annexeDossierProjets.splice(index, 1);
       });
     },
-    addAnnexe() {
-      console.log(this.filesAnnexe)
-    this.filesAnnexe.unshift({
-      id: this.filesAnnexe.length + 1,
-    });
-    const newAnnexe = {
-    };
-    return newAnnexe;
-  },
     deleteAnnexe(index) {
       this.filesAnnexe.splice(index, 1);
     },
+
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
-          .then(() => console.log("Fichier importé enregistré avec succès"),this.$bvModal.hide('modal-import-confirmation-' + index))
+          .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index))
           .catch((error) => console.error("Erreur lors de l'enregistrement du fichier importé :", error));
     },
-    submitAnnexe(file, index){
-      console.log("avant annexe")
-      dossierProjetApi.updateAnnexe(file, this.dossierProjetId)
-          .then(() => console.log("Annexes importé enregistré avec succès"),
-              this.$bvModal.hide('modal-annexe-confirmation-' + index),
-          this.DossierProjet.annexeDossierProjets.push(file),
-          this.deleteAnnexe(index))
-          .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
-    },
+
     async submit() {
       // élements de DossierProjet
       const {version, nom, projet, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets} = this.DossierProjet;
-      console.log("dossier projet submit : "+this.DossierProjet)
       // Création de l'objet à envoyer
       const dpDto = {
         id:this.dossierProjetId,
@@ -339,13 +334,13 @@ export default {
 
     getDossierProjetById(){
       this.getIdFromUrl();
-      dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.DossierProjet = response})
+      dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.DossierProjet = response;})
     },
-    //getActiviteTypeByCursus(id){
-    //  activiteTypeApi
-    //      .getActiviteTypesByCursus(id)
-    //      .then((response) => {this.activiteTypes = response, console.log(this.activiteTypes)})
-    //}
+    getActiviteTypeByCursus(){
+      activiteTypeApi
+          .getActiviteTypesByCursus(7)
+          .then((response) => (this.activiteTypes = response))
+    }
   },
 
 
@@ -353,7 +348,7 @@ export default {
     /* Selection */
     selectedComp(){
       return (compid) => {
-        const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleId
+        const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
         const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
         const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
         return { backgroundColor: bg, color: txt }
@@ -369,9 +364,10 @@ export default {
   margin: 0 2% 0 2%;
   height: 100vmin;
 }
-.v-btn-toggle {
-  display: inline-flex;
-  width: 20%;
+#btn-toggle-selection{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: 1fr;
 }
 .comp-doss {
   background-color: #e11b28 !important;
@@ -383,9 +379,7 @@ export default {
   justify-content: space-between;
   width: 100%;
 }
-button {
-  border-radius: 50px;
-}
+
 .comp-doss p {
   color: white;
   padding: 15px 0 0 15px;
@@ -393,10 +387,6 @@ button {
 .comp-doss button {
   background-color: #495057;
   color: white;
-}
-
-.nav-align{
-
 }
 
 .nav-item{

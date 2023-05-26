@@ -1,36 +1,30 @@
 <template>
   <div id="main-cr-prj">
-    <nav class="d-inline" id="navproj">
-      <v-card-title>Nouveau dossier projet</v-card-title>
-      <v-row>
-        <!-- Ajout du nom au dossier projet -->
-        <v-col md="5">
-          <v-text-field v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
-        </v-col>
-        <!-- Ajout du projet au dossier projet -->
-        <v-col md="5">
-          <b-form-select v-model="DossierProjet.projet">
-            <option :value="null" disabled>
-              -- Choisissez un projet existant --
-            </option>
-            <option v-for="projet in projets" :key="projet.id" :value="projet">
-              {{ projet.nom }}
-            </option>
-          </b-form-select>
-        </v-col>
-        <v-col>
-          <!-- Bouton retour en arrière -->
-          <button class="btn btn-secondary" @click="retour()">
-            Retour
-          </button>
-          <button class="btn btn-success" style="margin-left: 5px" @click="submit()">
-            Sauvegarder
-          </button>
-        </v-col>
-      </v-row>
-    </nav>
+    <v-card-title>Nouveau dossier projet</v-card-title><!-- 4-31 -->
+    <section class="section-input" style="width: 100%" >
+      <div class="input-selection">
+        <v-text-field style="" v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
+        <b-form-select id="form-select-projet" v-model="DossierProjet.projet">
+          <option :value="null" disabled>
+            -Choisissez un projet existant-
+          </option>
+          <option v-for="projet in projets" :key="projet.id" :value="projet">
+            {{ projet.nom }}
+          </option>
+        </b-form-select>
+      </div>
+
+      <div class="input-top-btn">
+        <b-button  size="sm" class="mr-2" @click="retour()">
+          Retour
+        </b-button>
+        <b-button size="sm" class="mr-2" variant="primary" @click="submit()">
+          Sauvegarder
+        </b-button>
+      </div>
+    </section>
     <div>
-      <!-- ****Composants Importer Un Dossier ****-->
+      <!-- **** Composants Importer Un Dossier ****-->
       <section id="comp-doss-prjt">
         <div class="comp-doss">
           <p>Importer un dossier :</p>
@@ -293,6 +287,7 @@
      computed: {
        selectedComp(){
           return (compid) => {
+            console.log(this.DossierProjet.competenceProfessionnelleIds)
              const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
              const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
              const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
@@ -308,12 +303,31 @@
    margin: 0 2% 10vh 2%;
    height: 100vh;
    }
+   .section-input{
+     display: grid;
+     grid-template-rows: 1fr;
+     grid-template-columns: 1fr minmax(150px, 1fr);
+   }
+
+   .input-selection{
+     display: grid;
+     grid-template-rows: 1fr;
+     grid-template-columns: 1fr 1fr;
+     grid-gap: 50px;
+   }
+   #form-select-projet{
+     margin: 6% 0 5% 0
+   }
+   .input-top-btn{
+     text-align: right;
+   }
    .v-btn-toggle {
      display: inline-flex;
      width: 20%;
    }
    #list-competence{
     width: 100%;
+
    }
    .comp-doss {
    background-color: #e11b28;
@@ -325,9 +339,7 @@
    justify-content: space-between;
    width: 100%;
    }
-   button {
-   border-radius: 50px;
-   }
+
    .comp-doss p {
    color: white;
    padding: 15px 0 0 15px;
