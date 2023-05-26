@@ -50,10 +50,24 @@
             @wdg2Close="wdg2CloseEtudiant" />
         </div>
       </div>
+
+      <div class="tuteur p-2">
+      <button @click="openClick()" class="btn btn-outline-info">
+            <span v-if="!visible">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
+            </span>
+            <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            </span>
+        </button>
+      </div>
     </div>
     
     <!-- AJOUT TUTEUR -->
-    <addTuteur/>
+    <div v-show="visible">
+      <addTuteur @hidden="openClick()">
+        </addTuteur>
+    </div>
       
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
@@ -145,6 +159,7 @@ export default {
 
   data() {
     return {
+      visible: false,
       dismissCountDown: null,
       message: "",
       color: "success",
@@ -188,6 +203,9 @@ export default {
   },
 
   methods: {
+    openClick() {
+      this.visible = !this.visible;
+    },
     assigneTableItems(users) {
       this.items = [];
       users.forEach((e) => {

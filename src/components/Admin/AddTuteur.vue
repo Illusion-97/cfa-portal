@@ -1,17 +1,7 @@
 <template>
     <div id="container-fluid">
-        <!-- BUTTON AJOUTER FERMER -->
-        <button @click="openClick()" class="btn btn-outline-info mt-4 mb-4">
-            <span v-if="!visible">
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
-            </span>
-            <span v-else>
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
-            </span>
-        </button>
+
         <!-- FORMULAIRE -->
-        <b-collapse id="collapse-1" class="mt-2 mb-4" :visible=visible>
-            <b-card>
                 <b-card-body class="d-flex justify-content-center">
                     <v-app class="w-50">
                         <form @submit="addTuteur">
@@ -75,19 +65,20 @@
                                     </v-col>
                                     <v-col cols="12" md="4">
                                         <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                            :return-value.sync="formulaireTuteur.dateDeNaissance" transition="scale-transition" offset-y
-                                            min-width="auto">
+                                            :return-value.sync="formulaireTuteur.dateDeNaissance"
+                                            transition="scale-transition" offset-y min-width="auto">
                                             <template v-slot:activator="{ on, attrs }">
-                                                <v-text-field v-model="formulaireTuteur.dateDeNaissance" label="Date de naissance"
-                                                    prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
-                                                    outlined clearable></v-text-field>
+                                                <v-text-field v-model="formulaireTuteur.dateDeNaissance"
+                                                    label="Date de naissance" prepend-inner-icon="mdi-calendar" readonly
+                                                    v-bind="attrs" v-on="on" outlined clearable></v-text-field>
                                             </template>
                                             <v-date-picker v-model="formulaireTuteur.dateDeNaissance" no-title scrollable>
                                                 <v-spacer></v-spacer>
                                                 <v-btn text color="primary" @click="menu = false">
                                                     Cancel
                                                 </v-btn>
-                                                <v-btn text color="primary" @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
+                                                <v-btn text color="primary"
+                                                    @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
                                                     OK
                                                 </v-btn>
                                             </v-date-picker>
@@ -120,16 +111,15 @@
                                     <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                                     Ajouter
                                 </v-btn>
-                                <v-btn color="error" @click="openClick">
-                                    <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'trash']" />
-                                    Annuler
+                                <v-btn color="secondary" @click="clear">
+                                    <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
+                                    Vider
                                 </v-btn>
                             </v-container>
                         </form>
                     </v-app>
                 </b-card-body>
-            </b-card>
-        </b-collapse>
+
         <!-- FORMULAIRE ADRESSE -->
         <b-modal size="lg" hide-footer :ref="'modal-Adresse'">
             <template #modal-title>
@@ -139,6 +129,7 @@
             <b-button class="mt-3" variant="danger" block @click="hideModal">
                 Annuler</b-button>
         </b-modal>
+        
         <!-- FORMULAIRE ENTREPRISE -->
         <b-modal size="lg" hide-footer :ref="'modal-Entreprise'">
             <template #modal-title>
@@ -192,14 +183,20 @@ export default {
             listEntreprise: [],
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
-            adresseId: null,
             tuteurDto: {},
+            visible: true,
+            adresseId: null,
             entrepriseId: null,
             menu: false,
-            visible: false,
             show1: false,
             required: [v => !!v || 'Le champ est requis'],
         };
+    },
+    created() {
+        this.clear();
+        this.getCentreFormation();
+        this.getEntreprise();
+        this.getAdresse();
     },
     methods: {
         getCentreFormation() {
@@ -219,7 +216,6 @@ export default {
                     data.forEach(entreprise => {
                         let item = { text: entreprise.raisonSociale, value: entreprise.id }
                         this.listEntreprise.push(item);
-
                     })
                 });
         },
@@ -246,16 +242,6 @@ export default {
         hideModal() {
             this.showModal();
         },
-        openClick() {
-            this.visible = !this.visible;
-            if (this.visible == false)
-                this.clear();
-            else {
-                this.getCentreFormation();
-                this.getEntreprise();
-                this.getAdresse();
-            }
-        },
         clear() {
             this.formulaireTuteur.login = "";
             this.formulaireTuteur.password = "";
@@ -274,8 +260,8 @@ export default {
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formulaireTuteur);
-            this.visible = !this.visible;
             this.clear();
+            this.$emit('hidden');
         },
     }
 }          
