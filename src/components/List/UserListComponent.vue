@@ -52,23 +52,23 @@
       </div>
 
       <div class="tuteur p-2">
-      <button @click="openClick()" class="btn btn-outline-info">
-            <span v-if="!visible">
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
-            </span>
-            <span v-else>
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
-            </span>
+        <button @click="openClick()" class="btn btn-outline-info">
+          <span v-if="!visible">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
+          </span>
+          <span v-else>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+          </span>
         </button>
       </div>
     </div>
-    
+
     <!-- AJOUT TUTEUR -->
-    <div v-show="visible">
+    <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
       <addTuteur @hidden="openClick()">
-        </addTuteur>
-    </div>
-      
+      </addTuteur>
+    </b-collapse>
+
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
@@ -201,7 +201,6 @@ export default {
     this.refreshList();
     this.getRoles();
   },
-
   methods: {
     openClick() {
       this.visible = !this.visible;
