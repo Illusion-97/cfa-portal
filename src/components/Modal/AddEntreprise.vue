@@ -4,7 +4,7 @@
             <form @submit="addEntreprise">
                 <!-- ENTREPRISE -->
                 <v-row>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="4">
                         <div class="w-100 d-flex justify-content-center">
                             <v-text-field v-model="entrepriseDto.raisonSociale" label="Nom de l'entreprise*" outlined
                                 clearable :rules="[ v => !!v || 'Le champ est requis']" required></v-text-field>
@@ -15,7 +15,7 @@
                             clearable>
                         </v-select>
                     </v-col>
-                    <v-col cols="12" md="2">
+                    <v-col cols="12" md="4">
                         <div class="w-100 d-flex justify-content-center">
                             <v-text-field v-model="entrepriseDto.effectifTotal" label="Effectif de l'entreprise" outlined
                                 clearable :rules="requireChiffre"></v-text-field>
