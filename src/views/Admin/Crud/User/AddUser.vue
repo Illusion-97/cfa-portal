@@ -279,7 +279,6 @@ import { contratApi } from "../../../../_api/contrat.api";
         // password.setCustomValidity("");
 
         // if(!this.testPassword(this.form.password)) {
-        //   console.log("je set password custom validity");
         //   password.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial ");
         //   password.reportValidity();
         // }
@@ -299,7 +298,6 @@ import { contratApi } from "../../../../_api/contrat.api";
             this.$router.push({name: "admin_dashboard"});
           })
           .catch((error) => {
-             console.log(error.response.data);
             if (
               error.response.data ==
               "Un utilisateur utilise déjà cette adresse mail"
@@ -311,7 +309,6 @@ import { contratApi } from "../../../../_api/contrat.api";
             if( !(this.contrat.dateDebut == "" && this.contrat.dateFin == "" && this.contrat.maitreApprentissageDto == "")){
                 utilisateurApi.getByLogin(this.form.login).then(response => {
                   utilisateurApi.getById(response.id).then(response1 => {
-                  console.log(response1)
                   etudiantApi.getById(response1.etudiantDto.id).then(response2 => this.contrat.etudiantDto = response2)
                   
                 });
@@ -363,8 +360,6 @@ import { contratApi } from "../../../../_api/contrat.api";
       //   const maxYear = new Date();
       //   let dateInput = date.split("/");
       //   if(dateInput[0] >= 1 && dateInput <=31 && dateInput[1]>=1 && dateInput[1]<=12 && dateInput[1]>=1950 && dateInput[1]<= maxYear.getFullYear.toString() ) {
-      //     console.log("OK");
-      //     console.log(date);
       //     // date = this.backEndDateFormat(date);
       //   }
       // }

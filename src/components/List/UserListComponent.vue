@@ -281,7 +281,6 @@ export default {
     },
     getRoles() {
       utilisateursRoleApi.getAll().then((data) => (this.roles = data));
-      //console.log(this.roles)
     },
     onSelected() {
       utilisateursRoleApi

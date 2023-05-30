@@ -248,7 +248,6 @@ export default {
       cursusApi.save(item);
       this.items = null;
       this.refreshList();
-      //console.log(response)
       this.hideModal(item);
     },
     gotoActiviteTypeCursus(cursus) {
