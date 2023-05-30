@@ -29,13 +29,13 @@
         <!--Tableau Infos Etudiant-->
         <v-card v-show="active === 1" name="Info">
           <v-card-text>
-            <v-card-title disabled>Nom : {{ infos.utilisateurDto.nom }}</v-card-title>
-            <v-card-title disabled>Prenom : {{ infos.utilisateurDto.prenom }}</v-card-title>
-            <v-card-title disabled>Date de naissance : {{ infos.utilisateurDto.dateDeNaissance? infos.utilisateurDto.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
-            <v-card-title disabled>Adresse : {{ infos.utilisateurDto.adresseDto? infos.utilisateurDto.adresseDto.libelle + " " + infos.utilisateurDto.adresseDto.ville + " " + infos.utilisateurDto.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
-            <v-card-title disabled>Télephone : {{ infos.utilisateurDto.telephone? infos.utilisateurDto.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
-            <v-card-title disabled>Télephone fixe : {{ infos.utilisateurDto.telephoneFixe? infos.utilisateurDto.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
-            <v-card-title disabled>Adresse mail : {{ infos.utilisateurDto.login }}</v-card-title>
+            <v-card-title>Nom : {{ infos.nom }}</v-card-title>
+            <v-card-title>Prenom : {{ infos.prenom }}</v-card-title>
+            <v-card-title>Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
+            <v-card-title>Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
+            <v-card-title>Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
+            <v-card-title>Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
+            <v-card-title>Adresse mail : {{ infos.login }}</v-card-title>
           </v-card-text>
         </v-card>
 
@@ -48,7 +48,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de controle continu.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageNotes" :length="Math.ceil(notes.length / itemsPerPage)" color="#E91E63" circle v-if="notes.length"></v-pagination>
+            <v-pagination v-model="pageNotes" :length="Math.ceil(notes.length / itemsPerPage)" color="#E91E63" circle
+              v-if="notes.length"></v-pagination>
           </div>
         </v-card>
 
@@ -59,7 +60,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de planning.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pagePromos" :length="Math.ceil(promos.length / itemsPerPage)" color="#E91E63" circle v-if="promos.length"></v-pagination>
+            <v-pagination v-model="pagePromos" :length="Math.ceil(promos.length / itemsPerPage)" color="#E91E63" circle
+              v-if="promos.length"></v-pagination>
           </div>
         </v-card>
 
@@ -70,7 +72,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de dossier projet.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" circle color="#E91E63" v-if="dossProjs.length"></v-pagination>
+            <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" circle
+              color="#E91E63" v-if="dossProjs.length"></v-pagination>
           </div>
         </v-card>
 
@@ -81,7 +84,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de dossier professionnel.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" circle color="#E91E63" v-if="dossProfs.length"></v-pagination>
+            <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" circle
+              color="#E91E63" v-if="dossProfs.length"></v-pagination>
           </div>
         </v-card>
 
@@ -92,7 +96,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de congé.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageConge" :length="Math.ceil(conges.length / itemsPerPage)" color="#E91E63" circle v-if="conges.length"></v-pagination>
+            <v-pagination v-model="pageConge" :length="Math.ceil(conges.length / itemsPerPage)" color="#E91E63" circle
+              v-if="conges.length"></v-pagination>
           </div>
         </v-card>
 
@@ -103,7 +108,8 @@
           </v-data-table>
           <v-card-title v-else>Pas d'absence.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageAbsence" :length="Math.ceil(absences.length / itemsPerPage)" color="#E91E63" circle v-if="absences.length"></v-pagination>
+            <v-pagination v-model="pageAbsence" :length="Math.ceil(absences.length / itemsPerPage)" color="#E91E63" circle
+              v-if="absences.length"></v-pagination>
           </div>
         </v-card>
       </v-card>
@@ -162,8 +168,13 @@ export default {
       });
     },
 
-    getinfoEtudiant() {
-      etudiantApi.getById(this.etudiantId).then((response) => (this.infos = response));
+    async getInfoEtudiant() {
+      try {
+        const response = await etudiantApi.getById(this.etudiantId);
+        this.infos = response.utilisateurDto;
+      } catch (error) {
+        console.error("Erreur lors de la récupération des informations de l'étudiant :", error);
+      }
     },
 
     getnoteEtudiant() {
@@ -205,9 +216,9 @@ export default {
     },
   },
 
-  created() {
+   created() {
     this.etudiantId = this.$route.params.id;
-    this.getinfoEtudiant();
+    this.getInfoEtudiant();
     this.getnoteEtudiant();
     this.getplanningEtudiant();
     this.getdossProjEtudiant();
@@ -237,7 +248,7 @@ export default {
 #x {
   margin: 0% 2% 0% 0%;
 }
+
 .my-data-table {
   font-size: 106px;
-}
-</style>
+}</style>
