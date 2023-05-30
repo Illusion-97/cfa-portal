@@ -3,7 +3,7 @@
     <v-card-title>Nouveau dossier projet</v-card-title>
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
-        <v-text-field style="" v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
+        <v-text-field v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
         <b-form-select id="form-select-projet" v-model="DossierProjet.projet">
           <option :value="null" disabled>
             -Choisissez un projet existant-
@@ -18,7 +18,7 @@
         <b-button  size="sm" class="mr-2" @click="retour()">
           Retour
         </b-button>
-        <b-button size="sm" class="mr-2" variant="primary" @click="submit()">
+        <b-button id="submit" :disabled="isButtonDisabled" size="sm" class="mr-2" variant="primary" @click="submit()">
           Sauvegarder
         </b-button>
       </div>
@@ -200,7 +200,7 @@
            .catch((error) => {
              console.error(error);
            });
-     },
+       },
      methods: {
        retour() {
          history.back();
@@ -247,7 +247,7 @@
            contenuDossierProjets: [contenuDossierProjets[0]],
            resumeDossierProjets: [resumeDossierProjets[0]],
          };
-         await dossierProjetApi.save(dpDto).then(async (data) => {
+         await dossierProjetApi.save(dpDto).then((data) => {
            this.DossierProjet = data;
            this.$bvModal.show("modal-delete-success");
            this.idDp = data.id;
@@ -297,7 +297,7 @@
        }
      },
    
-
+     watch:{},
      computed: {
        selectedComp(){
           return (compid) => {
@@ -305,8 +305,11 @@
              const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
              const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
           return { backgroundColor: bg, color: txt }
-       }
-        }}
+       }},
+       isButtonDisabled() {
+         return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
+       },
+     }
    };
  </script>
  <style scoped>
