@@ -82,7 +82,7 @@
           <div>
             <div>
               <section>
-                <nav >
+                <nav>
                   <section class="fill-width">
                     <div id="btn-toggle-selection" role="group">
                       <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
@@ -184,7 +184,7 @@
                               </td>
                               <td>
                                 <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
-                                <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file != undefined">Envoyer</v-btn>
+                                <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</v-btn>
 
                                 <!-- Modal Confirmation Envoi Annexe -->
                                 <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
@@ -228,6 +228,7 @@
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
 import { VueEditor } from "vue2-editor";
 import {activiteTypeApi} from "@/_api/activiteType.api.js";
+import {cursusApi} from "@/_api/cursus.api";
 
 export default {
   name: "DossierProjetCreer",
@@ -242,13 +243,19 @@ export default {
       activiteTypes: [],
       dossierModif:{},
       filesAnnexe: [{file:undefined}],
-      DossierProjet: {},
+      DossierProjet: {nom:null},
     };
   },
-  created() {
-    console.clear();
+  beforeMount() {
     this.getDossierProjetById();
-    this.getActiviteTypeByCursus();
+
+  },
+  created() {
+    this.getCursusEtudiant()
+        .then((response) => {
+          this.cursus = response;
+          this.getActiviteTypeByCursus(this.cursus.id);
+        })
   },
   methods: {
     retour() {
@@ -291,7 +298,7 @@ export default {
               this.$bvModal.hide('modal-annexe-confirmation-' + index),
               this.DossierProjet.annexeDossierProjets.push(file),
               this.deleteAnnexe(index))
-          .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
+          .catch((error) => console.error(error));
     },
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
@@ -305,7 +312,7 @@ export default {
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
           .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index))
-          .catch((error) => console.error("Erreur lors de l'enregistrement du fichier importé :", error));
+          .catch((error) => console.error(error));
     },
 
     async submit() {
@@ -336,10 +343,13 @@ export default {
       this.getIdFromUrl();
       dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.DossierProjet = response;})
     },
-    getActiviteTypeByCursus(){
+    getActiviteTypeByCursus(id){
       activiteTypeApi
-          .getActiviteTypesByCursus(7)
+          .getActiviteTypesByCursus(id)
           .then((response) => (this.activiteTypes = response))
+    },
+    getCursusEtudiant() {
+      return cursusApi.getCurrentCursusByIdEtudiant(this.studentId);
     }
   },
 

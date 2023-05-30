@@ -2,127 +2,123 @@
     <div id="container-fluid">
 
         <!-- FORMULAIRE -->
-                <b-card-body class="d-flex justify-content-center">
-                    <v-app class="w-50">
-                        <form @submit="addTuteur">
-                            <v-container>
-                                <v-row>
-                                    <v-col cols="12" md="2">
-                                        <v-select :items="sexe" v-model="formulaireTuteur.civilite" label="Civilité"
-                                            outlined>
-                                        </v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="5">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.nom" label="Nom*" outlined
-                                                :rules="required" clearable required></v-text-field>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="12" md="5">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.prenom" label="Prenom*" outlined
-                                                :rules="required" clearable required></v-text-field>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="6">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.login" label="Email*" outlined
-                                                :rules="required" clearable required></v-text-field>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="12" md="6">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.password"
-                                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                                :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1"
-                                                label="Mot de passe*" outlined :rules="required" clearable
-                                                required></v-text-field>
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="3">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <v-text-field v-model="formulaireTuteur.telephone" label="Téléphone" outlined
-                                                clearable
-                                                :rules="[v => /^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']"></v-text-field>
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="12" md="5">
-                                        <v-select :items="listAdresse" v-model="adresseId" label="Adresse" outlined
-                                            clearable>
-                                            <template v-slot:prepend-item>
-                                                <v-list-item @click="showModal('Adresse')">
-                                                    <v-list-item-action>
-                                                        <v-icon>mdi-plus</v-icon>
-                                                    </v-list-item-action>
-                                                    <v-list-item-content>Ajouter une Adresse</v-list-item-content>
-                                                </v-list-item>
-                                            </template>
-                                        </v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                            :return-value.sync="formulaireTuteur.dateDeNaissance"
-                                            transition="scale-transition" offset-y min-width="auto">
-                                            <template v-slot:activator="{ on, attrs }">
-                                                <v-text-field v-model="formulaireTuteur.dateDeNaissance"
-                                                    label="Date de naissance" prepend-inner-icon="mdi-calendar" readonly
-                                                    v-bind="attrs" v-on="on" outlined clearable></v-text-field>
-                                            </template>
-                                            <v-date-picker v-model="formulaireTuteur.dateDeNaissance" no-title scrollable>
-                                                <v-spacer></v-spacer>
-                                                <v-btn text color="primary" @click="menu = false">
-                                                    Cancel
-                                                </v-btn>
-                                                <v-btn text color="primary"
-                                                    @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
-                                                    OK
-                                                </v-btn>
-                                            </v-date-picker>
-                                        </v-menu>
-                                    </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col cols="12" md="6">
-                                        <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormationId"
-                                            label="Centre de formation" outlined clearable></v-select>
-                                    </v-col>
-                                    <v-col cols="12" md="6">
-                                        <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise" outlined
-                                            clearable>
-                                            <template v-slot:prepend-item>
-                                                <v-list-item @click="showModal('Entreprise')">
-                                                    <v-list-item-action>
-                                                        <v-icon>mdi-plus</v-icon>
-                                                    </v-list-item-action>
-                                                    <v-list-item-content>Ajouter une entreprise</v-list-item-content>
-                                                </v-list-item>
-                                            </template>
-                                        </v-select>
-                                    </v-col>
-                                </v-row>
-                                <div>
-                                    <small>*indique les champs requis</small>
+        <b-card-body class="d-flex justify-content-center">
+            <v-app class="w-50">
+                <form @submit="addTuteur">
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12" md="2">
+                                <v-select :items="sexe" v-model="formulaireTuteur.civilite" label="Civilité" outlined>
+                                </v-select>
+                            </v-col>
+                            <v-col cols="12" md="5">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <v-text-field v-model="formulaireTuteur.nom" label="Nom*" outlined :rules="required"
+                                        clearable required></v-text-field>
                                 </div>
-                                <v-btn class="mr-4" type="submit" color='success'>
-                                    <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
-                                    Ajouter
-                                </v-btn>
-                                <v-btn class="mr-4" color="secondary" @click="clear">
-                                    <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
-                                    Vider
-                                </v-btn>
-                                <v-btn class="mr-4" color="error" @click="hideComponent">
-                                    <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'trash']" />
-                                    Annuler
-                                </v-btn>
-                            </v-container>
-                        </form>
-                    </v-app>
-                </b-card-body>
+                            </v-col>
+                            <v-col cols="12" md="5">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <v-text-field v-model="formulaireTuteur.prenom" label="Prenom*" outlined
+                                        :rules="required" clearable required></v-text-field>
+                                </div>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <v-text-field v-model="formulaireTuteur.login" label="Email*" outlined :rules="required"
+                                        clearable required></v-text-field>
+                                </div>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <v-text-field v-model="formulaireTuteur.password"
+                                        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'"
+                                        @click:append="show1 = !show1" label="Mot de passe*" outlined :rules="required"
+                                        clearable required></v-text-field>
+                                </div>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="3">
+                                <div class="w-100 d-flex justify-content-center">
+                                    <v-text-field v-model="formulaireTuteur.telephone" label="Téléphone" outlined clearable
+                                        :rules="[v => /^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']"></v-text-field>
+                                </div>
+                            </v-col>
+                            <v-col cols="12" md="5">
+                                <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined :rules="required" clearable required>
+                                    <template v-slot:prepend-item>
+                                        <v-list-item @click="showModal('Adresse')">
+                                            <v-list-item-action>
+                                                <v-icon>mdi-plus</v-icon>
+                                            </v-list-item-action>
+                                            <v-list-item-content>Ajouter une Adresse</v-list-item-content>
+                                        </v-list-item>
+                                    </template>
+                                </v-select>
+                            </v-col>
+                            <v-col cols="12" md="4">
+                                <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
+                                    :return-value.sync="formulaireTuteur.dateDeNaissance" transition="scale-transition"
+                                    offset-y min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-model="formulaireTuteur.dateDeNaissance" label="Date de naissance"
+                                            prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined
+                                            clearable></v-text-field>
+                                    </template>
+                                    <v-date-picker v-model="formulaireTuteur.dateDeNaissance" no-title scrollable>
+                                        <v-spacer></v-spacer>
+                                        <v-btn text color="primary" @click="menu = false">
+                                            Cancel
+                                        </v-btn>
+                                        <v-btn text color="primary"
+                                            @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
+                                            OK
+                                        </v-btn>
+                                    </v-date-picker>
+                                </v-menu>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormationId"
+                                    label="Centre de formation*" outlined :rules="required" clearable required></v-select>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise*" outlined
+                                :rules="required" clearable required>
+                                    <template v-slot:prepend-item>
+                                        <v-list-item @click="showModal('Entreprise')">
+                                            <v-list-item-action>
+                                                <v-icon>mdi-plus</v-icon>
+                                            </v-list-item-action>
+                                            <v-list-item-content>Ajouter une entreprise</v-list-item-content>
+                                        </v-list-item>
+                                    </template>
+                                </v-select>
+                            </v-col>
+                        </v-row>
+                        <div>
+                            <small>*indique les champs requis</small>
+                        </div>
+                        <v-btn class="mr-4" type="submit" color='success'>
+                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
+                            Ajouter
+                        </v-btn>
+                        <v-btn class="mr-4" color="secondary" @click="clear">
+                            <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
+                            Vider
+                        </v-btn>
+                        <v-btn class="mr-4" color="error" @click="hideComponent">
+                            <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'trash']" />
+                            Annuler
+                        </v-btn>
+                    </v-container>
+                </form>
+            </v-app>
+        </b-card-body>
 
         <!-- FORMULAIRE ADRESSE -->
         <b-modal size="lg" hide-footer :ref="'modal-Adresse'">
@@ -133,7 +129,7 @@
             <b-button class="mt-3" variant="danger" block @click="hideModal">
                 Annuler</b-button>
         </b-modal>
-        
+
         <!-- FORMULAIRE ENTREPRISE -->
         <b-modal size="lg" hide-footer :ref="'modal-Entreprise'">
             <template #modal-title>
@@ -269,7 +265,7 @@ export default {
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formulaireTuteur);
             this.clear();
-            this.$emit('hidden');
+            this.$emit('hidden', 'Tuteur ajouter.');
         },
     }
 }          

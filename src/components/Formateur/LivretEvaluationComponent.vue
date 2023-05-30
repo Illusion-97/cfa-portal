@@ -2,6 +2,7 @@
   <section v-if="(livretEvaluation != null)">
     <div>
       <h3 class="m-4  text-center">Etât du livret : {{ livretEvaluation.etat | etatLivret }} </h3>
+      <b-alert  v-model="ifSignature" variant="danger" dismissible> L'étudiant doit avoir une signature</b-alert>
       <b-button v-if="livretEvaluation.etat != 'ENATTENTEDEVALIDATION'" variant="primary" class="m-4" @click="generer">Télécharger le livret d'évaluation</b-button>
       <b-card no-body class="mb-1" v-for="(eva, i ) in atEvaluations" :key="eva.at.id">
         <b-card-header header-tag="header" class="p-1" role="tab">
@@ -96,9 +97,12 @@ export default {
 
   data() {
     return {
+
       visible: false,
       message: "",
       color: "success",
+      dismissSecs: 10,
+      ifSignature:false,
       dismissCountDown: 0,
       activitesTypes: [],
       atEvaluations: [],
@@ -135,6 +139,9 @@ export default {
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
         downloadLink.click();
+      }).catch(error => {
+        console.log(error+ " inside catch");
+        this.ifSignature = true;
       })
     },
     edit(eva) {
