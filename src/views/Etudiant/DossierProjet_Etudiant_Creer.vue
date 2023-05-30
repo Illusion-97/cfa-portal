@@ -263,7 +263,7 @@
         getEtudiant() {
           etudiantApi
             .getById(this.studentId)
-            .then((response) => (this.etudiants = response, console.log("etudiant "+this.etudiants)));
+            .then((response) => (this.etudiants = response));
         },
        getAllProject() {
          projetApi.getAll().then((response) => {this.projets = response});
@@ -287,7 +287,6 @@
      computed: {
        selectedComp(){
           return (compid) => {
-            console.log(this.DossierProjet.competenceProfessionnelleIds)
              const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
              const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
              const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'

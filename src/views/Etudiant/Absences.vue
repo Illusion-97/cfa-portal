@@ -67,10 +67,8 @@ export default {
                 })
         },
         onSubmit(event) {
-            console.log(this.fileJustificatif.name)
             var bodyFormData = new FormData();
             event.justificatif = this.
-                console.log(this.ileJustificatif.name)
             bodyFormData.append("absence", JSON.stringify(event))
             bodyFormData.append("fileJustificatif", this.fileJustificatif);
             absenceApi
