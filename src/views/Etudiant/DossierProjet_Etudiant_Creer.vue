@@ -189,7 +189,6 @@
      },
 
      created() {
-       console.clear();
        this.getAllProject();
        this.getEtudiant();
        this.getCursusEtudiant()
@@ -254,8 +253,6 @@
          })
          if (fileImport){
          await dossierProjetApi.saveImport(fileImport, this.idDp)
-             .then(() => console.log("Fichier importé enregistré avec succès"))
-             .catch((error) => console.error("Erreur lors de l'enregistrement du fichier importé :", error));
          }
          // Envoi de chaque fichier
 
@@ -267,8 +264,6 @@
            }
          }
          await dossierProjetApi.saveAnnexe(annexeData, this.idDp)
-             .then(() => console.log("Annexes importé enregistré avec succès"))
-             .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
 
        },
         getEtudiant() {

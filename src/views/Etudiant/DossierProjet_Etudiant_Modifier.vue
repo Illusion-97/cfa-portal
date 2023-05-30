@@ -251,15 +251,11 @@ export default {
 
   },
   created() {
-    console.clear();
     this.getCursusEtudiant()
         .then((response) => {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
         })
-        .catch((error) => {
-          console.error(error);
-        });
   },
   methods: {
     retour() {
@@ -302,7 +298,7 @@ export default {
               this.$bvModal.hide('modal-annexe-confirmation-' + index),
               this.DossierProjet.annexeDossierProjets.push(file),
               this.deleteAnnexe(index))
-          .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
+          .catch((error) => console.error(error));
     },
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
@@ -316,7 +312,7 @@ export default {
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
           .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index))
-          .catch((error) => console.error("Erreur lors de l'enregistrement du fichier importé :", error));
+          .catch((error) => console.error(error));
     },
 
     async submit() {
