@@ -82,7 +82,7 @@
           <div>
             <div>
               <section>
-                <nav >
+                <nav>
                   <section class="fill-width">
                     <div id="btn-toggle-selection" role="group">
                       <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
@@ -184,7 +184,7 @@
                               </td>
                               <td>
                                 <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
-                                <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file != undefined">Envoyer</v-btn>
+                                <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</v-btn>
 
                                 <!-- Modal Confirmation Envoi Annexe -->
                                 <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
@@ -228,6 +228,7 @@
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
 import { VueEditor } from "vue2-editor";
 import {activiteTypeApi} from "@/_api/activiteType.api.js";
+import {cursusApi} from "@/_api/cursus.api";
 
 export default {
   name: "DossierProjetCreer",
@@ -242,13 +243,23 @@ export default {
       activiteTypes: [],
       dossierModif:{},
       filesAnnexe: [{file:undefined}],
-      DossierProjet: {},
+      DossierProjet: {nom:null},
     };
+  },
+  beforeMount() {
+    this.getDossierProjetById();
+
   },
   created() {
     console.clear();
-    this.getDossierProjetById();
-    this.getActiviteTypeByCursus();
+    this.getCursusEtudiant()
+        .then((response) => {
+          this.cursus = response;
+          this.getActiviteTypeByCursus(this.cursus.id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
   },
   methods: {
     retour() {
@@ -336,10 +347,13 @@ export default {
       this.getIdFromUrl();
       dossierProjetApi.getById(this.dossierProjetId).then((response)=> {this.DossierProjet = response;})
     },
-    getActiviteTypeByCursus(){
+    getActiviteTypeByCursus(id){
       activiteTypeApi
-          .getActiviteTypesByCursus(7)
+          .getActiviteTypesByCursus(id)
           .then((response) => (this.activiteTypes = response))
+    },
+    getCursusEtudiant() {
+      return cursusApi.getCurrentCursusByIdEtudiant(this.studentId);
     }
   },
 

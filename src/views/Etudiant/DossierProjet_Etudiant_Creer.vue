@@ -1,6 +1,6 @@
 <template>
   <div id="main-cr-prj">
-    <v-card-title>Nouveau dossier projet</v-card-title><!-- 4-31 -->
+    <v-card-title>Nouveau dossier projet</v-card-title>
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
         <v-text-field style="" v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
@@ -50,13 +50,13 @@
         </div>
           <section>
             <section class="fill-width">
-              <v-btn-toggle role="group">
+              <div id="btn-toggle-selection" role="group">
                 <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
                 <v-btn block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Compétences Couvertes</v-btn>
                 <v-btn block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Résumé</v-btn>
                 <v-btn block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Contenu</v-btn>
                 <v-btn block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Annexe</v-btn>
-              </v-btn-toggle>
+              </div>
             </section>
             <section>
               <v-card>
@@ -155,6 +155,7 @@
  import {VueEditor} from "vue2-editor";
  import {projetApi} from "@/_api/projet.api.js";
  import {activiteTypeApi} from "@/_api/activiteType.api.js";
+ import {cursusApi} from "@/_api/cursus.api";
  export default {
      name: "DossierProjetCreer",
      components: { VueEditor },
@@ -166,6 +167,7 @@
          etudiants: [],
          projets: [],
          activiteTypes: [],
+         cursus:{id:0},
          DossierProjet: {
            id:0,
            nom: "",
@@ -185,10 +187,19 @@
 
        };
      },
+
      created() {
+       console.clear();
        this.getAllProject();
        this.getEtudiant();
-       this.getActiviteTypeByCursus();
+       this.getCursusEtudiant()
+           .then((response) => {
+             this.cursus = response;
+             this.getActiviteTypeByCursus(this.cursus.id);
+           })
+           .catch((error) => {
+             console.error(error);
+           });
      },
      methods: {
        retour() {
@@ -263,16 +274,19 @@
         getEtudiant() {
           etudiantApi
             .getById(this.studentId)
-            .then((response) => (this.etudiants = response, console.log("etudiant "+this.etudiants)));
+            .then((response) => (this.etudiants = response));
         },
        getAllProject() {
          projetApi.getAll().then((response) => {this.projets = response});
        },
-       getActiviteTypeByCursus(){
+       getActiviteTypeByCursus(id){
          activiteTypeApi
-         .getActiviteTypesByCursus(7)
-         .then((response) => {this.activiteTypes = response})
-       },   
+         .getActiviteTypesByCursus(id)
+         .then((response) => (this.activiteTypes = response))
+       },
+       getCursusEtudiant() {
+         return cursusApi.getCurrentCursusByIdEtudiant(this.studentId);
+       },
        clearMessage() {
          this.message = "";
        },
@@ -287,7 +301,6 @@
      computed: {
        selectedComp(){
           return (compid) => {
-            console.log(this.DossierProjet.competenceProfessionnelleIds)
              const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
              const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
              const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
@@ -302,6 +315,11 @@
    padding: 20px;
    margin: 0 2% 10vh 2%;
    height: 100vh;
+   }
+   #btn-toggle-selection{
+     display: grid;
+     grid-template-columns: repeat(5,1fr);
+     grid-template-rows: 1fr;
    }
    .section-input{
      display: grid;
