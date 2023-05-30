@@ -52,7 +52,7 @@
       </div>
 
       <div class="tuteur p-2">
-        <button @click="openClick()" class="btn btn-outline-info">
+        <button @click="openClick" class="btn btn-outline-info">
           <span v-if="!visible">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
           </span>
@@ -65,9 +65,11 @@
 
     <!-- AJOUT TUTEUR -->
     <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
-      <addTuteur @hidden="openClick()">
+      <addTuteur @hidden="openClick">
       </addTuteur>
     </b-collapse>
+
+    <div v-if="message == 'Tuteur ajouter.'" class="my-success-feedback"> {{ message }} </div>
 
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
@@ -202,8 +204,12 @@ export default {
     this.getRoles();
   },
   methods: {
-    openClick() {
+    openClick(data) {
       this.visible = !this.visible;
+      if (data) {
+        this.message = data;
+        this.refreshList;
+      }
     },
     assigneTableItems(users) {
       this.items = [];
@@ -369,5 +375,12 @@ export default {
 #file,
 #btn-import {
   display: none;
+}
+.my-success-feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 100%;
+  color: green;
+  font-weight: bolder;
 }
 </style>
