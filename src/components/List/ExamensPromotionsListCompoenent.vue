@@ -256,7 +256,7 @@ export default {
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
-        this.getActiviteType(data),
+        this.getActiviteType(data)
       })
     }
     else{
