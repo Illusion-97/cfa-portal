@@ -173,7 +173,6 @@ export default {
         })
       }
       else {
-        console.log("else" + this.at);
         activiteTypeApi.save(this.at).then(response => {
           this.color = "success";
           this.dismissCountDown = 6;

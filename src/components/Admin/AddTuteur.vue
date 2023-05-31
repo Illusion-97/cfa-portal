@@ -44,7 +44,7 @@
                             <v-col cols="12" md="3">
                                 <div class="w-100 d-flex justify-content-center">
                                     <v-text-field v-model="formulaireTuteur.telephone" label="Téléphone" outlined clearable
-                                        :rules="[v => /^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']"></v-text-field>
+                                        :rules="[v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']"></v-text-field>
                                 </div>
                             </v-col>
                             <v-col cols="12" md="5">
