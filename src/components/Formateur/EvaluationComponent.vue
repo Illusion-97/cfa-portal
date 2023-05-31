@@ -173,17 +173,17 @@ export default {
 
         // OTHER
         submit() {
-            console.log("dans le submit");
+            // console.log("dans le submit");
             if (this.modifier) {
-                console.log("dans le if");
+                // console.log("dans le if");
                 evaluationFormationApi.update(this.evaluationFormation).then(response => {
-                    console.log(this.evaluationFormation);
+                    // console.log(this.evaluationFormation);
                     this.color = "success";
                     this.dismissCountDown = 6;
                     this.message = "L'Evaluation du " + response.dateEvaluation + " a été modifier avec succès"
                     this.visible = false;
                     this.getEvaluationFormation()
-                    console.log(response)
+                    // console.log(response)
                 }).catch(err => {
                     this.color = "danger";
                     this.dismissCountDown = 8;
@@ -191,14 +191,14 @@ export default {
                 })
             }
             else {
-                console.log("dans le else");
+                // console.log("dans le else");
                 evaluationFormationApi.save(this.evaluationFormation).then(response => {
                     this.color = "success";
                     this.dismissCountDown = 6;
                     this.message = "L'Evaluation du " + response.dateEvaluation + " a été ajouté avec success"
                     this.visible = false;
                     this.getEvaluationFormation()
-                    console.log(response)
+                    // console.log(response)
                 }).catch(err => {
                     this.color = "danger";
                     this.dismissCountDown = 8;

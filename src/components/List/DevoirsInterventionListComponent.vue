@@ -36,7 +36,7 @@
                         </b-form-datepicker>
  
 
- 
+
                     </div>
                     <div v-else>
                         {{row.item.dateDebut}}
@@ -141,10 +141,16 @@ export default {
         }
     },
     created() {
-        this.getAllDevoirsByInterventionId()    
+        this.getAllDevoirsByInterventionId() 
+        // this.getDevoir()   
     },
     methods: {
         // Intervention
+        // getDevoir() {
+        //     devoirApi.getAllByInterventionId(this.$route.params.id).then(response => {
+        //         this.devoirs = response;
+        //     })
+        // },
         getAllDevoirsByInterventionId() {
             devoirApi.getAllByInterventionId(this.$route.params.id)
             .then((response) => {
@@ -241,6 +247,9 @@ export default {
                         }
                         this.showAlert(item.consigne, false);
                     }
+                    
+                    this.getAllDevoirsByInterventionId();
+
                     });
                 }
                 })
