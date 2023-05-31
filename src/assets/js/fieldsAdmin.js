@@ -73,3 +73,10 @@ export const etudiantsFields = [
     "supprimer",
   
   ];
+
+  export const AdresseFields = [
+    { key: "libelle", text: "Libelle", sortable: false },
+    { key: "ville", text: "Ville", sortable: false },
+    { key: "codePostal", text: "Code Postal", sortable: false },
+    { key: "Actions", text: "Actions", thStyle: { width: "20%" }, thClass: "text-center" },
+  ];

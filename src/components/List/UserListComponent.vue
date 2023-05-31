@@ -50,6 +50,7 @@
         </div>
       </div>
 
+      <!-- ADD TUTEUR -->
       <div class="tuteur p-2">
         <button @click="openClick" class="btn btn-outline-info">
           <span v-if="!visible">
@@ -67,9 +68,7 @@
       <addTuteur @hidden="openClick">
       </addTuteur>
     </b-collapse>
-
-    <div v-if="message == 'Tuteur ajouter.'" class="my-success-feedback"> {{ message }} </div>
-
+    
     <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
           utilisateurs
         </button>
@@ -205,8 +204,11 @@ export default {
   methods: {
     openClick(data) {
       this.visible = !this.visible;
-      if (data) {
+      if (data == "Tuteur ajouter.") {
+        this.color = "success";
+        this.dismissCountDown = 6;
         this.message = data;
+        this.loading = false;
         this.refreshList;
       }
     },

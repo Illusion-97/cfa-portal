@@ -43,7 +43,7 @@
                 label="Employeur Type" required @input="$v.entreprise.employeurType.$touch()"
                 @blur="$v.entreprise.employeurType.$touch()"></v-select>
 
-              <v-autocomplete rounded solo label="Adresse" :items="itemsAdresse" placeholder="ville : libelle"
+              <v-autocomplete label="Adresse" :items="itemsAdresse" placeholder="ville : libelle"
                 v-model="entreprise.adresseSiegeId" :error-messages="adresseSiegeErr"
                 @input="$v.entreprise.adresseSiegeId.$touch()" @blur="$v.entreprise.adresseSiegeId.$touch()"
                 required></v-autocomplete>

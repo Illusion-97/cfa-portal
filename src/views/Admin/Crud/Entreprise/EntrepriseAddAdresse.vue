@@ -1,142 +1,96 @@
 <template>
- 
-  <div class="container-fluid">
-     <BodyTitle :title=vue_title />
-      
-
-    <b-form class="form mb-5" @submit="submit">
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Numero</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.numero" type="number" min="0" placeholder="0"
-              required
-            ></b-form-input>
-          </div>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Rue</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.rue"
-              required
-            ></b-form-input>
-          </div>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Ville</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.ville"
-              required
-            ></b-form-input>
-          </div>
-        </b-form-row>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-row class="text-align-left">
-          <label class="col-1">Code Postal</label>
-          <div class="col-5 pr-5">
-            <b-form-input
-              v-model="form.codePostal" type="number" min="0" placeholder="01"
-              required
-            ></b-form-input>
-          </div>
-        </b-form-row>
-      </b-form-group>
-
-    
-      <div class="offset-1 col-3 pr-5 pl-0">
-        <button type="submit" class="btn btn-primary mon-btn">{{btn_form_text}}</button>
-      </div>
-    </b-form>
-
-    <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Précédent
-    </a>
-
-    </div>
-
-    
+    <b-card>
+        <b-card-body class="d-flex justify-content-center">
+            <v-app>
+                <form @submit="addAdresse">
+                    <v-row>
+                        <v-col cols="12" md="2">
+                            <v-select :items="pays" v-model="adresseDto.countryCode" label="Pays*" outlined clearable
+                                :rules="required" required>
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                            <div class="w-100 d-flex justify-content-center">
+                                <v-text-field v-model="adresseDto.ville" label="Ville*" outlined clearable :rules="required"
+                                    required></v-text-field>
+                            </div>
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <div class="w-100 d-flex justify-content-center">
+                                <v-text-field v-model="adresseDto.codePostal" label="Code postal*" outlined clearable
+                                    :rules="required" required></v-text-field>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="12">
+                            <div class="w-100 d-flex justify-content-center">
+                                <v-text-field v-model="adresseDto.libelle" label="Complément d'adresse" outlined
+                                    clearable></v-text-field>
+                            </div>
+                        </v-col>
+                    </v-row>
+                    <div>
+                        <small>*indique les champs requis</small>
+                    </div>
+                    <v-btn class="mr-4" type="submit" color='success'>
+                        <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
+                        Ajouter
+                    </v-btn>
+                    <v-btn class="mr-4" color="secondary" @click="clear">
+                        <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
+                        Vider
+                    </v-btn>
+                    <v-btn class="mr-4" color="error" @click="hideComponent">
+                        <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'trash']" />
+                        Annuler
+                    </v-btn>
+                </form>
+            </v-app>
+        </b-card-body>
+    </b-card>
 </template>
-
 <script>
-import {adresseApi} from "@/_api/adresse.api.js";
-import BodyTitle from "@/components/utils/BodyTitle.vue";
-
+import { adresseApi } from "@/_api/adresse.api.js";
 export default {
-  name: "AddAdresse",
-  components: {
-    BodyTitle,
-  },
-  data() {
-    return {
-      vue_title: "Création d'une adresse",
-      btn_form_text: "Ajouter",
-
-      form: {
-        id: null,
-        numero: "",
-        rue: "",
-        ville: "",
-        codePostal: "",
-      },
-    };
-  },
-  methods: {
-    submit(e) {
-      e.preventDefault();
-
-      adresseApi.save(this.form).then(() => this.goBack());
+    name: "AddAdresse",
+    data() {
+        return {
+            adresseDto: {
+                libelle: "",
+                ville: "",
+                codePostal: "",
+                idDg2: 0,
+                countryCode: "",
+            },
+            pays: ['BE', 'EL', 'LT', 'PT', 'BG', 'ES', 'LU', 'RO', 'CZ', 'FR', 'HU', 'SI', 'DK', 'HR', 'MT', 'SK', 'DE', 'IT', 'NL', 'FI', 'EE', 'CY', 'AT', 'SE', 'IE', 'LV', 'PL'].sort(),
+            required: [
+                v => !!v || 'Le champ est requis',
+            ],
+        };
     },
-    goBack() {
-      this.$router.go(-1);
-    },
-  },
-  created() {
-  
-    if(this.$route.params.id != null && this.$route.params.id != "" && this.$route.params.id != 0){
-      adresseApi.getById(this.$route.params.id).then(response => {
-        this.form = response
-        this.vue_title = "Modification d'une adresse";
-        this.btn_form_text = "Modifier";
-        });
-      
+    methods: {
+        hideComponent() {
+            this.clear();
+            this.$emit('hidden');
+        },
+        clear() {
+            this.adresseDto.libelle = "";
+            this.adresseDto.ville = "";
+            this.adresseDto.codePostal = "";
+            this.adresseDto.countryCode = "";
+        },
+        addAdresse() {
+            adresseApi
+                .save(this.adresseDto)
+                .then((data) => {
+                    if (data) {
+                        this.$emit('hidden', 'Adresse ajouter.');
+                        this.clear();
+                    }
+                });
+        },
     }
-  },
-};
+}          
 </script>
-
-<style scoped>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list > form {
-  width: 40%;
-}
-
-#saisie {
-  width: 70%;
-  margin-right: 5%;
-}
-
-.mon-btn{
-  width: 80%;
-}
-</style>
+<style scoped></style>
