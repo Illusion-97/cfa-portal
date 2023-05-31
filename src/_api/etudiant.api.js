@@ -309,6 +309,8 @@ function fetchAllEtudiantDG2Http(logInUser) {
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
+  //console.log(headers)
+
   return axios.get(req, headers);
   
   }
@@ -323,9 +325,13 @@ function fetchAllEtudiantDG2Http(logInUser) {
 
   function fetchAllEtudiantDG2HttpByIdPromotion(logInUser, promoId){
     let headers = requestOptions.headers();
+    console.log(promoId);
+    console.log(logInUser);
   let req = `/${END_POINT}/dg2/${promoId}`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.email}:${logInUser.password}`;
+
+  //console.log(headers)
 
   return axios.get(req, headers);
   }

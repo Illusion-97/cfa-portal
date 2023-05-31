@@ -1,37 +1,41 @@
 <template>
   <div id="main-cr-prj">
+
     <!-- Button retour -->
-    <div class="card-retour">
-    <b-button  size="sm" class="btn-retour" @click="retour()">
-      Retour
-    </b-button>
-    </div>
-    <div class="grid-1" v-if="this.$store.getters.getUtilisateur.tuteurDto">
+    <v-btn id="btn-retour" @click="retour()">Retour</v-btn>
+    <div v-if="this.$store.getters.getUtilisateur.tuteurDto">
 
       <!-- Nom des categorie du tableau -->
-      <nav id="selection-toggle" style="background-color: #08092d;">
-        <div class="toggle-btn" role="group">
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Infos etudiant</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Contrôle continue</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Planning</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Dossiers projets</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Dossiers professionnels</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt6'" @click="active = 6" variant="plain">Congé</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt7'" @click="active = 7" variant="plain">Absences</v-btn>
-        </div>
+      <nav id="navbar-btn">
+        <v-btn-toggle w-100 role="group">
+          <v-btn w-100 id="bt1" block v-b-toggle="'bt1'" @click="active = 1" variant="plain"
+            style="color: white; background-color: #08092d">Infos etudiant</v-btn>
+          <v-btn w-100 id="bt2" block v-b-toggle="'bt2'" @click="active = 2" variant="plain"
+            style="color: white; background-color: #08092d">Contrôle continue</v-btn>
+          <v-btn w-100 id="bt3" block v-b-toggle="'bt3'" @click="active = 3" variant="plain"
+            style="color: white; background-color: #08092d">Planning</v-btn>
+          <v-btn w-100 id="bt4" block v-b-toggle="'bt4'" @click="active = 4" variant="plain"
+            style="color: white; background-color: #08092d">Dossiers projets</v-btn>
+          <v-btn w-100 id="bt5" block v-b-toggle="'bt5'" @click="active = 5" variant="plain"
+            style="color: white; background-color: #08092d">Dossiers professionnels</v-btn>
+          <v-btn w-100 id="bt6" block v-b-toggle="'bt6'" @click="active = 6" variant="plain"
+            style="color: white; background-color: #08092d">Congé</v-btn>
+          <v-btn w-100 id="bt7" block v-b-toggle="'bt7'" @click="active = 7" variant="plain"
+            style="color: white; background-color: #08092d">Absences</v-btn>
+        </v-btn-toggle>
       </nav>
 
-      <v-card class="detail-etudiant">
+      <v-card id="x">
         <!--Tableau Infos Etudiant-->
         <v-card v-show="active === 1" name="Info">
           <v-card-text>
-            <v-card-title>Nom : {{ infos.nom }}</v-card-title>
-            <v-card-title>Prenom : {{ infos.prenom }}</v-card-title>
-            <v-card-title>Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
-            <v-card-title>Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
-            <v-card-title>Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
-            <v-card-title>Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
-            <v-card-title>Adresse mail : {{ infos.login }}</v-card-title>
+            <v-card-title disabled>Nom : {{ infos.utilisateurDto.nom }}</v-card-title>
+            <v-card-title disabled>Prenom : {{ infos.utilisateurDto.prenom }}</v-card-title>
+            <v-card-title disabled>Date de naissance : {{ infos.utilisateurDto.dateDeNaissance? infos.utilisateurDto.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
+            <v-card-title disabled>Adresse : {{ infos.utilisateurDto.adresseDto? infos.utilisateurDto.adresseDto.libelle + " " + infos.utilisateurDto.adresseDto.ville + " " + infos.utilisateurDto.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
+            <v-card-title disabled>Télephone : {{ infos.utilisateurDto.telephone? infos.utilisateurDto.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
+            <v-card-title disabled>Télephone fixe : {{ infos.utilisateurDto.telephoneFixe? infos.utilisateurDto.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
+            <v-card-title disabled>Adresse mail : {{ infos.utilisateurDto.login }}</v-card-title>
           </v-card-text>
         </v-card>
 
@@ -40,12 +44,11 @@
         <!-- Tableau Controle Continu -->
         <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="pageNotes" :items-per-page="itemsPerPage"
-            hide-default-footer class="custom-font-size" v-if="notes.length">
+            hide-default-footer class="h1" v-if="notes.length">
           </v-data-table>
           <v-card-title v-else>Pas de controle continu.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageNotes" :length="Math.ceil(notes.length / itemsPerPage)" color="#E91E63" circle
-              v-if="notes.length"></v-pagination>
+            <v-pagination v-model="pageNotes" :length="Math.ceil(notes.length / itemsPerPage)" color="#E91E63" circle v-if="notes.length"></v-pagination>
           </div>
         </v-card>
 
@@ -56,8 +59,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de planning.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pagePromos" :length="Math.ceil(promos.length / itemsPerPage)" color="#E91E63" circle
-              v-if="promos.length"></v-pagination>
+            <v-pagination v-model="pagePromos" :length="Math.ceil(promos.length / itemsPerPage)" color="#E91E63" circle v-if="promos.length"></v-pagination>
           </div>
         </v-card>
 
@@ -68,8 +70,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de dossier projet.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" circle
-              color="#E91E63" v-if="dossProjs.length"></v-pagination>
+            <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" circle color="#E91E63" v-if="dossProjs.length"></v-pagination>
           </div>
         </v-card>
 
@@ -80,8 +81,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de dossier professionnel.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" circle
-              color="#E91E63" v-if="dossProfs.length"></v-pagination>
+            <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" circle color="#E91E63" v-if="dossProfs.length"></v-pagination>
           </div>
         </v-card>
 
@@ -92,8 +92,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de congé.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageConge" :length="Math.ceil(conges.length / itemsPerPage)" color="#E91E63" circle
-              v-if="conges.length"></v-pagination>
+            <v-pagination v-model="pageConge" :length="Math.ceil(conges.length / itemsPerPage)" color="#E91E63" circle v-if="conges.length"></v-pagination>
           </div>
         </v-card>
 
@@ -104,8 +103,7 @@
           </v-data-table>
           <v-card-title v-else>Pas d'absence.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageAbsence" :length="Math.ceil(absences.length / itemsPerPage)" color="#E91E63" circle
-              v-if="absences.length"></v-pagination>
+            <v-pagination v-model="pageAbsence" :length="Math.ceil(absences.length / itemsPerPage)" color="#E91E63" circle v-if="absences.length"></v-pagination>
           </div>
         </v-card>
       </v-card>
@@ -132,7 +130,7 @@ import { dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
 export default {
   data: () => {
     return {
-      active: 2,
+      active: 1,
       pageNotes: 1,
       pagePromos: 1,
       pageDossProjet: 1,
@@ -164,13 +162,8 @@ export default {
       });
     },
 
-    async getInfoEtudiant() {
-      try {
-        const response = await etudiantApi.getById(this.etudiantId);
-        this.infos = response.utilisateurDto;
-      } catch (error) {
-        console.error("Erreur lors de la récupération des informations de l'étudiant :", error);
-      }
+    getinfoEtudiant() {
+      etudiantApi.getById(this.etudiantId).then((response) => (this.infos = response));
     },
 
     getnoteEtudiant() {
@@ -212,9 +205,9 @@ export default {
     },
   },
 
-   created() {
+  created() {
     this.etudiantId = this.$route.params.id;
-    this.getInfoEtudiant();
+    this.getinfoEtudiant();
     this.getnoteEtudiant();
     this.getplanningEtudiant();
     this.getdossProjEtudiant();
@@ -225,35 +218,26 @@ export default {
 };
 </script>
 
-<style >
+<style>
 #main-cr-prj {
-  margin: 0% 3% 0% 3%;
-  display: grid;
-  grid-template-rows: 50px 1fr;
-}
-.grid-1{
-
-}
-.toggle-btn{
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
-}
-.btn-detail{
-  color: white;
-  background-color: #08092d;
-}
-.btn-retour{
-  width: 70px;
-  float: right;
-}
-.card-retour{
-  height: 20px;
+  background-color: none;
+  margin: 0% 0% 0% 3%;
+  min-width: 1170px;
+  min-height: 100%;
 }
 
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th,
-.v-data-table>.v-data-table__wrapper>table>tbody>tr>td,
-.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
-  font-size: 17px !important;
+.v-btn-toggle {
+  width: 14%;
 }
 
+#btn-retour {
+  margin-left: 94%;
+}
+
+#x {
+  margin: 0% 2% 0% 0%;
+}
+.my-data-table {
+  font-size: 106px;
+}
 </style>

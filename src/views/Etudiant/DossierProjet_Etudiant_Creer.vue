@@ -1,30 +1,36 @@
 <template>
   <div id="main-cr-prj">
-    <v-card-title>Nouveau dossier projet</v-card-title>
-    <section class="section-input" style="width: 100%" >
-      <div class="input-selection">
-        <v-text-field v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
-        <b-form-select id="form-select-projet" v-model="DossierProjet.projet">
-          <option :value="null" disabled>
-            -Choisissez un projet existant-
-          </option>
-          <option v-for="projet in projets" :key="projet.id" :value="projet">
-            {{ projet.nom }}
-          </option>
-        </b-form-select>
-      </div>
-
-      <div class="input-top-btn">
-        <b-button  size="sm" class="mr-2" @click="retour()">
-          Retour
-        </b-button>
-        <b-button id="submit" :disabled="isButtonDisabled" size="sm" class="mr-2" variant="primary" @click="submit()">
-          Sauvegarder
-        </b-button>
-      </div>
-    </section>
+    <nav class="d-inline" id="navproj">
+      <v-card-title>Nouveau dossier projet</v-card-title>
+      <v-row>
+        <!-- Ajout du nom au dossier projet -->
+        <v-col md="5">
+          <v-text-field v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
+        </v-col>
+        <!-- Ajout du projet au dossier projet -->
+        <v-col md="5">
+          <b-form-select v-model="DossierProjet.projet">
+            <option :value="null" disabled>
+              -- Choisissez un projet existant --
+            </option>
+            <option v-for="projet in projets" :key="projet.id" :value="projet">
+              {{ projet.nom }}
+            </option>
+          </b-form-select>
+        </v-col>
+        <v-col>
+          <!-- Bouton retour en arrière -->
+          <button class="btn btn-secondary" @click="retour()">
+            Retour
+          </button>
+          <button class="btn btn-success" style="margin-left: 5px" @click="submit()">
+            Sauvegarder
+          </button>
+        </v-col>
+      </v-row>
+    </nav>
     <div>
-      <!-- **** Composants Importer Un Dossier ****-->
+      <!-- ****Composants Importer Un Dossier ****-->
       <section id="comp-doss-prjt">
         <div class="comp-doss">
           <p>Importer un dossier :</p>
@@ -50,13 +56,13 @@
         </div>
           <section>
             <section class="fill-width">
-              <div id="btn-toggle-selection" role="group">
+              <v-btn-toggle role="group">
                 <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
                 <v-btn block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Compétences Couvertes</v-btn>
                 <v-btn block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Résumé</v-btn>
                 <v-btn block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Contenu</v-btn>
                 <v-btn block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Annexe</v-btn>
-              </div>
+              </v-btn-toggle>
             </section>
             <section>
               <v-card>
@@ -155,7 +161,6 @@
  import {VueEditor} from "vue2-editor";
  import {projetApi} from "@/_api/projet.api.js";
  import {activiteTypeApi} from "@/_api/activiteType.api.js";
- import {cursusApi} from "@/_api/cursus.api";
  export default {
      name: "DossierProjetCreer",
      components: { VueEditor },
@@ -167,7 +172,6 @@
          etudiants: [],
          projets: [],
          activiteTypes: [],
-         cursus:{id:0},
          DossierProjet: {
            id:0,
            nom: "",
@@ -187,19 +191,11 @@
 
        };
      },
-
      created() {
        this.getAllProject();
        this.getEtudiant();
-       this.getCursusEtudiant()
-           .then((response) => {
-             this.cursus = response;
-             this.getActiviteTypeByCursus(this.cursus.id);
-           })
-           .catch((error) => {
-             console.error(error);
-           });
-       },
+       this.getActiviteTypeByCursus();
+     },
      methods: {
        retour() {
          history.back();
@@ -246,13 +242,15 @@
            contenuDossierProjets: [contenuDossierProjets[0]],
            resumeDossierProjets: [resumeDossierProjets[0]],
          };
-         await dossierProjetApi.save(dpDto).then((data) => {
+         await dossierProjetApi.save(dpDto).then(async (data) => {
            this.DossierProjet = data;
            this.$bvModal.show("modal-delete-success");
            this.idDp = data.id;
          })
          if (fileImport){
          await dossierProjetApi.saveImport(fileImport, this.idDp)
+             .then(() => console.log("Fichier importé enregistré avec succès"))
+             .catch((error) => console.error("Erreur lors de l'enregistrement du fichier importé :", error));
          }
          // Envoi de chaque fichier
 
@@ -264,24 +262,23 @@
            }
          }
          await dossierProjetApi.saveAnnexe(annexeData, this.idDp)
+             .then(() => console.log("Annexes importé enregistré avec succès"))
+             .catch((error) => console.error("Erreur lors de l'enregistrement des annexes importés :", error));
 
        },
         getEtudiant() {
           etudiantApi
             .getById(this.studentId)
-            .then((response) => (this.etudiants = response));
+            .then((response) => (this.etudiants = response, console.log("etudiant "+this.etudiants)));
         },
        getAllProject() {
          projetApi.getAll().then((response) => {this.projets = response});
        },
-       getActiviteTypeByCursus(id){
+       getActiviteTypeByCursus(){
          activiteTypeApi
-         .getActiviteTypesByCursus(id)
-         .then((response) => (this.activiteTypes = response))
-       },
-       getCursusEtudiant() {
-         return cursusApi.getCurrentCursusByIdEtudiant(this.studentId);
-       },
+         .getActiviteTypesByCursus(7)
+         .then((response) => {this.activiteTypes = response})
+       },   
        clearMessage() {
          this.message = "";
        },
@@ -292,7 +289,7 @@
        }
      },
    
-     watch:{},
+
      computed: {
        selectedComp(){
           return (compid) => {
@@ -300,11 +297,8 @@
              const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
              const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
           return { backgroundColor: bg, color: txt }
-       }},
-       isButtonDisabled() {
-         return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
-       },
-     }
+       }
+        }}
    };
  </script>
  <style scoped>
@@ -314,36 +308,12 @@
    margin: 0 2% 10vh 2%;
    height: 100vh;
    }
-   #btn-toggle-selection{
-     display: grid;
-     grid-template-columns: repeat(5,1fr);
-     grid-template-rows: 1fr;
-   }
-   .section-input{
-     display: grid;
-     grid-template-rows: 1fr;
-     grid-template-columns: 1fr minmax(150px, 1fr);
-   }
-
-   .input-selection{
-     display: grid;
-     grid-template-rows: 1fr;
-     grid-template-columns: 1fr 1fr;
-     grid-gap: 50px;
-   }
-   #form-select-projet{
-     margin: 6% 0 5% 0
-   }
-   .input-top-btn{
-     text-align: right;
-   }
    .v-btn-toggle {
      display: inline-flex;
      width: 20%;
    }
    #list-competence{
     width: 100%;
-
    }
    .comp-doss {
    background-color: #e11b28;
@@ -355,7 +325,9 @@
    justify-content: space-between;
    width: 100%;
    }
-
+   button {
+   border-radius: 50px;
+   }
    .comp-doss p {
    color: white;
    padding: 15px 0 0 15px;

@@ -161,6 +161,8 @@ function fetchAllFormationsDG2Http(logInUser) {
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
+  //console.log(headers)
+
   return axios.get(`${process.env.VUE_APP_PROD_API_URL}${END_POINT}/dg2`, headers
 
   );

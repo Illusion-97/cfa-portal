@@ -205,6 +205,7 @@ export default {
             }
           })
           .catch((error) => {
+            // console.log(error);
             if (error) {
               this.isInvalid = true;
               this.isInvalidInput = true;

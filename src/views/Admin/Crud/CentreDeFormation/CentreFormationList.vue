@@ -1,12 +1,6 @@
 <template>
   <div>
     <div class="container-fluid">
-      <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
-      {{ message }}
-    </b-alert>
-    <div class="d-flex justify-content-center">
-      <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
-    </div>
     <div class="header-list">
       <!-- <form class="form-inline form" @submit="submit">
         <input
@@ -94,7 +88,7 @@ export default {
       currentPage: 1,
       showLoginWdg2Card: false,
       loading: false,
-      dismissCountDown: null,
+      dismissCountDown: 0,
       message: "",
       color: "success",
       stopScroll: false,

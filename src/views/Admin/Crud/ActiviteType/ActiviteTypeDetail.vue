@@ -107,7 +107,7 @@ export default {
       visible: false,
       items: [
       ],
-      at: new ActiviteType(0, 0, '', '', this.$route.params.id),
+      at: new ActiviteType(0, 0, '', '', 0),
       fields: fieldsActiviteType,
       dismissCountDown: 0,
       modifier: false,
@@ -179,6 +179,7 @@ export default {
           this.message = "l'activité type " + response.libelle + " a été ajouté avec success"
           this.visible = false;
           this.getList()
+          //console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;
@@ -189,7 +190,7 @@ export default {
     },
     clear() {
       this.$v.$reset()
-      this.at = new ActiviteType(0, 0, '', '', this.$route.params.id);
+      this.at = new ActiviteType(0, 0, '', '', 4);
     },
     colspanClick() {
       this.visible = !this.visible

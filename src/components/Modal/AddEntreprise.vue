@@ -4,7 +4,7 @@
             <form @submit="addEntreprise">
                 <!-- ENTREPRISE -->
                 <v-row>
-                    <v-col cols="12" md="4">
+                    <v-col cols="12" md="6">
                         <div class="w-100 d-flex justify-content-center">
                             <v-text-field v-model="entrepriseDto.raisonSociale" label="Nom de l'entreprise*" outlined
                                 clearable :rules="[ v => !!v || 'Le champ est requis']" required></v-text-field>
@@ -15,7 +15,7 @@
                             clearable>
                         </v-select>
                     </v-col>
-                    <v-col cols="12" md="4">
+                    <v-col cols="12" md="2">
                         <div class="w-100 d-flex justify-content-center">
                             <v-text-field v-model="entrepriseDto.effectifTotal" label="Effectif de l'entreprise" outlined
                                 clearable :rules="requireChiffre"></v-text-field>
@@ -100,14 +100,14 @@ export default {
             type: ['PUBLIC', 'PRIVER'],
             requiredSiret: [
                 v => !!v || 'Le champ est requis',
-                v => /^\d{12}$/.test(v) || '12 chiffres requis',
+                v => /^\\d{12}$/.test(v) || '12 chiffres requis',
             ],
             requiredNaf: [
                 v => !!v || 'Le champ est requis',
-                v => /^\d{5}$/.test(v) || '5 chiffres requis',
+                v => /^\\d{5}$/.test(v) || '5 chiffres requis',
             ],
             requireChiffre: [
-                v => /^\d+$/.test(v) || 'Insérer que des chiffres',
+                v => /^\\d+$/.test(v) || 'Insérer que des chiffres',
             ],
         }
     },

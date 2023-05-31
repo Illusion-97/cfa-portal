@@ -124,6 +124,7 @@ function deleteDossierProfessionnel(id) {
 //   }};
 
 function saveDossierProfessionnel(id, form, file) {
+  console.log(form);
   const formData = new FormData();
   formData.append('dossierProfessionnel', JSON.stringify(form))
   if (Array.isArray(file)) {

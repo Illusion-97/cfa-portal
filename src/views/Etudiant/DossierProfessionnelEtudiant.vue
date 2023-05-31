@@ -187,6 +187,7 @@ export default {
     openModal(cursusId) {
       this.showModalUpload = true;
       this.cursusId = cursusId;
+      console.log(this.cursusId);
     },
     resetModal() {
       this.nomDossier = '';
@@ -212,16 +213,25 @@ export default {
   },
 
     getDossierId(data, dossierProfessionnel) {
+      // console.dir(
+      //   "dossierProfessionnel > " +
+      //     JSON.stringify(dossierProfessionnel, null, 4)
+      // );
+
       let gdos;
 
       gdos = dossierProfessionnel.find(
         (element) => element.cursusDto.id == data.item.id
       );
+
+      console.dir("gdos > " + JSON.stringify(gdos, null, 4));
+
       return gdos.id;
     },
   },
 
   created() {
+    console.log(this.data);
     dossierProfessionnelApi
       .getAllDossierProfessionnelByEtudiantAndByCursus(this.$store.getters.getUtilisateur.etudiantDto.id)
       .then((data) => (this.dp = data));

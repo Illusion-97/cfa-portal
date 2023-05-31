@@ -141,6 +141,7 @@
       },
       saveChange() {
         this.$emit('input', this.promotions);
+        // console.log("modal",this.promotions);
         // $("#modal").modal('hide');
       }
     },

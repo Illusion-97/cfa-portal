@@ -56,6 +56,7 @@ export default {
     },
     methods: {
         addAdresse() {
+            console.log(this.adresseDto)
             adresseApi.save(this.adresseDto);
         },
     }

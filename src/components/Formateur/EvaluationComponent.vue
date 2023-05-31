@@ -28,7 +28,7 @@
                                 </v-col>
                                 <v-col cols="12" lg="12">
 
-                                    <v-autocomplete :items="itemsCP" label="Compétences professionnelles"
+                                    <v-autocomplete :items="itemsCP" rounded solo label="Compétences professionnelles"
                                         placeholder="Numéro fiche : Compétence professionnelle"
                                         v-model="evaluationFormation.competencesEvalueesId" multiple></v-autocomplete>
                                 </v-col>
@@ -37,7 +37,7 @@
                                         transition="scale-transition" offset-y min-width="auto">
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="evaluationFormation.dateEvaluation"
-                                                label="Date de l'évaluation" prepend-inner-icon="mdi-calendar" readonly
+                                                label="Date de l'évaluation" prepend-icon="mdi-calendar" readonly
                                                 v-bind="attrs" v-on="on">
                                             </v-text-field>
                                         </template>
@@ -173,13 +173,17 @@ export default {
 
         // OTHER
         submit() {
+            // console.log("dans le submit");
             if (this.modifier) {
+                // console.log("dans le if");
                 evaluationFormationApi.update(this.evaluationFormation).then(response => {
+                    // console.log(this.evaluationFormation);
                     this.color = "success";
                     this.dismissCountDown = 6;
                     this.message = "L'Evaluation du " + response.dateEvaluation + " a été modifier avec succès"
                     this.visible = false;
                     this.getEvaluationFormation()
+                    // console.log(response)
                 }).catch(err => {
                     this.color = "danger";
                     this.dismissCountDown = 8;
@@ -187,12 +191,14 @@ export default {
                 })
             }
             else {
+                // console.log("dans le else");
                 evaluationFormationApi.save(this.evaluationFormation).then(response => {
                     this.color = "success";
                     this.dismissCountDown = 6;
                     this.message = "L'Evaluation du " + response.dateEvaluation + " a été ajouté avec success"
                     this.visible = false;
                     this.getEvaluationFormation()
+                    // console.log(response)
                 }).catch(err => {
                     this.color = "danger";
                     this.dismissCountDown = 8;

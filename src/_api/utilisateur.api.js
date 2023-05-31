@@ -298,9 +298,11 @@ function save(form) {
   return axios
     .post(req, form, requestOptions.headers())
     .then((response) => {
+      //console.log("response : ", response);
       return response.data;
     })
     .catch((error) => {
+      //console.log(error.response)
       throw error;
     });
 
@@ -364,10 +366,13 @@ function mail(user) {
       });
 }
 function fetchAllUsersDG2Http(logInUser) {
+  //console.log(logInUser);
   let headers = requestOptions.headers();
   let req = `/${END_POINT}/dg2`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
+
+  //console.log(headers)
 
   return axios.get(req, headers);
 

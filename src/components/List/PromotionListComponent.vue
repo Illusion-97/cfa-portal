@@ -240,6 +240,7 @@ export default {
         promotionApi
         .getAllByPage(this.currentPage, this.perPage)
         .then((response) => {this.promotions = response
+          //console.log(response)
         })
 
           })
@@ -277,6 +278,7 @@ export default {
       this.showLoginWdg2CardInterventionByPromo = false;
       this.loading = true;
      
+      console.log(this.promotion)
       let promoId = this.promotion.idDg2;
 
       interventionApi
@@ -308,6 +310,8 @@ export default {
       this.showLoginWdg2CardEtudiantByPromo = false;
       this.loading = true;
       //let promoId = promotion.id
+      //console.log(promotion.id)
+      console.log(this.promotion)
       let promoId = this.promotion.idDg2;
 
       etudiantApi
@@ -335,6 +339,7 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
+      console.log(value);
       promotionApi
         .fetchAllPromotionDG2Http({ logInUser: value })
         .then((response) => {

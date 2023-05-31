@@ -375,8 +375,10 @@ export default {
       this.onglet = onglet;
     },
     // deletePromotion(id) {
+    //   console.log(id);
     // },
     // deleteGroupe(id) {
+    //   console.log(id);
     // },
     deleteNote(id) {
       noteApi

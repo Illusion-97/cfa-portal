@@ -203,6 +203,7 @@
         // password.setCustomValidity("");
 
         // if(!this.testPassword(this.form.password)) {
+        //   console.log("je set password custom validity");
         //   password.setCustomValidity("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial ");
         //   password.reportValidity();
         // }
@@ -218,6 +219,7 @@
         //   this.adresseEntreprise.codePostal != ""
         // ) {
           // this.form.entrepriseDto.adresseSiegeDto = this.adresseEntreprise;
+          // console.log("j'ai une entreprise");
         // }
 
         // ON SUBMIT =>  conversion jj/mm/aaaa vers aaaa-mm-jj

@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store/store.js";
 
-//import { authenticationApi } from '@/_api/authentication.api.js';
-
+ //import { authenticationApi } from '@/_api/authentication.api.js';
+ 
 import { Role } from "@/_helpers/role.js";
 
 //#######################
@@ -305,55 +305,55 @@ const routes = [
     path: "/etudiant/espace-pedagogique",
     name: "etudiant_espace-peda_accueil",
     redirect: { name: "etudiant_espace-peda_cursus" },
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/cursus",
     name: "etudiant_espace-peda_cursus",
     component: Cursus,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/absences",
     name: "etudiant_espace-peda_absences",
     component: Absences,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/devoirs",
     name: "etudiant_espace-peda_devoirs",
     component: Devoirs,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/dossier-professionnel",
     name: "etudiant_espace-peda_dossier-pro",
     component: DossierProfessionel,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/dossier-projet",
     name: "etudiant_espace-peda_dossier-projet",
     component: DossierProjet,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/notes",
     name: "etudiant_espace-peda_notes",
     component: Notes,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/notes/details/:id",
     name: "etudiant_espace-peda_notesdetails",
     component: NotesDetails,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
   {
     path: "/etudiant/espace-pedagogique/cursus/detail/:id",
     name: "etudiant_espace-peda_cursusdetails",
     component: CursusDetails,
-    meta: { authorize: [Role.Admin] },
+    meta: { authorize: [Role.Etudiant] },
   },
 
   //new routes espace Etudiant
@@ -1743,7 +1743,7 @@ router.beforeEach((to, from, next) => {
     //Si la page nécessite une autorisation
     if (authorize == undefined) {
       return next({ path: from.path });
-    }
+    }    
     else if (authorize) {
       let redirect = true;
       //Si la page nécessite un Role particulier
@@ -1759,7 +1759,7 @@ router.beforeEach((to, from, next) => {
         else next(); // On laisse passer la requete
       }
       else {
-        return next({ path: "/403" });
+        return next({path: "/403"});
       }
     }
   }

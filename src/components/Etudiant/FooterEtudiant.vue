@@ -159,12 +159,12 @@ footer {
   left: 0;
   right: 0; */
 }
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1920px) {
   footer {
     position: relative;
     bottom: 0;
     width: 100%;
-    margin-top: 60vh;
+    margin-top: 30vh;
     /*bottom: 0;
     left: 0;
     right: 0; */

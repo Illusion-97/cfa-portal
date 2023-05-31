@@ -84,6 +84,7 @@ import { etudiantApi } from '@/_api/etudiant.api.js';
                         centreFormationApi
                             .getById(this.$route.params.id)
                             .then((response) => {this.headerDisplay = response.nom
+                            console.log(this.headerDisplay)
                             });
                             return "Centre de "+this.headerDisplay
                     }

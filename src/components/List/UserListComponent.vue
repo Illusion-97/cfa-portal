@@ -14,7 +14,8 @@
 
       <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="submit">
-        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"/>
+        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"
+          @change="onSelected" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
@@ -62,7 +63,7 @@
         </button>
       </div>
     </div>
-
+    
     <!-- AJOUT TUTEUR -->
     <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
       <addTuteur @hidden="openClick">
@@ -159,7 +160,6 @@ export default {
 
   data() {
     return {
-      visible: false,
       dismissCountDown: null,
       message: "",
       color: "success",
@@ -201,14 +201,12 @@ export default {
     this.refreshList();
     this.getRoles();
   },
+
   methods: {
     openClick(data) {
       this.visible = !this.visible;
-      if (data == "Tuteur ajouter.") {
-        this.color = "success";
-        this.dismissCountDown = 6;
+      if (data) {
         this.message = data;
-        this.loading = false;
         this.refreshList;
       }
     },
@@ -282,6 +280,12 @@ export default {
     },
     getRoles() {
       utilisateursRoleApi.getAll().then((data) => (this.roles = data));
+      //console.log(this.roles)
+    },
+    onSelected() {
+      utilisateursRoleApi
+        .getById(this.selected_role.id)
+        .then((data) => (this.selected_role = data));
     },
     submit(e) {
       e.preventDefault();
@@ -370,12 +374,5 @@ export default {
 #file,
 #btn-import {
   display: none;
-}
-.my-success-feedback {
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 100%;
-  color: green;
-  font-weight: bolder;
 }
 </style>

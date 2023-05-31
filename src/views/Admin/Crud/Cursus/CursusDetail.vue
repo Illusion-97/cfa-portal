@@ -99,7 +99,7 @@ export default {
       this.$router.go(-1);
     },
     detail(id) {
-      this.$router.push({ name: "admin_promotion_details", params: { id: id } });
+      this.$router.push({ name: "admin_promotion_detail", params: { id: id } });
     },
     updateCursus() {
       let route = this.$route.path.split("/").splice(1);

@@ -486,6 +486,7 @@ export default {
 
   methods: {
     optionDiplome() {
+      console.log("test");
       let tab = [
         {
           value: "",
@@ -502,6 +503,7 @@ export default {
           }
         )
       }
+      console.dir("tab > " + JSON.stringify(tab, null, 4));
       return tab;
     },
 
@@ -515,6 +517,11 @@ export default {
     // LANCE LA MODALE DE LA COMPETENCE CHOISIE
     getValue(value) {
       this.compInModal = value;
+
+      // console.dir(
+      //   "compInModal > " + JSON.stringify(this.compInModal, null, 4)
+      // );
+
       this.$bvModal.show("exp-pro-modal");
       this.tempCompetence = value;
 
@@ -531,6 +538,11 @@ export default {
       }
 
       let res = this.compInModal.experienceProfessionnelles.find(e => e.competenceProfessionnelleId == this.compInModal.id)
+
+      console.dir(
+        "res > " + JSON.stringify(res, null, 4)
+      );
+
       this.expPro = res || res2;
 
       // SWITCH DELETE EXP PRO
@@ -549,6 +561,11 @@ export default {
     // LANCE LA MODALE DE LA COMPETENCE CHOISIE
     getValue2(value) {
      this.compInModal = value;
+
+      // console.dir(
+      //   "compInModal > " + JSON.stringify(this.compInModal, null, 4)
+      // );
+
       this.$bvModal.show("exp-pro-modal");
       this.tempCompetence = value;
       this.expPro = {
@@ -566,21 +583,29 @@ export default {
     //LANCE LA MODALE DIPLOMES
     goDiplome() {
       this.$bvModal.show("bbb");
+      console.log("launch");
     },
     gofacult() {
       this.$bvModal.show("cc");
+      console.log("launch");
     },
 
     //LANCE LA MODALE ANNEXES
     getAnnexe() {
       this.$bvModal.show("ddd");
+      console.log("launch");
     },
+
+
+
     addItems()
     {
       this.$bvModal.addItems("ddd");
     },
+
     /*goFacultafif() {
       this.$bvModal.show("bbb");
+      console.log("launch");
     },*/
    
     // OPTIONS DES ACTIVITES TYPES - MODIFIER
@@ -592,6 +617,12 @@ export default {
           disabled: true,
         },
       ];
+
+      // console.dir(
+      //   "item.competenceProfessionnelles > " +
+      //   JSON.stringify(item.competenceProfessionnelles, null, 4)
+      // );
+
       if (item.competenceProfessionnelles) {
         for (let i = 0; i < item.competenceProfessionnelles.length; i++) {
 
@@ -736,7 +767,7 @@ export default {
        
         // REDIRECTION
         .then((data) =>
-         (this.form = data),
+         (this.form = data, console.log(data)),
          this.$bvModal.hide("exp-pro-modal"),
           this.$bvModal.show("modal-success"));
           
@@ -752,6 +783,7 @@ export default {
 
   addFacultatifs() {
     this.facultatif.push(this.newFacultatif);
+      //console.log(this.facultatif);
       this.newFacultatif = {
               id:0,
               version:0,
@@ -949,9 +981,19 @@ setup(){
       
 
    // this.test();
+
+    // console.log("Dossier Professionnel > " + this.data);
+    // console.dir(
+    //   "data > " +
+    //   JSON.stringify(this.data, null, 4)
+    // );
+
+    // console.log("************" + this.data.item.cursus.dossierProfessionnel.id);
+
     // setDpId(){
     //      // Dossier professionnel ID
     //      if (data.item.cursus.dossierProfessionnel !== null) {
+    //     console.log("data.item.cursus.dossierProfessionnel.id : " + data.item.cursus.dossierProfessionnel.id);
     //     return this.dpId = data.item.cursus.dossierProfessionnel.id
     //   } else {
     //     return 0
