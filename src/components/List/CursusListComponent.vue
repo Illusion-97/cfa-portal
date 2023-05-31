@@ -219,12 +219,13 @@ export default {
       e.preventDefault();
       cursusApi
         .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => (this.cursus = response));
+        .then((response) => (this.items = response));
       cursusApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
+      this.saisie = "";
     },
     showModal(item) {
       this.$refs["modal-" + item.id].show();
@@ -248,7 +249,6 @@ export default {
       cursusApi.save(item);
       this.items = null;
       this.refreshList();
-      //console.log(response)
       this.hideModal(item);
     },
     gotoActiviteTypeCursus(cursus) {

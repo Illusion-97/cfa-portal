@@ -179,7 +179,6 @@ function deleteIntervention(id) {
  */
 function findStudentsByPromoInterventionId(id) {
     const url = `${END_POINT}/${id}/etudiants-promotion`
-    // console.log(url);
     return axios
         .get(url, requestOptions.headers())
         .then(response => response.data)
@@ -250,8 +249,6 @@ function fetchAllInterventionsDG2Http(logInUser) {
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  //console.log(headers)
-
   return axios.get(req, headers);
   
   }
@@ -266,13 +263,9 @@ function fetchAllInterventionsDG2Http(logInUser) {
 function fetchInterventionsDG2ByIdPromotion(logInUser, promoId){
 
     let headers = requestOptions.headers();
-    //console.log(promoId);
-    //console.log(logInUser);
     let req = `/${END_POINT}/dg2/${promoId}`;
 
     headers.headers["X-AUTH-TOKEN"] = `${logInUser.email}:${logInUser.password}`;
-
-    //console.log(headers)
 
     return axios.get(req, headers);
   }

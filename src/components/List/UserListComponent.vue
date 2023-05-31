@@ -14,8 +14,7 @@
 
       <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="submit">
-        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"
-          @change="onSelected" />
+        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"/>
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
@@ -281,12 +280,6 @@ export default {
     },
     getRoles() {
       utilisateursRoleApi.getAll().then((data) => (this.roles = data));
-      //console.log(this.roles)
-    },
-    onSelected() {
-      utilisateursRoleApi
-        .getById(this.selected_role.id)
-        .then((data) => (this.selected_role = data));
     },
     submit(e) {
       e.preventDefault();

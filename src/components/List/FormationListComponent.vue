@@ -229,7 +229,6 @@ export default {
           this.message = response.data
           this.loading = false;
           this.fillList()
-          console.log(response)
       }).catch(err =>{
         this.color = "danger";
           this.dismissCountDown = 8;
