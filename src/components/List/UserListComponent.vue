@@ -62,7 +62,7 @@
         </button>
       </div>
     </div>
-    
+
     <!-- AJOUT TUTEUR -->
     <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
       <addTuteur @hidden="openClick">
@@ -159,6 +159,7 @@ export default {
 
   data() {
     return {
+      visible: false,
       dismissCountDown: null,
       message: "",
       color: "success",
@@ -200,7 +201,6 @@ export default {
     this.refreshList();
     this.getRoles();
   },
-
   methods: {
     openClick(data) {
       this.visible = !this.visible;
@@ -210,7 +210,6 @@ export default {
         this.message = data;
         this.loading = false;
         this.refreshList;
-
       }
     },
     assigneTableItems(users) {
@@ -283,7 +282,6 @@ export default {
     },
     getRoles() {
       utilisateursRoleApi.getAll().then((data) => (this.roles = data));
-      //console.log(this.roles)
     },
     submit(e) {
       e.preventDefault();
@@ -372,5 +370,12 @@ export default {
 #file,
 #btn-import {
   display: none;
+}
+.my-success-feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 100%;
+  color: green;
+  font-weight: bolder;
 }
 </style>

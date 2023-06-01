@@ -225,7 +225,7 @@ export default {
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
         );
-        this.saisie = "";
+      this.saisie = "";
     },
     showModal(item) {
       this.$refs["modal-" + item.id].show();

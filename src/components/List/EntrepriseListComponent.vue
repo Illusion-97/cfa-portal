@@ -17,6 +17,7 @@
       <span v-else>
         <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
       </span>
+
     </button>
 
     <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
@@ -29,12 +30,10 @@
                 @blur="$v.entreprise.raisonSociale.$touch()"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.siret" :error-messages="siretErr" label="Siret" required
-                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()"
-                :rules="[v => /^\d{12}$/.test(v) || '12 chiffres requis']"></v-text-field>
+                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()" :rules="[v => /^\d{12}$/.test(v) || '12 chiffres requis']"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.naf" :error-messages="nafErr" label="NAF" required
-                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()"
-                :rules="[v => /^\d{5}$/.test(v) || '5 chiffres requis']"></v-text-field>
+                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()" :rules="[v => /^\d{5}$/.test(v) || '5 chiffres requis']"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.effectifTotal" :error-messages="effectifTotalErr"
                 label="Effectif total" required type="number" @input="$v.entreprise.effectifTotal.$touch()"
@@ -44,12 +43,13 @@
                 label="Employeur Type" required @input="$v.entreprise.employeurType.$touch()"
                 @blur="$v.entreprise.employeurType.$touch()"></v-select>
 
-              <v-autocomplete rounded solo label="Adresse" :items="itemsAdresse" placeholder="ville : libelle"
+              <v-autocomplete label="Adresse" :items="itemsAdresse" placeholder="ville : libelle"
                 v-model="entreprise.adresseSiegeId" :error-messages="adresseSiegeErr"
                 @input="$v.entreprise.adresseSiegeId.$touch()" @blur="$v.entreprise.adresseSiegeId.$touch()"
                 required></v-autocomplete>
 
               <v-btn class="mr-4" :color="modifier ? 'warning' : 'success'" @click="edit">
+
                 <span v-if="!modifier">
                   <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                 </span>
@@ -150,7 +150,6 @@ export default {
       itemsAdresse: [
       ],
       entreprise: new Entreprise(0, 0, '', '', '', '', '', '', ''),
-
       perPage: 7,
       pageCount: 0,
       saisie: "",
@@ -223,8 +222,6 @@ export default {
       });
       this.itemsAdresse = items
     });
-
-
   },
 
   methods: {
@@ -267,7 +264,6 @@ export default {
           this.message = "L'entreprise " + response.raisonSociale + " a été ajouté avec succès"
           this.visible = false;
           this.getList()
-          //console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;

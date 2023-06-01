@@ -12,7 +12,7 @@
     </div>
 
     <!-- LIST DES INTERVENTIONS -->
-    <div class="row d-flex justify-content-arround m-2 scrol">
+    <div class="row d-flex justify-content-arround">
       <div v-for="item in items" :key="item.id" @click="click(item)"
         class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card">
         <b-card header-text-variant="white" header-tag="header" header-bg-variant="dark" footer-tag="footer"
@@ -127,11 +127,6 @@ export default {
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
 <style scoped>
-.scrol {
-  min-height: 101vh;
-  overflow: hidden;
-}
-
 .card-Promotions {
   border-radius: 5px;
   min-height: 28vh;

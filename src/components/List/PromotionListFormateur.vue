@@ -4,7 +4,6 @@
 
       <!-- BARRE DE RECHERCHE -->
       <div class="header-list">
-        <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
           <input
             id="saisie"
@@ -22,8 +21,6 @@
 
       <!-- LIST DES PROMOTIONS -->
       <div class="row d-flex justify-content-arround">
-
-        <!-- LISTE DES PROMOTION -->
         <div
           v-for="promotion in promotionsComputed"
           :key="promotion.id"

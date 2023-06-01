@@ -253,14 +253,10 @@ export default {
   beforeCreate() {
     this.getActiviteType();
   },
-  created() {
-  console.log()
-    },
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
-        this.getActiviteType(data),
-            console.log(data)
+        this.getActiviteType(data)
       })
     }
     else{
@@ -276,9 +272,8 @@ export default {
       activiteTypeApi
           .getAllByIdPromotion(promoId)
           .then((response) => {
-            console.log(response)
             if (response){
-            this.getDataForForm(response), console.log("activite type  " + response);
+            this.getDataForForm(response);
             if(this.context === "intervention"){
               this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
               this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;

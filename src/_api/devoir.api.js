@@ -74,7 +74,7 @@ function getCount(search = ""){
 
 function update(devoirDto){
   return axios
-    .put(`${END_POINT}`, devoirDto, requestOptions.headers())
+    .put(`${END_POINT}`, devoirDto)
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }

@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store/store.js";
 
- //import { authenticationApi } from '@/_api/authentication.api.js';
- 
+//import { authenticationApi } from '@/_api/authentication.api.js';
+
 import { Role } from "@/_helpers/role.js";
 
 //#######################
@@ -1743,7 +1743,7 @@ router.beforeEach((to, from, next) => {
     //Si la page nécessite une autorisation
     if (authorize == undefined) {
       return next({ path: from.path });
-    }    
+    }
     else if (authorize) {
       let redirect = true;
       //Si la page nécessite un Role particulier
@@ -1759,7 +1759,7 @@ router.beforeEach((to, from, next) => {
         else next(); // On laisse passer la requete
       }
       else {
-        return next({path: "/403"});
+        return next({ path: "/403" });
       }
     }
   }
