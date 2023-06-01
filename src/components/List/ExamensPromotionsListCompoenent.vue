@@ -250,9 +250,9 @@ export default {
       optionsCompetences: [],
     };
   },
-  created() {
-  console.clear();
-    },
+  beforeCreate() {
+    this.getActiviteType();
+  },
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
@@ -271,12 +271,10 @@ export default {
     getActiviteType(promoId) {
       activiteTypeApi
           .getAllByIdPromotion(promoId)
-          .then((response) => { this.activiteTypes = response;
+          .then((response) => {
+            if (response){
             this.getDataForForm(response);
-            if (this.context === "intervention") {
-              this.activiteTypes =this.datasFormAt;
-              this.activiteTypes.competencesProfessionnellesDto = this.datasFormCP;
-              if (this.$refs.addExamen && this.$refs.addExamen.optionsBlocsCompetences) {
+            if(this.context === "intervention"){
               this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
               this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
               }

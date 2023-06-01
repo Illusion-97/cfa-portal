@@ -205,8 +205,11 @@ export default {
   methods: {
     openClick(data) {
       this.visible = !this.visible;
-      if (data) {
+      if (data == "Tuteur ajouter.") {
+        this.color = "success";
+        this.dismissCountDown = 6;
         this.message = data;
+        this.loading = false;
         this.refreshList;
       }
     },

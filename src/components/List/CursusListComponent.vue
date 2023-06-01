@@ -229,10 +229,10 @@ export default {
     },
     showModal(item) {
       this.$refs["modal-" + item.id].show();
-      this.refreshList();
     },
     hideModal(item) {
       this.$refs["modal-" + item.id].hide();
+      this.refreshList();
     },
     pageChange(pageNum) {
       cursusApi
@@ -250,6 +250,7 @@ export default {
       this.items = null;
       this.refreshList();
       this.hideModal(item);
+      this.refreshList();
     },
     gotoActiviteTypeCursus(cursus) {
       this.$router.push({
