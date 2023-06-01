@@ -148,6 +148,10 @@
         interventionProp: {
           default: null,
         },
+        getAllDevoirsByInterventionId: {
+          type: Function,
+          required: true
+        }
       },
       data() {
         return {
@@ -203,6 +207,7 @@
                 .save(this.formDevoir)
                 .then(() => {
               this.showAlert(false);
+              this.getAllDevoirsByInterventionId()
             });
           } else {
             this.showAlert(this.formDevoir, true)

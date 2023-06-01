@@ -1,9 +1,8 @@
 <template>
   <div>
-
     <!-- AJOUT D'UN EXAMEN -->
     <div v-if="context === 'intervention'">
-      <AddExamen ref="addExamen" :context="context" @updateExamens="updateExamens" />
+      <AddExamen ref="addExamen" :optionsBlocsCompetences="optionsBlocsCompetences" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
       <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
@@ -175,6 +174,7 @@ export default {
 
   data() {
     return {
+      activiteTypes: [],
       datasFormAt: [],
       datasFormCP: [],
       tempItem: null,
@@ -250,9 +250,9 @@ export default {
       optionsCompetences: [],
     };
   },
-  beforeCreate() {
-    this.getActiviteType();
-  },
+  created() {
+  console.clear();
+    },
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
@@ -271,15 +271,16 @@ export default {
     getActiviteType(promoId) {
       activiteTypeApi
           .getAllByIdPromotion(promoId)
-          .then((response) => {
-            if (response){
+          .then((response) => { this.activiteTypes = response;
             this.getDataForForm(response);
-            if(this.context === "intervention"){
+            if (this.context === "intervention") {
+              this.activiteTypes =this.datasFormAt;
+              this.activiteTypes.competencesProfessionnellesDto = this.datasFormCP;
+              if (this.$refs.addExamen && this.$refs.addExamen.optionsBlocsCompetences) {
               this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
               this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
-            }}
-
-
+              }
+            }
           });
     },
     async getFile(id, pieceJointe) {
@@ -507,7 +508,7 @@ export default {
       this.$nextTick(() => {
         this.items = items;
       });
-    },
+    }
   },
 };
 </script>

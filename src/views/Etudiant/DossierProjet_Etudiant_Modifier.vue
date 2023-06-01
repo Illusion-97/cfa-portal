@@ -1,228 +1,215 @@
 <template>
-  <div id="main-cr-prj" v-if="DossierProjet">
-    <section class="nav-align" style="display: inline-block; width: 100%">
-      <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
-      <div style="float: right">
-        <b-button  size="sm" class="mr-2" @click="retour()">
-          Retour
-        </b-button>
-        <b-button size="sm" class="mr-2" variant="primary" @click="submit()">
-          Sauvegarder
-        </b-button>
-      </div>
-    </section>
-
-      <!-- ****Composants Importer Un Dossier ****-->
-      <section>
-        <div class="comp-doss">
-          <p>Importer un dossier :</p>
-        </div>
-
-        <section >
-            <v-card id="listImportDoss" class="mb-10" >
-              <v-simple-table>
-                <thead>
-                <tr>
-                  <th style="width: 80%">Import</th>
-                  <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-if="DossierProjet.dossierImport">
-
-                  <td v-if="versionImport === 0">{{DossierProjet.dossierImport}}</td>
-                  <td v-else>{{DossierProjet.dossierImport.name}}</td>
-                  <v-btn  @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</v-btn>
-
-                  <!-- Modal Confirmation Suppression Annexe -->
-                  <b-modal :id="'modal-delete-import-confirmation' " centered size="lg" no-close-on-esc hide-footer>
-                    <p>
-                      Voulez-vous supprimer cette Import : <strong>{{DossierProjet.dossierImport}}</strong> ?
-                    </p>
-                    <div class="div-ok">
-                      <button class="btn btn-success" @click="deleteImport(DossierProjet.dossierImport); $bvModal.hide('modal-delete-import-confirmation')">Valider</button>
-                      <button class="btn btn-secondary" @click="$bvModal.hide('modal-delete-import-confirmation')">Annuler</button>
-                    </div>
-                  </b-modal>
-                </tr>
-
-                <tr v-else>
-                  <td><v-file-input v-model="fileImport" accept="*"></v-file-input></td>
-                  <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="DossierProjet.dossierImport === null">Envoyer</v-btn></td>
-
-                  <!-- Modal Confirmation Envoi Import -->
-                  <b-modal :id="'modal-import-confirmation'" centered size="lg" no-close-on-esc hide-footer>
-                    <p>
-                      Voulez-vous Ajouter cette Import : <strong>{{fileImport}}</strong> ?
-                    </p>
-                    <div class="div-ok">
-                      <button class="btn btn-success" @click="submitImport(fileImport); $bvModal.hide('modal-import-confirmation')">Valider</button>
-                      <button class="btn btn-secondary" @click="$bvModal.hide('modal-import-confirmation')">Annuler</button>
-                    </div>
-                  </b-modal>
-                </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card>
-          </section>
-        <section >
-
-
-
-        </section>
-      </section>
-      <!-- ******************************************************** -->
-      <v-card-title>Ou</v-card-title>
-      <!-- Composants Créer Un Dossier Projet -->
-      <section>
-        <div class="comp-doss">
-          <p>Créer un dossier :</p>
-        </div>
-        <v-expand-transition>
-          <div>
-            <div>
-              <section>
-                <nav>
-                  <section class="fill-width">
-                    <div id="btn-toggle-selection" role="group">
-                      <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
-                      <v-btn block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Compétences Couvertes</v-btn>
-                      <v-btn block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Résumé</v-btn>
-                      <v-btn block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Contenu</v-btn>
-                      <v-btn block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Annexe</v-btn>
-                    </div>
-                  </section>
-                </nav>
-                <section>
+  <div class="main" v-if="DossierProjet">
+    <b-button @click="console">Console</b-button>
+  <section style="display: inline-block; width: 100%">
+    <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
+    <div style="float: right">
+      <b-button  size="sm" class="mr-2" @click="retour()">
+        Retour
+      </b-button>
+      <b-button size="sm" class="mr-2" variant="primary" @click="submit()">
+        Sauvegarder
+      </b-button>
+    </div>
+  </section>
+  <!-- ****Composants Importer Un Dossier ****-->
+  <section class="test-import">
+    <div class="comp-doss">
+      <p>Importer un dossier :</p>
+    </div>
+    <v-card id="listImportDoss" class="mb-10" >
+      <v-simple-table>
+        <thead>
+        <tr>
+          <th style="width: 80%">Import</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-if="DossierProjet.dossierImport">
+          <td v-if="versionImport === 0">{{DossierProjet.dossierImport}}</td>
+          <td v-else>{{DossierProjet.dossierImport.name}}</td>
+          <v-btn  @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</v-btn>
+          <!-- Modal Confirmation Suppression Annexe -->
+          <b-modal :id="'modal-delete-import-confirmation' " centered size="lg" no-close-on-esc hide-footer>
+            <p>
+              Voulez-vous supprimer cette Import : <strong>{{DossierProjet.dossierImport}}</strong> ?
+            </p>
+            <div class="div-ok">
+              <button class="btn btn-success" @click="deleteImport(DossierProjet.dossierImport); $bvModal.hide('modal-delete-import-confirmation')">Valider</button>
+              <button class="btn btn-secondary" @click="$bvModal.hide('modal-delete-import-confirmation')">Annuler</button>
+            </div>
+          </b-modal>
+        </tr>
+        <tr v-else>
+          <td><v-file-input v-model="fileImport" accept="*"></v-file-input></td>
+          <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="DossierProjet.dossierImport === null">Envoyer</v-btn></td>
+          <!-- Modal Confirmation Envoi Import -->
+          <b-modal :id="'modal-import-confirmation'" centered size="lg" no-close-on-esc hide-footer>
+            <p>
+              Voulez-vous Ajouter cette Import : <strong>{{fileImport}}</strong> ?
+            </p>
+            <div class="div-ok">
+              <button class="btn btn-success" @click="submitImport(fileImport); $bvModal.hide('modal-import-confirmation')">Valider</button>
+              <button class="btn btn-secondary" @click="$bvModal.hide('modal-import-confirmation')">Annuler</button>
+            </div>
+          </b-modal>
+        </tr>
+        </tbody>
+      </v-simple-table>
+    </v-card>
+  </section>
+  <!-- ******************************************************** -->
+  <v-card-title>Ou</v-card-title>
+  <!-- Composants Créer Un Dossier Projet -->
+  <section>
+    <div class="comp-doss">
+      <p>Créer un dossier :</p>
+    </div>
+    <v-expand-transition>
+      <div>
+        <div>
+          <section>
+            <nav>
+              <section class="fill-width">
+                <div id="btn-toggle-selection" role="group">
+                  <v-btn block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Info</v-btn>
+                  <v-btn block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Compétences Couvertes</v-btn>
+                  <v-btn block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Résumé</v-btn>
+                  <v-btn block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Contenu</v-btn>
+                  <v-btn block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Annexe</v-btn>
+                </div>
+              </section>
+            </nav>
+            <section>
+              <v-card>
+                <div v-show="active === 1">
                   <v-card>
-                    <div v-show="active === 1">
-                      <v-card>
-                        <v-card-text disabled>
-                          <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
-                          <v-card-subtitle>Dossier : {{ DossierProjet.nom }}</v-card-subtitle>
-                        </v-card-text>
-                        <vue-editor v-model="DossierProjet.infoDossierProjets[0]"
-                                    id="exp1"  placeholder="Informations du Projet" readonly />
-                      </v-card>
-                    </div>
-
-                    <div v-show="active === 2" >
-                      <v-card>
-                        <div class="card-body">
-                          <v-list v-for="activites in activiteTypes" :key="activites.id">
-                            <div class="row align-items-center">
-                              <div class="col" id="bloc-activite">
-                                <v-list-item-title class="text-wrap" style="word-wrap: break-word;">{{ activites.libelle }}</v-list-item-title>
-                              </div>
-                              <div class="col-sm-6">
-                                <ul class="list-unstyled" id="bloc-competence">
-                                  <v-list-item v-for="competences in activites.competencesProfessionnellesDto" :key="competences.id" @click="toggleSelectedComp(competences.id)" id="list-competence" :style="selectedComp(competences.id)">
-                                    <li>
-                                      {{competences.id + ". " + competences.libelle }}
-                                    </li >
-                                  </v-list-item>
-                                </ul>
-                              </div>
-                            </div>
-                          </v-list>
+                    <v-card-text disabled>
+                      <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
+                      <v-card-subtitle>Dossier : {{ DossierProjet.nom }}</v-card-subtitle>
+                    </v-card-text>
+                    <vue-editor v-model="DossierProjet.infoDossierProjets[0]"
+                                id="exp1"  placeholder="Informations du Projet" readonly />
+                  </v-card>
+                </div>
+                <div v-show="active === 2" >
+                  <v-card>
+                    <div class="card-body">
+                      <v-list v-for="activites in activiteTypes" :key="activites.id">
+                        <div class="row align-items-center">
+                          <div class="col" id="bloc-activite">
+                            <v-list-item-title class="text-wrap" style="word-wrap: break-word;">{{ activites.libelle }}</v-list-item-title>
+                          </div>
+                          <div class="col-sm-6">
+                            <ul class="list-unstyled" id="bloc-competence">
+                              <v-list-item v-for="competences in activites.competencesProfessionnellesDto" :key="competences.id" @click="toggleSelectedComp(competences.id)" id="list-competence" :style="selectedComp(competences.id)">
+                                <li>
+                                  {{competences.id + ". " + competences.libelle }}
+                                </li >
+                              </v-list-item>
+                            </ul>
+                          </div>
                         </div>
-                      </v-card>
-                    </div>
-                    <div v-show="active === 3">
-                      <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
-                        <div>
-                          <vue-editor h-auto  v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
-                        </div>
-                      </b-collapse>
-                    </div>
-                    <div v-show="active === 4" >
-                      <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
-                        <div>
-                          <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
-                        </div>
-                      </b-collapse>
-                    </div>
-                    <div v-show="active === 5">
-                      <div >
-                        <div >
-                          <v-card-title>Liste des annexes</v-card-title>
-                          <v-btn class="text-right ml-2" @click="addAnnexe">
-                            Ajouter une annexe
-                          </v-btn>
-                          <v-simple-table>
-                            <thead>
-                            <tr>
-                              <th style="width: 80%" class="text-left">File</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr v-for="(files, index) in DossierProjet.annexeDossierProjets" :key="files.id">
-                              <td>
-                                <template>
-                                  {{ DossierProjet.annexeDossierProjets[index] }}
-                                </template>
-                              </td>
-                               <!--td Pour la suppression des annexes-->
-                              <td>
-                                <v-btn class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</v-btn>
-
-                                <!-- Modal Confirmation Suppression Annexe -->
-                                <b-modal :id="'modal-delete-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
-                                  <p>
-                                    Voulez-vous supprimer cette Annexe : <strong>{{ DossierProjet.annexeDossierProjets[index]}}</strong> ?
-                                  </p>
-                                  <div class="div-ok">
-                                    <button class="btn btn-success" @click="confirmDeleteAnnexe(DossierProjet.annexeDossierProjets[index], index); $bvModal.hide('modal-delete-confirmation-' + index)">Valider</button>
-                                    <button class="btn btn-secondary" @click="$bvModal.hide('modal-delete-confirmation-' + index)">Annuler</button>
-                                  </div>
-                                </b-modal>
-                              </td>
-                            </tr>
-                            <tr v-for="(files,index) in filesAnnexe" :key="files.id">
-                              <td class="col-md-9">
-                                <v-file-input v-model="files.file" accept="image/*" :id="'fileInput_' + index" label="Annexes du Dossier Projet"></v-file-input>
-                              </td>
-                              <td>
-                                <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
-                                <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</v-btn>
-
-                                <!-- Modal Confirmation Envoi Annexe -->
-                                <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
-                                  <p>
-                                    Voulez-vous Ajouter cette Annexe : <strong>{{files.file}}</strong> ?
-                                  </p>
-                                  <div class="div-ok">
-                                    <button class="btn btn-success" @click="submitAnnexe(files.file, index); $bvModal.hide('modal-annexe-confirmation-' + index)">Valider</button>
-                                    <button class="btn btn-secondary" @click="$bvModal.hide('modal-annexe-confirmation-' + index)">Annuler</button>
-                                  </div>
-                                </b-modal>
-                              </td>
-                            </tr>
-                            </tbody>
-                          </v-simple-table>
-                        </div>
-                      </div>
+                      </v-list>
                     </div>
                   </v-card>
-                </section>
-              </section>
-            </div>
-          </div>
-        </v-expand-transition>
-        <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
-          <p>
-            Votre Dossier Projet "{{ DossierProjet.nom }} a été correctement créer"
-          </p>
-          <div class="div-ok">
-            <router-link class="nav-item first" :to="'/etudiant/dossierprojets'">
-              <button @click="$bvModal.hide('modal-delete-success')">
-                Continuer
-              </button>
-            </router-link>
-          </div>
-        </b-modal>
-      </section>
-    </div>
+                </div>
+                <div v-show="active === 3">
+                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
+                    <div>
+                      <vue-editor h-auto  v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
+                    </div>
+                  </b-collapse>
+                </div>
+                <div v-show="active === 4" >
+                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
+                    <div>
+                      <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
+                    </div>
+                  </b-collapse>
+                </div>
+                <div v-show="active === 5">
+                  <div >
+                    <div >
+                      <v-card-title>Liste des annexes</v-card-title>
+                      <v-btn class="text-right ml-2" @click="addAnnexe">
+                        Ajouter une annexe
+                      </v-btn>
+                      <v-simple-table>
+                        <thead>
+                        <tr>
+                          <th style="width: 80%" class="text-left">File</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(files, index) in DossierProjet.annexeDossierProjets" :key="files.id">
+                          <td>
+                            <template>
+                              {{ DossierProjet.annexeDossierProjets[index] }}
+                            </template>
+                          </td>
+                          <!--td Pour la suppression des annexes-->
+                          <td>
+                            <v-btn class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</v-btn>
+                            <!-- Modal Confirmation Suppression Annexe -->
+                            <b-modal :id="'modal-delete-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
+                              <p>
+                                Voulez-vous supprimer cette Annexe : <strong>{{ DossierProjet.annexeDossierProjets[index]}}</strong> ?
+                              </p>
+                              <div class="div-ok">
+                                <button class="btn btn-success" @click="confirmDeleteAnnexe(DossierProjet.annexeDossierProjets[index], index); $bvModal.hide('modal-delete-confirmation-' + index)">Valider</button>
+                                <button class="btn btn-secondary" @click="$bvModal.hide('modal-delete-confirmation-' + index)">Annuler</button>
+                              </div>
+                            </b-modal>
+                          </td>
+                        </tr>
+                        <tr v-for="(files,index) in paginatedFiles" :key="files.id">
+                          <td class="col-md-9">
+                            <v-file-input v-model="files.file" accept="image/*" :id="'fileInput_' + index" label="Annexes du Dossier Projet"></v-file-input>
+                          </td>
+                          <td>
+                            <v-btn style="margin-top: 10px" class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
+                            <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</v-btn>
+                            <!-- Modal Confirmation Envoi Annexe -->
+                            <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
+                              <p>
+                                Voulez-vous Ajouter cette Annexe : <strong>{{files.file}}</strong> ?
+                              </p>
+                              <div class="div-ok">
+                                <button class="btn btn-success" @click="submitAnnexe(files.file, index); $bvModal.hide('modal-annexe-confirmation-' + index)">Valider</button>
+                                <button class="btn btn-secondary" @click="$bvModal.hide('modal-annexe-confirmation-' + index)">Annuler</button>
+                              </div>
+                            </b-modal>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </v-simple-table>
+                      <v-pagination v-model="annexePage" :length="Math.ceil(filesAnnexe.length / itemsPerPage)"
+                                    v-if="filesAnnexe.length" @input="handlePageChange"></v-pagination>
+                    </div>
+                  </div>
+                </div>
+              </v-card>
+            </section>
+          </section>
+        </div>
+      </div>
+    </v-expand-transition>
+    <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        Votre Dossier Projet "{{ DossierProjet.nom }} a été correctement créer"
+      </p>
+      <div class="div-ok">
+        <router-link class="nav-item first" :to="'/etudiant/dossierprojets'">
+          <button @click="$bvModal.hide('modal-delete-success')">
+            Continuer
+          </button>
+        </router-link>
+      </div>
+    </b-modal>
+  </section>
+</div>
 </template>
 <script>
 import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
@@ -239,6 +226,8 @@ export default {
       versionImport:0,
       dossierProjetId: 0,
       studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
+      annexePage:1,
+      itemsPerPage: 4,
       fileImport:undefined,
       activiteTypes: [],
       dossierModif:{},
@@ -258,6 +247,8 @@ export default {
         })
   },
   methods: {
+    console(){
+      console.log(this.filesAnnexe.length + "  " + this.DossierProjet.annexeDossierProjets.length)},
     retour() {
       history.back();
     },
@@ -265,6 +256,9 @@ export default {
       const url = window.location.href;
       const segments = url.split('/');
       this.dossierProjetId = segments[segments.length - 1];
+    },
+    handlePageChange(page) {
+      this.annexePage = page
     },
     toggleSelectedComp(compid){
 
@@ -362,18 +356,20 @@ export default {
         const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
         const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
         return { backgroundColor: bg, color: txt }
-      }
+      }},
+    paginatedFiles() {
+      const startIndex = (this.annexePage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.filesAnnexe.slice(startIndex, endIndex);
     }
   }
 };
 </script>
 <style scoped>
-#main-cr-prj {
-  background-color: transparent;
-  padding: 20px;
+.main{
   margin: 0 2% 0 2%;
-  height: 100vmin;
 }
+
 #btn-toggle-selection{
   display: grid;
   grid-template-columns: repeat(5,1fr);
@@ -407,7 +403,6 @@ export default {
 @media screen and (max-width: 1920px) {
   #bloc-competence {
     width: 100%;
-    background-color: #F2F2F2;
   }
   #list-competence{
     width: 100%;
