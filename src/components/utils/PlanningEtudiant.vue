@@ -54,7 +54,7 @@
                   v-for="item in items"
                   :key="item.id"
                   class="intervention">
-                  <p class="font-weight-bold h5">
+                  <p class="title-planning">
                     {{ item.formationDto.titre }}
                   </p>
    
@@ -235,7 +235,11 @@ table {
   border: 0;
   /* border-right: 1px solid black; */
 }
-
+.title-planning{
+  word-break: break-all;
+  font-weight: bold;
+  font-size: 16px;
+}
 #container-date{
   margin-left: 1em;
 }
