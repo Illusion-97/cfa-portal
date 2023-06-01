@@ -17,7 +17,7 @@
         <HeaderTuteur />
         <router-view />
       </div>
-      <div v-else-if="path == 'test'">
+      <div v-else-if="path == 'multiRole'">
         <HeaderMultiRoles />
         <router-view />
       </div>

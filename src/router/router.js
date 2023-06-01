@@ -222,7 +222,7 @@ import DetailEtudiant from "@/views/Tuteur/DetailEtudiant.vue";
 
 
 
-import test from "@/views/test.vue";
+import multiRole from "@/views/multiRole.vue";
 
 
 //          #######################
@@ -236,7 +236,7 @@ const routes = [
   //#       GLOBAL        #
   //#######################
   { path: "/", redirect: { name: "login" } },
-  { path: "/test", name: "test", component: test, meta: { authorize: [Role.Etudiant, Role.Formateur, Role.Admin, Role.Tuteur] }, },
+  { path: "/multiRole", name: "multiRole", component: multiRole, meta: { authorize: [Role.Etudiant, Role.Formateur, Role.Admin, Role.Tuteur] }, },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/login", name: "login", component: LoginPage },

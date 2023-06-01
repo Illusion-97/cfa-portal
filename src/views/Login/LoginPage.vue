@@ -187,7 +187,7 @@ export default {
               return role.intitule;
             });
             if (roles.length > 1) {
-              router.push("test");
+              router.push("multiRole");
             }
             else {      
             if (roles.includes("ADMIN")) {

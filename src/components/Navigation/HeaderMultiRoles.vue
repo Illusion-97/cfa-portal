@@ -60,7 +60,7 @@ export default {
 @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
 
 .navHeader {
-    background-color: #ff9900;
+    background-color: #4a0061;
     overflow: hidden;
     color: white;
     height: 6rem;
