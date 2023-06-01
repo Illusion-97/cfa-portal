@@ -33,9 +33,16 @@
                     <div>
                         <small>*indique les champs requis</small>
                     </div>
-                    <v-btn class="mr-4" type="submit" color='success'>
-                        <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
-                        Ajouter
+                    <!-- TEST -->
+                    <v-btn class="mr-4" :color="modifierAdresse ? 'warning' : 'success'" type="submit">
+
+                        <span v-if="!modifierAdresse">
+                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
+                        </span>
+                        <span v-else>
+                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+                        </span>
+                        {{ modifierAdresse ? 'Modifier' : 'Ajouter' }}
                     </v-btn>
                     <v-btn class="mr-4" color="secondary" @click="clear">
                         <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
@@ -54,9 +61,12 @@
 import { adresseApi } from "@/_api/adresse.api.js";
 export default {
     name: "AddAdresse",
+    props: ['modifierAdresse', 'adresse'],
     data() {
         return {
             adresseDto: {
+                id: 0,
+                version: 0,
                 libelle: "",
                 ville: "",
                 codePostal: "",
@@ -72,20 +82,34 @@ export default {
     methods: {
         hideComponent() {
             this.clear();
-            this.$emit('hidden');
+            this.$emit('hidden' , "Clear");
         },
         clear() {
+            this.adresseDto.id = 0;
+            this.version = 0;
             this.adresseDto.libelle = "";
             this.adresseDto.ville = "";
             this.adresseDto.codePostal = "";
             this.adresseDto.countryCode = "";
+        },
+            async modifier() {
+                await this.modifier ;
+            if (this.modifierAdresse) {
+                await this.adresse;
+                this.adresseDto.id = this.adresse.id;
+                this.adresseDto.version = this.adresse.version;
+                this.adresseDto.libelle = this.adresse.libelle;
+                this.adresseDto.ville = this.adresse.ville;
+                this.adresseDto.codePostal = this.adresse.codePostal;
+                this.adresseDto.countryCode = this.adresse.countryCode;
+            }
         },
         addAdresse() {
             adresseApi
                 .save(this.adresseDto)
                 .then((data) => {
                     if (data) {
-                        this.$emit('hidden', 'Adresse ajouter.');
+                        this.$emit('hidden', this.modifierAdresse?'Adresse modifier.':'Adresse ajouter.');
                         this.clear();
                     }
                 });

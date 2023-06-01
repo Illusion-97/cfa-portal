@@ -28,17 +28,18 @@
     </div>
 
     <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
-        <addAdresse @hidden="openClick">
-        </addAdresse>
-      </b-collapse>
-      <br>
-    <!-- LIST ADRESSE NEW -->
-    <b-table :items="adresses" :fields="fields" striped responsive="sm" :id="adresses.id" >
-      <!-- details -->
+      <addAdresse ref="childRef" @hidden="openClick" :modifierAdresse="modifier" :adresse="adresse">
+      </addAdresse>
+    </b-collapse>
+    <br>
+
+    <!-- LIST ADRESSE -->
+    <b-table :items="adresses" :fields="fields" striped responsive="sm">
+      <!-- Actions -->
       <template #cell(Actions)="row">
         <v-app>
           <div class="d-flex align-items-center justify-content-between">
-            <v-btn class="m-0  widthBtn" color="error" @click="deleteAdresse(id)">
+            <v-btn class="m-0  widthBtn" color="error" @click="deleteAdresse(row.item.id)">
               <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
               Supprimer
             </v-btn>
@@ -68,29 +69,15 @@ export default {
   components: {
     addAdresse
   },
-  props: {
-    isAction: {
-      type: Boolean,
-      default: false,
-    },
-    adresseProp: {
-      default: null,
-    }
-  },
-  watch: {
-    adresseProp() {
-      if (this.adresseProp != null)
-        this.adresse_input = `${this.adresseProp.rue}`;
-    }
-  },
   data() {
     return {
       adresses: [],
       perPage: 7,
       pageCount: 0,
       saisie: "",
+      modifier: true,
+      adresse: {},
       visible: false,
-      adresse_input: "",
       dismissCountDown: null,
       message: "",
       color: "success",
@@ -101,17 +88,34 @@ export default {
   created() {
     this.refreshList();
   },
-
   methods: {
     openClick(data) {
       this.visible = !this.visible;
+      this.$refs.childRef.clear();
+      try  {
+        if (data.id > 0) {
+          this.adresse = data;
+          this.$refs.childRef.modifier();
+        } 
+      } catch{
+        this.modifier = false;
+      }
       if (data == "Adresse ajouter.") {
         this.color = "success";
         this.dismissCountDown = 6;
         this.message = data;
         this.loading = false;
-        this.refreshList;
-      } 
+        this.refreshList();
+      }
+      if (data == "Adresse modifier.") {
+        this.color = "success";
+        this.dismissCountDown = 6;
+        this.message = data;
+        this.loading = false;
+        this.refreshList();
+      }
+      if (data == "Clear") 
+        this.modifier = false;
     },
     submit(e) {
       e.preventDefault();
@@ -138,14 +142,16 @@ export default {
         );
     },
     deleteAdresse(adresseId) {
-      console.log(adresseId);
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if (res) {
+      if (res)
         adresseApi.deleteAdresse(adresseId).then(() => this.refreshList());
-      }
+    },
+    update(adresse) {
+      this.modifier = true;
+      this.visible = false;
+      this.openClick(adresse);
     },
   },
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-
