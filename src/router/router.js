@@ -218,6 +218,13 @@ import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
 import DetailEtudiant from "@/views/Tuteur/DetailEtudiant.vue";
 
 
+
+
+
+
+import test from "@/views/test.vue";
+
+
 //          #######################
 //          #       ROUTES        #
 //          #######################
@@ -229,6 +236,7 @@ const routes = [
   //#       GLOBAL        #
   //#######################
   { path: "/", redirect: { name: "login" } },
+  { path: "/test", name: "test", component: test, },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/login", name: "login", component: LoginPage },
@@ -1731,6 +1739,9 @@ router.beforeEach((to, from, next) => {
     return next();
   }
   if (to.path == "/reset-password") {
+    return next();
+  }
+  if (to.path == "/test") {
     return next();
   }
   if (to.path !== "/login") {

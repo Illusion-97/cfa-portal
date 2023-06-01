@@ -186,6 +186,10 @@ export default {
             let roles = store.getters.getUtilisateur.rolesDto.map((role) => {
               return role.intitule;
             });
+            if (roles.length > 1) {
+              router.push("test");
+            }
+            else {      
             if (roles.includes("ADMIN")) {
               router.push("admin");
             }
@@ -203,6 +207,7 @@ export default {
             if (roles.includes("TUTEUR")) {
               router.push("tuteur");
             }
+          }
           })
           .catch((error) => {
             if (error) {
