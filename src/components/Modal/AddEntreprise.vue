@@ -100,14 +100,14 @@ export default {
             type: ['PUBLIC', 'PRIVER'],
             requiredSiret: [
                 v => !!v || 'Le champ est requis',
-                v => /^\\d{12}$/.test(v) || '12 chiffres requis',
+                v => /^\d{12}$/.test(v) || '12 chiffres requis',
             ],
             requiredNaf: [
                 v => !!v || 'Le champ est requis',
-                v => /^\\d{5}$/.test(v) || '5 chiffres requis',
+                v => /^\d{5}$/.test(v) || '5 chiffres requis',
             ],
             requireChiffre: [
-                v => /^\\d+$/.test(v) || 'Insérer que des chiffres',
+                v => /^\d+$/.test(v) || 'Insérer que des chiffres',
             ],
         }
     },

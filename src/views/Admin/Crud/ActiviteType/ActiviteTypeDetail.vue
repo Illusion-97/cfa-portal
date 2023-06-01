@@ -107,7 +107,7 @@ export default {
       visible: false,
       items: [
       ],
-      at: new ActiviteType(0, 0, '', '', 0),
+      at: new ActiviteType(0, 0, '', '', this.$route.params.id),
       fields: fieldsActiviteType,
       dismissCountDown: 0,
       modifier: false,
@@ -190,7 +190,7 @@ export default {
     },
     clear() {
       this.$v.$reset()
-      this.at = new ActiviteType(0, 0, '', '', 4);
+      this.at = new ActiviteType(0, 0, '', '', this.$route.params.id);
     },
     colspanClick() {
       this.visible = !this.visible
