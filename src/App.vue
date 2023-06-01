@@ -17,12 +17,17 @@
         <HeaderTuteur />
         <router-view />
       </div>
+      <div v-else-if="path == 'test'">
+        <HeaderMultiRoles />
+        <router-view />
+      </div>
       <router-view v-else class="monBody" />
     </div>
   </div>
 </template>
 <script>
 import HeaderTuteur from "@/components/Navigation/HeaderTuteur.vue";
+import HeaderMultiRoles from "@/components/Navigation/HeaderMultiRoles.vue";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import VueSidebarFormateur from "@/components/Navigation/VueSidebarFormateur.vue";
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
@@ -40,6 +45,7 @@ export default {
     NavEtudiant,
     HeaderEtudiant,
     HeaderTuteur,
+    HeaderMultiRoles,
     
   },
   methods: {},

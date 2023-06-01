@@ -236,7 +236,7 @@ const routes = [
   //#       GLOBAL        #
   //#######################
   { path: "/", redirect: { name: "login" } },
-  { path: "/test", name: "test", component: test, },
+  { path: "/test", name: "test", component: test, meta: { authorize: [Role.Etudiant, Role.Formateur, Role.Admin, Role.Tuteur] }, },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/login", name: "login", component: LoginPage },
@@ -1739,9 +1739,6 @@ router.beforeEach((to, from, next) => {
     return next();
   }
   if (to.path == "/reset-password") {
-    return next();
-  }
-  if (to.path == "/test") {
     return next();
   }
   if (to.path !== "/login") {
