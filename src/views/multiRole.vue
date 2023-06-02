@@ -2,14 +2,14 @@
   <div class="container-fluid">
     <h1 style="font-weight: bold; font-size: 24px;">Bienvenue {{ fullName }}</h1>
     <v-app>
-    <b-card-body class="d-flex justify-content-center">
-      <v-container>
-        <v-btn v-if="listRoles.includes('ADMIN')" class="mr-4" @click="goToAdmin()" color="primary">Admin</v-btn>
-        <v-btn v-if="listRoles.includes('FORMATEUR')" class="mr-4" @click="goToFormateur()" color="warning">Formateur</v-btn>
-        <v-btn v-if="listRoles.includes('TUTEUR')" class="mr-4" @click="goToTuteur()" color="success">Tuteur</v-btn>
-        <v-btn v-if="listRoles.includes('ETUDIANT')" class="mr-4" @click="goToEtudiant()" color="error">Etudiant</v-btn>
-      </v-container>
-    </b-card-body>
+      <b-card-body class="d-flex justify-content-center">
+        <v-container>
+          <v-btn v-if="listRoles.includes('ADMIN')" class="mr-4" @click="goToAdmin()" color="primary">Admin</v-btn>
+          <v-btn v-if="listRoles.includes('FORMATEUR')" class="mr-4" @click="goToFormateur()" color="warning">Formateur</v-btn>
+          <v-btn v-if="listRoles.includes('TUTEUR')" class="mr-4" @click="goToTuteur()" color="success">Tuteur</v-btn>
+          <v-btn v-if="listRoles.includes('ETUDIANT')" class="mr-4" @click="goToEtudiant()" color="error">Etudiant</v-btn>
+        </v-container>
+      </b-card-body>
     </v-app>
   </div>
 </template>
@@ -19,14 +19,13 @@ export default {
   name: 'test',
   data() {
     return {
-      fullName : this.$store.getters.getUtilisateur.fullName,
+      fullName: this.$store.getters.getUtilisateur.fullName,
       roles: this.$store.getters.getUtilisateur.rolesDto,
       listRoles: [],
     };
   },
   async created() {
     await this.fullName;
-    console.log(this.fullName)
     await this.roles;
     this.roles.forEach(element => {
       this.listRoles.push(element.intitule);

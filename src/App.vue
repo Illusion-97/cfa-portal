@@ -2,7 +2,11 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'login'" />
-      <div v-else-if=" path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
+      <div v-else-if="path == 'multiRole'">
+        <HeaderMultiRoles />
+        <router-view />
+      </div>
+      <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
         <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view />
@@ -15,10 +19,6 @@
       </div>
       <div v-else-if="path == 'tuteur'">
         <HeaderTuteur />
-        <router-view />
-      </div>
-      <div v-else-if="path == 'multiRole'">
-        <HeaderMultiRoles />
         <router-view />
       </div>
       <router-view v-else class="monBody" />
@@ -46,7 +46,7 @@ export default {
     HeaderEtudiant,
     HeaderTuteur,
     HeaderMultiRoles,
-    
+
   },
   methods: {},
   computed: {

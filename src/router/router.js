@@ -27,6 +27,7 @@ import { Role } from "@/_helpers/role.js";
 //#       GLOBAL        #
 //#######################
 import LoginPage from "@/views/Login/LoginPage.vue";
+import multiRole from "@/views/multiRole.vue";
 import Forgot from "@/views/Login/Forgot.vue";
 import NotFound from "@/views/NotFound.vue";
 import Forbidden from "@/views/Forbidden.vue";
@@ -216,14 +217,6 @@ import SignatureEtudiant from "@/views/Etudiant/SignatureEtudiant.vue"
 //#######################
 import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
 import DetailEtudiant from "@/views/Tuteur/DetailEtudiant.vue";
-
-
-
-
-
-
-import multiRole from "@/views/multiRole.vue";
-
 
 //          #######################
 //          #       ROUTES        #
