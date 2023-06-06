@@ -8,7 +8,6 @@
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Précédent
     </a>
-
     <BodyTitle :title="vue_title" />
 
     <b-form class="form mb-5" @submit="submit">
