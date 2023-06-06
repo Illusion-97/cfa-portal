@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="promotion">
     <section>
       <div class="container-fluid mt-4">
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
@@ -89,6 +89,37 @@
             <div id="interventions">
               <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de
                 positionnement</b-button>
+              <b-button
+                  block
+                  variant="warning"
+                  @click="openLoginWdg2EtudiantBypromo"
+              >
+                Import Etudiant de la promo
+              </b-button>
+              <div class="login-wdg2">
+                <login-wdg-2
+                    hidden
+                    :id="'ShowLoginCardEtudiant'"
+                    @logInUser="importEtudiantPromo"
+                    @wdg2Close="wdg2CloseEtudiantByPromo(index)"
+                />
+              </div>
+              <b-button
+                  block
+                  variant="success"
+                  @click="openLoginWdg2InterventionBypromo"
+                  @wdg2Close="w"
+              >
+                Import Intervention de la promo
+              </b-button>
+              <div class="login-wdg2">
+                <login-wdg-2
+                    hidden
+                    :id="'ShowLoginCardPromo'"
+                    @logInUser="importInterventionByPromo"
+                    @wdg2Close="wdg2CloseInterventionByPromo(index)"
+                />
+              </div>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -150,12 +181,14 @@ import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
+import {interventionApi} from "@/_api/intervention.api";
+
 export default {
   name: "PromotionDetailFormateur",
   props: [],
   components: {
     ExamensPromotionsListCompoenent,
-    AjouterNotes,
+    AjouterNotes
   },
 
   data() {
@@ -188,6 +221,17 @@ export default {
   methods: {
     openHandler(pdfApp) {
       window._pdfApp = pdfApp;
+    },
+    openLoginWdg2EtudiantBypromo() {
+      let card = document.getElementById('ShowLoginCardEtudiant')
+      card.hidden = !card.hidden
+    },
+    openLoginWdg2InterventionBypromo() {
+      let card = document.getElementById('ShowLoginCardPromo')
+      card.hidden = !card.hidden
+    },
+    wdg2CloseInterventionByPromo(){
+      document.getElementById('ShowLoginCardPromo').hidden = true
     },
     getGrille() {
       promotionApi
@@ -260,6 +304,30 @@ export default {
     ajouterAbsence() {
       return null;
     },
+  async importInterventionByPromo(value){
+
+    this.showLoginWdg2CardInterventionByPromo = false;
+    this.loading = true;
+
+    let promoId = this.promotion.idDg2;
+
+    interventionApi
+        .fetchInterventionsDG2ByIdPromotion(value, promoId)
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+          this.refreshList();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
+
+  }
   },
   created() {
     this.getPromotionId();

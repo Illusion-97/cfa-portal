@@ -10,6 +10,10 @@
     </a>
 
     <b-card no-body id="my-card">
+      <div>
+        <p class="font-weight-bold" style="text-align: center; font-size: 20px">{{ cursus.titre }}</p>
+      </div>
+
       <b-card-header>
         <span class="">Details</span>
         <div class="float-right mr-2" style="font-size:20px">
@@ -30,12 +34,12 @@
         </div>
       </b-card-header>
 
-      <b-card-text class="identity row ml-6">
-        <span class="font-weight-bold col-md-2">Titre : </span>
-        <span class="">{{ cursus.titre }}</span>
+      <b-card-text class="row-detail-title">
+        <span class="font-weight-bold" style=" width: 30%">Titre : </span>
+        <span>{{ cursus.titre }}</span>
       </b-card-text>
-      <b-card-text class="identity row ml-6">
-        <span class="font-weight-bold col-md-2">Durée : </span>
+      <b-card-text class="row-detail-title">
+        <span class="font-weight-bold" style="width: 30%">Durée : </span>
         <span class="">{{ cursus.duree }}</span>
       </b-card-text>
 
@@ -44,9 +48,12 @@
         <table class="table table-striped table-hover text-center ml-5 mr-5">
           <thead>
             <tr>
-              <th>Nom de la promo</th>
+              <th>Type</th>
+              <th>Ville</th>
               <th>Date de debut</th>
               <th>Date de fin</th>
+              <th>Nom de la promo</th>
+              <th>Nombres de participants</th>
             </tr>
           </thead>
           <tbody v-if="promotionsComputed">
@@ -56,9 +63,12 @@
               class="mon-tr"
               v-on:click="detail(promotion.id)"
             >
-              <td>{{ promotion.nom }}</td>
+              <td>{{promotion.type}}</td>
+              <td>{{promotion.centreFormationAdresseVille}}</td>
               <td>{{ promotion.dateDebut | formatDate }}</td>
               <td>{{ promotion.dateFin | formatDate }}</td>
+              <td>{{ promotion.nom }}</td>
+              <td>{{promotion.nbParticipants}}</td>
             </tr>
           </tbody>
         </table>
@@ -157,5 +167,10 @@ export default {
   display: inline-block;
   width: 40em;
   padding-left: 3em;
+}
+.row-detail-title{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 30% 80%;
 }
 </style>

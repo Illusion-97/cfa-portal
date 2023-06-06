@@ -30,29 +30,31 @@
       </select>
 
       <!-- MAJ UTILISATEURS -->
-      <div class="updateListCursus p-2">
-        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
-          Mise à jour des utilisateurs
+      <div class="tuteur p-2">
+        <button @click="openModalMajUsers" class="btn btn-outline-info">
+          <span v-if="!visibleMajUsers">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des utilisateurs
+          </span>
+          <span v-else>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+          </span>
         </button>
-        <div class="login-wdg2">
-          <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
-        </div>
       </div>
-
       <!-- MAJ ETUDIANT -->
-      <div class="etudiant p-2">
-        <button name="button2" outlined @click="openLoginWdg2Etudiant" class="btn btn-outline-info">
-          Mise à jour des étudiants
+      <div class="tuteur p-2">
+        <button @click="openModalMajStudent" class="btn btn-outline-info">
+          <span v-if="!visibleMajStudent">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des étudiants
+          </span>
+          <span v-else>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+          </span>
         </button>
-        <div class="login-wdg2">
-          <login-wdg-2 v-if="showLoginWdg2CardEtudiant" @logInUser="logInUserWdg2Etudiant"
-            @wdg2Close="wdg2CloseEtudiant" />
-        </div>
       </div>
-
+      <!-- ADD TUTEUR -->
       <div class="tuteur p-2">
         <button @click="openClick" class="btn btn-outline-info">
-          <span v-if="!visible">
+          <span v-if="!visibleAddTuteur">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
           </span>
           <span v-else>
@@ -63,9 +65,18 @@
     </div>
 
     <!-- AJOUT TUTEUR -->
-    <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
+    <b-collapse id="collapse-1" :visible=visibleAddTuteur class="mt-2 mb-4">
       <addTuteur @hidden="openClick">
       </addTuteur>
+    </b-collapse>
+
+    <b-collapse class="modalWdg2" :visible=visibleMajStudent>
+      <login-wdg-2 @hidden="openModalMajStudent" @logInUser="logInUserWdg2Etudiant"
+                   @wdg2Close="wdg2CloseEtudiant" />
+    </b-collapse>
+
+    <b-collapse class="modalWdg2" :visible=visibleMajUsers>
+      <login-wdg-2 @hidden="openModalMajUsers" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
     </b-collapse>
 
     <div v-if="message == 'Tuteur ajouter.'" class="my-success-feedback"> {{ message }} </div>
@@ -160,7 +171,9 @@ export default {
 
   data() {
     return {
-      visible: false,
+      visibleAddTuteur: false,
+      visibleMajStudent: false,
+      visibleMajUsers: false,
       dismissCountDown: null,
       message: "",
       color: "success",
@@ -204,11 +217,23 @@ export default {
   },
   methods: {
     openClick(data) {
-      this.visible = !this.visible;
+      this.visibleAddTuteur = !this.visibleAddTuteur;
+      this.visibleMajStudent = false;
+      this.visibleMajUsers = false;
       if (data) {
         this.message = data;
         this.refreshList;
       }
+    },
+    openModalMajUsers(){
+      this.visibleMajUsers = !this.visibleMajUsers;
+      this.visibleMajStudent = false;
+      this.visibleAddTuteur = false;
+    },
+    openModalMajStudent(){
+      this.visibleMajStudent = !this.visibleMajStudent
+      this.visibleAddTuteur = false
+      this.visibleMajUsers = false
     },
     assigneTableItems(users) {
       this.items = [];
@@ -375,5 +400,8 @@ export default {
   font-size: 100%;
   color: green;
   font-weight: bolder;
+}
+.modalWdg2{
+  margin-left: 30%;
 }
 </style>

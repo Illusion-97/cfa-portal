@@ -9,6 +9,7 @@
         disabled="disabled"
       />
     </div>
+
     <b-alert
       :show="dismissCountDown"
       dismissible
@@ -83,7 +84,7 @@
       </thead>
       <tbody v-if="promotionsComputed">
         <tr
-          v-for="promotion in promotionsComputed"
+          v-for="(promotion, index) in promotionsComputed"
           :key="promotion.id"
           class="mon-tr"
           v-on:click="clickList(promotion)"
@@ -103,8 +104,7 @@
               <b-button
                 block
                 variant="warning"
-                @click="openLoginWdg2EtudiantBypromo(promotion)"
-
+                @click="openLoginWdg2EtudiantBypromo(promotion, index)"
               >
                 Import Etudiant de la promo
               </b-button>
@@ -112,26 +112,28 @@
 
               <div class="login-wdg2">
                 <login-wdg-2
-                  v-if="showLoginWdg2CardEtudiantByPromo"
+                    hidden
+                    :id="'ShowLoginCardEtudiant-'+index"
                   @logInUser="importEtudiantPromo"
-                  @wdg2Close="wdg2CloseEtudiantByPromo"
+                  @wdg2Close="wdg2CloseEtudiantByPromo(index)"
                 />
               </div>
 
               <b-button
                   block
                   variant="success"
-                  @click="openLoginWdg2InterventionBypromo(promotion)"
-
+                  @click="openLoginWdg2InterventionBypromo(promotion, index)"
+                  @wdg2Close="w"
                 >
                   Import Intervention de la promo
                 </b-button>
                 
                 <div class="login-wdg2">
                   <login-wdg-2
-                    v-if="showLoginWdg2CardInterventionByPromo"
+                      hidden
+                      :id="'ShowLoginCardPromo-'+index"
                     @logInUser="importInterventionByPromo"
-                    @wdg2Close="wdg2CloseInterventionByPromo"
+                    @wdg2Close="wdg2CloseInterventionByPromo(index)"
                   />
                 </div>
            </td>
@@ -196,7 +198,6 @@ export default {
       saisie: "",
       promotion_input: "",
       showLoginWdg2Card: false,
-      showLoginWdg2CardEtudiantByPromo: false,
       showLoginWdg2CardInterventionByPromo: false,
       loading: false,
     };
@@ -265,12 +266,19 @@ export default {
         params: { id: promo.id },
       });
     },
-    openLoginWdg2InterventionBypromo(promotion) {
-      this.showLoginWdg2CardInterventionByPromo = true;
-      this.promotion = promotion;
+    openLoginWdg2InterventionBypromo(promotion,index) {
+        let card = document.getElementById('ShowLoginCardPromo-'+index)
+        card.hidden = !card.hidden
     },
-    wdg2CloseInterventionByPromo(value){
-      this.showLoginWdg2CardInterventionByPromo = value;
+    wdg2CloseInterventionByPromo(index){
+      document.getElementById('ShowLoginCardPromo-'+index).hidden = true
+    },
+    openLoginWdg2EtudiantBypromo(promotion,index) {
+      let card = document.getElementById('ShowLoginCardEtudiant-'+index)
+      card.hidden = !card.hidden
+    },
+    wdg2CloseEtudiantByPromo(index){
+      document.getElementById('ShowLoginCardEtudiant-'+index).hidden = true
     },
     async importInterventionByPromo(value){
       
@@ -296,13 +304,7 @@ export default {
         });
      
     },
-    openLoginWdg2EtudiantBypromo(promotion) {
-      this.showLoginWdg2CardEtudiantByPromo = true;
-      this.promotion = promotion;
-    },
-    wdg2CloseEtudiantByPromo(value){
-      this.showLoginWdg2CardEtudiantByPromo = value;
-    },
+
     async importEtudiantPromo(value){
       
       this.showLoginWdg2CardEtudiantByPromo = false;

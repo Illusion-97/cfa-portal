@@ -318,37 +318,40 @@ export default {
       });
     },
     getDataForForm(data) {
-      let datasFormAt = [];
-      let dataForFormCp = [];
-      let optionAt = [];
-      for (let i = 0; i < data.length; i++) {
-        let option = {
-          value: data[i].id,
-          text: data[i].numeroFiche + " - " + data[i].libelle,
-        };
-        let optionForAt = {
-          value: data[i].id,
-          text: data[i].numeroFiche,
-        };
-        datasFormAt.push(option);
-        optionAt.push(optionForAt);
-        let tabCompetences = [];
-        for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
-          let value = data[i].competencesProfessionnellesDto[j].id;
-          let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
-          let competence = {
-            text: text,
-            value: value,
+      if(data) {
+        let datasFormAt = [];
+        let dataForFormCp = [];
+        let optionAt = [];
+        for (let i = 0; i < data.length; i++) {
+          let option = {
+            value: data[i].id,
+            text: data[i].numeroFiche + " - " + data[i].libelle,
           };
-          tabCompetences.push(competence);
+          let optionForAt = {
+            value: data[i].id,
+            text: data[i].numeroFiche,
+          };
+          datasFormAt.push(option);
+          optionAt.push(optionForAt);
+          let tabCompetences = [];
+          /*
+          for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
+            let value = data[i].competencesProfessionnellesDto[j].id;
+            let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
+            let competence = {
+              text: text,
+              value: value,
+            };
+            tabCompetences.push(competence);
+          }*/
+          let at = {};
+          at[data[i].id] = tabCompetences;
+          dataForFormCp.push(at);
         }
-        let at = {};
-        at[data[i].id] = tabCompetences;
-        dataForFormCp.push(at);
+        this.datasFormAt = datasFormAt;
+        this.datasFormCP = dataForFormCp;
+        this.optionsBc = optionAt;
       }
-      this.datasFormAt = datasFormAt;
-      this.datasFormCP = dataForFormCp;
-      this.optionsBc = optionAt;
     },
 
     // MODIFIER UN EXAMEN

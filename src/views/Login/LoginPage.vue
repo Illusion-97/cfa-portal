@@ -95,11 +95,11 @@
               class="btn btn-primary"
               type="submit"
               value="Se connecter"
-            /> 
+            />
             <button color="error" class="btn btn-primary" :disabled="!valid" type="submit">
             recaptcha
           </button>
-          </div>     
+          </div>
         </div>-->
           </vue-recaptcha>
           <div class="cardActionForgot">
