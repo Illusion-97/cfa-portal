@@ -29,6 +29,7 @@ export const utilisateurApi = {
   isReferent,
   uploadUser,
   mail,
+  updateRole,
 };
 
 const END_POINT = "utilisateurs";
@@ -370,5 +371,17 @@ function fetchAllUsersDG2Http(logInUser) {
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
   return axios.get(req, headers);
+
+}
+
+function updateRole(userId, roles){
+  return axios
+  .put(`${END_POINT}/${userId}/roles`, roles, requestOptions.headers())
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    throw error;
+  });
 
 }

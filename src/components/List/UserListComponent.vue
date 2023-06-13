@@ -13,7 +13,7 @@
     <div class="d-flex flex-row align-items-end justify-content-between">
 
       <!-- BARRE DE RECHERCHE -->
-      <form class="form-inline p-2" @submit="submit">
+      <form class="form-inline p-2" @submit="search">
         <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"/>
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -69,23 +69,6 @@
     </b-collapse>
 
     <div v-if="message == 'Tuteur ajouter.'" class="my-success-feedback"> {{ message }} </div>
-
-    <!-- <button v-if="isAction" class="btn btn-outline-success" id="toggle" @click="showFileInput">Importer des
-          utilisateurs
-        </button>
-        <form action="POST" class="d-flex" enctype="multipart/form-data">
-          <input id="file" type="file" name="file" ref="file" class="ml-2" @change="handleFileUpload" accept=".csv" />
-          <button class="btn btn-secondary rounded-sm" @click="makeToast(variant)" type="button"
-            id="btn-import">Importer</button>
-        </form> -->
-    <!-- <router-link class="btn btn-outline-primary px-3 mx-3" :to="{ name: 'admin_addUser' }" v-if="isAction">Ajouter
-          un utilisateur</router-link>
-      </div> -->
-
-    <!-- <small class="form-text info-text ml-1 mt-4 mb-2">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-      Mise à jour des user dg2 en attente de la requête
-    </small> -->
     <br>
 
     <!-- LISTE DES UTILISATEURS -->
@@ -101,6 +84,12 @@
         <p v-for="role in row.item.rolesDto" :key="role.id">
           {{ role.intitule }}
         </p>
+      </template>
+      <template #cell(Modifier)="row">
+        <b-button size="sm" variant="warning" @click=ouvrirModalModification(row.item) class="mr-2">
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+          Modifier
+        </b-button>
       </template>
       <!--Description -->
       <template #row-details="row">
@@ -120,6 +109,26 @@
         </b-card>
       </template>
     </b-table>
+
+    <b-modal hide-footer v-model="showModalRoleUser" title="Modifier le rôle de l'utilisateur">
+      <b-form>
+        <label>Selectionner les roles : </label>
+                <b-form-checkbox-group
+                  v-model="editRoles"
+                  :options="options"
+                  class="mb-3"
+                  value-field="item"
+                  text-field="name"
+                ></b-form-checkbox-group>
+          <!-- <div class="mt-3">Selected: <strong>{{ editRoles }}</strong></div> -->
+        <b-button type="button" class="mt-3" variant="warning" @click=modifierRolesUtilisateur>
+              <font-awesome-icon
+                class="mr-1"
+                :icon="['fas', 'pen']"
+              />Modifier</b-button
+            >
+      </b-form>
+    </b-modal>
 
     <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
@@ -185,6 +194,11 @@ export default {
       showLoginWdg2Card: false,
       showLoginWdg2CardEtudiant: false,
       loading: false,
+
+      showModalRoleUser: false,
+      editRoles: [],
+      options: [],
+      item: {}
     };
   },
   computed: {
@@ -217,6 +231,7 @@ export default {
       this.items = [];
       users.forEach((e) => {
         let item = {
+          id: e.id,
           nom: e.nom,
           prenom: e.prenom,
           login: e.login,
@@ -284,7 +299,7 @@ export default {
     getRoles() {
       utilisateursRoleApi.getAll().then((data) => (this.roles = data));
     },
-    submit(e) {
+    search(e) {
       e.preventDefault();
       this.refreshList();
       this.saisie = "";
@@ -363,6 +378,48 @@ export default {
     wdg2CloseEtudiant(value) {
       this.showLoginWdg2CardEtudiant = value;
     },
+    ouvrirModalModification(item) {
+      console.log("user id : ",item.id)
+
+      this.item = item
+      if(this.item.rolesDto.length > 0){
+        this.editRoles = this.item.rolesDto.map(r => r.id )
+      }
+      this.fetchRolesFromDatabase();
+      this.showModalRoleUser = true; // Affiche la modal de modification des rôles
+    },
+    closeModal() {
+      this.showModalRoleUser = false;
+    },
+    modifierRolesUtilisateur() {
+      const userId = this.item.id; 
+      utilisateurApi
+        .updateRole(userId, this.editRoles)
+        .then((data) => {
+          // Traitement de la réponse
+          console.log('Rôles modifiés avec succès !', data);
+          // Fermer la modal
+          this.showModalRoleUser = false;
+        })
+        .catch((error) => {
+          // Gestion des erreurs
+          console.error('Une erreur s\'est produite lors de la modification des rôles :', error);
+        });
+      this.editRoles = [];
+      this.refreshList();
+    },
+    fetchRolesFromDatabase() {
+      utilisateursRoleApi.getAll()
+        .then((data) => {
+          this.options = data.map((role) => ({
+            item: role.id, 
+            name: role.intitule, 
+          }));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   },
 };
 </script>
