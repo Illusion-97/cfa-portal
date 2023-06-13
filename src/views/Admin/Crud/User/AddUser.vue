@@ -166,7 +166,7 @@ import { contratApi } from "../../../../_api/contrat.api";
       EntrepriseListComponent,
       RoleModal,
       UtilisateurModal,
-    },
+    }, 
     data() {
       return {
         btn_form_text: "Ajouter",
