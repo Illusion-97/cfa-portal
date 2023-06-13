@@ -241,6 +241,7 @@ export default {
     },
     assigneTableItems(users) {
       this.items = [];
+      if(users != null){
       users.forEach((e) => {
         let item = {
           nom: e.nom,
@@ -260,7 +261,7 @@ export default {
           dateDeNaissance: e.dateDeNaissance,
         };
         this.items.push(item);
-      });
+      })}
     },
     makeToast(variant) {
       utilisateurApi

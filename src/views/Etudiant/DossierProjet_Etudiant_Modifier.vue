@@ -1,6 +1,5 @@
 <template>
   <div class="main" v-if="DossierProjet">
-    <b-button @click="console">Console</b-button>
   <section style="display: inline-block; width: 100%">
     <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
     <div style="float: right">
@@ -247,8 +246,6 @@ export default {
         })
   },
   methods: {
-    console(){
-      console.log(this.filesAnnexe.length + "  " + this.DossierProjet.annexeDossierProjets.length)},
     retour() {
       history.back();
     },

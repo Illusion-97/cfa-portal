@@ -44,6 +44,7 @@ export default {
     name: 'HeaderFormateur',
     data() {
         return {
+            ville: "",
             roles: this.$store.getters.getUtilisateur.rolesDto,
             headerDisplay: "",
             logOut: "" + window.location.origin + "/#/login",
@@ -100,12 +101,30 @@ export default {
                     return "Centre de " + this.headerDisplay
                 }
                 return "Centres de formation";
+
+
+
             } else if (this.$route.path.split("/").splice(2)[0] == 'promotion' &&
                 this.$route.path.split("/").splice(3)[0] == 'details') {
                 promotionApi
                     .getPromotionByid(this.$route.params.id)
-                    .then((response) => { this.headerDisplay = response.nom });
-                return this.headerDisplay
+                    .then((response) => { this.headerDisplay = response.nom, this.ville = response.centreFormationDto.nom });
+                let titlePromotion =  this.headerDisplay.split("-")
+
+              if (titlePromotion.includes("titre") && titlePromotion.includes("professionnel")) {
+                // Supprimer les mots du tableau
+                const indexTitre = titlePromotion.indexOf("professionnel");
+                const indexProfessionnel = titlePromotion.indexOf("titre");
+                titlePromotion.splice(indexTitre, 1);
+                titlePromotion.splice(indexProfessionnel, 1);
+              }
+                let titre = "";
+                titlePromotion.map(item => {
+                  if (item.length > 2){
+                  titre += item.charAt(0).toUpperCase();
+                  }
+                });
+                return titre + " - " + this.ville
             } else if (this.$route.path.split("/").splice(2)[0] == 'etudiants' &&
                 this.$route.path.split("/").splice(3)[0] == 'details') {
                 etudiantApi
