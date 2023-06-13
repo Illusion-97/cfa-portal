@@ -1,10 +1,5 @@
 export const utilisateursFields = [
   {
-    key: "Details",
-    label: "Détails",
-    thStyle: { width: "5%" },
-  },
-  {
     key: "prenom",
     label: "Prénom",
     thStyle: { width: "5%" },
@@ -23,6 +18,16 @@ export const utilisateursFields = [
     key: "rolesDto",
     label: "Rôle",
     thStyle: { width: "5%" },
+  },
+  {
+    key: "Details",
+    label: "Détails",
+    thStyle: { width: "1%" },
+  },
+  {
+    key: "Modifier",
+    label: "Modifier",
+    thStyle: { width: "1%" },
   },
 ];
 
