@@ -30,7 +30,7 @@
       </select>
 
       <!-- MAJ UTILISATEURS -->
-      <div class="tuteur p-2">
+      <div class="utilisateurs p-2">
         <button @click="openModalMajUsers" class="btn btn-outline-info">
           <span v-if="!visibleMajUsers">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des utilisateurs
@@ -41,7 +41,7 @@
         </button>
       </div>
       <!-- MAJ ETUDIANT -->
-      <div class="tuteur p-2">
+      <div class="etudiant p-2">
         <button @click="openModalMajStudent" class="btn btn-outline-info">
           <span v-if="!visibleMajStudent">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des étudiants
