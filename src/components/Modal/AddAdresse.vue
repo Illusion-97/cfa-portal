@@ -26,7 +26,6 @@
                                 clearable></v-text-field>
                         </div>
                     </v-col>
-
                 </v-row>
                 <small>*indique les champs requis</small>
                 <b-button type="submit" class="mt-3" variant="success" block>
@@ -56,7 +55,8 @@ export default {
     },
     methods: {
         addAdresse() {
-            adresseApi.save(this.adresseDto);
+            adresseApi.save(this.adresseDto)
+                .then(() => ( this.$emit('adresse') ));
         },
     }
 }          
