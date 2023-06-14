@@ -89,7 +89,7 @@ export const AdresseFields = [
 export const CentreDeFormations = [
   { key: "nom", label: "Ville" },
   { key: "adresseDto.codePostal", label: "Code Postal" },
-  { key: "Actions", text: "Actions", thStyle: { width: "20%" }, thClass: "text-center" },
+  { key: "Actions", label: "Details", thStyle: { width: "20%" }, thClass: "text-center" },
 ];
 
 export const CentreDeFormation = [

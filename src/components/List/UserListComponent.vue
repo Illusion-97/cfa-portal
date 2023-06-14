@@ -53,7 +53,7 @@
       </div>
       <!-- ADD TUTEUR -->
       <div class="tuteur p-2">
-        <button @click="openClick" class="btn btn-outline-info">
+        <button @click="openModalAddTuteur" class="btn btn-outline-info">
           <span v-if="!visibleAddTuteur">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
           </span>
@@ -66,7 +66,7 @@
 
     <!-- AJOUT TUTEUR -->
     <b-collapse id="collapse-1" :visible=visibleAddTuteur class="mt-2 mb-4">
-      <addTuteur @hidden="openClick">
+      <addTuteur @hidden="ajoutTuteur">
       </addTuteur>
     </b-collapse>
 
@@ -227,11 +227,14 @@ export default {
     this.getRoles();
   },
   methods: {
-    openClick(data) {
+    openModalAddTuteur() {
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
       this.visibleMajUsers = false;
+    }, 
+    ajoutTuteur(data) {
       if (data == "Tuteur ajouter.") {
+        this.visibleAddTuteur = false;
         this.color = "success";
         this.dismissCountDown = 6;
         this.message = data;
@@ -427,16 +430,25 @@ export default {
         .updateRole(userId, this.editRoles)
         .then((data) => {
           // Traitement de la réponse
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = 'Rôles modifiés avec succès !';
+          this.loading = false;
           console.log('Rôles modifiés avec succès !', data);
           // Fermer la modal
           this.showModalRoleUser = false;
+          this.refreshList();
         })
         .catch((error) => {
           // Gestion des erreurs
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = "Une erreur s'est produite lors de la modification des rôles.";
+          this.loading = false;
           console.error('Une erreur s\'est produite lors de la modification des rôles :', error);
         });
       this.editRoles = [];
-      this.refreshList();
+      console.log(this.items);
     },
     fetchRolesFromDatabase() {
       utilisateursRoleApi.getAll()
