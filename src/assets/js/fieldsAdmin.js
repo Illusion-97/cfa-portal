@@ -85,3 +85,17 @@ export const AdresseFields = [
   { key: "codePostal", text: "Code Postal", sortable: false },
   { key: "Actions", text: "Actions", thStyle: { width: "20%" }, thClass: "text-center" },
 ];
+
+export const CentreDeFormations = [
+  { key: "nom", label: "Ville" },
+  { key: "adresseDto.codePostal", label: "Code Postal" },
+  { key: "Actions", text: "Actions", thStyle: { width: "20%" }, thClass: "text-center" },
+];
+
+export const CentreDeFormation = [
+  { key: "nom", label: "Promotion" },
+  { key: "dateDebut", label: "Date de debut" },
+  { key: "dateFin", label: "Date de Fin" },
+  { key: "Durée", label: "Durée" },
+  { key: "Actions", text: "Actions", thStyle: { width: "20%" }, thClass: "text-center" },
+];
