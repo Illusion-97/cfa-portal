@@ -10,25 +10,31 @@
           disabled="disabled"
         />
       </div>
+      <div id="form-creation-projet" hidden>
+        <p>qsdqsdqsdqsd</p>
+      </div>
 
-      <form class="form-inline form" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          placeholder="Rechercher"
-          v-model="saisie"
-        />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
-      </form>
-
-       <button class="btn btn-primary" v-on:click="createProjet()" v-if="isAction">
+      <div class="align-search-add-projet">
+        <form class="form-inline form" @submit="submit">
+          <input
+            id="saisie"
+            name="saisie"
+            type="text"
+            class="form-control"
+            placeholder="Rechercher"
+            v-model="saisie"
+          />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+          </button>
+        </form>
+        <!-- v-on:click="createProjet()" v-if="isAction" -->
+       <button class="btn btn-primary" @click="showCreateProjet" >
               Ajouter un projet
-            </button>
+       </button>
+      </div>
     </div>
+
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -43,12 +49,15 @@
           v-for="projet in projetsComputed"
           :key="projet.id"
           v-on:click="clickList(projet)"
-          v-on:dblclick="detail(projet)"
           class="mon-tr"
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
           <td>{{ projet.groupeDto.nom }}</td>
+          <td>
+            <b-button @click="detail(projet)">Modifier</b-button>
+            <b-button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">Supprimer</b-button>
+          </td>
           <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">
               Supprimer
@@ -102,12 +111,12 @@ export default {
   data() {
     return {
       // projets: [{nom: "", description: "", groupeDto: {nom: ""}}],
+      formAjoutProjet: true,
       projets: [],
       perPage: 10,
       pageCount: 0,
-
+      currentPage: 1,
       saisie: "",
-
       projet_input: "",
     };
   },
@@ -126,7 +135,7 @@ export default {
     submit(e) {
       e.preventDefault();
       projetApi
-        .getAllByPage(0, this.perPage, this.saisie)
+        .getAllByPage(this.currentPage, this.perPage, this.saisie)
         .then((response) => (this.projets = response));
       projetApi
         .getCount(this.saisie)
@@ -173,17 +182,20 @@ export default {
       else if (route[0] == 'referent') {
         this.$router.push({
         name: "referent_projet_create",
-        
+
       });
       }
       else if (route[0] == 'cef') {
         this.$router.push({
         name: "cef_projet_create",
-        
+
       });
       }
     },
-
+    showCreateProjet(){
+     let t = document.getElementById('form-creation-projet')
+      return t.hidden = !t.hidden
+    },
     clickList(projet) {
       if (!this.isAction) {
         this.projet_input = projet.enonce;
@@ -193,16 +205,22 @@ export default {
     detail(projet) {
       let route = this.$route.path.split("/").splice(1);
 
-      if(route[0]== 'admin') this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
+      if(route[0]== 'admin') this.$router.push({name:'admin_projet_detail', params: { id: projet.id }});
       else if(route[0]== 'referent')  this.$router.push({name:'referent_projet_detail', params: { id: projet.id }});
       // else if(route[0]== 'formateur') this.$router.push({name:'formateur_projet_detail', params: { id: projet.id }});
       else if(route[0]== 'cef') this.$router.push({name:'cef_projet_detail', params: { id: projet.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_projet_detail', params: { id: projet.id }});
 
-      //this.$router.push({name:'admin_projet_detail', params: { id: projet.id }}); 
+      //this.$router.push({name:'admin_projet_detail', params: { id: projet.id }});
     },
   },
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<style scoped >
+.align-search-add-projet{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+</style>

@@ -65,6 +65,7 @@ export default {
           icon: "bx-home-circle",
         },
         { link: "admin_adresse_list", name: "Adresse", icon: "bx-map-pin" },
+        { link:"admin_projet_list", name: "Projet", icon: "bx bx-clipboard" }
       ],
     };
   },

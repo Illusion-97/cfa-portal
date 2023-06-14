@@ -9,7 +9,7 @@ export const groupeApi = {
   getCount,
   save,
   deleteGroupe,
-
+  getAll,
   getEtudiants,
 };
 
@@ -28,7 +28,18 @@ function getById(id){
       .then(response => response.data)
       .catch((error) => console.log(error));
 }
+/**
+ * Récupération de tous les groupes existants
+ *
+ */
+function getAll(){
+  let req = `/${END_POINT}`;
 
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
+}
 /**
  * Récupération des groupes avec pagination + recherche
  * 

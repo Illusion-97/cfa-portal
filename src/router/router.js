@@ -2,8 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store/store.js";
 
- //import { authenticationApi } from '@/_api/authentication.api.js';
- 
+//import { authenticationApi } from '@/_api/authentication.api.js';
+
 import { Role } from "@/_helpers/role.js";
 
 //#######################
@@ -27,6 +27,7 @@ import { Role } from "@/_helpers/role.js";
 //#       GLOBAL        #
 //#######################
 import LoginPage from "@/views/Login/LoginPage.vue";
+import multiRole from "@/views/multiRole.vue";
 import Forgot from "@/views/Login/Forgot.vue";
 import NotFound from "@/views/NotFound.vue";
 import Forbidden from "@/views/Forbidden.vue";
@@ -217,7 +218,6 @@ import SignatureEtudiant from "@/views/Etudiant/SignatureEtudiant.vue"
 import AccueilTuteur from "@/views/Tuteur/AcceuilTuteur.vue";
 import DetailEtudiant from "@/views/Tuteur/DetailEtudiant.vue";
 
-
 //          #######################
 //          #       ROUTES        #
 //          #######################
@@ -229,6 +229,7 @@ const routes = [
   //#       GLOBAL        #
   //#######################
   { path: "/", redirect: { name: "login" } },
+  { path: "/multiRole", name: "multiRole", component: multiRole, meta: { authorize: [Role.Etudiant, Role.Formateur, Role.Admin, Role.Tuteur] }, },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
   { path: "/login", name: "login", component: LoginPage },
@@ -305,55 +306,55 @@ const routes = [
     path: "/etudiant/espace-pedagogique",
     name: "etudiant_espace-peda_accueil",
     redirect: { name: "etudiant_espace-peda_cursus" },
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/cursus",
     name: "etudiant_espace-peda_cursus",
     component: Cursus,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/absences",
     name: "etudiant_espace-peda_absences",
     component: Absences,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/devoirs",
     name: "etudiant_espace-peda_devoirs",
     component: Devoirs,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/dossier-professionnel",
     name: "etudiant_espace-peda_dossier-pro",
     component: DossierProfessionel,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/dossier-projet",
     name: "etudiant_espace-peda_dossier-projet",
     component: DossierProjet,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/notes",
     name: "etudiant_espace-peda_notes",
     component: Notes,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/notes/details/:id",
     name: "etudiant_espace-peda_notesdetails",
     component: NotesDetails,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
   {
     path: "/etudiant/espace-pedagogique/cursus/detail/:id",
     name: "etudiant_espace-peda_cursusdetails",
     component: CursusDetails,
-    meta: { authorize: [Role.Etudiant] },
+    meta: { authorize: [Role.Admin] },
   },
 
   //new routes espace Etudiant
@@ -1743,7 +1744,7 @@ router.beforeEach((to, from, next) => {
     //Si la page nécessite une autorisation
     if (authorize == undefined) {
       return next({ path: from.path });
-    }    
+    }
     else if (authorize) {
       let redirect = true;
       //Si la page nécessite un Role particulier
@@ -1759,7 +1760,7 @@ router.beforeEach((to, from, next) => {
         else next(); // On laisse passer la requete
       }
       else {
-        return next({path: "/403"});
+        return next({ path: "/403" });
       }
     }
   }

@@ -2,7 +2,11 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'login'" />
-      <div v-else-if=" path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
+      <div v-else-if="path == 'multiRole'">
+        <HeaderMultiRoles />
+        <router-view />
+      </div>
+      <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
         <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view />
@@ -23,6 +27,7 @@
 </template>
 <script>
 import HeaderTuteur from "@/components/Navigation/HeaderTuteur.vue";
+import HeaderMultiRoles from "@/components/Navigation/HeaderMultiRoles.vue";
 import HeaderFormateur from "@/components/Navigation/HeaderFormateur.vue";
 import VueSidebarFormateur from "@/components/Navigation/VueSidebarFormateur.vue";
 import FooterEtudiant from "@/components/Etudiant/FooterEtudiant.vue";
@@ -39,7 +44,8 @@ export default {
     NavEtudiant,
     HeaderEtudiant,
     HeaderTuteur,
-    
+    HeaderMultiRoles,
+
   },
   methods: {},
   computed: {

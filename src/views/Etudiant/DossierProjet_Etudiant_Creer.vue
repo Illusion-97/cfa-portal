@@ -1,5 +1,5 @@
 <template>
-  <div id="main-cr-prj">
+  <div class="main">
     <v-card-title>Nouveau dossier projet</v-card-title>
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
@@ -118,17 +118,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(files, index) in DossierProjet.filesAnnexe" :key="files.id">
+                    <tr v-for="(files, index) in paginatedFiles" :key="files.id">
                       <td class="col-md-9">
                         <v-file-input v-model="files.file" label="Annexes du Dossier Projet"
                                       accept="image/*" :id="'fileInput_' + index" ></v-file-input>
                       </td>
-                      <td>
+                      <td style="padding-top: 30px">
                         <v-btn class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
                       </td>
                     </tr>
                     </tbody>
                   </v-simple-table>
+                  <v-pagination v-model="annexePage" :length="Math.ceil(DossierProjet.filesAnnexe.length / itemsPerPage)"
+                                v-if="DossierProjet.filesAnnexe.length" @input="handlePageChange"></v-pagination>
                 </div>
               </v-card>
             </section>
@@ -164,6 +166,8 @@
          idDp: 0,
          active: 1,
          studentId:this.$store.getters.getUtilisateur.etudiantDto.id,
+         annexePage:1,
+         itemsPerPage: 4,
          etudiants: [],
          projets: [],
          activiteTypes: [],
@@ -203,6 +207,9 @@
      methods: {
        retour() {
          history.back();
+       },
+       handlePageChange(page) {
+         this.annexePage = page
        },
        //***Partie sur les competenceCouvertes du DossierProjet***
        toggleSelectedComp(compid){
@@ -304,16 +311,18 @@
        isButtonDisabled() {
          return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
        },
+       paginatedFiles() {
+         const startIndex = (this.annexePage - 1) * this.itemsPerPage;
+         const endIndex = startIndex + this.itemsPerPage;
+         return this.DossierProjet.filesAnnexe.slice(startIndex, endIndex);
+       },
      }
    };
  </script>
  <style scoped>
-   #main-cr-prj {
-   background-color: transparent;
-   padding: 20px;
-   margin: 0 2% 10vh 2%;
-   height: 100vh;
-   }
+ .main{
+   margin: 0 2% 0 2%;
+ }
    #btn-toggle-selection{
      display: grid;
      grid-template-columns: repeat(5,1fr);
@@ -385,12 +394,6 @@
      }
      #bloc-activite {
        width: 50%;
-     }
-     #main-cr-prj {
-       background-color: transparent;
-       padding: 20px;
-       margin: 0 2% 10vh 2%;
-       height: 130vh;
      }
    }
  </style>

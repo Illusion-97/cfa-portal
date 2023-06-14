@@ -1,5 +1,5 @@
 <template>
-  <div class="" v-if="this.$store.getters.getPlanning.length !== 0">
+  <div v-if="this.$store.getters.getPlanning.length !== 0">
     <div class="container-planning-bis">
       <div id="container-date">
         <b-calendar
@@ -21,7 +21,7 @@
               <b-icon style="margin-left: 10px" icon="chevron-double-right"></b-icon>
             </span>
         </div>
-      <div class="" id="container-list-planning">
+        <div class="" id="container-list-planning">
         <table class="table">
           <thead>
             <tr>
@@ -54,7 +54,7 @@
                   v-for="item in items"
                   :key="item.id"
                   class="intervention">
-                  <p class="font-weight-bold h5">
+                  <p class="title-planning">
                     {{ item.formationDto.titre }}
                   </p>
    
@@ -218,12 +218,9 @@ table {
   table-layout: fixed;
   min-height: 400px;
 }
-
-
 .intervention {
   margin-top: 1em;
 }
-
 .next-prev:hover {
   font-weight: bold;
 }
@@ -238,9 +235,13 @@ table {
   border: 0;
   /* border-right: 1px solid black; */
 }
-
+.title-planning{
+  word-break: break-all;
+  font-weight: bold;
+  font-size: 16px;
+}
 #container-date{
-  margin-left: 2em;
+  margin-left: 1em;
 }
 .container-planning-bis{
   display: grid;
@@ -285,14 +286,6 @@ table {
   .container-btn-planning{
     padding: 10px;
     width: 60vw;
-  }
-  #next{
-    display: flex;
-    justify-content: right;
-  }
-  #prev{
-    display: flex;
-    justify-content: left;
   }
 }
 </style>

@@ -150,6 +150,12 @@ export default {
           tooltip: "Setting",
           icon: "fa-sharp fa-solid fa-clock",
         },
+        {
+          link: "multiRole",
+          name: "Roles",
+          tooltip: "Setting",
+          icon: "fa-sharp fa-solid fa-ghost",
+        },
       ],
     },
     //! Search

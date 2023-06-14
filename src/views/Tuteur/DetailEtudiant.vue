@@ -1,31 +1,27 @@
 <template>
   <div id="main-cr-prj">
-
     <!-- Button retour -->
-    <v-btn id="btn-retour" @click="retour()">Retour</v-btn>
-    <div v-if="this.$store.getters.getUtilisateur.tuteurDto">
+    <div class="card-retour">
+    <b-button  size="sm" class="btn-retour" @click="retour()">
+      Retour
+    </b-button>
+    </div>
+    <div class="grid-1" v-if="this.$store.getters.getUtilisateur.tuteurDto">
 
       <!-- Nom des categorie du tableau -->
-      <nav id="navbar-btn">
-        <v-btn-toggle w-100 role="group">
-          <v-btn w-100 id="bt1" block v-b-toggle="'bt1'" @click="active = 1" variant="plain"
-            style="color: white; background-color: #08092d">Infos etudiant</v-btn>
-          <v-btn w-100 id="bt2" block v-b-toggle="'bt2'" @click="active = 2" variant="plain"
-            style="color: white; background-color: #08092d">Contrôle continue</v-btn>
-          <v-btn w-100 id="bt3" block v-b-toggle="'bt3'" @click="active = 3" variant="plain"
-            style="color: white; background-color: #08092d">Planning</v-btn>
-          <v-btn w-100 id="bt4" block v-b-toggle="'bt4'" @click="active = 4" variant="plain"
-            style="color: white; background-color: #08092d">Dossiers projets</v-btn>
-          <v-btn w-100 id="bt5" block v-b-toggle="'bt5'" @click="active = 5" variant="plain"
-            style="color: white; background-color: #08092d">Dossiers professionnels</v-btn>
-          <v-btn w-100 id="bt6" block v-b-toggle="'bt6'" @click="active = 6" variant="plain"
-            style="color: white; background-color: #08092d">Congé</v-btn>
-          <v-btn w-100 id="bt7" block v-b-toggle="'bt7'" @click="active = 7" variant="plain"
-            style="color: white; background-color: #08092d">Absences</v-btn>
-        </v-btn-toggle>
+      <nav id="selection-toggle" style="background-color: #08092d;">
+        <div class="toggle-btn" role="group">
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Infos etudiant</v-btn>
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Contrôle continue</v-btn>
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Planning</v-btn>
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Dossiers projets</v-btn>
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Dossiers professionnels</v-btn>
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt6'" @click="active = 6" variant="plain">Congé</v-btn>
+          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt7'" @click="active = 7" variant="plain">Absences</v-btn>
+        </div>
       </nav>
 
-      <v-card id="x">
+      <v-card class="detail-etudiant">
         <!--Tableau Infos Etudiant-->
         <v-card v-show="active === 1" name="Info">
           <v-card-text>
@@ -44,7 +40,7 @@
         <!-- Tableau Controle Continu -->
         <v-card v-show="active === 2" name="controle continu">
           <v-data-table :headers="notesFields" :items="notes" :page.sync="pageNotes" :items-per-page="itemsPerPage"
-            hide-default-footer class="h1" v-if="notes.length">
+            hide-default-footer class="custom-font-size" v-if="notes.length">
           </v-data-table>
           <v-card-title v-else>Pas de controle continu.</v-card-title>
           <div class="text-center pt-2">
@@ -136,7 +132,7 @@ import { dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
 export default {
   data: () => {
     return {
-      active: 1,
+      active: 2,
       pageNotes: 1,
       pagePromos: 1,
       pageDossProjet: 1,
@@ -229,26 +225,35 @@ export default {
 };
 </script>
 
-<style>
+<style >
 #main-cr-prj {
-  background-color: none;
-  margin: 0% 0% 0% 3%;
-  min-width: 1170px;
-  min-height: 100%;
+  margin: 0% 3% 0% 3%;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+}
+.grid-1{
+
+}
+.toggle-btn{
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+}
+.btn-detail{
+  color: white;
+  background-color: #08092d;
+}
+.btn-retour{
+  width: 70px;
+  float: right;
+}
+.card-retour{
+  height: 20px;
 }
 
-.v-btn-toggle {
-  width: 14%;
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th,
+.v-data-table>.v-data-table__wrapper>table>tbody>tr>td,
+.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
+  font-size: 17px !important;
 }
 
-#btn-retour {
-  margin-left: 94%;
-}
-
-#x {
-  margin: 0% 2% 0% 0%;
-}
-
-.my-data-table {
-  font-size: 106px;
-}</style>
+</style>

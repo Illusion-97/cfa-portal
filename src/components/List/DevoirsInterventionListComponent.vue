@@ -11,7 +11,7 @@
 
       <!-- CREER UN DEVOIR -->
         <div>
-            <DevoirCreate />
+            <DevoirCreate :getAllDevoirsByInterventionId="getAllDevoirsByInterventionId"/>
         </div>
 
             <!-- LIST DEVOIRS -->
@@ -230,8 +230,8 @@ export default {
                 })
                 .then((value) => {
                 if (value) {
-                    devoirApi.deleteDevoir(item.id).then((respose) => {
-                    if (respose === "suppression effectuée") {
+                    devoirApi.deleteDevoir(item.id).then((response) => {
+                    if (response) {
                         for (let i = 0; i < this.items.length; i++) {
                         let itemToPop = this.items[i];
                         if ((itemToPop.id = item.id)) {

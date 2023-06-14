@@ -1,79 +1,64 @@
 <template>
   <div>
-    <div class="row d-flex justify-content-arround">
-        <div
-          v-for="promotion in promosListComputed"
-          :key="promotion.id"
-          @click="click(promotion)"
-          class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card"
-        >
-          <b-card
-            header-text-variant="white"
-            header-tag="header"
-            header-bg-variant="dark"
-            footer-tag="footer"
-            footer-bg-variant="success"
-            footer-border-variant="dark"
-            style="max-width: 32rem"
-            class="card-Promotions col"
-          >
-            <b-card-header
-              class="d-flex justify-content-between bg-white text-secondary col"
-            >
-            
-              {{promotion.centreFormationAdresseVille != null ? promotion.centreFormationAdresseVille : "pas de ville" }}
-              <b-progress
-                height="20px"
-                :value="progress(promotion)"
-                show-progress
-                class="mb-2 w-50"
-              ></b-progress>
-            </b-card-header>
-            <b-card-text class="mt-4 font-weight-bold">{{
-              promotion.nom
-            }}</b-card-text>
-            <b-card-footer
-              class="d-flex justify-content-between bg-white text-secondary"
-            >
-              <span>
-                Date du debut : {{ promotion.dateDebut | formatDate }}
-              </span>
-              <span> Durée: {{ getMonths(promotion) }}M </span>
-              <span>
-                Date de fin : {{ promotion.dateFin | formatDate }}
-              </span></b-card-footer
-            >
-        </b-card>
+    <div class="d-flex flex-row align-items-end justify-content-between">
+      <form class="form-inline p-2" @submit="submit">
+        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher par année" v-model="saisie" />
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+        </button>
+      </form>
       </div>
+    <div class="container-fluid">
+      <b-table v-if="promosList.length != 0" :items="promosList" :fields="fields" striped responsive="sm">
+        <template #cell(Durée)="row">
+            {{ getHours(row.item)? getHours(row.item) + " H" : getHours(row.item) / 24 + "J" }}
+        </template>
+        <template #cell(Actions)="row">
+          <v-app>
+            <b-button block variant="info" @click="click(row.item.id)">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+            </b-button>
+          </v-app>
+        </template>
+      </b-table>
+      <div v-else>Pas de promotion pour cette année</div>
     </div>
-  </div>  
-  
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
+      >
+    </paginate>
+    </div>
 </template>
-
 <script>
 // import { centreFormationApi } from '@/_api/centreFormation.api.js';
 import { promotionApi } from '@/_api/promotion.api.js';
-  
+import { CentreDeFormation } from "@/assets/js/fieldsAdmin.js";  
 export default {
   name: "CentreFormationDetails",
   components:{
   },
   data() {
     return {
-      nomCentreFormation: null,
       promosList: [],
-      perPage: 9,
+      perPage: 7,
       pageCount: 0,
       saisie: "",
-      promotion_input: "",
       currentPage: 1,
+      fields: CentreDeFormation,
     }
   },
   methods: {
     getPromosList() {
       promotionApi
-        .getAllByCentreFormationIdPagination(this.$route.params.id, 0, this.perPage)
-        .then((response) => (this.promosList = response));
+        .getAllByCentreFormationIdPagination(this.$route.params.id, 0, this.perPage, this.saisie)
+        .then((response) => {this.promosList = response}),
+      promotionApi
+        .countByCentreFormationId(this.$route.params.id, this.saisie)
+      .then((response) => {
+        this.pageCount = Math.ceil(response / this.perPage)
+      })
     },
     click(promotion){
       this.$router.push({
@@ -84,64 +69,24 @@ export default {
      getPeriod(promotion) {
       let debut = new Date(promotion.dateDebut);
       let fin = new Date(promotion.dateFin);
-      return new Number(
-        (fin.getTime() - debut.getTime()) / 31536000000
-      ).toFixed(0);
+      return (fin.getTime() - debut.getTime()) / 3600000;
     },
-    getMonths(promotion) {
-      return this.getPeriod(promotion) * 12;
-    },
-    getDays(promotion) {
-      return this.getPeriod(promotion) * 365;
-    },
-    progress(promotion) {
-      let debut = new Date(promotion.dateDebut);
-
-      let now = Date.now();
-      let joursPasse = new Number(
-        ((now - debut.getTime()) / 31536000000) * 365
-      ).toFixed(0);
-      let joursFormation = this.getDays(promotion);
-      if (joursPasse >= joursFormation) {
-        return 100;
-      }
-      if (joursPasse <= 0) {
-        return 0;
-      }
-
-      return (100 * joursPasse) / joursFormation;
-    },
-     getNextPromotions() {
-      window.onscroll = () => {
-          let bottomOfWindow =
-          window.scrollY + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          this.currentPage++;
-          this.pageChange(this.currentPage * this.perPage);
-        }
-      };
+    getHours(promotion) {
+      return this.getPeriod(promotion);
     },
     pageChange(perPage) {
       promotionApi
-        .getAllByCentreFormationIdPagination(this.$route.params.id, 0, perPage)
-        .then((response) => {this.promosList = response
-        });
+        .getAllByCentreFormationIdPagination(this.$route.params.id, perPage - 1, this.perPage, this.saisie)
+        .then((response) => {this.promosList = response});
     },
-
+    submit(e) {
+      e.preventDefault();
+      this.getPromosList();
+    },
   },
   created() {
     this.getPromosList();
   },
-  mounted() {
-    this.getNextPromotions();
-  },
-  computed: {
-    promosListComputed(){
-      return this.promosList;
-    },
-  }
-
 }
 
 

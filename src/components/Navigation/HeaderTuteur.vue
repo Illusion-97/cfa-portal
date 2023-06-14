@@ -1,22 +1,23 @@
 <template>
   <div class="navHeader mb-4">
     <b-row class="pHeader h-100 d-flex align-items-center">
-
-        <!-- LOGO -->
+      <b-col class="d-flex justify-content-start">
+        <div>
+          <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">Roles</button>
+        </div>
+      </b-col>
+      <!-- LOGO -->
       <div class="logo-details" style="margin: 6px 14px 0 14px">
-        <img
-          v-if="menuLogo"
-          :src="menuLogo"
-          alt="menu-logo"
-          class="menu-logo icon"
-        />
+        <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
         <i v-else class="bx icon" :class="menuIcon" />
         <div class="logo_name">
           {{ menuTitle }}
         </div>
       </div>
 
-      <div class="Titre"><h1>Espace Tuteur</h1></div>
+      <div class="Titre">
+        <h1>Espace Tuteur</h1>
+      </div>
 
       <!-- BUTTON DECONNEXION -->
       <b-col class="d-flex justify-content-end">
@@ -53,6 +54,7 @@ export default {
   },
   data() {
     return {
+      roles: this.$store.getters.getUtilisateur.rolesDto,
       headerDisplay: "",
       logOut: "" + window.location.origin + "/#/login",
       title: "Bienvenue sur le portail CFA",
@@ -60,6 +62,9 @@ export default {
   },
   computed: {},
   methods: {
+    goToRole() {
+      this.$router.push({ name: "multiRole" });
+    },
     logout() {
       authenticationApi
         .logout()
@@ -72,6 +77,7 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+
 .navHeader {
   background-color: #00072d;
   overflow: hidden;
@@ -80,7 +86,7 @@ export default {
 }
 
 .logo-details {
-    padding-left: 5%;
+  padding-left: 5%;
   height: 60px;
   display: flex;
   align-items: center;
@@ -95,13 +101,13 @@ export default {
   height: 50%;
   right: 0%;
 }
- 
+
 .navHeader .logo-details {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
+  height: 100px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
 
 
