@@ -79,9 +79,6 @@
       <login-wdg-2 @hidden="openModalMajUsers" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
     </b-collapse>
 
-    <div v-if="message == 'Tuteur ajouter.'" class="my-success-feedback"> {{ message }} </div>
-    <br>
-
     <!-- LISTE DES UTILISATEURS -->
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
@@ -234,13 +231,19 @@ export default {
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
       this.visibleMajUsers = false;
-
       if (data == "Tuteur ajouter.") {
         this.color = "success";
         this.dismissCountDown = 6;
         this.message = data;
         this.loading = false;
         this.refreshList;
+      }
+      else if (data == "Email déjà utiliser veulliez en saisir un autre."){
+        this.visibleAddTuteur = true;
+        this.color = "danger";
+        this.dismissCountDown = 8;
+        this.message = data;
+        this.loading = false;
       }
     },
     openModalMajUsers(){

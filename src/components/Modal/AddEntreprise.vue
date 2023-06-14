@@ -41,7 +41,7 @@
                 <v-row>
                     <v-col cols="12" md="12">
                         <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined clearable
-                            :rules="required" required @click="getAdresse()">
+                            required @click="getAdresse()">
                             <template v-slot:prepend-item>
                                 <v-list-item @click="showModal('Adresse')">
                                     <v-list-item-action>
@@ -85,9 +85,6 @@ export default {
                 naf: "",
                 effectifTotal: "",
                 employeurType: "",
-                adresseSiegeDto: {
-                    id: 0,
-                },
                 adresseSiegeId: 0
             },
             libelle: "",
@@ -123,8 +120,9 @@ export default {
                 });
         },
         addEntreprise() {
-            this.entrepriseDto.adresseSiegeDto.id = this.adresseId;
-            entrepriseApi.save(this.entrepriseDto);
+            this.entrepriseDto.adresseSiegeId = this.adresseId;
+            entrepriseApi.save(this.entrepriseDto)
+                .then(() => (this.$emit('entreprise')));
         },
         showModal(value) {
             if (value == "Adresse")

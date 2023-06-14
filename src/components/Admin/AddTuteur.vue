@@ -125,7 +125,7 @@
             <template #modal-title>
                 <div class="text-center">Ajout d'une adresse</div>
             </template>
-            <addAdresse />
+            <addAdresse @adresse="hideModal"/>
             <b-button class="mt-3" variant="danger" block @click="hideModal">
                 Annuler</b-button>
         </b-modal>
@@ -135,7 +135,7 @@
             <template #modal-title>
                 <div class="text-center">Ajout d'une entreprise</div>
             </template>
-            <addEntreprise />
+            <addEntreprise @entreprise="hideModal"/>
             <b-button class="mt-3" variant="danger" block @click="hideModal">
                 Annuler</b-button>
         </b-modal>
@@ -183,8 +183,6 @@ export default {
             listEntreprise: [],
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
-            tuteurDto: {},
-            visible: true,
             adresseId: null,
             entrepriseId: null,
             menu: false,
@@ -237,6 +235,8 @@ export default {
             else {
                 this.$refs["modal-Adresse"].hide();
                 this.$refs["modal-Entreprise"].hide();
+                this.getEntreprise();
+                this.getAdresse();
             }
         },
         hideModal() {
@@ -263,9 +263,10 @@ export default {
         addTuteur() {
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
-            utilisateurApi.addTuteur(this.formulaireTuteur);
-            this.clear();
-            this.$emit('hidden', 'Tuteur ajouter.');
+            utilisateurApi.addTuteur(this.formulaireTuteur)
+                .then(() => ( this.clear(), this.$emit('hidden', 'Tuteur ajouter.') ))
+                .catch(() => (this.$emit('hidden', 'Email déjà utiliser veulliez en saisir un autre.')))
+               
         },
     }
 }          
