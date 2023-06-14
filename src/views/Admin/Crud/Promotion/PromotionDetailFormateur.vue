@@ -13,7 +13,6 @@
             </template>
             <div>
               <table class="table">
-                <p>{{promotion.etudiantsDto}}</p>
                 <thead class="">
                   <tr>
                     <th v-if="isAdmin"> Détails étudiant</th>
@@ -191,7 +190,12 @@ import LoginWdg2 from "@/components/LoginWdg2.vue";
 
 export default {
   name: "PromotionDetailFormateur",
-  props: [],
+  props: {
+    promotionProp: {
+      type: Array,
+      default: null,
+    },
+  },
   components: {
     ExamensPromotionsListCompoenent,
     AjouterNotes,LoginWdg2
@@ -282,8 +286,7 @@ export default {
     getPromotionId() {
 
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        this.promotion = response
-      });
+        this.promotion = response;});
       this.$root.$on("afficherNotes", (data) => {
         if (data) {
           this.tabIndex++;

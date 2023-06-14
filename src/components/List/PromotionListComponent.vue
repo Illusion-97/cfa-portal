@@ -75,7 +75,6 @@
       <font-awesome-icon :icon="['fas', 'info-circle']" />
       Double-cliquez sur une promotion pour plus d'info
     </small> -->
-<p>{{ promotions[0] }}</p>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>

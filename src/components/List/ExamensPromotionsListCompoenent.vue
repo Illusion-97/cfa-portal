@@ -250,9 +250,6 @@ export default {
       optionsCompetences: [],
     };
   },
-  beforeCreate() {
-    this.getActiviteType();
-  },
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
@@ -301,6 +298,7 @@ export default {
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
       // selectedActiviteType[i] 4 ou 7 ou 8
+      if(selectedActiviteType){
       for (let i = 0; i < selectedActiviteType.length; i++) {
         for (let k = 0; k < this.datasFormCP.length; k++) {
           if (this.datasFormCP[k][selectedActiviteType[i]] !== undefined) {
@@ -311,9 +309,11 @@ export default {
           }
         }
       }
+    }
+      if (options != null){
       this.optionsCompetences = options.sort(function (a, b) {
         return a.text - b.text;
-      });
+      });}
     },
     getDataForForm(data) {
       if(data) {
