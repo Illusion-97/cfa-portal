@@ -9,16 +9,16 @@
             </b-col>
             <b-col class="col-9 d-flex justify-content-center">
                 <div class="title-header">
-                    <div v-if="isAdmin">
+                    <div v-if="this.$route.path.split('/').splice(1)[0] == 'admin'">
                         {{ path }} - Espace admin
                     </div>
-                    <div v-if="isCEF">
+                    <div v-if="this.$route.path.split('/').splice(1)[0] == 'cef'">
                         {{ title }} - Espace CEF
                     </div>
-                    <div v-if="isFormateur">
+                    <div v-if="this.$route.path.split('/').splice(1)[0] == 'formateur'">
                         {{ path }} - Espace Formateur
                     </div>
-                    <div v-if="isTuteur">
+                    <div v-if="this.$route.path.split('/').splice(1)[0] == 'tuteur'">
                         {{ path }} - Espace Tuteur
                     </div>
                 </div>

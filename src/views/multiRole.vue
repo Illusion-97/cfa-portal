@@ -1,16 +1,27 @@
 <template>
   <div class="container-fluid">
-    <h1 style="font-weight: bold; font-size: 24px;">Bienvenue {{ fullName }}</h1>
-    <v-app>
-      <b-card-body class="d-flex justify-content-center">
-        <v-container>
-          <v-btn v-if="listRoles.includes('ADMIN')" class="mr-4" @click="goToAdmin()" color="primary">Admin</v-btn>
-          <v-btn v-if="listRoles.includes('FORMATEUR')" class="mr-4" @click="goToFormateur()" color="warning">Formateur</v-btn>
-          <v-btn v-if="listRoles.includes('TUTEUR')" class="mr-4" @click="goToTuteur()" color="success">Tuteur</v-btn>
-          <v-btn v-if="listRoles.includes('ETUDIANT')" class="mr-4" @click="goToEtudiant()" color="error">Etudiant</v-btn>
-        </v-container>
-      </b-card-body>
-    </v-app>
+    <h1 style="font-weight: bold; font-size: 24px;" class="d-flex justify-content-center">Bienvenue {{ fullName }}</h1>
+    <v-container>
+      <v-row>
+        <v-col cols="12" md="6" v-for="item in listRoles" :key="item.id">
+          <v-app id="inspire">
+            <v-card class="mx-auto" max-width="400">
+              <v-img class="white--text align-end" height="200px" :src="require('@/assets/img/'+ item +'.jpg')">
+                <v-card-title>Espace {{ item }}</v-card-title>
+              </v-img>
+              <v-card-text class="text--primary">
+                <div>{{ description(item) }}</div>
+              </v-card-text>
+              <v-card-actions class="text-center">
+                <v-btn v-if="listRoles.includes(item)" class="mx-auto" @click="goToRole(item)" color="primary">
+                  Acceder
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-app>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 <script>
@@ -28,84 +39,25 @@ export default {
     await this.fullName;
     await this.roles;
     this.roles.forEach(element => {
-      this.listRoles.push(element.intitule);
+      this.listRoles.push(element.intitule.toLowerCase());
     });
   },
   methods: {
-    goToAdmin() {
-      this.$router.push("admin");
+    description(role) {
+      if (role == "etudiant")
+        return "L'étudiant peut consulter et gerer sont interface ..."
+      else if (role == "formateur")
+        return "Le formateur peut gerer les promotion ..."
+      else if (role == "tuteur")
+        return "Le tuteur peut consulter les etudiant qui lui sont attribuée"
+      else if (role == "admin")
+        return "L'admin peut tout gerer ..."
     },
-    goToFormateur() {
-      this.$router.push("formateur");
-    },
-    goToEtudiant() {
-      this.$router.push("etudiant");
-    },
-    goToTuteur() {
-      this.$router.push("tuteur");
+    goToRole(role) {
+      this.$router.push(role);
     },
   }
 }
 </script>
 <style>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
-
-.header-list>form {
-  width: 50%;
-}
-
-#saisie,
-.select {
-  border-radius: 20px;
-  width: 400px;
-  /* background: #000; */
-}
-
-.btn-submit {
-  border: 0;
-  background-color: inherit;
-  border-radius: 100%;
-  width: 2.5em;
-  margin-left: -3em;
-}
-
-#groupe-input {
-  width: 50%;
-}
-
-.table th {
-  border-top: 0;
-}
-
-.mon-tr:hover {
-  background-color: rgb(216, 213, 213) !important;
-  cursor: pointer;
-}
-
-.delete-input:hover {
-  cursor: pointer;
-}
-
-#main-cr-prj {
-  background-color: none;
-  margin: 0% 0% 0% 3%;
-  min-width: 1170px;
-  min-height: 100%;
-}
-
-.v-btn-toggle {
-  width: 14%;
-}
-
-#btn-retour {
-  margin-left: 94%;
-}
-
-#x {
-  margin: 0% 2% 0% 0%;
-}
 </style>

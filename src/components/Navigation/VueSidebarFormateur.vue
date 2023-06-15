@@ -6,7 +6,6 @@
 </template>
 <script>
 import SideBarComponentFormateur from "@/components/Navigation/SideBarComponentFormateur.vue";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
 
 export default {
   name: "VueSidebarFormateur",
@@ -70,9 +69,9 @@ export default {
   },
   methods: {
     findUserRole() {
-      if (utilisateurService.isAdmin()) {
+      if (this.$route.path.split('/').splice(1)[0] == 'admin') {
         this.items = this.menuItemsAdmin
-      } else if (utilisateurService.isFormateur()) {
+      } else if (this.$route.path.split('/').splice(1)[0] == 'formateur') {
         this.items = this.menuItemsFormateur;
       }
     },
