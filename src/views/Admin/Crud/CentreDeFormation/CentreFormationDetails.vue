@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="container-fluid">
     <a
       @click="goBack()"
@@ -12,20 +11,21 @@
     <b-card no-body id="my-card">
       <br>
       <b-card-text class="row-detail-title">
-        <span class="font-weight-bold" style=" width: 30%">Détails adresse : </span>
-        <span >{{ adresseCentre }}</span>
+        <span class="font-weight-bold">Détails adresse : </span>
+        <span>{{ adresseCentre }}</span>
       </b-card-text>
       <b-card-text class="row-detail-title">
-        <span class="font-weight-bold" style="width: 30%">Nombre de promotion : </span>
-        <span class="">{{ nbPromotion }}</span>
-        <b-button size="sm" @click="goToDetails()" class="mr-2">Afficher</b-button>
+        <span class="font-weight-bold" >Entreprise liée : </span>
+        <span>{{ entreprise }}</span>
       </b-card-text>
       <b-card-text class="row-detail-title">
-        <span class="font-weight-bold" style="width: 30%">Entreprise liée : </span>
-        <span class="">{{ entreprise }}</span>
+        <span class="font-weight-bold" >Nombre de promotion : </span>
+        <span>{{ nbPromotion }}</span>
+        <span>
+          <b-button size="sm" @click="goToDetails()" class="mr-2">Afficher</b-button>
+        </span>
       </b-card-text>
     </b-card>
-    </div>
     </div>
 </template>
 <script>
@@ -80,18 +80,6 @@ export default {
   margin-top: 5em;
 }
 
-#my-card > .card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #6c757d;
-  color: white;
-  margin-bottom: 1em;
-  padding-left: 2em;
-  padding-right: 2em;
-  font-size: 25px;
-}
-
 .card-text {
   display: flex;
   justify-content: space-between;
@@ -103,7 +91,8 @@ export default {
   padding-left: 3em;
 }
 .row-detail-title{
+  display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 30% 80%;
+  grid-template-columns: 30% 60% 10%;
 }
 </style>
