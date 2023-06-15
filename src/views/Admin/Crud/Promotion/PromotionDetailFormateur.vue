@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="promotion">
     <section>
       <div class="container-fluid mt-4">
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
@@ -16,11 +16,11 @@
                 <thead class="">
                   <tr>
                     <th v-if="isAdmin"> Détails étudiant</th>
-                    <th>Action</th>
                     <th>Nom </th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -89,6 +89,39 @@
             <div id="interventions">
               <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de
                 positionnement</b-button>
+
+              <b-button
+                  class="m-4"
+                  variant="warning"
+                  @click="openLoginWdg2EtudiantBypromo"
+              >
+                Import Etudiant de la promo
+              </b-button>
+              <b-button
+                  class="m-4"
+                  variant="success"
+                  @click="openLoginWdg2InterventionBypromo"
+              >
+                Import Intervention de la promo
+              </b-button>
+              <div class="modal-import-dg2">
+                <div class="login-wdg2">
+                  <login-wdg2
+                      hidden
+                      :id="'ShowLoginCardEtudiant'"
+                      @logInUser="importEtudiantPromo"
+                      @wdg2Close="wdg2CloseEtudiantByPromo()"
+                  />
+                </div>
+                <div class="login-wdg2">
+                  <login-wdg2
+                      hidden
+                      :id="'ShowLoginCardPromo'"
+                      @logInUser="importInterventionByPromo"
+                      @wdg2Close="wdg2CloseInterventionByPromo()"
+                  />
+                </div>
+              </div>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -140,6 +173,7 @@
             </div>
           </b-tab>
         </b-tabs>
+
       </div>
     </section>
   </div>
@@ -150,12 +184,21 @@ import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
+import {interventionApi} from "@/_api/intervention.api";
+import {etudiantApi} from "@/_api/etudiant.api";
+import LoginWdg2 from "@/components/LoginWdg2.vue";
+
 export default {
   name: "PromotionDetailFormateur",
-  props: [],
+  props: {
+    promotionProp: {
+      type: Array,
+      default: null,
+    },
+  },
   components: {
     ExamensPromotionsListCompoenent,
-    AjouterNotes,
+    AjouterNotes,LoginWdg2
   },
 
   data() {
@@ -189,6 +232,44 @@ export default {
     openHandler(pdfApp) {
       window._pdfApp = pdfApp;
     },
+    openLoginWdg2EtudiantBypromo() {
+      let card = document.getElementById('ShowLoginCardEtudiant')
+      card.hidden = !card.hidden
+    },
+    openLoginWdg2InterventionBypromo() {
+      let card = document.getElementById('ShowLoginCardPromo')
+      card.hidden = !card.hidden
+    },
+    wdg2CloseInterventionByPromo(){
+      document.getElementById('ShowLoginCardPromo').hidden = true
+    },
+    wdg2CloseEtudiantByPromo(){
+      document.getElementById('ShowLoginCardEtudiant').hidden = true
+    },
+    async importEtudiantPromo(value){
+
+      this.showLoginWdg2CardEtudiantByPromo = false;
+      this.loading = true;
+      //let promoId = promotion.id
+      let promoId = this.promotion.idDg2;
+
+      etudiantApi
+          .fetchAllEtudiantDG2HttpByIdPromotion(value, promoId)
+          .then((response) => {
+            this.color = "success";
+            this.dismissCountDown = 6;
+            this.message = response.data;
+            this.loading = false;
+            this.refreshList();
+          })
+          .catch((err) => {
+            this.color = "danger";
+            this.dismissCountDown = 8;
+            this.message = err;
+            this.loading = false;
+          });
+
+    },
     getGrille() {
       promotionApi
         .getGrillePositionnement(this.promotionId)
@@ -205,8 +286,7 @@ export default {
     getPromotionId() {
 
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        this.promotion = response
-      });
+        this.promotion = response;});
       this.$root.$on("afficherNotes", (data) => {
         if (data) {
           this.tabIndex++;
@@ -260,6 +340,30 @@ export default {
     ajouterAbsence() {
       return null;
     },
+  async importInterventionByPromo(value){
+
+    this.showLoginWdg2CardInterventionByPromo = false;
+    this.loading = true;
+
+    let promoId = this.promotion.idDg2;
+
+    interventionApi
+        .fetchInterventionsDG2ByIdPromotion(value, promoId)
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+          this.refreshList();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
+
+  }
   },
   created() {
     this.getPromotionId();
@@ -355,5 +459,12 @@ h1 {
   position: sticky;
   top: 0px;
   z-index: 1;
+}
+
+.modal-import-dg2{
+  margin-inline: 10%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 </style>

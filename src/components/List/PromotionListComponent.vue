@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <div class="text-align-left" id="groupe-input" v-if="!isAction">
       <label class="col-1">Promotion</label>
+
       <input
         class="col-9 form-control"
         type="text"
@@ -9,6 +10,7 @@
         disabled="disabled"
       />
     </div>
+
     <b-alert
       :show="dismissCountDown"
       dismissible
@@ -37,6 +39,7 @@
             class="form-control"
             v-model="saisie"
           />
+          <!--<search-bar-component @search="searchSortList"/>-->
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
@@ -52,11 +55,12 @@
           </button>
           <div class="login-wdg2">
             <login-wdg-2
-              v-if="showLoginWdg2Card"
-              @logInUser="logInUserWdg2"
-              @wdg2Close="wdg2Close"
+                v-if="showLoginWdg2Card"
+                @logInUser="logInUserWdg2"
+                @wdg2Close="wdg2Close"
             />
           </div>
+
         </div>
       </div>
 
@@ -74,23 +78,27 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>Nom de la promo</th>
+          <th>Nom de la promo <sort-component :data-table="promotions.nom"/></th>
+          <th>Type</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
+          <th>Nombre de Participants</th>
           <th>Centre dawan</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
         <tr
-          v-for="promotion in promotionsComputed"
+          v-for="(promotion) in promotionsComputed"
           :key="promotion.id"
           class="mon-tr"
           v-on:click="clickList(promotion)"
         >
-          <td>{{ promotion.nom }}</td>
+          <td>{{ promotion.title }}</td>
+          <td>{{promotion.type}}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
           <td>{{ promotion.dateFin | formatDate }}</td>
+          <td>{{promotion.nbParticipants}}</td>
           <td>{{ promotion.centreFormationDto.nom }}</td>
           <td>
               <b-button
@@ -100,40 +108,6 @@
               >
                 <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
               </b-button>
-              <b-button
-                block
-                variant="warning"
-                @click="openLoginWdg2EtudiantBypromo(promotion)"
-
-              >
-                Import Etudiant de la promo
-              </b-button>
-              <br>
-
-              <div class="login-wdg2">
-                <login-wdg-2
-                  v-if="showLoginWdg2CardEtudiantByPromo"
-                  @logInUser="importEtudiantPromo"
-                  @wdg2Close="wdg2CloseEtudiantByPromo"
-                />
-              </div>
-
-              <b-button
-                  block
-                  variant="success"
-                  @click="openLoginWdg2InterventionBypromo(promotion)"
-
-                >
-                  Import Intervention de la promo
-                </b-button>
-                
-                <div class="login-wdg2">
-                  <login-wdg-2
-                    v-if="showLoginWdg2CardInterventionByPromo"
-                    @logInUser="importInterventionByPromo"
-                    @wdg2Close="wdg2CloseInterventionByPromo"
-                  />
-                </div>
            </td>
         </tr>
       </tbody>
@@ -163,11 +137,13 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import { etudiantApi } from '@/_api/etudiant.api.js';
 import { interventionApi } from '@/_api/intervention.api.js';
-import LoginWdg2 from "../LoginWdg2.vue";
+import SortComponent from "@/components/Admin/SortComponent.vue";
+//import SearchBarComponent from "@/components/Admin/SearchBarComponent.vue";
+import LoginWdg2 from "@/components/LoginWdg2.vue";
 export default {
   name: "PromotionListComponent",
   components: {
-    LoginWdg2,
+    SortComponent, LoginWdg2
   },
   props: {
     isAction: {
@@ -175,6 +151,7 @@ export default {
       default: false,
     },
     promotionProp: {
+      type: Object,
       default: null,
     },
   },
@@ -188,34 +165,70 @@ export default {
     return {
       dismissCountDown: null,
       message: "",
+      title:"",
       color: "success",
       promotions: [],
-      currentPage: 1,
+      currentPage: 0,
       perPage: 10,
       pageCount: 0,
       saisie: "",
       promotion_input: "",
       showLoginWdg2Card: false,
-      showLoginWdg2CardEtudiantByPromo: false,
       showLoginWdg2CardInterventionByPromo: false,
       loading: false,
     };
   },
   computed: {
     promotionsComputed() {
-      return this.promotions;
+      const uniquePromotions = [];
+
+      this.promotions.forEach((promotion) => {
+        const modifiedNom = promotion.nom.split("-");
+        modifiedNom.splice(-4)
+        if (modifiedNom.includes("titre") && modifiedNom.includes("professionnel")) {
+          // Supprimer les mots du tableau
+          const indexTitre = modifiedNom.indexOf("professionnel");
+          const indexProfessionnel = modifiedNom.indexOf("titre");
+          modifiedNom.splice(indexTitre, 1);
+          modifiedNom.splice(indexProfessionnel, 1);
+        }
+
+        this.title = modifiedNom.join(" ")
+        const promotionWithModifiedTitle = {
+          ...promotion,
+          title: this.title,
+        };
+
+        // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
+        const existingPromotion = uniquePromotions.find(
+            (p) => p.id === promotionWithModifiedTitle.id
+        );
+
+        if (!existingPromotion) {
+          // La promotion n'existe pas encore, l'ajouter à uniquePromotions
+          uniquePromotions.push(promotionWithModifiedTitle);
+        }
+      });
+
+      return uniquePromotions;
     },
     nbPageComputed() {
       return this.pageCount;
     },
+
   },
   created() {
-    this.refreshList();
+    this.saisie = this.$route.params.ville;
+    if (this.$route.params.ville)
+      this.submit();
+    else
+      this.refreshList();
   },
 
   methods: {
     submit(e) {
-      e.preventDefault();
+      if (e) 
+        e.preventDefault();
          promotionApi
         .getCount(this.saisie)
         .then(
@@ -223,8 +236,7 @@ export default {
         );
       promotionApi
         .getAllByPage(this.currentPage, this.perPage, this.saisie)
-        .then((response) => (this.promotions = response));
-   
+        .then((response) => (this.promotions = response))
     },
     pageChange(pageNum) {
       promotionApi
@@ -236,18 +248,15 @@ export default {
         .getCount()
         .then(
           (response) => {this.pageCount = Math.ceil(response / this.perPage)
-        
+
         promotionApi
         .getAllByPage(this.currentPage, this.perPage)
-        .then((response) => {this.promotions = response
-          //console.log(response)
+        .then((response) => {this.promotions = response;
         })
-
           })
-          
-          },
-     
-     
+    },
+
+
     deletePromotion(promotionId) {
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
       if (res) {
@@ -266,19 +275,18 @@ export default {
         params: { id: promo.id },
       });
     },
-    openLoginWdg2InterventionBypromo(promotion) {
-      this.showLoginWdg2CardInterventionByPromo = true;
-      this.promotion = promotion;
+    openLoginWdg2EtudiantBypromo(promotion,index) {
+      let card = document.getElementById('ShowLoginCardEtudiant-'+index)
+      card.hidden = !card.hidden
     },
-    wdg2CloseInterventionByPromo(value){
-      this.showLoginWdg2CardInterventionByPromo = value;
+    wdg2CloseEtudiantByPromo(index){
+      document.getElementById('ShowLoginCardEtudiant-'+index).hidden = true
     },
     async importInterventionByPromo(value){
-      
+
       this.showLoginWdg2CardInterventionByPromo = false;
       this.loading = true;
-     
-      console.log(this.promotion)
+
       let promoId = this.promotion.idDg2;
 
       interventionApi
@@ -296,27 +304,20 @@ export default {
           this.message = err;
           this.loading = false;
         });
-     
+
     },
-    openLoginWdg2EtudiantBypromo(promotion) {
-      this.showLoginWdg2CardEtudiantByPromo = true;
-      this.promotion = promotion;
-    },
-    wdg2CloseEtudiantByPromo(value){
-      this.showLoginWdg2CardEtudiantByPromo = value;
-    },
+
     async importEtudiantPromo(value){
-      
+
       this.showLoginWdg2CardEtudiantByPromo = false;
       this.loading = true;
       //let promoId = promotion.id
-      //console.log(promotion.id)
-      console.log(this.promotion)
       let promoId = this.promotion.idDg2;
 
       etudiantApi
         .fetchAllEtudiantDG2HttpByIdPromotion(value, promoId)
         .then((response) => {
+          console.log(response)
           this.color = "success";
           this.dismissCountDown = 6;
           this.message = response.data;
@@ -329,7 +330,7 @@ export default {
           this.message = err;
           this.loading = false;
         });
-     
+
     },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
@@ -339,7 +340,6 @@ export default {
     async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-      console.log(value);
       promotionApi
         .fetchAllPromotionDG2Http({ logInUser: value })
         .then((response) => {
@@ -360,7 +360,7 @@ export default {
     // close the card for the login to webservice DG2
     wdg2Close(value) {
       this.showLoginWdg2Card = value;
-    },
+    }
   },
 };
 </script>

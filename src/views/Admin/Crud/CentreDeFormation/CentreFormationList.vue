@@ -1,7 +1,20 @@
 <template>
-  <div>
-    <div class="container-fluid">
-    <div class="header-list">
+  <div class="container-fluid">
+    <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
+      {{ message }}
+    </b-alert>
+    <div class="d-flex flex-row align-items-end justify-content-between">
+      <form class="form-inline p-2" @submit="submit">
+        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+        </button>
+      </form>
+      <div class="d-flex justify-content-center">
+        <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
+      </div>
+
+      <!-- UPDATE CENTRE DE FORMATION -->
       <!-- <form class="form-inline form" @submit="submit">
         <input
           id="saisie"
@@ -19,93 +32,60 @@
         <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
           Mise à jour des centres de formations
         </button>
-        <div class="login-wdg2">
-          <login-wdg-2
-            v-if="showLoginWdg2Card"
-            @logInUser="logInUserWdg2"
-            @wdg2Close="wdg2Close"
-          />
-        </div>
+
       </div>
     </div>
 
-    <div class="row d-flex justify-content-arround">
-      <div
-        v-for="centreFormation in centresFormationComputed"
-        :key="centreFormation.id"
-        @click="click(centreFormation)"
-        class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card"
+    <b-collapse class="login-wdg2" :visible=showLoginWdg2Card>
+      <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
+    </b-collapse>
+
+    <!-- LIST CENTRE FORMATION -->
+    <b-table :items="centresFormation" :fields="fields" striped responsive="sm">
+      <template #cell(Actions)="row">
+        <v-app>
+          <b-button block variant="info" @click="click(row.item.id)">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+          </b-button>
+        </v-app>
+      </template>
+    </b-table>
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
       >
-        <b-card
-          header-text-variant="white"
-          header-tag="header"
-          header-bg-variant="dark"
-          footer-tag="footer"
-          footer-bg-variant="success"
-          footer-border-variant="dark"
-          style="max-width: 32rem"
-          class="card-Promotions col"
-        >
-          <b-card-header
-            class="d-flex justify-content-between bg-white text-secondary col"
-          >
-            {{ centreFormation.adresseDto.libelle }} -
-            {{ centreFormation.adresseDto.codePostal }} -
-            {{ centreFormation.adresseDto.ville }}
-          </b-card-header>
-          <b-card-text class="mt-4 font-weight-bold">
-            {{ centreFormation.nom }}
-          </b-card-text>
-          <b-card-footer
-            class="d-flex justify-content-between bg-white text-secondary"
-          >
-            <span> Nombre de promotions en cours : </span>
-          </b-card-footer>
-        </b-card>
-      </div>
-    </div>
-    <div class="text-center m-4" v-if="loadingScroll || !stopScroll">
-      <b-spinner variant="primary" label="Text Centered"></b-spinner>
-    </div>
-  </div>
+    </paginate>
   </div>
 </template>
 
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js"
+import { CentreDeFormations } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../../../../components/LoginWdg2.vue";
 
 export default {
   name: "CentreFormationList",
-    components:{
-      LoginWdg2,
-    },
+  components: {
+    LoginWdg2,
+  },
   data() {
     return {
       centresFormation: [],
+      pageCount: 0,
       perPage: 9,
       saisie: "",
       currentPage: 1,
       showLoginWdg2Card: false,
       loading: false,
-      dismissCountDown: 0,
+      dismissCountDown: null,
       message: "",
       color: "success",
-      stopScroll: false,
-      loadingScroll: false,
+      fields: CentreDeFormations,
     };
   },
-  computed: {
-    centresFormationComputed() {
-      return this.centresFormation;
-    },
-  },
-
   created() {
     this.getListCentresFormation();
-  },
-  mounted() {
-    this.getNextCentresFormation();
   },
   methods: {
     getListCentresFormation() {
@@ -114,48 +94,33 @@ export default {
         .then((response) => {
           this.centresFormation = response;
         });
-    },
-    getNextCentresFormation() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          window.scrollY + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow && this.stopScroll == false) {
-          this.currentPage++;
-          this.pageChange(this.currentPage * this.perPage);
-        }
-      };
-    },
-    pageChange(perPage) {
-      this.loadingScroll = true;
       centreFormationApi
-        .getAllByPage(0, perPage, this.saisie)
+        .getCount(this.saisie)
+        .then((response) =>
+          (this.pageCount = Math.ceil(response / this.perPage))
+        );
+    },
+
+    pageChange(perPage) {
+      centreFormationApi
+        .getAllByPage(perPage - 1, this.perPage, this.saisie)
         .then((response) => {
           this.centresFormation = response;
-          //dans BDD table centreFormation, colonne adresse vite pour ligne SurSite, ADistance
-          for (let i = 0; i < this.centresFormation.length; i++) {
-            if (this.centresFormation[i].adresseDto == null) {
-              this.centresFormation[i].adresseDto = "";
-            }
-          }
-        })
-        .catch((err) => {
-          if (err) {
-             this.stopScroll = true;
-             this.loadingScroll = false;
-
-          }
         });
     },
     click(centreFormation) {
-      // Vue.prototype.$headerDisplay = centreFormation.nom
-        this.$router.push({
+      this.$router.push({
         name: "admin_centreFormation_details",
-        params: { id: centreFormation.id },
+        params: { id: centreFormation },
       });
     },
+    submit(e) {
+      e.preventDefault();
+      this.getListCentresFormation();
+      this.saisie = "";
+    },
     openLoginWdg2() {
-      this.showLoginWdg2Card = true;
+      this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },
     // fetch courses from webservice DG2
     async logInUserWdg2(value) {
@@ -190,6 +155,7 @@ export default {
   border-radius: 5px;
   min-height: 17rem;
 }
+
 .card-Promotions:hover {
   border: 3px solid red;
   cursor: pointer;

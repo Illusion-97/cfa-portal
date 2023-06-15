@@ -14,42 +14,22 @@
           </div>
 
           <div class="col-md-12">
-            <input
-              name="email"
-              type="email"
-              v-model="email"
-              :class="{
+            <input name="email" type="email" v-model="email" :class="{
                 'form-control fadeIn third': true,
                 'is-invalid my-is-invalid': isInvalidInput,
-              }"
-              placeholder="Email"
-              autocomplete="email"
-              required
-              @input="isInvalidInputFalse()"
-            />
+              }" placeholder="Email" autocomplete="email" required @input="isInvalidInputFalse()" />
           </div>
         </div>
 
         <div class="form-group fadeIn second">
           <div class="col-md-offset-2 col-md-5">
-            <label for="Password" class="control-label fadeIn third"
-              >Mot de passe</label
-            >
+            <label for="Password" class="control-label fadeIn third">Mot de passe</label>
           </div>
           <div class="password col-md-12">
-            <input
-              type="password"
-              name="password"
-              v-model="password"
-              :class="{
+            <input type="password" name="password" v-model="password" :class="{
                 'form-control fadeIn third': true,
                 'is-invalid my-is-invalid': isInvalidInput,
-              }"
-              placeholder="Mot de Passe"
-              autocomplete="current-password"
-              required
-              @input="isInvalidInputFalse()"
-            />
+              }" placeholder="Mot de Passe" autocomplete="current-password" required @input="isInvalidInputFalse()" />
           </div>
         </div>
 
@@ -67,23 +47,12 @@
         </div> -->
 
         <div class="justify-center cardAction">
-          <vue-recaptcha
-            ref="invisibleRecaptcha"
-            @verify="onVerify"
-            @expired="onExpired"
-            :sitekey="sitekey"
-            :loadRecaptchaScript="true"
-          >
+          <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" :sitekey="sitekey"
+            :loadRecaptchaScript="true">
             <div v-if="isInvalid" class="my-invalid-feedback">
               Identifiant ou mot de passe incorrects !
             </div>
-            <button
-              color="error"
-              class="btn btn-primary"
-              :disabled="!valid"
-              type="submit"
-              id="btn-login-connexion"
-            >
+            <button color="error" class="btn btn-primary" :disabled="!valid" type="submit" id="btn-login-connexion">
               Se connecter
             </button>
             <!-- <div class="form-group">
@@ -95,11 +64,11 @@
               class="btn btn-primary"
               type="submit"
               value="Se connecter"
-            /> 
+            />
             <button color="error" class="btn btn-primary" :disabled="!valid" type="submit">
             recaptcha
           </button>
-          </div>     
+          </div>
         </div>-->
           </vue-recaptcha>
           <div class="cardActionForgot">
@@ -186,26 +155,30 @@ export default {
             let roles = store.getters.getUtilisateur.rolesDto.map((role) => {
               return role.intitule;
             });
-            if (roles.includes("ADMIN")) {
-              router.push("admin");
+            if (roles.length > 1) {
+              router.push("multiRole");
             }
-            if (roles.includes("CEF")) {
-              router.push("cef");
-            }
-            if (
+            else {
+              if (roles.includes("ADMIN")) {
+                router.push("admin");
+              }
+              if (roles.includes("CEF")) {
+                router.push("cef");
+              }
+              if (
               /*roles.includes("ETUDIANT") || */ roles.includes("FORMATEUR")
-            ) {
-              router.push("formateur");
-            }
-            if (roles.includes("ETUDIANT")) {
-              router.push("etudiant");
-            }
-            if (roles.includes("TUTEUR")) {
-              router.push("tuteur");
+              ) {
+                router.push("formateur");
+              }
+              if (roles.includes("ETUDIANT")) {
+                router.push("etudiant");
+              }
+              if (roles.includes("TUTEUR")) {
+                router.push("tuteur");
+              }
             }
           })
           .catch((error) => {
-            // console.log(error);
             if (error) {
               this.isInvalid = true;
               this.isInvalidInput = true;
@@ -214,7 +187,7 @@ export default {
       }
     },
     toPublicPage() {
-      router.push({ name: "public" });
+      router.push({ name: "login" });
     },
   },
 };
@@ -555,9 +528,11 @@ input[type="text"]:placeholder {
   margin: 60px 0 50px 0;
   background: rgba(255, 255, 255, 0.2);
 }
+
 .foot-lnk {
   text-align: center;
 }
+
 #btn-login-connexion {
   width: auto !important;
 }

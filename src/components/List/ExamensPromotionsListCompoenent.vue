@@ -1,9 +1,8 @@
 <template>
   <div>
-
     <!-- AJOUT D'UN EXAMEN -->
     <div v-if="context === 'intervention'">
-      <AddExamen ref="addExamen" :context="context" @updateExamens="updateExamens" />
+      <AddExamen ref="addExamen" :optionsBlocsCompetences="optionsBlocsCompetences" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
       <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
@@ -175,6 +174,7 @@ export default {
 
   data() {
     return {
+      activiteTypes: [],
       datasFormAt: [],
       datasFormCP: [],
       tempItem: null,
@@ -250,14 +250,10 @@ export default {
       optionsCompetences: [],
     };
   },
-  beforeCreate() {
-    this.getActiviteType();
-  },
   mounted(){
     if(this.context === "intervention"){
       this.$root.$on("promoId", (data) => {
-        this.getActiviteType(data),
-            console.log(data)
+        this.getActiviteType(data)
       })
     }
     else{
@@ -273,13 +269,13 @@ export default {
       activiteTypeApi
           .getAllByIdPromotion(promoId)
           .then((response) => {
+            if (response){
             this.getDataForForm(response);
             if(this.context === "intervention"){
               this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
               this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+              }
             }
-
-
           });
     },
     async getFile(id, pieceJointe) {
@@ -302,6 +298,7 @@ export default {
     addOptionsCompetences(selectedActiviteType) {
       let options = [];
       // selectedActiviteType[i] 4 ou 7 ou 8
+      if(selectedActiviteType){
       for (let i = 0; i < selectedActiviteType.length; i++) {
         for (let k = 0; k < this.datasFormCP.length; k++) {
           if (this.datasFormCP[k][selectedActiviteType[i]] !== undefined) {
@@ -312,42 +309,47 @@ export default {
           }
         }
       }
+    }
+      if (options != null){
       this.optionsCompetences = options.sort(function (a, b) {
         return a.text - b.text;
-      });
+      });}
     },
     getDataForForm(data) {
-      let datasFormAt = [];
-      let dataForFormCp = [];
-      let optionAt = [];
-      for (let i = 0; i < data.length; i++) {
-        let option = {
-          value: data[i].id,
-          text: data[i].numeroFiche + " - " + data[i].libelle,
-        };
-        let optionForAt = {
-          value: data[i].id,
-          text: data[i].numeroFiche,
-        };
-        datasFormAt.push(option);
-        optionAt.push(optionForAt);
-        let tabCompetences = [];
-        for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
-          let value = data[i].competencesProfessionnellesDto[j].id;
-          let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
-          let competence = {
-            text: text,
-            value: value,
+      if(data) {
+        let datasFormAt = [];
+        let dataForFormCp = [];
+        let optionAt = [];
+        for (let i = 0; i < data.length; i++) {
+          let option = {
+            value: data[i].id,
+            text: data[i].numeroFiche + " - " + data[i].libelle,
           };
-          tabCompetences.push(competence);
+          let optionForAt = {
+            value: data[i].id,
+            text: data[i].numeroFiche,
+          };
+          datasFormAt.push(option);
+          optionAt.push(optionForAt);
+          let tabCompetences = [];
+          /*
+          for (let j = 0; j < data[i].competencesProfessionnellesDto.length; j++) {
+            let value = data[i].competencesProfessionnellesDto[j].id;
+            let text = data[i].competencesProfessionnellesDto[j].numeroFiche;
+            let competence = {
+              text: text,
+              value: value,
+            };
+            tabCompetences.push(competence);
+          }*/
+          let at = {};
+          at[data[i].id] = tabCompetences;
+          dataForFormCp.push(at);
         }
-        let at = {};
-        at[data[i].id] = tabCompetences;
-        dataForFormCp.push(at);
+        this.datasFormAt = datasFormAt;
+        this.datasFormCP = dataForFormCp;
+        this.optionsBc = optionAt;
       }
-      this.datasFormAt = datasFormAt;
-      this.datasFormCP = dataForFormCp;
-      this.optionsBc = optionAt;
     },
 
     // MODIFIER UN EXAMEN
@@ -507,7 +509,7 @@ export default {
       this.$nextTick(() => {
         this.items = items;
       });
-    },
+    }
   },
 };
 </script>

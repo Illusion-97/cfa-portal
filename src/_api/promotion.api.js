@@ -5,6 +5,7 @@ export const promotionApi = {
     getPromotionByid,
     getAllByPage,
     getCount,
+    countByCentreFormationId,
     save,
     deletePromotion,
     getAllPromotions,
@@ -60,6 +61,15 @@ function getAllByPage(page, size, search ="" ) {
  */
 function getCount(search = "") {
   let req = `/promotions/count/${search}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data["nb"])
+    .catch((error) => console.log(error));
+}
+
+function countByCentreFormationId(id, search) {
+  let req = `/promotions/countByCentreFormationId/${id}/${search}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -229,15 +239,13 @@ function fetchAllPromotionDG2Http(logInUser) {
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  //console.log(headers)
-
   return axios.get(req, headers);
   
 }
 
-function getAllByCentreFormationIdPagination(idCentreFormation, page, size){
-  let req = `promotions/centreFormation/${idCentreFormation}/${page}/${size}`
-
+function getAllByCentreFormationIdPagination(idCentreFormation, page, size, saisie){
+  let req = `promotions/centreFormation/${idCentreFormation}/${page}/${size}/${saisie}`;
+  
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

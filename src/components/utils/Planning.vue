@@ -1,76 +1,65 @@
 <template>
-  <div class="container-fluid" v-if="this.$store.getters.getPlanning.length != 0">
-    <div class="row">
-      <div class="offset-2 col-md-10">
-        <div class="row">
-          <div class="my-btn-div col-md-12">
-            <span type="button" class="next-prev" @click="previousWeek()">
-              <b-icon icon="chevron-double-left"></b-icon>
-              Précédent
-            </span>
-            <span type="button" class="next-prev" @click="nextWeek()">
-              Suivant
-              <b-icon icon="chevron-double-right"></b-icon>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-
-      <!-- EN-TETE -->
-      <div class="col-md-2" align="center">
+  <div v-if="this.$store.getters.getPlanning.length != 0">
+    <div class="container-planning-bis">
+      <div class="container-date">
         <b-calendar v-model="date" value-as-date hide-header :start-weekday="1"
-          :date-disabled-fn="dateDisabled"></b-calendar>
+                    :date-disabled-fn="dateDisabled"></b-calendar>
       </div>
-      <div class="col-md-10">
-
+      <div class="container-group-btn-planning">
+        <div class="group-btn">
+          <span type="button" class="next-prev" id="prev" @click="previousWeek()">
+            <b-icon icon="chevron-double-left"></b-icon>
+            Précédent
+          </span>
+          <span type="button" class="next-prev" id="next" @click="nextWeek()">
+            Suivant
+            <b-icon icon="chevron-double-right"></b-icon>
+          </span>
+        </div>
         <!-- AFFICHAGE DES DATES -->
         <table class="table">
           <thead>
-            <tr>
-              <th>
-                <p>Lundi</p>
-                <p>{{ dateSemaine[0] | formatDate }}</p>
-              </th>
-              <th>
-                <p>Mardi</p>
-                <p>{{ dateSemaine[1] | formatDate }}</p>
-              </th>
-              <th>
-                <p>Mercredi</p>
-                <p>{{ dateSemaine[2] | formatDate }}</p>
-              </th>
-              <th>
-                <p>Jeudi</p>
-                <p>{{ dateSemaine[3] | formatDate }}</p>
-              </th>
-              <th>
-                <p>Vendredi</p>
-                <p>{{ dateSemaine[4] | formatDate }}</p>
-              </th>
-            </tr>
+          <tr>
+            <th>
+              <p>Lundi</p>
+              <p>{{ dateSemaine[0] | formatDate }}</p>
+            </th>
+            <th>
+              <p>Mardi</p>
+              <p>{{ dateSemaine[1] | formatDate }}</p>
+            </th>
+            <th>
+              <p>Mercredi</p>
+              <p>{{ dateSemaine[2] | formatDate }}</p>
+            </th>
+            <th>
+              <p>Jeudi</p>
+              <p>{{ dateSemaine[3] | formatDate }}</p>
+            </th>
+            <th>
+              <p>Vendredi</p>
+              <p>{{ dateSemaine[4] | formatDate }}</p>
+            </th>
+          </tr>
           </thead>
-
           <!-- AFFICHAGE DES INTERVENTION -->
           <tbody>
-            <tr>
-              <td v-for="items in edt" :key="items.id">
-                <div v-for="item in items" :key="item.id" class="intervention">
-                  <p class="font-weight-bold h5">
-                    {{ item.formationDto.titre }}
-                  </p>
-
-                  <div v-for="item in items" :key="item.formateurDto.id">
-                  </div>
-                  <div style="display: flex; justify-content: center;">
-                    <b-button v-if="isFormateur" style="width: 50%; margin-top: 20%;" block variant="info" @click="goToIntervention(item.idIntervention)">
-                      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
-                    </b-button>
-                  </div>
+          <tr>
+            <td v-for="items in edt" :key="items.id">
+              <div v-for="item in items" :key="item.id" class="intervention">
+                <p class="font-weight-bold h5">
+                  {{ item.formationDto.titre }}
+                </p>
+                <div v-for="item in items" :key="item.formateurDto.id">
                 </div>
-              </td>
-            </tr>
+                <div style="display: flex; justify-content: center;">
+                  <b-button v-if="isFormateur" style="width: 50%; margin-top: 20%;" block variant="info" @click="goToIntervention(item.idIntervention)">
+                    <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+                  </b-button>
+                </div>
+              </div>
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
@@ -223,16 +212,25 @@ export default {
 </script>
 
 <style scoped>
+.container-planning-bis{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  margin-inline: 3% 3%;
+}
+.container-date{
+  margin-left: 2em;
+}
+.container-group-btn-planning{
+  display: grid;
+  grid-template-rows: 10% 90%;
+  min-width: 50vw;
+}
+
 table {
   text-align: center;
   table-layout: fixed;
   min-height: 400px;
-}
-
-.my-btn-div {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1%;
 }
 
 .intervention {
@@ -253,5 +251,22 @@ table {
 .table th {
   border: 0;
   /* border-right: 1px solid black; */
+}
+
+@media screen and (max-width: 1920px) {
+
+  .container-planning-bis{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-inline: 0 0;
+  }
+
+  .group-btn {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 1%;
+  }
+
 }
 </style>

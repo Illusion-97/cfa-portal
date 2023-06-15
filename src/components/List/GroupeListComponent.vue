@@ -3,8 +3,11 @@
     <div class="header-list">
       <div class="text-align-left row" id="groupe-input" v-if="!isAction">
         <label class="col-1">Groupe</label>
-        <input class="offset-1 col-9 form-control" type="text" :value="groupe_input" disabled="disabled"/>
-        <span class="col-1 delete-input" v-if="groupe_input" @click="delete_input()">x</span>
+        <b-form-select v-model="selectedGroup">
+          <b-form-select-option value="null">Choisissez un groupe</b-form-select-option>
+          <b-form-select-option v-for="group in allGroupe" :key="group.id" :value="group.nom">{{ group.nom }}</b-form-select-option>
+        </b-form-select>
+        <span class="col-1 delete-input" v-if="selectedGroup" @click="delete_input()">x</span>
       </div>
 
       <form class="form-inline form" @submit="submit">
@@ -85,8 +88,8 @@ export default {
   },
   watch: {
     groupeProp(){
-      if (this.groupeProp != null) 
-        this.groupe_input = `${this.groupeProp.nom}`;
+      if (this.selectedGroup != null)
+        this.selectedGroup = `${this.groupeProp.nom}`;
     }
   },
   data() {
@@ -95,7 +98,8 @@ export default {
       perPage: 10,
       pageCount: 0,
       saisie: "",
-
+      selectedGroup: "",
+      allGroupe: [],
       groupe_input: "",
     };
   },
@@ -109,6 +113,7 @@ export default {
   },
   created() {
     this.refreshList();
+    this.getAllGroup();
   },
   methods: {
     submit(e) {
@@ -126,6 +131,11 @@ export default {
       groupeApi
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.groupe = response));
+    },
+    getAllGroup(){
+      groupeApi
+          .getAll()
+          .then((response) => (this.allGroupe = response, console.log(response)))
     },
     refreshList() {
       groupeApi
@@ -164,7 +174,7 @@ export default {
 
     clickList(groupe) {
       if (!this.isAction) {
-      this.groupe_input = groupe.nom;
+      this.selectedGroup = groupe.nom;
       this.$emit('click-list',groupe);
       }
     },
@@ -180,7 +190,7 @@ export default {
       //this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
     },
     delete_input(){
-      this.groupe_input = "";
+      this.selectedGroup = "";
       this.$emit('delete_input');
     }
   },

@@ -1,24 +1,17 @@
 <template>
   <div id="container-fluid">
-     <form class="form-inline form" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          placeholder="Rechercher"
-          class="form-control"
-          v-model="saisie"
-        />
-        <button class="btn-submit" type="submit">          
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
-      </form> 
+    <form class="form-inline form" @submit="submit">
+      <input id="saisie" name="saisie" type="text" placeholder="Rechercher" class="form-control" v-model="saisie" />
+      <button class="btn-submit" type="submit">
+        <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+      </button>
+    </form>
 
     <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0" class="m-2">
       {{ message }}
     </b-alert>
     <button @click="openClick()" class="btn btn-outline-info mt-4 mb-4">
-      <span v-if="!visible ">
+      <span v-if="!visible">
         <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une entreprise
       </span>
       <span v-else>
@@ -32,20 +25,23 @@
         <b-card-body class="d-flex justify-content-center">
           <v-app class="w-50">
             <form>
-              <v-text-field rows="2" v-model="entreprise.raisonSociale" :error-messages="raisonSocialeErrors" label="Raison Sociale" required
-                @input="$v.entreprise.raisonSociale.$touch()" @blur="$v.entreprise.raisonSociale.$touch()"></v-text-field>
+              <v-text-field rows="2" v-model="entreprise.raisonSociale" :error-messages="raisonSocialeErrors"
+                label="Raison Sociale" required @input="$v.entreprise.raisonSociale.$touch()"
+                @blur="$v.entreprise.raisonSociale.$touch()"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.siret" :error-messages="siretErr" label="Siret" required
-                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()"></v-text-field>
+                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()" :rules="[v => /^\d{12}$/.test(v) || '12 chiffres requis']"></v-text-field>
 
-                <v-text-field rows="2" v-model="entreprise.naf" :error-messages="nafErr" label="NAF" required
-                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()"></v-text-field>
+              <v-text-field rows="2" v-model="entreprise.naf" :error-messages="nafErr" label="NAF" required
+                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()" :rules="[v => /^\d{5}$/.test(v) || '5 chiffres requis']"></v-text-field>
 
-                <v-text-field rows="2" v-model="entreprise.effectifTotal" :error-messages="effectifTotalErr" label="Effectif total" required
-                type="number" @input="$v.entreprise.effectifTotal.$touch()" @blur="$v.entreprise.effectifTotal.$touch()"></v-text-field>
+              <v-text-field rows="2" v-model="entreprise.effectifTotal" :error-messages="effectifTotalErr"
+                label="Effectif total" required type="number" @input="$v.entreprise.effectifTotal.$touch()"
+                @blur="$v.entreprise.effectifTotal.$touch()"></v-text-field>
 
-                <v-select :items="type" rows="2" v-model="entreprise.employeurType" :error-messages="employeurTypeErr" label="Employeur Type" required
-                @input="$v.entreprise.employeurType.$touch()" @blur="$v.entreprise.employeurType.$touch()"></v-select>
+              <v-select :items="type" rows="2" v-model="entreprise.employeurType" :error-messages="employeurTypeErr"
+                label="Employeur Type" required @input="$v.entreprise.employeurType.$touch()"
+                @blur="$v.entreprise.employeurType.$touch()"></v-select>
 
                 <v-autocomplete
                     rounded
@@ -58,18 +54,18 @@
                     required
                   ></v-autocomplete> 
 
-              <v-btn class="mr-4" :color="modifier?'warning' :'success'" @click="edit">
-            
-                <span v-if="!modifier ">
-                  <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" /> 
+              <v-btn class="mr-4" :color="modifier ? 'warning' : 'success'" @click="edit">
+
+                <span v-if="!modifier">
+                  <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                 </span>
                 <span v-else>
                   <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
                 </span>
-                {{modifier?'Modifier' :'Ajouter'}}
+                {{ modifier ? 'Modifier' : 'Ajouter' }}
               </v-btn>
               <v-btn color="secondary" @click="clear">
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" /> 
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" />
                 Vider
               </v-btn>
             </form>
@@ -88,7 +84,8 @@
         <b-card>
           <b-row class="mb-2">
             <b-col sm="2" class="text-sm-right"><b>Adresse:</b></b-col>
-            <b-col> {{ row.item.adresseSiegeDto.libelle }}, {{ row.item.adresseSiegeDto.ville}}, {{ row.item.adresseSiegeDto.codePostal}} </b-col>
+            <b-col> {{ row.item.adresseSiegeDto.libelle }}, {{ row.item.adresseSiegeDto.ville }}, {{
+              row.item.adresseSiegeDto.codePostal }} </b-col>
           </b-row>
         </b-card>
       </template>
@@ -108,23 +105,11 @@
         </v-app>
       </template>
     </b-table>
-    
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
+
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
       >
     </paginate>
   </div>
@@ -143,16 +128,16 @@ export default {
   validations: {
     entreprise: {
       raisonSociale: { required },
-      siret: {required},
+      siret: { required },
       naf: { required },
-      effectifTotal:{ required },
-      employeurType:{ required },
+      effectifTotal: { required },
+      employeurType: { required },
       adresseSiegeId: { required }
     },
 
   },
   components: {},
-   props: {
+  props: {
     isAction: {
       type: Boolean,
       default: false,
@@ -163,28 +148,27 @@ export default {
   },
   data() {
     return {
-    message: "",
-    color: "success",
-    visible: false,
-    items: [
+      message: "",
+      color: "success",
+      visible: false,
+      items: [
       ],
-    itemsAdresse: [
-    ],
-    entreprise: new Entreprise(0, 0, '', '', '', '', '', '', ''),
-
-    perPage: 3,
-    pageCount: 0,
-    saisie: "",
-    entreprise_input: "",
-    fields: fieldsEntreprise,
-    dismissCountDown: 0,
-    modifier: false,
-    type:['PRIVE','PUBLIC'],
+      itemsAdresse: [
+      ],
+      entreprise: new Entreprise(0, 0, '', '', '', '', '', '', ''),
+      perPage: 7,
+      pageCount: 0,
+      saisie: "",
+      entreprise_input: "",
+      fields: fieldsEntreprise,
+      dismissCountDown: 0,
+      modifier: false,
+      type: ['PRIVE', 'PUBLIC'],
     };
   },
   watch: {
-    entrepriseProp(){
-      if (this.entrepriseProp != null) 
+    entrepriseProp() {
+      if (this.entrepriseProp != null)
         this.entreprise_input = `${this.entrepriseProp.raisonSociale}`;
     }
   },
@@ -236,30 +220,28 @@ export default {
   created() {
     this.getList();
     adresseApi.getAllAdresses().then(response => {
-        let items = [];
+      let items = [];
 
-        response.forEach(e => {
-          let item = { text : e.ville + " : " + e.libelle, value : e.id}
-          items.push(item);
-        });
-        this.itemsAdresse = items
-        });
-
-      
+      response.forEach(e => {
+        let item = { text: e.ville + " : " + e.libelle, value: e.id }
+        items.push(item);
+      });
+      this.itemsAdresse = items
+    });
   },
 
   methods: {
-    submit(e){
+    submit(e) {
       e.preventDefault();
       this.getList();
     },
-    getList(){
+    getList() {
       entrepriseApi
         .getAllByPage(0, this.perPage, this.saisie)
         .then((response) => (this.items = response));
       entrepriseApi
         .getCount(this.saisie)
-        .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
+        .then((response) => (this.pageCount = Math.ceil(response / this.perPage)));
     },
     update(entreprise) {
       this.modifier = true;
@@ -288,7 +270,6 @@ export default {
           this.message = "L'entreprise " + response.raisonSociale + " a été ajouté avec succès"
           this.visible = false;
           this.getList()
-          //console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;
@@ -379,28 +360,27 @@ export default {
     },
     deleteEntreprise(entrepriseId) {
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
-      if(res){
-      entrepriseApi.deleteEntreprise(entrepriseId).then(() => this.refreshList());
+      if (res) {
+        entrepriseApi.deleteEntreprise(entrepriseId).then(() => this.refreshList());
       }
     },
     clickList(entreprise) {
       this.entreprise_input = entreprise.raisonSociale;
-      this.$emit('click-list',entreprise);
+      this.$emit('click-list', entreprise);
     },
-    dblClick(entreprise){
+    dblClick(entreprise) {
       let route = this.$route.path.split("/").splice(1);
 
-      if(route[0]== 'admin') this.$router.push({name:'admin_entreprise_detail', params: { id: entreprise.id }}); 
+      if (route[0] == 'admin') this.$router.push({ name: 'admin_entreprise_detail', params: { id: entreprise.id } });
       // else if(route[0]== 'referent')  this.$router.push({name:'referent_entreprise_detail', params: { id: entreprise.id }});
       // else if(route[0]== 'formateur') this.$router.push({name:'formateur_entreprise_detail', params: { id: entreprise.id }});
       // else if(route[0]== 'cef') this.$router.push({name:'cef_entreprise_detail', params: { id: entreprise.id }});
       // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_entreprise_detail', params: { id: entreprise.id }});
 
     },
-    
+
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
 

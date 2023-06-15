@@ -29,6 +29,7 @@ export const utilisateurApi = {
   isReferent,
   uploadUser,
   mail,
+  updateRole,
 };
 
 const END_POINT = "utilisateurs";
@@ -270,9 +271,7 @@ function addUtilisateur(Utilisateur) {
  */
 function addTuteur(tuteur) {
   return axios
-    .post(`${END_POINT}`, tuteur, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
+    .post(`${END_POINT}/tuteur`, tuteur, requestOptions.headers())
 }
 
 /**
@@ -284,7 +283,7 @@ function updateUtilisateur(Utilisateur) {
   return axios
     .post(`${END_POINT}`, Utilisateur, requestOptions.headers())
     .then((response) => response.data)
-    .catch((error) => console.log(error));
+    .catch((error) => console.log(error.message));
 }
 
 /**
@@ -298,11 +297,9 @@ function save(form) {
   return axios
     .post(req, form, requestOptions.headers())
     .then((response) => {
-      //console.log("response : ", response);
       return response.data;
     })
     .catch((error) => {
-      //console.log(error.response)
       throw error;
     });
 
@@ -366,14 +363,23 @@ function mail(user) {
       });
 }
 function fetchAllUsersDG2Http(logInUser) {
-  //console.log(logInUser);
   let headers = requestOptions.headers();
   let req = `/${END_POINT}/dg2`;
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  //console.log(headers)
-
   return axios.get(req, headers);
+
+}
+
+function updateRole(userId, roles){
+  return axios
+  .put(`${END_POINT}/${userId}/roles`, roles, requestOptions.headers())
+  .then((response) => {
+    return response.data;
+  })
+  .catch((error) => {
+    throw error;
+  });
 
 }

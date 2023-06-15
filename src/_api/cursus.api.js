@@ -151,8 +151,6 @@ function fetchAllCursusDG2Http(logInUser) {
 
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
-  //console.log(headers)
-
   return axios.get(req, headers);
   
 }

@@ -1,202 +1,98 @@
 <template>
-  <div>
-    <div class="row d-flex justify-content-arround">
-        <div
-          v-for="promotion in promosListComputed"
-          :key="promotion.id"
-          @click="click(promotion)"
-          class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card"
-        >
-          <b-card
-            header-text-variant="white"
-            header-tag="header"
-            header-bg-variant="dark"
-            footer-tag="footer"
-            footer-bg-variant="success"
-            footer-border-variant="dark"
-            style="max-width: 32rem"
-            class="card-Promotions col"
-          >
-            <b-card-header
-              class="d-flex justify-content-between bg-white text-secondary col"
-            >
-            
-              {{promotion.centreFormationAdresseVille != null ? promotion.centreFormationAdresseVille : "pas de ville" }}
-              <b-progress
-                height="20px"
-                :value="progress(promotion)"
-                show-progress
-                class="mb-2 w-50"
-              ></b-progress>
-            </b-card-header>
-            <b-card-text class="mt-4 font-weight-bold">{{
-              promotion.nom
-            }}</b-card-text>
-            <b-card-footer
-              class="d-flex justify-content-between bg-white text-secondary"
-            >
-              <span>
-                Date du debut : {{ promotion.dateDebut | formatDate }}
-              </span>
-              <span> Durée: {{ getMonths(promotion) }}M </span>
-              <span>
-                Date de fin : {{ promotion.dateFin | formatDate }}
-              </span></b-card-footer
-            >
-        </b-card>
-      </div>
+    <div class="container-fluid">
+    <a
+      @click="goBack()"
+      class="h5"
+      style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Précédent
+    </a>
+    <b-card no-body id="my-card">
+      <br>
+      <b-card-text class="row-detail-title">
+        <span class="font-weight-bold">Détails adresse : </span>
+        <span>{{ adresseCentre }}</span>
+      </b-card-text>
+      <b-card-text class="row-detail-title">
+        <span class="font-weight-bold" >Entreprise liée : </span>
+        <span>{{ entreprise }}</span>
+      </b-card-text>
+      <b-card-text class="row-detail-title">
+        <span class="font-weight-bold" >Nombre de promotion : </span>
+        <span>{{ nbPromotion }}</span>
+        <span>
+          <b-button size="sm" @click="goToDetails()" class="mr-2">Afficher</b-button>
+        </span>
+      </b-card-text>
+    </b-card>
     </div>
-  </div>  
-  
 </template>
-
 <script>
-// import { centreFormationApi } from '@/_api/centreFormation.api.js';
+import { centreFormationApi } from '@/_api/centreFormation.api.js';
 import { promotionApi } from '@/_api/promotion.api.js';
-  
 export default {
   name: "CentreFormationDetails",
   components:{
   },
   data() {
     return {
-      nomCentreFormation: null,
-      promosList: [],
-      perPage: 9,
-      pageCount: 0,
-      saisie: "",
-      promotion_input: "",
-      currentPage: 1,
+      adresseCentre: "",
+      villeCentre: "",
+      nbPromotion: 0,
+      entreprise: "",
     }
   },
   methods: {
-    getPromosList() {
-      promotionApi
-        .getAllByCentreFormationIdPagination(this.$route.params.id, 0, this.perPage)
-        .then((response) => (this.promosList = response));
-    },
-    click(promotion){
-      this.$router.push({
-        name: "admin_promotion_details",
-        params: {id: promotion.id}
-      })
-    },
-     getPeriod(promotion) {
-      let debut = new Date(promotion.dateDebut);
-      let fin = new Date(promotion.dateFin);
-      return new Number(
-        (fin.getTime() - debut.getTime()) / 31536000000
-      ).toFixed(0);
-    },
-    getMonths(promotion) {
-      return this.getPeriod(promotion) * 12;
-    },
-    getDays(promotion) {
-      return this.getPeriod(promotion) * 365;
-    },
-    progress(promotion) {
-      let debut = new Date(promotion.dateDebut);
-
-      let now = Date.now();
-      let joursPasse = new Number(
-        ((now - debut.getTime()) / 31536000000) * 365
-      ).toFixed(0);
-      let joursFormation = this.getDays(promotion);
-      if (joursPasse >= joursFormation) {
-        return 100;
-      }
-      if (joursPasse <= 0) {
-        return 0;
-      }
-
-      return (100 * joursPasse) / joursFormation;
-    },
-     getNextPromotions() {
-      window.onscroll = () => {
-          let bottomOfWindow =
-          window.scrollY + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          this.currentPage++;
-          this.pageChange(this.currentPage * this.perPage);
-        }
-      };
-    },
-    pageChange(perPage) {
-      promotionApi
-        .getAllByCentreFormationIdPagination(this.$route.params.id, 0, perPage)
-        .then((response) => {this.promosList = response
+    getPromotion() {
+      centreFormationApi
+        .getById(this.$route.params.id)
+        .then((response) => { 
+          this.adresseCentre = response.adresseDto.libelle+" "+response.adresseDto.codePostal+" "+response.adresseDto.ville, 
+          this.villeCentre = response.nom , this.entreprise = response.entrepriseDto.raisonSociale
         });
+      promotionApi
+        .countByCentreFormationId(this.$route.params.id, "")
+        .then((response) => { this.nbPromotion = response })
     },
-
+    goBack() {
+      this.$router.push({
+        name: "admin_centreFormation_list",
+      });
+    },
+    goToDetails() {
+      this.$router.push({
+        name: "admin_promotion_list",
+        params: { ville: this.villeCentre },
+      });
+    }
   },
   created() {
-    this.getPromosList();
+    this.getPromotion();
   },
-  mounted() {
-    this.getNextPromotions();
-  },
-  computed: {
-    promosListComputed(){
-      return this.promosList;
-    },
-  }
-
 }
-
-
-//     data(){
-//         return {
-//             centreFormationId: this.$route.params.id,
-//             centreFormation: {},
-//             entrepriseDto : {},
-//             adresseDto :{},
-//             loading: false,
-            
-//         };
-//     },
-//     created(){
-//         centreFormationApi.getById(this.$route.params.id).then(response => {this.centreFormation = response; this.entrepriseDto = this.centreFormation.entrepriseDto; this.adresseDto = this.centreFormation.adresseDto} );
-        
-//     },
-//     methods :{
-//       updateCentre() {
-//       let route = this.$route.path.split("/").splice(1);
-//       if (route[0] == "admin") {
-//         this.$router.push({
-//           name: "admin_centreFormation_update",
-//         });
-//       } else if (route[0] == "referent") {
-//         this.$router.push({
-//           name: "referent_centreFormation_update",
-//         });
-//       } else if (route[0] == "formateur") {
-//         this.$router.push({
-//           name: "formateur_centreFormation_update",
-//         });
-//       } else if (route[0] == "cef") {
-//         this.$router.push({
-//           name: "cef_centreFormation_update",
-//         });
-//       }
-//     },
-//     goBack() {
-//       this.$router.go(-1);
-//     },
-//     deleteCentre() {
-//       centreFormationApi.deleteCentreFormations(this.$route.params.id).then(() => this.goBack());
-//     },
-//     }
-
-// }
 </script>
 <style scoped>
-.card-Promotions {
-  border-radius: 5px;
-  min-height: 17rem;
+#my-card {
+  width: 90%;
+  padding-bottom: 1em;
+  margin-bottom: 5em;
+  margin-top: 5em;
 }
-.card-Promotions:hover {
-  border: 3px solid red;
-  cursor: pointer;
+
+.card-text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-text > span {
+  display: inline-block;
+  width: 40em;
+  padding-left: 3em;
+}
+.row-detail-title{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 30% 60% 10%;
 }
 </style>

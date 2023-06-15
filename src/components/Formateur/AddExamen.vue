@@ -68,10 +68,11 @@
               required
             ></b-form-datepicker>
           </div>
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row" >
             <b-form-group
               label="Sélectionner des activités types :"
               v-slot="{ ariaDescribedby }"
+              v-if="optionsBlocsCompetences"
             >
               <b-form-checkbox-group
                 @change="showBlocsLinked()"
