@@ -66,7 +66,7 @@
 
     <!-- AJOUT TUTEUR -->
     <b-collapse id="collapse-1" :visible=visibleAddTuteur class="mt-2 mb-4">
-      <addTuteur @hidden="ajoutTuteur">
+      <addTuteur @hidden="ajoutTuteur" @cancel="openModalAddTuteur">
       </addTuteur>
     </b-collapse>
 
@@ -228,6 +228,7 @@ export default {
   },
   methods: {
     openModalAddTuteur() {
+      console.log(this.visibleAddTuteur)
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
       this.visibleMajUsers = false;

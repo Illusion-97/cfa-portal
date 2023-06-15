@@ -942,7 +942,7 @@ const routes = [
   //#      Promotion      #
   //#######################
   {
-    path: "/admin/promotions",
+    path: "/admin/promotions/:ville?",
     name: "admin_promotion_list",
     component: PromotionList,
     meta: { authorize: [Role.Admin] },

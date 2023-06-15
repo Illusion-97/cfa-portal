@@ -218,12 +218,17 @@ export default {
 
   },
   created() {
-    this.refreshList();
+    this.saisie = this.$route.params.ville;
+    if (this.$route.params.ville)
+      this.submit();
+    else
+      this.refreshList();
   },
 
   methods: {
     submit(e) {
-      e.preventDefault();
+      if (e) 
+        e.preventDefault();
          promotionApi
         .getCount(this.saisie)
         .then(

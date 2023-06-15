@@ -244,7 +244,7 @@ export default {
         },
         hideComponent() {
             this.clear();
-            this.$emit('hidden');
+            this.$emit('cancel');
         },
         clear() {
             this.formulaireTuteur.login = "";
