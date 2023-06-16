@@ -244,26 +244,25 @@ export default {
           this.message = err;
         });
     },
-      async showModal(item) {
-        this.isModalVisible = true;
-        this.competence = await competenceProfessionnelleApi.getAllByIdActiviteType(item.id);
-
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
-      goBack() {
-        this.$router.go(-1);
-      },
-      onClickClose(cps) {
-        this.form.cpsDto = cps;
-      },
-      removeFromlist(index) {
-        this.form.cpsDto.splice(index, 1);
-      },
-      clickCp(){
-        this.isModalVisible = true;
-      }
+    async showModal(item) {
+      this.isModalVisible = true;
+      this.competence = await competenceProfessionnelleApi.getAllByIdActiviteType(item.id);
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
+    onClickClose(cps) {
+      this.form.cpsDto = cps;
+    },
+    removeFromlist(index) {
+      this.form.cpsDto.splice(index, 1);
+    },
+    clickCp(){
+      this.isModalVisible = true;
+    }
   },
 };
 </script>

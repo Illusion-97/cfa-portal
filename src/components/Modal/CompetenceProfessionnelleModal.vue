@@ -10,7 +10,7 @@
           </v-btn>
         </div>
           <div class="modal-body">
-            <v-btn @click="openModalAdd">
+            <v-btn @click="openModalAdd" color="blue-grey" style="margin-bottom: 10px; background-color: #343a40; color: white">
               <span v-if="!hiddenInput ">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence professionnelle
               </span>

@@ -69,7 +69,7 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <template #cell(action)="row">
         <b-button block variant="info" @click="gotoDetailCursus(row.item)">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> Voir
         </b-button>
 
         <b-button block variant="warning" @click="showModal(row.item)">

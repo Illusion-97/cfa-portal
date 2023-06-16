@@ -48,12 +48,13 @@
         <table class="table table-striped table-hover text-center ml-5 mr-5">
           <thead>
             <tr>
-              <th>Type</th>
+              <th>Nom de la promo</th>
               <th>Ville</th>
               <th>Date de debut</th>
               <th>Date de fin</th>
-              <th>Nom de la promo</th>
               <th>Nombres de participants</th>
+              <th>Type</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody v-if="promotionsComputed">
@@ -61,17 +62,35 @@
               v-for="promotion in promotionsComputed"
               :key="promotion.id"
               class="mon-tr"
-              v-on:click="detail(promotion.id)"
             >
-              <td>{{promotion.type}}</td>
+              <td>{{ promotion.nom.split("-").join(" ") }}</td>
               <td>{{promotion.centreFormationAdresseVille}}</td>
               <td>{{ promotion.dateDebut | formatDate }}</td>
               <td>{{ promotion.dateFin | formatDate }}</td>
-              <td>{{ promotion.nom }}</td>
               <td>{{promotion.nbParticipants}}</td>
+              <td>{{promotion.type}}</td>
+              <td><b-button  @click="detail(promotion.id)">Voir</b-button></td>
             </tr>
           </tbody>
         </table>
+
+        <paginate
+            :page-count="pageCount"
+            :page-range="1"
+            :margin-pages="2"
+            :click-handler="pageChange"
+            :prev-text="'Prev'"
+            :next-text="'Next'"
+            :container-class="'pagination float-right'"
+            :page-class="'page-item'"
+            :page-link-class="'page-link'"
+            :prev-class="'page-item'"
+            :next-class="'page-item'"
+            :prev-link-class="'page-link'"
+            :next-link-class="'page-link'"
+            :active-class="'active'"
+        >
+        </paginate>
       </b-card-text>
     </b-card>
   </div>
@@ -88,23 +107,39 @@ export default {
       cursus: {},
       promotions: [],
       loading: false,
+      currentPage: 0,
+      perPage: 10,
+      pageCount: 0,
+
     };
   },
   computed: {
     promotionsComputed() {
-      return this.promotions;
+      return this.promotions.content;
     },
   },
   created() {
     cursusApi
       .getById(this.$route.params.id)
       .then((response) => (this.cursus = response));
+    cursusApi.getCount().then(response =>{
+      this.pageCount = Math.ceil(response / this.perPage)
+    })
     cursusApi
-      .getPromotionsById(this.$route.params.id)
-      .then((response) => (this.promotions = response));
+        .getAllPromotionByIdCursusPaginate(this.$route.params.id, this.pageCount, this.perPage)
+        .then((response) => (this.promotions = response, console.log(this.pageCount)));
   },
   methods :{
-    
+    pageChange(pageNum) {
+      cursusApi
+          .getAllPromotionByIdCursusPaginate(this.$route.params.id, pageNum, this.perPage)
+          .then((response) => (this.promotions = response));
+    },
+    getAllByIdAndByPage(NumPage){
+      cursusApi
+          .getAllPromotionByIdCursusPaginate(this.$route.params.id, NumPage, this.perPage)
+          .then((response) => (this.promotions = response, console.log(this.pageCount)));
+    },
     goBack() {
       this.$router.go(-1);
     },
