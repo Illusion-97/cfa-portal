@@ -73,7 +73,7 @@ export default {
 
     this.interv();
     
-    console.log(this.var);
+    // console.log(this.var);
     
   },
 
