@@ -17,7 +17,7 @@
       <b-card-header style="background-color: #0ba360">
         <span class="">Details</span>
         <div class="float-right mr-2" style="font-size:20px">
-          <a class="" href="#" id="navbardrop" data-toggle="dropdown">
+          <a href="#" id="navbardrop" data-toggle="dropdown">
             <font-awesome-icon
               :icon="['fas', 'sliders-h']"
               class="icon text-light"
@@ -36,11 +36,11 @@
 
       <div style="display: grid; grid-template-rows: repeat(2, 1fr); padding-left: 10px">
         <div class="row-detail-title" >
-          <h7 class="font-weight-bold">Titre : </h7>
+          <h6 class="font-weight-bold">Titre : </h6>
           <p style="word-break: break-all; width: 100%;">{{ cursus.titre }}</p>
         </div>
         <div class="row-detail-title">
-          <h7 class="font-weight-bold">Durée : </h7>
+          <h6 class="font-weight-bold">Durée : </h6>
           <p class="">{{ cursus.duree }}</p>
         </div>
       </div>
@@ -131,18 +131,13 @@ export default {
     })
     cursusApi
         .getAllPromotionByIdCursusPaginate(this.$route.params.id, this.pageCount, this.perPage)
-        .then((response) => (this.promotions = response, console.log(this.pageCount)));
+        .then((response) => (this.promotions = response));
   },
   methods :{
     pageChange(pageNum) {
       cursusApi
           .getAllPromotionByIdCursusPaginate(this.$route.params.id, pageNum, this.perPage)
           .then((response) => (this.promotions = response));
-    },
-    getAllByIdAndByPage(NumPage){
-      cursusApi
-          .getAllPromotionByIdCursusPaginate(this.$route.params.id, NumPage, this.perPage)
-          .then((response) => (this.promotions = response, console.log(this.pageCount)));
     },
     goBack() {
       this.$router.go(-1);

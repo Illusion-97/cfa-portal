@@ -1,13 +1,14 @@
 <template>
-    <div class="navHeader mb-4">
-        <b-row class="pHeader h-100 d-flex align-items-center">
-            <b-col class="d-flex justify-content-start">
-                <div>
-                    <button v-if="roles.length > 1" type="button" @click="goToRole"
-                        class="btnHeader btn-light">Roles</button>
-                </div>
-            </b-col>
-            <b-col class="col-9 d-flex justify-content-center">
+    <div class="navHeader">
+        <div class="pHeader nav-grid h-100 align-items-center">
+          <!-- Button Role -->
+          <div style="display: flex">
+              <button v-if="roles.length > 1" type="button"
+                      @click="goToRole" class="btnHeader btn-light">Roles</button>
+          </div>
+
+          <!-- Title  -->
+          <div>
                 <div class="title-header">
                     <div v-if="this.$route.path.split('/').splice(1)[0] == 'admin'">
                         {{ path }} - Espace admin
@@ -22,14 +23,15 @@
                         {{ path }} - Espace Tuteur
                     </div>
                 </div>
-            </b-col>
-            <b-col class="d-flex justify-content-end">
-                <div>
-                    <button type="button" @click="logout" class="btnHeader btn-light "><font-awesome-icon
-                            :icon="['fas', 'sign-out-alt']" class="icon" /> Déconnexion</button>
-                </div>
-            </b-col>
-        </b-row>
+            </div>
+
+          <!-- Button Deconnexion -->
+          <div>
+            <button type="button" @click="logout" class="btnHeader btn-light "><font-awesome-icon
+                :icon="['fas', 'sign-out-alt']" class="icon" /> Déconnexion</button>
+          </div>
+
+        </div>
     </div>
 </template>
 
@@ -152,8 +154,13 @@ export default {
     overflow: hidden;
     color: white;
     Height: 6rem;
+    padding: 0 5% 0 3%
 }
-
+.nav-grid{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr)
+}
 .pHeader {
     font-size: 30px;
     font-family: Roboto;
@@ -163,13 +170,17 @@ export default {
 }
 
 .btnHeader {
-    position: relative;
     font-size: 25px !important;
     font-family: Roboto;
     font-weight: 500;
-    width: 120%;
+    float: right;
+    width: 40%;
     height: 100%;
     border: 5px;
     right: 100%
+}
+
+.title-header{
+  text-align: center;
 }
 </style>
