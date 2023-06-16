@@ -249,18 +249,6 @@ export const dossierProjetFields = [
 ];
 
 
-export const dossierProfessionnelFields = [
-  {
-    key: "nom",
-    label: "Nom",
-    thStyle: { width: "75%" },
-  },
-  {
-    key: "Action",
-    label: "Action",
-    thStyle: { width: "25%" },
-  },
-];
 // Example
 // export const nom_variable = [
 //   { key: "champs1", label: "nom_colonne1",sortable(triable):true/false (optionnel) },

@@ -1,15 +1,33 @@
 <template>
   <transition class="w-75" name="modal">
+
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
           <h3>Liste des compétences professionnelles</h3>
-          <v-btn class="mt-2" color="primary" dark @click="close()"
-                  >
-            X
+          <v-btn class="mt-2" color="primary" dark @click="close()">
+            Fermer
           </v-btn>
         </div>
-        <div class="modal-body">
+          <div class="modal-body">
+            <v-btn @click="openModalAdd">
+              <span v-if="!hiddenInput ">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence professionnelle
+              </span>
+              <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+              </span>
+            </v-btn>
+
+
+          <div v-show="hiddenInput">
+            <span class="grid-addComp">
+              <v-text-field type="number" v-model="competence.numeroFiche" placeholder="numéro fiche" id=""/>
+              <v-text-field type="text" v-model="competence.libelle" placeholder="libelle" name="" id=""/>
+              <b-btn class="btn-valider" :disabled="!competence.libelle" type="submit"
+                     variant="success" @click="addCompetence">Valider</b-btn>
+            </span>
+          </div>
           <div class="mon-group">
             <!-- <label class="form-label">Liste des compétences professionnelles dans la bdd : </label> -->
             <table class="table table-bordered table-striped table-hover">
@@ -43,23 +61,52 @@
 </template>
 
 <script>
+import {competenceProfessionnelleApi} from "@/_api/competenceProfessionnelle.api";
 export default {
   name: "CompetenceProModal",
   components: {},
   data() {
     return {
+      hiddenInput: false,
+      disabledValidation: false,
+      dismissCountDown: 0,
+      color: "success",
+      message: "",
+      competence: {
+        libelle:"",
+        numeroFiche:1,
+        activiteTypeId: 0
+      },
+      refreshedCpd : [{}]
     };
   },
   props: {
     cps: {
       default: null,
-    },
+    }
   },
-
+  created() {
+    this.getIdFromUrl();
+    console.log(this.competence.activiteTypeId)
+  },
   methods: {
     close() {
       this.$emit("close", this.cps);
     },
+    openModalAdd(){
+      this.hiddenInput = !this.hiddenInput;
+    },
+    addCompetence(){
+      competenceProfessionnelleApi.save(this.competence).then(
+          location.reload()
+      )
+    },
+    getIdFromUrl() {
+      const url = window.location.href;
+      const segments = url.split('/');
+      this.competence.activiteTypeId = segments[segments.length - 1];
+      console.log(this.competence.activiteTypeId)
+    }
   },
 };
 </script>
@@ -157,5 +204,14 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+.grid-addComp{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px
+}
+
+.btn-valider{
+  height: fit-content; margin:20px 20px 0 20px
 }
 </style>

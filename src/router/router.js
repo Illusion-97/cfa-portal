@@ -78,6 +78,7 @@ import LivretEvaluationEtudiant from "@/views/Etudiant/LivretEvaluationEtudiant.
 import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelEtudiant.vue";
 import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
 import DossierProfessionnels from "@/views/Etudiant/DossierProfessionnels.vue";
+import DossierProfessionnel_modifier from "@/views/Etudiant/DossierProfessionnel_modifier.vue";
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -411,7 +412,7 @@ const routes = [
   {
     path: "/etudiant/modifierdossierpro",
     name: "modifier_dossier_pro",
-    component: DossierPro,
+    component: DossierProfessionnel_modifier,
     meta: { authorize: [Role.Etudiant] },
   },
   {
@@ -430,7 +431,8 @@ const routes = [
   //new routes espace Dossier Projet
   { path: "/etudiant/creerprojet", name: "creer_dossier_projet", component: DossierProjetCreer, meta: { authorize: [Role.Etudiant] }, },
   { path: "/etudiant/modifier/:id", name: "creer_dossier_modifier", component: DossierProjetModifier, meta: { authorize: [Role.Etudiant] }, },
-
+ // { path: "/etudiant/creerDossierProfessionnel", name: "creer_dossierPro", component: DossierPro, meta: { authorize: [Role.Etudiant] }, },
+  
   //#######################
   //#       FORMATEUR     #
   //#######################
@@ -942,7 +944,7 @@ const routes = [
   //#      Promotion      #
   //#######################
   {
-    path: "/admin/promotions",
+    path: "/admin/promotions/:ville?",
     name: "admin_promotion_list",
     component: PromotionList,
     meta: { authorize: [Role.Admin] },

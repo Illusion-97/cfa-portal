@@ -58,10 +58,8 @@
                   Créer
                 </b-button>
               </router-link>
-
             
-              
-             
+       
       <b-button type="file" id="fileImport" size="sm" class="mr-2" variant="primary" @click.prevent="openModal(data.item.cursus.id)">
       <i class="fa-solid fa-cloud"></i>
       Uploader
@@ -70,10 +68,10 @@
                 name: 'etudiant_dossierpro',
                 query: { data: data },
               }">
-    <b-modal v-model="showModalUpload"  @ok="uploadFile" @cancel="resetModal">
-      <b-form-group label="Nom du dossier professionnel" label-for="nomDossier">
-        <b-form-input id="nomDossier" v-model="nomDossier" />
-       <!-- <input id="cursusId" type="hidden" value="cursus" v-model="data.item.cursus.id"/>-->
+    <b-modal v-model="showModalUpload"  @ok="uploadFile" @cancel="resetModal" centered
+      scrollable no-close-on-esc>
+      <b-form-group label="Nom du dossier professionnel">
+        <b-form-input id="nom" v-model="nom"/>  
       </b-form-group>
       <b-form-file v-model="file" label="Choisir un fichier" />
     </b-modal>
@@ -86,7 +84,7 @@
         Votre DossierProfessionnel est correctement été importé.
       </p>
       <div class="div-ok">
-        <router-link class="nav-item first" :to="'/dossierProfessionnel/dossier-professionnel'">
+        <router-link class="nav-item first" :to="'/etudiant/dossierprofessionnels'">
           <b-button variant="primary" @click="$bvModal.hide('modal-create-success')">
           Continuer
         </b-button>
@@ -103,9 +101,21 @@
         <li>Pas de dossier professionnel.</li>
       </ul>
 
+      <h4>
+  <router-link
+    :to="{
+      name: 'etudiant_dossierpro',
+    }"
+    class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" 
+  >
+    Mes Dossiers Professionnels
+  </router-link>
+</h4>
+
 
       <!-- INFOS -->
       <p id="info" v-if="dp.promotions != 0 && this.$store.getters.getUtilisateur.etudiantDto">
+        <br/>
         <font-awesome-icon :icon="['fas', 'info-circle']" />
         <strong id="title-info">Informations</strong>
         <br />
@@ -143,8 +153,8 @@ export default {
       fileImport: {},
       showModalUpload: false,
       cursusId:0,
-      nomDossier: '',
       file: null,
+      nom:"",
       test:"",
       cursus: [],
       dp: [],
@@ -160,6 +170,7 @@ export default {
           label: "",
         },
       ],
+      
       file1: null,
     };
   },
@@ -189,19 +200,18 @@ export default {
       this.cursusId = cursusId;
     },
     resetModal() {
-      this.nomDossier = '';
+      this.nom = '';
       this.file = null;
       this.showModalUpload = false;
     },
 
     uploadFile() {
 
-  const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id;
-  
-
-  dossierProfessionnelApi.handleFileUpload(etudiantId, this.cursusId, this.file, this.nomDossier)
+  const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id; 
+  dossierProfessionnelApi.handleFileUpload(etudiantId, this.cursusId, this.file, this.nom)
     .then(data => {
       // Réinitialiser la modal
+      this.$router.push('/etudiant/dossierprofessionnels');
       this.resetModal();
       this.dp = data;
 
@@ -238,12 +248,7 @@ export default {
       .catch(error => {
         console.error(error);
       });
-    },
-    /*uploadFile() {
-      dossierProfessionnelApi
-      .genererDossierProfessionnel(idDossierPro)
-      .then((data => (this.dp=data)))
-      },*/
+    },*/
 
 
 
