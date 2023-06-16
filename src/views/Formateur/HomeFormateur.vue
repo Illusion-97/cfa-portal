@@ -1,24 +1,22 @@
 <template>
   <section>
-    <div id="grid-container">
+    <div id="grid-container-fluid">
       
       <div>
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Titre</th>
-              <th scope="col">Date de début</th>
-              <th scope="col">Date de fin</th> 
+              <th scope="col">Date</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in getInterventions" :key="item.id" @click="click(item)" class="tr">
-              <th scope="row">{{ item.formationDto != null ? item.formationDto.titre : 'Pas de formation' }}</th>
-              <td>{{ item.dateDebut | formatDate }}</td>
-              <td>{{ item.dateFin | formatDate }}</td>
+            <tr v-for="item in intervention" :key="item.id" class="tr">
+              <th scope="row">{{ item.formationDto.titre  != null ? item.formationDto.titre : 'Pas de formation' }}</th>
+              <th>{{ item.date }}</th>
             </tr>
           </tbody>
-          </table>  
+        </table>  
           
           <paginate
             class="customPagination"
@@ -42,7 +40,6 @@
       </div>
 
       <div id="trainer-planning">
-        <!-- <h1>Calendrier des Interventions</h1> -->
         <Planning />
       </div>
     </div>
@@ -51,6 +48,7 @@
 
 <script>
 import Planning from "@/components/utils/Planning.vue";
+import { utilisateurApi } from "@/_api/utilisateur.api.js";
 export default {
   name: "",
   components: {
@@ -59,62 +57,39 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 9,
+      perPage: 2,
       pageCount: 0,
       date: new Date(),
-      var: this.$store.getters.getPlanning,
-      getDate: "",
-      getInterventions: [],
+      interventions: [],
+      intervention: [],
     };
   },
 
-  created() {
-    this.refreshlist();
-
-    this.interv();
-    
-    // console.log(this.var);
-    
-  },
-
-  methods: {
-    
-    interv(){
-      let year = this.date.getFullYear();
-      let month = this.date.getMonth() + 1;
-      let day = this.date.getDate();  
-      
-      this.getDate = year.toString() + " " +  month.toString() + " " + day.toString();
-      // console.log(this.var.date);
-
-      this.var.forEach(element => {
-        // console.log(new Date(element.date));
-      if (new Date(element.date) > this.date) {
-        this.getInterventions.push(element.date);
-      }
-
-    });
-    },
-
-    refreshlist(){
-    },
-
-    // pageChange(perPage) {
-
-    // },
-
-    click(intervention) {
-      let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "formateur")
-        this.$router.push({
-          name: "formateur_intervention_detail",
-          params: { id: intervention.id },
+  async created() {
+    await utilisateurApi
+        .getPlanningById(this.$store.getters.getUtilisateur.id)
+        .then((response) => { 
+          this.$store.dispatch("setPlanning", response),-
+          response.forEach(element => {
+            if (new Date(element.date) > this.date) {
+              let item = element;
+              this.interventions.push(item);
+            }
+          });
         });
-    },
+        this.pageCount = Math.ceil(this.interventions.length / this.perPage);
+        this.intervention = this.interventions
+        console.log(this.pageCount)
+        this.pageChange(this.currentPage);
+  },
+  methods: {
+    pageChange(currentPage) {
+      this.intervention = this.interventions.slice((currentPage * this.perPage) - this.perPage, currentPage * this.perPage)
+      console.log(this.interventions)
+    }
   }
 };
 </script>
-
 <style lang="css" scoped>
 #grid-container {
   display: grid;
