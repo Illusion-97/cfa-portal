@@ -9,12 +9,12 @@
       Précédent
     </a>
 
-    <b-card no-body id="my-card">
+    <div id="my-card">
       <div>
-        <p class="font-weight-bold" style="text-align: center; font-size: 20px">{{ cursus.titre }}</p>
+        <p class="font-weight-bold" style="text-align: center; font-size: 20px; word-break: break-all">{{ cursus.titre }}</p>
       </div>
 
-      <b-card-header>
+      <b-card-header style="background-color: #0ba360">
         <span class="">Details</span>
         <div class="float-right mr-2" style="font-size:20px">
           <a class="" href="#" id="navbardrop" data-toggle="dropdown">
@@ -34,18 +34,20 @@
         </div>
       </b-card-header>
 
-      <b-card-text class="row-detail-title">
-        <span class="font-weight-bold" style=" width: 30%">Titre : </span>
-        <span>{{ cursus.titre }}</span>
-      </b-card-text>
-      <b-card-text class="row-detail-title">
-        <span class="font-weight-bold" style="width: 30%">Durée : </span>
-        <span class="">{{ cursus.duree }}</span>
-      </b-card-text>
+      <div style="display: grid; grid-template-rows: repeat(2, 1fr); padding-left: 10px">
+        <div class="row-detail-title" >
+          <h7 class="font-weight-bold">Titre : </h7>
+          <p style="word-break: break-all; width: 100%;">{{ cursus.titre }}</p>
+        </div>
+        <div class="row-detail-title">
+          <h7 class="font-weight-bold">Durée : </h7>
+          <p class="">{{ cursus.duree }}</p>
+        </div>
+      </div>
 
-      <b-card-text class="identity row ml-6">
-        <span class="font-weight-bold col-md-4 mb-2">Promotions associées :</span>
-        <table class="table table-striped table-hover text-center ml-5 mr-5">
+      <div class="identity  ml-6">
+        <span class="font-weight-bold">Promotions associées :</span>
+        <table class="table table-striped table-hover text-center ">
           <thead>
             <tr>
               <th>Nom de la promo</th>
@@ -91,8 +93,10 @@
             :active-class="'active'"
         >
         </paginate>
-      </b-card-text>
-    </b-card>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -179,6 +183,8 @@ export default {
   padding-bottom: 1em;
   margin-bottom: 5em;
   margin-top: 5em;
+  display: grid;
+  grid-template-rows: 0.1fr 0.1fr 0.39fr 1fr;
 }
 
 #my-card > .card-header {
@@ -206,6 +212,9 @@ export default {
 .row-detail-title{
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 30% 80%;
+  grid-template-columns: 0.3fr 1fr;
+}
+.font-weight-bold{
+
 }
 </style>
