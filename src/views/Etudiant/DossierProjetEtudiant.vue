@@ -8,6 +8,8 @@
         {{ row.nom }}
       </template>
 
+     
+
       <template #cell(action)="row">
         <!-- BOUTON MODIFIER -->
         <b-button size="sm" class="mr-2" variant="primary" @click="gotoDossierProjet(row.item.id)">

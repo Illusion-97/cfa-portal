@@ -6,6 +6,7 @@ const END_POINT = "/dossierProfessionnel";
 export const dossierProfessionnelApi = {
   getById,
   deleteDossierProfessionnel,
+  deleteAnnexe,
   save,
   getAll,
   getByIdEtudiant,
@@ -106,11 +107,18 @@ function save(form, id) {
  * @param {*} idetudiant 
  * @returns 
  */
-function deleteDossierProfessionnel(id) {
+function deleteDossierProfessionnel(idEtudiant ,id) {
   return axios
-    .delete(`${END_POINT}/delete/${id}`, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
+  .delete(`${END_POINT}/${idEtudiant}/delete/${id}`, requestOptions.headers())
+  .then((response) => response.data)
+  .catch((error) => console.log(error));
+}
+
+function deleteAnnexe(annexeId) {
+  return axios
+  .delete(`${END_POINT}/annexes/${annexeId}`, requestOptions.headers())
+  .then((response) => response.data)
+  .catch((error) => console.log(error));
 }
 
 /** 
@@ -128,6 +136,17 @@ function saveDossierProfessionnel(id, form, file) {
   formData.append('dossierProfessionnel', JSON.stringify(form))
   if (Array.isArray(file)) {
     file.forEach(f => formData.append('pieceJointe', f));
+  }
+  try {
+    const response = axios.post(`${END_POINT}/save/etudiant/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 
@@ -198,12 +217,14 @@ function genererDossierProfessionnel(idDossierPro){
 
 }
 
-function handleFileUpload(etudiantId, cursusId,file)
+function handleFileUpload(etudiantId,cursusId,file,nom)
 {
   const formData = new FormData();
   if (file) {
   formData.append('fileImport', file);
+  formData.append('nom', nom);
   }
+ 
   return axios
     .post(`${END_POINT}/upload/${etudiantId}/${cursusId}`, formData)
     .then((response) => response.data)

@@ -30,17 +30,18 @@ function deleteById(id) {
  * @returns 
  */
 
-function update(form) {
+function update(formExp) {
   return axios
-    .put(`${END_POINT}`, form,  requestOptions.headers())
+    .put(`${END_POINT}`, formExp,  requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 }
 
-function save(form)
+function save(formExp)
 {
   return axios
-  .post(`${END_POINT}`, form, requestOptions.headers())
+  .post(`${END_POINT}`, formExp, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+    
 }
