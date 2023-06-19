@@ -60,7 +60,7 @@
             Voir les compétences associées
           </v-btn>
         </v-app>
-        <CompetenceProModal v-show="isModalVisible" @close="closeModal" :cps="competence" v-on:close="onClickClose" />
+        <CompetenceProModal v-show="isModalVisible" @close="closeModal" :idAct="idActiviteType" :cps="competence" v-on:close="onClickClose" />
       </template>
     </b-table>
     <a
@@ -98,7 +98,7 @@ export default {
   },
   data() {
     return {
-
+      idActiviteType:undefined,
       competence: [],
       libelle: "",
       numeroFiche: "",
@@ -248,7 +248,8 @@ export default {
     async showModal(item) {
       this.isModalVisible = true;
       this.competence = await competenceProfessionnelleApi.getAllByIdActiviteType(item.id);
-    },
+      this.idActiviteType = item.id
+      },
     closeModal() {
       this.isModalVisible = false;
     },
