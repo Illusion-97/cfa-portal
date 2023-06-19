@@ -30,10 +30,10 @@
                 @blur="$v.entreprise.raisonSociale.$touch()"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.siret" :error-messages="siretErr" label="Siret" required
-                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()" :rules="[v => /^\d{12}$/.test(v) || '12 chiffres requis']"></v-text-field>
+                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()" :rules="[v => /^\d{14}$/.test(v) || '14 chiffres requis']"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.naf" :error-messages="nafErr" label="NAF" required
-                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()" :rules="[v => /^\d{5}$/.test(v) || '5 chiffres requis']"></v-text-field>
+                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()" :rules="[v => /^\d{4}[A-Z]$/.test(v) || '4 chiffres et une lettre requis']"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.effectifTotal" :error-messages="effectifTotalErr"
                 label="Effectif total" required type="number" @input="$v.entreprise.effectifTotal.$touch()"
