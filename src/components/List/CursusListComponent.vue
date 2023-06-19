@@ -90,6 +90,7 @@
           <template #modal-title>
             <div class="text-center">Modifier le cursus</div>
           </template>
+
           <b-form @submit="modifierCursus(row.item)">
             <v-text-field
               v-model="row.item.niveau"
@@ -108,10 +109,18 @@
 
             <div class="w-100 d-flex justify-content-center">
               <v-text-field
-                v-model="row.item.millesime"
-                label="Millesime*"
-                type="number"
-                required
+                  v-model="row.item.millesime"
+                  label="Millesime*"
+                  type="number"
+                  required
+              ></v-text-field>
+            </div>
+
+            <div class="w-100 d-flex justify-content-center">
+              <v-text-field
+                  v-model="row.item.codeTitre"
+                  label="Code Titre*"
+                  required
               ></v-text-field>
             </div>
             <small>*indique les champs requis</small>
