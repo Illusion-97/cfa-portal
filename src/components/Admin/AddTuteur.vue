@@ -48,7 +48,8 @@
                                 </div>
                             </v-col>
                             <v-col cols="12" md="5">
-                                <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined :rules="required" clearable required>
+                                <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined
+                                    :rules="required" clearable required>
                                     <template v-slot:prepend-item>
                                         <v-list-item @click="showModal('Adresse')">
                                             <v-list-item-action>
@@ -68,15 +69,10 @@
                                             prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined
                                             clearable></v-text-field>
                                     </template>
-                                    <v-date-picker v-model="formulaireTuteur.dateDeNaissance" no-title scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="menu = false">
-                                            Cancel
-                                        </v-btn>
-                                        <v-btn text color="primary"
-                                            @click="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
-                                            OK
-                                        </v-btn>
+                                    <v-date-picker v-model="formulaireTuteur.dateDeNaissance"
+                                        :active-picker.sync="activePicker" locale="fr"
+                                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                                        min="1950-01-01" @change="$refs.menu.save(formulaireTuteur.dateDeNaissance)">
                                     </v-date-picker>
                                 </v-menu>
                             </v-col>
@@ -88,7 +84,7 @@
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise*" outlined
-                                :rules="required" clearable required>
+                                    :rules="required" clearable required>
                                     <template v-slot:prepend-item>
                                         <v-list-item @click="showModal('Entreprise')">
                                             <v-list-item-action>
@@ -125,7 +121,7 @@
             <template #modal-title>
                 <div class="text-center">Ajout d'une adresse</div>
             </template>
-            <addAdresse @adresse="hideModal"/>
+            <addAdresse @adresse="hideModal" />
             <b-button class="mt-3" variant="danger" block @click="hideModal">
                 Annuler</b-button>
         </b-modal>
@@ -135,7 +131,7 @@
             <template #modal-title>
                 <div class="text-center">Ajout d'une entreprise</div>
             </template>
-            <addEntreprise @entreprise="hideModal"/>
+            <addEntreprise @entreprise="hideModal" />
             <b-button class="mt-3" variant="danger" block @click="hideModal">
                 Annuler</b-button>
         </b-modal>
@@ -179,16 +175,22 @@ export default {
                 externalAccount: false,
                 active: true
             },
+            activePicker: null,
+            menu: false,
             listCentreFormation: [],
             listEntreprise: [],
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
             adresseId: null,
             entrepriseId: null,
-            menu: false,
             show1: false,
             required: [v => !!v || 'Le champ est requis'],
         };
+    },
+    watch: {
+        menu(val) {
+            val && setTimeout(() => (this.activePicker = 'YEAR'))
+        },
     },
     created() {
         this.clear();
@@ -264,9 +266,8 @@ export default {
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formulaireTuteur)
-                .then(() => ( this.clear(), this.$emit('hidden', 'Tuteur ajouter.') ))
+                .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouter.')))
                 .catch(() => (this.$emit('hidden', 'Email déjà utiliser veulliez en saisir un autre.')))
-               
         },
     }
 }          

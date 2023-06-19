@@ -4,7 +4,9 @@ import { requestOptions } from "@/_helpers/request-options.js";
 export const promotionApi = {
     getPromotionByid,
     getAllByPage,
+    getAllByIdFormateurByPage,
     getCount,
+    getCountByFormateur,
     countByCentreFormationId,
     save,
     deletePromotion,
@@ -245,6 +247,24 @@ function fetchAllPromotionDG2Http(logInUser) {
 
 function getAllByCentreFormationIdPagination(idCentreFormation, page, size, saisie){
   let req = `promotions/centreFormation/${idCentreFormation}/${page}/${size}/${saisie}`;
+  
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getAllByIdFormateurByPage(idFormateur, page, size, saisie){
+  let req = `promotions/formateur/${idFormateur}/${page}/${size}/${saisie}`;
+  
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function getCountByFormateur(idFormateur, saisie) {
+  let req = `promotions/countByFormateurId/${idFormateur}/${saisie}`;
   
   return axios
     .get(req, requestOptions.headers())

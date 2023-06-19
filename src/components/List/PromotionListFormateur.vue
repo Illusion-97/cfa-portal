@@ -2,7 +2,6 @@
   <div>
     <div class="container-fluid mt-4">
 
-      <!-- BARRE DE RECHERCHE -->
       <div class="header-list">
         <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
@@ -22,56 +21,6 @@
 
       <!-- LIST DES PROMOTIONS -->
       <div class="row d-flex justify-content-arround">
-
-        <!-- LISTE DES PROMOTION -->
-        <!-- <div
-          v-for="promotion in promotionsComputed"
-          :key="promotion.id"
-          @click="click(promotion)"
-          class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card"
-        >
-          <b-card
-            header-text-variant="white"
-            header-tag="header"
-            header-bg-variant="dark"
-            footer-tag="footer"
-            footer-bg-variant="success"
-            footer-border-variant="dark"
-            style="max-width: 32rem"
-            class="card-Promotions col"
-          >
-            <b-card-header
-              class="d-flex justify-content-between bg-white text-secondary col"
-            >
-              {{
-                promotion.centreFormationAdresseVille != null
-                  ? promotion.centreFormationAdresseVille
-                  : "Pas de ville"
-              }}
-              <b-progress height="20px" show-progress class="mb-2 w-50">
-                <b-progress-bar
-                  :value="Progress(promotion)"
-                  :label="Progress(promotion) + '%'"
-                ></b-progress-bar>
-              </b-progress>
-            </b-card-header>
-            <b-card-text class="mt-4 font-weight-bold">{{
-              promotion.nom
-            }}</b-card-text>
-            <b-card-footer
-              class="d-flex justify-content-between bg-white text-secondary"
-            >
-              <span>
-                Date du debut : {{ promotion.dateDebut | formatDate }}
-              </span>
-              <span> Durée: {{ getMoths(promotion) }}M </span>
-              <span>
-                Date de fin : {{ promotion.dateFin | formatDate }}
-              </span></b-card-footer
-            >
-          </b-card>
-        </div> -->
-
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>
@@ -83,7 +32,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="promotion in promotions" :key="promotion.id" @click="click(promotion)">
+            <tr v-for="promotion in promotions" :key="promotion.id">
               <th scope="row">{{ promotion.centreFormationAdresseVille != null ? promotion.centreFormationAdresseVille : "Pas de ville" }}</th>
               <td>{{ promotion.nom }}</td>
               <td>{{ promotion.dateDebut | formatDate }}</td>
@@ -114,9 +63,6 @@
       </paginate>
 
     </div>
-    <!-- <div class="text-center m-4" v-if="loading">
-      <b-spinner variant="primary" label="Text Centered"></b-spinner>
-    </div> -->
   </div>
 </template>
 
@@ -144,8 +90,9 @@ export default {
   data() {
     return {
       promotions: [],
-      perPage: 9,
+      perPage: 7,
       pageCount: 0,
+      nb: 0,
       saisie: "",
       promotion_input: "",
       currentPage: 1,
@@ -153,21 +100,9 @@ export default {
       loading: false,
     };
   },
-  computed: {
-    // PROMOTION
-    // promotionsComputed() {
-    //   return this.promotions;
-    // },
-    nbPageComputed() {
-      return this.pageCount;
-    },
-  },
   created() {
     this.getList();
   },
-  // mounted() {
-    // this.getNextPromotions();
-  // },
   methods: {
     // OTHER
     getMoths(promotion) {
@@ -204,59 +139,24 @@ export default {
     },
     // PROMOTION
     getList() {
-      // this.loading = true;
       promotionApi
-        // .getAllByPage(0, this.perPage, this.saisie)
-        .getCount(this.saisie)
-        .then((response) => {
-          // this.promotions = response;
-          // this.loading = false;
-          this.pageCount = Math.ceil(response / this.perPage)
-
+        .getCountByFormateur(this.$store.getters.getUtilisateur.formateurDto.id, this.saisie)
+        .then((response) => {  this.pageCount = Math.ceil(response.nb / this.perPage), console.log(response.nb) }),
+      
       promotionApi
-        .getAllByPage(this.currentPage, this.perPage, this.saisie)      //this.$store.getters.getUtilisateur.formateurDto.id,
-        .then((response) => {this.promotions = response
-        })
-        // .catch((err) => {
-        //   if (err) {
-        //     this.stopScrol = true;
-        //     this.loading = false;
-        //   }
-        });
+        .getAllByIdFormateurByPage(this.$store.getters.getUtilisateur.formateurDto.id, 0, this.perPage, this.saisie) 
+        .then((response) => { this.promotions = response})
     },
-    // getNextPromotions() {
-    //   window.onscroll = () => {
-    //     let bottomOfWindow =
-    //       window.scrollY + window.innerHeight + 1 >=
-    //       document.documentElement.offsetHeight;
-
-    //     if (bottomOfWindow && this.stopScrol == false) {
-    //       this.currentPage++;
-    //       this.pageChange(this.currentPage * this.perPage);
-    //     }
-    //   };
-    // },
-    pageChange(perPage) {
-      // this.loading = true;
+    pageChange(currentPage) {
       promotionApi
-        // .getAllByPage(0, perPage, this.saisie)
-        .getAllByPage(perPage - 1, this.perPage)
-        .then((response) => {
-          this.promotions = response
-        // })
-        // .catch((err) => {
-        //   if (err) {
-        //     this.stopScrol = true;
-        //     this.loading = false;
-        //   }
-        });
+        .getAllByIdFormateurByPage(this.$store.getters.getUtilisateur.formateurDto.id, currentPage - 1, this.perPage, this.saisie)
+        .then((response) => { this.promotions = response });
     },
-
+    // REDIRECTION 
     clickList(promotion) {
       this.promotion_input = promotion.nom;
       this.$emit("click-list", promotion);
     },
-    // REDIRECTION 
     click(promotion) {
       let route = this.$route.path.split("/").splice(1);
 
@@ -293,7 +193,7 @@ export default {
 </style>
 <style scoped>
 
-tr:hover
+tr
   {
     font-size: 23px;
   }
@@ -302,7 +202,7 @@ tr:hover
   border-radius: 5px;
   min-height: 17rem;
 }
-.card-Promotions:hover {
+.card-Promotions {
   border: 3px solid red;
   cursor: pointer;
 }
