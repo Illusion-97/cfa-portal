@@ -1,11 +1,15 @@
 <template>
   <div id="adminDashboard" class="container-fluid">
+    <!-- MESSAGE D'ALERT -->
     <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
+
+    <!-- LOADING -->
     <div class="d-flex justify-content-center">
       <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
     </div>
+
     <div class="text-align-left" id="groupe-input" v-if="!isAction">
       <label class="col-1">utilisateur</label>
       <input class="col-9 form-control" type="text" :value="utilisateur_input" disabled="disabled" />
@@ -36,10 +40,11 @@
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des utilisateurs
           </span>
           <span v-else>
-            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
           </span>
         </button>
       </div>
+
       <!-- MAJ ETUDIANT -->
       <div class="etudiant p-2">
         <button @click="openModalMajStudent" class="btn btn-outline-info">
@@ -47,10 +52,11 @@
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des étudiants
           </span>
           <span v-else>
-            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
           </span>
         </button>
       </div>
+      
       <!-- ADD TUTEUR -->
       <div class="tuteur p-2">
         <button @click="openModalAddTuteur" class="btn btn-outline-info">
@@ -58,7 +64,7 @@
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un tuteur
           </span>
           <span v-else>
-            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
           </span>
         </button>
       </div>

@@ -139,7 +139,7 @@ export default {
                 if (this.$route.path.split("/").splice(3)[0] == 'detail') {
                     //reqreturn "lala";
                 }
-                return "Mes interventions"
+                return "Interventions"
             } else {
                 return this.$route.path.split("/").splice(2)[0].substring(0, 1).toUpperCase() +
                     this.$route.path.split("/").splice(2)[0].substring(1)

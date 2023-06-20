@@ -1,24 +1,25 @@
 <template>
   <div id="container-fluid">
-    <form class="form-inline form" @submit="submit">
-      <input id="saisie" name="saisie" type="text" placeholder="Rechercher" class="form-control" v-model="saisie" />
-      <button class="btn-submit" type="submit">
-        <font-awesome-icon :icon="['fas', 'search']" class="icon" />
-      </button>
-    </form>
-
     <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0" class="m-2">
       {{ message }}
     </b-alert>
-    <button @click="openClick()" class="btn btn-outline-info mt-4 mb-4">
-      <span v-if="!visible">
-        <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une entreprise
-      </span>
-      <span v-else>
-        <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
-      </span>
 
-    </button>
+    <div class="d-flex flex-row align-items-end justify-content-between">
+      <form class="form-inline form" @submit="submit">
+        <input id="saisie" name="saisie" type="text" placeholder="Rechercher" class="form-control" v-model="saisie" />
+        <button class="btn-submit" type="submit">
+          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+        </button>
+      </form>
+      <button @click="openClick()" class="btn btn-outline-info mt-4 mb-4">
+        <span v-if="!visible">
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une entreprise
+        </span>
+        <span v-else>
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
+        </span>
+      </button>
+    </div>
 
     <b-collapse id="collapse-1" :visible=visible class="mt-2 mb-4">
       <b-card>
@@ -30,10 +31,12 @@
                 @blur="$v.entreprise.raisonSociale.$touch()"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.siret" :error-messages="siretErr" label="Siret" required
-                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()" :rules="[v => /^\d{14}$/.test(v) || '14 chiffres requis']"></v-text-field>
+                @input="$v.entreprise.siret.$touch()" @blur="$v.entreprise.siret.$touch()"
+                :rules="[v => /^\d{14}$/.test(v) || '14 chiffres requis']"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.naf" :error-messages="nafErr" label="NAF" required
-                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()" :rules="[v => /^\d{4}[A-Z]$/.test(v) || '4 chiffres et une lettre requis']"></v-text-field>
+                @input="$v.entreprise.naf.$touch()" @blur="$v.entreprise.naf.$touch()"
+                :rules="[v => /^\d{4}[A-Z]$/.test(v) || '4 chiffres et une lettre requis']"></v-text-field>
 
               <v-text-field rows="2" v-model="entreprise.effectifTotal" :error-messages="effectifTotalErr"
                 label="Effectif total" required type="number" @input="$v.entreprise.effectifTotal.$touch()"
@@ -43,16 +46,10 @@
                 label="Employeur Type" required @input="$v.entreprise.employeurType.$touch()"
                 @blur="$v.entreprise.employeurType.$touch()"></v-select>
 
-                <v-autocomplete
-                    rounded
-                    solo
-                    label="Adresse"
-                    :items="itemsAdresse"
-                    placeholder="ville : libelle"
-                    v-model="entreprise.adresseSiegeId" :error-messages="adresseSiegeErr"
-                    @input="$v.entreprise.adresseSiegeId.$touch()" @blur="$v.entreprise.adresseSiegeId.$touch()"
-                    required
-                  ></v-autocomplete> 
+              <v-autocomplete rounded solo label="Adresse" :items="itemsAdresse" placeholder="ville : libelle"
+                v-model="entreprise.adresseSiegeId" :error-messages="adresseSiegeErr"
+                @input="$v.entreprise.adresseSiegeId.$touch()" @blur="$v.entreprise.adresseSiegeId.$touch()"
+                required></v-autocomplete>
 
               <v-btn class="mr-4" :color="modifier ? 'warning' : 'success'" @click="edit">
 
@@ -94,9 +91,7 @@
           <div class="d-flex align-items-center justify-content-between">
 
             <v-btn class="m-0  widthBtn" color="error" @click="supprimer(row.item)">
-              <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
-
-              Supprimer
+              <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" /> Supprimer
             </v-btn>
             <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)">
               <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
@@ -278,15 +273,6 @@ export default {
       }
 
     },
-    // submit(e) {
-    //   e.preventDefault();
-    //   entrepriseApi
-    //     .getAllByPage(0, this.perPage, this.saisie)
-    //     .then((response) => (this.entreprises = response));
-    //   entrepriseApi
-    //     .getCount(this.saisie)
-    //     .then( (response) => (this.pageCount = Math.ceil(response / this.perPage)));
-    // },
     clear() {
       this.$v.$reset()
       this.entreprise = new Entreprise(0, 0, '', '', '', '', '', '');
@@ -372,11 +358,6 @@ export default {
       let route = this.$route.path.split("/").splice(1);
 
       if (route[0] == 'admin') this.$router.push({ name: 'admin_entreprise_detail', params: { id: entreprise.id } });
-      // else if(route[0]== 'referent')  this.$router.push({name:'referent_entreprise_detail', params: { id: entreprise.id }});
-      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_entreprise_detail', params: { id: entreprise.id }});
-      // else if(route[0]== 'cef') this.$router.push({name:'cef_entreprise_detail', params: { id: entreprise.id }});
-      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_entreprise_detail', params: { id: entreprise.id }});
-
     },
 
   },
