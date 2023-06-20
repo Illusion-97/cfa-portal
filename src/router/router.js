@@ -444,7 +444,7 @@ const routes = [
     meta: { authorize: [Role.Formateur] },
   },
   {
-    path: "/formateur/home",
+    path: "/formateur/accueil",
     name: "formateur_home",
     component: HomeFormateur,
     meta: { authorize: [Role.Formateur] },

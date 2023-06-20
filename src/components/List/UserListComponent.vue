@@ -235,7 +235,6 @@ export default {
   },
   methods: {
     openModalAddTuteur() {
-      console.log(this.visibleAddTuteur)
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
       this.visibleMajUsers = false;

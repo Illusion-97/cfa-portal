@@ -24,7 +24,7 @@
         </form>
         <div class="updateListLocation p-2">
           <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
-            <span v-if="!visible">
+            <span v-if="!showLoginWdg2Card">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des promotions
             </span>
             <span v-else>
