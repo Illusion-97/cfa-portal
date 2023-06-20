@@ -79,6 +79,7 @@
       <login-wdg-2 @hidden="openModalMajUsers" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
     </b-collapse>
 
+    <br>
     <!-- LISTE DES UTILISATEURS -->
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->

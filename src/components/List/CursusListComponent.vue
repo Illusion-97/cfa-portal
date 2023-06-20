@@ -69,7 +69,7 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <template #cell(action)="row">
         <b-button block variant="info" @click="gotoDetailCursus(row.item)">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> Voir
         </b-button>
 
         <b-button block variant="warning" @click="showModal(row.item)">
@@ -90,6 +90,7 @@
           <template #modal-title>
             <div class="text-center">Modifier le cursus</div>
           </template>
+
           <b-form @submit="modifierCursus(row.item)">
             <v-text-field
               v-model="row.item.niveau"
@@ -108,10 +109,18 @@
 
             <div class="w-100 d-flex justify-content-center">
               <v-text-field
-                v-model="row.item.millesime"
-                label="Millesime*"
-                type="number"
-                required
+                  v-model="row.item.millesime"
+                  label="Millesime*"
+                  type="number"
+                  required
+              ></v-text-field>
+            </div>
+
+            <div class="w-100 d-flex justify-content-center">
+              <v-text-field
+                  v-model="row.item.codeTitre"
+                  label="Code Titre*"
+                  required
               ></v-text-field>
             </div>
             <small>*indique les champs requis</small>

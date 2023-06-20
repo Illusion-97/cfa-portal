@@ -13,6 +13,7 @@ export const cursusApi = {
   getAllCursus,
   getByIdEtudiant,
   getCurrentCursusByIdEtudiant,
+  getAllPromotionByIdCursusPaginate,
   getPromotionsById,
   fetchAllCursusDG2Http,
 };
@@ -125,6 +126,19 @@ function getAllCursus() {
     .get(`${END_POINT}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+/**
+ *@param {*} idCursus, page, size
+ * @returns paginated List Promotion
+ */
+function getAllPromotionByIdCursusPaginate(idCursus,page, size){
+  let req = `/${END_POINT}/cursus-page/${idCursus}/${page}/${size}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }
 
 /**
