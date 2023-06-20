@@ -56,6 +56,7 @@
             </v-btn>
           </div>
           <v-btn class="mt-2" color="info" dark @click="showModal(row.item)">
+            
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
             Voir les compétences associées
           </v-btn>

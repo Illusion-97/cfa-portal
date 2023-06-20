@@ -43,19 +43,10 @@
         </div>
       </div>
     </div>
-
-    <!-- <router-link :to="{ name: 'admin_formation_create' }" class="button float-right">
-      Ajouter une nouvelle formation
-    </router-link> -->
-
-    <!-- <small class="form-text info-text ml-1 mt-4">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-      Double-cliquez sur une formation pour plus d'info
-    </small> -->
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
-        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+        <b-button  @click="row.toggleDetails">
           {{ row.detailsShowing ? "Masquer" : "Afficher" }}
         </b-button>
       </template>
@@ -67,9 +58,11 @@
       </template>
       <template #cell(action)="row">
         <b-button block variant="info" @click="gotoDetailDg2(row)">
-          <font-awesome-icon :icon="['fas', 'eye']" />
-          Voir dans Dg2</b-button
-        >
+          <span tooltip="Voir dans Dg2" flow="down">
+          <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
+          Voir
+        </span>
+        </b-button>
       </template>
       <!-- https://dawan.org/Training/show/ -->
       <!--Description -->
@@ -319,13 +312,4 @@ tbody tr {
   font-size: 20px;
 }
 
-.button {
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: inherit;
-  text-decoration: none;
-  color: black;
-  padding: 1.5px 10px;
-  /* margin-bottom: 1em; */
-}
 </style>
