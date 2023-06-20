@@ -69,23 +69,27 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <template #cell(action)="row">
         <b-button block variant="info" @click="gotoDetailCursus(row.item)">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> Voir
+          <span tooltip="Voir le détail" flow="left">
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />
+          Détails
+        </span> 
         </b-button>
 
         <b-button block variant="warning" @click="showModal(row.item)">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
-          Modifier
+          <span tooltip="Modifier" flow="left">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+            Modifier
+          </span>
         </b-button>
 
-        <v-btn
-          class="mt-2"
-          color="info"
-          dark
+        <b-button block variant="primary"
           @click="gotoActiviteTypeCursus(row.item)"
         >
+        <span tooltip="Voir les activitées type associées" flow="left">
           <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
-          Voir les activitées type associées
-        </v-btn>
+          Voir AT
+        </span>
+        </b-button>
         <b-modal hide-footer :ref="'modal-' + row.item.id">
           <template #modal-title>
             <div class="text-center">Modifier le cursus</div>

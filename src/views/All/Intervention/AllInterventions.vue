@@ -59,7 +59,9 @@
           variant="info"
           @click="gotoDetailIntervention(row.item)"
         >
+        <span tooltip="Détails intervention" flow="down">
           <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> Voir
+        </span>
         </b-button>
       </template>
     </b-table>

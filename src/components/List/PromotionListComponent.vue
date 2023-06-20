@@ -106,7 +106,9 @@
                 variant="info"
                 @click="gotoDetailPromotion(promotion)"
               >
+              <span tooltip="Détails promotion" flow="down">
                 <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
+              </span>
               </b-button>
            </td>
         </tr>
