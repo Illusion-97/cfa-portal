@@ -1,56 +1,41 @@
 <template>
   <div class="container-fluid">
-    <BodyTitle title="Liste des Interventions" />
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      :variant="color"
-      @dismissed="dismissCountDown = 0"
-    >
+    <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
     <div class="d-flex justify-content-center">
-      <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
+      <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
     </div>
     <div class="d-flex flex-row align-items-end justify-content-between">
       <form class="form-inline p-2" @submit="search">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          v-model="key"
-          placeholder="Rechercher une formation..."
-        />
+        <input id="saisie" name="saisie" type="text" class="form-control" v-model="key"
+          placeholder="Rechercher une formation..." />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
       </form>
       <div class="updateListFormation p-2">
         <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
-          Mise à jour des interventions
+          <span v-if="!showLoginWdg2Card">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des interventions
+          </span>
+          <span v-else>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
+          </span>
         </button>
-        <div class="login-wdg2">
-          <login-wdg-2
-            v-if="showLoginWdg2Card"
-            @logInUser="logInUserWdg2"
-            @wdg2Close="wdg2Close"
-          />
-        </div>
       </div>
     </div>
+
+    <b-collapse class="login-wdg2" :visible=showLoginWdg2Card>
+      <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
+    </b-collapse>
 
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <template #cell(intitule)="row">
         {{
           row.item.formationDto != null
-            ? row.item.formationDto.titre
-            : "Non définit"
+          ? row.item.formationDto.titre
+          : "Non définit"
         }}
       </template>
       <template #cell(action)="row">
@@ -65,22 +50,10 @@
         </b-button>
       </template>
     </b-table>
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
       >
     </paginate>
   </div>
@@ -90,19 +63,17 @@
 import { interventionApi } from "@/_api/intervention.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { fieldsIntervention } from "@/assets/js/fields.js";
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 
 export default {
   name: "Intervention",
   components: {
-    BodyTitle,
     LoginWdg2,
   },
   data() {
     return {
       items: [],
       currentPage: 1,
-      perPage: 9,
+      perPage: 10,
       pageCount: 0,
       keyword: "",
       length: 0,
@@ -162,13 +133,13 @@ export default {
     },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
-      this.showLoginWdg2Card = true;
+      this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },
     // fetch courses from webservice DG2
-      async logInUserWdg2(value) {
+    async logInUserWdg2(value) {
       this.showLoginWdg2Card = false;
       this.loading = true;
-     await interventionApi
+      await interventionApi
         .fetchAllInterventionsDG2Http({ logInUser: value })
         .then((response) => {
           this.color = "success";

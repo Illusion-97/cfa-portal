@@ -377,4 +377,3 @@ methods: {
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-

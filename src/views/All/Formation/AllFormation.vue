@@ -1,48 +1,32 @@
 <template>
   <section>
-    <b-alert
-    class="m-4"
-      :show="dismissCountDown"
-      dismissible
-      fade
-      :variant="color"
-      @dismissed="dismissCountDown = 0"
-      
-    >
+    <b-alert class="m-4" :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
     <div class="d-flex flex-row align-items-end justify-content-between">
       <form class="form-inline p-2" @submit="search">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          v-model="key"
-          placeholder="Rechercher une formation..."
-        />
+        <input id="saisie" name="saisie" type="text" class="form-control" v-model="key"
+          placeholder="Rechercher une formation..." />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
       </form>
       <div class="updateListLocation p-2">
-        <button
-          name="button2"
-          outlined
-          @click="openLoginWdg2"
-          class="btn btn-outline-info"
-        >
-          Mise à jour des formations
+        <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
+          <span v-if="!showLoginWdg2Card">
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des formations
+          </span>
+          <span v-else>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
+          </span>
         </button>
-        <div class="login-wdg2">
-          <login-wdg-2
-            v-if="showLoginWdg2Card"
-            @logInUser="logInUserWdg2"
-            @wdg2Close="wdg2Close"
-          />
-        </div>
       </div>
     </div>
+
+    <b-collapse class="login-wdg2" :visible=showLoginWdg2Card>
+      <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
+    </b-collapse>
+
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
@@ -64,37 +48,19 @@
         </span>
         </b-button>
       </template>
-      <!-- https://dawan.org/Training/show/ -->
       <!--Description -->
       <template #row-details="row">
         <b-card>
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-1 class="btn-accordion"
-                >Cursus associés
+              <b-button block v-b-toggle.accordion-1 class="btn-accordion">Cursus associés
               </b-button>
             </b-card-header>
-            <b-collapse
-              id="accordion-1"
-              visible
-              accordion="my-accordion"
-              role="tabpanel"
-            >
+            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
               <b-card-body>
-                <b-table
-                  sticky-header
-                  :items="row.item.cursus"
-                  head-variant="dark"
-                  :fields="fieldsCursus"
-                  dark
-                  bordered
-                >
+                <b-table sticky-header :items="row.item.cursus" head-variant="dark" :fields="fieldsCursus" dark bordered>
                   <template #cell(action)="row">
-                    <b-button
-                      block
-                      variant="info"
-                      @click="gotoDetailCursus(row.item)"
-                    >
+                    <b-button block variant="info" @click="gotoDetailCursus(row.item)">
                       <font-awesome-icon :icon="['fas', 'eye']" />
                     </b-button>
                   </template>
@@ -104,55 +70,26 @@
           </b-card>
           <b-card no-body class="mb-1">
             <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-2 class="btn-accordion"
-                >Interventions Liées</b-button
-              >
+              <b-button block v-b-toggle.accordion-2 class="btn-accordion">Interventions Liées</b-button>
             </b-card-header>
-            <b-collapse
-              id="accordion-2"
-              accordion="my-accordion"
-              role="tabpanel"
-            >
+            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
               <b-card-body>
-                <b-table
-                  sticky-header
-                  :items="row.item.interventions"
-                  head-variant="dark"
-                  :fields="fieldsIntervention"
-                  dark
-                  bordered
-                >
+                <b-table sticky-header :items="row.item.interventions" head-variant="dark" :fields="fieldsIntervention"
+                  dark bordered>
                   <template #cell(action)="row">
-                    <b-button
-                      block
-                      variant="info"
-                      @click="gotoDetailIntervention(row.item)"
-                    >
+                    <b-button block variant="info" @click="gotoDetailIntervention(row.item)">
                       <font-awesome-icon :icon="['fas', 'eye']" />
-                    </b-button> </template
-                ></b-table>
+                    </b-button> </template></b-table>
               </b-card-body>
             </b-collapse>
           </b-card>
         </b-card>
       </template>
     </b-table>
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
       >
     </paginate>
   </section>
@@ -247,7 +184,7 @@ export default {
     },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
-      this.showLoginWdg2Card = true;
+      this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },
     // fetch courses from webservice DG2
     async logInUserWdg2(value) {
@@ -290,8 +227,7 @@ export default {
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-<style scoped src="@/assets/styles/BtnAccordion.css">
-</style>
+<style scoped src="@/assets/styles/BtnAccordion.css"></style>
 <style scoped>
 tbody tr {
   cursor: pointer;
@@ -305,9 +241,11 @@ tbody tr {
   width: 2.5em;
   margin-left: -3em;
 }
+
 .icon {
   color: brown;
 }
+
 .icon:hover {
   font-size: 20px;
 }
