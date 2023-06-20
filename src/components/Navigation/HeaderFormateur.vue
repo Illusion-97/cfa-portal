@@ -171,13 +171,13 @@ export default {
 
 .btnHeader {
     font-size: 25px !important;
-    font-family: Roboto;
     font-weight: 500;
     float: right;
     width: 40%;
     height: 100%;
     border: 5px;
-    right: 100%
+    right: 100%;
+    border-radius: 4px;
 }
 
 .title-header{
