@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 2,
+      perPage: 8,
       pageCount: 0,
       date: new Date(),
       interventions: [],
