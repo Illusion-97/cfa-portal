@@ -98,7 +98,7 @@
           </span>
         </v-btn>
 
-        <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)" v-on="on">
+        <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)">
           <span tooltip="Modifier" flow="down">
             <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> 
           </span>
