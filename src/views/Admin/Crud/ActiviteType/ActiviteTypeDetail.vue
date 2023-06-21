@@ -180,7 +180,6 @@ export default {
           this.message = "l'activité type " + response.libelle + " a été ajouté avec success"
           this.visible = false;
           this.getList()
-          console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;
