@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluide">
+  <div class="container-fluid">
 
     <!-- BARRE DE RECHERCHE -->
     <div class="header-list m-4">
@@ -12,7 +12,7 @@
     </div>
 
     <!-- LIST DES INTERVENTIONS -->
-    <div class="row d-flex justify-content-arround m-2 scrol">
+    <div class="row d-flex justify-content-arround p-2">
       <!-- <div v-for="item in items" :key="item.id" @click="click(item)"
         class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card">
         <b-card header-text-variant="white" header-tag="header" header-bg-variant="dark" footer-tag="footer"
@@ -182,11 +182,6 @@ export default {
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
 <style scoped>
-
-.tr:hover
-  {
-    font-size: 23px;
-  }
 
 .scrol {
   min-height: 101vh;
