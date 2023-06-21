@@ -4,6 +4,7 @@ import { requestOptions } from "@/_helpers/request-options.js";
 export const promotionApi = {
     getPromotionByid,
     getAllByPage,
+    getAllByPageSort,
     getCount,
     countByCentreFormationId,
     save,
@@ -11,6 +12,7 @@ export const promotionApi = {
     getAllPromotions,
     getAll,
     getEtudiants,
+    getPromotionsOrderedBy,
     getNote,
     getCours,
     getCef,
@@ -52,6 +54,23 @@ function getAllByPage(page, size, search ="" ) {
     .get(req, requestOptions.headers())
     .then(response => response.data)
     .catch((error) => console.log(error));
+}
+
+function getAllByPageSort(page, size,choix = 0, search ="" ) {
+    let req = `/promotions/${page}/${size}/sort/${choix}/${search}`;
+
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+function getPromotionsOrderedBy(page, choix ) {
+    let req = `/promotions/${page}/${choix}`;
+
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
 
 /**

@@ -78,11 +78,20 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>Nom de la promo <sort-component :data-table="promotions.nom"/></th>
+          <th>Nom de la promo</th>
           <th>Type</th>
           <th>Date de debut</th>
-          <th>Date de fin</th>
-          <th>Nombre de Participants</th>
+          <th>Date de fin <button @click="sortBy('dateDebut')"> tri </button></th>
+          <th>Nombre de Participants
+            <button @click="sortAsc">
+              <span v-if="opened">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
+              </span>
+              <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />
+              </span>
+            </button>
+          </th>
           <th>Centre dawan</th>
           <th>Action</th>
         </tr>
@@ -91,9 +100,8 @@
         <tr
           v-for="(promotion) in promotionsComputed"
           :key="promotion.id"
-          class="mon-tr"
-          v-on:click="clickList(promotion)"
-        >
+          class="mon-tr">
+
           <td>{{ promotion.title }}</td>
           <td>{{promotion.type}}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
@@ -137,13 +145,11 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import { etudiantApi } from '@/_api/etudiant.api.js';
 import { interventionApi } from '@/_api/intervention.api.js';
-import SortComponent from "@/components/Admin/SortComponent.vue";
-//import SearchBarComponent from "@/components/Admin/SearchBarComponent.vue";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 export default {
   name: "PromotionListComponent",
   components: {
-    SortComponent, LoginWdg2
+    LoginWdg2
   },
   props: {
     isAction: {
@@ -164,6 +170,7 @@ export default {
   data() {
     return {
       dismissCountDown: null,
+      opened: false,
       message: "",
       title:"",
       color: "success",
@@ -215,7 +222,6 @@ export default {
     nbPageComputed() {
       return this.pageCount;
     },
-
   },
   created() {
     this.saisie = this.$route.params.ville;
@@ -240,7 +246,7 @@ export default {
     },
     pageChange(pageNum) {
       promotionApi
-        .getAllByPage(pageNum - 1, this.perPage)
+        .getAllByPageSort(pageNum - 1, this.perPage, 1)
         .then((response) => (this.promotions = response));
     },
     refreshList() {
@@ -255,8 +261,9 @@ export default {
         })
           })
     },
-
-
+    sortAsc() {
+      this.opened = !this.opened;
+      },
     deletePromotion(promotionId) {
       var res = confirm("Êtes-vous sûr de vouloir supprimer?");
       if (res) {
@@ -265,10 +272,7 @@ export default {
           .then(() => this.refreshList());
       }
     },
-    clickList(promotion) {
-      this.promotion_input = promotion.nom;
-      this.$emit("click-list", promotion);
-    },
+
     gotoDetailPromotion(promo) {
       this.$router.push({
         name: "admin_promotion_details",
