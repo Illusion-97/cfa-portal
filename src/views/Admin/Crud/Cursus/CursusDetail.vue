@@ -110,7 +110,7 @@ export default {
     cursusApi
       .getById(this.$route.params.id)
       .then((response) => (this.cursus = response));
-    cursusApi.getCount().then(response =>{
+    cursusApi.countPromotionByIdCursus(this.$route.params.id).then(response =>{
       this.pageCount = Math.ceil(response / this.perPage)
     })
     cursusApi
@@ -120,7 +120,7 @@ export default {
   methods :{
     pageChange(pageNum) {
       cursusApi
-          .getAllPromotionByIdCursusPaginate(this.$route.params.id, pageNum, this.perPage)
+          .getAllPromotionByIdCursusPaginate(this.$route.params.id, pageNum - 1, this.perPage)
           .then((response) => (this.promotions = response));
     },
     goBack() {
