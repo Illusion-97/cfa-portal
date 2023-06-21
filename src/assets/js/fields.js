@@ -96,14 +96,14 @@ export const examensFields = [
 ];
 
 export const formationFields = [
-  {
-    key: "Details",
-    label: "Détails",
-  },
   { key: "titre", label: "Intitulé" },
   { key: "duration", label: "Durée" },
   { key: "objectif", label: "objectif" },
   { key: "prerequis", label: "Prérequis" },
+  {
+    key: "Details",
+    label: "Détails",
+  },
   {
     key: "Action",
     label: "Action",
@@ -197,10 +197,6 @@ export const fieldsCompetencePro = [
 ]
 
 export const fieldsEntreprise = [
-  {
-    key: "Details",
-    label: "Détails",
-  },
   {
     key: "raisonSociale",
     label: "Raison Sociale",

@@ -1,6 +1,47 @@
 <template>
   <section>
     <div id="grid-container">
+      
+      <div>
+        <h1> Interventions à venir </h1>
+        <div class="row d-flex justify-content-arround m-2">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in intervention" :key="item.id" class="tr">
+                <th scope="row">{{ item.formationDto.titre  != null ? item.formationDto.titre : 'Pas de formation' }}</th>
+                <th>{{ item.date }}</th>
+              </tr>
+            </tbody>
+          </table> 
+        </div> 
+            
+            <paginate
+              class="customPagination"
+              :page-count="pageCount"
+              :page-range="1"
+              :margin-pages="2"
+              :click-handler="pageChange"
+              :prev-text="'Prev'"
+              :next-text="'Next'"
+              :container-class="'pagination float-right'"
+              :page-class="'page-item'"
+              :page-link-class="'page-link'"
+              :prev-class="'page-item'"
+              :next-class="'page-item'"
+              :prev-link-class="'page-link'"
+              :next-link-class="'page-link'"
+              :active-class="'active'"
+            >
+            </paginate>
+
+      </div>
+
       <div id="trainer-planning">
         <Planning />
       </div>
@@ -18,33 +59,55 @@ export default {
   },
   data() {
     return {
-
+      currentPage: 1,
+      perPage: 5,
+      pageCount: 0,
+      date: new Date(),
+      interventions: [],
+      intervention: [],
     };
   },
-  computed: {
-    utilisateur() {
-      return this.$store.getters.getUtilisateur;
-    },
-  },
-  created() {
-    utilisateurApi
-      .getPlanningById(this.$store.getters.getUtilisateur.id)
-      .then((response) => this.$store.dispatch("setPlanning", response));
-      
-    if (this.isFormateur) {
-      this.$router.push({ name: "formateur_home" })
-    }
 
+  async created() {
+    await utilisateurApi
+        .getPlanningById(this.$store.getters.getUtilisateur.id)
+        .then((response) => { 
+          this.$store.dispatch("setPlanning", response),-
+          response.forEach(element => {
+            if (new Date(element.date) > this.date) {
+              let item = element;
+              this.interventions.push(item);
+            }
+          });
+          this.interventions.sort((a , b) => (a.date.localeCompare(b.date)));
+        });
+        this.pageCount = Math.ceil(this.interventions.length / this.perPage);
+        this.intervention = this.interventions
+        // console.log(this.pageCount)
+        this.pageChange(this.currentPage);
+  },
+  methods: {
+    pageChange(currentPage) {
+      this.intervention = this.interventions.slice((currentPage * this.perPage) - this.perPage, currentPage * this.perPage)
+      // console.log(this.interventions)
+    }
   }
 };
 </script>
-
 <style lang="css" scoped>
 #grid-container {
   display: grid;
   grid-template-rows: 30vh 1fr;
-  row-gap: 2em;
+  row-gap: 15em;
 }
+
+h1
+  {
+    text-align: center;
+    margin: 1% 0 3% 0;
+    /* font-weight: bold; */
+    text-decoration: underline;
+  }
 
 #identite {
   grid-row: 1;

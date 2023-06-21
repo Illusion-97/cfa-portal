@@ -3,82 +3,46 @@
     <div class="text-align-left" id="groupe-input" v-if="!isAction">
       <label class="col-1">Promotion</label>
 
-      <input
-        class="col-9 form-control"
-        type="text"
-        :value="promotion_input"
-        disabled="disabled"
-      />
+      <input class="col-9 form-control" type="text" :value="promotion_input" disabled="disabled" />
     </div>
 
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      :variant="color"
-      @dismissed="dismissCountDown = 0"
-    >
+    <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
     <div class="d-flex justify-content-center">
-      <v-progress-circular
-        v-if="loading"
-        indeterminate
-        color="red darken-1"
-      ></v-progress-circular>
+      <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
     </div>
 
     <div class="updateListPromotion">
       <div class="d-flex flex-row align-items-end justify-content-between">
         <form class="form-inline form" @submit="submit">
-          <input
-            id="saisie"
-            name="saisie"
-            placeholder="Rechercher"
-            type="text"
-            class="form-control"
-            v-model="saisie"
-          />
+          <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
           <!--<search-bar-component @search="searchSortList"/>-->
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
         <div class="updateListLocation p-2">
-          <button
-            name="button2"
-            outlined
-            @click="openLoginWdg2"
-            class="btn btn-outline-info"
-          >
-            Mise à jour des promotions
+          <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
+            <span v-if="!showLoginWdg2Card">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des promotions
+            </span>
+            <span v-else>
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
+            </span>
           </button>
-          <div class="login-wdg2">
-            <login-wdg-2
-                v-if="showLoginWdg2Card"
-                @logInUser="logInUserWdg2"
-                @wdg2Close="wdg2Close"
-            />
-          </div>
-
         </div>
       </div>
-
-      <!-- <router-link
-        class="btn btn-primary"
-        :to="{ name: 'admin_promotion_create' }"
-        v-if="isAction"
-        >Ajouter une promotion</router-link
-      > -->
     </div>
-    <!-- <small class="form-text info-text ml-1 mt-4">
-      <font-awesome-icon :icon="['fas', 'info-circle']" />
-      Double-cliquez sur une promotion pour plus d'info
-    </small> -->
+
+    <b-collapse class="login-wdg2" :visible=showLoginWdg2Card>
+      <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
+    </b-collapse>
+
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>Nom de la promo <sort-component :data-table="promotions.nom"/></th>
+          <th>Nom de la promo <sort-component :data-table="promotions.nom" /></th>
           <th>Type</th>
           <th>Date de debut</th>
           <th>Date de fin</th>
@@ -88,17 +52,13 @@
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
-        <tr
-          v-for="(promotion) in promotionsComputed"
-          :key="promotion.id"
-          class="mon-tr"
-          v-on:click="clickList(promotion)"
-        >
+        <tr v-for="(promotion) in promotionsComputed" :key="promotion.id" class="mon-tr"
+          v-on:click="clickList(promotion)">
           <td>{{ promotion.title }}</td>
-          <td>{{promotion.type}}</td>
+          <td>{{ promotion.type }}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
           <td>{{ promotion.dateFin | formatDate }}</td>
-          <td>{{promotion.nbParticipants}}</td>
+          <td>{{ promotion.nbParticipants }}</td>
           <td>{{ promotion.centreFormationDto.nom }}</td>
           <td>
               <b-button
@@ -106,29 +66,19 @@
                 variant="info"
                 @click="gotoDetailPromotion(promotion)"
               >
+              <span tooltip="Détails promotion" flow="down">
                 <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
+              </span>
               </b-button>
            </td>
         </tr>
       </tbody>
     </table>
 
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
+    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
+      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+      :next-link-class="'page-link'" :active-class="'active'">
     </paginate>
   </div>
 </template>
@@ -138,7 +88,6 @@ import { promotionApi } from "@/_api/promotion.api.js";
 import { etudiantApi } from '@/_api/etudiant.api.js';
 import { interventionApi } from '@/_api/intervention.api.js';
 import SortComponent from "@/components/Admin/SortComponent.vue";
-//import SearchBarComponent from "@/components/Admin/SearchBarComponent.vue";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 export default {
   name: "PromotionListComponent",
@@ -165,7 +114,7 @@ export default {
     return {
       dismissCountDown: null,
       message: "",
-      title:"",
+      title: "",
       color: "success",
       promotions: [],
       currentPage: 0,
@@ -201,7 +150,7 @@ export default {
 
         // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
         const existingPromotion = uniquePromotions.find(
-            (p) => p.id === promotionWithModifiedTitle.id
+          (p) => p.id === promotionWithModifiedTitle.id
         );
 
         if (!existingPromotion) {
@@ -227,9 +176,9 @@ export default {
 
   methods: {
     submit(e) {
-      if (e) 
+      if (e)
         e.preventDefault();
-         promotionApi
+      promotionApi
         .getCount(this.saisie)
         .then(
           (response) => (this.pageCount = Math.ceil(response / this.perPage))
@@ -244,15 +193,17 @@ export default {
         .then((response) => (this.promotions = response));
     },
     refreshList() {
-         promotionApi
+      promotionApi
         .getCount()
         .then(
-          (response) => {this.pageCount = Math.ceil(response / this.perPage)
+          (response) => {
+            this.pageCount = Math.ceil(response / this.perPage)
 
-        promotionApi
-        .getAllByPage(this.currentPage, this.perPage)
-        .then((response) => {this.promotions = response;
-        })
+            promotionApi
+              .getAllByPage(this.currentPage, this.perPage)
+              .then((response) => {
+                this.promotions = response;
+              })
           })
     },
 
@@ -275,14 +226,14 @@ export default {
         params: { id: promo.id },
       });
     },
-    openLoginWdg2EtudiantBypromo(promotion,index) {
-      let card = document.getElementById('ShowLoginCardEtudiant-'+index)
+    openLoginWdg2EtudiantBypromo(promotion, index) {
+      let card = document.getElementById('ShowLoginCardEtudiant-' + index)
       card.hidden = !card.hidden
     },
-    wdg2CloseEtudiantByPromo(index){
-      document.getElementById('ShowLoginCardEtudiant-'+index).hidden = true
+    wdg2CloseEtudiantByPromo(index) {
+      document.getElementById('ShowLoginCardEtudiant-' + index).hidden = true
     },
-    async importInterventionByPromo(value){
+    async importInterventionByPromo(value) {
 
       this.showLoginWdg2CardInterventionByPromo = false;
       this.loading = true;
@@ -296,7 +247,7 @@ export default {
           this.dismissCountDown = 6;
           this.message = response.data;
           this.loading = false;
-           this.refreshList();
+          this.refreshList();
         })
         .catch((err) => {
           this.color = "danger";
@@ -307,7 +258,7 @@ export default {
 
     },
 
-    async importEtudiantPromo(value){
+    async importEtudiantPromo(value) {
 
       this.showLoginWdg2CardEtudiantByPromo = false;
       this.loading = true;
@@ -322,7 +273,7 @@ export default {
           this.dismissCountDown = 6;
           this.message = response.data;
           this.loading = false;
-           this.refreshList();
+          this.refreshList();
         })
         .catch((err) => {
           this.color = "danger";
@@ -334,7 +285,7 @@ export default {
     },
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
-      this.showLoginWdg2Card = true;
+      this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },
     // fetch courses from webservice DG2
     async logInUserWdg2(value) {
@@ -347,7 +298,7 @@ export default {
           this.dismissCountDown = 6;
           this.message = response.data;
           this.loading = false;
-           this.refreshList();
+          this.refreshList();
         })
         .catch((err) => {
           this.color = "danger";
@@ -355,7 +306,7 @@ export default {
           this.message = err;
           this.loading = false;
         });
-     
+
     },
     // close the card for the login to webservice DG2
     wdg2Close(value) {

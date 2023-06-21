@@ -10,7 +10,7 @@
           </v-btn>
         </div>
           <div class="modal-body">
-            <v-btn @click="openModalAdd">
+            <v-btn @click="openModalAdd" color="blue-grey" style="margin-bottom: 10px; background-color: #343a40; color: white">
               <span v-if="!hiddenInput ">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence professionnelle
               </span>
@@ -83,11 +83,12 @@ export default {
   props: {
     cps: {
       default: null,
+    },
+    idAct:{
+      default:null
     }
   },
   created() {
-    this.getIdFromUrl();
-    console.log(this.competence.activiteTypeId)
   },
   methods: {
     close() {
@@ -97,16 +98,11 @@ export default {
       this.hiddenInput = !this.hiddenInput;
     },
     addCompetence(){
+      this.competence.activiteTypeId = this.idAct
       competenceProfessionnelleApi.save(this.competence).then(
           location.reload()
       )
     },
-    getIdFromUrl() {
-      const url = window.location.href;
-      const segments = url.split('/');
-      this.competence.activiteTypeId = segments[segments.length - 1];
-      console.log(this.competence.activiteTypeId)
-    }
   },
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="container-fluid mt-4">
+  <!-- <div> -->
+    <div class="container-fluid">
 
-      <!-- BARRE DE RECHERCHE -->
       <div class="header-list">
+        <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
           <input
             id="saisie"
@@ -17,11 +17,13 @@
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
-      </div>
+      </div><br/>
 
       <!-- LIST DES PROMOTIONS -->
-      <div class="row d-flex justify-content-arround">
-        <div
+      <div class="row d-flex justify-content-arround p-2 scrol">
+
+        <!-- LISTE DES PROMOTION -->
+        <!-- <div
           v-for="promotion in promotionsComputed"
           :key="promotion.id"
           @click="click(promotion)"
@@ -67,13 +69,54 @@
               </span></b-card-footer
             >
           </b-card>
-        </div>
+        </div> -->
+
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Ville</th>
+              <th scope="col">Titre</th>
+              <th scope="col">Date de début</th>
+              <th scope="col">Durée</th>
+              <th scope="col">Date de fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="promotion in promotions" :key="promotion.id">
+              <th scope="row">{{ promotion.centreFormationAdresseVille != null ? promotion.centreFormationAdresseVille : "Pas de ville" }}</th>
+              <td>{{ promotion.nom }}</td>
+              <td>{{ promotion.dateDebut | formatDate }}</td>
+              <td>{{ getMoths(promotion) }}M</td>
+              <td>{{ promotion.dateFin | formatDate }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+      <paginate
+        class="customPagination"
+        :page-count="pageCount"
+        :page-range="1"
+        :margin-pages="2"
+        :click-handler="pageChange"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination float-right'"
+        :page-class="'page-item'"
+        :page-link-class="'page-link'"
+        :prev-class="'page-item'"
+        :next-class="'page-item'"
+        :prev-link-class="'page-link'"
+        :next-link-class="'page-link'"
+        :active-class="'active'"
+      >
+      </paginate>
+
     </div>
-    <div class="text-center m-4" v-if="loading">
+    <!-- <div class="text-center m-4" v-if="loading">
       <b-spinner variant="primary" label="Text Centered"></b-spinner>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -100,8 +143,9 @@ export default {
   data() {
     return {
       promotions: [],
-      perPage: 9,
+      perPage: 7,
       pageCount: 0,
+      nb: 0,
       saisie: "",
       promotion_input: "",
       currentPage: 1,
@@ -109,17 +153,8 @@ export default {
       loading: false,
     };
   },
-  computed: {
-    // PROMOTION
-    promotionsComputed() {
-      return this.promotions;
-    },
-  },
   created() {
     this.getList();
-  },
-  mounted() {
-    this.getNextPromotions();
   },
   methods: {
     // OTHER
@@ -157,52 +192,24 @@ export default {
     },
     // PROMOTION
     getList() {
-      this.loading = true;
       promotionApi
-        .getAllByPage(0, this.perPage, this.saisie)
-        .then((response) => {
-          this.promotions = response;
-          this.loading = false;
-        })
-        .catch((err) => {
-          if (err) {
-            this.stopScrol = true;
-            this.loading = false;
-          }
-        });
-    },
-    getNextPromotions() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          window.scrollY + window.innerHeight + 1 >=
-          document.documentElement.offsetHeight;
-
-        if (bottomOfWindow && this.stopScrol == false) {
-          this.currentPage++;
-          this.pageChange(this.currentPage * this.perPage);
-        }
-      };
-    },
-    pageChange(perPage) {
-      this.loading = true;
+        .getCountByFormateur(this.$store.getters.getUtilisateur.formateurDto.id, this.saisie)
+        .then((response) => {  this.pageCount = Math.ceil(response.nb / this.perPage), console.log(response.nb) }),
+      
       promotionApi
-        .getAllByPage(0, perPage, this.saisie)
-        .then((response) => {
-          this.promotions = response;
-        })
-        .catch((err) => {
-          if (err) {
-            this.stopScrol = true;
-            this.loading = false;
-          }
-        });
+        .getAllByIdFormateurByPage(this.$store.getters.getUtilisateur.formateurDto.id, 0, this.perPage, this.saisie) 
+        .then((response) => { this.promotions = response})
     },
-
+    pageChange(currentPage) {
+      promotionApi
+        .getAllByIdFormateurByPage(this.$store.getters.getUtilisateur.formateurDto.id, currentPage - 1, this.perPage, this.saisie)
+        .then((response) => { this.promotions = response });
+    },
+    // REDIRECTION 
     clickList(promotion) {
       this.promotion_input = promotion.nom;
       this.$emit("click-list", promotion);
     },
-    // REDIRECTION 
     click(promotion) {
       let route = this.$route.path.split("/").splice(1);
 
@@ -238,11 +245,12 @@ export default {
 <style scoped src="@/assets/styles/CrudListComponent.css">
 </style>
 <style scoped>
+
 .card-Promotions {
   border-radius: 5px;
   min-height: 17rem;
 }
-.card-Promotions:hover {
+.card-Promotions {
   border: 3px solid red;
   cursor: pointer;
 }

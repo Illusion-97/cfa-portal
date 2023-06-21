@@ -56,11 +56,12 @@
             </v-btn>
           </div>
           <v-btn class="mt-2" color="info" dark @click="showModal(row.item)">
+            
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
             Voir les compétences associées
           </v-btn>
         </v-app>
-        <CompetenceProModal v-show="isModalVisible" @close="closeModal" :cps="competence" v-on:close="onClickClose" />
+        <CompetenceProModal v-show="isModalVisible" @close="closeModal" :idAct="idActiviteType" :cps="competence" v-on:close="onClickClose" />
       </template>
     </b-table>
     <a
@@ -98,7 +99,7 @@ export default {
   },
   data() {
     return {
-
+      idActiviteType:undefined,
       competence: [],
       libelle: "",
       numeroFiche: "",
@@ -244,26 +245,26 @@ export default {
           this.message = err;
         });
     },
-      async showModal(item) {
-        this.isModalVisible = true;
-        this.competence = await competenceProfessionnelleApi.getAllByIdActiviteType(item.id);
-
+    async showModal(item) {
+      this.isModalVisible = true;
+      this.competence = await competenceProfessionnelleApi.getAllByIdActiviteType(item.id);
+      this.idActiviteType = item.id
       },
-      closeModal() {
-        this.isModalVisible = false;
-      },
-      goBack() {
-        this.$router.go(-1);
-      },
-      onClickClose(cps) {
-        this.form.cpsDto = cps;
-      },
-      removeFromlist(index) {
-        this.form.cpsDto.splice(index, 1);
-      },
-      clickCp(){
-        this.isModalVisible = true;
-      }
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
+    onClickClose(cps) {
+      this.form.cpsDto = cps;
+    },
+    removeFromlist(index) {
+      this.form.cpsDto.splice(index, 1);
+    },
+    clickCp(){
+      this.isModalVisible = true;
+    }
   },
 };
 </script>

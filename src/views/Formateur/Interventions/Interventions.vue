@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluide">
+  <div class="container-fluid">
 
     <!-- BARRE DE RECHERCHE -->
     <div class="header-list m-4">
@@ -12,8 +12,8 @@
     </div>
 
     <!-- LIST DES INTERVENTIONS -->
-    <div class="row d-flex justify-content-arround">
-      <div v-for="item in items" :key="item.id" @click="click(item)"
+    <div class="row d-flex justify-content-arround p-2">
+      <!-- <div v-for="item in items" :key="item.id" @click="click(item)"
         class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card">
         <b-card header-text-variant="white" header-tag="header" header-bg-variant="dark" footer-tag="footer"
           footer-bg-variant="success" footer-border-variant="dark" style="max-width: 32rem"
@@ -35,11 +35,48 @@
             Date de fin : {{ item.dateFin | formatDate }}
           </b-card-footer>
         </b-card>
-      </div>
+      </div> -->
+    
+      <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Titre</th>
+              <th scope="col">Date de début</th>
+              <th scope="col">Date de fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in items" :key="item.id" @click="click(item)" class="tr">
+              <th scope="row">{{ item.formationDto != null ? item.formationDto.titre : 'Pas de formation' }}</th>
+              <td>{{ item.dateDebut | formatDate }}</td>
+              <td>{{ item.dateFin | formatDate }}</td>
+            </tr>
+          </tbody>
+        </table>
     </div>
-    <div class="text-center m-4" v-if="loading">
+
+    <paginate
+      class="customPagination"
+      :page-count="pageCount"
+      :page-range="1"
+      :margin-pages="2"
+      :click-handler="pageChange"
+      :prev-text="'Prev'"
+      :next-text="'Next'"
+      :container-class="'pagination float-right'"
+      :page-class="'page-item'"
+      :page-link-class="'page-link'"
+      :prev-class="'page-item'"
+      :next-class="'page-item'"
+      :prev-link-class="'page-link'"
+      :next-link-class="'page-link'"
+      :active-class="'active'"
+    >
+    </paginate>
+
+    <!-- <div class="text-center m-4" v-if="loading">
       <b-spinner variant="primary" label="Text Centered"></b-spinner>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -61,58 +98,76 @@ export default {
       loading: false,
     };
   },
+  computed: {
+    nbPageComputed() {
+      return this.pageCount;
+    },
+  },
   created() {
     this.fillList();
-    this.countIntervention();
+    // this.countIntervention();
   },
-  mounted() {
-    this.getNextInterventions();
-  },
+  // mounted() {
+  //   this.getNextInterventions();
+  // },
   methods: {
     // INTERVENTION
     fillList() {
       formateurApi
-        .getInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, 1, this.perPage, this.key)
+        .getInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, this.currentPage, this.perPage, this.key)
         .then((data) => {
           this.items = data;
         });
-    },
-    countIntervention() {
+
       formateurApi
         .countInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
-    },
-    getNextInterventions() {
-      window.onscroll = () => {
-        let bottomOfWindow =
-          window.scrollY + window.innerHeight + 1 >= document.documentElement.offsetHeight;
+      // .getCount(this.saisie)
+      //   .then((data) => {this.pageCount = Math.ceil(data / this.perPage)
 
-        if (bottomOfWindow && this.stopScrol == false) {
-          this.currentPage++;
-          this.pageChange(this.currentPage * this.perPage);
-        }
-      };
+        // formateurApi
+        // .getAllByPage(this.currentPage, this.perPage, this.saisie)
+        // .then((data) => {this.promotions = data
+        // })
+      // })
+        
     },
+    // countIntervention() {
+    //   formateurApi
+    //     .countInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, this.key)
+    //     .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
+    // },
+    // getNextInterventions() {
+    //   window.onscroll = () => {
+    //     let bottomOfWindow =
+    //       window.scrollY + window.innerHeight + 1 >= document.documentElement.offsetHeight;
+
+    //     if (bottomOfWindow && this.stopScrol == false) {
+    //       this.currentPage++;
+    //       this.pageChange(this.currentPage * this.perPage);
+    //     }
+    //   };
+    // },
     pageChange(perPage) {
       formateurApi
-        .getInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, 1, perPage, this.key)
+        .getInterventionsByFormateurId(this.$store.getters.getUtilisateur.formateurDto.id, perPage, this.perPage)
         .then((data) => {
           this.items = data;
-          this.loading = false;
+          // this.loading = false;
         })
-        .catch((err) => {
-          if (err) {
-            this.stopScrol = true;
-            this.loading = false;
-          }
-        });
+        // .catch((err) => {
+        //   if (err) {
+        //     this.stopScrol = true;
+        //     this.loading = false;
+        //   }
+        // });
     },
 
     // OTHER
     search(evt) {
       evt.preventDefault();
       this.fillList();
-      this.countIntervention();
+      // this.countIntervention();
     },
     click(intervention) {
       let route = this.$route.path.split("/").splice(1);
@@ -127,6 +182,12 @@ export default {
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
 <style scoped>
+
+.scrol {
+  min-height: 101vh;
+  overflow: hidden;
+}
+
 .card-Promotions {
   border-radius: 5px;
   min-height: 28vh;

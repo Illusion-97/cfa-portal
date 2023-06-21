@@ -96,7 +96,6 @@ export default {
 
 .pHeader {
   font-size: 30px;
-  font-family: Roboto;
   font-weight: 600;
   height: 50%;
   right: 0%;
@@ -114,12 +113,12 @@ export default {
 .btnHeader {
   position: relative;
   font-size: 25px !important;
-  font-family: Roboto;
   font-weight: 500;
   width: 120%;
   height: 100%;
   border: 5px;
   right: 100%;
+  border-radius: 4px;
 }
 
 .Titre {

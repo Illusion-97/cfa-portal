@@ -8,11 +8,13 @@ export const cursusApi = {
   getById,
   getAllByPage,
   getCount,
+  countPromotionByIdCursus,
   save,
   deleteCursus,
   getAllCursus,
   getByIdEtudiant,
   getCurrentCursusByIdEtudiant,
+  getAllPromotionByIdCursusPaginate,
   getPromotionsById,
   fetchAllCursusDG2Http,
 };
@@ -90,6 +92,15 @@ function getCount(search = ""){
       .catch((error) => console.log(error));
 }
 
+function countPromotionByIdCursus(id){
+  let req = `/${END_POINT}/countPromotion/${id}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data["nb"])
+      .catch((error) => console.log(error));
+}
+
 /**
  * 
  * @param {*} cursus 
@@ -125,6 +136,19 @@ function getAllCursus() {
     .get(`${END_POINT}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+/**
+ *@param {*} idCursus, page, size
+ * @returns paginated List Promotion
+ */
+function getAllPromotionByIdCursusPaginate(idCursus,page, size){
+  let req = `/${END_POINT}/cursus-page/${idCursus}/${page}/${size}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }
 
 /**
