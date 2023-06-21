@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="container-fluid mt-4">
+  <!-- <div> -->
+    <div class="container-fluid">
 
       <!-- BARRE DE RECHERCHE -->
       <div class="header-list">
@@ -21,7 +21,7 @@
       </div><br/>
 
       <!-- LIST DES PROMOTIONS -->
-      <div class="row d-flex justify-content-arround">
+      <div class="row d-flex justify-content-arround p-2 scrol">
 
         <!-- LISTE DES PROMOTION -->
         <!-- <div
@@ -117,7 +117,7 @@
     <!-- <div class="text-center m-4" v-if="loading">
       <b-spinner variant="primary" label="Text Centered"></b-spinner>
     </div> -->
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -292,11 +292,6 @@ export default {
 <style scoped src="@/assets/styles/CrudListComponent.css">
 </style>
 <style scoped>
-
-tr:hover
-  {
-    font-size: 23px;
-  }
 
 .card-Promotions {
   border-radius: 5px;

@@ -214,10 +214,16 @@ export default {
 <style scoped>
 .container-planning-bis{
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: 1fr 2.5fr;
   margin-inline: 3% 3%;
 }
+.group-btn {
+    display: flex;
+    justify-content: space-between;
+  } 
+
 .container-date{
   margin-left: 2em;
 }
@@ -225,6 +231,7 @@ export default {
   display: grid;
   grid-template-rows: 10% 90%;
   min-width: 50vw;
+  /* border: 1px solid black; */
 }
 
 table {
@@ -253,7 +260,7 @@ table {
   /* border-right: 1px solid black; */
 }
 
-@media screen and (max-width: 1920px) {
+/* @media screen and (max-width: 1920px) {
 
   .container-planning-bis{
     display: grid;
@@ -266,7 +273,7 @@ table {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 1%;
-  }
+  } 
 
-}
+}*/
 </style>
