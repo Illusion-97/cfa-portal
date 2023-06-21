@@ -8,6 +8,7 @@ export const cursusApi = {
   getById,
   getAllByPage,
   getCount,
+  countPromotionByIdCursus,
   save,
   deleteCursus,
   getAllCursus,
@@ -84,6 +85,15 @@ function getAllByPage(page, size, search = ""){
  */
 function getCount(search = ""){
   let req = `/${END_POINT}/count/${search}`;
+
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data["nb"])
+      .catch((error) => console.log(error));
+}
+
+function countPromotionByIdCursus(id){
+  let req = `/${END_POINT}/countPromotion/${id}`;
 
   return  axios
       .get(req, requestOptions.headers())
