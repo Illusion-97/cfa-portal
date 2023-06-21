@@ -81,10 +81,19 @@
           <th>Nom de la promo</th>
           <th>Type</th>
           <th>Date de debut</th>
-          <th>Date de fin <button @click="sortBy('dateDebut')"> tri </button></th>
+          <th>Date de fin
+            <button @click="sortByColumn2(2)">
+              <span v-if="opened2">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
+              </span>
+              <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />
+              </span>
+            </button>
+          </th>
           <th>Nombre de Participants
-            <button @click="sortAsc">
-              <span v-if="opened">
+            <button @click="sortByColumn1(1)">
+              <span v-if="opened1">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
               </span>
               <span v-else>
@@ -170,7 +179,9 @@ export default {
   data() {
     return {
       dismissCountDown: null,
-      opened: false,
+      opened1: false,
+      opened2: false,
+      opened3: false,
       message: "",
       title:"",
       color: "success",
@@ -188,36 +199,38 @@ export default {
   computed: {
     promotionsComputed() {
       const uniquePromotions = [];
+      if (this.promotions) {
+        this.promotions.forEach((promotion) => {
+          const modifiedNom = promotion.nom.split("-");
+          modifiedNom.splice(-4)
+          if (modifiedNom.includes("titre") && modifiedNom.includes("professionnel")) {
+            // Supprimer les mots du tableau
+            const indexTitre = modifiedNom.indexOf("professionnel");
+            const indexProfessionnel = modifiedNom.indexOf("titre");
+            modifiedNom.splice(indexTitre, 1);
+            modifiedNom.splice(indexProfessionnel, 1);
+          }
 
-      this.promotions.forEach((promotion) => {
-        const modifiedNom = promotion.nom.split("-");
-        modifiedNom.splice(-4)
-        if (modifiedNom.includes("titre") && modifiedNom.includes("professionnel")) {
-          // Supprimer les mots du tableau
-          const indexTitre = modifiedNom.indexOf("professionnel");
-          const indexProfessionnel = modifiedNom.indexOf("titre");
-          modifiedNom.splice(indexTitre, 1);
-          modifiedNom.splice(indexProfessionnel, 1);
-        }
+          this.title = modifiedNom.join(" ")
+          const promotionWithModifiedTitle = {
+            ...promotion,
+            title: this.title,
+          };
 
-        this.title = modifiedNom.join(" ")
-        const promotionWithModifiedTitle = {
-          ...promotion,
-          title: this.title,
-        };
+          // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
+          const existingPromotion = uniquePromotions.find(
+              (p) => p.id === promotionWithModifiedTitle.id
+          );
 
-        // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
-        const existingPromotion = uniquePromotions.find(
-            (p) => p.id === promotionWithModifiedTitle.id
-        );
+          if (!existingPromotion) {
+            // La promotion n'existe pas encore, l'ajouter à uniquePromotions
+            uniquePromotions.push(promotionWithModifiedTitle);
+          }
+        });
 
-        if (!existingPromotion) {
-          // La promotion n'existe pas encore, l'ajouter à uniquePromotions
-          uniquePromotions.push(promotionWithModifiedTitle);
-        }
-      });
-
-      return uniquePromotions;
+        return uniquePromotions;
+      }
+      return null
     },
     nbPageComputed() {
       return this.pageCount;
@@ -246,8 +259,39 @@ export default {
     },
     pageChange(pageNum) {
       promotionApi
-        .getAllByPageSort(pageNum - 1, this.perPage, 1)
+        .getAllByPageSort(pageNum - 1, this.perPage)
         .then((response) => (this.promotions = response));
+    },
+    sortByColumn1(param){
+      this.opened1 = !this.opened1;
+      if (this.opened1 == true){
+        this.opened2 = false
+        this.opened3 = false
+        promotionApi
+            .getAllByPageSort(this.currentPage, this.perPage, param)
+            .then((response) => {this.promotions = response;
+            })
+      }
+    },
+    sortByColumn2(param){
+      this.opened2 = !this.opened2;
+      if (this.opened2 == true){
+        this.opened3 = false
+        this.opened1 = false
+        promotionApi
+            .getAllByPageSort(this.currentPage, this.perPage, param)
+            .then((response) => {this.promotions = response;
+            })
+      }
+    },
+    sortByColumn3(param){
+      this.opened = !this.opened;
+      if (this.opened == true){
+        promotionApi
+            .getAllByPageSort(this.currentPage, this.perPage, param)
+            .then((response) => {this.promotions = response;
+            })
+      }
     },
     refreshList() {
          promotionApi
@@ -256,7 +300,7 @@ export default {
           (response) => {this.pageCount = Math.ceil(response / this.perPage)
 
         promotionApi
-        .getAllByPage(this.currentPage, this.perPage)
+        .getAllByPageSort(this.currentPage, this.perPage,0)
         .then((response) => {this.promotions = response;
         })
           })

@@ -12,7 +12,6 @@ export const promotionApi = {
     getAllPromotions,
     getAll,
     getEtudiants,
-    getPromotionsOrderedBy,
     getNote,
     getCours,
     getCef,
@@ -48,7 +47,7 @@ function getPromotionByid(id) {
  * @returns affiche toutes les promotions par pages
  */
 function getAllByPage(page, size, search ="" ) {
-  let req = `/promotions/${page}/${size}/${search}`;
+  let req = `/promotions/${page}/${size}/sort/1/${search}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -56,16 +55,8 @@ function getAllByPage(page, size, search ="" ) {
     .catch((error) => console.log(error));
 }
 
-function getAllByPageSort(page, size,choix = 0, search ="" ) {
-    let req = `/promotions/${page}/${size}/sort/${choix}/${search}`;
-
-    return axios
-        .get(req, requestOptions.headers())
-        .then(response => response.data)
-        .catch((error) => console.log(error));
-}
-function getPromotionsOrderedBy(page, choix ) {
-    let req = `/promotions/${page}/${choix}`;
+function getAllByPageSort(page, size,choix = 0) {
+    let req = `/promotions/${page}/${size}/sort/${choix}`;
 
     return axios
         .get(req, requestOptions.headers())
