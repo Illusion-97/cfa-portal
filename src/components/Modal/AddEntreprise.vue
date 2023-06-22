@@ -25,14 +25,14 @@
                 <v-row>
                     <v-col cols="12" md="6">
                         <div class="w-100 d-flex justify-content-center">
-                            <v-text-field v-model="entrepriseDto.naf" label="code d’activité principale exercée* (naf)"
+                            <v-text-field v-model="entrepriseDto.naf" label="NAF* (code d’activité principale exercée)"
                                 outlined clearable :rules="requiredNaf" required></v-text-field>
                         </div>
                     </v-col>
                     <v-col cols="12" md="6">
                         <div class="w-100 d-flex justify-content-center">
                             <v-text-field v-model="entrepriseDto.siret"
-                                label="identification du répertoire de l'entreprises* (siret)" outlined clearable
+                                label="SIRET* (identification du répertoire de l'entreprise)" outlined clearable
                                 :rules="requiredSiret" required></v-text-field>
                         </div>
                     </v-col>

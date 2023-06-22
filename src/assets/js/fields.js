@@ -87,7 +87,7 @@ export const groupesFields = [
 ];
 
 export const examensFields = [
-  { key: "enonce", label: "Enonce" },
+  { key: "enonce", label: "Énoncé" },
   { key: "cursus", label: "Cursus" },
   { key: "formation", label: "Formation" },
   "modifier",
@@ -98,7 +98,7 @@ export const examensFields = [
 export const formationFields = [
   { key: "titre", label: "Intitulé" },
   { key: "duration", label: "Durée" },
-  { key: "objectif", label: "objectif" },
+  { key: "objectif", label: "Objectif" },
   { key: "prerequis", label: "Prérequis" },
   {
     key: "Action",

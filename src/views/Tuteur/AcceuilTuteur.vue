@@ -19,19 +19,19 @@
         <thead style="background-color: #08092d" >
           <tr>
             <td style="color: white">
-              <strong>nom</strong>
+              <strong>Nom</strong>
             </td>
             <td style="color: white">
-              <strong>prenom</strong>
+              <strong>Prénom</strong>
             </td>
             <td style="color: white">
-              <strong>mail</strong>
+              <strong>Mail</strong>
             </td>
             <td style="color: white">
-              <strong>téléphone</strong>
+              <strong>Téléphone</strong>
             </td>
             <td style="color: white" class="text-center">
-              <strong>action</strong>
+              <strong>Action</strong>
             </td>
           </tr>
         </thead>
