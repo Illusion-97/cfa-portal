@@ -101,10 +101,6 @@ export const formationFields = [
   { key: "objectif", label: "objectif" },
   { key: "prerequis", label: "Prérequis" },
   {
-    key: "Details",
-    label: "Détails",
-  },
-  {
     key: "Action",
     label: "Action",
     thStyle: { width: "13%" },
