@@ -30,8 +30,7 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
-        <b-button  @click="row.toggleDetails">
-          {{ row.detailsShowing ? "Masquer" : "Afficher" }}
+        <b-button  @click="goToDetailFormation(row.item.id)"> Afficher
         </b-button>
       </template>
       <!-- Roles -->
@@ -48,43 +47,6 @@
         </span>
         </b-button>
       </template>
-      <!--Description -->
-      <template #row-details="row">
-        <b-card>
-          <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-1 class="btn-accordion">Cursus associés
-              </b-button>
-            </b-card-header>
-            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-              <b-card-body>
-                <b-table sticky-header :items="row.item.cursus" head-variant="dark" :fields="fieldsCursus" dark bordered>
-                  <template #cell(action)="row">
-                    <b-button block variant="info" @click="gotoDetailCursus(row.item)">
-                      <font-awesome-icon :icon="['fas', 'eye']" />
-                    </b-button>
-                  </template>
-                </b-table>
-              </b-card-body>
-            </b-collapse>
-          </b-card>
-          <b-card no-body class="mb-1">
-            <b-card-header header-tag="header" class="p-1" role="tab">
-              <b-button block v-b-toggle.accordion-2 class="btn-accordion">Interventions Liées</b-button>
-            </b-card-header>
-            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-              <b-card-body>
-                <b-table sticky-header :items="row.item.interventions" head-variant="dark" :fields="fieldsIntervention"
-                  dark bordered>
-                  <template #cell(action)="row">
-                    <b-button block variant="info" @click="gotoDetailIntervention(row.item)">
-                      <font-awesome-icon :icon="['fas', 'eye']" />
-                    </b-button> </template></b-table>
-              </b-card-body>
-            </b-collapse>
-          </b-card>
-        </b-card>
-      </template>
     </b-table>
     <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
@@ -99,8 +61,7 @@
 import { formationApi } from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { formationFields } from "@/assets/js/fields.js";
-import { fieldsCursus } from "@/assets/js/fields.js";
-import { fieldsIntervention } from "@/assets/js/fields.js";
+
 
 export default {
   name: "Formation",
@@ -114,8 +75,6 @@ export default {
       color: "success",
       items: [],
       fields: formationFields,
-      fieldsCursus: fieldsCursus,
-      fieldsIntervention: fieldsIntervention,
       currentPage: 1,
       perPage: 10,
       pageCount: 0,
@@ -147,7 +106,6 @@ export default {
         href: link,
       }).click();
     },
-
     countFormation() {
       formationApi
         .countFormation(this.key)
@@ -167,22 +125,9 @@ export default {
         .countFormation(this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
-    detailFormation(id) {
+    goToDetailFormation(id) {
       this.$router.push({ name: "admin_formation_detail", params: { id: id } });
     },
-    gotoDetailIntervention(intervention) {
-      this.$router.push({
-        name: "admin_intervention_detail",
-        params: { id: intervention.id },
-      });
-    },
-    gotoDetailCursus(cursus) {
-      this.$router.push({
-        name: "admin_cursus_detail",
-        params: { id: cursus.id },
-      });
-    },
-    // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },
