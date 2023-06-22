@@ -16,7 +16,8 @@ export const dossierProfessionnelApi = {
   generateDossierProByStudentAndPromo,
   genererDossierProfessionnel,
   updateDossierProfessionnel,
-  handleFileUpload
+  handleFileUpload,
+  getAllByPage
 }
 
 /**
@@ -88,6 +89,19 @@ function getAll() {
     .catch((error) => console.log(error));
 }
 
+function getAllByPage(page, size,search,idEtudiant) {
+  let req = `${END_POINT}/${page}/${size}/${search}/${idEtudiant}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then((response) => {
+      // Mettre à jour les résultats de la pagination
+      this.items = response.data.content;
+      this.totalItems = response.data.totalElements;
+      return response.data;
+    })
+    .catch((error) => console.log(error));
+}
 /**
  * 
  * @param {*} form 
@@ -131,24 +145,31 @@ function deleteAnnexe(annexeId) {
 //     'Content-Type' : 'multipart/form-data'
 //   }};
 
-function saveDossierProfessionnel(id, form, file) {
+ function saveDossierProfessionnel(id, form, file) {
+  console.log(form);
   const formData = new FormData();
-  formData.append('dossierProfessionnel', JSON.stringify(form))
+  formData.append('dossierProfessionnel', JSON.stringify(form));
+
   if (Array.isArray(file)) {
     file.forEach(f => formData.append('pieceJointe', f));
+  } else if (file) {
+    formData.append('pieceJointe', file);
   }
+
   try {
-    const response = axios.post(`${END_POINT}/save/etudiant/${id}`, formData, {
+    const response =  axios.post(`${END_POINT}/save/etudiant/${id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
+
     return response.data;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
 
 /**
  * Save du DossierProfessionnel par etudiant 
