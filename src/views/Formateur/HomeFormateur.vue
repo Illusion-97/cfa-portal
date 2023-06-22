@@ -3,8 +3,8 @@
     <div id="grid-container">
       <div>
         <h1> Interventions à venir </h1>
-        <div class="row d-flex justify-content-arround m-2" v-if="intervention.length != 0">
-          <table class="table table-striped">
+        <div class="row d-flex justify-content-arround m-2" >
+          <table class="table table-striped" v-if="intervention.length != 0">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Titre</th>
@@ -18,10 +18,9 @@
               </tr>
             </tbody>
           </table>
+          <p  v-else class="font-weight-bold" style="font-size: 20px; word-break: break-all">Pas d'intervention a venir</p>
         </div>
-        <div v-else>
-          <p class="font-weight-bold" style="font-size: 20px; word-break: break-all">Pas d'intervention a venir</p>
-        </div>
+
         <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
           :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
           :page-class="'page-item'" :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
