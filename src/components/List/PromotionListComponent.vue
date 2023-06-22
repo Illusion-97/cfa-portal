@@ -42,18 +42,39 @@
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
-          <th>Nom de la promo <sort-component :data-table="promotions.nom" /></th>
+          <th>Nom de la promo</th>
           <th>Type</th>
           <th>Date de debut</th>
-          <th>Date de fin</th>
-          <th>Nombre de Participants</th>
+          <th>Date de fin
+            <button @click="sortByColumn2(2)">
+              <span v-if="opened2">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
+              </span>
+              <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />
+              </span>
+            </button>
+          </th>
+          <th>Nombre de Participants
+            <button @click="sortByColumn1(1)">
+              <span v-if="opened1">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
+              </span>
+              <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />
+              </span>
+            </button>
+          </th>
           <th>Centre dawan</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
-        <tr v-for="(promotion) in promotionsComputed" :key="promotion.id" class="mon-tr"
-          v-on:click="clickList(promotion)">
+        <tr
+          v-for="(promotion) in promotionsComputed"
+          :key="promotion.id"
+          class="mon-tr">
+
           <td>{{ promotion.title }}</td>
           <td>{{ promotion.type }}</td>
           <td>{{ promotion.dateDebut | formatDate }}</td>
@@ -87,12 +108,11 @@
 import { promotionApi } from "@/_api/promotion.api.js";
 import { etudiantApi } from '@/_api/etudiant.api.js';
 import { interventionApi } from '@/_api/intervention.api.js';
-import SortComponent from "@/components/Admin/SortComponent.vue";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 export default {
   name: "PromotionListComponent",
   components: {
-    SortComponent, LoginWdg2
+    LoginWdg2
   },
   props: {
     isAction: {
@@ -113,6 +133,9 @@ export default {
   data() {
     return {
       dismissCountDown: null,
+      opened1: false,
+      opened2: false,
+      opened3: false,
       message: "",
       title: "",
       color: "success",
@@ -130,41 +153,42 @@ export default {
   computed: {
     promotionsComputed() {
       const uniquePromotions = [];
+      if (this.promotions) {
+        this.promotions.forEach((promotion) => {
+          const modifiedNom = promotion.nom.split("-");
+          modifiedNom.splice(-4)
+          if (modifiedNom.includes("titre") && modifiedNom.includes("professionnel")) {
+            // Supprimer les mots du tableau
+            const indexTitre = modifiedNom.indexOf("professionnel");
+            const indexProfessionnel = modifiedNom.indexOf("titre");
+            modifiedNom.splice(indexTitre, 1);
+            modifiedNom.splice(indexProfessionnel, 1);
+          }
 
-      this.promotions.forEach((promotion) => {
-        const modifiedNom = promotion.nom.split("-");
-        modifiedNom.splice(-4)
-        if (modifiedNom.includes("titre") && modifiedNom.includes("professionnel")) {
-          // Supprimer les mots du tableau
-          const indexTitre = modifiedNom.indexOf("professionnel");
-          const indexProfessionnel = modifiedNom.indexOf("titre");
-          modifiedNom.splice(indexTitre, 1);
-          modifiedNom.splice(indexProfessionnel, 1);
-        }
+          this.title = modifiedNom.join(" ")
+          const promotionWithModifiedTitle = {
+            ...promotion,
+            title: this.title,
+          };
 
-        this.title = modifiedNom.join(" ")
-        const promotionWithModifiedTitle = {
-          ...promotion,
-          title: this.title,
-        };
+          // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
+          const existingPromotion = uniquePromotions.find(
+              (p) => p.id === promotionWithModifiedTitle.id
+          );
 
-        // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
-        const existingPromotion = uniquePromotions.find(
-          (p) => p.id === promotionWithModifiedTitle.id
-        );
+          if (!existingPromotion) {
+            // La promotion n'existe pas encore, l'ajouter à uniquePromotions
+            uniquePromotions.push(promotionWithModifiedTitle);
+          }
+        });
 
-        if (!existingPromotion) {
-          // La promotion n'existe pas encore, l'ajouter à uniquePromotions
-          uniquePromotions.push(promotionWithModifiedTitle);
-        }
-      });
-
-      return uniquePromotions;
+        return uniquePromotions;
+      }
+      return null
     },
     nbPageComputed() {
       return this.pageCount;
     },
-
   },
   created() {
     this.saisie = this.$route.params.ville;
@@ -189,8 +213,39 @@ export default {
     },
     pageChange(pageNum) {
       promotionApi
-        .getAllByPage(pageNum - 1, this.perPage)
+        .getAllByPageSort(pageNum - 1, this.perPage)
         .then((response) => (this.promotions = response));
+    },
+    sortByColumn1(param){
+      this.opened1 = !this.opened1;
+      if (this.opened1 == true){
+        this.opened2 = false
+        this.opened3 = false
+        promotionApi
+            .getAllByPageSort(this.currentPage, this.perPage, param)
+            .then((response) => {this.promotions = response;
+            })
+      }
+    },
+    sortByColumn2(param){
+      this.opened2 = !this.opened2;
+      if (this.opened2 == true){
+        this.opened3 = false
+        this.opened1 = false
+        promotionApi
+            .getAllByPageSort(this.currentPage, this.perPage, param)
+            .then((response) => {this.promotions = response;
+            })
+      }
+    },
+    sortByColumn3(param){
+      this.opened = !this.opened;
+      if (this.opened == true){
+        promotionApi
+            .getAllByPageSort(this.currentPage, this.perPage, param)
+            .then((response) => {this.promotions = response;
+            })
+      }
     },
     refreshList() {
       promotionApi
@@ -199,11 +254,10 @@ export default {
           (response) => {
             this.pageCount = Math.ceil(response / this.perPage)
 
-            promotionApi
-              .getAllByPage(this.currentPage, this.perPage)
-              .then((response) => {
-                this.promotions = response;
-              })
+        promotionApi
+        .getAllByPageSort(this.currentPage, this.perPage,0)
+        .then((response) => {this.promotions = response;
+        })
           })
     },
 
@@ -216,10 +270,7 @@ export default {
           .then(() => this.refreshList());
       }
     },
-    clickList(promotion) {
-      this.promotion_input = promotion.nom;
-      this.$emit("click-list", promotion);
-    },
+
     gotoDetailPromotion(promo) {
       this.$router.push({
         name: "admin_promotion_details",

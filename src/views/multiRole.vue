@@ -8,8 +8,8 @@
             <v-card class="mx-auto" max-width="400">
               <v-img class="white--text align-end" height="200px" :src="require('@/assets/img/' + item + '.jpg')"
                 :lazy-src="require('@/assets/img/' + item + '.jpg')">
-                <v-card-title>Espace {{ item }}</v-card-title>
               </v-img>
+              <v-card-title>Espace {{ item }}</v-card-title>
               <v-card-text class="text--primary">
                 <div>{{ description(item) }}</div>
               </v-card-text>
