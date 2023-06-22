@@ -48,12 +48,12 @@
       </thead>
       <tbody v-if="cursus">
         <tr v-for="(item) in cursus" :key="item.id" class="mon-tr">
-          <td>{{ cursus.titre }}</td>
-          <td>{{ cursus.duree }}</td>
-          <td>{{ cursus.niveau }}</td>
-          <td>{{ cursus.sigle }}</td>
-          <td>{{ cursus.millesime }}</td>
-          <!-- <td>{{ cursus.codeTitre }}</td> -->
+          <td>{{ item.titre }}</td>
+          <td>{{ item.duree }}</td>
+          <td>{{ item.niveau }}</td>
+          <td>{{ item.sigle }}</td>
+          <td>{{ item.millesime }}</td>
+          <td>{{ item.codeTitre }}</td>
           <td>
               <b-button
                 block
