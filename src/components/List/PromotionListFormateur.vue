@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="container-fluid mt-4">
+  <!-- <div> -->
+    <div class="container-fluid">
 
       <div class="header-list">
         <!-- BARRE DE RECHERCHE -->
@@ -20,7 +20,57 @@
       </div><br/>
 
       <!-- LIST DES PROMOTIONS -->
-      <div class="row d-flex justify-content-arround">
+      <div class="row d-flex justify-content-arround p-2 scrol">
+
+        <!-- LISTE DES PROMOTION -->
+        <!-- <div
+          v-for="promotion in promotionsComputed"
+          :key="promotion.id"
+          @click="click(promotion)"
+          class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card"
+        >
+          <b-card
+            header-text-variant="white"
+            header-tag="header"
+            header-bg-variant="dark"
+            footer-tag="footer"
+            footer-bg-variant="success"
+            footer-border-variant="dark"
+            style="max-width: 32rem"
+            class="card-Promotions col"
+          >
+            <b-card-header
+              class="d-flex justify-content-between bg-white text-secondary col"
+            >
+              {{
+                promotion.centreFormationAdresseVille != null
+                  ? promotion.centreFormationAdresseVille
+                  : "Pas de ville"
+              }}
+              <b-progress height="20px" show-progress class="mb-2 w-50">
+                <b-progress-bar
+                  :value="Progress(promotion)"
+                  :label="Progress(promotion) + '%'"
+                ></b-progress-bar>
+              </b-progress>
+            </b-card-header>
+            <b-card-text class="mt-4 font-weight-bold">{{
+              promotion.nom
+            }}</b-card-text>
+            <b-card-footer
+              class="d-flex justify-content-between bg-white text-secondary"
+            >
+              <span>
+                Date du debut : {{ promotion.dateDebut | formatDate }}
+              </span>
+              <span> Durée: {{ getMoths(promotion) }}M </span>
+              <span>
+                Date de fin : {{ promotion.dateFin | formatDate }}
+              </span></b-card-footer
+            >
+          </b-card>
+        </div> -->
+
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>
@@ -63,7 +113,10 @@
       </paginate>
 
     </div>
-  </div>
+    <!-- <div class="text-center m-4" v-if="loading">
+      <b-spinner variant="primary" label="Text Centered"></b-spinner>
+    </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -192,11 +245,6 @@ export default {
 <style scoped src="@/assets/styles/CrudListComponent.css">
 </style>
 <style scoped>
-
-tr
-  {
-    font-size: 23px;
-  }
 
 .card-Promotions {
   border-radius: 5px;

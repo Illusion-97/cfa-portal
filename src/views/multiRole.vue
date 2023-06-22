@@ -6,9 +6,10 @@
         <v-col cols="12" md="6" v-for="item in listRoles" :key="item.id">
           <v-app id="inspire">
             <v-card class="mx-auto" max-width="400">
-              <v-img class="white--text align-end" height="200px" :src="require('@/assets/img/'+ item +'.jpg')">
-                <v-card-title>Espace {{ item }}</v-card-title>
+              <v-img class="white--text align-end" height="200px" :src="require('@/assets/img/' + item + '.jpg')"
+                :lazy-src="require('@/assets/img/' + item + '.jpg')">
               </v-img>
+              <v-card-title>Espace {{ item }}</v-card-title>
               <v-card-text class="text--primary">
                 <div>{{ description(item) }}</div>
               </v-card-text>
@@ -45,13 +46,13 @@ export default {
   methods: {
     description(role) {
       if (role == "etudiant")
-        return "L'étudiant peut consulter et gerer sont interface ..."
+        return "L'étudiant peux consulter sont planing, gérer sont dossier professionnel et ces dossiers projets"
       else if (role == "formateur")
-        return "Le formateur peut gerer les promotion ..."
+        return "Le formateur peux consulter, gérer ces interventions et consulter les promotions qui lui sont attribuée"
       else if (role == "tuteur")
-        return "Le tuteur peut consulter les etudiant qui lui sont attribuée"
+        return "Le tuteur peux consulter les etudiant qui lui sont attribuée"
       else if (role == "admin")
-        return "L'admin peut tout gerer ..."
+        return "L'admin peux consulter et mettre à jour les données"
     },
     goToRole(role) {
       this.$router.push(role);
@@ -59,5 +60,4 @@ export default {
   }
 }
 </script>
-<style>
-</style>
+<style></style>

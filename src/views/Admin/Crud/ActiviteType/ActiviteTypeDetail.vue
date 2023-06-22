@@ -56,6 +56,7 @@
             </v-btn>
           </div>
           <v-btn class="mt-2" color="info" dark @click="showModal(row.item)">
+            
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
             Voir les compétences associées
           </v-btn>
@@ -180,7 +181,6 @@ export default {
           this.message = "l'activité type " + response.libelle + " a été ajouté avec success"
           this.visible = false;
           this.getList()
-          console.log(response)
         }).catch(err => {
           this.color = "danger";
           this.dismissCountDown = 8;

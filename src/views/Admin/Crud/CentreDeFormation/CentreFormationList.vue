@@ -1,38 +1,32 @@
 <template>
   <div class="container-fluid">
-    <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
+    <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
-    <div class="d-flex flex-row align-items-end justify-content-between">
-      <form class="form-inline p-2" @submit="submit">
-        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
-        </button>
-      </form>
-      <div class="d-flex justify-content-center">
-        <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
-      </div>
+    <div class="d-flex justify-content-center">
+      <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
+    </div>
 
-      <!-- UPDATE CENTRE DE FORMATION -->
-      <!-- <form class="form-inline form" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          v-model="key"
-          placeholder="Rechercher une formation..."
-        />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon" />
-        </button>
-      </form> -->
-      <div class="updateListFormation p-2">
-        <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
-          Mise à jour des centres de formations
-        </button>
+    <div class="updateListCentreDeFormation">
+      <div class="d-flex flex-row align-items-end justify-content-between">
+        <form class="form-inline form" @submit="submit">
+          <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+          </button>
+        </form>
 
+        <!-- UPDATE CENTRE DE FORMATION -->
+        <div class="updateListFormation p-2">
+          <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
+            <span v-if="!showLoginWdg2Card">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des centres de formations
+            </span>
+            <span v-else>
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" /> Fermer
+            </span>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -41,11 +35,11 @@
     </b-collapse>
 
     <!-- LIST CENTRE FORMATION -->
-    <b-table :items="centresFormation" :fields="fields" striped responsive="sm">
+    <b-table :items="centresFormation" :fields="fields" striped class="table table-striped table-hover text-center">
       <template #cell(Actions)="row">
         <v-app>
           <b-button block variant="info" @click="click(row.item.id)">
-            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+            <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
           </b-button>
         </v-app>
       </template>
@@ -73,7 +67,7 @@ export default {
     return {
       centresFormation: [],
       pageCount: 0,
-      perPage: 9,
+      perPage: 10,
       saisie: "",
       currentPage: 1,
       showLoginWdg2Card: false,
@@ -150,16 +144,3 @@ export default {
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
-<style scoped>
-.card-Promotions {
-  border-radius: 5px;
-  min-height: 17rem;
-}
-
-.card-Promotions:hover {
-  border: 3px solid red;
-  cursor: pointer;
-}
-</style>
-
-

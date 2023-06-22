@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" id="container">
+  <div v-if="!item" class="container-fluid" id="container">
     <!-- NEW CARD -->
     <div class="info">
       <div class="row">
@@ -86,6 +86,9 @@
 
     <!-- MEMBRES-->
     <!-- <b-table small head-variant="dark" :items="tabOut"></b-table> -->
+  </div>
+
+  <div v-else id="template-empty">
   </div>
 </template>
 
@@ -272,4 +275,13 @@ ul {
     display: flex;
     justify-content: center;
   } */
+@media screen and (min-width: 2040px) {
+  #template-empty{
+    height: 15vh;
+  }
+
+}
+#template-empty{
+  height: 28vh;
+}
 </style>
