@@ -43,11 +43,10 @@
       <template #cell(action)="row">
         <b-button variant="info" @click="gotoDetailDg2(row)" class="ml-5 pl-4 pr-4">
           <span tooltip="Voir dans Dg2" flow="down">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />
-          Voir
-        </span>
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />
+            Voir
+          </span>
         </b-button>
-        </div>
       </template>
     </b-table>
     <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
