@@ -28,11 +28,6 @@
     </b-collapse>
 
     <b-table :items="items" :fields="fields" striped responsive="sm">
-      <!-- //details -->
-      <template #cell(Details)="row">
-        <b-button  @click="goToDetailFormation(row.item.id)"> Afficher
-        </b-button>
-      </template>
       <!-- Roles -->
       <template #cell(rolesDto)="row">
         <p v-for="role in row.item.rolesDto" :key="role.id">
@@ -40,12 +35,16 @@
         </p>
       </template>
       <template #cell(action)="row">
-        <b-button block variant="info" @click="gotoDetailDg2(row)">
+        <div class="d-flex align-items-center justify-content-between">
+        <b-button class="m-0 widthBtn" @click="goToDetailFormation(row.item.id)"> Détails
+        </b-button>
+        <b-button class="m-0 widthBtn" variant="info" @click="gotoDetailDg2(row)">
           <span tooltip="Voir dans Dg2" flow="down">
           <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
           Voir
         </span>
         </b-button>
+        </div>
       </template>
     </b-table>
     <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"

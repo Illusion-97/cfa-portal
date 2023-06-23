@@ -2,7 +2,7 @@
   <div>
     <!-- AJOUT D'UN EXAMEN -->
     <div v-if="context === 'intervention'">
-      <AddExamen ref="addExamen" :optionsBlocsCompetences="optionsBlocsCompetences" :context="context" @updateExamens="updateExamens" />
+      <AddExamen ref="addExamen" :data-for-blocs-concernes="dataForBlocsConcernes" :optionsBlocsCompetences="optionsBlocsCompetences" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
       <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
@@ -248,6 +248,8 @@ export default {
       optionsBc: [],
       selectedCompetences: [],
       optionsCompetences: [],
+      optionsBlocsCompetences: [],
+      dataForBlocsConcernes: []
     };
   },
   mounted(){
@@ -272,8 +274,8 @@ export default {
             if (response){
             this.getDataForForm(response);
             if(this.context === "intervention"){
-              this.$refs.addExamen.optionsBlocsCompetences = this.datasFormAt;
-              this.$refs.addExamen.dataForBlocsConcernes = this.datasFormCP;
+              this.optionsBlocsCompetences = this.datasFormAt;
+              this.dataForBlocsConcernes = this.datasFormCP;
               }
             }
           });

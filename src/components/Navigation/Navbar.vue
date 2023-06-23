@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/home">
           <img
-            src="@/assets/img/institutionnel-logo.png"
+            src="@/assets/img/LOGO.png"
             alt="logo"
             class="mon-logo"
           />
