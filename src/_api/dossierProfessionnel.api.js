@@ -89,19 +89,15 @@ function getAll() {
     .catch((error) => console.log(error));
 }
 
-function getAllByPage(page, size,search,idEtudiant) {
-  let req = `${END_POINT}/${page}/${size}/${search}/${idEtudiant}`;
+function getAllByPage(page, size, search){
+  let req = `${END_POINT}/${page}/${size}/${search}`;
 
-  return axios
-    .get(req, requestOptions.headers())
-    .then((response) => {
-      // Mettre à jour les résultats de la pagination
-      this.items = response.data.content;
-      this.totalItems = response.data.totalElements;
-      return response.data;
-    })
-    .catch((error) => console.log(error));
+  return  axios
+      .get(req, requestOptions.headers())
+      .then(response => response.data)
+      .catch((error) => console.log(error));
 }
+
 /**
  * 
  * @param {*} form 

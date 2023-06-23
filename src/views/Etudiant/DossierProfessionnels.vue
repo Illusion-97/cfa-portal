@@ -3,19 +3,14 @@
 
       <h2>Dossiers professionnels</h2>
       <br/>
-      <v-text-field
-        v-model="search"
-        label="Search"
-        class="input--small"
-      ></v-text-field>
-       <v-btn @click.prevent="fetchDossiers">
-       <v-icon>mdi-magnify</v-icon>
-       </v-btn>
-  <br/>
+      <div>
+  <!-- Barre de recherche -->
+  <v-text-field v-model="search" label="Rechercher" class="input--small"></v-text-field>
+       <v-btn @click.prevent="performSearch"><v-icon>mdi-magnify</v-icon></v-btn>
+</div>
   <br/>
       <div v-if="items && items.length > 0 && this.$store.getters.getUtilisateur.etudiantDto">
       <!-- Tableau -->
-      <div v-for="result in search" :key="result.id">
       <b-table small head-variant="dark" :items="items" :fields="fields" primary-key="id">
         <!-- Contenu du tableau -->
         <template #cell(DossierPro)="data">
@@ -41,23 +36,18 @@
           </v-btn>
         </template>
       </b-table>
-    </div>
+  
     </div>
     <div v-else>
       <ul>
         <li>Pas de dossier professionnel !</li>
       </ul>
     </div>
-
-    <b-pagination v-if="items && items.length > 0 && $store.getters.getUtilisateur.etudiantDto"
-              v-model="currentPage"
-              :total-rows="totalItems"
-              :per-page="pageSize"
-              @input="fetchDossiers"
-></b-pagination>
-
-
      
+
+    <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage" @input="handlePageChange"></b-pagination>
+
+
       <div>
 <!-- BOUTON CREER -->
 <router-link :to="{
@@ -82,10 +72,11 @@
     name: "DossierPro",
     data() {
       return {
-         currentPage: 1,
-         pageSize: 5, // Remplacez par la taille de page souhaitée
-         totalItems: 0, // Remplacez par le nombre total d'éléments
-         search:'',
+      currentPage: 1,
+      perPage: 5,
+      totalRows: 0,
+      search: "",
+      
         items: [],
         telecharger: [],
         fields: [
@@ -125,29 +116,60 @@
           params: { id: item },
         });
       },
+      handlePageChange(page) {
+        this.currentPage = page;
+      //this.fetchDossiers();
+  },
+  
+  /*fetchDossiers() {
+  const page = this.currentPage;
+  const size = this.perPage;
+  const search = this.search;
+  const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id;
 
-  async fetchDossiers() {
-  try {
-    const result = await dossierProfessionnelApi.getAllByPage(this.currentPage, this.pageSize, this.search, this.$store.getters.getUtilisateur.etudiantDto.id);
-    if (result) {
-      this.items = result.content;
-      this.totalItems = result.totalElements;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
+  dossierProfessionnelApi
+    .getAllByPage(page, size, search, etudiantId)
+    .then((data) => {
+      if (data && data.items.length > 0) {
+        this.items = data.items;
+        this.totalRows = data.totalElements;
+      } else {
+        this.items = [];
+        this.totalRows = 0;
+      }
+    })
+    .catch((error) => {
+      console.error("Error", error);
+    });
+},*/
 
+
+  performSearch() {
+    this.currentPage = 1; 
+     // this.fetchDossiers();
+      
+  },
+
+   
     
     },
 
     created() {
-      this.fetchDossiers();
-      dossierProfessionnelApi
-        .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-        .then((data) => (this.items = data));
-        
-    },
+  
+      this.items = []; // Initialize the items array
+
+dossierProfessionnelApi
+  .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+  .then((data) => {
+    this.items = data; // Assign the retrieved data to items
+   // this.fetchDossiers(); // Call fetchDossiers to update totalRows and totalPages
+  })
+  .catch((error) => {
+    console.error("Error", error);
+  });
+      
+}
+    
 
   };
   </script>
