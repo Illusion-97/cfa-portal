@@ -2,7 +2,7 @@
   <!-- <div> -->
     <div class="container-fluid">
 
-      <div class="header-list">
+      <div class="header-list mr-4 mt-4 ml-4 mb-0">
         <!-- BARRE DE RECHERCHE -->
         <form class="form-inline form" @submit="submit">
           <input
@@ -79,6 +79,7 @@
               <th scope="col">Date de début</th>
               <th scope="col">Durée</th>
               <th scope="col">Date de fin</th>
+              <th scope="col">Détails</th>
             </tr>
           </thead>
           <tbody>
@@ -88,6 +89,12 @@
               <td>{{ promotion.dateDebut | formatDate }}</td>
               <td>{{ getMoths(promotion) }}M</td>
               <td>{{ promotion.dateFin | formatDate }}</td>
+              <td>
+                <button @click="click(promotion)" class="btn btn-info pr-3">
+                  <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
+                  Voir 
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
