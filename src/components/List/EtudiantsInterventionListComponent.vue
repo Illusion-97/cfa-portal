@@ -166,7 +166,7 @@
         </b-modal>
       </template>
     </b-table>
-    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" pills size="lg"
+    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="my-table" size="md"
       class="customPagination"></b-pagination>
   </section>
 </template>

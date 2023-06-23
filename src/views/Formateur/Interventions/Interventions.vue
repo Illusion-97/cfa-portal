@@ -43,13 +43,20 @@
               <th scope="col">Titre</th>
               <th scope="col">Date de début</th>
               <th scope="col">Date de fin</th>
+              <th scope="col">Détails</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in items" :key="item.id" @click="click(item)" class="tr">
+            <tr v-for="item in items" :key="item.id" class="tr">
               <th scope="row">{{ item.formationDto != null ? item.formationDto.titre : 'Pas de formation' }}</th>
               <td>{{ item.dateDebut | formatDate }}</td>
               <td>{{ item.dateFin | formatDate }}</td>
+              <td>
+                <button @click="click(item)" class="btn btn-info pr-3">
+                  <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
+                  Voir 
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
