@@ -3,15 +3,15 @@
     <b-alert class="m-4" :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
       {{ message }}
     </b-alert>
-    <div class="d-flex flex-row align-items-end justify-content-between">
-      <form class="form-inline p-2" @submit="search">
+    <div class="d-flex flex-row align-items-end justify-content-between m-3">
+      <form class="form-inline" @submit="search">
         <input id="saisie" name="saisie" type="text" class="form-control" v-model="key"
           placeholder="Rechercher une formation..." />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
       </form>
-      <div class="updateListLocation p-2">
+      <div class="updateListLocation">
         <button name="button2" outlined @click="openLoginWdg2" class="btn btn-outline-info">
           <span v-if="!showLoginWdg2Card">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des formations
@@ -27,10 +27,10 @@
       <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
     </b-collapse>
 
-    <b-table :items="items" :fields="fields" striped responsive="sm">
+    <b-table :items="items" :fields="fields" striped responsive="sm"  class="m-3">
       <!-- //details -->
       <template #cell(Details)="row">
-        <b-button  @click="row.toggleDetails">
+        <b-button @click="row.toggleDetails" class="pl-4 pr-4">
           {{ row.detailsShowing ? "Masquer" : "Afficher" }}
         </b-button>
       </template>
@@ -41,9 +41,9 @@
         </p>
       </template>
       <template #cell(action)="row">
-        <b-button block variant="info" @click="gotoDetailDg2(row)">
+        <b-button variant="info" @click="gotoDetailDg2(row)" class="ml-5 pl-4 pr-4">
           <span tooltip="Voir dans Dg2" flow="down">
-          <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />
           Voir
         </span>
         </b-button>
@@ -86,7 +86,7 @@
         </b-card>
       </template>
     </b-table>
-    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
       :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
       :next-link-class="'page-link'" :active-class="'active'">
@@ -226,7 +226,7 @@ export default {
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<!-- <style scoped src="@/assets/styles/CrudListComponent.css"></style> -->
 <style scoped src="@/assets/styles/BtnAccordion.css"></style>
 <style scoped>
 tbody tr {

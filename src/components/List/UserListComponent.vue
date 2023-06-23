@@ -14,7 +14,7 @@
       <label class="col-1">utilisateur</label>
       <input class="col-9 form-control" type="text" :value="utilisateur_input" disabled="disabled" />
     </div>
-    <div class="d-flex flex-row align-items-end justify-content-between">
+    <div class="d-flex flex-row align-items-end justify-content-between m-3">
 
       <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="search">
@@ -25,7 +25,7 @@
       </form>
 
       <!-- LISTE DES ROLES -->
-      <select class="custom-select m-0 p-2 w-25" v-model="selected_role" aria-label="Default select example"
+      <select class="custom-select m-2 w-25" v-model="selected_role" aria-label="Default select example"
         @change="refreshList()">
         <option value="">Tous les roles</option>
         <option :value="role.intitule" v-for="role in rolesComputed" :key="role.id">
@@ -90,7 +90,7 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
-        <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+        <b-button @click="row.toggleDetails" class="pl-4 pr-4">
           {{ row.detailsShowing ? "Masquer" : "Afficher" }}
         </b-button>
       </template>
@@ -101,7 +101,7 @@
         </p>
       </template>
       <template #cell(Modifier)="row">
-        <b-button size="sm" variant="warning" @click=ouvrirModalModification(row.item) class="mr-2">
+        <b-button variant="warning" @click=ouvrirModalModification(row.item) class="pl-3 pr-3">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
           Modifier
         </b-button>
@@ -145,7 +145,7 @@
       </b-form>
     </b-modal>
 
-    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
       :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
       :next-link-class="'page-link'" :active-class="'active'">

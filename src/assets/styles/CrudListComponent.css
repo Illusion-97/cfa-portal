@@ -234,3 +234,9 @@ main span {
   display: inline-block;
   background: #dedede;
 }
+
+.button
+  {
+    width: 35%;
+    margin-left: 35%;
+  }
