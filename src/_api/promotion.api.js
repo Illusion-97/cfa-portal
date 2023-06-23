@@ -5,6 +5,7 @@ export const promotionApi = {
     getPromotionByid,
     getAllByPage,
     getAllByIdFormateurByPage,
+    getAllByPageSort,
     getCount,
     getCountByFormateur,
     countByCentreFormationId,
@@ -48,12 +49,21 @@ function getPromotionByid(id) {
  * @returns affiche toutes les promotions par pages
  */
 function getAllByPage(page, size, search ="" ) {
-  let req = `/promotions/${page}/${size}/${search}`;
+  let req = `/promotions/${page}/${size}/sort/1/${search}`;
 
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)
     .catch((error) => console.log(error));
+}
+
+function getAllByPageSort(page, size,choix = 0) {
+    let req = `/promotions/${page}/${size}/sort/${choix}`;
+
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
 
 /**
@@ -256,7 +266,7 @@ function getAllByCentreFormationIdPagination(idCentreFormation, page, size, sais
 
 function getAllByIdFormateurByPage(idFormateur, page, size, saisie){
   let req = `promotions/formateur/${idFormateur}/${page}/${size}/${saisie}`;
-  
+
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)
@@ -265,7 +275,7 @@ function getAllByIdFormateurByPage(idFormateur, page, size, saisie){
 
 function getCountByFormateur(idFormateur, saisie) {
   let req = `promotions/countByFormateurId/${idFormateur}/${saisie}`;
-  
+
   return axios
     .get(req, requestOptions.headers())
     .then(response => response.data)

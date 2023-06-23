@@ -91,20 +91,20 @@
   </template>
   <template #cell(action)="row">
     <v-app>
-      <div class="d-flex align-items-center justify-content-between">
-        <v-btn size="sm" @click="row.toggleDetails" class="m-0 widthBtn" color="primary">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-column-gap: 5px">
+        <v-btn  @click="row.toggleDetails"  color="primary">
           <span tooltip="Afficher / Masquer" flow="down">
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
           </span>
         </v-btn>
 
-        <v-btn class="m-0 widthBtn" color="error" @click="supprimer(row.item)">
+        <v-btn  color="error" @click="supprimer(row.item)">
           <span tooltip="Supprimer" flow="down"> 
             <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
           </span>
         </v-btn>
 
-        <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)">
+        <v-btn  color="warning" dark @click="update(row.item)">
           <span tooltip="Modifier" flow="down">
             <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> 
           </span>
@@ -382,4 +382,10 @@ methods: {
 },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<style scoped src="@/assets/styles/CrudListComponent.css">
+.grid-btn{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  background-color: #3cba92;
+}
+</style>

@@ -246,7 +246,7 @@ export default {
         this.dismissCountDown = 6;
         this.message = data;
         this.loading = false;
-        this.refreshList;
+        this.refreshList();
       }
       else if (data == "Email déjà utiliser veulliez en saisir un autre."){
         this.visibleAddTuteur = true;

@@ -1,16 +1,11 @@
 <template>
-  <div class="navHeader mb-4">
-    <b-row class="pHeader h-100 d-flex align-items-center">
-      <b-col class="d-flex justify-content-start">
-        <div>
-          <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">Roles</button>
-        </div>
-      </b-col>
+  <div class="navHeader ">
+    <div class="grid-header align-items-center">
       <!-- LOGO -->
-      <div class="logo-details" style="margin: 6px 14px 0 14px">
+      <div class="logo-details">
         <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
-        <i v-else class="bx icon" :class="menuIcon" />
-        <div class="logo_name">
+        <i v-else class="bx icon" :class="menuIcon"  style="font-size: 40px;" />
+        <div class="logo_name" style="font-size: 24px;">
           {{ menuTitle }}
         </div>
       </div>
@@ -20,15 +15,20 @@
       </div>
 
       <!-- BUTTON DECONNEXION -->
-      <b-col class="d-flex justify-content-end">
-        <div>
-          <button type="button" @click="logout" class="btnHeader btn-light">
-            <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
-            Déconnexion
-          </button>
+        <div  class="grid-btn">
+          <div style="text-align: right">
+            <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">
+              <font-awesome-icon :icon="['fas', 'user']" /> Roles</button>
+          </div>
+
+          <div>
+            <button type="button" @click="logout" class="btnHeader btn-light">
+              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              Déconnexion
+            </button>
+          </div>
         </div>
-      </b-col>
-    </b-row>
+    </div>
   </div>
 </template>
 
@@ -80,17 +80,23 @@ export default {
 
 .navHeader {
   background-color: #00072d;
-  overflow: hidden;
   color: white;
   height: 6rem;
 }
-
+.grid-header{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+.grid-btn{
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr;
+  align-items: center;
+  grid-column-gap: 20px;
+}
 .logo-details {
   padding-left: 5%;
-  height: 60px;
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 
@@ -102,27 +108,24 @@ export default {
 }
 
 .navHeader .logo-details {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  position: relative;
+  height: 6rem;
 }
 
+.logo_name{
 
 
+}
 .btnHeader {
-  position: relative;
   font-size: 25px !important;
   font-weight: 500;
-  width: 120%;
-  height: 100%;
   border: 5px;
-  right: 100%;
   border-radius: 4px;
+  min-width: 230px;
 }
 
 .Titre {
-  width: 45%;
-  text-align: right;
+  text-align: center;
 }
+
+
 </style>

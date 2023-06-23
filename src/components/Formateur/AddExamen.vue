@@ -160,6 +160,16 @@ export default {
       type: String,
       default: "",
     },
+    optionsBlocsCompetences: {
+      type: Array,
+      required: true,
+      default: null
+    },
+    dataForBlocsConcernes: {
+      type: Array,
+      required: true,
+      default: null
+    }
   },
   data() {
     
@@ -168,7 +178,6 @@ export default {
       selectedActivitesTypes: [],
       selectedCompConcernees: [],
       dismissSecs: 5,
-      dataForBlocsConcernes: [],
       examenDto: {
         id: 0,
         version: 0,
@@ -186,7 +195,6 @@ export default {
       messageError:"",
       file: null,
       hidden: false,
-      optionsBlocsCompetences: [],
       optionsCheckbox: [],
       dismissCountDown: null,
       dissmissCountFailed:null,

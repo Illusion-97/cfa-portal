@@ -2,13 +2,13 @@
   <div class="sidebar" :class="isOpened ? 'open' : ''" :style="cssVars">
     <div class="logo-details">
       <img
-        src="@/assets/img/institutionnel-logo.png"
+        src="@/assets/img/LOGO.png"
         alt="logo"
         class="menu-logo"
       />
     </div>
 
-    <div
+    <div 
       style="
         display: flex;
         flex-direction: column;

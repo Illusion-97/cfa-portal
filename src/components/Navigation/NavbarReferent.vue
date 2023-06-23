@@ -3,8 +3,8 @@
     <b-navbar toggleable="lg" class="navbar">
       <b-navbar-brand href="#">
         <router-link class="navbar-brand" to="/">
-          <img src="@/assets/img/institutionnel-logo.png" alt="" id="dawan_logo" />
-        </router-link>
+          <img src="@/assets/img/LOGO.png" alt="" id="dawan_logo" />
+        </router-link>  
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" class="border-0"></b-navbar-toggle>

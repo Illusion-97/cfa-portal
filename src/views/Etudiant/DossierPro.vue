@@ -18,7 +18,7 @@
 <!-- ACTIVITES TYPES SELECTEURS -->
 <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-<b-form-select v-model="form.experienceProfessionnelleDtos" @change="getValue2">
+<b-form-select v-model="start" @change="getValue2">
   <template #first>
 <b-form-select-option v-for="option in optionsAT2(item)" :key="option.id" :value="option.value" >
 <span v-if="filledCompetences.includes(option.value)  ">&#x2705;</span>
@@ -181,8 +181,8 @@
       </div>
     </b-modal>
 
-    <h6>Annexes</h6>
-   
+  
+    <h6>Annexes</h6> 
     <b-form-select v-model="form.annexeDtos" @change="getAnnexe">
       <b-form-select-option v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
         {{ annexe.libelleAnnexe }}
@@ -195,7 +195,7 @@
     <b-button @click="showDeleteModal" class="ml-2" variant="danger">Supprimer</b-button>
     </div>
     <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
-      <v-file-input v-model="newAnnexe.pieceJointe"></v-file-input>
+      <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>
       <input type="text" class="form-control" v-model="newAnnexe.libelleAnnexe" placeholder="Libelle" /><br>
       <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe">Ajouter</b-button>
     </b-modal>
@@ -204,7 +204,7 @@
   <b-list-group>
     <b-list-group-item v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
       <div class="d-flex justify-content-between align-items-center">
-        <span>{{ annexe.libelleAnnexe }}</span>
+        <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe.name }}</span>
         <v-icon @click="deleteAnnexe(index)">mdi-close</v-icon>
       </div>
     </b-list-group-item>
@@ -213,7 +213,6 @@
     </b-list-group-item>
   </b-list-group>
 </b-modal>
-
 
 <br/>
 
@@ -245,7 +244,7 @@
                     <v-icon>mdi-calendar</v-icon>
                   </v-btn>
                 </template>
-                <v-date-picker v-model="newFacultatif.date" no-title scrollable></v-date-picker>
+                <v-date-picker v-model="newFacultatif.date" no-title scrollable locale="fr"></v-date-picker>
               </v-menu>
         </v-list-item>
       
@@ -308,6 +307,7 @@ import { VueEditor } from "vue2-editor";
 
 
 
+
 export default {
   name: "Selects",
   components: {
@@ -322,8 +322,11 @@ export default {
       selectedAnnexe: null,
       datePickerOpen: false,
       annexes: [],
+      newAnnexe: {
+      libelleAnnexe: "",
+      pieceJointe: null
+    },
       annexe: null,
-      newAnnexe:[],
       newFacultatif: [],
       text: "test",
       select1: null,
@@ -383,7 +386,12 @@ export default {
           information: "",
         }],
 
-        annexeDtos : [],
+        annexeDtos : [{
+          id:0,
+          libelleAnnexe:"",
+          pieceJointe:null,
+          dossierProfessionnelId:0
+        }],
 
         facultatifDto: [
           {
@@ -397,7 +405,8 @@ export default {
         ],
         fileImport:null,
       },
-
+   
+     
 
       // FORM DIPLOME
       name: '',
@@ -447,7 +456,7 @@ export default {
       this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
-      pieceJointe: {},
+      pieceJointe: null,
       dossierProfessionnelId:0
     };   
 },
@@ -487,36 +496,55 @@ onSubmit(event) {
       fileImport: this.form.fileImport
     };  
 
-
-        const newExpPro = {
-          tacheRealisee: this.expPro.tacheRealisee, 
-          moyenUtilise: this.expPro.moyenUtilise,
-          collaborateur: this.expPro.collaborateur,
-          contexte: this.expPro.contexte,
-          information: this.expPro.information, 
-          competenceProfessionnelleId: this.expPro.id
-        };
-
-        
-        dpDto.experienceProfessionnelleDtos.push(newExpPro);
-   
-
-    for (const annexe of this.annexes) {
-      const newAnnexe = {
+    for (const act of this.data.item.cursus.activiteTypes) {
+      const newAct = {
         id: 0,
-        libelleAnnexe: annexe.libelleAnnexe,
-        pieceJointe: annexe.pieceJointe,
-        dossierProfessionnelId: 0
+        libelle: act.libelle,
+        competenceProfessionnelles: [],
+        experienceProfessionnelles: [] 
       };
 
-      dpDto.annexeDtos.push(newAnnexe);
+      for (const comp of act.competenceProfessionnelles) {
+        const newComp = {
+          id: comp.id,
+          libelle: comp.libelle
+        };
+
+        newAct.competenceProfessionnelles.push(newComp);
+
+        const newExpPro = {
+          tacheRealisee: comp.tacheRealisee, 
+          moyenUtilise: comp.moyenUtilise, 
+          collaborateur: comp.collaborateur, 
+          contexte: comp.contexte, 
+          information: comp.information, 
+          competenceProfessionnelleId: this.tempCompetence.id
+        };
+
+        newAct.experienceProfessionnelles.push(newExpPro);
+        dpDto.experienceProfessionnelleDtos.push(newExpPro);
+      }
+
+      dpDto.cursusDto.activiteTypes.push(newAct);
     }
+
+        for (let i = 0; i < this.annexes.length; i++) {
+  const annexe = this.annexes[i];
+  const newAnnexe = {
+    libelleAnnexe: annexe.libelleAnnexe,
+    pieceJointe: annexe.pieceJointe.name
+  };
+
+           dpDto.annexeDtos.push(newAnnexe);
+        console.log(this.annexes);
+    
+  }
 
     dossierProfessionnelApi
       .saveDossierProfessionnel(
         this.$store.getters.getUtilisateur.etudiantDto.id,
         dpDto,
-        this.annexes.pieceJointe
+        this.newAnnexe.pieceJointe
       )
       .then(data => {
         this.form = data;
@@ -531,13 +559,20 @@ onSubmit(event) {
 
 
     addAnnexe() {
-    if (this.newAnnexe.libelleAnnexe && this.newAnnexe.pieceJointe) {
-      this.annexes.push(this.newAnnexe);     
-      this.$bvModal.hide("annexe-modal");
-    } else {
-      console.log("Erreur");
-    }
-  },
+      const annexe = {
+    id: 0,
+    libelleAnnexe: this.newAnnexe.libelleAnnexe,
+    pieceJointe: this.newAnnexe.pieceJointe,
+    dossierProfessionnelId: 0
+  };
+
+  this.annexes.push(annexe);
+  console.log(this.annexes);
+
+  // Réinitialisation des valeurs pour effacer les valeurs précédentes
+  this.newAnnexe.libelleAnnexe = '';
+  this.newAnnexe.pieceJointe = null;
+},
 
  
   deleteAnnexe(index) {
@@ -886,4 +921,3 @@ select {
   cursor: pointer;
 }
 </style>
-

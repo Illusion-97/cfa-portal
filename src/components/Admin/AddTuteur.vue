@@ -19,7 +19,7 @@
                             </v-col>
                             <v-col cols="12" md="5">
                                 <div class="w-100 d-flex justify-content-center">
-                                    <v-text-field v-model="formulaireTuteur.prenom" label="Prenom*" outlined
+                                    <v-text-field v-model="formulaireTuteur.prenom" label="Prénom*" outlined
                                         :rules="required" clearable required></v-text-field>
                                 </div>
                             </v-col>
