@@ -27,7 +27,6 @@
       <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
     </b-collapse>
 
-<<<<<<< HEAD
     <b-table :items="items" :fields="fields" striped responsive="sm"  class="m-3">
       <!-- //details -->
       <template #cell(Details)="row">
@@ -35,9 +34,6 @@
           {{ row.detailsShowing ? "Masquer" : "Afficher" }}
         </b-button>
       </template>
-=======
-    <b-table :items="items" :fields="fields" striped responsive="sm">
->>>>>>> 3aac34eae127c5d906703b3eafe115c3c5a2932c
       <!-- Roles -->
       <template #cell(rolesDto)="row">
         <p v-for="role in row.item.rolesDto" :key="role.id">
@@ -45,20 +41,49 @@
         </p>
       </template>
       <template #cell(action)="row">
-<<<<<<< HEAD
         <b-button variant="info" @click="gotoDetailDg2(row)" class="ml-5 pl-4 pr-4">
-=======
-        <div class="d-flex align-items-center justify-content-between">
-        <b-button class="m-0 widthBtn" @click="goToDetailFormation(row.item.id)"> Détails
-        </b-button>
-        <b-button class="m-0 widthBtn" variant="info" @click="gotoDetailDg2(row)">
->>>>>>> 3aac34eae127c5d906703b3eafe115c3c5a2932c
           <span tooltip="Voir dans Dg2" flow="down">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />
           Voir
         </span>
         </b-button>
-        </div>
+      </template>
+      <!--Description -->
+      <template #row-details="row">
+        <b-card>
+          <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-button block v-b-toggle.accordion-1 class="btn-accordion">Cursus associés
+              </b-button>
+            </b-card-header>
+            <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+              <b-card-body>
+                <b-table sticky-header :items="row.item.cursus" head-variant="dark" :fields="fieldsCursus" dark bordered>
+                  <template #cell(action)="row">
+                    <b-button block variant="info" @click="gotoDetailCursus(row.item)">
+                      <font-awesome-icon :icon="['fas', 'eye']" />
+                    </b-button>
+                  </template>
+                </b-table>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+          <b-card no-body class="mb-1">
+            <b-card-header header-tag="header" class="p-1" role="tab">
+              <b-button block v-b-toggle.accordion-2 class="btn-accordion">Interventions Liées</b-button>
+            </b-card-header>
+            <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+              <b-card-body>
+                <b-table sticky-header :items="row.item.interventions" head-variant="dark" :fields="fieldsIntervention"
+                  dark bordered>
+                  <template #cell(action)="row">
+                    <b-button block variant="info" @click="gotoDetailIntervention(row.item)">
+                      <font-awesome-icon :icon="['fas', 'eye']" />
+                    </b-button> </template></b-table>
+              </b-card-body>
+            </b-collapse>
+          </b-card>
+        </b-card>
       </template>
     </b-table>
     <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
@@ -74,7 +99,8 @@
 import { formationApi } from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
 import { formationFields } from "@/assets/js/fields.js";
-
+import { fieldsCursus } from "@/assets/js/fields.js";
+import { fieldsIntervention } from "@/assets/js/fields.js";
 
 export default {
   name: "Formation",
@@ -88,6 +114,8 @@ export default {
       color: "success",
       items: [],
       fields: formationFields,
+      fieldsCursus: fieldsCursus,
+      fieldsIntervention: fieldsIntervention,
       currentPage: 1,
       perPage: 10,
       pageCount: 0,
@@ -119,6 +147,7 @@ export default {
         href: link,
       }).click();
     },
+
     countFormation() {
       formationApi
         .countFormation(this.key)
@@ -138,9 +167,22 @@ export default {
         .countFormation(this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
-    goToDetailFormation(id) {
+    detailFormation(id) {
       this.$router.push({ name: "admin_formation_detail", params: { id: id } });
     },
+    gotoDetailIntervention(intervention) {
+      this.$router.push({
+        name: "admin_intervention_detail",
+        params: { id: intervention.id },
+      });
+    },
+    gotoDetailCursus(cursus) {
+      this.$router.push({
+        name: "admin_cursus_detail",
+        params: { id: cursus.id },
+      });
+    },
+    // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },
