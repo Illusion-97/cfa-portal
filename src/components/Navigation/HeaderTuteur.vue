@@ -2,12 +2,15 @@
   <div class="navHeader ">
     <div class="grid-header align-items-center">
       <!-- LOGO -->
-      <div class="logo-details">
-        <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
-        <i v-else class="bx icon" :class="menuIcon"  style="font-size: 40px;" />
-        <div class="logo_name" style="font-size: 24px;">
+      <div class="logo-details" style="margin: 6px 14px 0 14px;">
+        <!-- <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
+        <i v-else class="bx icon" :class="menuIcon"  style="font-size: 40px;" /> -->
+          <div>
+            <img :src="menuIcon" alt="Menu Icon" style="font-size: 40px;">
+          </div>
+        <!-- <div class="logo_name" style="font-size: 24px;">
           {{ menuTitle }}
-        </div>
+        </div> -->
       </div>
 
       <div class="Titre">
@@ -35,7 +38,7 @@
 
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
-
+import  Icon  from '../../assets/img/LOGO.png';
 export default {
   name: "HeaderFormateur",
   props: {
@@ -45,7 +48,7 @@ export default {
     },
     menuIcon: {
       type: String,
-      default: "bxl-c-plus-plus",
+      default: Icon,
     },
     menuLogo: {
       type: String,
@@ -97,6 +100,7 @@ export default {
   padding-left: 5%;
   display: flex;
   align-items: center;
+  margin-bottom: 5%;
 }
 
 
