@@ -18,10 +18,14 @@
         v-else
         class="bx icon"
         :class="menuIcon"
+        
       />
-      <div class="logo_name">
-        {{ menuTitle }}
+      <div>
+      <img :src="menuIcon" alt="Menu Icon">
       </div>
+      <!-- <div class="logo_name">
+        {{ menuTitle }}
+      </div> -->
       <i
         class="bx"
         :class="isOpened ? 'bx-menu-alt-right' : 'bx-menu'"
@@ -120,6 +124,8 @@
 </template>
 
 <script>
+
+import  Icon  from '../../assets/img/LOGO.png';
   export default {
     name: 'SideBarComponentFormateur',
     props: {
@@ -130,7 +136,7 @@
       },
       menuTitle: {
         type: String,
-        default: 'Dawan',
+        default: '',
       },
       menuLogo: {
         type: String,
@@ -138,7 +144,7 @@
       },
       menuIcon: {
         type: String,
-        default: 'bxl-c-plus-plus',
+        default: Icon,
       },
       isPaddingLeft: {
         type: Boolean,
