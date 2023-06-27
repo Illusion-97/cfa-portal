@@ -13,7 +13,7 @@
 
 <br/>
   
-    <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index">
+    <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index" >
 
 <!-- ACTIVITES TYPES SELECTEURS -->
 <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
@@ -705,9 +705,7 @@ setup(){
     },
   },
 
-    continueAction() {
-      this.$router.push('/etudiant/dossierprofessionnels');
-    },
+   
 
   
 
@@ -735,10 +733,8 @@ setup(){
           this.$bvModal.hide("exp-pro-modal"),
           this.$bvModal.show("modal-delete-success"),
 
-          // TEST MARCHE PAS 
-          // this.optionsAT()
+          
         );
-
 
     }
 

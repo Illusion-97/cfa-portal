@@ -8,8 +8,8 @@
     </div>
 
     <div class="updateListCentreDeFormation">
-      <div class="d-flex flex-row align-items-end justify-content-between">
-        <form class="form-inline form" @submit="submit">
+      <div class="d-flex flex-row align-items-end justify-content-between m-3">
+        <form class="form-inline form " @submit="submit">
           <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -17,7 +17,7 @@
         </form>
 
         <!-- UPDATE CENTRE DE FORMATION -->
-        <div class="updateListFormation p-2">
+        <div class="updateListFormation">
           <button outlined @click="openLoginWdg2" class="btn btn-outline-info">
             <span v-if="!showLoginWdg2Card">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Mise à jour des centres de formations
@@ -37,14 +37,14 @@
     <!-- LIST CENTRE FORMATION -->
     <b-table :items="centresFormation" :fields="fields" striped class="table table-striped table-hover text-center">
       <template #cell(Actions)="row">
-        <v-app>
-          <b-button block variant="info" @click="click(row.item.id)">
+        <v-app class="button">
+          <b-button variant="info" @click="click(row.item.id)">
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
           </b-button>
         </v-app>
       </template>
     </b-table>
-    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
       :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
       :next-link-class="'page-link'" :active-class="'active'">

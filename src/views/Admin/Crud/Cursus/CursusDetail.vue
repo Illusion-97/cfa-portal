@@ -61,6 +61,7 @@
         </table>
 
         <paginate
+            class="customPagination"
             :page-count="pageCount"
             :page-range="1"
             :margin-pages="2"

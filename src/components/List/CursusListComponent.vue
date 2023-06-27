@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center">
       <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
     </div>
-    <div class="d-flex flex-row align-items-end justify-content-between">
+    <div class="d-flex flex-row align-items-end justify-content-between m-3">
       <form v-bind:class="{ 'form form-inline': true, 'mt-5 mb-2': isModal }" @submit="submit">
         <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
         <button class="btn-submit" type="submit">
@@ -88,7 +88,7 @@
       </template>
     </b-table>
 
-    <paginate :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
       :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
       :next-link-class="'page-link'" :active-class="'active'">

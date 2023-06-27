@@ -1,83 +1,112 @@
 <template>
-  <header>
-    <div class="redBanner">
-      <h1>Espace étudiant</h1>
-      <b-button size="sm" type="button" @click="logout">
-        <font-awesome-icon :icon="['fas', 'power-off']" />
-        <strong>Déconnexion</strong>
-        </b-button
-      >
-    </div>
-  </header>
+  <div class="navHeader">
+      <div class="pHeader nav-grid h-100 align-items-center">
+        <!-- Button Role -->
+        <div >
+          <p></p>
+        </div>
+
+        <!-- Title  -->
+        <div >
+              <div class="title-header">
+                <h1>Espace étudiant </h1>
+              </div>
+          </div>
+
+        <!-- Button Deconnexion -->
+        <div  class="grid-btn">
+
+          <div style="text-align: right">
+            <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">
+              <font-awesome-icon :icon="['fas', 'user']" /> Roles</button>
+          </div>
+          <div>
+            <button type="button" @click="logout" class="btnHeader btn-light">
+              <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
+              Déconnexion
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
 
 export default {
-  methods: {
-    logout() {
-      authenticationApi.logout().then(() =>
-        this.$router.push({
-          name: "login",
-        })
-      );
-    },
+
+data(){
+    return {
+      roles: this.$store.getters.getUtilisateur.rolesDto,
+    }
+},
+
+methods: {
+  logout() {
+    authenticationApi.logout().then(() =>
+      this.$router.push({
+        name: "login",
+      })
+    );
   },
+  goToRole(){
+      this.$router.push({ name: "multiRole"});
+  },
+},
 };
 </script>
 
 <style scoped>
-.redBanner {
-  background-color: #e11b28;
-  width: 100%;
-  min-height: 150px;
-}
-
-h1 {
-  color: white;
-  position: relative;
-  top: 1.76em;
-  right: 150px;
-  text-align: center;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.navHeader {
+background-color: #e11b28;
+Height: 6rem;
+overflow: hidden;
+color: white;
 }
 
 .mon-logo {
-  width: 7em;
-  position: absolute;
-  top: 22px;
-  left: 3em;
+width: 7em;
+position: absolute;
+top: 22px;
+left: 3em;
 }
 
-button {
-  position: absolute;
-  right: 1.9%;
-  top: 100px;
-  background-color: #e11b28;
-  border: none;
+.btnHeader {
+font-size: 25px !important;
+font-weight: 500;
+border: 5px;
+border-radius: 4px;
+min-width: 230px;
 }
 
-button:hover {
-  background-color: #e11b28;
-  border: none;
+.nav-grid{
+display: grid;
+grid-template-columns: repeat(3, 1fr)
 }
 
-button svg {
-  margin-right: 5px;
+.grid-btn{
+display: grid;
+grid-template-columns: 0.5fr 0.5fr;
+align-items: center;
+grid-column-gap: 20px;
 }
 
 #logo2 {
-  width: 152px;
-  position: absolute;
-  left: 89%;
-  top: 3%;
-  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+width: 152px;
+position: absolute;
+left: 89%;
+top: 3%;
+filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 black);
+}
+.title-header{
+text-align: center;
+}
+.pHeader {
+  font-size: 30px;
+  font-family: Roboto;
+  font-weight: 600;
+  height: 50%;
+  right: 0%;
 }
 </style>

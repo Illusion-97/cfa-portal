@@ -1,13 +1,16 @@
 <template>
-    <div class="navHeader mb-4">
-        <b-row class="pHeader h-100 d-flex align-items-center">
+    <div class="navHeader">
+        <b-row class="pHeader align-items-center">
 
             <!-- LOGO -->
             <div class="logo-details" style="margin: 6px 14px 0 14px">
-                <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
+                <!-- <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
                 <i v-else class="bx icon" :class="menuIcon" />
                 <div class="logo_name">
                     {{ menuTitle }}
+                </div> -->
+                <div>
+                    <img :src="menuIcon" alt="Menu Icon" style="font-size: 40px;">
                 </div>
             </div>
 
@@ -29,7 +32,7 @@
 </template>
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
-
+import  Icon  from '../../assets/img/LOGO.png';
 export default {
     name: "HeaderFormateur",
     props: {
@@ -39,7 +42,7 @@ export default {
         },
         menuIcon: {
             type: String,
-            default: "bxl-c-plus-plus",
+            default: Icon,
         },
         menuLogo: {
             type: String,
@@ -60,18 +63,17 @@ export default {
 @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
 
 .navHeader {
-    background-color: #4a0061;
+    background-color: #00072d;
     overflow: hidden;
     color: white;
     height: 6rem;
 }
 
 .logo-details {
-    padding-left: 5%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    position: relative;
+padding-left: 5%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5%;
 }
 
 .pHeader {
