@@ -48,11 +48,11 @@ export default {
       if (role == "etudiant")
         return "L'étudiant peut consulter son planning, gérer son dossier professionnel ainsi que ses dossiers projets..."
       else if (role == "formateur")
-        return "Le formateur peut consulter, gérer ses interventions et consulter les promotions qui lui sont attribuée"
+        return "Le formateur peut consulter, gérer ses interventions et consulter les promotions qui lui sont attribuées"
       else if (role == "tuteur")
-        return "Le tuteur peut consulter la liste des étudiants qui lui sont attribuée"
+        return "Le tuteur peut consulter la liste des étudiants qui lui sont attribuées"
       else if (role == "admin")
-        return "L'admin peux consulter, ajouter, supprimer, mettre à jour toutes les données"
+        return "L'admin peut consulter, ajouter, supprimer, mettre à jour toutes les données"
     },
     goToRole(role) {
       this.$router.push(role);

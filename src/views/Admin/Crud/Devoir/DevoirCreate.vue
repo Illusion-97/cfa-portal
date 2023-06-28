@@ -39,13 +39,13 @@
                       <label class="mon-label">Consigne</label>
                     <div>
                       <v-form class="">
-                          <v-textarea
+                          <b-form-textarea
                             auto-grow
                             rows="3"
                             solo
                             name="input-7-"
                             v-model="formDevoir.consigne">
-                          ></v-textarea>
+                          ></b-form-textarea>
                     
                       </v-form>
                     </div>
@@ -59,14 +59,14 @@
                     </div>
                     <div>
                       <v-flex>
-                        <v-datetime-picker v-model="formDevoir.dateDebut" date-format="MM/dd/yyyy">
+                        <b-form-datepicker v-model="formDevoir.dateDebut" date-format="MM/dd/yyyy" placeholder="Choisir une date">
                           <template slot="dateIcon">
                             <v-icon>fas fa-calendar</v-icon>
                           </template>
                           <template slot="timeIcon">
                             <v-icon>fas fa-clock</v-icon>
                           </template>
-                        </v-datetime-picker>
+                        </b-form-datepicker>
                       </v-flex>
                     </div>
                   </b-form-row>
@@ -78,20 +78,24 @@
                     </div>
                     <div>
                       <v-flex>
-                        <v-datetime-picker v-model="formDevoir.dateFin" date-format="MM/dd/yyyy">
+                        <b-form-datepicker v-model="formDevoir.dateFin" date-format="MM/dd/yyyy" placeholder="Choisir une date">
                           <template slot="dateIcon">
                             <v-icon>fas fa-calendar</v-icon>
                           </template>
                           <template slot="timeIcon">
                             <v-icon>fas fa-clock</v-icon>
                           </template>
-                        </v-datetime-picker>
+                        </b-form-datepicker>
                       </v-flex>
                     </div>
                   </b-form-row>
                 </b-form-group>
                 <div>
                   <b-form @submit="onSubmit" class="d-flex justify-content-end bFormBtnValider">
+                    <v-btn class="btnFormDevoir btnFormDevoirVider" color="secondary" @click="clear">
+                      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" />
+                        Vider
+                    </v-btn>
                     <v-btn
                       v-b-toggle.collapseFormulaire
                       @click="showshowDevoir = !showshowDevoir"
@@ -112,16 +116,10 @@
                         ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                         Annuler
                     </v-btn>
+        
                   </b-form>  
                 </div>
-                <div v-if="isFormateur">
-                </div>
-                  <div v-else>
-                      <InterventionListComponent
-                      v-on:click-list="onClickChildInterventionList"
-                      :interventionProp="intervention_input"
-                    />
-                </div>
+
               </b-form>
             </section>
           </b-collapse>
@@ -130,7 +128,7 @@
     
     <script>
     import '@fortawesome/fontawesome-free/css/all.css';
-    import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
+    //import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
     import { devoirApi } from "@/_api/devoir.api.js";
     // import { interventionApi } from "@/_api/intervention.api.js";
     import { utilisateurService} from "@/_services/utilisateur.service.js"; 
@@ -138,7 +136,7 @@
     export default {
       name: "DevoirCreate",
       components: {
-        InterventionListComponent,
+        //InterventionListComponent,
       },
         props: {
         isAction: {
@@ -235,6 +233,11 @@
         onClickChildInterventionList(intervention) {
           this.form.interventionDto = intervention;
         },
+        clear() {
+          this.formDevoir.consigne = '';
+          this.formDevoir.dateDebut = null;
+          this.formDevoir.dateFin = null;
+        },
         goBack() {
           this.$router.go(-1);
         },
@@ -330,6 +333,9 @@
       width: 8vw;
     }
     .btnFormDevoirValider{
+      margin-right: 2vw;
+    }
+    .btnFormDevoirVider{
       margin-right: 2vw;
     }
     .bFormBtnValider{
