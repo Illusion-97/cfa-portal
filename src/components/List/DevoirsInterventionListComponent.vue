@@ -34,9 +34,6 @@
                             v-model="row.item.dateDebut"
                             class="mb-2">
                         </b-form-datepicker>
- 
-
- 
                     </div>
                     <div v-else>
                         {{row.item.dateDebut}}
