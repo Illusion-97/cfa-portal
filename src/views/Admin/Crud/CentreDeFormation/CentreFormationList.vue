@@ -38,9 +38,11 @@
     <b-table :items="centresFormation" :fields="fields" striped class="table table-striped table-hover text-center">
       <template #cell(Actions)="row">
         <v-app class="button">
-          <b-button variant="info" @click="click(row.item.id)">
-            <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
-          </b-button>
+            <b-button variant="info" @click="click(row.item.id)">
+              <span tooltip="Détails" flow="down">
+              <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
+              </span>
+            </b-button>
         </v-app>
       </template>
     </b-table>

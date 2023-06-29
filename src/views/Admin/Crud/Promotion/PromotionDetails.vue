@@ -1,13 +1,12 @@
 <template>
   <div>
-       <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Précédent
-    </a>
+    <br>
+      <v-btn color="back-color" class="back" @click="goBack()">
+        <v-icon>
+          mdi-arrow-left
+        </v-icon>
+        Précédent
+      </v-btn>
     <PromotionDetailFormateur />
   </div>
 </template>
@@ -26,3 +25,10 @@ export default {
   }
 };
 </script>
+<style>
+.back-color {
+  background-color: #00072d !important;
+  color: white !important;
+  margin-left: 16px;
+}
+</style>
