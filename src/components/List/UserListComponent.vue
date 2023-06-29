@@ -412,11 +412,15 @@ export default {
         });
       this.refreshList();
     },
-    wdg2Close(value) {
-      this.showLoginWdg2Card = value;
+    wdg2Close() {
+      this.visibleMajUsers = !this.visibleMajUsers;
+      this.visibleAddTuteur = false;
+      this.visibleMajStudent = false;
     },
-    wdg2CloseEtudiant(value) {
-      this.showLoginWdg2CardEtudiant = value;
+    wdg2CloseEtudiant() {
+      this.visibleMajStudent = !this.visibleMajStudent;
+      this.visibleAddTuteur = false;
+      this.visibleMajUsers = false;
     },
     ouvrirModalModification(item) {
       console.log("user id : ",item.id)
