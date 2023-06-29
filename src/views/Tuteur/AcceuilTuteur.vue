@@ -44,9 +44,11 @@
             <td>{{ etudiant.utilisateurDto.login }}</td>
             <td>{{ etudiant.utilisateurDto.telephone }}</td>
             <td>
-              <b-button block variant="info" @click="goToEtudiant(etudiant.id)">
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
-              </b-button>
+              <span tooltip="Détails étudiant" flow="up">
+                <b-button block variant="info" @click="goToEtudiant(etudiant.id)">
+                  <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
+                </b-button>
+              </span>
             </td>
           </tr>
         </tbody>
