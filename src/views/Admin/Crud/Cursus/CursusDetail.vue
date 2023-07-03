@@ -1,20 +1,19 @@
 <template>
   <div class="container-fluid">
-    <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
-      Précédent
-    </a>
+    <br>
+      <v-btn color="back-color" class="back" @click="goBack()">
+        <v-icon>
+          mdi-arrow-left
+        </v-icon>
+        Précédent
+      </v-btn>
 
     <div id="my-card">
       <div>
         <p class="font-weight-bold" style="text-align: center; font-size: 20px; word-break: break-all">{{ cursus.titre }}</p>
       </div>
 
-      <b-card-header style="background-color: #0ba360">
+      <b-card-header style="background-color: #129cb8">
         <span class="">Details</span>
       </b-card-header>
 
@@ -171,5 +170,8 @@ export default {
   grid-template-rows: 1fr;
   grid-template-columns: 0.3fr 1fr;
 }
-
+.back-color {
+  background-color: #00072d !important;
+  color: white !important;
+}
 </style>

@@ -15,7 +15,7 @@
               </v-card-text>
               <v-card-actions class="text-center">
                 <v-btn v-if="listRoles.includes(item)" class="mx-auto" @click="goToRole(item)" color="primary">
-                  Acceder
+                  Accéder
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -46,13 +46,13 @@ export default {
   methods: {
     description(role) {
       if (role == "etudiant")
-        return "L'étudiant peux consulter sont planing, gérer sont dossier professionnel et ces dossiers projets"
+        return "L'étudiant peut consulter son planning, gérer son dossier professionnel ainsi que ses dossiers projets..."
       else if (role == "formateur")
-        return "Le formateur peux consulter, gérer ces interventions et consulter les promotions qui lui sont attribuée"
+        return "Le formateur peut consulter, gérer ses interventions et consulter les promotions qui lui sont attribuées"
       else if (role == "tuteur")
-        return "Le tuteur peux consulter les etudiant qui lui sont attribuée"
+        return "Le tuteur peut consulter la liste des étudiants qui lui sont attribuées"
       else if (role == "admin")
-        return "L'admin peux consulter et mettre à jour les données"
+        return "L'admin peut consulter, ajouter, supprimer, mettre à jour toutes les données"
     },
     goToRole(role) {
       this.$router.push(role);

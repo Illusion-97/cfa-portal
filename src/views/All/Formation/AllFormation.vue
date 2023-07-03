@@ -172,7 +172,7 @@ export default {
   },
 };
 </script>
-<!-- <style scoped src="@/assets/styles/CrudListComponent.css"></style> -->
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
 <style scoped src="@/assets/styles/BtnAccordion.css"></style>
 <style scoped>
 tbody tr {

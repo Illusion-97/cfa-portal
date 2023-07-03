@@ -9,7 +9,7 @@
     <div class="d-flex flex-row align-items-end justify-content-between m-3">
       <form class="form-inline" @submit="search">
         <input id="saisie" name="saisie" type="text" class="form-control" v-model="key"
-          placeholder="Rechercher une formation..." />
+          placeholder="Rechercher une intervention..." />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
