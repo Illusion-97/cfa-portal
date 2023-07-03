@@ -37,7 +37,7 @@
 
     <b-collapse class="login-wdg2" :visible=showLoginWdg2Card>
       <login-wdg-2 v-if="showLoginWdg2Card" @logInUser="logInUserWdg2" @wdg2Close="wdg2Close" />
-    </b-collapse> 
+    </b-collapse>
 
     <table class="table table-striped table-hover text-center">
       <thead>
@@ -70,10 +70,7 @@
         </tr>
       </thead>
       <tbody v-if="promotionsComputed">
-        <tr
-          v-for="(promotion) in promotionsComputed"
-          :key="promotion.id"
-          class="mon-tr">
+        <tr v-for="(promotion) in promotionsComputed" :key="promotion.id" class="mon-tr">
 
           <td>{{ promotion.title }}</td>
           <td>{{ promotion.type }}</td>
@@ -82,24 +79,20 @@
           <td>{{ promotion.nbParticipants }}</td>
           <td>{{ promotion.centreFormationDto.nom }}</td>
           <td>
-              <b-button
-                block
-                variant="info"
-                @click="gotoDetailPromotion(promotion)"
-              >
+            <b-button block variant="info" @click="gotoDetailPromotion(promotion)">
               <span tooltip="Détails promotion" flow="down">
                 <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
               </span>
-              </b-button>
-           </td>
+            </b-button>
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
-      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
-      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
-      :next-link-class="'page-link'" :active-class="'active'">
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
+      :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
+      :page-class="'page-item'" :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
+      :prev-link-class="'page-link'" :next-link-class="'page-link'" :active-class="'active'">
     </paginate>
   </div>
 </template>
@@ -173,7 +166,7 @@ export default {
 
           // Vérifier si la promotion existe déjà dans le tableau uniquePromotions
           const existingPromotion = uniquePromotions.find(
-              (p) => p.id === promotionWithModifiedTitle.id
+            (p) => p.id === promotionWithModifiedTitle.id
           );
 
           if (!existingPromotion) {
@@ -202,49 +195,61 @@ export default {
     submit(e) {
       if (e)
         e.preventDefault();
-      promotionApi
-        .getCount(this.saisie)
-        .then(
-          (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        );
+        if (this.saisie !== "") {
+          promotionApi
+          .countByNomOrCentreFormationOrDate(this.saisie)
+          .then(
+            (response) => (this.pageCount = Math.ceil(response.nb / this.perPage))
+            );
+          } else {
+            this.refreshList();
+          }
       promotionApi
         .getAllByPage(this.currentPage, this.perPage, this.saisie)
         .then((response) => (this.promotions = response))
     },
     pageChange(pageNum) {
-      promotionApi
-        .getAllByPageSort(pageNum - 1, this.perPage)
-        .then((response) => (this.promotions = response));
-    },
-    sortByColumn1(param){
+      if (this.saisie === "" || this.saisie === undefined) {
+        promotionApi
+          .getAllByPageSort(pageNum - 1, this.perPage)
+          .then((response) => (this.promotions = response));
+      } else {
+        this.currentPage = pageNum - 1;
+        this.submit();
+    }
+  },
+    sortByColumn1(param) {
       this.opened1 = !this.opened1;
-      if (this.opened1 == true){
+      if (this.opened1 == true) {
         this.opened2 = false
         this.opened3 = false
         promotionApi
-            .getAllByPageSort(this.currentPage, this.perPage, param)
-            .then((response) => {this.promotions = response;
-            })
+          .getAllByPageSort(this.currentPage, this.perPage, param)
+          .then((response) => {
+            this.promotions = response;
+          })
       }
     },
-    sortByColumn2(param){
+    sortByColumn2(param) {
       this.opened2 = !this.opened2;
-      if (this.opened2 == true){
+      if (this.opened2 == true) {
         this.opened3 = false
         this.opened1 = false
         promotionApi
-            .getAllByPageSort(this.currentPage, this.perPage, param)
-            .then((response) => {this.promotions = response;
-            })
+          .getAllByPageSort(this.currentPage, this.perPage, param)
+          .then((response) => {
+            this.promotions = response;
+          })
       }
     },
-    sortByColumn3(param){
+    sortByColumn3(param) {
       this.opened = !this.opened;
-      if (this.opened == true){
+      if (this.opened == true) {
         promotionApi
-            .getAllByPageSort(this.currentPage, this.perPage, param)
-            .then((response) => {this.promotions = response;
-            })
+          .getAllByPageSort(this.currentPage, this.perPage, param)
+          .then((response) => {
+            this.promotions = response;
+          })
       }
     },
     refreshList() {
@@ -254,10 +259,11 @@ export default {
           (response) => {
             this.pageCount = Math.ceil(response / this.perPage)
 
-        promotionApi
-        .getAllByPageSort(this.currentPage, this.perPage,0)
-        .then((response) => {this.promotions = response;
-        })
+            promotionApi
+              .getAllByPageSort(this.currentPage, this.perPage, 0)
+              .then((response) => {
+                this.promotions = response;
+              })
           })
     },
 
@@ -319,7 +325,7 @@ export default {
       etudiantApi
         .fetchAllEtudiantDG2HttpByIdPromotion(value, promoId)
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           this.color = "success";
           this.dismissCountDown = 6;
           this.message = response.data;
