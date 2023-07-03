@@ -63,7 +63,7 @@
                   {{ promotion.nom.split("-").join(" ") }}
                 </div>
               </td>
-              <td><button class="btn btn-danger">Supprimer</button></td>
+              <td><b-button class="btn btn-danger">Supprimer</b-button></td>
             </tr>
           </tbody>
         </table>

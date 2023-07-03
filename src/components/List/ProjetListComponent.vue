@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="grid-header">
-
+    <div>
       <div style="display: grid;grid-column-gap: 20px; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr; margin:1% 0 1% 0">
         <form class="form-inline form" @submit="submit">
           <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
@@ -9,6 +8,7 @@
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
+
         <div style="text-align: right">
           <button @click="showCreateProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
             <span v-if="!isVisible">
@@ -19,8 +19,9 @@
             </span>
           </button>
         </div>
+
         <div style="text-align: left">
-          <button @click="goToGroupProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
+          <button @click="showGroupProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
             <span v-if="!isGroupeVisible">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Groupe Projet
             </span>
@@ -29,6 +30,7 @@
             </span>
           </button>
         </div>
+
       </div>
     </div>
 
@@ -166,28 +168,14 @@ export default {
       projetApi.deleteProjet(projetId).then(() => this.refreshList());
     },
     createProjet(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
       this.$router.push({
         name: "admin_projet_create",
         params: {}
       });
-      }
-      else if (route[0] == 'referent') {
-        this.$router.push({
-        name: "referent_projet_create",
-
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_projet_create",
-
-      });
-      }
     },
     showCreateProjet(){
       this.isVisible = !this.isVisible;
+      this.isGroupeVisible = false;
     },
     getGroupNameById(index){
       let groupName;
@@ -203,8 +191,9 @@ export default {
     detail(projet) {
       this.$router.push({name:'admin_projet_detail', params: {id: projet }});
     },
-    goToGroupProjet(){
-      this.isGroupeVisible = !this.isGroupeVisible
+    showGroupProjet(){
+      this.isGroupeVisible = !this.isGroupeVisible;
+      this.isVisible = false
     }
   },
 };

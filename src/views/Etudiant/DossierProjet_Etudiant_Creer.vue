@@ -298,8 +298,7 @@
          this.DossierProjet.infoDossierProjets.information_projet = "";
        }
      },
-   
-     watch:{},
+
      computed: {
        selectedComp(){
           return (compid) => {
