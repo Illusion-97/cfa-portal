@@ -72,36 +72,8 @@ export default {
       this.$router.go(-1);
     },
     updateGroupe(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
       this.$router.push({
-        name: "admin_groupe_update",
-        
-      });
-      }
-      else if (route[0] == 'referent') {
-        this.$router.push({
-        name: "referent_groupe_update",
-        
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_groupe_update",
-        
-      });
-      }
-      /*else {
-        this.$router.push({
-        name: "formateur_groupe_update",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_groupe_update",
-      });
-      }*/
+        name: "admin_groupe_update"})
     },
     refreshList() {
       groupeApi
@@ -110,6 +82,7 @@ export default {
     },
   },
   created() {
+    console.log(this.groupeId)
     groupeApi
       .getById(this.groupeId)
       .then((response) => (this.groupe = response));

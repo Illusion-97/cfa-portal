@@ -1,40 +1,44 @@
 <template>
   <div class="container-fluid">
-    <div class="header-list">
-      <div class="text-align-left" id="groupe-input" v-if="!isAction">
-        <label class="col-1">projet</label>
-        <input
-          class="col-9 form-control"
-          type="text"
-          :value="projet_input"
-          disabled="disabled"
-        />
-      </div>
-      <div id="form-creation-projet" hidden>
-        <p>qsdqsdqsdqsd</p>
-      </div>
+    <div class="grid-header">
 
-      <div class="align-search-add-projet">
+      <div style="display: grid;grid-column-gap: 20px; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr; margin:1% 0 1% 0">
         <form class="form-inline form" @submit="submit">
-          <input
-            id="saisie"
-            name="saisie"
-            type="text"
-            class="form-control"
-            placeholder="Rechercher"
-            v-model="saisie"
-          />
+          <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
           <button class="btn-submit" type="submit">
-            <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
+            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
-        <!-- v-on:click="createProjet()" v-if="isAction" -->
-       <button class="btn btn-primary" @click="showCreateProjet" >
-              Ajouter un projet
-       </button>
+        <div style="text-align: right">
+          <button @click="showCreateProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
+            <span v-if="!isVisible">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un projet
+            </span>
+            <span v-else>
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            </span>
+          </button>
+        </div>
+        <div style="text-align: left">
+          <button @click="goToGroupProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
+            <span v-if="!isGroupeVisible">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Groupe Projet
+            </span>
+            <span v-else>
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            </span>
+          </button>
+        </div>
       </div>
     </div>
 
+    <b-collapse :visible="isVisible" class="mt-2 mb-4">
+      <projet-create></projet-create>
+    </b-collapse>
+
+    <b-collapse :visible="isGroupeVisible" class="mt-2 mb-4">
+      <groupe-list-component></groupe-list-component>
+    </b-collapse>
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -48,21 +52,16 @@
         <tr
           v-for="projet in projetsComputed"
           :key="projet.id"
-          v-on:click="clickList(projet)"
           class="mon-tr"
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
-          <td>{{ projet.groupeDto.nom }}</td>
+          <td>{{projet.groupeId}}</td>
           <td>
-            <b-button @click="detail(projet)">Modifier</b-button>
+            <b-button style="margin-right: 5px" @click="detail(projet.id)">Modifier</b-button>
             <b-button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">Supprimer</b-button>
           </td>
-          <!-- <td v-if="isAction">
-            <button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">
-              Supprimer
-            </button>
-          </td> -->
+
         </tr>
       </tbody>
     </table>
@@ -89,10 +88,12 @@
 </template>
 <script>
 import { projetApi } from "@/_api/projet.api.js";
-
+import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
+import {groupeApi} from "@/_api/groupe.api";
+import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
 export default {
   name: "projetListComponent",
-  components: {},
+  components: {ProjetCreate, GroupeListComponent},
   props: {
     isAction: {
       type: Boolean,
@@ -111,6 +112,8 @@ export default {
   data() {
     return {
       // projets: [{nom: "", description: "", groupeDto: {nom: ""}}],
+      isVisible:false,
+      isGroupeVisible: false,
       formAjoutProjet: true,
       projets: [],
       perPage: 10,
@@ -152,16 +155,7 @@ export default {
       projetApi
         .getAllByPage(0, this.perPage)
         .then((response) => {
-          this.projets = response;
-
-          //pour chaque projet, si groupe == null, pb de rendu de groupe.nom
-          if (this.projets == null) return;
-          for (let i = 0; i < this.projets.length; i++) {
-            if (this.projets[i].groupeDto == null)
-              this.projets[i].groupeDto = { nom: "" };
-          }
-        });
-
+          this.projets = response;});
       projetApi
         .getCount()
         .then(
@@ -193,8 +187,12 @@ export default {
       }
     },
     showCreateProjet(){
-     let t = document.getElementById('form-creation-projet')
-      return t.hidden = !t.hidden
+      this.isVisible = !this.isVisible;
+    },
+    getGroupNameById(index){
+      let groupName;
+      groupeApi.getById(index).then(response => {groupName = response.nom})
+      return groupName;
     },
     clickList(projet) {
       if (!this.isAction) {
@@ -203,22 +201,17 @@ export default {
       }
     },
     detail(projet) {
-      let route = this.$route.path.split("/").splice(1);
-
-      if(route[0]== 'admin') this.$router.push({name:'admin_projet_detail', params: { id: projet.id }});
-      else if(route[0]== 'referent')  this.$router.push({name:'referent_projet_detail', params: { id: projet.id }});
-      // else if(route[0]== 'formateur') this.$router.push({name:'formateur_projet_detail', params: { id: projet.id }});
-      else if(route[0]== 'cef') this.$router.push({name:'cef_projet_detail', params: { id: projet.id }});
-      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_projet_detail', params: { id: projet.id }});
-
-      //this.$router.push({name:'admin_projet_detail', params: { id: projet.id }});
+      this.$router.push({name:'admin_projet_detail', params: {id: projet }});
     },
+    goToGroupProjet(){
+      this.isGroupeVisible = !this.isGroupeVisible
+    }
   },
 };
 </script>
 
-<style scoped >
-.align-search-add-projet{
+<style scoped src="@/assets/styles/CrudListComponent.css" >
+.grid-header  {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;

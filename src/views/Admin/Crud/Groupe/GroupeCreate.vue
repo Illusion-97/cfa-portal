@@ -1,4 +1,5 @@
 <template>
+  <transition>
   <div class="container-fluid">
     <a
       @click="goBack()"
@@ -66,6 +67,7 @@
       v-on:close="onClickClose"
     />
   </div>
+  </transition>
 </template>
 
 <script>

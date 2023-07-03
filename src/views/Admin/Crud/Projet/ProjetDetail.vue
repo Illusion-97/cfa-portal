@@ -40,7 +40,7 @@
       <div class="offset-1 col-10 mb-5">
         <div class="mb-2">
           <span class="mon-label">Groupe :</span>
-          <span class="group-nom">{{ projet.groupeDto.nom }}</span>
+          <span class="group-nom"></span>
         </div>
         <table class="table">
           <thead class="">
@@ -48,6 +48,7 @@
               <th>Etudiant</th>
               <th>Email</th>
               <th>Promotions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -59,57 +60,13 @@
                   v-for="promotion in etudiant.promotionsDto"
                   :key="promotion.id"
                 >
-                  {{ promotion.nom }}
+                  {{ promotion.nom.split("-").join(" ") }}
                 </div>
               </td>
+              <td><button class="btn btn-danger">Supprimer</button></td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div class="offset-1 col-10 text-align-left">
-        <div class="div-files">
-          <label class="mon-label">Documents : </label>
-          <input
-            type="file"
-            id="file"
-            ref="file"
-            v-on:change="handleFileUpload()"
-            class="mr-3"
-          />
-          <button
-            v-if="routeId"
-            v-on:click.stop.prevent="submitFile(routeId)"
-            class="btn btn-primary"
-          >
-            Ajouter
-          </button>
-        </div>
-
-        <b-table
-          v-if="routeId && items.length > 0"
-          class="table"
-          striped
-          small
-          :items="items"
-          :fields="fields"
-        >
-          <template #cell(name_dl)="data">
-            <font-awesome-icon
-              :icon="['fas', 'arrow-down']"
-              class="icon text-success"
-              @click="download_file(routeId, data.value)"
-            />
-          </template>
-
-          <template #cell(name_delete)="data">
-            <font-awesome-icon
-              :icon="['fas', 'times']"
-              class="icon text-danger"
-              @click="delete_file(routeId, data.value)"
-            />
-          </template>
-        </b-table>
       </div>
     </b-card>
   </div>
@@ -118,7 +75,6 @@
 <script>
 import { projetApi } from "@/_api/projet.api.js";
 import { groupeApi } from "@/_api/groupe.api.js";
-import { fileApi } from "@/_api/file.api.js";
 import { fileFields } from "@/assets/js/fields.js";
 
 import "@/assets/styles/CrudDetail.css";
@@ -130,7 +86,7 @@ export default {
     return {
       projetId: this.$route.params.id,
       //On initialise nom pour éviter les soucis dans la console
-      projet: { nom: "", groupeDto: { nom: "" } },
+      projet: {},
       loading: false,
 
       etudiants: [],
@@ -151,90 +107,26 @@ export default {
         .then((response) => (this.etudiants = response));
     },
     updateProjet() {
-      let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
         this.$router.push({
           name: "admin_projet_update",
         });
-      } else if (route[0] == "referent") {
-        this.$router.push({
-          name: "referent_projet_update",
-        });
-      } else if (route[0] == "formateur") {
-        this.$router.push({
-          name: "formateur_projet_update",
-        });
-      } else if (route[0] == "cef") {
-        this.$router.push({
-          name: "cef_projet_update",
-        });
-      }
     },
     deleteProjet() {
       projetApi.deleteProjet(this.$route.params.id).then(() => this.goBack());
     },
 
-    //Pour la piece jointe
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
-    },
-    submitFile(id) {
-      if (this.file)
-        fileApi
-          .submitFileByDirectoryAndId("projets", id, this.file)
-          .then(() => this.refreshListFiles(id));
-    },
-    refreshListFiles(id) {
-      fileApi
-        .getListByDirectoryAndId("projets", id)
-        .then((response) => (this.files = response));
-    },
-    download_file(id, fileName) {
-      fileApi.downloadByDirectoryAndIdAndFilename("projets", id, fileName);
-    },
-    delete_file(id, fileName) {
-      fileApi
-        .deleteByDirectoryAndIdAndFilename("projets", id, fileName)
-        .then(() => this.refreshListFiles(id));
-    },
+
   },
   created() {
     projetApi
       .getById(this.projetId)
-      .then((response) => {this.projet = response; this.refreshListEtudiant(this.projet.groupeDto.id);});
-
-    //Pour etre sur, on test les 3 possibilités qui sont source d'erreurs
-    if (
-      this.$route.params.id != null &&
-      this.$route.params.id != "" &&
-      this.$route.params.id != 0
-    ) {
-      this.refreshListFiles(this.$route.params.id);
-    }
+      .then((response) => {this.projet = response; this.refreshListEtudiant(response.groupeId);});
   },
   computed: {
     etudiantsComputed() {
       return this.etudiants;
     },
-    //Pour les files
-    items() {
-      let result = [];
 
-      for (let i = 0; i < this.files.length; i++) {
-        let table = { name: "", name_dl: "", name_delete: "" };
-
-        table.name = this.files[i];
-        table.name_dl = this.files[i];
-        table.name_delete = this.files[i];
-
-        result.push(table);
-      }
-
-      return result;
-    },
-    rows() {
-      return this.items.length;
-    },
     routeId() {
       return this.$route.params.id;
     },
@@ -242,7 +134,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped src="@/assets/styles/CrudListComponent.css">
 .div-files{
   display: flex;
   justify-content: space-between;
