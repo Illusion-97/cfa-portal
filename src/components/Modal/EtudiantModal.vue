@@ -6,20 +6,10 @@
           <h3>Liste des étudiants</h3>
         </div>
         <div class="modal-body">
-          <div class="mon-group" v-if="etudiants">
-            <!-- <label class="form-label">Les étudiants du groupe</label>  -->
-            <div
-              class="d-inline p-2 border border-dark rounded mr-1"
-              v-for="(etudiant, index) in etudiants"
-              :key="etudiant.id"
-            >
-              {{ etudiant.prenom }} {{ etudiant.nom }}
-              <span @click="removeFromlist(index)" class="croix-delete">x</span>
-            </div>
-          </div>
+
 
           <!-- Select Promotion -->
-          <div class="mon-group" v-if="!allEtudiant">
+          <div class="mon-group">
             <label class="form-label"
               >Choisissez une promotion pour affiner la recherche :
             </label>
@@ -38,18 +28,12 @@
           </div>
 
           <!-- Recherche Etudiant -->
-          <div class="row mt-3 mb-3" v-if="allEtudiant">
-            <form
-              class="col-md-6 d-flex justify-content-between float-right"
-              @submit="submit"
-            >
-              <input
-                name="saisie"
-                type="text"
-                class="form-control"
-                v-model="saisie"
-              />
-              <button class="btn btn-primary" type="submit">Recherche</button>
+          <div class="row mt-3 mb-3">
+            <form class="form-inline form" @submit="submit">
+              <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
+              <button class="btn-submit" type="submit">
+                <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+              </button>
             </form>
           </div>
           
@@ -57,34 +41,27 @@
             <table class="table table-bordered table-striped table-hover">
               <thead class="thead-dark">
                 <tr>
-                  <th>Prenom Nom</th>
+                  <th>Etudiant</th>
                   <th>Email</th>
-                  <th>Promotions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
                   v-for="etudiant in etudiantsBDDComputed"
                   :key="etudiant.id"
-                  @click="clickListe(etudiant)"
                   class="mon-tr"
                 >
-                  <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-                  <td>{{ etudiant.login }}</td>
+                  <td>{{ etudiant.utilisateurDto.fullName }}</td>
+                  <td>{{ etudiant.utilisateurDto.login }}</td>
                   <td>
-                    <div
-                      v-for="promotion in etudiant.promotionsDto"
-                      :key="promotion.id"
-                    >
-                      {{ promotion.nom }}
-                    </div>
+                    <button class="btn btn-primary" @click="clickListe(etudiant)">Ajouter</button>
                   </td>
                 </tr>
               </tbody>
             </table>
 
             <paginate
-              v-if="allEtudiant"
               :page-count="pageCount"
               :page-range="1"
               :margin-pages="2"
@@ -117,7 +94,6 @@
 <script>
 import { promotionApi } from "@/_api/promotion.api.js";
 import { etudiantApi } from "@/_api/etudiant.api.js";
-
 export default {
   name: "EtudiantModal",
   components: {},
@@ -126,10 +102,9 @@ export default {
       etudiants: [],
       etudiantsBDD: null,
       promotions: null,
-
       selected: null,
       saisie: "",
-      perPage: 10,
+      perPage: 5,
       pageCount: 0,
     };
   },
@@ -157,6 +132,16 @@ export default {
   methods: {
     close() {
       this.$emit("close", this.etudiants);
+    },
+    toggleStudentSelection(etudiant) {
+      if (this.selectedStudent.includes(etudiant)) {
+        // L'étudiant est déjà sélectionné, le supprimer du tableau
+        const index = this.selectedStudent.indexOf(etudiant);
+        this.selectedStudent.splice(index, 1);
+      } else {
+        // L'étudiant n'est pas sélectionné, l'ajouter au tableau
+        this.selectedStudent.push(etudiant);
+      }
     },
     onSelected() {
       promotionApi
@@ -186,6 +171,15 @@ export default {
         .getCount(this.saisie)
         .then((response) => (this.pageCount = Math.ceil(response / this.perPage)));
     },
+    refreshList(){
+      etudiantApi
+          .getAllByPage(0, this.perPage,this.saisie)
+          .then((response) => (this.etudiantsBDD = response));
+
+      etudiantApi
+          .getCount(this.saisie)
+          .then((response) => (this.pageCount = Math.ceil(response / this.perPage)));
+    },
     pageChange(pageNum) {
       etudiantApi
         .getAllByPage(pageNum - 1, this.perPage, this.saisie)
@@ -193,12 +187,14 @@ export default {
     },
   },
   created() {
+    this.refreshList();
     promotionApi.getAll().then((response) => (this.promotions = response));
+
   },
 };
 </script>
 
-<style scoped>
+<style>
 .croix-delete {
   cursor: pointer;
   margin-left: 1em;
@@ -269,22 +265,10 @@ export default {
   line-height: 1.5;
   border: 1px solid #ddd;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
+#saisie,.select{
+  border-radius: 20px;
+  width: 400px;
+  /* background: #000; */
 }
 
 .modal-enter .modal-container,
