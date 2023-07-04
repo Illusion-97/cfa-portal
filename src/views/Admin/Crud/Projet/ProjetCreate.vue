@@ -6,9 +6,7 @@
     <form class="form mb-5" @submit="submit">
       <v-text-field rows="2" label="Nom du Projet" type="text" v-model="form.nom" required></v-text-field>
       <v-text-field label="Description" v-model="form.description" rows="3" max-rows="6"></v-text-field>
-      <v-select label="Groupe" v-model="form.groupeId" :items="allGroupe" item-value="id">
-        <option><v-btn>Ajouter un groupe</v-btn>
-        </option>
+      <v-select label="Groupe" v-model="form.groupeId" :items="allGroupe" item-value="id" item-text="nom">
       </v-select>
       <div class="offset-10 col-3 pr-5 pl-0">
         <b-button type="submit" class="btn btn-primary mon-btn">
@@ -28,8 +26,16 @@ import {groupeApi} from "@/_api/groupe.api";
 
 export default {
   name: "projetCreate",
-  components: {
-  },
+  components: {},
+  props: {
+    isVisible: {
+      type: Boolean,
+      required: true
+    },
+    refreshList:{
+      type: Function
+    }
+    },
   data() {
     return {
       vue_title: "Création d'un nouveau Projet",
@@ -64,11 +70,12 @@ export default {
       e.preventDefault();
       projetApi
         .save(this.form)
-        .then((response) => {
-          //Quand on créer l'objet, on ajoute la pj sur le serveur, après la création du dossier (donc de l'objet)
-          if (this.file != "") this.submitFile(response.id);
-        })
+        .then((response) => {this.refreshList() ,this.closeModal() ,console.log(response)})
     },
+    closeModal(){
+      const closeIt = !this.isVisible;
+      this.$emit('update:isVisible', closeIt)
+    }
   },
   created() {
      groupeApi

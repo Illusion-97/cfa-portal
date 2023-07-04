@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" style="margin-top: 1em">
 
     <!-- BARRE DE RECHERCHE -->
     <div class="d-flex flex-row align-items-start" v-if="etudiants">
@@ -13,7 +13,7 @@
     </div>
 
     <!-- TABLEAU -->
-      <v-simple-table v-if="etudiants">
+      <v-simple-table v-if="etudiants" style="margin-top: 1em">
 
         <!-- EN-TETE -->
         <thead style="background-color: #08092d" >
@@ -54,8 +54,25 @@
       <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
-    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)" :length="pageCount" color="#E91E63" circle v-if="etudiants"></v-pagination>
-  
+    <paginate
+        :page-count="pageCount"
+        :page-range="1"
+        :margin-pages="2"
+        :click-handler="pageChange"
+        :prev-text="'Prev'"
+        :next-text="'Next'"
+        :container-class="'pagination float-right'"
+        :page-class="'page-item'"
+        :page-link-class="'page-link'"
+        :prev-class="'page-item'"
+        :next-class="'page-item'"
+        :prev-link-class="'page-link'"
+        :next-link-class="'page-link'"
+        :active-class="'active'"
+        style="margin: 1em 1em 0 0"
+    >
+      >
+    </paginate>
   </div>
 </template>
 

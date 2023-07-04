@@ -35,12 +35,13 @@
     </div>
 
     <b-collapse :visible="isVisible" class="mt-2 mb-4">
-      <projet-create></projet-create>
+      <projet-create :refreshList="refreshList" :isVisible.sync="isVisible"></projet-create>
     </b-collapse>
 
     <b-collapse :visible="isGroupeVisible" class="mt-2 mb-4">
       <groupe-list-component></groupe-list-component>
     </b-collapse>
+
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
@@ -58,10 +59,10 @@
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
-          <td>{{projet.groupeId}}</td>
+          <td></td>
           <td>
             <b-button style="margin-right: 5px" @click="detail(projet.id)">Modifier</b-button>
-            <b-button class="btn btn-danger" v-on:click="deleteProjet(projet.id)">Supprimer</b-button>
+            <b-button class="btn btn-danger" @click="deleteProjet(projet.id)">Supprimer</b-button>
           </td>
 
         </tr>
@@ -118,6 +119,7 @@ export default {
       isGroupeVisible: false,
       formAjoutProjet: true,
       projets: [],
+      groupName: "",
       perPage: 10,
       pageCount: 0,
       currentPage: 1,
@@ -177,10 +179,9 @@ export default {
       this.isVisible = !this.isVisible;
       this.isGroupeVisible = false;
     },
-    getGroupNameById(index){
-      let groupName;
-      groupeApi.getById(index).then(response => {groupName = response.nom})
-      return groupName;
+    getGroupNameById(idGroup){
+      groupeApi.getById(idGroup).then(response => {this.groupName = response, console.log(this.groupName)})
+      return this.groupName.nom
     },
     clickList(projet) {
       if (!this.isAction) {
