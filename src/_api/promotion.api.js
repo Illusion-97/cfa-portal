@@ -5,6 +5,7 @@ export const promotionApi = {
     getPromotionByid,
     getAllByPage,
     getAllByIdFormateurByPage,
+    countByNomOrCentreFormationOrDate,
     getAllByPageSort,
     getCount,
     getCountByFormateur,
@@ -275,6 +276,15 @@ function getAllByIdFormateurByPage(idFormateur, page, size, saisie){
 
 function getCountByFormateur(idFormateur, saisie) {
   let req = `promotions/countByFormateurId/${idFormateur}/${saisie}`;
+
+  return axios
+    .get(req, requestOptions.headers())
+    .then(response => response.data)
+    .catch((error) => console.log(error));
+}
+
+function countByNomOrCentreFormationOrDate(saisie) {
+  let req = `promotions/countByNomOrCentreFormationOrDate/${saisie}`;
 
   return axios
     .get(req, requestOptions.headers())
