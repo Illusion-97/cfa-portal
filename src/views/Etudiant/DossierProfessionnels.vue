@@ -66,7 +66,6 @@
   
   <script>
   import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-
   
   export default {
     name: "DossierPro",
@@ -120,6 +119,24 @@
         this.currentPage = page;
       //this.fetchDossiers();
   },
+
+
+voirDossier(promotionId) {
+  const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id;
+
+  dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, promotionId)
+    .then(() => {
+      this.$router.push({
+        name: 'dossierVoir',
+        params: {
+          etudiantId: etudiantId,
+          promotionId: promotionId
+        }
+      });
+    })
+    .catch((error) => console.log(error));
+},
+
   
   /*fetchDossiers() {
   const page = this.currentPage;
