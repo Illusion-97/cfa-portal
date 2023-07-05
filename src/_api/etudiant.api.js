@@ -26,7 +26,9 @@ export const etudiantApi = {
     getEtudiantsByInterventionIdwithDevoirsAndAbsence,
     fetchAllEtudiantDG2Http,
     fetchAllEtudiantDG2HttpByIdPromotion,
-    getAccueilEtudiant
+    getAccueilEtudiant,
+    getEtudiantsByPromotionByPage,
+    getCountEtudiantsByPromotion
 }
 
 /**
@@ -339,6 +341,38 @@ function fetchAllEtudiantDG2Http(logInUser) {
 function getAccueilEtudiant(id) {
 
     let req = `/${END_POINT}/accueil-etudiant/` + id;
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+  /**
+ * Récupération des etudiants en fonction de promotion
+ * 
+ * @param {*} id 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
+function getEtudiantsByPromotionByPage(id, page, size, search) {
+    let req = `/${END_POINT}/promotion/${id}/${page}/${size}/${search}`;
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+/**
+ * Méthode de recherche pour promotion
+ * 
+ * @param {*} id 
+ * @param {*} search 
+ * @returns 
+ */
+function getCountEtudiantsByPromotion(id, search) {
+    let req = `/${END_POINT}/countEtudiantByPromotion/${id}/${search}`;
     return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
