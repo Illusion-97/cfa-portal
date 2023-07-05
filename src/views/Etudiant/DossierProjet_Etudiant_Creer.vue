@@ -321,6 +321,7 @@
  <style scoped>
  .main{
    margin: 0 2% 0 2%;
+   height: 105vmin;
  }
    #btn-toggle-selection{
      display: grid;

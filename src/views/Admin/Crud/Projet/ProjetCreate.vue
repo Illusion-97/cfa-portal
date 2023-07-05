@@ -1,16 +1,24 @@
 <template>
-  <div class="container-fluid">
-    <span id="title"><h4>Création d'un nouveau Projet</h4></span>
+  <div class="container-fluid" >
+    <a
+        @click="goBack()"
+        class="h5"
+        style="cursor:pointer; color:black;text-decoration:none;"
+    >
+      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      Précédent
+    </a>
+    <span id="title"><h4>{{vue_title}}</h4></span>
   <b-card>
     <v-app style="margin-left: 25%" class="w-50">
-    <form class="form mb-5" @submit="submit">
+    <form class="form mb-5" @submit="submit()">
       <v-text-field rows="2" label="Nom du Projet" type="text" v-model="form.nom" required></v-text-field>
       <v-text-field label="Description" v-model="form.description" rows="3" max-rows="6"></v-text-field>
       <v-select label="Groupe" v-model="form.groupeId" :items="allGroupe" item-value="id" item-text="nom">
       </v-select>
       <div class="offset-10 col-3 pr-5 pl-0">
-        <b-button type="submit" class="btn btn-primary mon-btn">
-          Ajouter
+        <b-button variant="primary" type="submit" class="btn btn-primary mon-btn">
+          {{btn_title}}
         </b-button>
       </div>
     </form>
@@ -29,8 +37,7 @@ export default {
   components: {},
   props: {
     isVisible: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     refreshList:{
       type: Function
@@ -39,7 +46,9 @@ export default {
   data() {
     return {
       vue_title: "Création d'un nouveau Projet",
+      btn_title: "Ajouter",
       form: {
+        id:this.$route.params.id,
         nom: "",
         description: "",
         groupeId: null,
@@ -66,21 +75,58 @@ export default {
     },
   },
   methods: {
-    submit(e) {
-      e.preventDefault();
+    submit() {
       projetApi
         .save(this.form)
-        .then((response) => {this.refreshList() ,this.closeModal() ,console.log(response)})
+        .then(() => {
+          if (this.$route.params.id != null &&
+              this.$route.params.id != "" &&
+              this.$route.params.id != 0) {
+            this.$router.go(-1);
+          } else {
+            this.refreshList();
+            this.closeModal();
+          }
+        })
+    },
+    update(){
+      projetApi
+          .update(this.form)
+          .then(this.goBack)
+    },
+    getProjet(){
+      projetApi
+          .getById(this.$route.params.id)
+          .then(response => { this.form = response})
+    },
+    paramUrl(){
+      if (this.$route.params.id != null &&
+          this.$route.params.id != "" &&
+          this.$route.params.id != 0){
+        this.btn_title = "Modifier"
+        return true
+      }
+      return false
     },
     closeModal(){
       const closeIt = !this.isVisible;
       this.$emit('update:isVisible', closeIt)
-    }
+    },
+    goBack() {
+      this.$router.go(-1);
+    },
   },
   created() {
+    if ( this.paramUrl()){
+      this.vue_title = "Modification du projet",
+          this.getProjet()
+      groupeApi
+          .getAll()
+          .then((response) => {this.allGroupe = response})
+    }
      groupeApi
          .getAll()
-         .then((response) => {this.allGroupe = response, console.log(response)})
+         .then((response) => {this.allGroupe = response})
     }
 };
 </script>

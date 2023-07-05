@@ -57,6 +57,11 @@ export default {
 };
 </script>
 <style>
+#app{
+  margin: 0;
+  padding: 0;
+}
+
 .monBody {
   float: right;
   padding-left: 5em;
@@ -68,12 +73,6 @@ export default {
   position: relative;
 }
 
-#mainEtudiant *:focus {
-  outline: none;
-  border-color: inherit;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
 
 #mainEtudiant .table th {
   /* color: #495057; */
@@ -82,10 +81,8 @@ export default {
   /* background-color: #b8d8d8; */
   border-color: #565656;
   /* width: 70%; */
-  padding: 0.3rem 14px;
 }
 
 #mainEtudiant .table td {
-  padding: 0.3rem 14px !important;
 }
 </style>
