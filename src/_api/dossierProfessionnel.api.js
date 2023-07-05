@@ -194,20 +194,17 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
   let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${promotionId}`;
 
   return axios
-
-    // .get(req, requestOptions.headers())
-    // .then(response => response.data)
-
-    .get(req, { responseType: 'blob' })
+    .get(req, { responseType: 'arraybuffer' })  // Utilisez responseType 'arraybuffer' au lieu de 'blob'
 
     .then(response => {
-      // const objectUrl = URL.createObjectURL(response.data);
-      window.open(URL.createObjectURL(response.data));
+      const blob = new Blob([response.data], { type: 'application/pdf' });  // Spécifiez le type de contenu comme 'application/pdf'
+      const objectUrl = URL.createObjectURL(blob);
+      window.open(objectUrl);
     })
 
     .catch((error) => console.log(error));
-
 }
+
 
 /** 
 @param {*} id 

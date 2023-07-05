@@ -1,6 +1,6 @@
 <template>
+  
     <div class="container-fluid" id="container">
-
       <h2>Dossiers professionnels</h2>
       <br/>
       <div>
@@ -31,12 +31,12 @@
           </b-button>
 
           <!-- BOUTON VOIR -->
-          <v-btn small color="light" @click="voirDossier(data.item.id)">
-            <v-icon>mdi-eye</v-icon>              
+          <v-btn small color="light" @click="voirDossier(etudiantId, promotionId)">
+          <v-icon>mdi-eye</v-icon>              
           </v-btn>
         </template>
       </b-table>
-  
+     
     </div>
     <div v-else>
       <ul>
@@ -44,7 +44,7 @@
       </ul>
     </div>
      
-
+    <p :data="pdfUrl" type="application/pdf" width="100%" height="600"></p>  
     <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage" @input="handlePageChange"></b-pagination>
 
 
@@ -75,7 +75,9 @@
       perPage: 5,
       totalRows: 0,
       search: "",
-      
+      pdfUrl:'',
+      etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
+      promotionId:0,
         items: [],
         telecharger: [],
         fields: [
@@ -121,18 +123,11 @@
   },
 
 
-voirDossier(promotionId) {
-  const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id;
-
+  voirDossier(etudiantId, promotionId) {
   dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, promotionId)
     .then(() => {
-      this.$router.push({
-        name: 'dossierVoir',
-        params: {
-          etudiantId: etudiantId,
-          promotionId: promotionId
-        }
-      });
+      const fileName = `dossierEtudiant${this.etudiantId}-promo${this.promotionId}-1.pdf`;
+      this.pdfUrl = `http://localhost:8080/${fileName}`;
     })
     .catch((error) => console.log(error));
 },
