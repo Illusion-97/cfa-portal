@@ -25,21 +25,21 @@
         <table class="table">
           <thead class="">
             <tr>
-              <th>Prenom Nom</th>
+              <th>Etudiant</th>
               <th>Email</th>
               <th>Promotions</th>
             </tr>
           </thead>
           <tbody v-if="etudiantsComputed">
             <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
-              <td>{{ etudiant.utilisateurDto.prenom }} {{ etudiant.utilisateurDto.nom }}</td>
+              <td>{{ etudiant.utilisateurDto.fullName }}</td>
               <td>{{ etudiant.utilisateurDto.login }}</td>
               <td>
                 <div
                   v-for="promotion in etudiant.promotionsDto"
                   :key="promotion.id"
                 >
-                  {{ promotion.nom }}
+                  {{ promotion.nom.split("-").join(" ") }}
                 </div>
               </td>
             </tr>
@@ -64,7 +64,7 @@ export default {
       groupe: { nom: "" },
       loading: false,
 
-      etudiants: [{ nom: "", promotionsDto: [{ nom: "" }] }],
+      etudiants: [{ nom: "", promotionsDto: [{ nom: "" }], utilisateurDto:{fullName:""} }],
     };
   },
   methods: {
@@ -72,36 +72,8 @@ export default {
       this.$router.go(-1);
     },
     updateGroupe(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
       this.$router.push({
-        name: "admin_groupe_update",
-        
-      });
-      }
-      else if (route[0] == 'referent') {
-        this.$router.push({
-        name: "referent_groupe_update",
-        
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_groupe_update",
-        
-      });
-      }
-      /*else {
-        this.$router.push({
-        name: "formateur_groupe_update",
-        
-      });
-      }
-      else {
-        this.$router.push({
-        name: "cef_groupe_update",
-      });
-      }*/
+        name: "admin_groupe_update"})
     },
     refreshList() {
       groupeApi

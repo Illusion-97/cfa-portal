@@ -1,23 +1,24 @@
 <template>
-  <div id="main-cr-prj">
+  <div id="main-cr-prj" style="margin-top: 1em">
     <!-- Button retour -->
-    <div class="card-retour">
-    <b-button  size="sm" class="btn-retour" @click="retour()">
-      Retour
-    </b-button>
+    <div class="card-retour" style="margin-top: 1em">
+      <a @click="goBack()" class="h5" style="cursor:pointer; color:black;text-decoration:none; float: right;">
+        <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+        Précédent
+      </a>
     </div>
     <div class="grid-1" v-if="this.$store.getters.getUtilisateur.tuteurDto">
 
       <!-- Nom des categorie du tableau -->
       <nav id="selection-toggle" style="background-color: #08092d;">
         <div class="toggle-btn" role="group">
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Infos etudiant</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Contrôle continue</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Planning</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Dossiers projets</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Dossiers professionnels</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt6'" @click="active = 6" variant="plain">Congé</v-btn>
-          <v-btn style="background-color: #08092d; color: white" class="btn-detail" block v-b-toggle="'bt7'" @click="active = 7" variant="plain">Absences</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt1'" @click="active = 1" variant="plain">Infos etudiant</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt2'" @click="active = 2" variant="plain">Contrôle continue</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt3'" @click="active = 3" variant="plain">Planning</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt4'" @click="active = 4" variant="plain">Dossiers projets</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt5'" @click="active = 5" variant="plain">Dossiers professionnels</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt6'" @click="active = 6" variant="plain">Congé</v-btn>
+          <v-btn style="background-color: #08092d; color: white; height: 50px" class="btn-detail" block v-b-toggle="'bt7'" @click="active = 7" variant="plain">Absences</v-btn>
         </div>
       </nav>
 
@@ -158,10 +159,8 @@ export default {
   },
   methods: {
 
-    retour() {
-      this.$router.push({
-        name: "tuteur_acceuil",
-      });
+    goBack() {
+      this.$router.go(-1);
     },
 
     async getInfoEtudiant() {

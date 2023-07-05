@@ -8,49 +8,57 @@
       <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
       Précédent
     </a>
-    
-    <BodyTitle :title="vue_title" />
+    <b-card no-body id="my-card">
+      <b-card-header>
+        <div>
+          <span class="mon-label">{{ vue_title }} </span>
+        </div>
+      </b-card-header>
 
     <b-form class="form mb-5" @submit="submit">
-      <b-form-group class="mb-5">
-        <b-form-row class="text-align-left">
-          <label class="mon-label">Nom</label>
+
+        <div style="display: grid; grid-template-columns: 0.25fr 0.5fr">
+          <label class="mon-label" style="text-align: center">Nom</label>
           <div class="mon-input">
             <b-form-input type="text" v-model="form.nom"> </b-form-input>
           </div>
-        </b-form-row>
-      </b-form-group>
+        </div>
 
-      <b-form-group class="mb-5">
-        <b-form-row class="text-align-left">
-          <label class="mon-label">Etudiants :</label>
+
+
+        <div style="display: grid; grid-template-columns: 0.25fr 0.5fr; margin: 10px 0 10px 0">
+          <label class="mon-label" style="text-align: center">Etudiants</label>
           <a class="btn btn-primary" @click="showModal">Ajouter des étudiant</a>
-        </b-form-row>
-      </b-form-group>
+        </div>
 
-      <table class="table">
-        <thead class="">
+
+      <div class="col-12">
+        <table class="table">
+          <thead class="">
           <tr>
-            <th>Prenom Nom</th>
+            <th>Etudiant</th>
             <th>Email</th>
             <th>Promotions</th>
+            <th>Action</th>
           </tr>
-        </thead>
-        <tbody >
-          <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
-            <td>{{ etudiant.prenom }} {{ etudiant.nom }}</td>
-            <td>{{ etudiant.login }}</td>
+          </thead>
+          <tbody v-if="etudiantsComputed">
+          <tr v-for="(etudiant, index) in etudiantsComputed" :key="etudiant.id">
+            <td>{{ etudiant.utilisateurDto.fullName }}</td>
+            <td>{{ etudiant.utilisateurDto.login }}</td>
             <td>
               <div
-                v-for="promotion in etudiant.promotionsDto"
-                :key="promotion.id"
+                  v-for="promotion in etudiant.promotionsDto"
+                  :key="promotion.id"
               >
-                {{ promotion.nom }}
+                {{ promotion.nom.split("-").join(" ") }}
               </div>
             </td>
+            <td><b-button class="btn-danger" @click="deleteStudent(index)">Supprimer</b-button></td>
           </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
 
       <div class="offset-10 col-3 pr-5 pl-0">
         <button type="submit" class="btn btn-primary mon-btn">
@@ -65,11 +73,11 @@
       :etudiantsProp="etudiantsComputed"
       v-on:close="onClickClose"
     />
+    </b-card>
   </div>
 </template>
 
 <script>
-import BodyTitle from "@/components/utils/BodyTitle.vue";
 import { groupeApi } from "@/_api/groupe.api.js";
 
 import EtudiantModal from "@/components/Modal/EtudiantModal.vue";
@@ -77,7 +85,6 @@ import EtudiantModal from "@/components/Modal/EtudiantModal.vue";
 export default {
   name: "GroupeCreate",
   components: {
-    BodyTitle,
     EtudiantModal,
   },
   data() {
@@ -104,6 +111,9 @@ export default {
       groupeApi
         .save(this.form)
         .then(() => this.goBack());
+    },
+    deleteStudent(index){
+      this.etudiantsComputed.splice(index, 1);
     },
     showModal() {
       this.isModalVisible = true;
@@ -134,27 +144,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.header-list {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5%;
-}
+<style scoped src="@/assets/styles/CrudListComponent.css" >
 
-.header-list > form {
-  width: 40%;
-}
-
-.mon-btn {
-  width: 80%;
-}
-
-.mon-label {
-  margin-left: 2.2em;
-  width: 9.7em;
-}
-
-.mon-input {
-  width: 32em;
-}
 </style>
