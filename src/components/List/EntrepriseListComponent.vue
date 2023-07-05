@@ -92,23 +92,24 @@
   <template #cell(action)="row">
     <v-app>
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-column-gap: 5px">
-        <v-btn  @click="row.toggleDetails"  color="primary">
+        <b-button v-b-tooltip.hover @click="row.toggleDetails" variant="info">
           <span tooltip="Afficher / Masquer" flow="down">
             <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
           </span>
-        </v-btn>
+        </b-button>
 
-        <v-btn  color="error" @click="supprimer(row.item)">
+        <b-button v-b-tooltip.hover variant="warning" dark @click="update(row.item)">
+          <span tooltip="Modifier" flow="down">
+            <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />
+          </span>
+        </b-button>
+
+        <b-button v-b-tooltip.hover variant="danger" @click="supprimer(row.item)">
           <span tooltip="Supprimer" flow="down"> 
             <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
           </span>
-        </v-btn>
+        </b-button>
 
-        <v-btn  color="warning" dark @click="update(row.item)">
-          <span tooltip="Modifier" flow="down">
-            <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> 
-          </span>
-        </v-btn>
       </div>
     </v-app>
   </template>

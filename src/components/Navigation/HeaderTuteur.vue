@@ -20,12 +20,13 @@
       <!-- BUTTON DECONNEXION -->
         <div  class="grid-btn">
           <div style="text-align: right">
-            <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">
-              <font-awesome-icon :icon="['fas', 'user']" /> Roles</button>
+            <button v-if="roles.length > 1" type="button" @click="goToRole"  class="role-btn btn-light">
+              <font-awesome-icon :icon="['fas', 'user']" /> Roles
+            </button>
           </div>
 
           <div>
-            <button type="button" @click="logout" class="btnHeader btn-light">
+            <button type="button" @click="logout" class="logout-btn btn-light">
               <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
               Déconnexion
             </button>
@@ -78,8 +79,7 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-@import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+
 
 .navHeader {
   background-color: #00072d;
@@ -124,7 +124,23 @@ export default {
   font-weight: 500;
   border: 5px;
   border-radius: 4px;
-  min-width: 230px;
+  min-width: 130px;
+}
+
+.logout-btn{
+  font-size: 20px !important;
+  font-weight: 500;
+  border: 5px;
+  border-radius: 4px;
+  min-width: 180px;
+}
+
+.role-btn{
+  font-size: 20px !important;
+  font-weight: 500;
+  border: 5px;
+  border-radius: 4px;
+  min-width: 110px;
 }
 
 .Titre {

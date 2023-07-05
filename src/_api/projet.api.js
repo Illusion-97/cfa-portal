@@ -8,6 +8,7 @@ export const projetApi = {
   getAllByPage,
   getCount,
   save,
+  update,
   deleteProjet,
   getByIdEtudiant,
   getAll,
@@ -90,9 +91,9 @@ function getCount(search = ""){
 
 /**
  * Save du projet
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 
 function save(projet) {
@@ -100,6 +101,20 @@ function save(projet) {
     .post(`${END_POINT}`, projet, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
+}
+
+/**
+ * Save du projet
+ *
+ * @param {*} id
+ * @returns
+ */
+
+function update(projet) {
+  return axios
+      .post(`${END_POINT}`, projet, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
 }
 
 

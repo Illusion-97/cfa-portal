@@ -1,16 +1,11 @@
 <template>
-
-  <footer>
-    <svg viewBox="0 -20 700 110" width="100%" height="380" preserveAspectRatio="none">
-      <path d="M0,10 c80,-18 230,-12 350,7 c80,13 260,17 350,-5 v100 h-700z" fill="#565656" />
-    </svg>
+  <div class="footer-container">
     <div class="content">
-      <img src="@/assets/img/institutionnel-logo.png" alt="logo" class="mon-logo" />
-      <br>
-      <br>
+
       
-      <div class="row">
-        <div class="col-4">
+      <div class="grid-footer">
+        <div>
+          <img src="@/assets/img/institutionnel-logo.png" alt="logo" class="mon-logo" />
 
           <h5>Contact</h5>
           09 72 37 73 73
@@ -24,7 +19,7 @@
           France - Belgique - Suisse
         </div>
 
-        <div class="col-4">
+        <div>
           <h5>Découvrez Dawan</h5>
           <a href="https://www.dawan.fr/a-propos/presentation-de-la-societe">Présentation de notre organisme de
             formation</a>
@@ -40,7 +35,7 @@
           <a href="https://www.dawan.fr/a-propos/la-societe/mentions-legales">Mentions légales</a>
         </div>
         
-        <div class="col-4 contact">
+        <div class="contact">
           <h5>Suivez-nous</h5>
 
           <!-- FACEBOOK -->
@@ -81,11 +76,16 @@
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 
 </template>
 
 <style scoped>
+
+.grid-footer{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
 img {
   position: relative;
   left: 13.7%;
@@ -143,31 +143,17 @@ a:active {
 }
 
 .content {
+  background-color: #6c757d;
   position: absolute;
   top: 122px;
   color: rgb(255, 255, 255);
   font-size: 12px;
-  width: 95%;
+  width: 100%;
 }
 
-footer {
-  position: relative;
-  bottom: 0;
+.footer-container {
+  position: absolute;
+  bottom: 105px;
   width: 100%;
-  margin-top: 30vh;
-  /*bottom: 0;
-  left: 0;
-  right: 0; */
-}
-@media screen and (max-width: 1600px) {
-  footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 60vh;
-    /*bottom: 0;
-    left: 0;
-    right: 0; */
-  }
 }
 </style>
