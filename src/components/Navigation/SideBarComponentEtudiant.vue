@@ -2,7 +2,7 @@
   <div class="sidebar" :class="isOpened ? 'open' : ''" :style="cssVars">
     <div class="logo-details">
       <img
-        src="@/assets/img/LOGO.png"
+        src="@/assets/img/institutionnel-logo.png"
         alt="logo"
         class="menu-logo"
       />
