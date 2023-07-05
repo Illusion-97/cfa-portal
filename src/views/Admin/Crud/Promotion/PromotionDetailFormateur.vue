@@ -5,13 +5,18 @@
         <b-tabs content-class="mt-3" fill v-model="tabIndex">
 
           <!-- TABLE ETUDIANTS -->
-          <!-- AJOUTER UN BOUTON RETOUR -->
           <b-tab active>
             <template v-slot:title>
               <font-awesome-icon :icon="['fas', 'user-graduate']" class="icon" />
               Etudiants
             </template>
             <div>
+              <form class="form-inline form m-4" @submit="submitEtudiant">
+                <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieEtudiant" />
+                <button class="btn-submit" type="submit">
+                  <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
+                </button>
+              </form>
               <table class="table">
                 <thead class="">
                   <tr>
@@ -20,63 +25,30 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Téléphone</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="etudiant in promotion.etudiantsDto" :key="etudiant.id" class="mon-tr">
+                  <tr v-for="etudiant in etudients" :key="etudiant.id" class="mon-tr">
                     <td>
                       <b-button @click="clickEtudiant(etudiant)" size="sm" class="mr-2">
                         Afficher détails
                       </b-button>
                     </td>
-                    <td>{{ etudiant.utilisateurDto.prenom }}</td>
                     <td>{{ etudiant.utilisateurDto.nom }}</td>
+                    <td>{{ etudiant.utilisateurDto.prenom }}</td>
                     <td>{{ etudiant.utilisateurDto.login }}</td>
                     <td>
                       {{ etudiant.utilisateurDto.telephone }}
                     </td>
-                    <td width=16% v-if="isAdmin">
-                      <b-button block variant="danger" @click="showModal(etudiant.utilisateurDto)">
-                        <font-awesome-icon :icon="['fas', 'clock']" />
-                        Déclarer Absence
-                      </b-button>
-                      <b-modal hide-footer :ref="'modal-' + etudiant.utilisateurDto.id">
-                        <template #modal-title>
-                          <div class="text-center">
-                            Ajouter une absence ou un retard pour
-                            <span class="text-info font-weight-bold">{{
-                              etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom
-                            }}</span>
-                          </div>
-                        </template>
-                        <b-form @submit="ajouterAbsence()">
-                          <b-form-group label="Type">
-                            <b-form-select id="input-3" v-model="formModel.type" :options="retardAbsence" required>
-                            </b-form-select>
-                          </b-form-group>
-                          <b-form-group label="Du">
-                            <div class="w-100 d-flex justify-content-center">
-                              <b-form-input v-model="formModel.dateDebut" type="date" class=""></b-form-input>
-                              <b-form-input v-model="formModel.tempDebut" type="time" class=""></b-form-input>
-                            </div>
-                          </b-form-group>
-                          <b-form-group label="Au">
-                            <div class="w-100 d-flex justify-content-center">
-                              <b-form-input v-model="formModel.dateFin" type="date" class=""></b-form-input>
-                              <b-form-input v-model="formModel.tempFin" type="time" class=""></b-form-input>
-                            </div>
-                          </b-form-group>
-
-                          <b-button type="submit" class="mt-3" variant="outline-success" block>Ajouter</b-button>
-                        </b-form>
-                        <b-button class="mt-3" variant="outline-danger" block @click="hideModal(etudiant)">Annuler
-                        </b-button>
-                      </b-modal>
-                    </td>
                   </tr>
                 </tbody>
               </table>
+              <paginate class="customPagination" :page-count="pageCountEtudiant" :page-range="1" :margin-pages="2"
+                :click-handler="pageChangeEtudiant" :prev-text="'Prev'" :next-text="'Next'"
+                :container-class="'pagination float-right'" :page-class="'page-item'" :page-link-class="'page-link'"
+                :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+                :next-link-class="'page-link'" :active-class="'active'">
+              </paginate>
             </div>
           </b-tab>
 
@@ -87,39 +59,32 @@
               Interventions
             </template>
             <div id="interventions">
+              <div class="d-flex flex-row align-items-end justify-content-between">
+              <form class="form-inline form m-4" @submit="submitIntervention">
+                <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieIntervention" />
+                <button class="btn-submit" type="submit">
+                  <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
+                </button>
+              </form>
+
               <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de
                 positionnement</b-button>
 
-              <b-button
-                  class="m-4"
-                  variant="warning"
-                  @click="openLoginWdg2EtudiantBypromo"
-              >
+              <b-button class="m-4" variant="warning" @click="openLoginWdg2EtudiantBypromo">
                 Import Etudiant de la promo
               </b-button>
-              <b-button
-                  class="m-4"
-                  variant="success"
-                  @click="openLoginWdg2InterventionBypromo"
-              >
+              <b-button class="m-4" variant="success" @click="openLoginWdg2InterventionBypromo">
                 Import Intervention de la promo
               </b-button>
+              </div>
               <div class="modal-import-dg2">
                 <div class="login-wdg2">
-                  <login-wdg2
-                      hidden
-                      :id="'ShowLoginCardEtudiant'"
-                      @logInUser="importEtudiantPromo"
-                      @wdg2Close="wdg2CloseEtudiantByPromo()"
-                  />
+                  <login-wdg2 hidden :id="'ShowLoginCardEtudiant'" @logInUser="importEtudiantPromo"
+                    @wdg2Close="wdg2CloseEtudiantByPromo()" />
                 </div>
                 <div class="login-wdg2">
-                  <login-wdg2
-                      hidden
-                      :id="'ShowLoginCardPromo'"
-                      @logInUser="importInterventionByPromo"
-                      @wdg2Close="wdg2CloseInterventionByPromo()"
-                  />
+                  <login-wdg2 hidden :id="'ShowLoginCardPromo'" @logInUser="importInterventionByPromo"
+                    @wdg2Close="wdg2CloseInterventionByPromo()" />
                 </div>
               </div>
               <table class="table">
@@ -132,7 +97,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="intervention in promotion.interventionsDto" :key="intervention.id"
+                  <tr v-for="intervention in intervention" :key="intervention.id"
                     @click="clickIntervention(intervention)" class="mon-tr">
                     <td>
                       {{
@@ -147,6 +112,12 @@
                   </tr>
                 </tbody>
               </table>
+              <paginate class="customPagination" :page-count="pageCountIntervention" :page-range="1" :margin-pages="2"
+                :click-handler="pageChangeIntervention" :prev-text="'Prev'" :next-text="'Next'"
+                :container-class="'pagination float-right'" :page-class="'page-item'" :page-link-class="'page-link'"
+                :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
+                :next-link-class="'page-link'" :active-class="'active'">
+              </paginate>
             </div>
           </b-tab>
 
@@ -184,8 +155,8 @@ import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 import { utilisateurService } from "@/_services/utilisateur.service.js";
-import {interventionApi} from "@/_api/intervention.api";
-import {etudiantApi} from "@/_api/etudiant.api";
+import { interventionApi } from "@/_api/intervention.api";
+import { etudiantApi } from "@/_api/etudiant.api";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 
 export default {
@@ -198,7 +169,7 @@ export default {
   },
   components: {
     ExamensPromotionsListCompoenent,
-    AjouterNotes,LoginWdg2
+    AjouterNotes, LoginWdg2
   },
 
   data() {
@@ -206,8 +177,16 @@ export default {
       tabIndex: 1,
       promotionId: this.$route.params.id,
       promotion: [],
-      itemsEtudients: [],
+      etudients: [],
+      intervention: [],
       ville: "",
+      saisieEtudiant: "",
+      saisieIntervention: "",
+      pageCountEtudiant: 0,
+      pageCountIntervention: 0,
+      countIntervention: 0,
+      countEtudiant: 0,
+      perPage: 9,
       onglet: 1,
       isModalVisible: false,
       formModel: {
@@ -240,13 +219,13 @@ export default {
       let card = document.getElementById('ShowLoginCardPromo')
       card.hidden = !card.hidden
     },
-    wdg2CloseInterventionByPromo(){
+    wdg2CloseInterventionByPromo() {
       document.getElementById('ShowLoginCardPromo').hidden = true
     },
-    wdg2CloseEtudiantByPromo(){
+    wdg2CloseEtudiantByPromo() {
       document.getElementById('ShowLoginCardEtudiant').hidden = true
     },
-    async importEtudiantPromo(value){
+    async importEtudiantPromo(value) {
 
       this.showLoginWdg2CardEtudiantByPromo = false;
       this.loading = true;
@@ -254,20 +233,20 @@ export default {
       let promoId = this.promotion.idDg2;
 
       etudiantApi
-          .fetchAllEtudiantDG2HttpByIdPromotion(value, promoId)
-          .then((response) => {
-            this.color = "success";
-            this.dismissCountDown = 6;
-            this.message = response.data;
-            this.loading = false;
-            this.refreshList();
-          })
-          .catch((err) => {
-            this.color = "danger";
-            this.dismissCountDown = 8;
-            this.message = err;
-            this.loading = false;
-          });
+        .fetchAllEtudiantDG2HttpByIdPromotion(value, promoId)
+        .then((response) => {
+          this.color = "success";
+          this.dismissCountDown = 6;
+          this.message = response.data;
+          this.loading = false;
+          this.refreshList();
+        })
+        .catch((err) => {
+          this.color = "danger";
+          this.dismissCountDown = 8;
+          this.message = err;
+          this.loading = false;
+        });
 
     },
     getGrille() {
@@ -283,10 +262,10 @@ export default {
           downloadLink.click();
         });
     },
-    getPromotionId() {
-
+    getPromotionId() {    
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        this.promotion = response;});
+        this.promotion = response;
+      });
       this.$root.$on("afficherNotes", (data) => {
         if (data) {
           this.tabIndex++;
@@ -331,23 +310,14 @@ export default {
         });
       }
     },
-    showModal(etuId) {
-      this.$refs["modal-" + etuId.id].show();
-    },
-    hideModal(etuId) {
-      this.$refs["modal-" + etuId].hide();
-    },
-    ajouterAbsence() {
-      return null;
-    },
-  async importInterventionByPromo(value){
+    async importInterventionByPromo(value) {
 
-    this.showLoginWdg2CardInterventionByPromo = false;
-    this.loading = true;
+      this.showLoginWdg2CardInterventionByPromo = false;
+      this.loading = true;
 
-    let promoId = this.promotion.idDg2;
+      let promoId = this.promotion.idDg2;
 
-    interventionApi
+      interventionApi
         .fetchInterventionsDG2ByIdPromotion(value, promoId)
         .then((response) => {
           this.color = "success";
@@ -363,10 +333,46 @@ export default {
           this.loading = false;
         });
 
-  }
+    },
+    submitEtudiant(e) {
+      e.preventDefault();
+      this.pageChangeEtudiant();
+    },
+    submitIntervention(e) {
+      e.preventDefault();
+      this.pageChangeIntervention();
+    },
+    async pageChangeIntervention(pageNum) {
+      if (pageNum) 
+        interventionApi.findInterventionByPromotionId(this.$route.params.id, pageNum - 1, this.perPage, this.saisieIntervention).then((response) => { this.intervention = response })
+      else
+        interventionApi.findInterventionByPromotionId(this.$route.params.id, 0, this.perPage, this.saisieIntervention).then((response) => { this.intervention = response })
+
+      if (this.saisieIntervention != "") 
+        await interventionApi.countInterventionByPromotionId(this.$route.params.id, this.saisieIntervention).then((response) => { this.countIntervention = response.nb })
+      else
+        await interventionApi.countInterventionByPromotionId(this.$route.params.id, "").then((response) => { this.countIntervention = response.nb })
+
+      this.pageCountIntervention = Math.ceil(this.countIntervention / this.perPage)
+    },
+    async pageChangeEtudiant(pageNum) {
+      if (pageNum) 
+        etudiantApi.getEtudiantsByPromotionByPage(this.$route.params.id, pageNum - 1, this.perPage, this.saisieEtudiant).then((response) => { this.etudients = response })
+      else
+        etudiantApi.getEtudiantsByPromotionByPage(this.$route.params.id, 0, this.perPage, this.saisieEtudiant).then((response) => { this.etudients = response })
+
+      if (this.saisieEtudiant != "") 
+        await etudiantApi.getCountEtudiantsByPromotion(this.$route.params.id, this.saisieEtudiant).then((response) => { this.countEtudiant = response.nb })
+      else
+        await etudiantApi.getCountEtudiantsByPromotion(this.$route.params.id, "").then((response) => { this.countEtudiant = response.nb })
+
+      this.pageCountEtudiant = Math.ceil(this.countEtudiant / this.perPage)
+      }
   },
   created() {
     this.getPromotionId();
+    this.pageChangeEtudiant();
+    this.pageChangeIntervention();
   },
 };
 </script>
@@ -377,6 +383,25 @@ export default {
   display: flex;
   justify-content: space-around;
 } */
+
+.btn-submit {
+  border: 0;
+  background-color: inherit;
+  border-radius: 100%;
+  width: 2.5em;
+  margin-left: -3em;
+}
+
+.iconSearch {
+  color: brown;
+}
+
+#saisieEtudiant,
+.select {
+  border-radius: 20px;
+  width: 400px;
+  /* background: #000; */
+}
 
 h1 {
   /* border: 1px solid #6c757d; */
@@ -461,7 +486,7 @@ h1 {
   z-index: 1;
 }
 
-.modal-import-dg2{
+.modal-import-dg2 {
   margin-inline: 10%;
   display: grid;
   grid-template-rows: 1fr;

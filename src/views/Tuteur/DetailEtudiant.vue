@@ -132,7 +132,7 @@ import { dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
 export default {
   data: () => {
     return {
-      active: 2,
+      active: 1,
       pageNotes: 1,
       pagePromos: 1,
       pageDossProjet: 1,

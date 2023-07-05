@@ -24,6 +24,8 @@ export const interventionApi = {
     findAllSupportByInterventionId,
     fetchAllInterventionsDG2Http,
     fetchInterventionsDG2ByIdPromotion,
+    findInterventionByPromotionId,
+    countInterventionByPromotionId
 }
 
 /**
@@ -268,4 +270,36 @@ function fetchInterventionsDG2ByIdPromotion(logInUser, promoId){
     headers.headers["X-AUTH-TOKEN"] = `${logInUser.email}:${logInUser.password}`;
 
     return axios.get(req, headers);
-  }
+  } 
+  
+  /**
+ * Récupération des intervention en fonction de promotion id
+ * 
+ * @param {*} id 
+ * @param {*} page 
+ * @param {*} size 
+ * @param {*} search 
+ * @returns 
+ */
+function findInterventionByPromotionId(id, page, size, search) {
+    let req = `/${END_POINT}/promotion/${id}/${page}/${size}/${search}`;
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+  
+/**
+ * Méthode de recherche pour intervention
+ * 
+ * @param {*} id 
+ * @param {*} search 
+ * @returns 
+ */
+function countInterventionByPromotionId(id, search) {
+    let req = `/${END_POINT}/countInterventionByPromotion/${id}/${search}`;
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
