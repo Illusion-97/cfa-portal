@@ -77,7 +77,7 @@ export default {
       items: [],
       fields: formationFields,
       currentPage: 1,
-      perPage: 10,
+      perPage: 7,
       pageCount: 0,
       keyword: "",
       showLoginWdg2Card: false,
