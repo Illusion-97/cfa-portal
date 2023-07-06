@@ -61,42 +61,36 @@
           <td>{{ projet.description }}</td>
           <td></td>
           <td>
-            <b-button style="margin-right: 5px" @click="detail(projet.id)">Modifier</b-button>
-            <b-button class="btn btn-danger" @click="deleteProjet(projet.id)">Supprimer</b-button>
+            <b-button variant="warning"  style="margin-right: 5px" @click="detail(projet.id)">
+              <span tooltip="Modifier" flow="down">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+                Modifier
+              </span>
+            </b-button>
+            <b-button class="btn btn-danger" @click="deleteProjet(projet.id)">
+              <span tooltip="Supprimer" flow="down">
+                <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
+                Supprimer
+              </span>
+            </b-button>
           </td>
 
         </tr>
       </tbody>
     </table>
 
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
-      >
-    </paginate>
+    <pagination :page-change="pageChange" :page-count="pageCount"></pagination>
   </div>
 </template>
 <script>
+import Pagination from "@/components/Navigation/Pagination.vue";
 import { projetApi } from "@/_api/projet.api.js";
 import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
 import {groupeApi} from "@/_api/groupe.api";
 import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
 export default {
   name: "projetListComponent",
-  components: {ProjetCreate, GroupeListComponent},
+  components: {Pagination, ProjetCreate, GroupeListComponent},
   props: {
     isAction: {
       type: Boolean,

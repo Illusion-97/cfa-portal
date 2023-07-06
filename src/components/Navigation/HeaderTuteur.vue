@@ -1,31 +1,26 @@
 <template>
   <div class="navHeader ">
-    <div class="grid-header align-items-center">
+    <div class="nav-grid">
       <!-- LOGO -->
-      <div class="logo-details" style="margin: 6px 14px 0 14px;">
-        <!-- <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
-        <i v-else class="bx icon" :class="menuIcon"  style="font-size: 40px;" /> -->
-          <div>
-            <img :src="menuIcon" alt="Menu Icon" style="font-size: 40px;">
-          </div>
-        <!-- <div class="logo_name" style="font-size: 24px;">
-          {{ menuTitle }}
-        </div> -->
+      <div class="logo" >
+        <img src="../../../src/assets/img/institutionnel-logo.png"
+             alt="Menu Icon" class="img">
       </div>
 
-      <div class="Titre">
+      <div class="title-header">
         <h1>Espace Tuteur</h1>
       </div>
 
       <!-- BUTTON DECONNEXION -->
-        <div  class="grid-btn">
-          <div style="text-align: right">
-            <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">
-              <font-awesome-icon :icon="['fas', 'user']" /> Roles</button>
+        <div class="grid-btn">
+          <div class="flex-btn-role">
+            <button v-if="roles.length > 1" type="button" @click="goToRole"  class="role-btn btn-light">
+              <font-awesome-icon :icon="['fas', 'user']" /> Roles
+            </button>
           </div>
 
-          <div>
-            <button type="button" @click="logout" class="btnHeader btn-light">
+          <div class="flex-btn-logout">
+            <button type="button" @click="logout" class="logout-btn btn-light">
               <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
               Déconnexion
             </button>
@@ -78,58 +73,71 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-@import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+
 
 .navHeader {
   background-color: #00072d;
+  overflow: hidden;
   color: white;
   height: 6rem;
 }
-.grid-header{
+.nav-grid{
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
 }
 .grid-btn{
   display: grid;
-  grid-template-columns: 0.5fr 0.5fr;
-  align-items: center;
-  grid-column-gap: 20px;
+  grid-template-columns: 1fr 1fr;
 }
-.logo-details {
-  padding-left: 5%;
+
+.logo{
   display: flex;
   align-items: center;
-  margin-bottom: 5%;
+  padding-left: 60px;
+}
+.img{
+  height: 90px; width: 90px
 }
 
-
-.pHeader {
-  font-size: 30px;
-  font-weight: 600;
-  height: 50%;
-  right: 0%;
+.title-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.navHeader .logo-details {
-  height: 6rem;
+.btn-header{
+  display: flex;
+  align-items: center;
+  justify-content: right ;
+  padding-right: 30px;
 }
-
-.logo_name{
-
-
+.flex-btn-logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.btnHeader {
-  font-size: 25px !important;
+.logout-btn{
+  font-size: 20px !important;
   font-weight: 500;
   border: 5px;
   border-radius: 4px;
-  min-width: 230px;
+  height: 30px;
+  min-width: 180px !important;
 }
 
-.Titre {
-  text-align: center;
+.flex-btn-role{
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
+.role-btn{
+  font-size: 20px !important;
+  font-weight: 500;
+  border: 5px;
+  border-radius: 4px;
+  min-width: 110px;
+}
+
 
 
 </style>

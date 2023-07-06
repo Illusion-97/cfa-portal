@@ -23,7 +23,7 @@
         </button>
       </form>
 
-      <b-button class="btn btn-primary" @click="createGroupe()">
+      <b-button variant="primary" class="btn btn-primary" @click="createGroupe()">
         Ajouter un groupe
       </b-button>
 
@@ -44,7 +44,18 @@
           <td>
               <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.utilisateurDto.fullName+", "}}</span>
             </td>
-          <td><b-button @click="detail(groupe)">Détail</b-button></td>
+          <td>
+            <b-button variant="info" @click="detail(groupe)">
+            <span tooltip="Voir le détail" flow="down">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />Détails
+            </span>
+          </b-button>
+            <b-button style="margin-left: 5px" class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
+              <span tooltip="Supprimer" flow="down">
+                <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />Supprimer
+              </span>
+            </b-button>
+          </td>
           <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
               Supprimer
@@ -53,33 +64,17 @@
         </tr>
       </tbody>
     </table>
+    <pagination :page-count="pageCount" :page-change="pageChange"></pagination>
 
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
-      >
-    </paginate>
   </div>
 </template>
 
 <script>
 import { groupeApi } from "@/_api/groupe.api.js";
+import Pagination from "@/components/Navigation/Pagination.vue";
 export default {
   name: "groupeListComponent",
-  components: {},
+  components: {Pagination},
   props: {
     isAction: {
       type: Boolean,

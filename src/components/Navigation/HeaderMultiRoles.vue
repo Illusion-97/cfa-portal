@@ -1,48 +1,36 @@
 <template>
     <div class="navHeader">
-        <b-row class="pHeader align-items-center">
 
+          <div class="nav-grid">
             <!-- LOGO -->
-            <div class="logo-details" style="margin: 6px 14px 0 14px">
-                <!-- <img v-if="menuLogo" :src="menuLogo" alt="menu-logo" class="menu-logo icon" />
-                <i v-else class="bx icon" :class="menuIcon" />
-                <div class="logo_name">
-                    {{ menuTitle }}
-                </div> -->
-                <div>
-                    <img :src="menuIcon" alt="Menu Icon" style="font-size: 40px;">
-                </div>
+            <div class="logo" >
+              <img src="../../../src/assets/img/institutionnel-logo.png"
+                   alt="Menu Icon" class="img">
             </div>
 
-            <div class="Titre">
+            <div class="title-header">
                 <h1>Choisissez un rôle</h1>
             </div>
 
             <!-- BUTTON DECONNEXION -->
-            <b-col class="d-flex justify-content-end">
-                <div>
-                    <button type="button" @click="logout" class="btnHeader btn-light">
-                        <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
-                        Déconnexion
-                    </button>
-                </div>
-            </b-col>
-        </b-row>
+            <div class="btn-header">
+              <button type="button" class="logout-btn btn-light" @click="logout" >
+                <font-awesome-icon :icon="['fas', 'sign-out-alt']"/>
+                Déconnexion
+              </button>
+            </div>
+
+          </div>
     </div>
 </template>
 <script>
 import { authenticationApi } from "@/_api/authentication.api.js";
-import  Icon  from '../../assets/img/LOGO.png';
 export default {
     name: "HeaderFormateur",
     props: {
         menuTitle: {
             type: String,
             default: "Dawan",
-        },
-        menuIcon: {
-            type: String,
-            default: Icon,
         },
         menuLogo: {
             type: String,
@@ -59,8 +47,7 @@ export default {
 };
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-@import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+
 
 .navHeader {
     background-color: #00072d;
@@ -68,43 +55,40 @@ export default {
     color: white;
     height: 6rem;
 }
+.nav-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 100%;
+}
 
-.logo-details {
-padding-left: 5%;
+
+.logo{
   display: flex;
   align-items: center;
-  margin-bottom: 5%;
+  padding-left: 60px;
+}
+.img{
+  height: 90px; width: 90px
 }
 
-.pHeader {
-    font-size: 30px;
-    font-family: Roboto;
-    font-weight: 600;
-    height: 50%;
-    right: 0%;
+.title-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.navHeader .logo-details {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    position: relative;
+.btn-header{
+  display: flex;
+  align-items: center;
+  justify-content: right ;
+  padding-right: 30px;
 }
-
-.btnHeader {
-    position: relative;
-    font-size: 25px !important;
-    font-weight: 500;
-    width: 120%;
-    height: 100%;
-    border: 5px;
-    right: 100%;
-    border-radius: 4px;
-}
-
-.Titre {
-    width: 45%;
-    text-align: right;
+.logout-btn{
+  font-size: 20px !important;
+  font-weight: 500;
+  border: 5px;
+  border-radius: 4px;
+  height: 30px;
+  min-width: 180px !important;
 }
 </style>
   

@@ -44,7 +44,7 @@
             <td>{{ etudiant.utilisateurDto.login }}</td>
             <td>{{ etudiant.utilisateurDto.telephone }}</td>
             <td>
-              <span tooltip="Détails étudiant" flow="up">
+              <span tooltip="Détails étudiant" flow="down">
                 <b-button block variant="info" @click="goToEtudiant(etudiant.id)">
                   <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
                 </b-button>
@@ -56,32 +56,15 @@
       <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
-    <paginate
-        :page-count="pageCount"
-        :page-range="1"
-        :margin-pages="2"
-        :click-handler="pageChange"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'pagination float-right'"
-        :page-class="'page-item'"
-        :page-link-class="'page-link'"
-        :prev-class="'page-item'"
-        :next-class="'page-item'"
-        :prev-link-class="'page-link'"
-        :next-link-class="'page-link'"
-        :active-class="'active'"
-        style="margin: 1em 1em 0 0"
-    >
-      >
-    </paginate>
+    <pagination :page-change="pageChange" :page-count="pageCount"></pagination>
   </div>
 </template>
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
-
+import Pagination from "@/components/Navigation/Pagination.vue";
 export default {
+  components: {Pagination},
   data() {
     return {
       perPage: 8,
