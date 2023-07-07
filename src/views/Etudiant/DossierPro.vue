@@ -328,6 +328,7 @@ export default {
     },
       annexe: null,
       newFacultatif: [],
+      selectedActiviteTypes: [],
       text: "test",
       select1: null,
       cursus: [],
@@ -339,7 +340,7 @@ export default {
       activitesByCursus: [],
       filledCompetences: [],
       hideDelete: false,
-      start: null,
+      start: [],
       showMessage: '',
       showModal:false,
       isFormValid: false,
@@ -505,27 +506,36 @@ onSubmit(event) {
       };
 
       for (const comp of act.competenceProfessionnelles) {
-        const newComp = {
-          id: comp.id,
-          libelle: comp.libelle
-        };
+  const newComp = {
+    id: comp.id,
+    libelle: comp.libelle
+  };
 
-        newAct.competenceProfessionnelles.push(newComp);
+  newAct.competenceProfessionnelles.push(newComp);
 
-        const newExpPro = {
-          tacheRealisee: comp.tacheRealisee, 
-          moyenUtilise: comp.moyenUtilise, 
-          collaborateur: comp.collaborateur, 
-          contexte: comp.contexte, 
-          information: comp.information, 
-          competenceProfessionnelleId: this.tempCompetence.id
-        };
+  if (
+    comp.tacheRealisee !== undefined ||
+    comp.moyenUtilise !== undefined ||
+    comp.collaborateur !== undefined ||
+    comp.contexte !== undefined ||
+    comp.information !== undefined
+  ) {
+    const newExpPro = {
+      tacheRealisee: comp.tacheRealisee,
+      moyenUtilise: comp.moyenUtilise,
+      collaborateur: comp.collaborateur,
+      contexte: comp.contexte,
+      information: comp.information,
+      competenceProfessionnelleId: comp.id
+    };
 
-        newAct.experienceProfessionnelles.push(newExpPro);
-        dpDto.experienceProfessionnelleDtos.push(newExpPro);
-      }
+    newAct.experienceProfessionnelles.push(newExpPro);
+    dpDto.experienceProfessionnelleDtos.push(newExpPro);
+  }
+}
 
       dpDto.cursusDto.activiteTypes.push(newAct);
+      
     }
 
         for (let i = 0; i < this.annexes.length; i++) {
@@ -555,6 +565,7 @@ onSubmit(event) {
     console.error("Error:", error);
   }
 },
+
 
 
 
@@ -598,7 +609,7 @@ onSubmit(event) {
     // );
     //console.log("getValue > " + value);
     //console.dir("getValue > " + JSON.stringify(value, null, 4));
-
+    this.selectedActiviteTypes = value;
     this.compInModal = value;
     this.$bvModal.show("exp-pro-modal");
     this.tempCompetence = value;
@@ -662,11 +673,13 @@ onSubmit(event) {
     },
     
   
-  addExp(event) { 
+    addExp(event) { 
     event.preventDefault();
     this.$bvModal.hide("exp-pro-modal");
    console.log(this.expPro);
 },
+
+
 close(){
       this.expPro = {}; 
       this.$bvModal.hide("exp-pro-modal");

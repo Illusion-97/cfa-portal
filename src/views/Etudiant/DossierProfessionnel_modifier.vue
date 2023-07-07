@@ -2,6 +2,7 @@
   <div class="container">
     <h2>Modification du dossier professionnel</h2>
     <div v-if="dossierPro">
+      <b-form @submit="updateDossier">
       <!-- Afficher les informations du dossier -->
       <v-col cols="12" sm="6"  md="4">
       <v-text-field  type="text" v-model="dossierPro.nom" variant="filled"  clearable >
@@ -268,6 +269,7 @@
           </b-button>
       
         </div>
+        </b-form>
     </div>
     <div v-else>
       <ul>
@@ -411,6 +413,80 @@ export default {
     // Code pour supprimer le fichier ici
     this.fileImport = ''; // Réinitialisez la propriété "fileImport" à une chaîne vide
   },
+
+  updateDossier() {
+      console.log("oooo " + this.expPro.version);
+
+      dossierProfessionnelApi
+        .updateDossierProfessionnel(
+          {
+            id: this.dossierPro.id,
+            nom: "",
+            cursusDto: {
+              id: this.dossierPro.cursusDto.id,
+              titre: "",
+              activiteTypes: [
+                {
+                  id: "",
+                  libelle: "",
+                  numeroFiche: "",
+                  competenceProfessionnelles: [
+                    {
+                      id: this.compInModal.id,
+                      libelle: "",
+                      numeroFiche: this.compInModal.numeroFiche,
+                      version: 0,
+                      experienceProfessionnelles: null
+                    }
+                  ],
+                  version: 0
+                }
+              ],
+              version: 0
+            },
+            experienceProfessionnelleDtos: [
+              {
+                id: this.expPro.id,
+                tacheRealisee: this.expPro.tacheRealisee,
+                moyenUtilise: this.expPro.moyenUtilise,
+                collaborateur: this.expPro.collaborateur,
+                contexte: this.expPro.contexte,
+                information: this.expPro.information,
+                competenceProfessionnelleId: this.tempCompetence.id,
+                dossierProfessionnelId: this.dossierPro.id,
+                version: this.expPro.version
+              }
+            ],
+            annexeDtos:[{
+              id:this.newAnnexe.id,
+              libelleAnnexe:this.newAnnexe.libelleAnnexe,
+              pieceJointe:this.newAnnexe.pieceJointe,
+              dossierProfessionnelId: this.dossierPro.id,
+              version:this.newAnnexe.version
+            }],
+            facultatifDto:[{
+              id:this.newFacultatif.id,
+              intitule:this.newFacultatif.intitule,
+              organisme:this.newFacultatif.organisme,
+              date:this.newFacultatif.date,
+              dossierProfessionnelId: this.dossierPro.id,
+              version:this.newFacultatif.version
+            }],
+            fileImport:this.fileImport,
+            version: 0
+          }
+          , this.$store.getters.getUtilisateur.etudiantDto.id
+
+        )
+
+        // REDIRECTION
+        .then(data => {
+        this.dossierPro = data;
+        console.log(data);
+          this.$bvModal.show("modal-update-success")
+        });
+    },
+
 
     gofacult() {
       this.$bvModal.show("cc");
