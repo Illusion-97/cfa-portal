@@ -159,8 +159,9 @@ a:active {
 }
 
 .footer-container {
-  position: absolute;
-  bottom: 125px;
+  position: relative;
+  bottom: 0;
+  margin-top: 331px;
   width: 100%;
   padding: 10px 0 10px 0;
 }

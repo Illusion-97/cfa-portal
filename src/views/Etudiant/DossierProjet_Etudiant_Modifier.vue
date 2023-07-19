@@ -1,8 +1,24 @@
 <template>
   <div class="main" v-if="DossierProjet">
-  <section style="display: inline-block; width: 100%">
-    <v-card-title class="nav-item">Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
-    <div style="float: right">
+  <section class="flex-group-title">
+    <div v-if="modify != true" class="flex-title">
+      <v-card-title>Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
+      <b-button size="sm" class="mr-2" variant="primary" @click="modifyTitle">
+        <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
+        Modifier
+      </b-button>
+    </div>
+
+    <div v-else class="flex-title">
+      <b-form-input type="text" v-model="DossierProjet.nom"></b-form-input>
+      <b-button size="sm" class="mr-2" variant="success" @click="modify = !modify">
+        Valider
+      </b-button>
+    </div>
+
+
+    <div style="display: flex; align-items: center">
+
       <b-button  size="sm" class="mr-2" @click="retour()">
         Retour
       </b-button>
@@ -10,6 +26,7 @@
         Sauvegarder
       </b-button>
     </div>
+
   </section>
   <!-- ****Composants Importer Un Dossier ****-->
   <section class="test-import">
@@ -225,6 +242,7 @@ export default {
       versionImport:0,
       dossierProjetId: 0,
       studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
+      modify: false,
       annexePage:1,
       itemsPerPage: 4,
       fileImport:undefined,
@@ -248,6 +266,9 @@ export default {
   methods: {
     retour() {
       history.back();
+    },
+    modifyTitle(){
+      this.modify = !this.modify
     },
     getIdFromUrl() {
       const url = window.location.href;
@@ -367,7 +388,18 @@ export default {
   margin: 0 2% 0 2%;
   height: 105vmin;
 }
-
+.flex-group-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 0 20px 0;
+}
+.flex-title{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
 #btn-toggle-selection{
   display: grid;
   grid-template-columns: repeat(5,1fr);
