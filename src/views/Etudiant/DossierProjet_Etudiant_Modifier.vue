@@ -2,7 +2,7 @@
   <div class="main" v-if="DossierProjet">
   <section class="flex-group-title">
     <div v-if="modify != true" class="flex-title">
-      <v-card-title>Nom du Dossier : {{DossierProjet.nom}}</v-card-title>
+      <v-card-title>Nom du Dossier : {{nomDp}}</v-card-title>
       <b-button size="sm" class="mr-2" variant="primary" @click="modifyTitle">
         <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
         Modifier
@@ -10,8 +10,9 @@
     </div>
 
     <div v-else class="flex-title">
+      <v-card-title style="min-width: 40%">Nom du Dossier : </v-card-title>
       <b-form-input type="text" v-model="DossierProjet.nom"></b-form-input>
-      <b-button size="sm" class="mr-2" variant="success" @click="modify = !modify">
+      <b-button size="sm" class="mr-2" variant="success" @click="validModify">
         Valider
       </b-button>
     </div>
@@ -243,6 +244,7 @@ export default {
       dossierProjetId: 0,
       studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
       modify: false,
+      modifyTemp: "",
       annexePage:1,
       itemsPerPage: 4,
       fileImport:undefined,
@@ -263,11 +265,17 @@ export default {
           this.getActiviteTypeByCursus(this.cursus.id);
         })
   },
+  mounted() {
+    this.modifyTemp = this.DossierProjet.nom
+  },
   methods: {
     retour() {
       history.back();
     },
     modifyTitle(){
+      this.modify = !this.modify
+    },
+    validModify(){
       this.modify = !this.modify
     },
     getIdFromUrl() {
@@ -367,6 +375,11 @@ export default {
 
 
   computed: {
+    /* Nom Dossier Projet */
+    nomDp(){
+      let nom = this.DossierProjet.nom;
+      return nom
+    },
     /* Selection */
     selectedComp(){
       return (compid) => {
