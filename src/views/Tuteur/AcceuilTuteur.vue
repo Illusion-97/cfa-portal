@@ -56,7 +56,7 @@
       <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
-    <pagination :page-change="pageChange" :page-count="pageCount"></pagination>
+    <pagination :page-change="pageChange" :page-count="pageCount" v-if="etudiants"></pagination>
   </div>
 </template>
 
