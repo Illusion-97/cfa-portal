@@ -89,4 +89,5 @@ export default {
 .profile .profile-details {
   display: none !important;
 }
+
 </style>
