@@ -122,14 +122,14 @@ export default {
     },
     modifierForm(index) {
       this.editRowIndex = index;
-
     },
     annulerForm() {
       this.editRowIndex = -1;
+      this.$emit('refresh', this.idAct)
     },
     validerForm(index) {
       competenceProfessionnelleApi
-        .save(this.cps[index])
+        .update(this.cps[index])
         .then(() => {
           this.color = "success",
           this.dismissCountDown = 6,
