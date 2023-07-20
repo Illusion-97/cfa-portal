@@ -13,9 +13,13 @@
         <span class="font-weight-bold">Détails adresse : </span>
         <span>{{ adresseCentre }}</span>
       </b-card-text>
-      <b-card-text class="row-detail-title">
+      <b-card-text class="row-detail-title" v-if="cef.entrepriseDto">
         <span class="font-weight-bold" >Entreprise liée : </span>
-        <span>{{ entreprise }}</span>
+        <span>{{ cef.entrepriseDto.raisonSociale }}</span>
+      </b-card-text>
+      <b-card-text class="row-detail-title" v-else>
+        <span class="font-weight-bold" >Entreprise liée : </span>
+        <span>Aucune Entreprise lié</span>
       </b-card-text>
       <b-card-text class="row-detail-title">
         <span class="font-weight-bold" >Nombre de promotion : </span>
@@ -43,6 +47,7 @@ export default {
       villeCentre: "",
       nbPromotion: 0,
       entreprise: "",
+      cef:{}
     }
   },
   methods: {
@@ -51,7 +56,7 @@ export default {
         .getById(this.$route.params.id)
         .then((response) => { 
           this.adresseCentre = response.adresseDto.libelle+" "+response.adresseDto.codePostal+" "+response.adresseDto.ville, 
-          this.villeCentre = response.nom , this.entreprise = response.entrepriseDto.raisonSociale
+          this.villeCentre = response.nom , this.cef = response
         });
       promotionApi
         .countByCentreFormationId(this.$route.params.id, "")

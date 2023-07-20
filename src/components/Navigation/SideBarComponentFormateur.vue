@@ -8,21 +8,21 @@
       class="logo-details"
       style="margin: 6px 14px 0 14px;"
     >
+
       <img
-        v-if="menuLogo"
-        :src="menuLogo"
+        v-if="isOpened"
+        src="../../assets/img/institutionnel-logo.png"
         alt="menu-logo"
         class="menu-logo icon"
+        style=""
       >
-      <i
-        v-else
-        class="bx icon"
-        :class="menuIcon"
-        
-      />
-      <div>
-      <img :src="menuIcon" alt="Menu Icon">
-      </div>
+
+      <img
+          v-else
+          src="../../assets/img/institutionnel-logo.png"
+          alt="menu-logo"
+          class="menu-logo icon"
+      >
       <!-- <div class="logo_name">
         {{ menuTitle }}
       </div> -->
@@ -39,6 +39,7 @@
         id="my-scroll"
         style="margin: 6px 14px 0 14px;"
       >
+
         <ul
           class="nav-list"
           style="overflow: visible;"
@@ -125,7 +126,7 @@
 
 <script>
 
-import  Icon  from '../../assets/img/LOGO.png';
+import  Icon  from '../../assets/img/institutionnel-logo.png';
   export default {
     name: 'SideBarComponentFormateur',
     props: {
@@ -290,7 +291,7 @@ import  Icon  from '../../assets/img/LOGO.png';
       }
     },
     mounted() {
-      this.isOpened = this.isMenuOpen
+      this.isOpened = this.isMenuOpen;
     },
     computed: {
       cssVars() {
@@ -532,6 +533,15 @@ import  Icon  from '../../assets/img/LOGO.png';
     border-radius: 6px;
     margin-right: 10px;
   }
+
+  .sidebar div.open img {
+    height: 450px;
+    width: 450px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+
   .sidebar div.profile .name,
   .sidebar div.profile .job {
     font-size: 15px;

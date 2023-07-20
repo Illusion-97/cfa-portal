@@ -1,31 +1,38 @@
 <template>
-  <transition class="w-75" name="modal">
 
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
           <h3>Liste des compétences professionnelles</h3>
-          <v-btn class="mt-2" color="primary" dark @click="close()">
+          <b-button class="mt-2" color="primary" dark @click="close()">
             Fermer
-          </v-btn>
+          </b-button>
         </div>
-          <div class="modal-body">
-            <v-btn @click="openModalAdd" color="blue-grey" style="margin-bottom: 10px; background-color: #343a40; color: white">
-              <span v-if="!hiddenInput ">
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence professionnelle
-              </span>
-              <span v-else>
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
-              </span>
-            </v-btn>
+
+        <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color"
+          @dismissed="dismissCountDown = 0">
+          {{ message }}
+        </b-alert>
+
+        <div class="modal-body">
+          <b-button @click="openModalAdd" color="blue-grey"
+            style="margin-bottom: 10px; background-color: #343a40; color: white">
+            <span v-if="!hiddenInput">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence
+              professionnelle
+            </span>
+            <span v-else>
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
+            </span>
+          </b-button>
 
 
           <div v-show="hiddenInput">
             <span class="grid-addComp">
-              <v-text-field type="number" v-model="competence.numeroFiche" placeholder="numéro fiche" id=""/>
-              <v-text-field type="text" v-model="competence.libelle" placeholder="libelle" name="" id=""/>
-              <b-btn class="btn-valider" :disabled="!competence.libelle" type="submit"
-                     variant="success" @click="addCompetence">Valider</b-btn>
+              <v-text-field type="number" v-model="competence.numeroFiche" placeholder="numéro fiche" id="" />
+              <v-text-field type="text" v-model="competence.libelle" placeholder="libelle" name="" id="" />
+              <b-btn class="btn-valider" :disabled="!competence.libelle" type="submit" variant="success"
+                @click="addCompetence">Valider</b-btn>
             </span>
           </div>
           <div class="mon-group">
@@ -35,16 +42,24 @@
                 <tr>
                   <th>Numero de fiche</th>
                   <th>Libelle</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="cp in cps"
-                  :key="cp.id"
-                  class="mon-tr"
-                >
-                  <td>{{ cp.numeroFiche }}</td>
-                  <td>{{ cp.libelle }} </td>
+                <tr v-for="(row, index) in cps" :key="row.id" class="mon-tr">
+                  <td v-if="editRowIndex !== row.id">{{ row.numeroFiche }}</td>
+                  <td v-else><b-form-input type="number" v-model="row.numeroFiche"/></td>
+
+                  <td v-if="editRowIndex !== row.id" style="font-size: 20px">
+                    {{ row.libelle }}
+                  </td>
+                  <td v-else><b-form-textarea disabled rows="2" max-rows="5" v-model="row.libelle" @keyup.enter="modifier(cp)"/></td>
+                  <td style=" display: flex; flex-direction: row; justify-content: space-around">
+                    <b-button v-if="editRowIndex == -1" @click="modifierForm(row.id)">Modifier</b-button>
+                    <b-button v-if="editRowIndex === row.id" type="submit" variant="success"
+                      @click="validerForm(index)">Valider</b-button>
+                    <b-button v-if="editRowIndex === row.id" variant="danger" @click="annulerForm()">annuler</b-button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -57,11 +72,10 @@
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
-import {competenceProfessionnelleApi} from "@/_api/competenceProfessionnelle.api";
+import { competenceProfessionnelleApi } from "@/_api/competenceProfessionnelle.api";
 export default {
   name: "CompetenceProModal",
   components: {},
@@ -69,23 +83,24 @@ export default {
     return {
       hiddenInput: false,
       disabledValidation: false,
+      editRowIndex: -1,
       dismissCountDown: 0,
       color: "success",
       message: "",
       competence: {
-        libelle:"",
-        numeroFiche:1,
+        libelle: "",
+        numeroFiche: 1,
         activiteTypeId: 0
       },
-      refreshedCpd : [{}]
+      refreshedCpd: [{}]
     };
   },
   props: {
     cps: {
       default: null,
     },
-    idAct:{
-      default:null
+    idAct: {
+      default: null
     }
   },
   created() {
@@ -94,14 +109,32 @@ export default {
     close() {
       this.$emit("close", this.cps);
     },
-    openModalAdd(){
+    openModalAdd() {
       this.hiddenInput = !this.hiddenInput;
     },
-    addCompetence(){
+    addCompetence() {
       this.competence.activiteTypeId = this.idAct
       competenceProfessionnelleApi.save(this.competence).then(
-          location.reload()
+        location.reload()
       )
+    },
+    modifierForm(index) {
+      this.editRowIndex = index;
+    },
+    annulerForm() {
+      this.editRowIndex = -1;
+      this.$emit('refresh', this.idAct)
+    },
+    validerForm(index) {
+      competenceProfessionnelleApi
+        .update(this.cps[index])
+        .then(() => {
+          this.color = "success",
+          this.dismissCountDown = 6,
+          this.message = "Compétence modifier avec succée.",
+          this.loading = false
+        })
+      this.editRowIndex = -1;
     },
   },
 };
@@ -139,7 +172,7 @@ export default {
 }
 
 .modal-container {
-  width: 50%;
+  width: 75%;
   margin: 40px auto 0;
   padding: 20px 30px;
   background-color: #fff;
@@ -167,7 +200,7 @@ export default {
   margin-bottom: 1em;
 }
 
-.form-label > .form-control {
+.form-label>.form-control {
   margin-top: 0.5em;
 }
 
@@ -201,13 +234,14 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-.grid-addComp{
+
+.grid-addComp {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px
 }
 
-.btn-valider{
-  height: fit-content; margin:20px 20px 0 20px
-}
-</style>
+.btn-valider {
+  height: fit-content;
+  margin: 20px 20px 0 20px
+}</style>

@@ -18,7 +18,7 @@
 
       <!-- BARRE DE RECHERCHE -->
       <form class="form-inline p-2" @submit="search">
-        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie"/>
+        <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
         </button>
@@ -56,7 +56,7 @@
           </span>
         </button>
       </div>
-      
+
       <!-- ADD TUTEUR -->
       <div class="tuteur p-2">
         <button @click="openModalAddTuteur" class="btn btn-outline-info">
@@ -77,8 +77,7 @@
     </b-collapse>
 
     <b-collapse class="modalWdg2" :visible=visibleMajStudent>
-      <login-wdg-2 @hidden="openModalMajStudent" @logInUser="logInUserWdg2Etudiant"
-                   @wdg2Close="wdg2CloseEtudiant" />
+      <login-wdg-2 @hidden="openModalMajStudent" @logInUser="logInUserWdg2Etudiant" @wdg2Close="wdg2CloseEtudiant" />
     </b-collapse>
 
     <b-collapse class="modalWdg2" :visible=visibleMajUsers>
@@ -128,27 +127,18 @@
     <b-modal hide-footer v-model="showModalRoleUser" title="Modifier le rôle de l'utilisateur">
       <b-form>
         <label>Selectionner les roles : </label>
-                <b-form-checkbox-group
-                  v-model="editRoles"
-                  :options="options"
-                  class="mb-3"
-                  value-field="item"
-                  text-field="name"
-                ></b-form-checkbox-group>
-          <!-- <div class="mt-3">Selected: <strong>{{ editRoles }}</strong></div> -->
+        <b-form-checkbox-group v-model="editRoles" :options="options" class="mb-3" value-field="item"
+          text-field="name"></b-form-checkbox-group>
+        <!-- <div class="mt-3">Selected: <strong>{{ editRoles }}</strong></div> -->
         <b-button type="button" class="mt-3" variant="warning" @click=modifierRolesUtilisateur>
-              <font-awesome-icon
-                class="mr-1"
-                :icon="['fas', 'pen']"
-              />Modifier</b-button
-            >
+          <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />Modifier</b-button>
       </b-form>
     </b-modal>
 
-    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
-      :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
-      :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
-      :next-link-class="'page-link'" :active-class="'active'">
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
+      :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
+      :page-class="'page-item'" :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
+      :prev-link-class="'page-link'" :next-link-class="'page-link'" :active-class="'active'">
     </paginate>
   </div>
 </template>
@@ -238,7 +228,7 @@ export default {
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
       this.visibleMajUsers = false;
-    }, 
+    },
     ajoutTuteur(data) {
       if (data == "Tuteur ajouter.") {
         this.visibleAddTuteur = false;
@@ -248,7 +238,7 @@ export default {
         this.loading = false;
         this.refreshList();
       }
-      else if (data == "Email déjà utiliser veulliez en saisir un autre."){
+      else if (data == "Email déjà utiliser veulliez en saisir un autre.") {
         this.visibleAddTuteur = true;
         this.color = "danger";
         this.dismissCountDown = 8;
@@ -256,40 +246,41 @@ export default {
         this.loading = false;
       }
     },
-    openModalMajUsers(){
+    openModalMajUsers() {
       this.visibleMajUsers = !this.visibleMajUsers;
       this.visibleMajStudent = false;
       this.visibleAddTuteur = false;
     },
-    openModalMajStudent(){
+    openModalMajStudent() {
       this.visibleMajStudent = !this.visibleMajStudent
       this.visibleAddTuteur = false
       this.visibleMajUsers = false
     },
     assigneTableItems(users) {
       this.items = [];
-      if(users != null){
-      users.forEach((e) => {
-        let item = {
-          id: e.id,
-          nom: e.nom,
-          prenom: e.prenom,
-          login: e.login,
-          rolesDto: e.rolesDto,
-          civilite: e.civilite,
-          telephone: e.telephone,
-          adresse:
-            e.adresseDto != null
-              ? e.adresseDto.libelle +
-              " " +
-              e.adresseDto.codePostal +
-              " " +
-              e.adresseDto.ville
-              : "Pas d'adresse",
-          dateDeNaissance: e.dateDeNaissance,
-        };
-        this.items.push(item);
-      })}
+      if (users != null) {
+        users.forEach((e) => {
+          let item = {
+            id: e.id,
+            nom: e.nom,
+            prenom: e.prenom,
+            login: e.login,
+            rolesDto: e.rolesDto,
+            civilite: e.civilite,
+            telephone: e.telephone,
+            adresse:
+              e.adresseDto != null
+                ? e.adresseDto.libelle +
+                " " +
+                e.adresseDto.codePostal +
+                " " +
+                e.adresseDto.ville
+                : "Pas d'adresse",
+            dateDeNaissance: e.dateDeNaissance,
+          };
+          this.items.push(item);
+        })
+      }
     },
     makeToast(variant) {
       utilisateurApi
@@ -423,11 +414,11 @@ export default {
       this.visibleMajUsers = false;
     },
     ouvrirModalModification(item) {
-      console.log("user id : ",item.id)
+      // console.log("user id : ", item.id)
 
       this.item = item
-      if(this.item.rolesDto.length > 0){
-        this.editRoles = this.item.rolesDto.map(r => r.id )
+      if (this.item.rolesDto.length > 0) {
+        this.editRoles = this.item.rolesDto.map(r => r.id)
       }
       this.fetchRolesFromDatabase();
       this.showModalRoleUser = true; // Affiche la modal de modification des rôles
@@ -436,7 +427,7 @@ export default {
       this.showModalRoleUser = false;
     },
     modifierRolesUtilisateur() {
-      const userId = this.item.id; 
+      const userId = this.item.id;
       utilisateurApi
         .updateRole(userId, this.editRoles)
         .then((data) => {
@@ -448,6 +439,9 @@ export default {
           console.log('Rôles modifiés avec succès !', data);
           // Fermer la modal
           this.showModalRoleUser = false;
+          utilisateurApi
+            .getByLogin(this.$store.getters.getUtilisateur.login)
+            .then((response) => this.$store.dispatch("setUtilisateur", response));
           this.refreshList();
         })
         .catch((error) => {
@@ -465,8 +459,8 @@ export default {
       utilisateursRoleApi.getAll()
         .then((data) => {
           this.options = data.map((role) => ({
-            item: role.id, 
-            name: role.intitule, 
+            item: role.id,
+            name: role.intitule,
           }));
         })
         .catch((error) => {
@@ -482,6 +476,7 @@ export default {
 #btn-import {
   display: none;
 }
+
 .my-success-feedback {
   width: 100%;
   margin-top: 0.25rem;
@@ -489,7 +484,8 @@ export default {
   color: green;
   font-weight: bolder;
 }
-.modalWdg2{
+
+.modalWdg2 {
   margin-left: 30%;
 }
 </style>

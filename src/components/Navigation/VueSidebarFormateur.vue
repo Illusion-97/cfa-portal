@@ -19,7 +19,7 @@ export default {
       isExitButton: false,
       profileImg: "",
       bgColor: "#00072d",
-      menuLogo: "",
+      menuLogo: "../../assets/img/institutionnel-logo.png",
       menuItemsFormateur: [
         { link: "formateur_home", name: "Accueil", icon: "bx-home-alt" },
         {
@@ -63,7 +63,11 @@ export default {
           name: "Centres de formation",
           icon: "bx-home-circle",
         },
-        { link:"admin_projet_list", name: "Projet", icon: "bx bx-clipboard" }
+        {
+          link:"admin_projet_list",
+          name: "Projet",
+          icon: "bx bx-clipboard"
+        }
       ],
     };
   },
@@ -85,4 +89,5 @@ export default {
 .profile .profile-details {
   display: none !important;
 }
+
 </style>

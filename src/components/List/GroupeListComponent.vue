@@ -1,14 +1,13 @@
 <template>
   <div class="container-fluid">
-    <div class="header-list">
-      <div class="text-align-left row" id="groupe-input" v-if="!isAction">
-        <label class="col-1">Groupe</label>
+    <div style="display: grid; grid-template-columns:  1fr 0.25fr">
+
+      <!--<div class="text-align-left row" id="groupe-input" v-if="!isAction">
         <b-form-select v-model="selectedGroup">
           <b-form-select-option value="null">Choisissez un groupe</b-form-select-option>
           <b-form-select-option v-for="group in allGroupe" :key="group.id" :value="group.nom">{{ group.nom }}</b-form-select-option>
         </b-form-select>
-        <span class="col-1 delete-input" v-if="selectedGroup" @click="delete_input()">x</span>
-      </div>
+      </div>-->
 
       <form class="form-inline form" @submit="submit">
         <input
@@ -16,7 +15,7 @@
           name="saisie"
           type="text"
           class="form-control"
-          placeholder="Rechercher"
+          placeholder="Rechercher par Nom de projet"
           v-model="saisie"
         />
         <button class="btn-submit" type="submit">
@@ -24,24 +23,39 @@
         </button>
       </form>
 
-      <button class="btn btn-primary" v-on:click="createGroupe()" v-if="isAction">
-              Ajouter un groupe
-            </button>
+      <b-button variant="primary" class="btn btn-primary" @click="createGroupe()">
+        Ajouter un groupe
+      </b-button>
+
     </div>
+
     <table class="table table-striped table-hover text-center">
       <thead>
         <tr>
           <th>Nom</th>
           <th>Etudiants</th>
+          <th>Action</th>
           <!-- <th v-if="isAction">Action</th> -->
         </tr>
       </thead>
       <tbody v-if="groupeComputed">
-        <tr v-for="groupe in groupeComputed" :key="groupe.id" v-on:click="clickList(groupe)" v-on:dblclick="detail(groupe)" class="mon-tr">
+        <tr v-for="groupe in groupeComputed" :key="groupe.id" class="mon-tr">
           <td>{{ groupe.nom }}</td>
           <td>
-              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.utilisateurDto.prenom}} {{etudiant.utilisateurDto.nom}}</span>
+              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.utilisateurDto.fullName+", "}}</span>
             </td>
+          <td>
+            <b-button variant="info" @click="detail(groupe)">
+            <span tooltip="Voir le détail" flow="down">
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />Détails
+            </span>
+          </b-button>
+            <b-button style="margin-left: 5px" class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
+              <span tooltip="Supprimer" flow="down">
+                <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />Supprimer
+              </span>
+            </b-button>
+          </td>
           <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
               Supprimer
@@ -50,33 +64,17 @@
         </tr>
       </tbody>
     </table>
+    <pagination :page-count="pageCount" :page-change="pageChange"></pagination>
 
-    <paginate
-      :page-count="pageCount"
-      :page-range="1"
-      :margin-pages="2"
-      :click-handler="pageChange"
-      :prev-text="'Prev'"
-      :next-text="'Next'"
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'"
-      :page-link-class="'page-link'"
-      :prev-class="'page-item'"
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'"
-      :next-link-class="'page-link'"
-      :active-class="'active'"
-    >
-      >
-    </paginate>
   </div>
 </template>
 
 <script>
 import { groupeApi } from "@/_api/groupe.api.js";
+import Pagination from "@/components/Navigation/Pagination.vue";
 export default {
   name: "groupeListComponent",
-  components: {},
+  components: {Pagination},
   props: {
     isAction: {
       type: Boolean,
@@ -84,12 +82,6 @@ export default {
     },
     groupeProp: {
       default: null,
-    }
-  },
-  watch: {
-    groupeProp(){
-      if (this.selectedGroup != null)
-        this.selectedGroup = `${this.groupeProp.nom}`;
     }
   },
   data() {
@@ -135,7 +127,7 @@ export default {
     getAllGroup(){
       groupeApi
           .getAll()
-          .then((response) => (this.allGroupe = response, console.log(response)))
+          .then((response) => (this.allGroupe = response))
     },
     refreshList() {
       groupeApi
@@ -151,43 +143,13 @@ export default {
       groupeApi.deleteGroupe(groupeId).then(() => this.refreshList());
     },
     createGroupe(){
-      let route = this.$route.path.split("/").splice(1);
-      if(route[0]== 'admin'){
       this.$router.push({
         name: "admin_groupe_create",
         params: {}
       });
-      }
-      else if (route[0] == 'referent') {
-        this.$router.push({
-        name: "referent_groupe_create",
-        
-      });
-      }
-      else if (route[0] == 'cef') {
-        this.$router.push({
-        name: "cef_groupe_create",
-        
-      });
-      }
-    },
-
-    clickList(groupe) {
-      if (!this.isAction) {
-      this.selectedGroup = groupe.nom;
-      this.$emit('click-list',groupe);
-      }
     },
     detail(groupe) {
-      let route = this.$route.path.split("/").splice(1);
-
-      if(route[0]== 'admin') this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
-      else if(route[0]== 'referent')  this.$router.push({name:'referent_groupe_detail', params: { id: groupe.id }});
-      else if(route[0]== 'formateur') this.$router.push({name:'formateur_groupe_detail', params: { id: groupe.id }});
-      else if(route[0]== 'cef') this.$router.push({name:'cef_groupe_detail', params: { id: groupe.id }});
-      // else if(route[0]== 'etudiant') this.$router.push({name:'etudiant_groupe_detail', params: { id: groupe.id }});
-
-      //this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }}); 
+      this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }});
     },
     delete_input(){
       this.selectedGroup = "";

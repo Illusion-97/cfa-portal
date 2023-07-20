@@ -17,7 +17,8 @@ export const dossierProfessionnelApi = {
   genererDossierProfessionnel,
   updateDossierProfessionnel,
   handleFileUpload,
-  getAllByPage
+  getAllByPage,
+  deleteFileImport
 }
 
 /**
@@ -194,20 +195,17 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
   let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${promotionId}`;
 
   return axios
-
-    // .get(req, requestOptions.headers())
-    // .then(response => response.data)
-
-    .get(req, { responseType: 'blob' })
+    .get(req, { responseType: 'arraybuffer' })  // Utilisez responseType 'arraybuffer' au lieu de 'blob'
 
     .then(response => {
-      // const objectUrl = URL.createObjectURL(response.data);
-      window.open(URL.createObjectURL(response.data));
+      const blob = new Blob([response.data], { type: 'application/pdf' });  // Spécifiez le type de contenu comme 'application/pdf'
+      const objectUrl = URL.createObjectURL(blob);
+      window.open(objectUrl);
     })
 
     .catch((error) => console.log(error));
-
 }
+
 
 /** 
 @param {*} id 
@@ -216,11 +214,28 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
  */
 
 
-function updateDossierProfessionnel(form, id) {
-  return axios
-    .put(`${END_POINT}/update/etudiant/${id}`, form,  requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error));
+function updateDossierProfessionnel(form, id,file) {
+  const formData = new FormData();
+  formData.append('dossierProfessionnel', JSON.stringify(form));
+
+  if (Array.isArray(file)) {
+    file.forEach(f => formData.append('pieceJointe', f));
+  } else if (file) {
+    formData.append('pieceJointe', file);
+  }
+
+  try {
+    const response =  axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
 
 
@@ -248,3 +263,17 @@ function handleFileUpload(etudiantId,cursusId,file,nom)
     .catch((error) => console.log(error));
 
 }
+
+function deleteFileImport(fileImport, id)
+ {
+  return axios
+    .delete(`${END_POINT}/upload/${id}?fileImport=${fileImport}`,
+    {
+      headers: {
+          "Access-Control-Allow-Origin": "*",
+      }})
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+  }

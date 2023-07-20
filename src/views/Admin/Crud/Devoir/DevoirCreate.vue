@@ -194,8 +194,6 @@
           // this.formDevoir.dateDebut = new Date(this.formDevoir.dateDebut).toISOString();
           // this.formDevoir.dateFin = new Date(this.formDevoir.dateFin).toISOString();
     
-          this.formDevoir.dateDebut = new Date()
-          this.formDevoir.dateFin = new Date();
     
     
           event.preventDefault();

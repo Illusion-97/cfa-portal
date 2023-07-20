@@ -26,18 +26,16 @@
 
           <!-- Button Deconnexion -->
           <div  class="grid-btn">
-
-            <div style="text-align: right">
-              <button v-if="roles.length > 1" type="button" @click="goToRole" class="btnHeader btn-light">
+            <div v-if="roles.length > 1" style="text-align: right">
+              <button  type="button" @click="goToRole" class="role-btn btn-light">
                 <font-awesome-icon :icon="['fas', 'user']" /> Roles</button>
             </div>
             <div>
-              <button type="button" @click="logout" class="btnHeader btn-light">
+              <button type="button" @click="logout" class="logout-btn btn-light">
                 <font-awesome-icon :icon="['fas', 'sign-out-alt']" class="icon" />
                 Déconnexion
               </button>
             </div>
-
           </div>
         </div>
     </div>
@@ -165,7 +163,7 @@ export default {
 }
 .nav-grid{
   display: grid;
-  grid-template-columns: repeat(3, 1fr)
+  grid-template-columns: repeat(3, 1fr);
 }
 .grid-btn{
   display: grid;
@@ -180,13 +178,23 @@ export default {
     height: 50%;
     right: 0%;
 }
-.btnHeader {
-  font-size: 25px !important;
+
+.logout-btn{
+  font-size: 20px !important;
   font-weight: 500;
   border: 5px;
   border-radius: 4px;
-  min-width: 230px;
+  min-width: 180px;
 }
+
+.role-btn{
+  font-size: 20px !important;
+  font-weight: 500;
+  border: 5px;
+  border-radius: 4px;
+  min-width: 110px;
+}
+
 
 .title-header{
   text-align: center;

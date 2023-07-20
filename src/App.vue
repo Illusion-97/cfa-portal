@@ -2,14 +2,14 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'login'" />
-      <div v-else-if="path == 'multiRole'">
+      <div v-else-if="path == 'multiRole'" class="main-space">
         <HeaderMultiRoles />
         <router-view />
       </div>
       <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
-        <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view />
+        <VueSidebarFormateur />
       </div>
       <div v-else-if="path == 'etudiant'" id="mainEtudiant">
         <HeaderEtudiant />
@@ -17,7 +17,7 @@
         <router-view />
         <FooterEtudiant />
       </div>
-      <div v-else-if="path == 'tuteur'">
+      <div v-else-if="path == 'tuteur'" class="test">
         <HeaderTuteur />
         <router-view />
       </div>
@@ -56,6 +56,11 @@ export default {
 };
 </script>
 <style>
+#app{
+  margin: 0;
+  padding: 0;
+}
+
 .monBody {
   float: right;
   padding-left: 5em;
@@ -67,12 +72,6 @@ export default {
   position: relative;
 }
 
-#mainEtudiant *:focus {
-  outline: none;
-  border-color: inherit;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
 
 #mainEtudiant .table th {
   /* color: #495057; */
@@ -81,10 +80,21 @@ export default {
   /* background-color: #b8d8d8; */
   border-color: #565656;
   /* width: 70%; */
-  padding: 0.3rem 14px;
 }
 
 #mainEtudiant .table td {
-  padding: 0.3rem 14px !important;
+}
+
+.main-space{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.test{
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 </style>

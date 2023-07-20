@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" style="margin-top: 1em">
 
     <!-- BARRE DE RECHERCHE -->
     <div class="d-flex flex-row align-items-start" v-if="etudiants">
@@ -13,7 +13,7 @@
     </div>
 
     <!-- TABLEAU -->
-      <v-simple-table v-if="etudiants">
+      <v-simple-table v-if="etudiants" style="margin-top: 1em">
 
         <!-- EN-TETE -->
         <thead style="background-color: #08092d" >
@@ -44,7 +44,7 @@
             <td>{{ etudiant.utilisateurDto.login }}</td>
             <td>{{ etudiant.utilisateurDto.telephone }}</td>
             <td>
-              <span tooltip="Détails étudiant" flow="up">
+              <span tooltip="Détails étudiant" flow="down">
                 <b-button block variant="info" @click="goToEtudiant(etudiant.id)">
                   <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" /> voir
                 </b-button>
@@ -56,15 +56,15 @@
       <h2 class="p-2" v-else>Pas d'etudiant assignée.</h2>
 
     <!-- PAGINATION -->
-    <v-pagination v-model="page" @next="pageChange(page)" @previous="pageChange(page)" @input="pageChange(page)" :length="pageCount" color="#E91E63" circle v-if="etudiants"></v-pagination>
-  
+    <pagination :page-change="pageChange" :page-count="pageCount" v-if="etudiants"></pagination>
   </div>
 </template>
 
 <script>
 import { tuteurApi } from "@/_api/tuteur.api.js";
-
+import Pagination from "@/components/Navigation/Pagination.vue";
 export default {
+  components: {Pagination},
   data() {
     return {
       perPage: 8,

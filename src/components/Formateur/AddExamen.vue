@@ -200,7 +200,9 @@ export default {
       dissmissCountFailed:null,
     };
   },
-
+  created() {
+    console.log(this.optionsBlocsCompetences)
+    },
   methods: {
     inputValidation(event){
       if (this.examenDto.titre === null || this.examenDto.descriptif === null ||

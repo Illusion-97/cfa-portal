@@ -67,7 +67,7 @@ export default {
         this.interventions.sort((a, b) => (a.date.localeCompare(b.date)));
       });
     this.pageCount = Math.ceil(this.interventions.length / this.perPage);
-    this.intervention = this.interventions
+    this.intervention = this.interventions;
     // console.log(this.pageCount)
     this.pageChange(this.currentPage);
   },
