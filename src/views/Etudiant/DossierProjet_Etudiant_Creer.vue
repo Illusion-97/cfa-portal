@@ -3,7 +3,7 @@
     <v-card-title>Nouveau dossier projet</v-card-title>
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
-        <v-text-field v-model="DossierProjet.nom" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
+        <v-text-field v-model="nomDp" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
         <b-form-select id="form-select-projet" v-model="DossierProjet.projet">
           <option :value="null" disabled>
             -Choisissez un projet existant-
@@ -300,6 +300,11 @@
      },
 
      computed: {
+       /* Nom Dossier Projet */
+       nomDp(){
+         let nom = this.DossierProjet.nom;
+         return nom
+       },
        selectedComp(){
           return (compid) => {
              const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
