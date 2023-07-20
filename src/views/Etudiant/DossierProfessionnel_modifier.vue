@@ -2,6 +2,7 @@
   <div class="container">
     <h2>Modification du dossier professionnel</h2>
     <div v-if="dossierPro">
+      
       <b-form @submit="updateDossier">
       <!-- Afficher les informations du dossier -->
       <v-col cols="12" sm="6"  md="4">
@@ -15,13 +16,13 @@
 <!-- ACTIVITES TYPES SELECTEURS -->
 <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
 
-<b-form-select v-model="start" @change="getValue2"> 
+<b-form-select v-model="start" @change="getValue"> 
   <template #first>
-    <option v-for="competence in activite.competencesProfessionnellesDto" :key="competence.id" :value="competence.id" >
+    <b-form-select-option v-for="competence in optionsAT(activite)" :key="competence.id" :value="competence.value">
       <span v-if="filledCompetences.includes(competence.value)  ">&#x2705;</span>
       {{ competence.text }}
       {{ competence.libelle }}
-    </option>
+    </b-form-select-option>
    </template>
 
   </b-form-select>
@@ -141,7 +142,6 @@
   </div> 
 
   <br/>
-
     <h6>Annexes</h6> 
     <b-form-select v-model="selectedAnnexe" @change="getAnnexe" v-if="annexes.length > 0">
       <b-form-select-option v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
@@ -175,11 +175,12 @@
     <b-modal id="deleteModal" title="Supprimer" @hide="selectedAnnexe = null" >
   <b-list-group>
     <b-list-group-item v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
-      <div class="d-flex justify-content-between align-items-center">
-        <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe.name }}</span>
-        <v-icon @click="deleteAnnexe(index)">mdi-close</v-icon>
-      </div>
-    </b-list-group-item>
+  <div class="d-flex justify-content-between align-items-center">
+    <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe }}</span>
+    <v-icon @click="deleteAnnexe(index, annexe.id)">mdi-close</v-icon>
+  </div>
+</b-list-group-item>
+
     <b-list-group-item v-if="annexes.length === 0">
       Pas d'annexes ajoutées.
     </b-list-group-item>
@@ -229,7 +230,7 @@
     </v-main>
   </v-app>
 </template>
-   
+
     
 <br/><br/>
 
@@ -248,7 +249,17 @@
       </b-list-group-item>
     </b-list-group>
   </div>
+  <b-modal id="modal-delete-import-confirmation" centered title="Confirmation de suppression" hide-footer>
+    <p>
+      Êtes-vous sûr de vouloir supprimer le fichier <strong>{{ dossierPro.fileImport }}</strong> ?
+    </p>
+    <div class="d-flex justify-content-between">
+      <b-button @click="deleteImport(dossierPro.fileImport)" variant="danger">Confirmer</b-button>
+      <b-button @click="$bvModal.hide('modal-delete-import-confirmation')">Annuler</b-button>
+    </div>
+  </b-modal>
 </template>
+
 
 
 
@@ -292,6 +303,7 @@
   </div>
 </template>
 
+
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 import { cursusApi } from "@/_api/cursus.api.js";
@@ -309,19 +321,17 @@ export default {
     return {
       data: this.$route.query.data,
       cursus: [],
-      versionImport:0,
       activites: [],
       activiteTypes: [],
       options: [],
-      fileImport:null,
+      fileImport:undefined,
       selectedActivite:[],
       selectActivite: [],
       compInModal: [],
      selectedCompetence:null,
-      text: "test",
+      text: "",
       expPro:[],
       activitesByCursus: [],
-      competencesProfessionnelles:[],
       filledCompetences: [],
       hideDelete: false,
       start: null,
@@ -355,7 +365,7 @@ export default {
         competenceProfessionnelleId: 0,
       },
     showAnnexeModal: false,
-    dossierPro: null,
+    dossierPro: {},
       annexe: null,
       
     };
@@ -378,114 +388,116 @@ export default {
     },
    
     fetchDossier() {
-      const dossierId = this.$route.params.id; 
-      dossierProfessionnelApi
-        .getById(dossierId) 
-        .then((data) => {
-          this.dossierPro = data; 
-          this.annexes = this.dossierPro.annexeDtos;
-          this.facultatifs = this.dossierPro.facultatifDto;
-          if (this.facultatifs.length > 0) {
-      this.newFacultatif.intitule = this.facultatifs[0].intitule;
-      this.newFacultatif.organisme = this.facultatifs[0].organisme;
-      this.newFacultatif.date = this.facultatifs[0].date;
-    }
-    this.expPro = this.dossierPro.experienceProfessionnelleDtos;
-    if(this.expPro.length > 0 )
-    {
-      this.formExp.tacheRealisee = this.expPro[0].tacheRealisee;
-      this.formExp.moyenUtilise = this.expPro[0].moyenUtilise;
-      this.formExp.collaborateur = this.expPro[0].collaborateur;
-      this.formExp.contexte = this.expPro[0].contexte;
-      this.formExp.information = this.expPro[0].information;
-    }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  const dossierId = this.$route.params.id;
+
+  dossierProfessionnelApi.getById(dossierId)
+    .then((data) => {
+      this.dossierPro = data;
+      this.annexes = this.dossierPro.annexeDtos;
+
+      this.facultatifs = this.dossierPro.facultatifDto;
+      if (this.facultatifs.length > 0) {
+        this.newFacultatif.intitule = this.facultatifs[0].intitule;
+        this.newFacultatif.organisme = this.facultatifs[0].organisme;
+        this.newFacultatif.date = this.facultatifs[0].date;
+      }
+ 
+      this.expPro = this.dossierPro.experienceProfessionnelleDtos;
+
+    
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+},
+
+
+
+
+confirmDeleteFile() {
+      this.$bvModal.show('modal-delete-import-confirmation');
     },
-    confirmDeleteFile() {
-    if (confirm("Êtes-vous sûr de vouloir supprimer le fichier ?")) {
-      this.deleteFile();
-    }
-  },
-  deleteFile() {
-    // Code pour supprimer le fichier ici
-    this.fileImport = ''; // Réinitialisez la propriété "fileImport" à une chaîne vide
-  },
+    
+    deleteImport(fileImport){
+      const id = this.dossierPro.id;
+      dossierProfessionnelApi.deleteFileImport(fileImport, id).then(() => {
+        this.dossierPro.fileImport = null;
+        this.$bvModal.hide('modal-delete-import-confirmation');
+      })
+
+    },
+
+submitImport() {
+
+},
+
 
   updateDossier() {
-      console.log("oooo " + this.expPro.version);
+  try {
+    const dpDto = {
+      id: this.dossierPro.id,
+      nom: this.dossierPro.nom,
+      cursusDto: {
+        id: this.dossierPro.cursusDto.id,
+        titre: this.dossierPro.cursusDto.titre,
+        activiteTypes: []
+      },
+      experienceProfessionnelleDtos: [],
+      annexeDtos: [],
+      facultatifDto: [{
+        id: 0,
+        version: 0,
+        intitule: this.newFacultatif.intitule,
+        organisme: this.newFacultatif.organisme,
+        date: this.newFacultatif.date,
+        dossierProfessionnelId: 0
+      }],
+      fileImport: this.dossierPro.fileImport
+    };
 
-      dossierProfessionnelApi
-        .updateDossierProfessionnel(
-          {
-            id: this.dossierPro.id,
-            nom: "",
-            cursusDto: {
-              id: this.dossierPro.cursusDto.id,
-              titre: "",
-              activiteTypes: [
-                {
-                  id: "",
-                  libelle: "",
-                  numeroFiche: "",
-                  competenceProfessionnelles: [
-                    {
-                      id: this.compInModal.id,
-                      libelle: "",
-                      numeroFiche: this.compInModal.numeroFiche,
-                      version: 0,
-                      experienceProfessionnelles: null
-                    }
-                  ],
-                  version: 0
-                }
-              ],
-              version: 0
-            },
-            experienceProfessionnelleDtos: [
-              {
-                id: this.expPro.id,
-                tacheRealisee: this.expPro.tacheRealisee,
-                moyenUtilise: this.expPro.moyenUtilise,
-                collaborateur: this.expPro.collaborateur,
-                contexte: this.expPro.contexte,
-                information: this.expPro.information,
-                competenceProfessionnelleId: this.tempCompetence.id,
-                dossierProfessionnelId: this.dossierPro.id,
-                version: this.expPro.version
-              }
-            ],
-            annexeDtos:[{
-              id:this.newAnnexe.id,
-              libelleAnnexe:this.newAnnexe.libelleAnnexe,
-              pieceJointe:this.newAnnexe.pieceJointe,
-              dossierProfessionnelId: this.dossierPro.id,
-              version:this.newAnnexe.version
-            }],
-            facultatifDto:[{
-              id:this.newFacultatif.id,
-              intitule:this.newFacultatif.intitule,
-              organisme:this.newFacultatif.organisme,
-              date:this.newFacultatif.date,
-              dossierProfessionnelId: this.dossierPro.id,
-              version:this.newFacultatif.version
-            }],
-            fileImport:this.fileImport,
-            version: 0
-          }
-          , this.$store.getters.getUtilisateur.etudiantDto.id
+    for (let i = 0; i < this.dossierPro.cursusDto.activiteTypes.length; i++) {
+      const activite = this.dossierPro.cursusDto.activiteTypes[i];
+      const activiteDto = {
+        id: activite.id,
+        libelle: activite.libelle,
+        competenceProfessionnelles: []
+      };
+      dpDto.cursusDto.activiteTypes.push(activiteDto);
 
-        )
+      for (let j = 0; j < activite.competenceProfessionnelles.length; j++) {
+        const competence = activite.competenceProfessionnelles[j];
+        activiteDto.competenceProfessionnelles.push(competence);
+        
+        for (let k = 0; k < competence.experienceProfessionnelles.length; k++) {
+          const experience = competence.experienceProfessionnelles[k];
+          dpDto.experienceProfessionnelleDtos.push(experience);
+        }
+      }
+    }
 
-        // REDIRECTION
-        .then(data => {
+    for (let i = 0; i < this.annexes.length; i++) {
+      const annexe = this.annexes[i];
+      const a = {
+        libelleAnnexe: annexe.libelleAnnexe,
+        pieceJointe: annexe.pieceJointe
+      };
+      dpDto.annexeDtos.push(a);
+    }
+
+    dossierProfessionnelApi
+      .updateDossierProfessionnel(dpDto, this.dossierPro.id, this.newAnnexe.pieceJointe)
+      .then(data => {
         this.dossierPro = data;
         console.log(data);
-          this.$bvModal.show("modal-update-success")
-        });
-    },
+        this.$bvModal.show("modal-updateDossier-success");
+      });
+  } catch (error) {
+    this.$bvModal.hide("modal-updateDossier-success")
+    console.error("Error:", error);
+    this.$bvModal.show("modal-updateDossier-Error");
+  }
+},
+
 
 
     gofacult() {
@@ -531,53 +543,102 @@ addAnnexe() {
 },
 
 
- 
- 
-deleteAnnexe(index) {
-    this.annexes.splice(index, 1);
- /* annexeId = this.newAnnexe.id;
+deleteAnnexe(index, annexeId) {
   dossierProfessionnelApi.deleteAnnexe(annexeId)
     .then(() => {
+      this.dossierPro.annexeDtos.splice(index, 1);
       console.log("Suppression réussie");
-      this.resetAnnexeForm();
+      this.newAnnexe = {
+      libelleAnnexe: '',  
+      pieceJointe: null,
+      }
     })
     .catch(error => {
       console.log("Echec", error);
     })
     .finally(() => {
       this.$bvModal.hide('deleteModal');
-    });*/
-  }, 
+    });
+},
+
+
+  optionsAT(activite) {
+  let tab = [
+    {
+      value: null,
+      text: "+ Ajouter une expérience professionnelle à :",
+      disabled: true,
+    },
+  ];
+
+  if (activite.competencesProfessionnellesDto) {
+    activite.competencesProfessionnellesDto.forEach((competence) => {
+      const hasExperiences = this.dossierPro.experienceProfessionnelleDtos.some((exp) => {
+        return exp.competenceProfessionnelleId === competence.id;
+      });
+
+      if (hasExperiences) {
+        let option = {
+          value: competence,
+          text: competence.libelle,
+          html: '<span>&#x2705;</span> ' + competence.libelle,
+          disabled: true,
+        };
+
+        tab.push(option);
+      } else {
+        let option = {
+          value: competence,
+          text: competence.libelle,
+        };
+
+        tab.push(option);
+      }
+    });
+  }
+
+  return tab;
+},
+
 
 
     
-    getValue2(value) {
-  
-    this.compInModal = value;
-    this.$bvModal.show("exp-pro-modal");
-    this.tempCompetence = value;
-    if(this.inputValidation != null)
-    {
-      this.filledCompetences.push(value);
-    }
-    this.expPro = {
-      id:0,
-      tacheRealisee: "",
-            moyenUtilise: "",
-            collaborateur: "",
-            contexte: "",
-            information: "",
-            competenceProfessionnelleId: value.id,
-           
-    }
-    this.expPro = value;
-  },
-   
+getValue(value) {
+  this.compInModal = value;
+  this.$bvModal.show("exp-pro-modal");
+  this.tempCompetence = value;
+  if (this.inputValidation != null) {
+    this.filledCompetences.push(value);
+  }
+
+  this.expPro = this.dossierPro.experienceProfessionnelleDtos.filter((exp) => {
+    return exp.competenceProfessionnelleId === value.id;
+  });
+
+  if (this.expPro.length === 0) {
+    this.expPro = [];
+  }
+},
+
+
+
+
+
+isExperienceFilled(experience) {
+  return (
+    experience.tacheRealisee ||
+    experience.moyenUtilise ||
+    experience.collaborateur ||
+    experience.contexte ||
+    experience.information
+  );
+},
+
     inputValidation(event){
     
-    if (this.expPro.tacheRealisee == null || this.expPro.moyenUtilise == null ||
-        this.expPro.collaborateur == null || this.expPro.contexte == null ||
-        this.expPro.information == null ) {
+    if (this.expPro.tacheRealisee === undefined || this.expPro.moyenUtilise === undefined ||
+        this.expPro.collaborateur === undefined || this.expPro.contexte === undefined ||
+        this.expPro.information === undefined ) {
       this.showFailed();
       event.preventDefault();        
       return;
@@ -596,6 +657,7 @@ deleteAnnexe(index) {
     event.preventDefault();
     this.$bvModal.hide("exp-pro-modal");
    console.log(this.expPro);
+   
 },
 close(){
       this.expPro = {}; 
@@ -631,7 +693,7 @@ watch: {
     }
   },
   created() {
-    this.fetchDossier(); 
+   this.fetchDossier(); 
 
     this.getCursusEtudiant()
         .then((response) => {
