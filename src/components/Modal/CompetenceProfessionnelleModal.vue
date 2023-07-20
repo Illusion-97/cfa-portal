@@ -49,17 +49,15 @@
               <tbody>
                 <tr v-for="(row, index) in cps" :key="row.id" class="mon-tr">
                   <td v-if="editRowIndex !== row.id">{{ row.numeroFiche }}</td>
-                  <td v-else><input type="number" v-model="row.numeroFiche"></td>
+                  <td v-else><b-form-input type="number" v-model="row.numeroFiche"/></td>
 
                   <td v-if="editRowIndex !== row.id">{{ row.libelle }} </td>
-                  <td v-else><input type="text" v-model="row.libelle" @keyup.enter="modifier(cp)"></td>
-                  <td>
-                    <v-btn v-if="editRowIndex == -1" class="btn-valider" type="submit" variant="success"
-                      @click="modifierForm(row.id)">Modifier</v-btn>
-                    <v-btn v-if="editRowIndex === row.id" class="btn-valider" type="submit" variant="success"
-                      @click="validerForm(index)">Valider</v-btn>
-                    <v-btn v-if="editRowIndex === row.id" class="btn-valider" type="submit" variant="success"
-                      @click="annulerForm()">annuler</v-btn>
+                  <td v-else><b-form-textarea rows="1" max-rows="5" v-model="row.libelle" @keyup.enter="modifier(cp)"/></td>
+                  <td style=" display: flex; flex-direction: row; justify-content: space-around">
+                    <b-button v-if="editRowIndex == -1" @click="modifierForm(row.id)">Modifier</b-button>
+                    <b-button v-if="editRowIndex === row.id" type="submit" variant="success"
+                      @click="validerForm(index)">Valider</b-button>
+                    <b-button v-if="editRowIndex === row.id" variant="danger" @click="annulerForm()">annuler</b-button>
                   </td>
                 </tr>
               </tbody>
@@ -174,7 +172,7 @@ export default {
 }
 
 .modal-container {
-  width: 50%;
+  width: 75%;
   margin: 40px auto 0;
   padding: 20px 30px;
   background-color: #fff;
