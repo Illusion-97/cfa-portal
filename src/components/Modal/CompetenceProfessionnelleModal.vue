@@ -1,13 +1,12 @@
 <template>
-  <transition class="w-75" name="modal">
 
     <div class="modal-mask" @click="close">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
           <h3>Liste des compétences professionnelles</h3>
-          <v-btn class="mt-2" color="primary" dark @click="close()">
+          <b-button class="mt-2" color="primary" dark @click="close()">
             Fermer
-          </v-btn>
+          </b-button>
         </div>
 
         <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color"
@@ -16,7 +15,7 @@
         </b-alert>
 
         <div class="modal-body">
-          <v-btn @click="openModalAdd" color="blue-grey"
+          <b-button @click="openModalAdd" color="blue-grey"
             style="margin-bottom: 10px; background-color: #343a40; color: white">
             <span v-if="!hiddenInput">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence
@@ -25,7 +24,7 @@
             <span v-else>
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
             </span>
-          </v-btn>
+          </b-button>
 
 
           <div v-show="hiddenInput">
@@ -49,17 +48,17 @@
               <tbody>
                 <tr v-for="(row, index) in cps" :key="row.id" class="mon-tr">
                   <td v-if="editRowIndex !== row.id">{{ row.numeroFiche }}</td>
-                  <td v-else><input type="number" v-model="row.numeroFiche"></td>
+                  <td v-else><b-form-input type="number" v-model="row.numeroFiche"/></td>
 
-                  <td v-if="editRowIndex !== row.id">{{ row.libelle }} </td>
-                  <td v-else><input type="text" v-model="row.libelle" @keyup.enter="modifier(cp)"></td>
-                  <td>
-                    <v-btn v-if="editRowIndex == -1" class="btn-valider" type="submit" variant="success"
-                      @click="modifierForm(row.id)">Modifier</v-btn>
-                    <v-btn v-if="editRowIndex === row.id" class="btn-valider" type="submit" variant="success"
-                      @click="validerForm(index)">Valider</v-btn>
-                    <v-btn v-if="editRowIndex === row.id" class="btn-valider" type="submit" variant="success"
-                      @click="annulerForm()">annuler</v-btn>
+                  <td v-if="editRowIndex !== row.id" style="font-size: 20px">
+                    {{ row.libelle }}
+                  </td>
+                  <td v-else><b-form-textarea disabled rows="2" max-rows="5" v-model="row.libelle" @keyup.enter="modifier(cp)"/></td>
+                  <td style=" display: flex; flex-direction: row; justify-content: space-around">
+                    <b-button v-if="editRowIndex == -1" @click="modifierForm(row.id)">Modifier</b-button>
+                    <b-button v-if="editRowIndex === row.id" type="submit" variant="success"
+                      @click="validerForm(index)">Valider</b-button>
+                    <b-button v-if="editRowIndex === row.id" variant="danger" @click="annulerForm()">annuler</b-button>
                   </td>
                 </tr>
               </tbody>
@@ -73,7 +72,6 @@
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
@@ -122,14 +120,14 @@ export default {
     },
     modifierForm(index) {
       this.editRowIndex = index;
-
     },
     annulerForm() {
       this.editRowIndex = -1;
+      this.$emit('refresh', this.idAct)
     },
     validerForm(index) {
       competenceProfessionnelleApi
-        .save(this.cps[index])
+        .update(this.cps[index])
         .then(() => {
           this.color = "success",
           this.dismissCountDown = 6,
@@ -174,7 +172,7 @@ export default {
 }
 
 .modal-container {
-  width: 50%;
+  width: 75%;
   margin: 40px auto 0;
   padding: 20px 30px;
   background-color: #fff;

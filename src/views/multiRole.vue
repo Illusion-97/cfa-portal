@@ -28,7 +28,7 @@
 <script>
 
 export default {
-  name: 'test',
+  name: 'multiRole',
   data() {
     return {
       fullName: this.$store.getters.getUtilisateur.fullName,

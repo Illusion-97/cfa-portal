@@ -2,14 +2,14 @@
   <div id="app">
     <div>
       <router-view v-if="path == 'login'" />
-      <div v-else-if="path == 'multiRole'">
+      <div v-else-if="path == 'multiRole'" class="main-space">
         <HeaderMultiRoles />
         <router-view />
       </div>
       <div v-else-if="path == 'formateur' || path == 'referent' || path == 'cef' || path == 'admin'">
-        <VueSidebarFormateur />
         <HeaderFormateur />
         <router-view />
+        <VueSidebarFormateur />
       </div>
       <div v-else-if="path == 'etudiant'" id="mainEtudiant">
         <HeaderEtudiant />
@@ -17,7 +17,7 @@
         <router-view />
         <FooterEtudiant />
       </div>
-      <div v-else-if="path == 'tuteur'">
+      <div v-else-if="path == 'tuteur'" class="test">
         <HeaderTuteur />
         <router-view />
       </div>
@@ -84,5 +84,18 @@ export default {
 }
 
 #mainEtudiant .table td {
+}
+
+.main-space{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.test{
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 </style>
