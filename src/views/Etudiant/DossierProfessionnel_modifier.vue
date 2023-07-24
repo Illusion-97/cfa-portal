@@ -306,6 +306,7 @@
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+import { experiencesApi} from "@/_api/experiences.api.js";
 import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import { validationMixin } from 'vuelidate'
@@ -402,8 +403,12 @@ export default {
         this.newFacultatif.date = this.facultatifs[0].date;
       }
  
-      this.expPro = this.dossierPro.experienceProfessionnelleDtos;
-
+      experiencesApi.getById(this.formExp.id).then((data) => {
+        this.expPro = data;
+         this.expPro = this.dossierPro.experienceProfessionnelleDtos;
+      })
+     
+      
     
     })
     .catch((error) => {
@@ -432,7 +437,7 @@ submitImport() {
 },
 
 
-  updateDossier() {
+updateDossier() {
   try {
     const dpDto = {
       id: this.dossierPro.id,
@@ -440,63 +445,92 @@ submitImport() {
       cursusDto: {
         id: this.dossierPro.cursusDto.id,
         titre: this.dossierPro.cursusDto.titre,
-        activiteTypes: []
+        activiteTypes: [],
       },
       experienceProfessionnelleDtos: [],
       annexeDtos: [],
-      facultatifDto: [{
-        id: 0,
-        version: 0,
-        intitule: this.newFacultatif.intitule,
-        organisme: this.newFacultatif.organisme,
-        date: this.newFacultatif.date,
-        dossierProfessionnelId: 0
-      }],
-      fileImport: this.dossierPro.fileImport
+      facultatifDto: [
+        {
+          id: 0,
+          version: 0,
+          intitule: this.newFacultatif.intitule,
+          organisme: this.newFacultatif.organisme,
+          date: this.newFacultatif.date,
+          dossierProfessionnelId: 0,
+        },
+      ],
+      fileImport: this.dossierPro.fileImport,
     };
 
-    for (let i = 0; i < this.dossierPro.cursusDto.activiteTypes.length; i++) {
-      const activite = this.dossierPro.cursusDto.activiteTypes[i];
-      const activiteDto = {
-        id: activite.id,
-        libelle: activite.libelle,
-        competenceProfessionnelles: []
-      };
-      dpDto.cursusDto.activiteTypes.push(activiteDto);
+    dpDto.cursusDto = this.dossierPro.cursusDto;
 
-      for (let j = 0; j < activite.competenceProfessionnelles.length; j++) {
-        const competence = activite.competenceProfessionnelles[j];
-        activiteDto.competenceProfessionnelles.push(competence);
-        
-        for (let k = 0; k < competence.experienceProfessionnelles.length; k++) {
-          const experience = competence.experienceProfessionnelles[k];
-          dpDto.experienceProfessionnelleDtos.push(experience);
+    for (const act of this.dossierPro.cursusDto.activiteTypes) {
+      const newAct = {
+        id: act.id,
+        libelle: act.libelle,
+        competenceProfessionnelles: [],
+        experienceProfessionnelles: [],
+      };
+
+      for (const comp of act.competenceProfessionnelles) {
+        const newComp = {
+          id: comp.id,
+          libelle: comp.libelle,
+        };
+
+        newAct.competenceProfessionnelles.push(newComp);
+
+        if (
+          comp.tacheRealisee !== undefined ||
+          comp.moyenUtilise !== undefined ||
+          comp.collaborateur !== undefined ||
+          comp.contexte !== undefined ||
+          comp.information !== undefined
+        ) {
+          const newExpPro = {
+            tacheRealisee: comp.tacheRealisee,
+            moyenUtilise: comp.moyenUtilise,
+            collaborateur: comp.collaborateur,
+            contexte: comp.contexte,
+            information: comp.information,
+            competenceProfessionnelleId: comp.id,
+          };
+
+          newAct.experienceProfessionnelles.push(newExpPro);
+          dpDto.experienceProfessionnelleDtos.push(newExpPro);
         }
       }
+
+      dpDto.cursusDto.activiteTypes.push(newAct);
     }
 
     for (let i = 0; i < this.annexes.length; i++) {
       const annexe = this.annexes[i];
-      const a = {
+      const newAnnexe = {
         libelleAnnexe: annexe.libelleAnnexe,
-        pieceJointe: annexe.pieceJointe
+        pieceJointe: annexe.pieceJointe.name,
       };
-      dpDto.annexeDtos.push(a);
+
+      dpDto.annexeDtos.push(newAnnexe);
     }
 
-    dossierProfessionnelApi
-      .updateDossierProfessionnel(dpDto, this.dossierPro.id, this.newAnnexe.pieceJointe)
-      .then(data => {
+   dossierProfessionnelApi.updateDossierProfessionnel(
+      this.dossierPro.id,
+      dpDto,
+      this.newAnnexe.pieceJointe
+    ).then(data => {
         this.dossierPro = data;
         console.log(data);
         this.$bvModal.show("modal-updateDossier-success");
       });
+
   } catch (error) {
-    this.$bvModal.hide("modal-updateDossier-success")
     console.error("Error:", error);
     this.$bvModal.show("modal-updateDossier-Error");
   }
 },
+
+
 
 
 
@@ -699,8 +733,11 @@ watch: {
         .then((response) => {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
-        })
+        });
 
+        experiencesApi.getById(this.expP).then((response) => {
+        this.expPro = response;
+      })
   },
 
   computed: {

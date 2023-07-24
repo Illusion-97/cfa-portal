@@ -210,7 +210,6 @@ export default {
   const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id; 
   dossierProfessionnelApi.handleFileUpload(etudiantId, this.cursusId, this.file, this.nom)
     .then(data => {
-      // Réinitialiser la modal
       this.$router.push('/etudiant/dossierprofessionnels');
       this.resetModal();
       this.dp = data;
