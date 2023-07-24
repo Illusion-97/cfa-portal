@@ -1,13 +1,11 @@
 <template>
   <div class="container-fluid">
-    <a
-      @click="goBack()"
-      class="h5"
-      style="cursor:pointer; color:black;text-decoration:none;"
-    >
-      <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+    <v-btn style="margin-top: 10px" color="back-color" class="back" @click="goBack()">
+      <v-icon>
+        mdi-arrow-left
+      </v-icon>
       Précédent
-    </a>
+    </v-btn>
 
     <b-card no-body id="my-card">
       <b-card-header>
