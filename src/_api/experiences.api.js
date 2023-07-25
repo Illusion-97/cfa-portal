@@ -5,6 +5,7 @@ const END_POINT = "/experiences";
 
 export const experiencesApi = {
   deleteById,
+  getById,
   update,
   save,
 }
@@ -19,6 +20,13 @@ export const experiencesApi = {
 function deleteById(id) {
     return axios
       .delete(`${END_POINT}/${id}`, requestOptions.headers())
+      .then((response) => response.data)
+      .catch((error) => console.log(error));
+  }
+
+  function getById(id) {
+    return axios
+      .get(`${END_POINT}/${id}`, requestOptions.headers())
       .then((response) => response.data)
       .catch((error) => console.log(error));
   }

@@ -14,7 +14,6 @@ export const dossierProfessionnelApi = {
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
   generateDossierProByStudentAndPromo,
-  genererDossierProfessionnel,
   updateDossierProfessionnel,
   handleFileUpload,
   getAllByPage,
@@ -195,10 +194,10 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
   let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${promotionId}`;
 
   return axios
-    .get(req, { responseType: 'arraybuffer' })  // Utilisez responseType 'arraybuffer' au lieu de 'blob'
+    .get(req, { responseType: 'arraybuffer' }) 
 
     .then(response => {
-      const blob = new Blob([response.data], { type: 'application/pdf' });  // Spécifiez le type de contenu comme 'application/pdf'
+      const blob = new Blob([response.data], { type: 'application/pdf' });  
       const objectUrl = URL.createObjectURL(blob);
       window.open(objectUrl);
     })
@@ -214,9 +213,9 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
  */
 
 
-function updateDossierProfessionnel(form, id,file) {
+function updateDossierProfessionnel(dossierPro, id,file) {
   const formData = new FormData();
-  formData.append('dossierProfessionnel', JSON.stringify(form));
+  formData.append('dossierPro', JSON.stringify(dossierPro));
 
   if (Array.isArray(file)) {
     file.forEach(f => formData.append('pieceJointe', f));
@@ -238,16 +237,6 @@ function updateDossierProfessionnel(form, id,file) {
   }
 }
 
-
-function genererDossierProfessionnel(idDossierPro){
-  let req = `${END_POINT}/generer/${idDossierPro}`;
-
-  return axios
-  .get(req, requestOptions.headers())
-  .then(response => response.data)
-  .catch((error) => console.log(error));
-
-}
 
 function handleFileUpload(etudiantId,cursusId,file,nom)
 {
