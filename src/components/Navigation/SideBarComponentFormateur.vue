@@ -1,36 +1,25 @@
 <template>
   <div
-    class="sidebar"
-    :class="isOpened ? 'open' : ''"
+    class="sidebar open"
     :style="cssVars"
   >
     <div
       class="logo-details"
-      style="margin: 6px 14px 0 14px;"
     >
 
       <img
-        v-if="isOpened"
+
         src="../../assets/img/institutionnel-logo.png"
         alt="menu-logo"
         class="menu-logo icon"
         style=""
-      >
-
-      <img
-          v-else
-          src="../../assets/img/institutionnel-logo.png"
-          alt="menu-logo"
-          class="menu-logo icon"
       >
       <!-- <div class="logo_name">
         {{ menuTitle }}
       </div> -->
       <i
         class="bx"
-        :class="isOpened ? 'bx-menu-alt-right' : 'bx-menu'"
         id="btn"
-        @click="isOpened = !isOpened"
       />
     </div>
 
