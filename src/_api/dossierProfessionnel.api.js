@@ -215,7 +215,7 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
 
 function updateDossierProfessionnel(dossierPro, id,file) {
   const formData = new FormData();
-  formData.append('dossierPro', JSON.stringify(dossierPro));
+  formData.append('dossierProfessionnel', JSON.stringify(dossierPro));
 
   if (Array.isArray(file)) {
     file.forEach(f => formData.append('pieceJointe', f));

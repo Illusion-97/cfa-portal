@@ -251,8 +251,9 @@
 </template>
         </v-list-item>
         <div id="div-save">
-    <b-button  size="sm" variant="warning" type="submit"  @click.prevent="clear">
-      <v-icon @click="clear()">mdi-close</v-icon>Effacer
+    <b-button @click="clear()"  size="sm" variant="warning" type="submit"  @click.prevent="clear">
+      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" /> 
+     Effacer
     </b-button>
     </div>
       </v-list-group>

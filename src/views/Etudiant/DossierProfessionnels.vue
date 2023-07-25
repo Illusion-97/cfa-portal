@@ -28,9 +28,11 @@
         </b-button>
 
         <!-- BOUTON VOIR -->
-        <v-btn small color="light" @click="voirDossier(etudiantId, promotionId)">
-        <v-icon>mdi-eye</v-icon>              
-        </v-btn>
+        <button @click="voirDossier(etudiantId, promotionId)" class="btn btn-info btn-sm">
+                  <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
+                  Voir 
+                </button>
+       
       </template>
     </b-table>
    
@@ -74,7 +76,7 @@ export default {
     search: "",
     pdfUrl:'',
     etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
-    promotionId:438,
+    promotionId:this.$route.params.id,
       items: [],
       telecharger: [],
       fields: [

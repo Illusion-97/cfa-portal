@@ -16,16 +16,16 @@
 <!-- ACTIVITES TYPES SELECTEURS -->
 <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
 
-<b-form-select v-model="start" @change="getValue"> 
+<b-form-select v-model="start" @change="getValue">
   <template #first>
     <b-form-select-option v-for="competence in optionsAT(activite)" :key="competence.id" :value="competence.value">
-      <span v-if="filledCompetences.includes(competence.value)  ">&#x2705;</span>
-      {{ competence.text }}
-      {{ competence.libelle }}
+      <span v-if="filledCompetences.includes(competence.id)">&#x2705; </span>
+      {{ competence.text }} 
+      {{ competence.libelle }} 
     </b-form-select-option>
-   </template>
+  </template>
+</b-form-select>
 
-  </b-form-select>
      
       <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
 <br/>
@@ -35,6 +35,7 @@
 
       <!-- FORMULAIRE -->
       <b-form @submit="addExp">
+        <div v-for="(experience, index) in expPro" :key="index">
         <!-- ACCORDEON EXP 1 -->
         <b-card no-body class="mb-1" >
           <b-card-header header-tag="header" class="p-1" role="tab">
@@ -48,7 +49,7 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="formExp.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
+              <vue-editor v-model="experience.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -65,7 +66,7 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="formExp.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
+              <vue-editor v-model="experience.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -82,7 +83,7 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="formExp.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
+              <vue-editor v-model="experience.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -99,7 +100,7 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="formExp.contexte" id="exp4" name="contexte" placeholder="Contexte" />
+              <vue-editor v-model="experience.contexte" id="exp4" name="contexte" placeholder="Contexte" />
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -116,11 +117,11 @@
 
             <!-- INSERT EXP -->
             <b-card-body>
-              <vue-editor v-model="formExp.information" id="exp5" name="information" placeholder="Informations" />
+              <vue-editor v-model="experience.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
           </b-collapse>
         </b-card>
-        
+        </div>
         
         <div id="div-save">
           <b-button size="sm" class="mr-2" variant="primary" @click.prevent=close>
@@ -258,6 +259,7 @@
       <b-button @click="$bvModal.hide('modal-delete-import-confirmation')">Annuler</b-button>
     </div>
   </b-modal>
+
 </template>
 
 
@@ -288,7 +290,6 @@
       </ul>
     </div>
     
-    <!-- MODALE SUCCESS DOSSIER CREE -->
     <b-modal id="modal-updateDossier-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
@@ -300,13 +301,22 @@
         </b-button>
       </div>
     </b-modal>
+
+     <b-modal id="modal-updateDossier-error" centered size="lg" no-close-on-esc hide-footer title="Echec !">
+      <p>
+        Votre dossier professionnel n'a pas été mise à jour .
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary" @click="$bvModal.hide('modal-updateDossier-error')">Ok</b-button>
+        
+      </div>
+    </b-modal>
   </div>
 </template>
 
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import { experiencesApi} from "@/_api/experiences.api.js";
 import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
 import { validationMixin } from 'vuelidate'
@@ -366,7 +376,7 @@ export default {
         competenceProfessionnelleId: 0,
       },
     showAnnexeModal: false,
-    dossierPro: {},
+    dossierPro:null,
       annexe: null,
       
     };
@@ -401,22 +411,15 @@ export default {
         this.newFacultatif.intitule = this.facultatifs[0].intitule;
         this.newFacultatif.organisme = this.facultatifs[0].organisme;
         this.newFacultatif.date = this.facultatifs[0].date;
-      }
- 
-      experiencesApi.getById(this.formExp.id).then((data) => {
-        this.expPro = data;
-         this.expPro = this.dossierPro.experienceProfessionnelleDtos;
-      })
-     
+      }     
       
-    
+      this.filledCompetences = this.dossierPro.experienceProfessionnelleDtos.map((exp) => exp.competenceProfessionnelleId);
+     
     })
     .catch((error) => {
       console.error(error);
     });
 },
-
-
 
 
 confirmDeleteFile() {
@@ -445,91 +448,68 @@ updateDossier() {
       cursusDto: {
         id: this.dossierPro.cursusDto.id,
         titre: this.dossierPro.cursusDto.titre,
-        activiteTypes: [],
+        activiteTypes: []
       },
       experienceProfessionnelleDtos: [],
       annexeDtos: [],
-      facultatifDto: [
-        {
-          id: 0,
-          version: 0,
-          intitule: this.newFacultatif.intitule,
-          organisme: this.newFacultatif.organisme,
-          date: this.newFacultatif.date,
-          dossierProfessionnelId: 0,
-        },
-      ],
-      fileImport: this.dossierPro.fileImport,
+      facultatifDto: [{
+        id: 0,
+        version: 0,
+        intitule: this.newFacultatif.intitule,
+        organisme: this.newFacultatif.organisme,
+        date: this.newFacultatif.date,
+        dossierProfessionnelId: 0
+      }],
+      fileImport: this.dossierPro.fileImport
     };
 
-    dpDto.cursusDto = this.dossierPro.cursusDto;
-
-    for (const act of this.dossierPro.cursusDto.activiteTypes) {
-      const newAct = {
-        id: act.id,
-        libelle: act.libelle,
-        competenceProfessionnelles: [],
-        experienceProfessionnelles: [],
+    for (let i = 0; i < this.dossierPro.cursusDto.activiteTypes; i++) {
+      const activite = this.dossierPro.cursusDto.activiteTypes[i];
+      const activiteDto = {
+        // ...
       };
+      dpDto.cursusDto.activiteTypes.push(activiteDto);
 
-      for (const comp of act.competenceProfessionnelles) {
-        const newComp = {
-          id: comp.id,
-          libelle: comp.libelle,
+      for (let j = 0; j < activite.competenceProfessionnelles.length; j++) {
+        const competence = activite.competenceProfessionnelles[j];
+        const competenceDto = {
         };
+        activiteDto.competenceProfessionnelles.push(competenceDto);
 
-        newAct.competenceProfessionnelles.push(newComp);
-
-        if (
-          comp.tacheRealisee !== undefined ||
-          comp.moyenUtilise !== undefined ||
-          comp.collaborateur !== undefined ||
-          comp.contexte !== undefined ||
-          comp.information !== undefined
-        ) {
-          const newExpPro = {
-            tacheRealisee: comp.tacheRealisee,
-            moyenUtilise: comp.moyenUtilise,
-            collaborateur: comp.collaborateur,
-            contexte: comp.contexte,
-            information: comp.information,
-            competenceProfessionnelleId: comp.id,
-          };
-
-          newAct.experienceProfessionnelles.push(newExpPro);
-          dpDto.experienceProfessionnelleDtos.push(newExpPro);
+        if (competence.experienceProfessionnelles && competence.experienceProfessionnelles.length > 0) {
+          for (let k = 0; k < competence.experienceProfessionnelles.length; k++) {
+            const experience = competence.experienceProfessionnelles[k];
+            competenceDto.experienceProfessionnelles.push(experience);
+          }
         }
       }
-
-      dpDto.cursusDto.activiteTypes.push(newAct);
     }
 
     for (let i = 0; i < this.annexes.length; i++) {
       const annexe = this.annexes[i];
-      const newAnnexe = {
+      const a = {
         libelleAnnexe: annexe.libelleAnnexe,
-        pieceJointe: annexe.pieceJointe.name,
+        pieceJointe: annexe.pieceJointe
       };
-
-      dpDto.annexeDtos.push(newAnnexe);
+      dpDto.annexeDtos.push(a);
     }
 
-   dossierProfessionnelApi.updateDossierProfessionnel(
-      this.dossierPro.id,
-      dpDto,
-      this.newAnnexe.pieceJointe
-    ).then(data => {
+    dossierProfessionnelApi
+      .updateDossierProfessionnel(dpDto,  this.$store.getters.getUtilisateur.etudiantDto.id, this.newAnnexe.pieceJointe)
+      .then(data => {
         this.dossierPro = data;
         console.log(data);
         this.$bvModal.show("modal-updateDossier-success");
+      })
+      .catch(error => {
+        console.error("Error:", error);
       });
-
   } catch (error) {
-    console.error("Error:", error);
-    this.$bvModal.show("modal-updateDossier-Error");
-  }
-},
-
+      console.error("Error:", error);
+      this.$bvModal.hide("modal-updateDossier-success");
+      this.$bvModal.show("modal-updateDossier-error");
+    }
+  },
 
 
 
@@ -596,43 +576,42 @@ deleteAnnexe(index, annexeId) {
 },
 
 
-  optionsAT(activite) {
-  let tab = [
-    {
-      value: null,
-      text: "+ Ajouter une expérience professionnelle à :",
-      disabled: true,
-    },
-  ];
+optionsAT(activite) {
+    let tab = [
+      {
+        value: null,
+        text: "+ Ajouter une expérience professionnelle à :",
+        disabled: true,
+      },
+    ];
 
-  if (activite.competencesProfessionnellesDto) {
-    activite.competencesProfessionnellesDto.forEach((competence) => {
-      const hasExperiences = this.dossierPro.experienceProfessionnelleDtos.some((exp) => {
-        return exp.competenceProfessionnelleId === competence.id;
+    if (activite.competencesProfessionnellesDto) {
+      activite.competencesProfessionnellesDto.forEach((competence) => {
+        const hasExperiences = this.filledCompetences.includes(competence.id);
+
+        if (hasExperiences) {
+          let option = {
+            value: competence,
+            text: competence.libelle,
+            html: '<span>&#x2705;</span> ' + competence.libelle,
+            disabled: true,
+          };
+
+          tab.push(option);
+        } else {
+          let option = {
+            value: competence,
+            text: competence.libelle,
+          };
+
+          tab.push(option);
+        }
       });
+    }
 
-      if (hasExperiences) {
-        let option = {
-          value: competence,
-          text: competence.libelle,
-          html: '<span>&#x2705;</span> ' + competence.libelle,
-          disabled: true,
-        };
+    return tab;
+  },
 
-        tab.push(option);
-      } else {
-        let option = {
-          value: competence,
-          text: competence.libelle,
-        };
-
-        tab.push(option);
-      }
-    });
-  }
-
-  return tab;
-},
 
 
 
@@ -689,7 +668,24 @@ isExperienceFilled(experience) {
   
   addExp(event) { 
     event.preventDefault();
-    this.$bvModal.hide("exp-pro-modal");
+    if (this.isExperienceFilled) {
+      this.expPro.push({
+        tacheRealisee: this.formExp.tacheRealisee,
+        moyenUtilise: this.formExp.moyenUtilise,
+        collaborateur: this.formExp.collaborateur,
+        contexte: this.formExp.contexte,
+        information: this.formExp.information,
+        competenceProfessionnelleId: this.formExp.competenceProfessionnelleId,
+      });
+
+      this.formExp.tacheRealisee = "";
+      this.formExp.moyenUtilise = "";
+      this.formExp.collaborateur = "";
+      this.formExp.contexte = "";
+      this.formExp.information = "";
+
+      this.$bvModal.hide("exp-pro-modal");
+    }
    console.log(this.expPro);
    
 },
@@ -734,10 +730,6 @@ watch: {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
         });
-
-        experiencesApi.getById(this.expP).then((response) => {
-        this.expPro = response;
-      })
   },
 
   computed: {
