@@ -65,7 +65,7 @@
         <!-- S'il n'y a aucun import du ossier Projet -->
         <tr v-else>
           <td><v-file-input v-model="fileImport" accept="*"></v-file-input></td>
-          <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="importDp === null">Envoyer</v-btn></td>
+          <td><b-button variant="success" @click="$bvModal.show('modal-import-confirmation')" v-if="importDp === null">Envoyer</b-button></td>
           <!-- Modal Confirmation Envoi Import -->
           <b-modal :id="'modal-import-confirmation'" centered size="lg" no-close-on-esc hide-footer>
             <p>
@@ -170,7 +170,7 @@
                           </td>
                           <!--td Pour la suppression des annexes-->
                           <td>
-                            <v-btn class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</v-btn>
+                            <b-button variant="" class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</b-button>
                             <!-- Modal Confirmation Suppression Annexe -->
                             <b-modal :id="'modal-delete-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
                               <p>
@@ -188,8 +188,8 @@
                             <v-file-input v-model="files.file" accept="image/*" :id="'fileInput_' + index" label="Annexes du Dossier Projet"></v-file-input>
                           </td>
                           <td>
-                            <v-btn style="margin-top: 10px" class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
-                            <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</v-btn>
+                            <b-button style="margin-top: 10px" class="mb-4" @click="deleteAnnexe(index)">Supprimer</b-button>
+                            <b-button style="margin: 10px 0 0 5px" variant="success" class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</b-button>
                             <!-- Modal Confirmation Envoi Annexe -->
                             <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
                               <p>
