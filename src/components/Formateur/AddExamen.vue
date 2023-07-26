@@ -1,164 +1,98 @@
 <template>
   <div>
-    <b-alert
-        :show="dissmissCountFailed"
-        dismissible
-        fade
-        variant="danger"
-    >
+    <b-alert :show="dissmissCountFailed" dismissible fade variant="danger">
       {{ messageError }}
     </b-alert>
     <div class="d-flex justify-content-end">
-      <b-button
-        variant="secondary"
-        v-show="showFormExamen"
-        @click="openToggle"
-        class="btnAddExamen">
+      <b-button variant="secondary" v-show="showFormExamen" @click="openToggle" class="btnAddExamen">
         <font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
-        Ajouter un examen 
+        Ajouter un examen
       </b-button>
     </div>
-      <b-alert
-        :show="dismissCountDown"
-        dismissible
-        fade
-        variant="success"
-        @dismissed="dismissCountDown = 0"
-      >
-        {{ message }}
-      </b-alert>
-      <b-collapse id="collapseExamen">
-        <section class="section-form d-flex flex-column justify-content-around">
-          <div class="d-flex flex-row">
-            <label class="libelle-width">Titre de l'examen :</label>
-            <b-form-input
-              id="titreFormExamen"
-              type:text
-              v-model="examenDto.titre"
-              placeholder="Titre"
-              required
-            ></b-form-input>
-          </div>
-          <div class="d-flex flex-row">
-            <label class="libelle-width">Descriptif :</label>
-            <b-form-textarea
-              id="textarea-auto-height"
-              rows="2"
-              max-rows="8"
-              v-model="examenDto.descriptif"
-              placeholder="Descriptif"
-            ></b-form-textarea>
-          </div>
-          <div class="d-flex flex-row">
-            <label class="libelle-width">Pièce jointe :</label>
-            <b-form-file
-              class="mb-2"
-              v-model="file"
-              ref="file-input"
-              placeholder="Sélectionner votre pièce jointe"
-              required
-            ></b-form-file>
-          </div>
-          <div class="d-flex flex-row">
-            <label class="date-width">Date :</label>
-            <b-form-datepicker
-              v-model="examenDto.dateExamen"
-              placeholder="Sélectionner une date"
-              class="mb-2 datepicker-width"
-              required
-            ></b-form-datepicker>
-          </div>
-          <div class="d-flex flex-row" >
-            <b-form-group
-              label="Sélectionner des activités types :"
-              v-slot="{ ariaDescribedby }"
-              v-if="optionsBlocsCompetences"
-            >
-              <b-form-checkbox-group
-                @change="showBlocsLinked()"
-                class="form-select-warp-text"
-                id="checkbox-group-1"
-                v-model="selectedActivitesTypes"
-                :options="optionsBlocsCompetences"
-                :aria-describedby="ariaDescribedby"
-                name="flavour-1"
-                required
-              ></b-form-checkbox-group>
-            </b-form-group>
-          </div>
-
-          <div class="d-flex flex-row">
-            <div class="d-flex flex-column w-50">
-              <label class="libelle-width d-flex flex-row w-75"
-                >Compétences professionnelles :</label
-              >
-              <b-form-checkbox-group
-                size="lg"
-                v-model="selectedCompConcernees"
-                :options="optionsCheckbox"
-                name="flavour-1b"
-                class="
+    <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
+      {{ message }}
+    </b-alert>
+    <b-collapse id="collapseExamen">
+      <section class="section-form d-flex flex-column justify-content-around">
+        <div class="d-flex flex-row">
+          <label class="libelle-width">Titre de l'examen :</label>
+          <b-form-input id="titreFormExamen" type:text v-model="examenDto.titre" placeholder="Titre"
+            required></b-form-input>
+        </div>
+        <div class="d-flex flex-row">
+          <label class="libelle-width">Descriptif :</label>
+          <b-form-textarea id="textarea-auto-height" rows="2" max-rows="8" v-model="examenDto.descriptif"
+            placeholder="Descriptif"></b-form-textarea>
+        </div>
+        <div class="d-flex flex-row">
+          <label class="libelle-width">Pièce jointe :</label>
+          <b-form-file class="mb-2" v-model="file" ref="file-input" placeholder="Sélectionner votre pièce jointe"
+            required></b-form-file>
+        </div>
+        <div class="d-flex flex-row">
+          <label class="date-width">Date :</label>
+          <b-form-datepicker v-model="examenDto.dateExamen" placeholder="Sélectionner une date"
+            class="mb-2 datepicker-width" required></b-form-datepicker>
+        </div>
+        <div class="d-flex flex-row">
+          <b-form-group label="Sélectionner des activités types :" v-slot="{ ariaDescribedby }"
+            v-if="optionsBlocsCompetences">
+            <b-form-checkbox-group @change="showBlocsLinked" class="form-select-warp-text" id="checkbox-group-1"
+              v-model="selectedActivitesTypes" :options="optionsBlocsCompetences" :aria-describedby="ariaDescribedby"
+              name="flavour-1" required></b-form-checkbox-group>
+          </b-form-group>
+        </div>
+        <div class="d-flex flex-row">
+          <div class="d-flex flex-column w-50">
+            <label class="libelle-width d-flex flex-row w-75">Compétences professionnelles :</label>
+            <b-form-checkbox-group size="lg" v-model="selectedCompConcernees" :options="optionsCheckbox" name="flavour-1b"
+              class="
                   d-flex
                   flex-wrap
                   d-flex
                   flex-row
                   justify-content-between
                   checkbox-width
-                "
-                switches
-                required
-              ></b-form-checkbox-group>
-            </div>
-            <div class="d-flex flex-row w-50 justify-content-end">
-              <label class="libelle-width">Durée :</label>
-              <b-form-spinbutton
-                class="w-50"
-                v-model="examenDto.duree"
-                wrap
-                min="1"
-                max="10"
-                step="0.5"
-                placeholder="---"
-                required
-              ></b-form-spinbutton>
-            </div>
+                " switches required></b-form-checkbox-group>
           </div>
-          <div>
-            <b-form @submit="inputValidation" class="d-flex flex-row justify-content-end bFormBtnValider">
-              <v-btn
-                color="success"
-                dark
-                type="submit"
-                class="btnFormExamen btnFormExamenValider">
-                <font-awesome-icon
-                  :icon="['fas', 'plus-square']"
-                  class="icon"/>
-                  Valider
-              </v-btn>
-              <v-btn
-                  color="warning"
-                  class="btnFormExamen"
-                  @click="cancelForm"
-                  ><font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
-                  Annuler
-              </v-btn>
+          <div class="d-flex flex-row w-50 justify-content-end">
+            <label class="libelle-width">Durée :</label>
+            <b-form-spinbutton class="w-50" v-model="examenDto.duree" wrap min="1" max="10" step="0.5" placeholder="---"
+              required></b-form-spinbutton>
+          </div>
+        </div>
+        <div>
+          <b-form @submit="inputValidation" class="d-flex flex-row justify-content-end bFormBtnValider">
+            <v-btn color="success" dark type="submit" class="btnFormExamen btnFormExamenValider">
+              <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
+              Valider
+            </v-btn>
+            <v-btn color="warning" class="btnFormExamen" @click="cancelForm"><font-awesome-icon
+                :icon="['fas', 'undo-alt']" class="icon" />
+              Annuler
+            </v-btn>
 
-            </b-form>
-          </div>
-        </section>
-      </b-collapse>
+          </b-form>
+        </div>
+      </section>
+    </b-collapse>
   </div>
 </template>
 
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
+// import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   props: {
     context: {
       type: String,
       default: "",
+    },
+    activiteTypesCompetences: {
+      type: Array,
+      required: true,
+      default: null
     },
     optionsBlocsCompetences: {
       type: Array,
@@ -172,7 +106,7 @@ export default {
     }
   },
   data() {
-    
+
     return {
       showFormExamen: true,
       selectedActivitesTypes: [],
@@ -192,23 +126,20 @@ export default {
         promotionsId: [],
       },
       message: "",
-      messageError:"",
+      messageError: "",
       file: null,
       hidden: false,
       optionsCheckbox: [],
       dismissCountDown: null,
-      dissmissCountFailed:null,
+      dissmissCountFailed: null,
     };
   },
-  created() {
-    console.log(this.optionsBlocsCompetences)
-    },
   methods: {
-    inputValidation(event){
+    inputValidation(event) {
       if (this.examenDto.titre === null || this.examenDto.descriptif === null ||
-          this.file === null || this.examenDto.dateExamen === null ||
-          this.selectedActivitesTypes === null || this.optionsBlocsCompetences === null ||
-          this.examenDto.duree ===null) {
+        this.file === null || this.examenDto.dateExamen === null ||
+        this.selectedActivitesTypes === null || this.optionsBlocsCompetences === null ||
+        this.examenDto.duree === null) {
         this.showFailed();
         event.preventDefault();
         return;
@@ -226,56 +157,56 @@ export default {
       }
 
       this.examenDto.activiteTypesId = this.selectedActivitesTypes;
-      this.examenDto.competencesProfessionnellesId =
-        this.selectedCompConcernees;
+      this.examenDto.competencesProfessionnellesId = this.selectedCompConcernees;
+      console.log(this.examenDto)
 
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
       bodyFormData.append("file", this.file)
 
-      examenApi
-        .save(bodyFormData)
-        .then((response) => {
-          this.showAlert(response.titre, false);
-          let element = document.querySelector('#collapseExamen')
-          element.style.display = "none"
-          this.clearInput();
-          this.showFormExamen = true;
-          setTimeout(() => {
-            this.$emit("updateExamens");
-          }, 500);
-        });
+      // examenApi
+      //   .save(bodyFormData)
+      //   .then((response) => {
+      // this.showAlert(response.titre, false);
+      let element = document.querySelector('#collapseExamen')
+      element.style.display = "none"
+      this.clearInput();
+      this.showFormExamen = true;
+      setTimeout(() => {
+        this.$emit("updateExamens");
+      }, 500);
+      //   });
     },
-    openToggle(){
+    openToggle() {
       let element = document.querySelector('#collapseExamen')
       element.style.display = "block"
       this.showFormExamen = false
     },
-    cancelForm(){
+    cancelForm() {
       let element = document.querySelector('#collapseExamen')
       element.style.display = "none";
       this.showFormExamen = true
     },
-    showFailed(){
-      this.messageError = "Vous devez renseigner tous les champs." ;
+    showFailed() {
+      this.messageError = "Vous devez renseigner tous les champs.";
       this.dissmissCountFailed = this.dismissSecs;
     },
     showAlert(titre, isErr) {
       if (isErr) {
-        this.message = "Erreur d'ajout de l'examen " + titre ;
+        this.message = "Erreur d'ajout de l'examen " + titre;
         this.dismissCountDownErr = this.dismissSecs
       } else {
         this.message = "L'examen " + titre + " a bien été rajouté avec succès";
         this.dismissCountDown = this.dismissSecs;
       }
     },
-    clearInput(){
+    clearInput() {
       this.examenDto.titre = null
       this.examenDto.descriptif = null
       this.file = null
       this.examenDto.dateExamen = null
       this.examenDto.duree = null
     },
-    showBlocsLinked() {
+    showBlocsLinked(selectedOptionValue) {
       let options = [];
       for (let i = 0; i < this.selectedActivitesTypes.length; i++) {
         for (let j = 0; j < this.dataForBlocsConcernes.length; j++) {
@@ -291,8 +222,13 @@ export default {
           }
         }
       }
-      this.optionsCheckbox = options.sort(function (a, b) {
-        return a.text - b.text;
+
+      this.optionsCheckbox = [];
+      this.activiteTypesCompetences.forEach(Object => {
+        selectedOptionValue.forEach(entiteActivite => {
+          if (Object.id === entiteActivite)
+            this.optionsCheckbox.push(Object.competencesProfessionnellesDto);
+        });
       });
     },
   },
@@ -302,14 +238,17 @@ export default {
 .libelle-width {
   width: 28%;
 }
+
 .date-width {
   width: 22%;
 }
+
 .section-form {
   height: 70vh;
   width: 38vw;
   margin: auto;
 }
+
 .datepicker-width {
   width: 15vw;
 }
@@ -325,16 +264,19 @@ export default {
 .form-select-warp-text {
   overflow-wrap: break-word;
 }
+
 .btnAddExamen {
-      position: relative;
-      right: 0px;
-      width: 12vw;
-      height: 100%;
+  position: relative;
+  right: 0px;
+  width: 12vw;
+  height: 100%;
 }
-.btnFormExamen{
+
+.btnFormExamen {
   width: 8vw;
 }
-.btnFormExamenValider{
+
+.btnFormExamenValider {
   margin-right: 2vw;
 }
 </style>

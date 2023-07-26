@@ -2,7 +2,7 @@
   <div>
     <!-- AJOUT D'UN EXAMEN -->
     <div v-if="context === 'intervention'">
-      <AddExamen ref="addExamen" :data-for-blocs-concernes="dataForBlocsConcernes" :optionsBlocsCompetences="optionsBlocsCompetences" :context="context" @updateExamens="updateExamens" />
+      <AddExamen ref="addExamen" :activiteTypesCompetences="activiteTypesCompetences" :data-for-blocs-concernes="dataForBlocsConcernes" :optionsBlocsCompetences="optionsBlocsCompetences" :context="context" @updateExamens="updateExamens" />
     </div>
     <div class="mt-4">
       <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
@@ -174,6 +174,7 @@ export default {
 
   data() {
     return {
+      activiteTypesCompetences : [],
       activiteTypes: [],
       datasFormAt: [],
       datasFormCP: [],
@@ -272,6 +273,7 @@ export default {
           .getAllByIdPromotion(promoId)
           .then((response) => {
             if (response){
+              this.activiteTypesCompetences = response;
             this.getDataForForm(response);
             if(this.context === "intervention"){
               this.optionsBlocsCompetences = this.datasFormAt;
