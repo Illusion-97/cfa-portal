@@ -81,7 +81,7 @@
 
 
 <script>
-// import { examenApi } from "@/_api/examen.api.js";
+import { examenApi } from "@/_api/examen.api.js";
 
 export default {
   props: {
@@ -115,8 +115,8 @@ export default {
       examenDto: {
         id: 0,
         version: 0,
-        titre: null,
-        descriptif: null,
+        titre: "",
+        descriptif: "",
         duree: null,
         dateExamen: null,
         interventionId: null,
@@ -158,23 +158,23 @@ export default {
 
       this.examenDto.activiteTypesId = this.selectedActivitesTypes;
       this.examenDto.competencesProfessionnellesId = this.selectedCompConcernees;
-      console.log(this.examenDto)
+
 
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
       bodyFormData.append("file", this.file)
 
-      // examenApi
-      //   .save(bodyFormData)
-      //   .then((response) => {
-      // this.showAlert(response.titre, false);
-      let element = document.querySelector('#collapseExamen')
-      element.style.display = "none"
-      this.clearInput();
-      this.showFormExamen = true;
-      setTimeout(() => {
-        this.$emit("updateExamens");
-      }, 500);
-      //   });
+      examenApi
+        .save(bodyFormData)
+        .then((response) => {
+          this.showAlert(response.titre, false);
+          let element = document.querySelector('#collapseExamen')
+          element.style.display = "none"
+          this.clearInput();
+          this.showFormExamen = true;
+          setTimeout(() => {
+            this.$emit("updateExamens");
+          }, 500);
+        });
     },
     openToggle() {
       let element = document.querySelector('#collapseExamen')
@@ -227,9 +227,12 @@ export default {
       this.activiteTypesCompetences.forEach(Object => {
         selectedOptionValue.forEach(entiteActivite => {
           if (Object.id === entiteActivite)
-            this.optionsCheckbox.push(Object.competencesProfessionnellesDto);
+            Object.competencesProfessionnellesDto.forEach(element => {
+              this.optionsCheckbox.push({ value: element.id, text: element.libelle });
+            });
         });
       });
+      console.log(this.optionsCheckbox)
     },
   },
 };
