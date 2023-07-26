@@ -1,5 +1,6 @@
 <template>
   <div class="main" v-if="DossierProjet">
+    {{importDp}}
   <section class="flex-group-title">
     <div v-if="modify != true" class="flex-title">
       <v-card-title>Nom du Dossier : {{nomDp}}</v-card-title>
@@ -11,7 +12,7 @@
 
     <div v-else class="flex-title">
       <v-card-title style="min-width: 40%">Nom du Dossier : </v-card-title>
-      <b-form-input type="text" v-model="DossierProjet.nom"></b-form-input>
+      <b-form-input type="text" v-model="nomDp"></b-form-input>
       <b-button size="sm" class="mr-2" variant="success" @click="validModify">
         Valider
       </b-button>
@@ -43,10 +44,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-if="DossierProjet.dossierImport">
-          <td v-if="versionImport === 0">{{DossierProjet.dossierImport}}</td>
-          <td v-else>{{DossierProjet.dossierImport.name}}</td>
-          <v-btn  @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</v-btn>
+
+        <!-- S'il y a un import du ossier Projet -->
+
+        <tr v-if="importDp">
+          <td >{{DossierProjet.dossierImport}}</td>
+          <b-button style="margin-top: 4px" @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</b-button>
           <!-- Modal Confirmation Suppression Annexe -->
           <b-modal :id="'modal-delete-import-confirmation' " centered size="lg" no-close-on-esc hide-footer>
             <p>
@@ -58,9 +61,11 @@
             </div>
           </b-modal>
         </tr>
+
+        <!-- S'il n'y a aucun import du ossier Projet -->
         <tr v-else>
           <td><v-file-input v-model="fileImport" accept="*"></v-file-input></td>
-          <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="DossierProjet.dossierImport === null">Envoyer</v-btn></td>
+          <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="importDp === null">Envoyer</v-btn></td>
           <!-- Modal Confirmation Envoi Import -->
           <b-modal :id="'modal-import-confirmation'" centered size="lg" no-close-on-esc hide-footer>
             <p>
@@ -73,6 +78,7 @@
           </b-modal>
         </tr>
         </tbody>
+
       </v-simple-table>
     </v-card>
   </section>
@@ -104,7 +110,7 @@
                   <v-card>
                     <v-card-text disabled>
                       <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
-                      <v-card-subtitle>Dossier : {{ DossierProjet.nom }}</v-card-subtitle>
+                      <v-card-subtitle>Dossier : {{ nomDp }}</v-card-subtitle>
                     </v-card-text>
                     <vue-editor v-model="DossierProjet.infoDossierProjets[0]"
                                 id="exp1"  placeholder="Informations du Projet" readonly />
@@ -133,18 +139,14 @@
                   </v-card>
                 </div>
                 <div v-show="active === 3">
-                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
                     <div>
                       <vue-editor h-auto  v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
                     </div>
-                  </b-collapse>
                 </div>
                 <div v-show="active === 4" >
-                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
                     <div>
                       <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
                     </div>
-                  </b-collapse>
                 </div>
                 <div v-show="active === 5">
                   <div >
@@ -215,7 +217,7 @@
     </v-expand-transition>
     <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
-        Votre Dossier Projet "{{ DossierProjet.nom }} a été correctement créer"
+        Votre Dossier Projet "{{ nomDp }} a été correctement créer"
       </p>
       <div class="div-ok">
         <router-link class="nav-item first" :to="'/etudiant/dossierprojets'">
@@ -244,14 +246,13 @@ export default {
       dossierProjetId: 0,
       studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
       modify: false,
-      modifyTemp: "",
       annexePage:1,
       itemsPerPage: 4,
       fileImport:undefined,
       activiteTypes: [],
       dossierModif:{},
       filesAnnexe: [{file:undefined}],
-      DossierProjet: {nom:null},
+      DossierProjet: {nom:"", dossierImport: ""},
     };
   },
   beforeMount() {
@@ -264,9 +265,6 @@ export default {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
         })
-  },
-  mounted() {
-    this.modifyTemp = this.DossierProjet.nom
   },
   methods: {
     retour() {
@@ -299,8 +297,7 @@ export default {
     },
     deleteImport(file){
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
-        this.DossierProjet.dossierImport = null;
-        this.versionImport++
+        location.reload();
       })
 
     },
@@ -331,7 +328,8 @@ export default {
 
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
-          .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index))
+          .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index),this.importDp = dossierImport,
+              location.reload())
           .catch((error) => console.error(error));
     },
 
@@ -376,9 +374,22 @@ export default {
 
   computed: {
     /* Nom Dossier Projet */
-    nomDp(){
-      let nom = this.DossierProjet.nom;
-      return nom
+    nomDp:{
+      get(){
+        return this.DossierProjet.nom;
+      },
+      set(value){
+        return this.DossierProjet.nom = value
+      }
+    },
+    /* Import du Dpssier Projet */
+    importDp:{
+      get(){
+        return this.DossierProjet.dossierImport;
+      },
+      set(value){
+        return this.DossierProjet.dossierImport = value
+      }
     },
     /* Selection */
     selectedComp(){
@@ -442,7 +453,11 @@ export default {
   display: inline-block;
   margin: 0 10px; /* Ajouter des marges pour séparer les éléments */
 }
-
+.div-ok{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 @media screen and (max-width: 1920px) {
   #bloc-competence {
     width: 100%;
