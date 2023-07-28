@@ -19,7 +19,7 @@
           <b-form-input id="titreFormExamen" type:text v-model="examenDto.titre" placeholder="Titre"
             required></b-form-input>
         </div>
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row mt-3 mb-3">
           <label class="libelle-width">Descriptif :</label>
           <b-form-textarea id="textarea-auto-height" rows="2" max-rows="8" v-model="examenDto.descriptif"
             placeholder="Descriptif"></b-form-textarea>
@@ -33,6 +33,12 @@
           <label class="date-width">Date :</label>
           <b-form-datepicker v-model="examenDto.dateExamen" placeholder="Sélectionner une date"
             class="mb-2 datepicker-width" required></b-form-datepicker>
+
+          <div class="d-flex flex-row w-50 justify-content-end">
+            <label class="libelle-width">Durée :</label>
+            <b-form-spinbutton class="w-50" v-model="examenDto.duree" wrap min="1" max="10" step="0.5" placeholder="---"
+              required></b-form-spinbutton>
+          </div>
         </div>
         <div class="d-flex flex-row">
           <b-form-group label="Sélectionner des activités types :" v-slot="{ ariaDescribedby }"
@@ -47,19 +53,15 @@
             <label class="libelle-width d-flex flex-row w-75">Compétences professionnelles :</label>
             <b-form-checkbox-group size="lg" v-model="selectedCompConcernees" :options="optionsCheckbox" name="flavour-1b"
               class="
-                  d-flex
-                  flex-wrap
-                  d-flex
-                  flex-row
-                  justify-content-between
+                  col
                   checkbox-width
                 " switches required></b-form-checkbox-group>
           </div>
-          <div class="d-flex flex-row w-50 justify-content-end">
+          <!-- <div class="d-flex flex-row w-50 justify-content-end">
             <label class="libelle-width">Durée :</label>
             <b-form-spinbutton class="w-50" v-model="examenDto.duree" wrap min="1" max="10" step="0.5" placeholder="---"
               required></b-form-spinbutton>
-          </div>
+          </div> -->
         </div>
         <div>
           <b-form @submit="inputValidation" class="d-flex flex-row justify-content-end bFormBtnValider">
@@ -82,6 +84,7 @@
 
 <script>
 import { examenApi } from "@/_api/examen.api.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
   props: {
@@ -115,12 +118,11 @@ export default {
       examenDto: {
         id: 0,
         version: 0,
-        titre: "",
-        descriptif: "",
+        titre: null,
+        descriptif: null,
         duree: null,
         dateExamen: null,
         interventionId: null,
-        pieceJointe: null,
         activiteTypesId: [],
         competencesProfessionnellesId: [],
         promotionsId: [],
@@ -133,6 +135,15 @@ export default {
       dismissCountDown: null,
       dissmissCountFailed: null,
     };
+  },
+  created() {
+    promotionApi
+      .getAllByInterventionIdForSelect(this.$route.params.id)
+      .then((response) => (response.forEach(element => {
+        this.examenDto.promotionsId.push(element.id)
+      }
+      )));
+    console.log(this.$route.params.id);
   },
   methods: {
     inputValidation(event) {
@@ -159,14 +170,15 @@ export default {
       this.examenDto.activiteTypesId = this.selectedActivitesTypes;
       this.examenDto.competencesProfessionnellesId = this.selectedCompConcernees;
 
-
       bodyFormData.append("examen", JSON.stringify(this.examenDto));
       bodyFormData.append("file", this.file)
+
+      console.log(bodyFormData)
 
       examenApi
         .save(bodyFormData)
         .then((response) => {
-          this.showAlert(response.titre, false);
+          this.showAlert(response, false);
           let element = document.querySelector('#collapseExamen')
           element.style.display = "none"
           this.clearInput();
@@ -224,14 +236,19 @@ export default {
       }
 
       this.optionsCheckbox = [];
-      this.activiteTypesCompetences.forEach(Object => {
-        selectedOptionValue.forEach(entiteActivite => {
-          if (Object.id === entiteActivite)
-            Object.competencesProfessionnellesDto.forEach(element => {
-              this.optionsCheckbox.push({ value: element.id, text: element.libelle });
-            });
+      if (this.activiteTypesCompetences) {
+
+        this.activiteTypesCompetences.forEach(Object => {
+          console.log(selectedOptionValue);
+          selectedOptionValue.forEach(entiteActivite => {
+            if (Object.id === entiteActivite)
+              Object.competencesProfessionnellesDto.forEach(element => {
+                this.optionsCheckbox.push({ value: element.id, text: element.libelle });
+              });
+          });
         });
-      });
+
+      }
       console.log(this.optionsCheckbox)
     },
   },
@@ -243,17 +260,22 @@ export default {
 }
 
 .date-width {
-  width: 22%;
+  width: 25%;
 }
 
 .section-form {
-  height: 70vh;
-  width: 38vw;
-  margin: auto;
+  height: 70%;
+  width: 50vw;
+  margin: 5% auto;
 }
 
 .datepicker-width {
   width: 15vw;
+}
+
+.b-form {
+  column-count: 2;
+  margin: 3%;
 }
 
 .btnAddExamen {
