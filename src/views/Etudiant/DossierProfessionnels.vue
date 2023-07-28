@@ -146,7 +146,7 @@ voirDossier(etudiantId, promotionId) {
     this.$route.params.id !== "" &&
     this.$route.params.id !== 0
   ) {
-    this.promotionId = this.$route.params.promotionId;
+    this.promotionId = this.$route.params.id;
     promotionApi.getPromotionByid(this.promotionId)
       .then((response) => {
         this.promotion = response;

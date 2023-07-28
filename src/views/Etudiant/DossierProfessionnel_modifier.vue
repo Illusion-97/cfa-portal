@@ -3,14 +3,13 @@
     <h2>Modification du dossier professionnel</h2>
     <div v-if="dossierPro">
       <b-form @submit="updateDossier">
-      <!-- Afficher les informations du dossier -->
       <v-col cols="12" sm="6"  md="4">
       <v-text-field  type="text" v-model="dossierPro.nom" variant="filled"  clearable >
 </v-text-field>
     </v-col>
      <br/>
      <div v-for="(activite, index) in activiteTypes" :key="index.id" :value="activite.id" >
-<!-- ACTIVITES TYPES SELECTEURS -->
+
 <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
 
 <b-form-select v-model="start" @change="getValue">
@@ -23,17 +22,13 @@
   </template>
 </b-form-select>
 
-     
-      <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
       scrollable no-close-on-esc @hidden="resetModal" hide-footer>
 
-      <!-- FORMULAIRE -->
       <b-form @submit="addExp">
         <div v-for="(experience, index) in expPro" :key="index">
-        <!-- ACCORDEON EXP 1 -->
         <b-card no-body class="mb-1" >
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
@@ -44,14 +39,12 @@
           </b-card-header>
           <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="experience.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
             </b-card-body>
           </b-collapse>
         </b-card>
 
-        <!-- ACCORDEON EXP 2 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">2. Précisez les
@@ -61,14 +54,12 @@
           </b-card-header>
           <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="experience.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
             </b-card-body>
           </b-collapse>
         </b-card>
 
-        <!-- ACCORDEON EXP 3 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal volets">3. Avec qui
@@ -78,14 +69,12 @@
           </b-card-header>
           <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="experience.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
 
-        <!-- ACCORDEON EXP 4 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal volets">4. Précisez le
@@ -95,14 +84,12 @@
           </b-card-header>
           <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="experience.contexte" id="exp4" name="contexte" placeholder="Contexte" />
             </b-card-body>
           </b-collapse>
         </b-card>
 
-        <!-- ACCORDEON EXP 5 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">5. Informations
@@ -112,7 +99,6 @@
           </b-card-header>
           <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="experience.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
@@ -125,7 +111,6 @@
     <v-icon>mdi-arrow-left</v-icon>
     Retour  
   </b-button> 
-          <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Créer</span>
@@ -168,6 +153,7 @@
     </div>
     <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
       <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>
+      <input hidden type="text" class="form-control" v-model="newAnnexe.id" placeholder="id" />
       <input type="text" class="form-control" v-model="newAnnexe.libelleAnnexe" placeholder="Libelle" /><br>
       <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe">Ajouter</b-button>
     </b-modal>
@@ -198,6 +184,7 @@
           diplôme, titre, CQP, attestation de formation facultatif
         </b-button>
         <v-list-item>
+          <input hidden type="text" class="form-control" v-model="newFacultatif.id" placeholder="id" />
           <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
             @input="$v.newFacultatif.intitule.$touch()" @blur="$v.newFacultatif.intitule.$touch()" style="background-color: white;"></v-text-field>
         </v-list-item>
@@ -241,16 +228,15 @@
       <b-list-group-item v-if="dossierPro.fileImport !== null">
         <div class="d-flex justify-content-between align-items-center">
           <span>{{ dossierPro.fileImport }}</span>
-          <v-icon @click="confirmDeleteFile">mdi-close</v-icon>
+          <div class="d-flex align-items-center">
+            <v-icon @click="confirmDeleteFile">mdi-close</v-icon>
+            <v-icon @click="showConfirmationModal" v-if="dossierPro.fileImport">mdi-check</v-icon>
+          </div>
         </div>
       </b-list-group-item>
       <b-list-group-item v-else>
         <v-file-input v-model="dossierPro.fileImport"></v-file-input>
-        <div id="div-save">
-          <b-button variant="success" @click="showConfirmationModal" v-if="!dossierPro.fileImport">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-          </b-button>
-        </div>
+        
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -276,14 +262,10 @@
 
 
 
-
-
 <br/><br/>
     
     <div id="div-save">
     
-          <!-- BOUTON SAVE EXP -->
-         
           <b-button v-b-modal.modal-updateDossier-success size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Valider</span>
@@ -306,22 +288,12 @@
     <b-modal id="modal-updateDossier-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
-        Votre dossier professionnel a correctement mise à jour.
+        Votre dossier professionnel a correctement été mise à jour.
       </p>
       <div class="div-ok">
         <b-button variant="primary">
           <router-link class="nav-item first" :to="'/etudiant/dossierprofessionnels'">Ok</router-link>
         </b-button>
-      </div>
-    </b-modal>
-
-     <b-modal id="modal-updateDossier-error" centered size="lg" no-close-on-esc hide-footer title="Echec !">
-      <p>
-        Votre dossier professionnel n'a pas été mise à jour .
-      </p>
-      <div class="div-ok">
-        <b-button variant="primary" @click="$bvModal.hide('modal-updateDossier-error')">Ok</b-button>
-        
       </div>
     </b-modal>
   </div>
@@ -408,7 +380,7 @@ export default {
       this.annexesCDA = null;
       this.selectActivite = null;
       this.selectActivite = null;
-      this.$bvModal.hide("exp-pro-modal");
+
     },
    
     fetchDossier() {
@@ -458,91 +430,87 @@ confirmDeleteFile() {
     this.$bvModal.hide("modal-import-confirmation" + index)})
           .catch((error) => console.error(error));
     },
-
     
+    
+    updateDossier(event) {
 
-updateDossier(event) {
-  try {
     event.preventDefault();
     
-    const dpDto = {
-      id: this.dossierPro.id,
-      nom: this.dossierPro.nom,
-      cursusDto: {
-        id: this.dossierPro.cursusDto.id,
-        titre: this.dossierPro.cursusDto.titre,
-        activiteTypes: [{
-                id: this.activites.id,
-                libelle: this.activites.libelle,
+    const experienceProfessionnelleDtos = [];
 
-                competenceProfessionnelles: [{
-                  id: this.tempCompetence.id,
-                  libelle: this.tempCompetence.libelle
-                }],
-              }],
-            },
-            
-      experienceProfessionnelleDtos: [{
-              id: this.expPro.id,
-              tacheRealisee: this.expPro.tacheRealisee,
-              moyenUtilise: this.expPro.moyenUtilise,
-              collaborateur: this.expPro.collaborateur,
-              contexte: this.expPro.contexte,
-              information: this.expPro.information,
-              competenceProfessionnelleId: this.tempCompetence.id,
-              dossierProfessionnelId: this.dossierPro.id,
-              version: this.expPro.version,
-      }],
-      annexeDtos: [{
-        id:this.newAnnexe.id,
-        version:this.newAnnexe.version,
-        libelleAnnexe:this.newAnnexe.libelleAnnexe,
-        pieceJointe:this.newAnnexe.pieceJointe,
-        dossierProfessionnelId:this.dossierPro.id
-      }],
-      facultatifDto: [{
-        id: this.newFacultatif.id,
-        version: 0,
-        intitule: this.newFacultatif.intitule,
-        organisme: this.newFacultatif.organisme,
-        date: this.newFacultatif.date,
-        dossierProfessionnelId:this.dossierPro.id
-      }],
-      fileImport: this.dossierPro.fileImport,
-      version:0
-    };  
-
-    for (let i = 0; i < this.annexes.length; i++) {
-  const annexe = this.annexes[i];
-  const newAnnexe = {
-    libelleAnnexe: annexe.libelleAnnexe,
-    pieceJointe: annexe.pieceJointe.name,
-    dossierProfessionnelId: this.dossierPro.id
+for (const experience of this.expPro) {
+  console.log(this.expPro);
+  const newExperience = {
+    id: experience.id,
+    tacheRealisee: experience.tacheRealisee,
+    moyenUtilise: experience.moyenUtilise,
+    collaborateur: experience.collaborateur,
+    contexte: experience.contexte,
+    information: experience.information,
+    competenceProfessionnelleId: this.tempCompetence.id,
+    dossierProfessionnelId: this.dossierPro.id,
+    version: experience.version,
   };
+  experienceProfessionnelleDtos.push(newExperience);
+}
 
-           dpDto.annexeDtos.push(newAnnexe);
-        console.log(this.annexes);
-    
-  }
 
-    dossierProfessionnelApi
-      .updateDossierProfessionnel(dpDto,this.$store.getters.getUtilisateur.etudiantDto.id, this.newAnnexe.pieceJointe)
-      .then(data => {
-        this.dossierPro = data;
-        console.log(data);
-        console.log(this.dossierPro);
-        this.$bvModal.show("modal-updateDossier-success");
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        console.log(this.dossierPro);
-      });
-  } catch (error) {
+const annexeDtos = [];
+
+
+for (const annexe of this.annexes) {
+  const newAnnexe = {
+    id : annexe.id,
+    libelleAnnexe: annexe.libelleAnnexe,
+    pieceJointe: annexe.pieceJointe,
+    dossierProfessionnelId: this.dossierPro.id,
+  };
+  annexeDtos.push(newAnnexe);
+}
+
+
+const facultatifDto = [{
+  id: this.newFacultatif.id,
+  version: 0,
+  intitule: this.newFacultatif.intitule,
+  organisme: this.newFacultatif.organisme,
+  date: this.newFacultatif.date,
+  dossierProfessionnelId: this.dossierPro.id,
+}];
+
+   
+const dpDto = {
+  id: this.dossierPro.id,
+  nom: this.dossierPro.nom,
+  cursusDto: {
+    id: this.dossierPro.cursusDto.id,
+    titre: this.dossierPro.cursusDto.titre,
+    activiteTypes: [{
+      id: this.activites.id,
+      libelle: this.activites.libelle,
+      competenceProfessionnelles: [{
+        id: this.tempCompetence.id,
+        libelle: this.tempCompetence.libelle,
+      }],
+    }],
+  },
+  experienceProfessionnelleDtos,
+  annexeDtos,
+  facultatifDto,
+  fileImport: this.dossierPro.fileImport,
+  version: 0,
+};
+dossierProfessionnelApi.updateDossierProfessionnel(dpDto, this.$store.getters.getUtilisateur.etudiantDto.id, this.newAnnexe.pieceJointe)
+  .then(data => {
+    this.dossierPro = data;
+    console.log(data);
+    console.log(this.dossierPro);
+    this.$bvModal.show("modal-updateDossier-success");
+  })
+  .catch(error => {
     console.error("Error:", error);
-    this.$bvModal.hide("modal-updateDossier-success");
-    this.$bvModal.show("modal-updateDossier-error");
-  }
-},
+  });
+    },
 
 
 
@@ -566,9 +534,7 @@ updateDossier(event) {
     };   
 },
 toggleSelectedComp(competenceId) {
-    // Mettre à jour la compétence sélectionnée
     const selectedCompetence = this.selectedActivite.competencesProfessionnellesDto.find(comp => comp.id === competenceId);
-    // Afficher la modal avec les champs d'expériences professionnelles
     this.showModal(selectedCompetence);
   },
 
@@ -579,11 +545,8 @@ addAnnexe() {
     pieceJointe: this.newAnnexe.pieceJointe,
     dossierProfessionnelId: 0
   };
-
   this.annexes.push(annexe);
   console.log(this.annexes);
-
-  // Réinitialisation des valeurs pour effacer les valeurs précédentes
   this.newAnnexe.libelleAnnexe = '';
   this.newAnnexe.pieceJointe = null;
 },
@@ -644,10 +607,7 @@ optionsAT(activite) {
     return tab;
   },
 
-
-
-
-    
+  
 getValue(value) {
   this.compInModal = value;
   this.$bvModal.show("exp-pro-modal");
@@ -664,10 +624,6 @@ getValue(value) {
     this.expPro = [];
   }
 },
-
-
-
-
 
 isExperienceFilled(experience) {
   return (
@@ -762,6 +718,7 @@ watch: {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
         });
+
   },
 
   computed: {
@@ -791,13 +748,6 @@ watch: {
       !this.$v.newFacultatif.organisme.required && errors.push('Organisme is required')
       return errors
     },
-    /*dateErrors() {
-      const errors = []
-      if (!this.$v.newFacultatif.date.$dirty) return errors
-      !this.$v.newFacultatif.date.date && errors.push('Must be valid date')
-      !this.$v.newFacultatif.date.required && errors.push('date is required')
-      return errors
-    },*/
   },
   
 };
@@ -805,7 +755,6 @@ watch: {
 
 
 <style scoped>
-/* TEMPORAIRE BUG */
 footer {
   display: none;
 }
