@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid">
     <div style="display: grid; grid-template-columns:  1fr 0.25fr">
-
       <!--<div class="text-align-left row" id="groupe-input" v-if="!isAction">
         <b-form-select v-model="selectedGroup">
           <b-form-select-option value="null">Choisissez un groupe</b-form-select-option>
