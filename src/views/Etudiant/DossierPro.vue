@@ -192,7 +192,9 @@
       </b-form-select-option>
     </b-form-select> 
     <div id="div-save">
-    <b-button @click="showDeleteModal" class="ml-2" variant="danger">Supprimer</b-button>
+    <b-button @click="showDeleteModal" class="ml-2" variant="danger">
+      <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" /> Supprimer
+    </b-button>
     </div>
     <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
       <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>

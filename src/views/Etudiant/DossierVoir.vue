@@ -17,8 +17,7 @@ export default {
   },
   mounted() {
     this.etudiantId = parseInt(this.$store.getters.getUtilisateur.etudiantDto.id);
-    this.promotionId = parseInt(this.$route.params.promotionId);
-    this.constructPdfUrl();
+    this.promotionId = parseInt(this.$route.params.id);
   },
   methods: {
     constructPdfUrl() {
@@ -26,5 +25,8 @@ export default {
       this.pdfUrl = `http://localhost:8080/${fileName}`;
     }
   }
+
+
+  
 };
 </script>
