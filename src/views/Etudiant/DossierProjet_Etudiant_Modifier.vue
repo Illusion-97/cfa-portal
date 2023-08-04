@@ -1,6 +1,5 @@
 <template>
   <div class="main" v-if="DossierProjet">
-    {{importDp}}
   <section class="flex-group-title">
     <div v-if="modify != true" class="flex-title">
       <v-card-title>Nom du Dossier : {{nomDp}}</v-card-title>
@@ -398,14 +397,15 @@ export default {
         const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
         const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
         return { backgroundColor: bg, color: txt }
-      }},
+      }
+      },
     paginatedFiles() {
       const startIndex = (this.annexePage - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
       return this.filesAnnexe.slice(startIndex, endIndex);
     }
   }
-};
+}
 </script>
 <style scoped>
 .main{
