@@ -3,7 +3,7 @@
     <v-card-title>Nouveau dossier projet</v-card-title>
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
-        <v-text-field v-model="nomDp" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
+        <v-text-field v-model="nomDp" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet *" type="text" @click:clear="clearMessage"></v-text-field>
         <b-form-select id="form-select-projet" v-model="DossierProjet.projet">
           <option :value="null" disabled>
             -Choisissez un projet existant-
@@ -93,14 +93,14 @@
                   </v-card>
                 </div>
                 <div v-show="active === 3">
-                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
+                  <b-collapse class="titre-details-modal volets" visible accordion="my-accordion">
                     <div>
                       <vue-editor h-auto v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
                     </div>
                   </b-collapse>
                 </div>
                 <div v-show="active === 4" >
-                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
+                  <b-collapse class="titre-details-modal volets" visible accordion="my-accordion">
                     <div>
                       <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
                     </div>
@@ -301,9 +301,21 @@
 
      computed: {
        /* Nom Dossier Projet */
-       nomDp(){
-         let nom = this.DossierProjet.nom;
-         return nom
+       nomDp:{
+         get(){
+           return this.DossierProjet.nom;
+         },
+         set(value){
+           this.DossierProjet.nom = value
+         }
+       },
+       projetDp:{
+         get(){
+           return this.DossierProjet.projet.nom;
+         },
+         set(value){
+           this.DossierProjet.nom = value
+         }
        },
        selectedComp(){
           return (compid) => {
@@ -313,7 +325,10 @@
           return { backgroundColor: bg, color: txt }
        }},
        isButtonDisabled() {
-         return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
+         if(this.nomDp && this.projetDp){
+           return false;
+         }
+         return true
        },
        paginatedFiles() {
          const startIndex = (this.annexePage - 1) * this.itemsPerPage;
