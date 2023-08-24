@@ -134,8 +134,8 @@ export default {
     ) {
       groupeApi.getById(this.$route.params.id).then((response) => {
         this.form = response;
-        this.vue_title = "Update d'un Groupe";
-        this.btn_form_text = "Update";
+        this.vue_title = "Modification du groupe";
+        this.btn_form_text = "Modifier";
       });
     }
   },

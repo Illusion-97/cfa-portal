@@ -17,7 +17,8 @@ export const dossierProfessionnelApi = {
   updateDossierProfessionnel,
   handleFileUpload,
   getAllByPage,
-  deleteFileImport
+  deleteFileImport,
+  saveImport
 }
 
 /**
@@ -213,9 +214,10 @@ function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
  */
 
 
-function updateDossierProfessionnel(dossierPro, id,file) {
+function updateDossierProfessionnel(dpDto, id,file) {
+  console.log(dpDto);
   const formData = new FormData();
-  formData.append('dossierPro', JSON.stringify(dossierPro));
+  formData.append('dossierProfessionnel', JSON.stringify(dpDto));
 
   if (Array.isArray(file)) {
     file.forEach(f => formData.append('pieceJointe', f));
@@ -237,6 +239,17 @@ function updateDossierProfessionnel(dossierPro, id,file) {
   }
 }
 
+/* function updateDossierProfessionnel(dpDto, id, pieceJointe) {
+  const formData = new FormData();
+  formData.append('dpDto', JSON.stringify(dpDto)); 
+  formData.append('pieceJointe', pieceJointe); 
+
+  return axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+ }*/
 
 function handleFileUpload(etudiantId,cursusId,file,nom)
 {
@@ -256,7 +269,7 @@ function handleFileUpload(etudiantId,cursusId,file,nom)
 function deleteFileImport(fileImport, id)
  {
   return axios
-    .delete(`${END_POINT}/upload/${id}?fileImport=${fileImport}`,
+    .delete(`${END_POINT}/deleteFile/${id}?fileImport=${fileImport}`,
     {
       headers: {
           "Access-Control-Allow-Origin": "*",
@@ -265,4 +278,17 @@ function deleteFileImport(fileImport, id)
     .catch((error) => {
       console.error(error);
     });
+  }
+
+  function saveImport(file, dossierId) {
+    const formData = new FormData();
+    formData.append('fileImport', file);
+  
+    return axios.post(`${END_POINT}/uploadFile/${dossierId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((response) => response.data)
+    .catch((error) => console.log(error));
   }
