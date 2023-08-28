@@ -2,11 +2,14 @@
   <div id="main-cr-prj" style="margin-top: 1em">
     <!-- Button retour -->
     <div class="card-retour" style="margin-top: 1em">
-      <a @click="goBack()" class="h5" style="cursor:pointer; color:black;text-decoration:none; float: right;">
-        <font-awesome-icon :icon="['fas', 'chevron-left']" class="icon" />
+      <v-btn color="back-color" class="back" @click="goBack()">
+        <v-icon>
+          mdi-arrow-left
+        </v-icon>
         Précédent
-      </a>
+      </v-btn>
     </div>
+    <br>
     <div class="grid-1" v-if="this.$store.getters.getUtilisateur.tuteurDto">
 
       <!-- Nom des categorie du tableau -->
@@ -26,13 +29,20 @@
         <!--Tableau Infos Etudiant-->
         <v-card v-show="active === 1" name="Info">
           <v-card-text>
-            <v-card-title>Nom : {{ infos.nom }}</v-card-title>
-            <v-card-title>Prenom : {{ infos.prenom }}</v-card-title>
-            <v-card-title>Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
-            <v-card-title>Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
-            <v-card-title>Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
-            <v-card-title>Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
-            <v-card-title>Adresse mail : {{ infos.login }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Nom : {{ infos.nom }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Prenom : {{ infos.prenom }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
+            <v-card-title style="font-size: 1.10rem; 
+            font-weight: 400; color: #000000;">Adresse mail : {{ infos.login }}</v-card-title>
           </v-card-text>
         </v-card>
 
@@ -45,7 +55,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de controle continu.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageNotes" :length="Math.ceil(notes.length / itemsPerPage)" color="#E91E63" circle
+            <v-pagination v-model="pageNotes" :length="Math.ceil(notes.length / itemsPerPage)" color="#08092d" square
               v-if="notes.length"></v-pagination>
           </div>
         </v-card>
@@ -57,7 +67,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de planning.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pagePromos" :length="Math.ceil(promos.length / itemsPerPage)" color="#E91E63" circle
+            <v-pagination v-model="pagePromos" :length="Math.ceil(promos.length / itemsPerPage)" color="#08092d" square
               v-if="promos.length"></v-pagination>
           </div>
         </v-card>
@@ -69,8 +79,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de dossier projet.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" circle
-              color="#E91E63" v-if="dossProjs.length"></v-pagination>
+            <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" square
+              color="#08092d" v-if="dossProjs.length"></v-pagination>
           </div>
         </v-card>
 
@@ -81,8 +91,8 @@
           </v-data-table>
           <v-card-title v-else>Pas de dossier professionnel.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" circle
-              color="#E91E63" v-if="dossProfs.length"></v-pagination>
+            <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" square
+              color="#08092d" v-if="dossProfs.length"></v-pagination>
           </div>
         </v-card>
 
@@ -93,7 +103,7 @@
           </v-data-table>
           <v-card-title v-else>Pas de congé.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageConge" :length="Math.ceil(conges.length / itemsPerPage)" color="#E91E63" circle
+            <v-pagination v-model="pageConge" :length="Math.ceil(conges.length / itemsPerPage)" color="#08092d" square
               v-if="conges.length"></v-pagination>
           </div>
         </v-card>
@@ -105,7 +115,7 @@
           </v-data-table>
           <v-card-title v-else>Pas d'absence.</v-card-title>
           <div class="text-center pt-2">
-            <v-pagination v-model="pageAbsence" :length="Math.ceil(absences.length / itemsPerPage)" color="#E91E63" circle
+            <v-pagination v-model="pageAbsence" :length="Math.ceil(absences.length / itemsPerPage)" color="#08092d" square
               v-if="absences.length"></v-pagination>
           </div>
         </v-card>
@@ -123,12 +133,7 @@ import { etudiantApi } from "@/_api/etudiant.api.js";
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 import { noteApi } from "@/_api/note.api.js";
 import { promotionApi } from "@/_api/promotion.api.js";
-import { notesFields } from "@/assets/js/fieldsDetailEtudiant.js";
-import { planningFields } from "@/assets/js/fieldsDetailEtudiant.js";
-import { congeFields } from "@/assets/js/fieldsDetailEtudiant.js";
-import { absenceFields } from "@/assets/js/fieldsDetailEtudiant.js";
-import { dossProfFields } from "@/assets/js/fieldsDetailEtudiant.js";
-import { dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
+import { notesFields, dossProfFields, absenceFields, congeFields, planningFields, dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
 
 export default {
   data: () => {
@@ -247,6 +252,7 @@ export default {
 }
 .card-retour{
   height: 20px;
+  text-align: right;
 }
 
 .v-data-table > .v-data-table__wrapper > table > thead > tr > th,
