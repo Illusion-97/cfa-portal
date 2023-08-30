@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div id="main-cr-prj" style="margin-top: 1em">
     <!-- Button retour -->
     <div class="card-retour" style="margin-top: 1em">
@@ -30,19 +30,28 @@
         <v-card v-show="active === 1" name="Info">
           <v-card-text>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Nom : {{ infos.nom }}</v-card-title>
+              font-weight: 400; color: #000000;">
+              <span class="bold-label">Nom :</span> <span>{{ infos.nom }}</span>
+            </v-card-title>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Prenom : {{ infos.prenom }}</v-card-title>
+            font-weight: 400; color: #000000;">
+            <span class="bold-label">Prenom :</span> <span>{{ infos.prenom }}</span>
+            </v-card-title>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Date de naissance : {{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
+            font-weight: 400; color: #000000;">
+            <span class="bold-label">Date de naissance : </span>{{ infos.dateDeNaissance? infos.dateDeNaissance : "Date de naissance non renseigné." }}</v-card-title>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Adresse : {{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
+            font-weight: 400; color: #000000;">
+            <span class="bold-label">Adresse : </span>{{ infos.adresseDto? infos.adresseDto.libelle + " " + infos.adresseDto.ville + " " + infos.adresseDto.codePostal : "Adresse non renseigné." }}</v-card-title>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Télephone : {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
+            font-weight: 400; color: #000000;">
+            <span class="bold-label">Télephone :</span> {{ infos.telephone? infos.telephone : "Numéro de téléphone non renseigné." }}</v-card-title>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Télephone fixe : {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
+            font-weight: 400; color: #000000;">
+            <span class="bold-label">Télephone fixe : </span> {{ infos.telephoneFixe? infos.telephoneFixe : "Numéro de téléphone fixe non renseigné." }}</v-card-title>
             <v-card-title style="font-size: 1.10rem; 
-            font-weight: 400; color: #000000;">Adresse mail : {{ infos.login }}</v-card-title>
+            font-weight: 400; color: #000000;">
+            <span class="bold-label">Adresse mail :</span>{{ infos.login }}</v-card-title>
           </v-card-text>
         </v-card>
 
@@ -123,19 +132,19 @@
     </div>
     <div v-else>Aucun d'étail de l'étudiant</div>
   </div>
-</template>
+  </template>
 
-<script>
-import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
-import { congeApi } from "@/_api/conge.api.js";
-import { absenceApi } from "@/_api/absence.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import { noteApi } from "@/_api/note.api.js";
-import { promotionApi } from "@/_api/promotion.api.js";
-import { notesFields, dossProfFields, absenceFields, congeFields, planningFields, dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
+  <script>
+  import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
+  import { congeApi } from "@/_api/conge.api.js";
+  import { absenceApi } from "@/_api/absence.api.js";
+  import { etudiantApi } from "@/_api/etudiant.api.js";
+  import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+  import { noteApi } from "@/_api/note.api.js";
+  import { promotionApi } from "@/_api/promotion.api.js";
+  import { notesFields, dossProfFields, absenceFields, congeFields, planningFields, dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
 
-export default {
+  export default {
   data: () => {
     return {
       active: 1,
@@ -216,7 +225,7 @@ export default {
     },
   },
 
-   created() {
+    created() {
     this.etudiantId = this.$route.params.id;
     this.getInfoEtudiant();
     this.getnoteEtudiant();
@@ -226,39 +235,44 @@ export default {
     this.getCongeEtudiant();
     this.getabsenceEtudiant();
   },
-};
-</script>
+  };
+  </script>
 
-<style >
-#main-cr-prj {
+  <style >
+  #main-cr-prj {
   margin: 0% 3% 0% 3%;
   display: grid;
   grid-template-rows: 50px 1fr;
-}
-.grid-1{
+  }
+  .grid-1{
 
-}
-.toggle-btn{
+  }
+  .toggle-btn{
   display: grid;
   grid-template-columns: repeat(7,1fr);
-}
-.btn-detail{
+  }
+  .btn-detail{
   color: white;
   background-color: #08092d;
-}
-.btn-retour{
+  }
+  .btn-retour{
   width: 70px;
   float: right;
-}
-.card-retour{
+  }
+  .card-retour{
   height: 20px;
   text-align: right;
-}
+  }
 
-.v-data-table > .v-data-table__wrapper > table > thead > tr > th,
-.v-data-table>.v-data-table__wrapper>table>tbody>tr>td,
-.v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
+  .v-data-table > .v-data-table__wrapper > table > thead > tr > th,
+  .v-data-table>.v-data-table__wrapper>table>tbody>tr>td,
+  .v-data-table > .v-data-table__wrapper > table > tfoot > tr > th {
   font-size: 17px !important;
-}
+  }
 
-</style>
+  .bold-label {
+  font-weight: bold;
+  margin-right: 1em;
+  }
+
+  </style>
