@@ -3,7 +3,7 @@
     <div>
       <div style="display: grid; grid-column-gap: 20px; grid-template-columns: 1fr auto;">
         <form class="form-inline form" @submit="submit">
-          <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
+          <input id="saisie" name="saisie" placeholder="Rechercher un projet" type="text" class="form-control" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>

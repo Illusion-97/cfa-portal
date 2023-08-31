@@ -89,7 +89,8 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
-        <b-button @click="row.toggleDetails" class="pl-4 pr-4">
+        <b-button variant="info" @click="row.toggleDetails" class="pl-4 pr-4">
+          <font-awesome-icon class="mr-1 mt-1" :icon="row.detailsShowing ? ['fas', 'eye-slash'] : ['fas', 'eye']" />
           {{ row.detailsShowing ? "Masquer" : "Afficher" }}
         </b-button>
       </template>
@@ -135,21 +136,10 @@
       </b-form>
     </b-modal>
 
-    <paginate 
-      class="customPagination" 
-      :page-count="pageCount" 
-      :page-range="1" :margin-pages="2"
-      :click-handler="pageChange" 
-      :prev-text="'Prev'" 
-      :next-text="'Next'" 
-      :container-class="'pagination float-right'"
-      :page-class="'page-item'" 
-      :page-link-class="'page-link'" 
-      :prev-class="'page-item'" 
-      :next-class="'page-item'"
-      :prev-link-class="'page-link'" 
-      :next-link-class="'page-link'" 
-      :active-class="'active'">
+    <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
+      :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
+      :page-class="'page-item'" :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
+      :prev-link-class="'page-link'" :next-link-class="'page-link'" :active-class="'active'">
     </paginate>
   </div>
 </template>
