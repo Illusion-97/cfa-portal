@@ -1,70 +1,64 @@
 <template>
   <div class="container-fluid">
-    <div style="display: grid; grid-template-columns:  1fr 0.25fr">
-      <!--<div class="text-align-left row" id="groupe-input" v-if="!isAction">
+    <b-card>
+      <div style="display: grid; grid-template-columns:  1fr 0.25fr">
+        <!--<div class="text-align-left row" id="groupe-input" v-if="!isAction">
         <b-form-select v-model="selectedGroup">
           <b-form-select-option value="null">Choisissez un groupe</b-form-select-option>
           <b-form-select-option v-for="group in allGroupe" :key="group.id" :value="group.nom">{{ group.nom }}</b-form-select-option>
         </b-form-select>
       </div>-->
+        <form class="form-inline form" @submit="submit">
+          <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher par nom de groupe"
+            v-model="saisie" />
+          <button class="btn-submit" type="submit">
+            <font-awesome-icon :icon="['fas', 'search']" class="icon" />
+          </button>
+        </form>
 
-      <form class="form-inline form" @submit="submit">
-        <input
-          id="saisie"
-          name="saisie"
-          type="text"
-          class="form-control"
-          placeholder="Rechercher par Nom de projet"
-          v-model="saisie"
-        />
-        <button class="btn-submit" type="submit">
-          <font-awesome-icon :icon="['fas', 'search']" class="icon"/>
-        </button>
-      </form>
+        <b-button variant="primary" class="btn btn-primary" @click="createGroupe()">
+          Ajouter un groupe
+        </b-button>
 
-      <b-button variant="primary" class="btn btn-primary" @click="createGroupe()">
-        Ajouter un groupe
-      </b-button>
+      </div>
 
-    </div>
-
-    <table class="table table-striped table-hover text-center">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Etudiants</th>
-          <th>Action</th>
-          <!-- <th v-if="isAction">Action</th> -->
-        </tr>
-      </thead>
-      <tbody v-if="groupeComputed">
-        <tr v-for="groupe in groupeComputed" :key="groupe.id" class="mon-tr">
-          <td>{{ groupe.nom }}</td>
-          <td>
-              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{etudiant.utilisateurDto.fullName}}</span>
+      <table class="table table-striped table-hover text-center">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Etudiants</th>
+            <th>Action</th>
+            <!-- <th v-if="isAction">Action</th> -->
+          </tr>
+        </thead>
+        <tbody v-if="groupeComputed">
+          <tr v-for="groupe in groupeComputed" :key="groupe.id" class="mon-tr">
+            <td>{{ groupe.nom }}</td>
+            <td>
+              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{ etudiant.utilisateurDto.fullName }}</span>
             </td>
-          <td>
-            <b-button variant="info" @click="detail(groupe)">
-            <span tooltip="Voir le détail" flow="down">
-              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />Détails
-            </span>
-          </b-button>
-            <b-button style="margin-left: 5px" class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
-              <span tooltip="Supprimer" flow="down">
-                <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />Supprimer
-              </span>
-            </b-button>
-          </td>
-          <!-- <td v-if="isAction">
+            <td>
+              <b-button variant="info" @click="detail(groupe)">
+                <span tooltip="Voir le détail" flow="down">
+                  <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'eye']" />Détails
+                </span>
+              </b-button>
+              <b-button style="margin-left: 5px" class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
+                <span tooltip="Supprimer" flow="down">
+                  <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />Supprimer
+                </span>
+              </b-button>
+            </td>
+            <!-- <td v-if="isAction">
             <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
               Supprimer
             </button>
           </td> -->
-        </tr>
-      </tbody>
-    </table>
-    <pagination :page-count="pageCount" :page-change="pageChange"></pagination>
-
+          </tr>
+        </tbody>
+      </table>
+      <pagination :page-count="pageCount" :page-change="pageChange"></pagination>
+    </b-card>
   </div>
 </template>
 
@@ -73,7 +67,7 @@ import { groupeApi } from "@/_api/groupe.api.js";
 import Pagination from "@/components/Navigation/Pagination.vue";
 export default {
   name: "groupeListComponent",
-  components: {Pagination},
+  components: { Pagination },
   props: {
     isAction: {
       type: Boolean,
@@ -123,10 +117,10 @@ export default {
         .getAllByPage(pageNum - 1, this.perPage)
         .then((response) => (this.groupe = response));
     },
-    getAllGroup(){
+    getAllGroup() {
       groupeApi
-          .getAll()
-          .then((response) => (this.allGroupe = response))
+        .getAll()
+        .then((response) => (this.allGroupe = response))
     },
     refreshList() {
       groupeApi
@@ -141,16 +135,16 @@ export default {
     deleteGroupe(groupeId) {
       groupeApi.deleteGroupe(groupeId).then(() => this.refreshList());
     },
-    createGroupe(){
+    createGroupe() {
       this.$router.push({
         name: "admin_groupe_create",
         params: {}
       });
     },
     detail(groupe) {
-      this.$router.push({name:'admin_groupe_detail', params: { id: groupe.id }});
+      this.$router.push({ name: 'admin_groupe_detail', params: { id: groupe.id } });
     },
-    delete_input(){
+    delete_input() {
       this.selectedGroup = "";
       this.$emit('delete_input');
     }
@@ -158,5 +152,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/CrudListComponent.css">
-</style>
+<style scoped src="@/assets/styles/CrudListComponent.css"></style>
