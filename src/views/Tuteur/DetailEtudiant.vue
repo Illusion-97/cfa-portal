@@ -272,7 +272,7 @@
 
   .bold-label {
   font-weight: bold;
-  margin-right: 1em;
+  margin-right: 0.3em;
   }
 
   </style>
