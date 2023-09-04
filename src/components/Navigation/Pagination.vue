@@ -1,5 +1,6 @@
 <template>
   <paginate
+      class="customPagination"
       :page-count="pageCount"
       :page-range="1"
       :margin-pages="2"
@@ -14,10 +15,9 @@
       :prev-link-class="'page-link'"
       :next-link-class="'page-link'"
       :active-class="'active'"
-      style="margin: 1em 1em 0 0"
-  >
-    >
+      >
   </paginate>
+  <!-- style="margin: 1em 1em 0 0" ancienne pagination -->
 </template>
 
 <script>

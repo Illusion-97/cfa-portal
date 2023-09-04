@@ -4,7 +4,7 @@
 
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
-        <v-text-field v-model="nomDp" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
+        <v-text-field v-model="nomDp" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet *" type="text" @click:clear="clearMessage"></v-text-field>
         <b-form-select id="form-select-projet" v-model="DossierProjet.projet">
           <option :value="null" disabled>
             -Choisissez un projet existant-
@@ -302,7 +302,15 @@
            return this.DossierProjet.nom;
          },
          set(value){
-           return this.DossierProjet.nom = value
+           this.DossierProjet.nom = value
+         }
+       },
+       projetDp:{
+         get(){
+           return this.DossierProjet.projet.nom;
+         },
+         set(value){
+           this.DossierProjet.nom = value
          }
        },
        selectedComp(){
@@ -313,7 +321,10 @@
           return { backgroundColor: bg, color: txt }
        }},
        isButtonDisabled() {
-         return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
+         if(this.nomDp && this.projetDp){
+           return false;
+         }
+         return true
        },
        paginatedFiles() {
          const startIndex = (this.annexePage - 1) * this.itemsPerPage;

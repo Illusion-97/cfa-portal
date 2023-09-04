@@ -1,11 +1,6 @@
 <template>
   <div class="container-fluid" >
-    <v-btn style="margin-top: 10px" color="back-color" class="back" @click="goBack()">
-      <v-icon>
-        mdi-arrow-left
-      </v-icon>
-      Précédent
-    </v-btn>
+
     <span id="title"><h4>{{vue_title}}</h4></span>
   <b-card>
     <v-app style="margin-left: 25%" class="w-50">
