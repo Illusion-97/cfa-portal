@@ -50,13 +50,15 @@
       </thead>
       <tbody v-if="projetsComputed">
         <tr
-          v-for="projet in projetsComputed"
+          v-for="(projet, index) in projetsComputed"
           :key="projet.id"
           class="mon-tr"
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
-          <td></td>
+          <td>
+            {{groupNameArray[index]}}
+          </td>
           <td>
             <b-button variant="warning"  style="margin-right: 5px" @click="detail(projet.id)">
               <span tooltip="Modifier" flow="down">
@@ -105,12 +107,11 @@ export default {
   },
   data() {
     return {
-      // projets: [{nom: "", description: "", groupeDto: {nom: ""}}],
       isVisible:false,
       isGroupeVisible: false,
       formAjoutProjet: true,
       projets: [],
-      groupName: "",
+      groupName: [],
       perPage: 10,
       pageCount: 0,
       currentPage: 1,
@@ -124,6 +125,10 @@ export default {
     },
     nbPageComputed() {
       return this.pageCount;
+    },
+    groupNameArray() {
+      // Converti le tableau Set en Array
+      return this.groupName;
     },
   },
   created() {
@@ -144,18 +149,22 @@ export default {
     pageChange(pageNum) {
       projetApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.projets = response));
+        .then((response) => (this.projets = response, this.getGroupNameById(response.groupeId)));
     },
     refreshList() {
       projetApi
-        .getAllByPage(0, this.perPage)
-        .then((response) => {
-          this.projets = response;});
+          .getAllByPage(0, this.perPage)
+          .then((response) => {
+            this.projets = response;
+            this.projets.forEach(projet => {
+              this.getGroupNameById(projet.groupeId); // Appel de getGroupNameById pour chaque projet
+            });
+          });
       projetApi
-        .getCount()
-        .then(
-          (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        );
+          .getCount()
+          .then(
+              (response) => (this.pageCount = Math.ceil(response / this.perPage))
+          );
     },
     deleteProjet(projetId) {
       projetApi.deleteProjet(projetId).then(() => this.refreshList());
@@ -170,9 +179,12 @@ export default {
       this.isVisible = !this.isVisible;
       this.isGroupeVisible = false;
     },
-    getGroupNameById(idGroup){
-      groupeApi.getById(idGroup).then(response => {this.groupName = response, console.log(this.groupName)})
-      return this.groupName.nom
+    async getGroupNameById(idGroup) {
+        groupeApi.getById(idGroup)
+            .then(response => {
+              this.groupName.push(response.nom)
+            });
+
     },
     clickList(projet) {
       if (!this.isAction) {

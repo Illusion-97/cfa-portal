@@ -43,6 +43,7 @@
                 <tr>
                   <th>Etudiant</th>
                   <th>Email</th>
+                  <th>Promotion</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -54,6 +55,7 @@
                 >
                   <td>{{ etudiant.utilisateurDto.fullName }}</td>
                   <td>{{ etudiant.utilisateurDto.login }}</td>
+                  <td>{{etudiant.promotionsDto[0].nom}}</td>
                   <td>
                     <button class="btn btn-primary" @click="clickListe(etudiant)">Ajouter</button>
                   </td>
