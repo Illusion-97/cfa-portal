@@ -35,7 +35,7 @@
           <tr v-for="groupe in groupeComputed" :key="groupe.id" class="mon-tr">
             <td>{{ groupe.nom }}</td>
             <td>
-              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{ etudiant.utilisateurDto.fullName }}</span>
+              <span v-for="etudiant in groupe.etudiantsDto" :key="etudiant.id">{{ etudiant.utilisateurDto.fullName + " " }}</span>
             </td>
             <td>
               <b-button variant="info" @click="detail(groupe)">
