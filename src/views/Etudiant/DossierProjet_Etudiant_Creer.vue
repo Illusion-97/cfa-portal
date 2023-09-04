@@ -152,7 +152,6 @@
  import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
  import {etudiantApi} from "@/_api/etudiant.api.js";
  import {VueEditor} from "vue2-editor";
- import {projetApi} from "@/_api/projet.api.js";
  import {activiteTypeApi} from "@/_api/activiteType.api.js";
  import {cursusApi} from "@/_api/cursus.api";
  export default {
@@ -275,7 +274,7 @@
             .then((response) => (this.etudiants = response));
         },
        getAllProject() {
-         projetApi.getAll().then((response) => {this.projets = response});
+         etudiantApi.getGroupes(this.studentId).then((response) => {this.projets = response});
        },
        getActiviteTypeByCursus(id){
          activiteTypeApi
