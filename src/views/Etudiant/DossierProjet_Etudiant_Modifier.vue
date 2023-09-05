@@ -2,7 +2,7 @@
   <div class="main" v-if="DossierProjet">
   <section class="flex-group-title">
     <div v-if="modify != true" class="flex-title">
-      <v-card-title>Nom du Dossier : {{nomDp}}</v-card-title>
+      <v-card-title v-if="nomDp">Nom du Dossier : {{nomDp}}</v-card-title>
       <b-button size="sm" class="mr-2" variant="primary" @click="modifyTitle">
         <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
         Modifier
@@ -11,7 +11,7 @@
 
     <div v-else class="flex-title">
       <v-card-title style="min-width: 40%">Nom du Dossier : </v-card-title>
-      <b-form-input type="text" v-model="nomDp"></b-form-input>
+      <b-form-input  type="text" v-model="nomDp"></b-form-input>
       <b-button size="sm" class="mr-2" variant="success" @click="validModify">
         Valider
       </b-button>
@@ -108,10 +108,10 @@
                 <div v-show="active === 1">
                   <v-card>
                     <v-card-text disabled>
-                      <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
+                      <v-card-subtitle>Projet : {{ nomProjet }}</v-card-subtitle>
                       <v-card-subtitle>Dossier : {{ nomDp }}</v-card-subtitle>
                     </v-card-text>
-                    <vue-editor v-model="DossierProjet.infoDossierProjets[0]"
+                    <vue-editor v-model="firstInfoDossierProjet"
                                 id="exp1"  placeholder="Informations du Projet" readonly />
                   </v-card>
                 </div>
@@ -139,12 +139,12 @@
                 </div>
                 <div v-show="active === 3">
                     <div>
-                      <vue-editor h-auto  v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
+                      <vue-editor h-auto  v-model="firstResumeDossierProjet" id="exp1" placeholder="Résumé du Projet" readonly />
                     </div>
                 </div>
                 <div v-show="active === 4" >
                     <div>
-                      <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
+                      <vue-editor v-model="firstContenuDossierProjet" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
                     </div>
                 </div>
                 <div v-show="active === 5">
@@ -251,7 +251,13 @@ export default {
       activiteTypes: [],
       dossierModif:{},
       filesAnnexe: [{file:undefined}],
-      DossierProjet: {nom:"", dossierImport: ""},
+      DossierProjet: {
+        nom:"",
+        dossierImport: "",
+        projet: {
+          nom: ""
+        },
+      },
     };
   },
   beforeMount() {
@@ -373,6 +379,15 @@ export default {
 
   computed: {
     /* Nom Dossier Projet */
+    nomProjet:{
+      get(){
+        return this.DossierProjet.projet.nom;
+      },
+      set(value){
+        return this.DossierProjet.projet.nom = value
+      }
+    },
+    /* Nom Dossier Projet */
     nomDp:{
       get(){
         return this.DossierProjet.nom;
@@ -389,6 +404,63 @@ export default {
       set(value){
         return this.DossierProjet.dossierImport = value
       }
+    },
+    firstInfoDossierProjet: {
+      get() {
+        if (this.DossierProjet.infoDossierProjets && this.DossierProjet.infoDossierProjets.length > 0) {
+          return this.DossierProjet.infoDossierProjets[0];
+        } else {
+          return null;
+        }
+      },
+      set(value) {
+        if (!this.DossierProjet.infoDossierProjets) {
+          this.DossierProjet.infoDossierProjets = []; // Initialisez le tableau si ce n'est pas déjà fait.
+        }
+        if (this.DossierProjet.infoDossierProjets.length > 0) {
+          this.DossierProjet.infoDossierProjets[0] = value;
+        } else {
+          this.DossierProjet.infoDossierProjets.push(value);
+        }
+      },
+    },
+    firstResumeDossierProjet: {
+      get() {
+        if (this.DossierProjet.resumeDossierProjets && this.DossierProjet.resumeDossierProjets.length > 0) {
+          return this.DossierProjet.resumeDossierProjets[0];
+        } else {
+          return null;
+        }
+      },
+      set(value) {
+        if (!this.DossierProjet.resumeDossierProjets) {
+          this.DossierProjet.resumeDossierProjets = [];
+        }
+        if (this.DossierProjet.resumeDossierProjets.length > 0) {
+          this.DossierProjet.resumeDossierProjets[0] = value;
+        } else {
+          this.DossierProjet.resumeDossierProjets.push(value);
+        }
+      },
+    },
+    firstContenuDossierProjet: {
+      get() {
+        if (this.DossierProjet.contenuDossierProjets && this.DossierProjet.contenuDossierProjets.length > 0) {
+          return this.DossierProjet.contenuDossierProjets[0];
+        } else {
+          return null;
+        }
+      },
+      set(value) {
+        if (!this.DossierProjet.contenuDossierProjets) {
+          this.DossierProjet.contenuDossierProjets = [];
+        }
+        if (this.DossierProjet.contenuDossierProjets.length > 0) {
+          this.DossierProjet.contenuDossierProjets[0] = value;
+        } else {
+          this.DossierProjet.contenuDossierProjets.push(value);
+        }
+      },
     },
     /* Selection */
     selectedComp(){
