@@ -187,9 +187,11 @@
                             <v-file-input v-model="files.file" accept="image/*" :id="'fileInput_' + index" label="Annexes du Dossier Projet"></v-file-input>
                           </td>
                           <td>
-                            <b-button style="margin-top: 10px" class="mb-4" @click="deleteAnnexe(index)">Supprimer</b-button>
-                            <b-button style="margin: 10px 0 0 5px" variant="success" class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</b-button>
-                            <!-- Modal Confirmation Envoi Annexe -->
+                            <div style="display: flex; flex-direction: row; gap: 2px">
+                              <b-button style="" class="mb-4" @click="deleteAnnexe(index)">Supprimer</b-button>
+                              <b-button style="" variant="success" class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</b-button>
+                            </div>
+                              <!-- Modal Confirmation Envoi Annexe -->
                             <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
                               <p>
                                 Voulez-vous Ajouter cette Annexe : <strong>{{files.file}}</strong> ?
@@ -325,6 +327,7 @@ export default {
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
         this.DossierProjet.annexeDossierProjets.splice(index, 1);
+        location.reload();
       });
     },
     deleteAnnexe(index) {
