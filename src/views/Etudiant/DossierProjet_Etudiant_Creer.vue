@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <v-card-title>Nouveau dossier projet</v-card-title>
-    {{DossierProjet.projet}}
     <section class="section-input" style="width: 100%" >
       <div class="input-selection">
         <v-text-field v-model="nomDp" variant="filled" icon="mdi-close-circle" clearable label="Nom du dossier projet" type="text" @click:clear="clearMessage"></v-text-field>
