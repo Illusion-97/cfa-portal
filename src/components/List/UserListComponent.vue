@@ -89,7 +89,8 @@
     <b-table :items="items" :fields="fields" striped responsive="sm">
       <!-- //details -->
       <template #cell(Details)="row">
-        <b-button @click="row.toggleDetails" class="pl-4 pr-4">
+        <b-button variant="info" @click="row.toggleDetails" class="pl-4 pr-4">
+          <font-awesome-icon class="mr-1 mt-1" :icon="row.detailsShowing ? ['fas', 'eye-slash'] : ['fas', 'eye']" />
           {{ row.detailsShowing ? "Masquer" : "Afficher" }}
         </b-button>
       </template>
