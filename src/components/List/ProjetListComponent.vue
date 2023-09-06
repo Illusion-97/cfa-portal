@@ -1,16 +1,16 @@
 <template>
   <div class="container-fluid">
     <div>
-      <div style="display: grid;grid-column-gap: 20px; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr; margin:1% 0 1% 0">
+      <div style="display: grid; grid-column-gap: 20px; grid-template-columns: 1fr auto;">
         <form class="form-inline form" @submit="submit">
-          <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
+          <input id="saisie" name="saisie" placeholder="Rechercher un projet" type="text" class="form-control" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
           </button>
         </form>
 
-        <div style="text-align: right">
-          <button @click="showCreateProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
+        <div class="buttons-container">
+          <button @click="showCreateProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px;">
             <span v-if="!isVisible">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter un projet
             </span>
@@ -18,12 +18,9 @@
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
             </span>
           </button>
-        </div>
-
-        <div style="text-align: left">
-          <button @click="showGroupProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px; ">
+          <button @click="showGroupProjet()" class="btn btn-outline-info mt-4 mb-4" style="width: 200px;">
             <span v-if="!isGroupeVisible">
-              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Groupe Projet
+              <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Liste des groupes
             </span>
             <span v-else>
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />Fermer
@@ -53,13 +50,15 @@
       </thead>
       <tbody v-if="projetsComputed">
         <tr
-          v-for="projet in projetsComputed"
+          v-for="(projet, index) in projetsComputed"
           :key="projet.id"
           class="mon-tr"
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
-          <td></td>
+          <td>
+            {{groupNameArray[index]}}
+          </td>
           <td>
             <b-button variant="warning"  style="margin-right: 5px" @click="detail(projet.id)">
               <span tooltip="Modifier" flow="down">
@@ -108,12 +107,11 @@ export default {
   },
   data() {
     return {
-      // projets: [{nom: "", description: "", groupeDto: {nom: ""}}],
       isVisible:false,
       isGroupeVisible: false,
       formAjoutProjet: true,
       projets: [],
-      groupName: "",
+      groupName: [],
       perPage: 10,
       pageCount: 0,
       currentPage: 1,
@@ -127,6 +125,10 @@ export default {
     },
     nbPageComputed() {
       return this.pageCount;
+    },
+    groupNameArray() {
+      // Converti le tableau Set en Array
+      return this.groupName;
     },
   },
   created() {
@@ -147,18 +149,22 @@ export default {
     pageChange(pageNum) {
       projetApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.projets = response));
+        .then((response) => (this.projets = response, this.getGroupNameById(response.groupeId)));
     },
     refreshList() {
       projetApi
-        .getAllByPage(0, this.perPage)
-        .then((response) => {
-          this.projets = response;});
+          .getAllByPage(0, this.perPage)
+          .then((response) => {
+            this.projets = response;
+            this.projets.forEach(projet => {
+              this.getGroupNameById(projet.groupeId); // Appel de getGroupNameById pour chaque projet
+            });
+          });
       projetApi
-        .getCount()
-        .then(
-          (response) => (this.pageCount = Math.ceil(response / this.perPage))
-        );
+          .getCount()
+          .then(
+              (response) => (this.pageCount = Math.ceil(response / this.perPage))
+          );
     },
     deleteProjet(projetId) {
       projetApi.deleteProjet(projetId).then(() => this.refreshList());
@@ -173,9 +179,12 @@ export default {
       this.isVisible = !this.isVisible;
       this.isGroupeVisible = false;
     },
-    getGroupNameById(idGroup){
-      groupeApi.getById(idGroup).then(response => {this.groupName = response, console.log(this.groupName)})
-      return this.groupName.nom
+    async getGroupNameById(idGroup) {
+        groupeApi.getById(idGroup)
+            .then(response => {
+              this.groupName.push(response.nom)
+            });
+
     },
     clickList(projet) {
       if (!this.isAction) {
@@ -197,7 +206,18 @@ export default {
 <style scoped src="@/assets/styles/CrudListComponent.css" >
 .grid-header  {
   display: grid;
-  grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
 }
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px; 
+}
+
+.buttons-container button {
+  margin: 0; 
+}
+
 </style>

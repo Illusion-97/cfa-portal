@@ -69,7 +69,7 @@
         </div>
         <div class="modal-footer text-right">
           <button class="btn btn-primary" @click="close()">
-            Close
+            Fermer
           </button>
         </div>
       </div>

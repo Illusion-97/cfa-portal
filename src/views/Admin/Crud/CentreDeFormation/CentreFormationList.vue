@@ -36,16 +36,16 @@
 
     <!-- LIST CENTRE FORMATION -->
     <b-table :items="centresFormation" :fields="fields" striped class="table table-striped table-hover text-center">
-      <template #cell(Actions)="row">
-        <v-app class="button">
-            <b-button variant="info" @click="click(row.item.id)">
-              <span tooltip="Détails" flow="down">
-              <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
-              </span>
-            </b-button>
-        </v-app>
-      </template>
-    </b-table>
+    <template #cell(Actions)="row">
+      <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+        <b-button variant="info" @click="click(row.item.id)" class="small-button custom-button">
+          <span tooltip="Détails" flow="down">
+            <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" /> voir
+          </span>
+        </b-button>
+      </div>
+    </template>
+  </b-table>
     <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2" :click-handler="pageChange" :prev-text="'Prev'"
       :next-text="'Next'" :container-class="'pagination float-right'" :page-class="'page-item'"
       :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'" :prev-link-class="'page-link'"
@@ -145,4 +145,9 @@ export default {
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css"></style>
+<style scoped src="@/assets/styles/CrudListComponent.css">
+.custom-button {
+  font-size: 14px; 
+  padding: 8px 14px; 
+}
+</style>
