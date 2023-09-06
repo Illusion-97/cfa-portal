@@ -8,28 +8,20 @@
 </v-text-field>
     </v-col>
      <br/>
+     
      <div v-for="(activite, index) in activiteTypes" :key="index.id" :value="activite.id" >
 
 <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
 
-<b-form-select v-model="start" @change="getValue">
-  <template #first>
-    <b-form-select-option v-for="competence in optionsAT(activite)" :key="competence.id" :value="competence.value">
-      <span v-if="filledCompetences.includes(competence.id)">&#x2705; </span>
-      {{ competence.text }} 
-      {{ competence.libelle }} 
-    </b-form-select-option>
-  </template>
+<b-form-select v-model="start" :options="optionsAT(activite)" @change="getValue">
 </b-form-select>
-
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-      scrollable no-close-on-esc @hidden="resetModal" hide-footer>
-
-      <b-form @submit="addExp">
-        <div v-for="(experience, index) in expPro" :key="index">
-        <b-card no-body class="mb-1" >
+           scrollable no-close-on-esc @hidden="resetModal" hide-footer v-model="showModal">
+    <b-form @submit="addExp">
+      <div v-for="(experience, index) in expPro" :key="index">
+        <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
               tâches réalisées ou opérations que vous avez
@@ -38,7 +30,6 @@
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
-
             <b-card-body>
               <vue-editor v-model="experience.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
             </b-card-body>
@@ -103,25 +94,33 @@
               <vue-editor v-model="experience.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
           </b-collapse>
-        </b-card>
-        </div>
-        
+        </b-card><br/>
         <div id="div-save">
-          <b-button size="sm" class="mr-2" variant="primary" @click.prevent=close>
-    <v-icon>mdi-arrow-left</v-icon>
-    Retour  
-  </b-button> 
-          <b-button size="sm" variant="success" type="submit">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Créer</span>
-          </b-button>
-          
+          <b-button size="sm" class="mr-2" variant="primary" @click.prevent="close">
+          <v-icon>mdi-arrow-left</v-icon>
+          Retour
+        </b-button>
+            <b-button size="sm" variant="danger" class="btn-delete" @click="showDeleteExp">
+              <font-awesome-icon :icon="['fas', 'trash']" />
+              <span class="icon-right">Supprimer</span>
+            </b-button>
+        <b-button size="sm" variant="success" type="submit">
+          <font-awesome-icon :icon="['fas', 'check-circle']" />
+          <span class="icon-right">Créer</span>
+        </b-button>
         </div>
-       
-      </b-form>
-      
-    </b-modal>
-    
+        <b-modal id="delete-Exp" centered title="Confirmation de suppression" hide-footer>
+          <p>
+            Êtes-vous sûr de vouloir supprimer cette  <strong>expérience professionnelle</strong> ?
+          </p>
+          <div class="d-flex justify-content-between">
+            <b-button @click="deleteExp(experience.id)" variant="danger">Confirmer</b-button>
+            <b-button @click="$bvModal.hide('delete-Exp')">Annuler</b-button>
+          </div>
+        </b-modal>
+      </div>
+    </b-form>
+  </b-modal>  
   </div> 
 
   <br/>
@@ -304,6 +303,7 @@
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
 import { cursusApi } from "@/_api/cursus.api.js";
 import { activiteTypeApi } from "@/_api/activiteType.api.js";
+import { experiencesApi } from "@/_api/experiences.api.js";
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email } from 'vuelidate/lib/validators'
 import { VueEditor } from "vue2-editor";
@@ -331,6 +331,7 @@ export default {
       filledCompetences: [],
       hideDelete: false,
       start: null,
+      experienceToDeleteIndex: null,
       showMessage: '',
       showModal:false,
       isFormValid: false,
@@ -344,6 +345,7 @@ export default {
       facultatifs:[],
       newFacultatif: {
       intitule: "",
+      showModal:false,
       organisme: "",
       date: ""
     },
@@ -380,7 +382,6 @@ export default {
       this.annexesCDA = null;
       this.selectActivite = null;
       this.selectActivite = null;
-
     },
    
     fetchDossier() {
@@ -432,87 +433,93 @@ confirmDeleteFile() {
     },
     
     
-    updateDossier(event) {
+ updateDossier(event) {
 
-    event.preventDefault();
-    
-    const experienceProfessionnelleDtos = [];
+  event.preventDefault();
 
-for (const experience of this.expPro) {
-  console.log(this.expPro);
-  const newExperience = {
-    id: experience.id,
-    tacheRealisee: experience.tacheRealisee,
-    moyenUtilise: experience.moyenUtilise,
-    collaborateur: experience.collaborateur,
-    contexte: experience.contexte,
-    information: experience.information,
-    competenceProfessionnelleId: this.tempCompetence.id,
-    dossierProfessionnelId: this.dossierPro.id,
-    version: experience.version,
-  };
-  experienceProfessionnelleDtos.push(newExperience);
-}
+  const experienceProfessionnelleDtos = [];
+  for (const experience of this.expPro) {
+    const newExperience = {
+      id: experience.id,
+      tacheRealisee: experience.tacheRealisee,
+      moyenUtilise: experience.moyenUtilise,
+      collaborateur: experience.collaborateur,
+      contexte: experience.contexte,
+      information: experience.information,
+      competenceProfessionnelleId: this.compInModal.id,
+      dossierProfessionnelId: this.dossierPro.id,
+      version: experience.version,
+    };
+    experienceProfessionnelleDtos.push(newExperience);
+  }
 
+  const annexeDtos = [];
+  for (let i = 0; i < this.annexes.length; i++) {
+    const annexe = this.annexes[i];
+    const newAnnexe = {
+      id: annexe.id,
+      libelleAnnexe: annexe.libelleAnnexe,
+      pieceJointe: annexe.pieceJointe.name,
+    };
+    annexeDtos.push(newAnnexe);
+  }
 
-const annexeDtos = [];
+  const facultatifDto = [];
 
+  if (this.dossierPro.facultatifDto) {
+    const f = {
+      id: this.facultatifs.id,
+      version: this.facultatifs.version,
+      intitule: this.newFacultatif.intitule,
+      organisme: this.newFacultatif.organisme,
+      date: this.newFacultatif.date,
+      dossierProfessionnelId: this.dossierPro.id,
+    };
+    facultatifDto.push(f);
+  } 
 
-for (const annexe of this.annexes) {
-  const newAnnexe = {
-    id : annexe.id,
-    libelleAnnexe: annexe.libelleAnnexe,
-    pieceJointe: annexe.pieceJointe,
-    dossierProfessionnelId: this.dossierPro.id,
-  };
-  annexeDtos.push(newAnnexe);
-}
-
-
-const facultatifDto = [{
-  id: this.newFacultatif.id,
-  version: 0,
-  intitule: this.newFacultatif.intitule,
-  organisme: this.newFacultatif.organisme,
-  date: this.newFacultatif.date,
-  dossierProfessionnelId: this.dossierPro.id,
-}];
-
-   
-const dpDto = {
-  id: this.dossierPro.id,
-  nom: this.dossierPro.nom,
-  cursusDto: {
-    id: this.dossierPro.cursusDto.id,
-    titre: this.dossierPro.cursusDto.titre,
-    activiteTypes: [{
-      id: this.activites.id,
-      libelle: this.activites.libelle,
-      competenceProfessionnelles: [{
-        id: this.tempCompetence.id,
-        libelle: this.tempCompetence.libelle,
-      }],
-    }],
-  },
-  experienceProfessionnelleDtos,
-  annexeDtos,
-  facultatifDto,
-  fileImport: this.dossierPro.fileImport,
-  version: 0,
-};
-dossierProfessionnelApi.updateDossierProfessionnel(dpDto, this.$store.getters.getUtilisateur.etudiantDto.id, this.newAnnexe.pieceJointe)
-  .then(data => {
-    this.dossierPro = data;
-    console.log(data);
-    console.log(this.dossierPro);
-    this.$bvModal.show("modal-updateDossier-success");
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
+  const dpDto = {
+    id: this.dossierPro.id,
+    nom: this.dossierPro.nom,
+    cursusDto: {
+      id: this.dossierPro.cursusDto.id,
+      titre: this.dossierPro.cursusDto.titre,
+      activiteTypes: [
+        {
+          id: this.activites.id,
+          libelle: this.activites.libelle,
+          competenceProfessionnelles: [
+            {
+              id: this.tempCompetence.id,
+              libelle: this.tempCompetence.libelle,
+            },
+          ],
+        },
+      ],
     },
+    experienceProfessionnelleDtos,
+    annexeDtos,
+    facultatifDto,
+    fileImport: this.dossierPro.fileImport,
+    version: 0,
+  };
 
-
+  dossierProfessionnelApi
+    .updateDossierProfessionnel(
+      dpDto,
+      this.$store.getters.getUtilisateur.etudiantDto.id,
+      this.newAnnexe.pieceJointe
+    )
+    .then((data) => {
+      this.dossierPro = data;
+      console.log(data);
+      console.log(this.dossierPro);
+      this.$bvModal.show("modal-updateDossier-success");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+},
 
     gofacult() {
       this.$bvModal.show("cc");
@@ -533,6 +540,7 @@ dossierProfessionnelApi.updateDossierProfessionnel(dpDto, this.$store.getters.ge
       dossierProfessionnelId:0
     };   
 },
+
 toggleSelectedComp(competenceId) {
     const selectedCompetence = this.selectedActivite.competencesProfessionnellesDto.find(comp => comp.id === competenceId);
     this.showModal(selectedCompetence);
@@ -570,6 +578,19 @@ deleteAnnexe(index, annexeId) {
     });
 },
 
+deleteExp(experienceId){
+  try {
+      
+      experiencesApi.deleteById(experienceId);
+      const index = this.expPro.findIndex((experience) => experience.id === experienceId);
+      if (index !== -1) {
+        this.expPro.splice(index, 1);
+        this.$bvModal.hide('delete-Exp');
+      }
+    } catch (error) {
+      console.error('Error lors de la suppression de l experience:', error);
+    }
+    },
 
 optionsAT(activite) {
     let tab = [
@@ -581,48 +602,40 @@ optionsAT(activite) {
     ];
 
     if (activite.competencesProfessionnellesDto) {
-      activite.competencesProfessionnellesDto.forEach((competence) => {
-        const hasExperiences = this.filledCompetences.includes(competence.id);
+    activite.competencesProfessionnellesDto.forEach((competence) => {
+      const hasExperiences = this.filledCompetences.includes(competence.id);
 
-        if (hasExperiences) {
-          let option = {
-            value: competence,
-            text: competence.libelle,
-            html: '<span>&#x2705;</span> ' + competence.libelle,
-            disabled: true,
-          };
+      let option = {
+        value: competence,
+        text: competence.libelle,
+      };
 
-          tab.push(option);
-        } else {
-          let option = {
-            value: competence,
-            text: competence.libelle,
-          };
+      if (hasExperiences) {
+        option.html = '<span>&#x2705;</span> ' + competence.libelle;
+      }
 
-          tab.push(option);
-        }
-      });
-    }
-
+      tab.push(option);
+    });
+  }
     return tab;
   },
 
   
-getValue(value) {
+  getValue(value) {
   this.compInModal = value;
-  this.$bvModal.show("exp-pro-modal");
+  this.showModal = true;
   this.tempCompetence = value;
-  if (this.inputValidation != null) {
-    this.filledCompetences.push(value);
-  }
 
-  this.expPro = this.dossierPro.experienceProfessionnelleDtos.filter((exp) => {
-    return exp.competenceProfessionnelleId === value.id;
-  });
-
-  if (this.expPro.length === 0) {
-    this.expPro = [];
+  if (!this.filledCompetences.includes(value.id)) {
+    this.filledCompetences.push(value.id);
   }
+  this.expPro = this.dossierPro.experienceProfessionnelleDtos.filter(e => e.competenceProfessionnelleId === value.id);
+  
+  console.log('expPro:', this.expPro); 
+},
+
+showDeleteExp(){
+  this.$bvModal.show('delete-Exp');
 },
 
 isExperienceFilled(experience) {

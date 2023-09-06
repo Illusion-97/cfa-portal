@@ -28,8 +28,7 @@
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-      scrollable no-close-on-esc @hidden="resetModal" hide-footer>
-
+      scrollable no-close-on-esc @hidden="resetModal"  hide-footer v-model="showModal">
       <!-- FORMULAIRE -->
       <b-form @submit="addExp">
         <b-card no-body class="mb-1" >
@@ -403,7 +402,6 @@ export default {
       this.annexesCDA = null;
       this.selectActivite = null;
       this.selectActivite = null;
-      this.$bvModal.hide("exp-pro-modal");
     },
 
 
@@ -560,7 +558,7 @@ onSubmit(event) {
   getValue2(value) {
     this.selectedActiviteTypes = value;
     this.compInModal = value;
-    this.$bvModal.show("exp-pro-modal");
+    this.showModal = true;
     this.tempCompetence = value;
     if(this.inputValidation != null)
     {
