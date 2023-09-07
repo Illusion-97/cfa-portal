@@ -218,7 +218,7 @@
     </v-expand-transition>
     <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
-        Votre Dossier Projet "{{ nomDp }} a été correctement créer"
+        Votre Dossier Projet "{{ nomDp }} a été correctement modifié"
       </p>
       <div class="div-ok">
         <router-link class="nav-item first" :to="'/etudiant/dossierprojets'">
@@ -255,6 +255,7 @@ export default {
       filesAnnexe: [{file:undefined}],
       DossierProjet: {
         nom:"",
+        annexes: this.filesAnnexe,
         dossierImport: "",
         projet: {
           nom: ""
@@ -343,12 +344,14 @@ export default {
 
     async submit() {
       // élements de DossierProjet
-      const {version, nom, projet, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets} = this.DossierProjet;
+      const {version, nom, projet,dossierImport,annexeDossierProjets, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets} = this.DossierProjet;
+
       // Création de l'objet à envoyer
       const dpDto = {
         id:this.dossierProjetId,
         version,
         nom,
+        dossierImport: dossierImport,
         etudiant: {id: this.studentId },
         projet: {
           id: projet.id,
@@ -358,6 +361,7 @@ export default {
         competenceProfessionnelleIds,
         contenuDossierProjets: [contenuDossierProjets[0]],
         resumeDossierProjets: [resumeDossierProjets[0]],
+        annexeDossierProjets: annexeDossierProjets,
       };
       await dossierProjetApi.update(dpDto).then(async (data) => {
         this.DossierProjet = data;
