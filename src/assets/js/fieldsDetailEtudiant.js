@@ -24,9 +24,9 @@ export const notesFields = [
 ]
 
 export const planningFields = [
-    { value: "cursusTitre", text: "Nom du cursus", sortable: false},
-    { value: "dateDebut", text: "Date Début", sortable: false},
-    { value: "dateFin", text:"Date Fin", sortable: false},
+    { value: "formationTitre", text: "Nom de la formation", sortable: false},
+    { value: "interventionDateDebut", text: "Date Début", sortable: false},
+    { value: "interventionDateFin", text:"Date Fin", sortable: false},
 ];
 
 export const dossProjFields = [

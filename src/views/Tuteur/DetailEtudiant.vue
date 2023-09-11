@@ -192,10 +192,14 @@
         .then((response) => (this.notes = response));
     },
 
-    getplanningEtudiant() {
-      promotionApi
+    async getplanningEtudiant() {
+      let tab = [];
+      await promotionApi
         .getCursusByIdEtudiant(this.etudiantId)
-        .then((response) => ((this.promos = response)));
+        .then((response) => ((response.forEach(element => {
+          tab.push(element.planningsEtudiantDto)
+        }))));
+        this.promos = tab.reduce((acc, currentValue) => acc.concat(currentValue), []);
     },
 
     getdossProjEtudiant() {
