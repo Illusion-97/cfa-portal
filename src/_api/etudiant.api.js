@@ -21,6 +21,7 @@ export const etudiantApi = {
     getAbsencesById,
     getCountAbsence,
     getGroupes,
+    getProjets,
     getInterventionByIdEtudiantByWeek,
     getNotesByIdEtudiant,
     getEtudiantsByInterventionIdwithDevoirsAndAbsence,
@@ -245,6 +246,20 @@ function getCountAbsence() {
  */
 function getGroupes(id){
     let req = "etudiants/" + id + "/groupes";
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+/**
+ * Récupération des projets par etudiant
+ *
+ * @param {*} id
+ * @returns
+ */
+function getProjets(id){
+    let req = "etudiants/" + id + "/projets";
     return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)

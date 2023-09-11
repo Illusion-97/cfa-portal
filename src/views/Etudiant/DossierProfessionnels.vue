@@ -16,7 +16,7 @@
 
       <template #cell(action)="data">
         <!-- BOUTON MODIFIER -->
-        <b-button size="sm" class="mr-2" variant="primary" @click="getDossiers(data.item.id)">
+        <b-button size="sm" class="mr-2" variant="warning" @click="getDossiers(data.item.id)">
           <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
           Modifier
         </b-button>
@@ -28,9 +28,11 @@
         </b-button>
 
         <!-- BOUTON VOIR -->
-        <v-btn small color="light" @click="voirDossier(etudiantId, promotionId)">
-        <v-icon>mdi-eye</v-icon>              
-        </v-btn>
+        <button @click="voirDossier(etudiantId, promotionId)" class="btn btn-info btn-sm">
+    <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
+    Voir      
+  </button>
+       
       </template>
     </b-table>
    
@@ -74,7 +76,8 @@ export default {
     search: "",
     pdfUrl:'',
     etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
-    promotionId:438,
+    promotionId:this.$route.params.id,
+    promotion:[],
       items: [],
       telecharger: [],
       fields: [
@@ -111,17 +114,16 @@ generer(etudiantId, promotionId) {
     },
     handlePageChange(page) {
       this.currentPage = page;
-    //this.fetchDossiers();
 },
 
 
 voirDossier(etudiantId, promotionId) {
-dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, promotionId)
-  .then(() => {
-    const fileName = `dossierEtudiant${this.etudiantId}-promo${this.promotionId}-1.pdf`;
-    this.pdfUrl = `http://localhost:8080/${fileName}`;
-  })
-  .catch((error) => console.log(error));
+  dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, promotionId)
+    .then(() => {
+      const fileName = `dossierEtudiant${etudiantId}-promo${promotionId}-1.pdf`;
+      this.pdfUrl = `http://localhost:8080/${fileName}`;
+    })
+    .catch((error) => console.log(error));
 },
 
  
@@ -129,28 +131,32 @@ dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, promotio
   },
 
   created() {
+  this.items = []; 
+  dossierProfessionnelApi
+    .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
+    .then((data) => {
+      this.items = data; 
+    })
+    .catch((error) => {
+      console.error("Error", error);
+    });
 
-    this.items = []; 
-dossierProfessionnelApi
-.getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
-.then((data) => {
-  this.items = data; 
-})
-.catch((error) => {
-  console.error("Error", error);
-});
-
-if (
-      this.$route.params.id != null &&
-      this.$route.params.id != "" &&
-      this.$route.params.id != 0
-    ) {
-      promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
-        this.data = response;
+  if (
+    this.$route.params.id != null &&
+    this.$route.params.id !== "" &&
+    this.$route.params.id !== 0
+  ) {
+    this.promotionId = this.$route.params.id;
+    promotionApi.getPromotionByid(this.promotionId)
+      .then((response) => {
+        this.promotion = response;
+      })
+      .catch((error) => {
+        console.error("Error", error);
       });
-    }
-    
+  }
 }
+
   
 
 };
@@ -158,7 +164,7 @@ if (
 
 <style scoped src="@/assets/styles/StyleEtudiant.css">
 .custom-search-field {
-width: 50%; /* Ajoutez la largeur souhaitée */
+width: 50%; 
 size: 10%;
 }
 </style>

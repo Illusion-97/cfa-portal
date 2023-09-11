@@ -206,7 +206,6 @@ export default {
     },
 
     uploadFile() {
-
   const etudiantId = this.$store.getters.getUtilisateur.etudiantDto.id; 
   dossierProfessionnelApi.handleFileUpload(etudiantId, this.cursusId, this.file, this.nom)
     .then(data => {

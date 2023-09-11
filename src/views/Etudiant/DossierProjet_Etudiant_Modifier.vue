@@ -2,7 +2,7 @@
   <div class="main" v-if="DossierProjet">
   <section class="flex-group-title">
     <div v-if="modify != true" class="flex-title">
-      <v-card-title>Nom du Dossier : {{nomDp}}</v-card-title>
+      <v-card-title v-if="nomDp">Nom du Dossier : {{nomDp}}</v-card-title>
       <b-button size="sm" class="mr-2" variant="primary" @click="modifyTitle">
         <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
         Modifier
@@ -11,7 +11,7 @@
 
     <div v-else class="flex-title">
       <v-card-title style="min-width: 40%">Nom du Dossier : </v-card-title>
-      <b-form-input type="text" v-model="DossierProjet.nom"></b-form-input>
+      <b-form-input  type="text" v-model="nomDp"></b-form-input>
       <b-button size="sm" class="mr-2" variant="success" @click="validModify">
         Valider
       </b-button>
@@ -43,10 +43,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-if="DossierProjet.dossierImport">
-          <td v-if="versionImport === 0">{{DossierProjet.dossierImport}}</td>
-          <td v-else>{{DossierProjet.dossierImport.name}}</td>
-          <v-btn  @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</v-btn>
+
+        <!-- S'il y a un import du ossier Projet -->
+
+        <tr v-if="importDp">
+          <td >{{DossierProjet.dossierImport}}</td>
+          <b-button style="margin-top: 4px" @click="$bvModal.show('modal-delete-import-confirmation')">Supprimer</b-button>
           <!-- Modal Confirmation Suppression Annexe -->
           <b-modal :id="'modal-delete-import-confirmation' " centered size="lg" no-close-on-esc hide-footer>
             <p>
@@ -58,9 +60,11 @@
             </div>
           </b-modal>
         </tr>
+
+        <!-- S'il n'y a aucun import du ossier Projet -->
         <tr v-else>
           <td><v-file-input v-model="fileImport" accept="*"></v-file-input></td>
-          <td><v-btn @click="$bvModal.show('modal-import-confirmation')" v-if="DossierProjet.dossierImport === null">Envoyer</v-btn></td>
+          <td><b-button variant="success" @click="$bvModal.show('modal-import-confirmation')" v-if="importDp === null">Envoyer</b-button></td>
           <!-- Modal Confirmation Envoi Import -->
           <b-modal :id="'modal-import-confirmation'" centered size="lg" no-close-on-esc hide-footer>
             <p>
@@ -73,6 +77,7 @@
           </b-modal>
         </tr>
         </tbody>
+
       </v-simple-table>
     </v-card>
   </section>
@@ -103,10 +108,10 @@
                 <div v-show="active === 1">
                   <v-card>
                     <v-card-text disabled>
-                      <v-card-subtitle>Projet : {{ DossierProjet.projet.nom }}</v-card-subtitle>
-                      <v-card-subtitle>Dossier : {{ DossierProjet.nom }}</v-card-subtitle>
+                      <v-card-subtitle>Projet : {{ nomProjet }}</v-card-subtitle>
+                      <v-card-subtitle>Dossier : {{ nomDp }}</v-card-subtitle>
                     </v-card-text>
-                    <vue-editor v-model="DossierProjet.infoDossierProjets[0]"
+                    <vue-editor v-model="firstInfoDossierProjet"
                                 id="exp1"  placeholder="Informations du Projet" readonly />
                   </v-card>
                 </div>
@@ -133,18 +138,14 @@
                   </v-card>
                 </div>
                 <div v-show="active === 3">
-                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
                     <div>
-                      <vue-editor h-auto  v-model="DossierProjet.resumeDossierProjets[0]" id="exp1" placeholder="Résumé du Projet" readonly />
+                      <vue-editor h-auto  v-model="firstResumeDossierProjet" id="exp1" placeholder="Résumé du Projet" readonly />
                     </div>
-                  </b-collapse>
                 </div>
                 <div v-show="active === 4" >
-                  <b-collapse :id="'accordion-' + id" class="titre-details-modal volets" visible accordion="my-accordion">
                     <div>
-                      <vue-editor v-model="DossierProjet.contenuDossierProjets[0]" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
+                      <vue-editor v-model="firstContenuDossierProjet" id="exp1"  placeholder="Contenu du Projet"></vue-editor>
                     </div>
-                  </b-collapse>
                 </div>
                 <div v-show="active === 5">
                   <div >
@@ -168,7 +169,7 @@
                           </td>
                           <!--td Pour la suppression des annexes-->
                           <td>
-                            <v-btn class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</v-btn>
+                            <b-button variant="" class="mb-4" @click="$bvModal.show('modal-delete-confirmation-' + index)">Supprimer</b-button>
                             <!-- Modal Confirmation Suppression Annexe -->
                             <b-modal :id="'modal-delete-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
                               <p>
@@ -186,9 +187,11 @@
                             <v-file-input v-model="files.file" accept="image/*" :id="'fileInput_' + index" label="Annexes du Dossier Projet"></v-file-input>
                           </td>
                           <td>
-                            <v-btn style="margin-top: 10px" class="mb-4" @click="deleteAnnexe(index)">Supprimer</v-btn>
-                            <v-btn class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</v-btn>
-                            <!-- Modal Confirmation Envoi Annexe -->
+                            <div style="display: flex; flex-direction: row; gap: 2px">
+                              <b-button style="" class="mb-4" @click="deleteAnnexe(index)">Supprimer</b-button>
+                              <b-button style="" variant="success" class="mb-4" @click="$bvModal.show('modal-annexe-confirmation-' + index)" v-if="files.file !== undefined">Envoyer</b-button>
+                            </div>
+                              <!-- Modal Confirmation Envoi Annexe -->
                             <b-modal :id="'modal-annexe-confirmation-' + index" centered size="lg" no-close-on-esc hide-footer>
                               <p>
                                 Voulez-vous Ajouter cette Annexe : <strong>{{files.file}}</strong> ?
@@ -215,7 +218,7 @@
     </v-expand-transition>
     <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
-        Votre Dossier Projet "{{ DossierProjet.nom }} a été correctement créer"
+        Votre Dossier Projet "{{ nomDp }} a été correctement modifié"
       </p>
       <div class="div-ok">
         <router-link class="nav-item first" :to="'/etudiant/dossierprojets'">
@@ -244,14 +247,20 @@ export default {
       dossierProjetId: 0,
       studentId: this.$store.getters.getUtilisateur.etudiantDto.id,
       modify: false,
-      modifyTemp: "",
       annexePage:1,
       itemsPerPage: 4,
       fileImport:undefined,
       activiteTypes: [],
       dossierModif:{},
       filesAnnexe: [{file:undefined}],
-      DossierProjet: {nom:null},
+      DossierProjet: {
+        nom:"",
+        annexes: this.filesAnnexe,
+        dossierImport: "",
+        projet: {
+          nom: ""
+        },
+      },
     };
   },
   beforeMount() {
@@ -264,9 +273,6 @@ export default {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
         })
-  },
-  mounted() {
-    this.modifyTemp = this.DossierProjet.nom
   },
   methods: {
     retour() {
@@ -299,8 +305,7 @@ export default {
     },
     deleteImport(file){
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
-        this.DossierProjet.dossierImport = null;
-        this.versionImport++
+        location.reload();
       })
 
     },
@@ -323,6 +328,7 @@ export default {
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
         this.DossierProjet.annexeDossierProjets.splice(index, 1);
+        location.reload();
       });
     },
     deleteAnnexe(index) {
@@ -331,18 +337,21 @@ export default {
 
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
-          .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index))
+          .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index),this.importDp = dossierImport,
+              location.reload())
           .catch((error) => console.error(error));
     },
 
     async submit() {
       // élements de DossierProjet
-      const {version, nom, projet, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets} = this.DossierProjet;
+      const {version, nom, projet,dossierImport,annexeDossierProjets, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets} = this.DossierProjet;
+
       // Création de l'objet à envoyer
       const dpDto = {
         id:this.dossierProjetId,
         version,
         nom,
+        dossierImport: dossierImport,
         etudiant: {id: this.studentId },
         projet: {
           id: projet.id,
@@ -352,6 +361,7 @@ export default {
         competenceProfessionnelleIds,
         contenuDossierProjets: [contenuDossierProjets[0]],
         resumeDossierProjets: [resumeDossierProjets[0]],
+        annexeDossierProjets: annexeDossierProjets,
       };
       await dossierProjetApi.update(dpDto).then(async (data) => {
         this.DossierProjet = data;
@@ -376,9 +386,88 @@ export default {
 
   computed: {
     /* Nom Dossier Projet */
-    nomDp(){
-      let nom = this.DossierProjet.nom;
-      return nom
+    nomProjet:{
+      get(){
+        return this.DossierProjet.projet.nom;
+      },
+      set(value){
+        return this.DossierProjet.projet.nom = value
+      }
+    },
+    /* Nom Dossier Projet */
+    nomDp:{
+      get(){
+        return this.DossierProjet.nom;
+      },
+      set(value){
+        return this.DossierProjet.nom = value
+      }
+    },
+    /* Import du Dpssier Projet */
+    importDp:{
+      get(){
+        return this.DossierProjet.dossierImport;
+      },
+      set(value){
+        return this.DossierProjet.dossierImport = value
+      }
+    },
+    firstInfoDossierProjet: {
+      get() {
+        if (this.DossierProjet.infoDossierProjets && this.DossierProjet.infoDossierProjets.length > 0) {
+          return this.DossierProjet.infoDossierProjets[0];
+        } else {
+          return null;
+        }
+      },
+      set(value) {
+        if (!this.DossierProjet.infoDossierProjets) {
+          this.DossierProjet.infoDossierProjets = []; // Initialisez le tableau si ce n'est pas déjà fait.
+        }
+        if (this.DossierProjet.infoDossierProjets.length > 0) {
+          this.DossierProjet.infoDossierProjets[0] = value;
+        } else {
+          this.DossierProjet.infoDossierProjets.push(value);
+        }
+      },
+    },
+    firstResumeDossierProjet: {
+      get() {
+        if (this.DossierProjet.resumeDossierProjets && this.DossierProjet.resumeDossierProjets.length > 0) {
+          return this.DossierProjet.resumeDossierProjets[0];
+        } else {
+          return null;
+        }
+      },
+      set(value) {
+        if (!this.DossierProjet.resumeDossierProjets) {
+          this.DossierProjet.resumeDossierProjets = [];
+        }
+        if (this.DossierProjet.resumeDossierProjets.length > 0) {
+          this.DossierProjet.resumeDossierProjets[0] = value;
+        } else {
+          this.DossierProjet.resumeDossierProjets.push(value);
+        }
+      },
+    },
+    firstContenuDossierProjet: {
+      get() {
+        if (this.DossierProjet.contenuDossierProjets && this.DossierProjet.contenuDossierProjets.length > 0) {
+          return this.DossierProjet.contenuDossierProjets[0];
+        } else {
+          return null;
+        }
+      },
+      set(value) {
+        if (!this.DossierProjet.contenuDossierProjets) {
+          this.DossierProjet.contenuDossierProjets = [];
+        }
+        if (this.DossierProjet.contenuDossierProjets.length > 0) {
+          this.DossierProjet.contenuDossierProjets[0] = value;
+        } else {
+          this.DossierProjet.contenuDossierProjets.push(value);
+        }
+      },
     },
     /* Selection */
     selectedComp(){
@@ -387,14 +476,15 @@ export default {
         const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
         const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
         return { backgroundColor: bg, color: txt }
-      }},
+      }
+      },
     paginatedFiles() {
       const startIndex = (this.annexePage - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
       return this.filesAnnexe.slice(startIndex, endIndex);
     }
   }
-};
+}
 </script>
 <style scoped>
 .main{
@@ -442,7 +532,11 @@ export default {
   display: inline-block;
   margin: 0 10px; /* Ajouter des marges pour séparer les éléments */
 }
-
+.div-ok{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 @media screen and (max-width: 1920px) {
   #bloc-competence {
     width: 100%;

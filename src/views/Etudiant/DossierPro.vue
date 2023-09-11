@@ -1,5 +1,4 @@
 <template>
-  <!-- CONTAINER CREER DOSSIER -->
   <div class="container" >
     <h5>
       Créer le dossier professionnel :
@@ -15,7 +14,6 @@
   
     <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index" >
 
-<!-- ACTIVITES TYPES SELECTEURS -->
 <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
 <b-form-select v-model="start" @change="getValue2">
@@ -27,15 +25,12 @@
 </template>
 </b-form-select>
      
-      <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-      scrollable no-close-on-esc @hidden="resetModal" hide-footer>
-
+      scrollable no-close-on-esc @hidden="resetModal"  hide-footer v-model="showModal">
       <!-- FORMULAIRE -->
       <b-form @submit="addExp">
-        <!-- ACCORDEON EXP 1 -->
         <b-card no-body class="mb-1" >
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
@@ -46,14 +41,12 @@
           </b-card-header>
           <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
             </b-card-body>
           </b-collapse>
         </b-card>
 
-        <!-- ACCORDEON EXP 2 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">2. Précisez les
@@ -63,14 +56,11 @@
           </b-card-header>
           <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
             </b-card-body>
           </b-collapse>
         </b-card>
-
-        <!-- ACCORDEON EXP 3 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal volets">3. Avec qui
@@ -80,14 +70,11 @@
           </b-card-header>
           <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
-
-        <!-- ACCORDEON EXP 4 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal volets">4. Précisez le
@@ -97,14 +84,11 @@
           </b-card-header>
           <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.contexte" id="exp4" name="contexte" placeholder="Contexte" />
             </b-card-body>
           </b-collapse>
         </b-card>
-
-        <!-- ACCORDEON EXP 5 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">5. Informations
@@ -114,7 +98,6 @@
           </b-card-header>
           <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
@@ -127,7 +110,6 @@
     <v-icon>mdi-arrow-left</v-icon>
     Retour  
   </b-button> 
-          <!-- BOUTON SAVE EXP -->
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Créer</span>
@@ -141,8 +123,6 @@
     
   </div>
  
-
-    <!-- MODALE SUCCESS DOSSIER CREE -->
     <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
@@ -154,8 +134,6 @@
         </b-button>
       </div>
     </b-modal>
-
-    <!-- MODALE SUCCESS DOSSIER UPDATE -->
     <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
@@ -167,8 +145,6 @@
         </b-button>
       </div>
     </b-modal>
-
-    <!-- MODALE SUCCESS DOSSIER DELETE -->
     <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
         <img src="@/assets/img/verifier.png" class="check" />
@@ -192,7 +168,9 @@
       </b-form-select-option>
     </b-form-select> 
     <div id="div-save">
-    <b-button @click="showDeleteModal" class="ml-2" variant="danger">Supprimer</b-button>
+    <b-button @click="showDeleteModal" class="ml-2" variant="danger">
+      <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" /> Supprimer
+    </b-button>
     </div>
     <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
       <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>
@@ -251,8 +229,9 @@
 </template>
         </v-list-item>
         <div id="div-save">
-    <b-button  size="sm" variant="warning" type="submit"  @click.prevent="clear">
-      <v-icon @click="clear()">mdi-close</v-icon>Effacer
+    <b-button @click="clear()"  size="sm" variant="warning" type="submit"  @click.prevent="clear">
+      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" /> 
+     Effacer
     </b-button>
     </div>
       </v-list-group>
@@ -407,19 +386,10 @@ export default {
         fileImport:null,
       },
    
-     
-
-      // FORM DIPLOME
       name: '',
       email: '',
       date: '',
       select: "",
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
       checkbox: false,
       
     };
@@ -428,17 +398,13 @@ export default {
 
   methods: {
 
-    // RESET MODALE
     resetModal: function () {
       this.annexesCDA = null;
       this.selectActivite = null;
       this.selectActivite = null;
-      this.$bvModal.hide("exp-pro-modal");
     },
 
 
-
-    //LANCE LA MODALE DIPLOMES
     goDiplome() {
       this.$bvModal.show("bbb");
       console.log("launch");
@@ -580,7 +546,6 @@ onSubmit(event) {
   this.annexes.push(annexe);
   console.log(this.annexes);
 
-  // Réinitialisation des valeurs pour effacer les valeurs précédentes
   this.newAnnexe.libelleAnnexe = '';
   this.newAnnexe.pieceJointe = null;
 },
@@ -588,30 +553,12 @@ onSubmit(event) {
  
   deleteAnnexe(index) {
     this.annexes.splice(index, 1);
- /* annexeId = this.newAnnexe.id;
-  dossierProfessionnelApi.deleteAnnexe(annexeId)
-    .then(() => {
-      console.log("Suppression réussie");
-      this.resetAnnexeForm();
-    })
-    .catch(error => {
-      console.log("Echec", error);
-    })
-    .finally(() => {
-      this.$bvModal.hide('deleteModal');
-    });*/
   }, 
 
   getValue2(value) {
-    
-    // console.dir(
-    //   "compInModal > " + JSON.stringify(this.compInModal, null, 4)
-    // );
-    //console.log("getValue > " + value);
-    //console.dir("getValue > " + JSON.stringify(value, null, 4));
     this.selectedActiviteTypes = value;
     this.compInModal = value;
-    this.$bvModal.show("exp-pro-modal");
+    this.showModal = true;
     this.tempCompetence = value;
     if(this.inputValidation != null)
     {
@@ -629,7 +576,6 @@ onSubmit(event) {
     }
     this.expPro = value;
   },
- // OPTIONS DES ACTIVITES TYPES2
  optionsAT2(item) {
       let tab = [
         {
@@ -719,17 +665,12 @@ setup(){
   },
 
    
-
-  
-
-  // FORM DIPLOME
   mixins: [validationMixin],
 
   validations: {
     newFacultatif: {
     intitule: { required, maxLength: maxLength(10) },
     organisme: { required, email },
-    //date: {required, date},
     },
     checkbox: {
       checked(val) {
@@ -741,7 +682,6 @@ setup(){
       experiencesApi
         .deleteById(this.expPro.id)
 
-        // REDIRECTION
         .then(() =>
           this.$bvModal.hide("exp-pro-modal"),
           this.$bvModal.show("modal-delete-success"),
@@ -794,13 +734,6 @@ setup(){
       !this.$v.newFacultatif.organisme.required && errors.push('Organisme is required')
       return errors
     },
-    /*dateErrors() {
-      const errors = []
-      if (!this.$v.newFacultatif.date.$dirty) return errors
-      !this.$v.newFacultatif.date.date && errors.push('Must be valid date')
-      !this.$v.newFacultatif.date.required && errors.push('date is required')
-      return errors
-    },*/
   },
 };
 
@@ -808,7 +741,6 @@ setup(){
 </script>
 
 <style scoped>
-/* TEMPORAIRE BUG */
 footer {
   display: none;
 }
