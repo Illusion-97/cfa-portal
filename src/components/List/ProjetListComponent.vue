@@ -45,7 +45,7 @@
           <th>Nom</th>
           <th>Description</th>
           <th>Groupe</th>
-          <!-- <th v-if="isAction">Actions</th> -->
+          <th>Actions</th> 
         </tr>
       </thead>
       <tbody v-if="projetsComputed">
