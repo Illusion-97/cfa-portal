@@ -182,7 +182,7 @@
   <b-list-group>
     <b-list-group-item v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
       <div class="d-flex justify-content-between align-items-center">
-        <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe.name }}</span>
+        <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe }}</span>
         <v-icon @click="deleteAnnexe(index)">mdi-close</v-icon>
       </div>
     </b-list-group-item>
@@ -435,6 +435,7 @@ onSubmit(event) {
     
     const dpDto = {
       id: 0,
+      version:0,
       nom: this.form.nom,
       cursusDto: {
         id: this.data.item.cursus.id,
