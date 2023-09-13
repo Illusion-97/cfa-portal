@@ -106,7 +106,7 @@
                 <font-awesome-icon :icon="['fas', 'check-square']" class="icon" />
                 Valider</b-button>
 
-              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                 Annuler</b-button>
             </b-form>
@@ -115,15 +115,20 @@
             <b-button
                 v-if="context === 'intervention'"
                 block
-                variant="primary"
+                variant="warning"
                 v-bind:class="classObject(row.item, true)"
                 @click="modifier(row.item)"
             >
+            
               <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
               Modifier</b-button>
             <b-button block variant="success" v-bind:class="classObject(row.item, false)" @click="ajouterNotes(row.item)">
               <font-awesome-icon :icon="['fas', 'plus-square']" class="icon" />
               Ajouter notes</b-button>
+            <b-button block variant="info"  @click="row.toggleDetails" class="mr-2">
+              <font-awesome-icon class="mr-1 mt-1" :icon="row.detailsShowing ? ['fas', 'eye-slash'] : ['fas', 'eye']" />
+              {{ row.detailsShowing ? "Masquer" : "Afficher" }}
+            </b-button>
             <b-button v-if="context === 'intervention'" block variant="danger" @click="spprimerExamen(row.item)">
               <font-awesome-icon :icon="['fas', 'trash']" class="icon" />
               Supprimer</b-button>
@@ -195,15 +200,9 @@ export default {
       },
       fields: [
         {
-          key: "Details",
-          label: "Détails",
-          thStyle: { width: "5%" },
-          thClass: "text-center",
-        },
-        {
           key: "Titre",
           label: "Titre",
-          thStyle: { width: "15%" },
+          thStyle: { width: "0%" },
           thClass: "text-center",
         },
         {
@@ -215,7 +214,6 @@ export default {
         {
           key: "Date",
           label: "Date",
-          // thStyle: { width: this.isModifier ? "20%" : "10%" },
           thStyle: { width: "15%" },
           class: "text-center",
         },
