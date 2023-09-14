@@ -110,7 +110,7 @@
             {{ row.item.fin }}
           </div>
           <div>
-            <b-button class="m-1 btn-sm" variant="primary" @click="modifier(row.item)">
+            <b-button class="m-1 btn-sm" variant="warning" @click="modifier(row.item)">
               <font-awesome-icon :icon="['fas', 'edit']" />
             </b-button>
           </div>

@@ -44,7 +44,7 @@
               Supprimer
             </v-btn>
             <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)">
-              <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
+              <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" /> Modifier
             </v-btn>
           </div>
         </v-app>

@@ -10,7 +10,7 @@
 
             </div>
 
-            <b-button variant="primary" @click="modifierSig" class="mt-4">
+            <b-button variant="warning" @click="modifierSig" class="mt-4">
                 <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
                 Modifier</b-button>
         </div>
@@ -29,8 +29,9 @@
 
             <!-- ACTIONS -->
             <div class="m-4">
-                <b-button @click="toDataURL()" class="mr-2" variant="outline-primary">Sauvegarder</b-button>
-                <b-button @click="clear()" class="mr-2" variant="outline-primary">Vider</b-button>
+                <b-button @click="toDataURL()" class="mr-2" variant="success">Sauvegarder</b-button>
+                <b-button @click="clear()" class="mr-2" variant="secondary">
+                    <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" /> Vider</b-button>
                 <b-button variant="warning" @click="AnnulerModif">
                     <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                     Annuler</b-button>
