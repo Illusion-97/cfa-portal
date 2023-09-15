@@ -267,7 +267,7 @@ export default {
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formulaireTuteur)
                 .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouter.')))
-                .catch(() => (this.$emit('hidden', 'Email déjà utiliser veulliez en saisir un autre.')))
+                .catch((error) => (this.$emit('hidden', error)))
         },
     }
 }          
