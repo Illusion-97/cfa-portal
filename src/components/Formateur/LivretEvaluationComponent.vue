@@ -51,7 +51,7 @@
                 <v-btn class="mr-4" color="warning" @click="modifier(eva)">
 
                   <span>
-                    <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
+                    <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
                   </span>
 
                   Modifier

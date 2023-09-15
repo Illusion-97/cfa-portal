@@ -66,9 +66,9 @@
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
               </span>
               <span v-else>
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
               </span>
-              {{ modifier ? 'Modifier' : 'Ajouter' }}
+              {{ modifier ? 'Modifier' : 'Ajouter' }} 
             </v-btn>
             <v-btn color="secondary" @click="clear">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" />
@@ -100,7 +100,7 @@
 
         <b-button v-b-tooltip.hover variant="warning" dark @click="update(row.item)">
           <span tooltip="Modifier" flow="down">
-            <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />
+            <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" />
           </span>
         </b-button>
 
