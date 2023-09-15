@@ -40,7 +40,7 @@
                           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                       </span>
                       <span v-else>
-                          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+                          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
                       </span>
                       {{ modifierAdresse ? 'Modifier' : 'Ajouter' }}
                   </v-btn>

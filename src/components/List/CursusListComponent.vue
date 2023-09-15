@@ -45,7 +45,7 @@
 
         <b-button block variant="warning" @click="showModal(row.item)">
           <span tooltip="Modifier" flow="left">
-            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
             Modifier
           </span>
         </b-button>
@@ -80,7 +80,7 @@
             <small>*indique les champs requis</small>
 
             <b-button type="submit" class="mt-3" variant="warning" block>
-              <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />Modifier</b-button>
+              <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" />Modifier</b-button>
           </b-form>
           <b-button class="mt-3" variant="danger" block @click="hideModal(row.item)">
             Annuler</b-button>

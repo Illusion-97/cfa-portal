@@ -50,7 +50,7 @@
                     </b-form>
                 </div>
                 <div v-else>
-                    <b-button class="btnAction" block variant="primary" v-bind:class="classObject(row.item, true)"
+                    <b-button class="btnAction" block variant="warning" v-bind:class="classObject(row.item, true)"
                         @click="modifier(row.item)">
                         <font-awesome-icon :icon="['fas', 'edit']" class="icon" />
                         Modifier

@@ -14,7 +14,7 @@
           <span class="group-nom">{{ groupe.nom }}</span>
         </div>
         <button class="btn btn-warning" v-on:click=updateGroupe>
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
               Modifier 
             </button>
       </b-card-header>
