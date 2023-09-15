@@ -239,7 +239,7 @@ export default {
         this.loading = false;
         this.refreshList();
       }
-      else if (data == "Email déjà utiliser veulliez en saisir un autre.") {
+      else {
         this.visibleAddTuteur = true;
         this.color = "danger";
         this.dismissCountDown = 8;
