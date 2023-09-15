@@ -108,7 +108,7 @@
                             Vider
                         </v-btn>
                         <v-btn class="mr-4" color="error" @click="hideComponent">
-                            <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'trash']" />
+                            <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'times-circle']" />
                             Annuler
                         </v-btn>
                     </v-container>

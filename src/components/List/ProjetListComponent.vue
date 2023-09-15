@@ -45,7 +45,7 @@
           <th>Nom</th>
           <th>Description</th>
           <th>Groupe</th>
-          <!-- <th v-if="isAction">Actions</th> -->
+          <th>Actions</th> 
         </tr>
       </thead>
       <tbody v-if="projetsComputed">
@@ -62,7 +62,7 @@
           <td>
             <b-button variant="warning"  style="margin-right: 5px" @click="detail(projet.id)">
               <span tooltip="Modifier" flow="down">
-                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
                 Modifier
               </span>
             </b-button>

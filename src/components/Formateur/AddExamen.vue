@@ -4,7 +4,7 @@
       {{ messageError }}
     </b-alert>
     <div class="d-flex justify-content-end">
-      <b-button variant="secondary" v-show="showFormExamen" @click="openToggle" class="btnAddExamen">
+      <b-button variant="info" v-show="showFormExamen" @click="openToggle" class="btnAddExamen">
         <font-awesome-icon :icon="['fas', 'plus-circle']" class="icon" />
         Ajouter un examen
       </b-button>

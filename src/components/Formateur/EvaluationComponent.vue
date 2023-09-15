@@ -53,7 +53,7 @@
                                             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
                                         </span>
                                         <span v-else>
-                                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+                                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
                                         </span>
                                         {{ modifier ? 'Modifier' : 'Ajouter' }}
                                     </v-btn>
@@ -76,17 +76,13 @@
             </template>
             <template #cell(action)="row">
                 <v-app>
-
-
-                    <v-btn class="m-0  widthBtn" color="error" @click="supprimer(row.item)">
+                    <v-btn class="m-0 widthBtn" color="warning" dark @click="update(row.item)">
+                        <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" /> Modifier
+                    </v-btn>
+                    <v-btn class="m-0 widthBtn mt-4" color="error" @click="supprimer(row.item)">
                         <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" />
-
                         Supprimer
                     </v-btn>
-                    <v-btn class="m-0 widthBtn mt-4" color="warning" dark @click="update(row.item)">
-                        <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" /> Modifier
-                    </v-btn>
-
                 </v-app>
             </template>
         </b-table>

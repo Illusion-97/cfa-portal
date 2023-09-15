@@ -102,7 +102,7 @@
       </template>
       <template #cell(Modifier)="row">
         <b-button variant="warning" @click=ouvrirModalModification(row.item) class="pl-3 pr-3">
-          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'pen']" />
+          <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
           Modifier
         </b-button>
       </template>
@@ -132,7 +132,7 @@
           text-field="name"></b-form-checkbox-group>
         <!-- <div class="mt-3">Selected: <strong>{{ editRoles }}</strong></div> -->
         <b-button type="button" class="mt-3" variant="warning" @click=modifierRolesUtilisateur>
-          <font-awesome-icon class="mr-1" :icon="['fas', 'pen']" />Modifier</b-button>
+          <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" />Modifier</b-button>
       </b-form>
     </b-modal>
 

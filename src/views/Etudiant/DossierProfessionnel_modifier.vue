@@ -100,10 +100,12 @@
           <v-icon>mdi-arrow-left</v-icon>
           Retour
         </b-button>
-            <b-button size="sm" variant="danger" class="btn-delete" @click="showDeleteExp">
+        <div v-if="hideDelete == true">
+             <b-button size="sm" variant="danger" class="btn-delete" @click="showDeleteExp">
               <font-awesome-icon :icon="['fas', 'trash']" />
               <span class="icon-right">Supprimer</span>
             </b-button>
+          </div>          
         <b-button size="sm" variant="success" type="submit">
           <font-awesome-icon :icon="['fas', 'check-circle']" />
           <span class="icon-right">Créer</span>
@@ -339,15 +341,15 @@ export default {
       tempCompetence: [],
       dpId: 0,
       selectedDate: null,
+      isIdVisible: false,
       selectedAnnexe: null,
       datePickerOpen: false,
       annexes: [],
       facultatifs:[],
       newFacultatif: {
       intitule: "",
-      showModal:false,
       organisme: "",
-      date: ""
+      date: "",
     },
       newAnnexe: {
       libelleAnnexe: "",
@@ -391,9 +393,18 @@ export default {
     .then((data) => {
       this.dossierPro = data;
       this.annexes = this.dossierPro.annexeDtos;
+      if(this.annexes.length > 0)
+      {
+        this.newAnnexe.id=this.annexes[0].id;
+        this.newAnnexe.version = this.annexes[0].version;
+        this.newAnnexe.libelleAnnexe = this.annexes[0].libelleAnnexe;
+        this.newAnnexe.pieceJointe = this.annexes[0].pieceJointe.name;
+      }
 
       this.facultatifs = this.dossierPro.facultatifDto;
       if (this.facultatifs.length > 0) {
+        this.newFacultatif.id = this.facultatifs[0].id;
+        this.newFacultatif.version = this.facultatifs[0].version
         this.newFacultatif.intitule = this.facultatifs[0].intitule;
         this.newFacultatif.organisme = this.facultatifs[0].organisme;
         this.newFacultatif.date = this.facultatifs[0].date;
@@ -437,7 +448,21 @@ confirmDeleteFile() {
 
   event.preventDefault();
 
-  const experienceProfessionnelleDtos = [];
+
+  const annexeDtos = [];
+for (let i = 0; i < this.annexes.length; i++) {
+  const annexe = this.annexes[i];
+  const newAnnexe = {
+    id: annexe.id,
+    version: annexe.version,
+    libelleAnnexe: annexe.libelleAnnexe,
+    pieceJointe: annexe.pieceJointe.name ? annexe.pieceJointe.name : annexe.pieceJointe,
+    dossierProfessionnelId: this.dossierPro.id
+  };
+  annexeDtos.push(newAnnexe);
+}
+
+const experienceProfessionnelleDtos = [];
   for (const experience of this.expPro) {
     const newExperience = {
       id: experience.id,
@@ -446,37 +471,13 @@ confirmDeleteFile() {
       collaborateur: experience.collaborateur,
       contexte: experience.contexte,
       information: experience.information,
-      competenceProfessionnelleId: this.compInModal.id,
+      competenceProfessionnelleId: this.tempCompetence.id,
       dossierProfessionnelId: this.dossierPro.id,
-      version: experience.version,
+      version: experience.version
     };
-    experienceProfessionnelleDtos.push(newExperience);
+    experienceProfessionnelleDtos.map(newExperience);
+
   }
-
-  const annexeDtos = [];
-  for (let i = 0; i < this.annexes.length; i++) {
-    const annexe = this.annexes[i];
-    const newAnnexe = {
-      id: annexe.id,
-      libelleAnnexe: annexe.libelleAnnexe,
-      pieceJointe: annexe.pieceJointe.name,
-    };
-    annexeDtos.push(newAnnexe);
-  }
-
-  const facultatifDto = [];
-
-  if (this.dossierPro.facultatifDto) {
-    const f = {
-      id: this.facultatifs.id,
-      version: this.facultatifs.version,
-      intitule: this.newFacultatif.intitule,
-      organisme: this.newFacultatif.organisme,
-      date: this.newFacultatif.date,
-      dossierProfessionnelId: this.dossierPro.id,
-    };
-    facultatifDto.push(f);
-  } 
 
   const dpDto = {
     id: this.dossierPro.id,
@@ -499,9 +500,16 @@ confirmDeleteFile() {
     },
     experienceProfessionnelleDtos,
     annexeDtos,
-    facultatifDto,
+    facultatifDto : [{
+      id: this.newFacultatif.id,
+      version : this.newFacultatif.version,
+      intitule:  this.newFacultatif.intitule,
+      organisme:  this.newFacultatif.organisme,
+      date:  this.newFacultatif.date,
+      dossierProfessionnelId: this.dossierPro.id
+   } ],
     fileImport: this.dossierPro.fileImport,
-    version: 0,
+    version: this.dossierPro.version,
   };
 
   dossierProfessionnelApi
@@ -622,17 +630,35 @@ optionsAT(activite) {
 
   
   getValue(value) {
-  this.compInModal = value;
-  this.showModal = true;
-  this.tempCompetence = value;
 
-  if (!this.filledCompetences.includes(value.id)) {
-    this.filledCompetences.push(value.id);
+      this.compInModal = value;
+      this.showModal = true;
+      this.tempCompetence = value;
+      
+      this.expPro;
+
+      let res = this.dossierPro.experienceProfessionnelleDtos.filter(e => e.competenceProfessionnelleId == this.compInModal.id)
+
+      console.dir(
+        "res > " + JSON.stringify(res, null, 4)
+      );
+
+      this.expPro = res;
+      console.log("expPro " + this.expPro);
+
+      if (this.expPro.tacheRealisee ||
+        this.expPro.moyenUtilise ||
+        this.expPro.collaborateur ||
+        this.expPro.contexte ||
+        this.expPro.information) {
+        this.hideDelete = false;
+      } else {
+        this.expPro;
+    this.hideDelete = true;
   }
-  this.expPro = this.dossierPro.experienceProfessionnelleDtos.filter(e => e.competenceProfessionnelleId === value.id);
-  
-  console.log('expPro:', this.expPro); 
-},
+
+    },
+
 
 showDeleteExp(){
   this.$bvModal.show('delete-Exp');
