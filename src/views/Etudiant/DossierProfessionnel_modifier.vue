@@ -18,10 +18,10 @@
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-           scrollable no-close-on-esc @hidden="resetModal" hide-footer v-model="showModal">
+           scrollable no-close-on-esc @hidden="resetModal" hide-footer v-model="showModal" v-if="expPro">
     <b-form @submit="addExp">
-      <div v-for="(experience, index) in expPro" :key="index">
-        <b-card no-body class="mb-1">
+      <input hidden type="text" class="form-control" v-model="formExp.id" placeholder="id" />
+      <b-card no-body class="mb-1" >
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
               tâches réalisées ou opérations que vous avez
@@ -30,8 +30,9 @@
             </b-button>
           </b-card-header>
           <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+
             <b-card-body>
-              <vue-editor v-model="experience.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
+              <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
             </b-card-body>
           </b-collapse>
         </b-card>
@@ -46,11 +47,10 @@
           <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
 
             <b-card-body>
-              <vue-editor v-model="experience.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
+              <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
             </b-card-body>
           </b-collapse>
         </b-card>
-
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal volets">3. Avec qui
@@ -61,11 +61,10 @@
           <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
 
             <b-card-body>
-              <vue-editor v-model="experience.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
+              <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
             </b-card-body>
           </b-collapse>
         </b-card>
-
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal volets">4. Précisez le
@@ -76,11 +75,10 @@
           <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
 
             <b-card-body>
-              <vue-editor v-model="experience.contexte" id="exp4" name="contexte" placeholder="Contexte" />
+              <vue-editor v-model="expPro.contexte" id="exp4" name="contexte" placeholder="Contexte" />
             </b-card-body>
           </b-collapse>
         </b-card>
-
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">5. Informations
@@ -91,7 +89,7 @@
           <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
 
             <b-card-body>
-              <vue-editor v-model="experience.information" id="exp5" name="information" placeholder="Informations" />
+              <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
           </b-collapse>
         </b-card><br/>
@@ -116,11 +114,11 @@
             Êtes-vous sûr de vouloir supprimer cette  <strong>expérience professionnelle</strong> ?
           </p>
           <div class="d-flex justify-content-between">
-            <b-button @click="deleteExp(experience.id)" variant="danger">Confirmer</b-button>
+            <b-button @click="deleteExp" variant="danger">Confirmer</b-button>
             <b-button @click="$bvModal.hide('delete-Exp')">Annuler</b-button>
           </div>
         </b-modal>
-      </div>
+        <br/>
     </b-form>
   </b-modal>  
   </div> 
@@ -326,7 +324,7 @@ export default {
       selectedActivite:[],
       selectActivite: [],
       compInModal: [],
-     selectedCompetence:null,
+      selectedCompetence:null,
       text: "",
       expPro:[],
       activitesByCursus: [],
@@ -356,13 +354,11 @@ export default {
       pieceJointe: null
     },
     formExp: {
-        id: 0,
         tacheRealisee: "",
         moyenUtilise: "",
         collaborateur: "",
         contexte: "",
-        information: "",
-        competenceProfessionnelleId: 0,
+        information: ""
       },
     showAnnexeModal: false,
     dossierPro:null,
@@ -409,9 +405,17 @@ export default {
         this.newFacultatif.organisme = this.facultatifs[0].organisme;
         this.newFacultatif.date = this.facultatifs[0].date;
       }     
-      
      this.expPro = this.dossierPro.experienceProfessionnelleDtos
-     
+     /*if( this.expPro != 0 ) {
+      this.formExp.id = this.expPro[0].id;
+      this.formExp.tacheRealisee = this.expPro[0].tacheRealisee;
+      this.formExp.moyenUtilise= this.expPro[0].moyenUtilise;
+      this.formExp.collaborateur = this.expPro[0].collaborateur;
+      this.formExp.contexte = this.expPro[0].contexte;
+      this.formExp.information = this.expPro[0].information;
+     }*/
+
+     console.log(this.expPro);
     })
     .catch((error) => {
       console.error(error);
@@ -448,7 +452,6 @@ confirmDeleteFile() {
 
   event.preventDefault();
 
-
   const annexeDtos = [];
 for (let i = 0; i < this.annexes.length; i++) {
   const annexe = this.annexes[i];
@@ -460,25 +463,6 @@ for (let i = 0; i < this.annexes.length; i++) {
     dossierProfessionnelId: this.dossierPro.id
   };
   annexeDtos.push(newAnnexe);
-}
-
-const experienceProfessionnelleDtos = [];
-  for (const experience of this.expPro) {
-    const newExperience = {
-      id: experience.id,
-      tacheRealisee: experience.tacheRealisee,
-      moyenUtilise: experience.moyenUtilise,
-      collaborateur: experience.collaborateur,
-      contexte: experience.contexte,
-      information: experience.information,
-      competenceProfessionnelleId: this.tempCompetence.id,
-      dossierProfessionnelId: this.dossierPro.id,
-      version: experience.version
-    };
-    experienceProfessionnelleDtos.map(newExperience);
-
-  }
-
   const dpDto = {
     id: this.dossierPro.id,
     nom: this.dossierPro.nom,
@@ -498,7 +482,18 @@ const experienceProfessionnelleDtos = [];
         },
       ],
     },
-    experienceProfessionnelleDtos,
+    experienceProfessionnelleDtos : [{
+              id: this.expPro.id,
+              version:this.expPro.version,
+              tacheRealisee: this.expPro.tacheRealisee,
+              moyenUtilise: this.expPro.moyenUtilise,
+              collaborateur: this.expPro.collaborateur,
+              contexte: this.expPro.contexte,
+              information: this.expPro.information,
+              competenceProfessionnelleId: this.tempCompetence.id,
+              dossierProfessionnelId: this.dossierPro.id
+    }],
+
     annexeDtos,
     facultatifDto : [{
       id: this.newFacultatif.id,
@@ -511,7 +506,7 @@ const experienceProfessionnelleDtos = [];
     fileImport: this.dossierPro.fileImport,
     version: this.dossierPro.version,
   };
-
+-
   dossierProfessionnelApi
     .updateDossierProfessionnel(
       dpDto,
@@ -527,6 +522,7 @@ const experienceProfessionnelleDtos = [];
     .catch((error) => {
       console.error("Error:", error);
     });
+ }
 },
 
     gofacult() {
@@ -588,9 +584,8 @@ deleteAnnexe(index, annexeId) {
 
 deleteExp(experienceId){
   try {
-      
       experiencesApi.deleteById(experienceId);
-      const index = this.expPro.findIndex((experience) => experience.id === experienceId);
+      const index = this.expPro.filter((experience) => experience.id === experienceId);
       if (index !== -1) {
         this.expPro.splice(index, 1);
         this.$bvModal.hide('delete-Exp');
@@ -630,34 +625,27 @@ optionsAT(activite) {
 
   
   getValue(value) {
+  this.compInModal = value;
+  this.tempCompetence = value;
+  this.expPro = this.dossierPro.experienceProfessionnelleDtos.find(e => e.competenceProfessionnelleId === this.compInModal.id);
 
-      this.compInModal = value;
-      this.showModal = true;
-      this.tempCompetence = value;
-      
-      this.expPro;
-
-      let res = this.dossierPro.experienceProfessionnelleDtos.filter(e => e.competenceProfessionnelleId == this.compInModal.id)
-
-      console.dir(
-        "res > " + JSON.stringify(res, null, 4)
-      );
-
-      this.expPro = res;
-      console.log("expPro " + this.expPro);
-
-      if (this.expPro.tacheRealisee ||
-        this.expPro.moyenUtilise ||
-        this.expPro.collaborateur ||
-        this.expPro.contexte ||
-        this.expPro.information) {
-        this.hideDelete = false;
-      } else {
-        this.expPro;
+  if (this.expPro !== undefined) {
     this.hideDelete = true;
+  } else {
+    this.expPro = {
+      id: 0,
+      tacheRealisee: "",
+      moyenUtilise: "",
+      collaborateur: "",
+      contexte: "",
+      information: "",
+      competenceProfessionnelleId: this.tempCompetence.id
+    }
+    this.hideDelete = false;
   }
 
-    },
+  this.showModal = true;
+  },
 
 
 showDeleteExp(){
@@ -693,28 +681,10 @@ isExperienceFilled(experience) {
     },
     
   
-  addExp(event) { 
+    addExp(event) { 
     event.preventDefault();
-    if (this.isExperienceFilled) {
-      this.expPro.push({
-        tacheRealisee: this.formExp.tacheRealisee,
-        moyenUtilise: this.formExp.moyenUtilise,
-        collaborateur: this.formExp.collaborateur,
-        contexte: this.formExp.contexte,
-        information: this.formExp.information,
-        competenceProfessionnelleId: this.formExp.competenceProfessionnelleId,
-      });
-
-      this.formExp.tacheRealisee = "";
-      this.formExp.moyenUtilise = "";
-      this.formExp.collaborateur = "";
-      this.formExp.contexte = "";
-      this.formExp.information = "";
-
-      this.$bvModal.hide("exp-pro-modal");
-    }
+    this.showModal = false;
    console.log(this.expPro);
-   
 },
 close(){
       this.expPro = {}; 

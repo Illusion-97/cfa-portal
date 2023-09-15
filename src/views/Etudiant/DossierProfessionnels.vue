@@ -76,7 +76,7 @@ export default {
     search: "",
     pdfUrl:'',
     etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
-    promotionId:this.$route.params.id,
+    promotionId:438,
     promotion:[],
       items: [],
       telecharger: [],
@@ -131,6 +131,7 @@ voirDossier(etudiantId, promotionId) {
   },
 
   created() {
+    console.log(this.$store);
   this.items = []; 
   dossierProfessionnelApi
     .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
@@ -146,8 +147,7 @@ voirDossier(etudiantId, promotionId) {
     this.$route.params.id !== "" &&
     this.$route.params.id !== 0
   ) {
-    this.promotionId = this.$route.params.id;
-    promotionApi.getPromotionByid(this.promotionId)
+    promotionApi.getPromotionByid(this.$route.params.id)
       .then((response) => {
         this.promotion = response;
       })
