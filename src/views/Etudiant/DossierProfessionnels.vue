@@ -2,7 +2,6 @@
   
   <div class="container-fluid" id="container">
     <h2>Dossiers professionnels</h2>
-    {{ this.items.cursusDto }}
     <br/>
     <div>
 </div>
@@ -29,7 +28,7 @@
   </b-button>
 
         <!-- BOUTON VOIR -->
-        <button @click="voirDossier(etudiantId, data.item.cursusDto)" class="btn btn-info btn-sm">
+        <button @click="voirDossier(etudiantId, data.item.cursusDto, data.item.fileImport)" class="btn btn-info btn-sm">
     <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
     Voir      
   </button>
@@ -65,7 +64,6 @@
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-//import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
   name: "DossierPro",
@@ -91,7 +89,7 @@ export default {
   },
 
   methods: {
-   //telecherger
+   
     generer(etudiantId, cursusDto) {
     if (cursusDto && cursusDto.id) {
       window.open(
@@ -112,16 +110,28 @@ export default {
       });
     },
 
-    voirDossier(etudiantId, cursusDto) {
+    voirDossier(etudiantId, cursusDto, fileImport) {
     if (cursusDto && cursusDto.id) {
-      dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, cursusDto.id)
-        .then(() => {
-          console.log(this.promotions);
-          const fileName = `dossierEtudiant${etudiantId}-promo${cursusDto.id}-1.pdf`;
-          this.pdfUrl = `http://localhost:8080/${fileName}`;
+      if (fileImport) {
+        fetch(fileImport)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = URL.createObjectURL(blob);
+          const newPage = window.open('', '_blank');
+          newPage.document.write(`<html><body><iframe src="${url}" width="100%" height="100%"></iframe></body></html>`);
+          newPage.document.close();
         })
         .catch((error) => console.log(error));
     } else {
+      dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, cursusDto.id)
+        .then(() => {
+          const fileName = `dossierEtudiant${etudiantId}-cursus${cursusDto.id}-1.pdf`;
+          this.pdfUrl = `http://localhost:8080/${fileName}`;
+        })
+        .catch((error) => console.log(error));
+    }
+  }
+     else {
       console.error("Undefined");
     }
 },
