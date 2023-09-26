@@ -2,7 +2,6 @@
   <section>
     <h3 class="text-center mt-5 mb-5">
       {{ titleNote }}
-      {{dataExamen[0]}}
     </h3>
     <section v-bind:class="[afficherNotes]">
       <div v-if="context === 'intervention'" class="d-flex alig-item-center justify-content-between m-4">

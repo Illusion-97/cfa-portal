@@ -27,7 +27,7 @@
         <div class="d-flex flex-row">
           <label class="libelle-width">Pièce jointe :</label>
           <b-form-file class="mb-2" v-model="file" ref="file-input" placeholder="Sélectionner votre pièce jointe"
-            required></b-form-file>
+            required accept="application/pdf"></b-form-file>
         </div>
         <div class="d-flex flex-row">
           <label class="date-width">Date :</label>
@@ -49,13 +49,10 @@
           </b-form-group>
         </div>
         <div class="d-flex flex-row">
-          <div class="d-flex flex-column w-50">
+          <div class="d-flex flex-column w-100">
             <label class="libelle-width d-flex flex-row w-75">Compétences professionnelles :</label>
-            <b-form-checkbox-group size="lg" v-model="selectedCompConcernees" :options="optionsCheckbox" name="flavour-1b"
-              class="
-                  col
-                  checkbox-width
-                " switches required></b-form-checkbox-group>
+            <b-form-checkbox-group style="display: flex;flex-direction: row;flex-wrap: wrap" v-model="selectedCompConcernees" :options="optionsCheckbox" name="flavour-1b"
+              class="" switches required></b-form-checkbox-group>
           </div>
           <!-- <div class="d-flex flex-row w-50 justify-content-end">
             <label class="libelle-width">Durée :</label>
