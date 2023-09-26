@@ -8,7 +8,6 @@
       <b-alert :show="dismissCountDown" dismissible fade variant="success" @dismissed="dismissCountDown = 0">
         {{ message }}
       </b-alert>
-
       <!-- LIST DES EXAMENS -->
       <b-table :items="items" :fields="fields" striped responsive="sm">
 
@@ -80,7 +79,7 @@
         <template #cell(Piece_jointe)="row">
           <div v-if="row.item.modifier" class="w-75">
             <div v-if="changeFile">
-              <b-form-file id="file-default" v-model="file"></b-form-file>
+              <b-form-file accept="application/pdf" id="file-default" v-model="file"></b-form-file>
               <p class="mt-3">{{ file ? file.name : "" }}</p>
               <b-button @click="changeFile = false" size="sm">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
@@ -280,15 +279,28 @@ export default {
             }
           });
     },
+     convertToPDFFileName(fileName) {
+      return fileName.replace(/\.\w+$/, '.pdf');
+    },
     async getFile(id, pieceJointe) {
-      const response = await examenApi.getFileExamen(id);
-      const blob = new Blob([response], { type: "application/pdf" });
+      try {
+        const fileData = await examenApi.getFileExamen(id);
 
-      let link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob)
-      link.download = pieceJointe + ".pdf";
-      link.click();
-      URL.revokeObjectURL(link.href);
+        const blob = new Blob([fileData]);
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const download = document.createElement('a');
+        download.style.display = 'none';
+        download.href = blobUrl;
+        download.download = pieceJointe;
+        document.body.appendChild(download);
+        download.click();
+
+        // optimisation de la mémoire
+        window.URL.revokeObjectURL(blobUrl);
+      } catch (error) {
+        console.error('Erreur lors du téléchargement du fichier :', error);
+      }
     },
     updateExamens() {
       examenApi

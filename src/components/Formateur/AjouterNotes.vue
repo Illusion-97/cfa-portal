@@ -36,11 +36,11 @@
         <template #cell(satisfaction)="row">
           <div v-if="!row.item.ajouter || row.item.modifier">
             <b-form-group v-slot="{ ariaDescribedby }" class="d-flex w-100">
-              <b-form-radio-group class="pt-2" id="radio-group-2">
-                <b-form-radio v-model="row.item.satisfaction" :aria-describedby="ariaDescribedby" name="some-radios"
-                  value="Oui">Oui</b-form-radio>
-                <b-form-radio v-model="row.item.satisfaction" :aria-describedby="ariaDescribedby" name="some-radios"
-                  value="Non">Non</b-form-radio>
+              <b-form-radio-group class="pt-2" :id="'radio-group-' + row.index">
+                <b-form-radio v-model="row.item.satisfaction" :aria-describedby="ariaDescribedby" :name="'some-radios-' + row.index"
+                              value="Oui">Oui</b-form-radio>
+                <b-form-radio v-model="row.item.satisfaction" :aria-describedby="ariaDescribedby" :name="'some-radios-' + row.index"
+                              value="Non">Non</b-form-radio>
               </b-form-radio-group>
             </b-form-group>
           </div>
@@ -69,7 +69,7 @@
               </b-button>
 
               <!-- ANNULER -->
-              <b-button block variant="warning" @click="new AnnulerModif(row.item)">
+              <b-button block variant="warning" @click="AnnulerModif(row.item)">
                 <font-awesome-icon :icon="['fas', 'undo-alt']" />
                 Annuler
               </b-button>
@@ -143,8 +143,19 @@ export default {
           thStyle: { width: "10%" },
         },
       ],
-      items: [
-      ],
+      dataExamen: [{
+        id: 0,
+        version: 0,
+        nom: "",
+        prenom: "",
+        note: "",
+        _cellVariants: {satisfaction: ""},
+        modifier: false,
+        etudiantNoteId: 0,
+        examenId: 0,
+        ville: "",
+      }],
+      items: []
     };
   },
   created() {
@@ -156,8 +167,8 @@ export default {
       if (this.context === "intervention") {
         promotionApi
           .getAllByInterventionIdForSelect(this.$route.params.id)
-          .then((responce) => {
-            responce.forEach((e) => {
+          .then((response) => {
+            response.forEach((e) => {
               let option = {
                 item: e.id,
                 name: e.nom,
@@ -177,7 +188,7 @@ export default {
     },
   },
   mounted() {
-    this.ajouterSatisfaction();
+    this.bgSatisfaction();
   },
   methods: {
     // NOTES
@@ -186,6 +197,7 @@ export default {
         .getAllByInterventionIdAndExamenId(this.$route.params.id, this.idExamen)
         .then((response) => {
           this.assignValueItems(response);
+          this.dataExamen = response;
         });
     },
     getByPromotion(idPromotion) {
@@ -269,7 +281,7 @@ export default {
               this.items[index].ajouter = true;
               this.items[index].modifier = false;
               this.items[index].version++;
-              this.ajouterSatisfaction();
+              this.bgSatisfaction();
             });
           } else {
             this.items[index].modifier = false;
@@ -282,7 +294,7 @@ export default {
               this.items[index].note = this.tempItemNote;
               this.items[index].satisfaction = this.tempItemSati;
               this.items[index].ajouter = true;
-              this.ajouterSatisfaction();
+              this.bgSatisfaction();
               this.tempItemSati = null;
               this.tempItemNote = null;
             }
@@ -292,7 +304,7 @@ export default {
           console.log(err);
         });
       this.$nextTick(() => {
-        this.ajouterSatisfaction();
+        this.bgSatisfaction();
       });
     },
     // OTHER
@@ -302,7 +314,7 @@ export default {
         items.push(this.setNoteDatToItem(data[i]));
       }
       this.items = items;
-      this.ajouterSatisfaction();
+      this.bgSatisfaction();
     },
     setNoteDatToItem(noteData) {
       return {
@@ -323,6 +335,11 @@ export default {
         ville: noteData.ville,
       };
     },
+    isModify(item){
+      if (item.note != 0 || item.satisfaction != null){
+        return true
+      }else {return false}
+    },
     geIndexForItem(id) {
       for (let i = 0; i < this.items.length; i++) {
         if (id === this.items[i].id) {
@@ -331,7 +348,7 @@ export default {
       }
       return null;
     },
-    ajouterSatisfaction() {
+    bgSatisfaction() {
       for (let i = 0; i < this.items.length; i++) {
         if (this.items[i].satisfaction !== "") {
           if (this.items[i].satisfaction === "Oui") {
@@ -353,7 +370,7 @@ export default {
       item.note = this.tempItemNote;
       item.modifier = false;
       this.$nextTick(() => {
-        this.ajouterSatisfaction();
+        this.bgSatisfaction();
         this.tempItemSati = null;
         this.tempItemNote = null;
       });
