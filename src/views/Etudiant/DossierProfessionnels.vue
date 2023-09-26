@@ -91,7 +91,7 @@ export default {
   },
 
   methods: {
-   
+   //telecherger
     generer(etudiantId, cursusDto) {
     if (cursusDto && cursusDto.id) {
       window.open(
