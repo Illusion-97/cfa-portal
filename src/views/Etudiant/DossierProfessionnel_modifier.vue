@@ -10,11 +10,9 @@
      <br/>
      
      <div v-for="(activite, index) in activiteTypes" :key="index.id" :value="activite.id" >
+    <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
+    <b-form-select v-model="start" :options="optionsAT(activite)" @change="getValue"></b-form-select>
 
-<h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
-
-<b-form-select v-model="start" :options="optionsAT(activite)" @change="getValue">
-</b-form-select>
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
@@ -727,6 +725,8 @@ watch: {
           this.cursus = response;
           this.getActiviteTypeByCursus(this.cursus.id);
         });
+
+
 
   },
 

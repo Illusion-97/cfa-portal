@@ -198,6 +198,7 @@ export default {
     openModal(cursusId) {
       this.showModalUpload = true;
       this.cursusId = cursusId;
+      console.log(this.cursusId);
     },
     resetModal() {
       this.nom = '';
