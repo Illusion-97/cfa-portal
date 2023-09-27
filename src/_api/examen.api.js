@@ -129,12 +129,19 @@ function getLivretEvaluation(id) {
  * 
  * @param {*} id examen
  */
- async function getFileExamen(id){
-  let req = "examens/file/" + id;
-  return  await axios
-  .get(req, requestOptions.headers(),{ responseType:"arraybuffer"})
-  .then(response => response.data)
-  .catch((error) => console.log(error));
+async function getFileExamen(id) {
+  try {
+    const response = await axios.get(`examens/file/${id}`, {
+      ...requestOptions.headers(),
+      responseType: 'arraybuffer',
+    });
+
+    if (response.status === 200) {
+      return response.data
+    }
+  } catch (error) {
+    console.error('Erreur lors du téléchargement du fichier :', error);
+  }
 }
 
 /**

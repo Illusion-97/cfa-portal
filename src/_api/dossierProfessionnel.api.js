@@ -191,8 +191,8 @@ function deleteAnnexe(annexeId) {
  * @returns 
  */
 
-function generateDossierProByStudentAndPromo(etudiantId, promotionId) {
-  let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${promotionId}`;
+function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
+  let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${cursusId}`;
 
   return axios
     .get(req, { responseType: 'arraybuffer' }) 

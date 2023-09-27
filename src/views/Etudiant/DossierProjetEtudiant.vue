@@ -73,7 +73,6 @@ export default {
         params: { id: item },
       });
     },
-
   },
 
   created() {

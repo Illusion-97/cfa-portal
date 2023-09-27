@@ -22,13 +22,13 @@
         </b-button>
 
         <!-- BOUTON TELECHARGER -->
-        <b-button class="btn mr-2 btn-success btn-sm" type="button" v-on:click="generer(etudiantId, promotionId)">
-          <i class="fa-solid fa-file-pdf"></i>
-          Télécharger
-        </b-button>
+        <b-button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(etudiantId, data.item.cursusDto)">
+    <i class="fa-solid fa-file-pdf"></i>
+    Télécharger
+  </b-button>
 
         <!-- BOUTON VOIR -->
-        <button @click="voirDossier(etudiantId, promotionId)" class="btn btn-info btn-sm">
+        <button @click="voirDossier(etudiantId, data.item.cursusDto, data.item.fileImport)" class="btn btn-info btn-sm">
     <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
     Voir      
   </button>
@@ -64,20 +64,13 @@
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import { promotionApi } from "@/_api/promotion.api.js";
 
 export default {
   name: "DossierPro",
   data() {
     return {
-    currentPage: 1,
-    perPage: 5,
-    totalRows: 0,
-    search: "",
     pdfUrl:'',
     etudiantId:this.$store.getters.getUtilisateur.etudiantDto.id,
-    promotionId:this.$route.params.id,
-    promotion:[],
       items: [],
       telecharger: [],
       fields: [
@@ -97,13 +90,17 @@ export default {
 
   methods: {
    
-generer(etudiantId, promotionId) {
-  window.open(
+    generer(etudiantId, cursusDto) {
+    if (cursusDto && cursusDto.id) {
+      window.open(
         "http://localhost:8085/dossierProfessionnel/dossier-professionnel/" +
         etudiantId +
         "/" +
-        promotionId
+        cursusDto.id
       );
+    } else {
+      console.error("Undefined");
+    }
     },
 
     getDossiers(item) {
@@ -112,25 +109,37 @@ generer(etudiantId, promotionId) {
         params: { id: item },
       });
     },
-    handlePageChange(page) {
-      this.currentPage = page;
+
+    voirDossier(etudiantId, cursusDto, fileImport) {
+    if (cursusDto && cursusDto.id) {
+      if (fileImport) {
+        fetch(fileImport)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = URL.createObjectURL(blob);
+          const newPage = window.open('', '_blank');
+          newPage.document.write(`<html><body><iframe src="${url}" width="100%" height="100%"></iframe></body></html>`);
+          newPage.document.close();
+        })
+        .catch((error) => console.log(error));
+    } else {
+      dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, cursusDto.id)
+        .then(() => {
+          const fileName = `dossierEtudiant${etudiantId}-cursus${cursusDto.id}-1.pdf`;
+          this.pdfUrl = `http://localhost:8080/${fileName}`;
+        })
+        .catch((error) => console.log(error));
+    }
+  }
+     else {
+      console.error("Undefined");
+    }
 },
-
-
-voirDossier(etudiantId, promotionId) {
-  dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, promotionId)
-    .then(() => {
-      const fileName = `dossierEtudiant${etudiantId}-promo${promotionId}-1.pdf`;
-      this.pdfUrl = `http://localhost:8080/${fileName}`;
-    })
-    .catch((error) => console.log(error));
-},
-
- 
   
   },
 
   created() {
+
   this.items = []; 
   dossierProfessionnelApi
     .getByIdEtudiant(this.$store.getters.getUtilisateur.etudiantDto.id)
@@ -140,21 +149,7 @@ voirDossier(etudiantId, promotionId) {
     .catch((error) => {
       console.error("Error", error);
     });
-
-  if (
-    this.$route.params.id != null &&
-    this.$route.params.id !== "" &&
-    this.$route.params.id !== 0
-  ) {
-    this.promotionId = this.$route.params.id;
-    promotionApi.getPromotionByid(this.promotionId)
-      .then((response) => {
-        this.promotion = response;
-      })
-      .catch((error) => {
-        console.error("Error", error);
-      });
-  }
+ 
 }
 
   
