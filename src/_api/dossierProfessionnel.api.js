@@ -159,7 +159,6 @@ function deleteAnnexe(annexeId) {
         'Content-Type': 'multipart/form-data'
       }
     });
-
     return response.data;
   } catch (error) {
     console.log(error);
@@ -214,30 +213,35 @@ function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
  */
 
 
-function updateDossierProfessionnel(dpDto, id,file) {
-  console.log(dpDto);
-  const formData = new FormData();
-  formData.append('dossierProfessionnel', JSON.stringify(dpDto));
+function updateDossierProfessionnel(dpDto, id, file) {
+  return new Promise((resolve, reject) => {
+    console.log(dpDto);
+    const formData = new FormData();
+    formData.append('dossierProfessionnel', JSON.stringify(dpDto));
 
-  if (Array.isArray(file)) {
-    file.forEach(f => formData.append('pieceJointe', f));
-  } else if (file) {
-    formData.append('pieceJointe', file);
-  }
+    if (Array.isArray(file)) {
+      file.forEach(f => formData.append('pieceJointe', f));
+    } else if (file) {
+      formData.append('pieceJointe', file);
+    }
 
-  try {
-    const response =  axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+    axios
+      .put(`${END_POINT}/update/etudiant/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        resolve(response.data); 
+      })
+      .catch(error => {
+        console.log(error);
+        reject(error); 
+      });
+  });
 }
+
+export default updateDossierProfessionnel;
 
 /* function updateDossierProfessionnel(dpDto, id, pieceJointe) {
   const formData = new FormData();

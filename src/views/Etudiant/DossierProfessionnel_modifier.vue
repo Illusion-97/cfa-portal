@@ -688,9 +688,7 @@ close(){
       this.expPro = {}; 
       this.$bvModal.hide("exp-pro-modal");
 
-},
-
-  
+},  
 
   },
 

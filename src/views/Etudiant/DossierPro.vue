@@ -517,17 +517,20 @@ onSubmit(event) {
     
   }
 
-    dossierProfessionnelApi
-      .saveDossierProfessionnel(
-        this.$store.getters.getUtilisateur.etudiantDto.id,
-        dpDto,
-        this.newAnnexe.pieceJointe
-      )
-      .then(data => {
-        this.form = data;
-        console.log(data);
-        this.$bvModal.show("modal-createDossier-success");
-      });
+  dossierProfessionnelApi
+  .saveDossierProfessionnel(
+    this.$store.getters.getUtilisateur.etudiantDto.id,
+    dpDto,
+    this.newAnnexe.pieceJointe
+  )
+  .then(data => {
+    this.form = data;
+    console.log(data);
+    this.$bvModal.show("modal-createDossier-success");
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
   } catch (error) {
     console.error("Error:", error);
   }

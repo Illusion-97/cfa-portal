@@ -32,11 +32,18 @@ export const planningFields = [
 export const dossProjFields = [
     { value: "nom", text: "Nom du dossier projet", sortable: false},
     { value: "projet.nom", text: "Nom du projet", sortable: false},
+    { text: "Actions", value: "action", sortable: false}
 ];
 
 export const dossProfFields = [
     { value: "nom", text: "Nom du dossier professionnel", sortable: false},
     { value: "cursusDto.titre", text: "Cursus", sortable: false},
+    {
+        value: "action",
+        text: "Action",
+        sortable: false,
+        buttonColumn: true,
+      },
 ];
 
 export const congeFields = [
