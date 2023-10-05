@@ -86,9 +86,10 @@
           <v-data-table :headers="dossProjFields" :items="dossProjs" :page.sync="pageDossProjet"
             :items-per-page="itemsPerPage" class="elevation-1" hide-default-footer v-if="dossProjs.length">
             <template v-slot:[`item.action`]="{ item }">
+              <v-icon size="xxl" class="me-2" @click="consulterDprojet(item.id)">mdi-eye</v-icon> 
          <v-icon size="xxl" class="me-2" @click="telechargerDprojet(item.id, item.nom)">mdi-download</v-icon>
-  </template>
-  </v-data-table>
+          </template>
+      </v-data-table>
           <v-card-title v-else>Pas de dossier projet.</v-card-title>
           <div class="text-center pt-2">
             <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" square
@@ -100,8 +101,9 @@
           <v-data-table :headers="dossProfFields" :items="dossProfs" :page.sync="pageDossProfessionnel"
             :items-per-page="itemsPerPage" class="elevation-1" hide-default-footer v-if="dossProfs.length">
             <template v-slot:[`item.action`]="{ item }">
-         <v-icon size="xxl" class="me-2" @click="telechargerDprof(item)">mdi-download</v-icon>
-  </template>
+              <v-icon size="xxl" class="me-2" @click="consulterDprof(item.id)">mdi-eye</v-icon> 
+         <v-icon size="xxl" class="me-2" @click="telechargerDprof(item.id, item.fileImport)">mdi-download</v-icon>
+          </template>
             </v-data-table>
           <v-card-title v-else>Pas de dossier professionnel.</v-card-title>
           <div class="text-center pt-2">
@@ -247,10 +249,50 @@
       .catch(error => {
         console.error("Erreur lors de la génération du dossier projet :", error);
       });
-   
-  },
+    },
+
+    telechargerDprof(dossierId)
+    {
+      dossierProfessionnelApi.generateDossier(dossierId).then(response => {
+        console.response("dossier telecharger :", response);
+      })
+      .catch(error => {
+        console.error("Erreur lors de la génération du dossier :", error);
+      });
+    },
+
+    consulterDprojet() {
+      
+    },
+
+    consulterDprof(dossierId){
+      if (dossierId) {
+      if (this.dossProfs.fileImport) {
+        fetch(this.dossProfs.fileImport)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = URL.createObjectURL(blob);
+          const newPage = window.open('', '_blank');
+          newPage.document.write(`<html><body><iframe src="${url}" width="100%" height="100%"></iframe></body></html>`);
+          newPage.document.close();
+        })
+        .catch((error) => console.log(error));
+    } else {
+      dossierProfessionnelApi.voirDossierPro(dossierId)
+        .then(() => {
+          const fileName = `dossierEtudiant${dossierId}-cursus-1.pdf`;
+          this.pdfUrl = `http://localhost:8080/${fileName}`;
+        })
+        .catch((error) => console.log(error));
+    }
+  }
+     else {
+      console.error("Undefined");
+    }
+    },
 
 },
+
     created() {
     this.etudiantId = this.$route.params.id;
     this.getInfoEtudiant();
@@ -260,6 +302,7 @@
     this.getdossProfEtudiant();
     this.getCongeEtudiant();
     this.getabsenceEtudiant();
+
   },
 
   };

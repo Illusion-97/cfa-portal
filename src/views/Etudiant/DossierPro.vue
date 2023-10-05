@@ -688,13 +688,7 @@ setup(){
 
         .then(() =>
           this.$bvModal.hide("exp-pro-modal"),
-          this.$bvModal.show("modal-delete-success"),
-
-          
-        );
-
-    }
-
+          this.$bvModal.show("modal-delete-success"));}        
   },
 
   created() {

@@ -38,12 +38,7 @@ export const dossProjFields = [
 export const dossProfFields = [
     { value: "nom", text: "Nom du dossier professionnel", sortable: false},
     { value: "cursusDto.titre", text: "Cursus", sortable: false},
-    {
-        value: "action",
-        text: "Action",
-        sortable: false,
-        buttonColumn: true,
-      },
+    { text: "Actions", value: "action", sortable: false}
 ];
 
 export const congeFields = [
