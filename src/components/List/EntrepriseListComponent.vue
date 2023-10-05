@@ -5,7 +5,7 @@
   </b-alert>
 
   <div class="d-flex flex-row align-items-end justify-content-between m-3">
-    <form class="form-inline form" @submit="submit">
+    <form class="form-inline" @submit="submit">
       <input id="saisie" name="saisie" type="text" placeholder="Rechercher" class="form-control" v-model="saisie" />
       <button class="btn-submit" type="submit">
         <font-awesome-icon :icon="['fas', 'search']" class="icon" />

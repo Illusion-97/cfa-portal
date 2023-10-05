@@ -33,7 +33,7 @@
 
       
 
-      <form class="form-inline form" @submit="submit">
+      <form class="form-inline" @submit="submit">
         <input
           id="saisie"
           name="saisie"

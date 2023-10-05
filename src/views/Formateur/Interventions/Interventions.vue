@@ -3,7 +3,7 @@
 
     <!-- BARRE DE RECHERCHE -->
     <div class="header-list m-4">
-      <form class="form-inline form" @submit="search">
+      <form class="form-inline" @submit="search">
         <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="key" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />

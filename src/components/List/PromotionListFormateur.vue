@@ -4,7 +4,7 @@
 
       <div class="header-list mr-4 mt-4 ml-4 mb-0">
         <!-- BARRE DE RECHERCHE -->
-        <form class="form-inline form" @submit="submit">
+        <form class="form-inline" @submit="submit">
           <input
             id="saisie"
             name="saisie"

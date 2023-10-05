@@ -15,7 +15,7 @@
 
     <div class="updateListPromotion">
       <div class="d-flex flex-row align-items-end justify-content-between m-3">
-        <form class="form-inline form" @submit="submit">
+        <form class="form-inline" @submit="submit">
           <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
           <!--<search-bar-component @search="searchSortList"/>-->
           <button class="btn-submit" type="submit">

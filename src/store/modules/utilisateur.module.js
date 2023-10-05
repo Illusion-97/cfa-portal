@@ -24,6 +24,7 @@ export const utilisateur = {
   },
   getters: {
     getUtilisateur: (state) => {
+      console.log(state)
       return state.utilisateur;
     },
   },

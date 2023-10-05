@@ -8,7 +8,7 @@
       <template #thead-top>
         <b-tr>
           <b-th colspan="4">
-            <form class="form-inline form" @submit="submit">
+            <form class="form-inline " @submit="submit">
               <input id="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
               <button class="btn-submit" type="submit">
                 <font-awesome-icon :icon="['fas', 'search']" class="icon" />
