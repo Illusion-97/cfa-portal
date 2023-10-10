@@ -47,36 +47,30 @@
         </div> -->
 
         <div class="justify-center cardAction">
+          <div class="button-container">
           <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" :sitekey="sitekey"
             :loadRecaptchaScript="true">
             <div v-if="isInvalid" class="my-invalid-feedback">
               Identifiant ou mot de passe incorrects !
             </div>
+
             <button color="error" class="btn btn-primary" :disabled="!valid" type="submit" id="btn-login-connexion">
               Se connecter
             </button>
-            <!-- <div class="form-group">
-          <div v-if="isInvalid" class="my-invalid-feedback">
-            Identifiant ou mot de passe incorrects !
-          </div>
-          <div class="col-md-offset-2 col-md-12">
-            <input
-              class="btn btn-primary"
-              type="submit"
-              value="Se connecter"
-            />
-            <button color="error" class="btn btn-primary" :disabled="!valid" type="submit">
-            recaptcha
-          </button>
-          </div>
-        </div>-->
           </vue-recaptcha>
+          <button color="error" class="btn btn-subscribe" @click="subscribe">
+                inscription tuteur
+            </button>
+          </div>
           <div class="cardActionForgot">
             <div class="link">
               <router-link :to="{ name: 'forgot' }">
                 Mot de passe oublié
               </router-link>
             </div>
+          </div>
+          <div class="cardActionForgot">
+           
           </div>
         </div>
       </div>
@@ -106,7 +100,6 @@ export default {
   },
   data() {
     return {
-      //sitekey: "6Ld9lTodAAAAAFpu53aFO_BQe8a6hyzzIhg0muVP",
       show: false,
       password: "",
       email: "",
@@ -186,6 +179,9 @@ export default {
           });
       }
     },
+    subscribe(){
+      router.push({ name: "subscribe"});
+    },
     toPublicPage() {
       router.push({ name: "login" });
     },
@@ -194,6 +190,25 @@ export default {
 </script>
 
 <style scoped>
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 5px;
+}
+.btn-subscribe{
+  background-color: #ffffff; 
+  color: #56baed; 
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  font-size: 12px; 
+  width: auto;
+}
+.btn-subscribe:hover {
+  background-color: #ffffff; 
+  color: #3498db; 
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); 
+}
+
 .my-invalid-feedback {
   width: 100%;
   margin-top: 0.25rem;
@@ -248,7 +263,7 @@ h2 {
   background: #fff;
   padding: 30px;
   width: 90%;
-  max-width: 450px;
+  max-width: 600px;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
@@ -289,7 +304,7 @@ button {
   background-color: #56baed;
   border: none;
   color: white;
-  padding: 15px 80px;
+  padding: 20px 50px;
   text-align: left;
   text-decoration: none;
   display: inline-block;
@@ -299,7 +314,7 @@ button {
   box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
-  margin: 5px 20px 40px 20px;
+  margin: 5px 40px 40px 40px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;

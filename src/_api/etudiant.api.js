@@ -8,6 +8,7 @@ const END_POINT = "etudiants";
 
 export const etudiantApi = {
     getById,
+    getAllEtudiant,
     getAllByPage,
     getCount,
     save,
@@ -31,6 +32,18 @@ export const etudiantApi = {
     getEtudiantsByPromotionByPage,
     getCountEtudiantsByPromotion,
     sendMail
+}
+
+/**
+ * Récupération de tous les étudiants
+ * 
+ * @returns 
+ */       
+function getAllEtudiant() {
+    return axios
+        .get(`${END_POINT}`, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
 
 /**
