@@ -98,8 +98,7 @@
                                         </v-col>
                                         <v-col cols="12" class="text-right">
                                             <v-btn class="mr-4" type="submit" color="success">
-                                                <font-awesome-icon class="mr-1 mt-1"  :icon="['fas', 'check']"
-                                                     />
+                                                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'check']" />
                                                 Valider
                                             </v-btn>
                                             <v-btn class="mr-4" color="secondary" @click="clear">
@@ -211,10 +210,22 @@ export default {
                 });
         },
         addTuteur() {
+            // Assurez-vous que etudiantId a une valeur avant de continuer
+            if (!this.etudiantId) {
+                // Affichez un message d'erreur ou effectuez toute autre logique nécessaire
+                console.error("Veuillez sélectionner un étudiant.");
+                return;
+            }
+
+            // Mettez à jour la propriété etudiantId dans formTuteur
+            this.formTuteur.etudiantDto = {
+                id: this.etudiantId,
+                // Ajoutez d'autres propriétés de l'étudiantDto si nécessaire
+            };
             this.formTuteur.adresseDto.id = this.adresseId;
             this.formTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formTuteur)
-                .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouter.')))
+                .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouté.')))
                 .catch((error) => (this.$emit('hidden', error)))
         },
     },
