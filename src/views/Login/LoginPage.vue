@@ -47,13 +47,12 @@
         </div> -->
 
         <div class="justify-center cardAction">
+          <div v-if="isInvalid" class="my-invalid-feedback">
+              Identifiant ou mot de passe incorrects !
+            </div>
           <div class="button-container">
           <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" :sitekey="sitekey"
             :loadRecaptchaScript="true">
-            <div v-if="isInvalid" class="my-invalid-feedback">
-              Identifiant ou mot de passe incorrects !
-            </div>
-
             <button color="error" class="btn btn-primary" :disabled="!valid" type="submit" id="btn-login-connexion">
               Se connecter
             </button>
@@ -194,6 +193,7 @@ export default {
   display: flex;
   justify-content: space-between;
   margin: 5px 5px;
+  margin-top: 20px;
 }
 .btn-subscribe{
   background-color: #ffffff; 
@@ -214,6 +214,7 @@ export default {
   margin-top: 0.25rem;
   font-size: 100%;
   color: #dc3545;
+  text-align: center;
 }
 
 .my-is-invalid {
