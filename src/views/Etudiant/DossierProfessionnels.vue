@@ -22,13 +22,13 @@
         </b-button>
 
         <!-- BOUTON TELECHARGER -->
-        <b-button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(etudiantId, data.item.cursusDto)">
+        <b-button class="btn mr-2 btn-success btn-sm" type="button" @click="generer(data.item.id)">
     <i class="fa-solid fa-file-pdf"></i>
     Télécharger
   </b-button>
 
         <!-- BOUTON VOIR -->
-        <button @click="voirDossier(etudiantId, data.item.cursusDto, data.item.fileImport)" class="btn btn-info btn-sm">
+        <button @click="voirDossier(data.item.id, data.item.fileImport)" class="btn btn-info btn-sm">
     <font-awesome-icon class="mr-1 ml-1" :icon="['fas', 'eye']" /> 
     Voir      
   </button>
@@ -64,6 +64,7 @@
 
 <script>
 import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+import Swal from 'sweetalert2';
 
 export default {
   name: "DossierPro",
@@ -90,17 +91,23 @@ export default {
 
   methods: {
    
-    generer(etudiantId, cursusDto) {
-    if (cursusDto && cursusDto.id) {
-      window.open(
-        "http://localhost:8085/dossierProfessionnel/dossier-professionnel/" +
-        etudiantId +
-        "/" +
-        cursusDto.id
-      );
-    } else {
-      console.error("Undefined");
-    }
+    generer(dossierId) {
+      dossierProfessionnelApi.generateDossier(dossierId).then(() => {
+        Swal.fire({
+        icon: 'success',
+        title: 'Dossier téléchargé avec succès',
+        showConfirmButton: false,
+        timer: 1500 
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Échec du téléchargement du dossier',
+        text: 'Veuillez réessayer plus tard',
+      });
+    });
     },
 
     getDossiers(item) {
@@ -110,8 +117,8 @@ export default {
       });
     },
 
-    voirDossier(etudiantId, cursusDto, fileImport) {
-    if (cursusDto && cursusDto.id) {
+    voirDossier(dossierId, fileImport) {
+    if (dossierId) {
       if (fileImport) {
         fetch(fileImport)
         .then((response) => response.blob())
@@ -123,9 +130,9 @@ export default {
         })
         .catch((error) => console.log(error));
     } else {
-      dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, cursusDto.id)
+      dossierProfessionnelApi.voirDossierPro(dossierId)
         .then(() => {
-          const fileName = `dossierEtudiant${etudiantId}-cursus${cursusDto.id}-1.pdf`;
+          const fileName = `dossierEtudiant${dossierId}-cursus-1.pdf`;
           this.pdfUrl = `http://localhost:8080/${fileName}`;
         })
         .catch((error) => console.log(error));

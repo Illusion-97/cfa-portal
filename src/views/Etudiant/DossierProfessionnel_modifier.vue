@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
-    <h2>Modification du dossier professionnel</h2>
+  <div class="container">  
     <div v-if="dossierPro">
+      <h5>Modification du dossier professionnel : 
+      <span>{{ this.cursus.titre }}</span></h5>  
       <b-form @submit="updateDossier">
       <v-col cols="12" sm="6"  md="4">
       <v-text-field  type="text" v-model="dossierPro.nom" variant="filled"  clearable >
@@ -9,10 +10,12 @@
     </v-col>
      <br/>
      
-     <div v-for="(activite, index) in activiteTypes" :key="index.id" :value="activite.id" >
-    <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
-    <b-form-select v-model="start" :options="optionsAT(activite)" @change="getValue"></b-form-select>
-
+     <div v-for="(activite, index) in activiteTypes" :key="index.id">
+  <h6>Activité type {{ index + 1 }} : {{ activite.libelle }}</h6>
+  
+  <b-form-select  :options="optionsAT(activite)" @change="getValue">
+  </b-form-select>
+    
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
@@ -226,14 +229,13 @@
         <div class="d-flex justify-content-between align-items-center">
           <span>{{ dossierPro.fileImport }}</span>
           <div class="d-flex align-items-center">
-            <v-icon @click="confirmDeleteFile">mdi-close</v-icon>
-            <v-icon @click="showConfirmationModal" v-if="dossierPro.fileImport">mdi-check</v-icon>
+            <v-icon @click="confirmDeleteFile" class="text-danger">mdi-close</v-icon>
+            <v-icon @click="showConfirmationModal" class="text-success">mdi-check</v-icon>
           </div>
         </div>
       </b-list-group-item>
       <b-list-group-item v-else>
         <v-file-input v-model="dossierPro.fileImport"></v-file-input>
-        
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -262,7 +264,6 @@
 <br/><br/>
     
     <div id="div-save">
-    
           <b-button v-b-modal.modal-updateDossier-success size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Valider</span>
@@ -365,9 +366,9 @@ export default {
     };
   },
   methods: {
-    getActiviteTypeByCursus(id){
+    getActiviteTypeByCursus(){
       activiteTypeApi
-          .getActiviteTypesByCursus(id)
+          .getActiviteTypesByCursus(this.dossierPro.cursusDto.id)
           .then((response) => (this.activiteTypes = response))
     },
     getCursusEtudiant() {
@@ -402,18 +403,9 @@ export default {
         this.newFacultatif.intitule = this.facultatifs[0].intitule;
         this.newFacultatif.organisme = this.facultatifs[0].organisme;
         this.newFacultatif.date = this.facultatifs[0].date;
-      }     
-     this.expPro = this.dossierPro.experienceProfessionnelleDtos
-     /*if( this.expPro != 0 ) {
-      this.formExp.id = this.expPro[0].id;
-      this.formExp.tacheRealisee = this.expPro[0].tacheRealisee;
-      this.formExp.moyenUtilise= this.expPro[0].moyenUtilise;
-      this.formExp.collaborateur = this.expPro[0].collaborateur;
-      this.formExp.contexte = this.expPro[0].contexte;
-      this.formExp.information = this.expPro[0].information;
-     }*/
+      }  
 
-     console.log(this.expPro);
+     this.expPro = this.dossierPro.experienceProfessionnelleDtos;
     })
     .catch((error) => {
       console.error(error);
@@ -504,7 +496,7 @@ for (let i = 0; i < this.annexes.length; i++) {
     fileImport: this.dossierPro.fileImport,
     version: this.dossierPro.version,
   };
--
+
   dossierProfessionnelApi
     .updateDossierProfessionnel(
       dpDto,
@@ -581,6 +573,7 @@ deleteAnnexe(index, annexeId) {
 },
 
 deleteExp(experienceId){
+  experienceId = this.expPro.id;
   try {
       experiencesApi.deleteById(experienceId);
       const index = this.expPro.filter((experience) => experience.id === experienceId);
@@ -593,18 +586,18 @@ deleteExp(experienceId){
     }
     },
 
-optionsAT(activite) {
-    let tab = [
-      {
-        value: null,
-        text: "+ Ajouter une expérience professionnelle à :",
-        disabled: true,
-      },
-    ];
+    optionsAT(activite) {
+  let tab = [
+    {
+      value: null,
+      text: "+ Ajouter une expérience professionnelle à :",
+      disabled: true,
+    },
+  ];
 
-    if (activite.competencesProfessionnellesDto) {
+  if (activite.competencesProfessionnellesDto) {
     activite.competencesProfessionnellesDto.forEach((competence) => {
-      const hasExperiences = this.filledCompetences.includes(competence.id);
+      const hasExperiences = this.hasExperiences(competence.id); 
 
       let option = {
         value: competence,
@@ -618,9 +611,13 @@ optionsAT(activite) {
       tab.push(option);
     });
   }
-    return tab;
-  },
 
+  return tab;
+},
+
+  hasExperiences(competenceId) {
+      return this.dossierPro.experienceProfessionnelleDtos.some((experience) => experience.competenceProfessionnelleId === competenceId);
+    },
   
   getValue(value) {
   this.compInModal = value;
@@ -688,9 +685,7 @@ close(){
       this.expPro = {}; 
       this.$bvModal.hide("exp-pro-modal");
 
-},
-
-  
+},  
 
   },
 
@@ -718,7 +713,7 @@ watch: {
     }
   },
   created() {
-   this.fetchDossier(); 
+  this.fetchDossier();
 
     this.getCursusEtudiant()
         .then((response) => {
@@ -726,9 +721,8 @@ watch: {
           this.getActiviteTypeByCursus(this.cursus.id);
         });
 
+},
 
-
-  },
 
   computed: {
     checkboxErrors() {
@@ -884,4 +878,6 @@ select {
   color: red;
   cursor: pointer;
 }
+
+
 </style>

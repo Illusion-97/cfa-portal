@@ -13,12 +13,13 @@ export const dossierProfessionnelApi = {
   getByIdEtudiant2,
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
-  generateDossierProByStudentAndPromo,
+  voirDossierPro,
   updateDossierProfessionnel,
   handleFileUpload,
   getAllByPage,
   deleteFileImport,
-  saveImport
+  saveImport,
+  generateDossier
 }
 
 /**
@@ -159,7 +160,6 @@ function deleteAnnexe(annexeId) {
         'Content-Type': 'multipart/form-data'
       }
     });
-
     return response.data;
   } catch (error) {
     console.log(error);
@@ -191,8 +191,8 @@ function deleteAnnexe(annexeId) {
  * @returns 
  */
 
-function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
-  let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${cursusId}`;
+function voirDossierPro(dossierId) {
+  let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
 
   return axios
     .get(req, { responseType: 'arraybuffer' }) 
@@ -205,6 +205,25 @@ function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
 
     .catch((error) => console.log(error));
 }
+function generateDossier(dossierId) {
+  let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
+
+  return axios
+    .get(req, { responseType: 'arraybuffer' }) 
+    .then(response => {
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `dossierPro-${dossierId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    })
+    .catch((error) => console.log(error));
+}
 
 
 /** 
@@ -214,30 +233,35 @@ function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
  */
 
 
-function updateDossierProfessionnel(dpDto, id,file) {
-  console.log(dpDto);
-  const formData = new FormData();
-  formData.append('dossierProfessionnel', JSON.stringify(dpDto));
+function updateDossierProfessionnel(dpDto, id, file) {
+  return new Promise((resolve, reject) => {
+    console.log(dpDto);
+    const formData = new FormData();
+    formData.append('dossierProfessionnel', JSON.stringify(dpDto));
 
-  if (Array.isArray(file)) {
-    file.forEach(f => formData.append('pieceJointe', f));
-  } else if (file) {
-    formData.append('pieceJointe', file);
-  }
+    if (Array.isArray(file)) {
+      file.forEach(f => formData.append('pieceJointe', f));
+    } else if (file) {
+      formData.append('pieceJointe', file);
+    }
 
-  try {
-    const response =  axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+    axios
+      .put(`${END_POINT}/update/etudiant/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        resolve(response.data); 
+      })
+      .catch(error => {
+        console.log(error);
+        reject(error); 
+      });
+  });
 }
+
+export default updateDossierProfessionnel;
 
 /* function updateDossierProfessionnel(dpDto, id, pieceJointe) {
   const formData = new FormData();

@@ -8,6 +8,7 @@ const END_POINT = "etudiants";
 
 export const etudiantApi = {
     getById,
+    getAllEtudiant,
     getAllByPage,
     getCount,
     save,
@@ -29,7 +30,20 @@ export const etudiantApi = {
     fetchAllEtudiantDG2HttpByIdPromotion,
     getAccueilEtudiant,
     getEtudiantsByPromotionByPage,
-    getCountEtudiantsByPromotion
+    getCountEtudiantsByPromotion,
+    sendMail
+}
+
+/**
+ * Récupération de tous les étudiants
+ * 
+ * @returns 
+ */       
+function getAllEtudiant() {
+    return axios
+        .get(`${END_POINT}`, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
 }
 
 /**
@@ -391,5 +405,33 @@ function getCountEtudiantsByPromotion(id, search) {
     return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+/**
+ * Méthode D'envoi de mail
+ *
+ * @param from
+ * @param to
+ * @param header
+ * @param msg
+ * @returns
+ */
+function sendMail(from, to, header, msg) {
+    let req = `/${END_POINT}/mail`;
+
+    const params = new URLSearchParams();
+    params.append('from', from);
+    params.append('to', to);
+    params.append('header', header);
+    params.append('msg', msg);
+
+    return axios
+        .post(req, params, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+        .then((response) => response)
         .catch((error) => console.log(error));
 }
