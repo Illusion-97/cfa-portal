@@ -517,20 +517,17 @@ onSubmit(event) {
     
   }
 
-  dossierProfessionnelApi
-  .saveDossierProfessionnel(
-    this.$store.getters.getUtilisateur.etudiantDto.id,
-    dpDto,
-    this.newAnnexe.pieceJointe
-  )
-  .then(data => {
-    this.form = data;
-    console.log(data);
-    this.$bvModal.show("modal-createDossier-success");
-  })
-  .catch(error => {
-    console.error("Error:", error);
-  });
+    dossierProfessionnelApi
+      .saveDossierProfessionnel(
+        this.$store.getters.getUtilisateur.etudiantDto.id,
+        dpDto,
+        this.newAnnexe.pieceJointe
+      )
+      .then(data => {
+        this.form = data;
+        console.log(data);
+        this.$bvModal.show("modal-createDossier-success");
+      });
   } catch (error) {
     console.error("Error:", error);
   }
@@ -688,7 +685,13 @@ setup(){
 
         .then(() =>
           this.$bvModal.hide("exp-pro-modal"),
-          this.$bvModal.show("modal-delete-success"));}        
+          this.$bvModal.show("modal-delete-success"),
+
+          
+        );
+
+    }
+
   },
 
   created() {

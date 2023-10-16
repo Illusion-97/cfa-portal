@@ -252,7 +252,6 @@ export default {
       };
       await dossierProjetApi.save(dpDto).then((data) => {
         this.DossierProjet = data;
-        // Affichage Modal pour confirmer la création
         this.$bvModal.show("modal-delete-success");
         this.idDp = data.id;
       })
@@ -260,6 +259,7 @@ export default {
         await dossierProjetApi.saveImport(fileImport, this.idDp)
       }
       // Envoi de chaque fichier
+
       const annexeData = new FormData();
       for (let i = 0; i < filesAnnexe.length; i++) {
         const annexe = filesAnnexe[i];
