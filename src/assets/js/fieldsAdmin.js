@@ -29,6 +29,11 @@ export const utilisateursFields = [
     label: "Modifier",
     thStyle: { width: "1%" },
   },
+  {
+    key: "ModifierT",
+    label: "Modifier Tuteur",
+    thStyle: { width: "1%" },
+  },
 ];
 
 export const etudiantsFields = [

@@ -204,18 +204,18 @@
           diplôme, titre, CQP, attestation de formation facultatif
         </b-button>
         <v-list-item>
-          <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+          <v-text-field v-model="newFacultatif.intitule"  label="Intitulé" 
             @input="$v.newFacultatif.intitule.$touch()" @blur="$v.newFacultatif.intitule.$touch()" style="background-color: white;"></v-text-field>
         </v-list-item>
         <v-list-item>
-          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
+          <v-text-field v-model="newFacultatif.organisme"  label="Organisme" 
             @input="$v.newFacultatif.organisme.$touch()" @blur="$v.newFacultatif.organisme.$touch()" style="background-color: white;"></v-text-field>
         </v-list-item>
         <v-list-item>
           <template>
   
         <v-list-item class="containerDate">
-          <v-text-field v-model="newFacultatif.date" label="Sélectionnez une date" readonly  required></v-text-field>
+          <v-text-field v-model="newFacultatif.date" label="Sélectionnez une date" readonly  ></v-text-field>
               <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                   <v-btn icon v-on="on">
@@ -528,9 +528,6 @@ onSubmit(event) {
     console.log(data);
     this.$bvModal.show("modal-createDossier-success");
   })
-  .catch(error => {
-    console.error("Error:", error);
-  });
   } catch (error) {
     console.error("Error:", error);
   }

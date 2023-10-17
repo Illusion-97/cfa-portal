@@ -185,17 +185,17 @@
         </b-button>
         <v-list-item>
           <input hidden type="text" class="form-control" v-model="newFacultatif.id" placeholder="id" />
-          <v-text-field v-model="newFacultatif.intitule" :error-messages="nameErrors" :counter="10" label="Intitulé" required
+          <v-text-field v-model="newFacultatif.intitule" :counter="10" label="Intitulé" 
             @input="$v.newFacultatif.intitule.$touch()" @blur="$v.newFacultatif.intitule.$touch()" style="background-color: white;"></v-text-field>
         </v-list-item>
         <v-list-item>
-          <v-text-field v-model="newFacultatif.organisme" :error-messages="emailErrors" label="Organisme" required
+          <v-text-field v-model="newFacultatif.organisme" label="Organisme" 
             @input="$v.newFacultatif.organisme.$touch()" @blur="$v.newFacultatif.organisme.$touch()" style="background-color: white;"></v-text-field>
         </v-list-item>
         <v-list-item>
   
         <v-list-item class="containerDate">
-          <v-text-field v-model="newFacultatif.date" label="Sélectionnez une date" readonly  required></v-text-field>
+          <v-text-field v-model="newFacultatif.date" label="Sélectionnez une date" readonly></v-text-field>
               <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                   <v-btn icon v-on="on">
@@ -438,21 +438,51 @@ confirmDeleteFile() {
     },
     
     
- updateDossier(event) {
-
+    updateDossier(event) {
   event.preventDefault();
 
   const annexeDtos = [];
-for (let i = 0; i < this.annexes.length; i++) {
-  const annexe = this.annexes[i];
-  const newAnnexe = {
-    id: annexe.id,
-    version: annexe.version,
-    libelleAnnexe: annexe.libelleAnnexe,
-    pieceJointe: annexe.pieceJointe.name ? annexe.pieceJointe.name : annexe.pieceJointe,
+
+
+  for (let i = 0; i < this.annexes.length; i++) {
+    const annexe = this.annexes[i];
+    const newAnnexe = {
+      id: annexe.id,
+      version: annexe.version,
+      libelleAnnexe: annexe.libelleAnnexe,
+      pieceJointe: annexe.pieceJointe.name ? annexe.pieceJointe.name : annexe.pieceJointe,
+      dossierProfessionnelId: this.dossierPro.id
+    };
+    annexeDtos.push(newAnnexe);
+
+  }
+ const experienceProfessionnelleDtos = this.dossierPro.experienceProfessionnelleDtos.map((expPro) => {
+  return {
+    id: expPro.id,
+    version: expPro.version,
+    tacheRealisee: expPro.tacheRealisee,
+    moyenUtilise: expPro.moyenUtilise,
+    collaborateur: expPro.collaborateur,
+    contexte: expPro.contexte,
+    information: expPro.information,
+    competenceProfessionnelleId: expPro.competenceProfessionnelleId,
+    dossierProfessionnelId: expPro.dossierProfessionnelId
+  };
+});
+if (!this.dossierPro.experienceProfessionnelleDtos.some(expPro => expPro.competenceProfessionnelleId === this.tempCompetence.id)) {
+  const newExpPro = {
+    id: 0,
+    tacheRealisee: this.expPro.tacheRealisee,
+    moyenUtilise: this.expPro.moyenUtilise,
+    collaborateur: this.expPro.collaborateur,
+    contexte:this.expPro.contexte,
+    information: this.expPro.information,
+    competenceProfessionnelleId: this.tempCompetence.id,
     dossierProfessionnelId: this.dossierPro.id
   };
-  annexeDtos.push(newAnnexe);
+
+  experienceProfessionnelleDtos.push(newExpPro);
+}
   const dpDto = {
     id: this.dossierPro.id,
     nom: this.dossierPro.nom,
@@ -472,27 +502,18 @@ for (let i = 0; i < this.annexes.length; i++) {
         },
       ],
     },
-    experienceProfessionnelleDtos : [{
-              id: this.expPro.id,
-              version:this.expPro.version,
-              tacheRealisee: this.expPro.tacheRealisee,
-              moyenUtilise: this.expPro.moyenUtilise,
-              collaborateur: this.expPro.collaborateur,
-              contexte: this.expPro.contexte,
-              information: this.expPro.information,
-              competenceProfessionnelleId: this.tempCompetence.id,
-              dossierProfessionnelId: this.dossierPro.id
-    }],
-
+    experienceProfessionnelleDtos, 
     annexeDtos,
-    facultatifDto : [{
-      id: this.newFacultatif.id,
-      version : this.newFacultatif.version,
-      intitule:  this.newFacultatif.intitule,
-      organisme:  this.newFacultatif.organisme,
-      date:  this.newFacultatif.date,
-      dossierProfessionnelId: this.dossierPro.id
-   } ],
+    facultatifDto: [
+      {
+        id: this.newFacultatif.id,
+        version: this.newFacultatif.version,
+        intitule: this.newFacultatif.intitule,
+        organisme: this.newFacultatif.organisme,
+        date: this.newFacultatif.date,
+        dossierProfessionnelId: this.dossierPro.id
+      }
+    ],
     fileImport: this.dossierPro.fileImport,
     version: this.dossierPro.version,
   };
@@ -512,8 +533,8 @@ for (let i = 0; i < this.annexes.length; i++) {
     .catch((error) => {
       console.error("Error:", error);
     });
- }
 },
+
 
     gofacult() {
       this.$bvModal.show("cc");
@@ -574,17 +595,12 @@ deleteAnnexe(index, annexeId) {
 
 deleteExp(experienceId){
   experienceId = this.expPro.id;
-  try {
+  
       experiencesApi.deleteById(experienceId);
-      const index = this.expPro.filter((experience) => experience.id === experienceId);
-      if (index !== -1) {
-        this.expPro.splice(index, 1);
         this.$bvModal.hide('delete-Exp');
-      }
-    } catch (error) {
-      console.error('Error lors de la suppression de l experience:', error);
-    }
-    },
+        
+      },
+    
 
     optionsAT(activite) {
   let tab = [
@@ -615,9 +631,13 @@ deleteExp(experienceId){
   return tab;
 },
 
-  hasExperiences(competenceId) {
-      return this.dossierPro.experienceProfessionnelleDtos.some((experience) => experience.competenceProfessionnelleId === competenceId);
-    },
+hasExperiences(competenceId) {
+  if (Array.isArray(this.dossierPro.experienceProfessionnelleDtos)) {
+    return this.dossierPro.experienceProfessionnelleDtos.some((experience) => experience.competenceProfessionnelleId === competenceId);
+  } else {
+    return false; 
+  }
+},
   
   getValue(value) {
   this.compInModal = value;
@@ -686,6 +706,9 @@ close(){
       this.$bvModal.hide("exp-pro-modal");
 
 },  
+goBack() {
+      window.history.back();
+    },
 
   },
 
@@ -699,10 +722,6 @@ close(){
     },
   
 
-  goBack() {
-    this.$router.push('/etudiant/dossierprofessionnels');
-    },
-    
 },
 
 watch: {
