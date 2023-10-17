@@ -1,0 +1,12 @@
+.center-content {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important;
+}
+
+.v-form {
+  width: 100% !important;
+  max-width: 400px !important;
+  margin: auto !important;
+}
