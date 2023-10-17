@@ -89,13 +89,13 @@
                                                 <v-text-field v-model="adresse" label="Adresse"></v-text-field>
                                             </v-form>
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <!-- <v-col cols="12" md="4">
                                             <v-form v-model="valid">
                                                 <v-select v-model="etudiantId" :items="listEtudiant"
                                                     :rules="[v => !!v || 'Veuillez selectionner un étudiant']"
                                                     label="Etudiant" required></v-select>
                                             </v-form>
-                                        </v-col>
+                                        </v-col> -->
                                         <v-col cols="12" class="text-right">
                                             <v-btn class="mr-4" type="submit" color="success">
                                                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'check']" />
@@ -181,7 +181,7 @@ export default {
         },
     },
     created() {
-        this.getEtudiant();
+        //this.getEtudiant();
     },
     methods: {
         clear() {
@@ -210,17 +210,12 @@ export default {
                 });
         },
         addTuteur() {
-            // Assurez-vous que etudiantId a une valeur avant de continuer
             if (!this.etudiantId) {
-                // Affichez un message d'erreur ou effectuez toute autre logique nécessaire
                 console.error("Veuillez sélectionner un étudiant.");
                 return;
             }
-
-            // Mettez à jour la propriété etudiantId dans formTuteur
             this.formTuteur.etudiantDto = {
                 id: this.etudiantId,
-                // Ajoutez d'autres propriétés de l'étudiantDto si nécessaire
             };
             this.formTuteur.adresseDto.id = this.adresseId;
             this.formTuteur.entrepriseDto.id = this.entrepriseId;
