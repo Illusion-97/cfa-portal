@@ -63,8 +63,9 @@
 </template>
 
 <script>
-import { groupeApi } from "@/_api/groupe.api.js";
+import {groupeApi} from "@/_api/groupe.api.js";
 import Pagination from "@/components/Navigation/Pagination.vue";
+
 export default {
   name: "groupeListComponent",
   components: { Pagination },

@@ -95,7 +95,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
+
 export default {
     name: "FicheSalarie",
     components: {

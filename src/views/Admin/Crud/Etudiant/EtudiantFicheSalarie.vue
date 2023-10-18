@@ -201,6 +201,7 @@
 <script>
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+
 export default {
   name: "FicheSalarieCreate",
   components: {

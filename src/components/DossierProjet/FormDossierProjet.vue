@@ -88,6 +88,7 @@ import {VueEditor} from "vue2-editor";
 import {projetApi} from "@/_api/projet.api.js";
 import {activiteTypeApi} from "@/_api/activiteType.api.js";
 import {cursusApi} from "@/_api/cursus.api";
+
 export default {
   name: "FormDossierProjet",
   components: { VueEditor },

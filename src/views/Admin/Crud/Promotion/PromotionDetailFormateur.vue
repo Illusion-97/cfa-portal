@@ -151,12 +151,12 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
-import { interventionApi } from "@/_api/intervention.api";
-import { etudiantApi } from "@/_api/etudiant.api";
+import {utilisateurService} from "@/_services/utilisateur.service.js";
+import {interventionApi} from "@/_api/intervention.api";
+import {etudiantApi} from "@/_api/etudiant.api";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 
 export default {

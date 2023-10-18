@@ -85,11 +85,11 @@
   </section>
 </template>
 <script>
-import { activiteTypeApi } from "@/_api/activiteType.api.js";
-import { evaluationFormationApi } from "@/_api/evaluationFormation.api.js";
-import { promotionApi } from "@/_api/promotion.api.js";
-import { livretEvaluationApi } from "@/_api/livretEvaluation.api.js";
-import { blocEvaluationApi } from "@/_api/blocEvaluation.api.js";
+import {activiteTypeApi} from "@/_api/activiteType.api.js";
+import {evaluationFormationApi} from "@/_api/evaluationFormation.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
+import {livretEvaluationApi} from "@/_api/livretEvaluation.api.js";
+import {blocEvaluationApi} from "@/_api/blocEvaluation.api.js";
 
 export default {
 

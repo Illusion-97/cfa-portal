@@ -64,7 +64,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { promotionApi } from "@/_api/promotion.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
+
 export default {
   name: "PromotionList",
   components: {

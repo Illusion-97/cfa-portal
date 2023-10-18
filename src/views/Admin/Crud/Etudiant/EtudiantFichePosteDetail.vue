@@ -92,8 +92,9 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
-import { fichePosteApi } from "@/_api/fichePoste.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
+import {fichePosteApi} from "@/_api/fichePoste.api.js";
+
 export default {
     name: "FichePosteDetail",
     components: {

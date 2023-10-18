@@ -69,9 +69,10 @@
     </div>
 </template>
 <script>
-import { entrepriseApi } from "@/_api/entreprise.api.js";
-import { adresseApi } from "@/_api/adresse.api.js";
+import {entrepriseApi} from "@/_api/entreprise.api.js";
+import {adresseApi} from "@/_api/adresse.api.js";
 import addAdresse from "@/components/Modal/AddAdresse.vue";
+
 export default {
     name: "AddAdresse",
     components: {

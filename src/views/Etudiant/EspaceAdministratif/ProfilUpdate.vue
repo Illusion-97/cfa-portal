@@ -99,10 +99,10 @@
 </template>
 
 <script>
-  import moment from "moment-timezone";
-  import { utilisateurApi } from "@/_api/utilisateur.api.js";
-  import BodyTitle from "@/components/utils/BodyTitle.vue";
-  // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
+import moment from "moment-timezone";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
+import BodyTitle from "@/components/utils/BodyTitle.vue";
+// import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
   // import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
   //import RoleModal from "@/components/Modal/RoleModal.vue";
 

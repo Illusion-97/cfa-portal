@@ -232,8 +232,8 @@
 </div>
 </template>
 <script>
-import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
-import { VueEditor } from "vue2-editor";
+import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
+import {VueEditor} from "vue2-editor";
 import {activiteTypeApi} from "@/_api/activiteType.api.js";
 import {cursusApi} from "@/_api/cursus.api";
 

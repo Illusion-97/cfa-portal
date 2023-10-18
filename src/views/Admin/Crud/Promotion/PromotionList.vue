@@ -6,6 +6,7 @@
 
 <script>
 import PromotionListComponent from "@/components/List/PromotionListComponent.vue";
+
 export default {
   name: "PromotionList",
   components: {

@@ -270,10 +270,10 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { noteApi } from "@/_api/note.api.js";
-import { absenceApi } from "@/_api/absence.api.js";
-import { congeApi } from "@/_api/conge.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {noteApi} from "@/_api/note.api.js";
+import {absenceApi} from "@/_api/absence.api.js";
+import {congeApi} from "@/_api/conge.api.js";
 
 import "@/assets/styles/CrudDetail.css";
 

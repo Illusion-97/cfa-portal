@@ -34,6 +34,7 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+
 export default {
   name: "GroupeProjet",
   components: {

@@ -152,7 +152,7 @@
 
 <script>
 import {ficheEntrepriseApi} from "@/_api/ficheEntreprise.api.js";
-import { entrepriseApi } from "@/_api/entreprise.api.js";
+import {entrepriseApi} from "@/_api/entreprise.api.js";
 import {etudiantApi} from "@/_api/etudiant.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 // import AdresseListComponent from "@/components/List/AdresseListComponent.vue";

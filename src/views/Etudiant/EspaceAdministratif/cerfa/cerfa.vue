@@ -827,7 +827,8 @@
 </template>
 
 <script>
-import { cerfaApi } from "@/_api/cerfa.api.js";
+import {cerfaApi} from "@/_api/cerfa.api.js";
+
 export default {
     name: "Cerfa",
     components: {

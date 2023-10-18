@@ -52,9 +52,9 @@
 
 <script>
 import router from "../../router/router"
-import { validationMixin } from "vuelidate";
-import { required, email} from "vuelidate/lib/validators";
-import EmailRecover  from "../../_helpers/EmailRecover";
+import {validationMixin} from "vuelidate";
+import {email, required} from "vuelidate/lib/validators";
+import EmailRecover from "../../_helpers/EmailRecover";
 import mailService from "../../_services/mailService";
 
 // const alpha = helpers.regex(

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { requestOptions } from '@/_helpers/request-options.js';
+import {requestOptions} from '@/_helpers/request-options.js';
 
 export const passageExamenApi = {
     getById,

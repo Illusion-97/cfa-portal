@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { examenApi } from "@/_api/examen.api.js";
-import { noteApi } from "@/_api/note.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {examenApi} from "@/_api/examen.api.js";
+import {noteApi} from "@/_api/note.api.js";
 
 export default {
   name: "ControleContinuEtudiant",

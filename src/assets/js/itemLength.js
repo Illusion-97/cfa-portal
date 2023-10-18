@@ -1,4 +1,5 @@
 import courseModel from "@/assets/mock/course.json";
+
 const maxLength = courseModel.length;
 export const courseItemLength = [
   { text: "5 sur " + maxLength, value: 5 },

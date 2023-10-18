@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { congeApi } from "@/_api/conge.api.js";
+import {congeApi} from "@/_api/conge.api.js";
 
 export default {
   name: "CongeListComponent",

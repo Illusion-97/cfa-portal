@@ -67,7 +67,7 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
-import { fileApi } from "@/_api/file.api.js"
+import {fileApi} from "@/_api/file.api.js"
 import {projetApi} from "@/_api/projet.api.js"
 
 export default {

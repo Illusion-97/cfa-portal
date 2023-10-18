@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import { passageExamenApi } from "@/_api/passageExamen.api.js";
+import {passageExamenApi} from "@/_api/passageExamen.api.js";
+
 export default {
   name: "passageExamenDetail",
   components: {},

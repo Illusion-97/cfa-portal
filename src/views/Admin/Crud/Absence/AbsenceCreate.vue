@@ -88,8 +88,8 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";
-import { absenceApi } from "@/_api/absence.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import {absenceApi} from "@/_api/absence.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
   name: "CongeCreate",

@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { absenceApi } from "@/_api/absence.api.js";
+import {absenceApi} from "@/_api/absence.api.js";
 
 export default {
   name: "absenceDetail",

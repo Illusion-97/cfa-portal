@@ -129,10 +129,10 @@
     <script>
     import '@fortawesome/fontawesome-free/css/all.css';
     //import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
-    import { devoirApi } from "@/_api/devoir.api.js";
+    import {devoirApi} from "@/_api/devoir.api.js";
     // import { interventionApi } from "@/_api/intervention.api.js";
-    import { utilisateurService} from "@/_services/utilisateur.service.js"; 
-    
+    import {utilisateurService} from "@/_services/utilisateur.service.js";
+
     export default {
       name: "DevoirCreate",
       components: {

@@ -96,8 +96,8 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import PassageExamenListComponent from "@/components/List/PassageExamenListComponent.vue";
 import DevoirListComponent from "@/components/List/DevoirListComponent.vue";
-import { noteApi } from "@/_api/note.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import {noteApi} from "@/_api/note.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
   name: "CongeCreate",

@@ -73,7 +73,8 @@
 </template>
 
 <script>
-import { groupeApi } from "@/_api/groupe.api.js";
+import {groupeApi} from "@/_api/groupe.api.js";
+
 export default {
   name: "groupeListComponent",
   components: {},

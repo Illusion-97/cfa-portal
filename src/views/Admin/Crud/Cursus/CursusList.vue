@@ -6,6 +6,7 @@
 
 <script>
 import CursusListComponent from "@/components/List/CursusListComponent.vue";
+
 export default {
   name: "CursusList",
   components: {

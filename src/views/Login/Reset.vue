@@ -80,12 +80,8 @@
 
 <script>
 import router from "../../router/router";
-import { validationMixin } from "vuelidate";
-import {
-  required,
-  minLength,
-  sameAs,
-} from "vuelidate/lib/validators";
+import {validationMixin} from "vuelidate";
+import {minLength, required, sameAs,} from "vuelidate/lib/validators";
 import resetService from "../../_services/resetService";
 import ResetPassword from "../../_helpers/ResetPassword";
 

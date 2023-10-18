@@ -55,8 +55,9 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+
 export default {
   name: "EtudiantR",
   components: {

@@ -77,9 +77,10 @@
 </template>
 
 <script>
-import { fileApi } from "@/_api/file.api.js"
+import {fileApi} from "@/_api/file.api.js"
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { fileFields } from "@/assets/js/fields.js";
+import {fileFields} from "@/assets/js/fields.js";
+
 export default {
   name: "DepotFichier",
   components: {

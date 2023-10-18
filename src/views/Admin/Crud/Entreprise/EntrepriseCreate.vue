@@ -54,12 +54,11 @@
 </template>
 
 <script>
-  import {
-    entrepriseApi
-  } from "@/_api/entreprise.api.js";
-  import BodyTitle from "@/components/utils/BodyTitle.vue";
-  import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
-  export default {
+import {entrepriseApi} from "@/_api/entreprise.api.js";
+import BodyTitle from "@/components/utils/BodyTitle.vue";
+import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
+
+export default {
     name: "AddEntreprise",
     components: {
       BodyTitle,
