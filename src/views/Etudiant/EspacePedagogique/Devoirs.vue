@@ -53,7 +53,7 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { etudiantApi} from "@/_api/etudiant.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
   name: "Notes",

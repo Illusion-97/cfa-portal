@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
 
 export default {
   name: "EtudiantListComponent",

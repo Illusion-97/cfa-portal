@@ -189,15 +189,16 @@
 </template>
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
-import { interventionApi } from "@/_api/intervention.api.js";
+import {examenApi} from "@/_api/examen.api.js";
+import {interventionApi} from "@/_api/intervention.api.js";
 // import { absenceApi } from "@/_api/absence.api.js";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
+import {utilisateurService} from "@/_services/utilisateur.service.js";
 import EtudiantsInterventionListComponent from "@/components/List/EtudiantsInterventionListComponent.vue";
 import EvaluationComponent from "@/components/Formateur/EvaluationComponent"
 import DevoirsInterventionListComponent from "@/components/List/DevoirsInterventionListComponent";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
+
 export default {
   name: "DetailIntervention",
   components: {

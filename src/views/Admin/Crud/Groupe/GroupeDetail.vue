@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { groupeApi } from "@/_api/groupe.api.js";
+import {groupeApi} from "@/_api/groupe.api.js";
 
 import "@/assets/styles/CrudDetail.css";
 

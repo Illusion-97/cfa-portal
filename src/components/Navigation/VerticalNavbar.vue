@@ -97,11 +97,9 @@
   </div>
 </template>
 <script>
-  import {
-    utilisateurService
-  } from "@/_services/utilisateur.service.js";
+import {utilisateurService} from "@/_services/utilisateur.service.js";
 
-  export default {
+export default {
     name: "VerticalNavbar",
     methods: {},
     computed: {

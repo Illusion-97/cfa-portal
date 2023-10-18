@@ -7,7 +7,7 @@
       <v-progress-circular v-if="loading" indeterminate color="red darken-1"></v-progress-circular>
     </div>
     <div class="d-flex flex-row align-items-end justify-content-between m-3">
-      <form v-bind:class="{ 'form form-inline': true, 'mt-5 mb-2': isModal }" @submit="submit">
+      <form v-bind:class="{ 'form-inline': true, 'mt-5 mb-2': isModal }" @submit="submit">
         <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -98,9 +98,9 @@
 </template>
 
 <script>
-import { cursusApi } from "@/_api/cursus.api.js";
+import {cursusApi} from "@/_api/cursus.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
-import { fieldsCursus } from "@/assets/js/fields.js";
+import {fieldsCursus} from "@/assets/js/fields.js";
 
 export default {
   name: "CursusListComponent",

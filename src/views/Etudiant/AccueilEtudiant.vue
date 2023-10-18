@@ -90,10 +90,10 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { projetApi } from "@/_api/projet.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {projetApi} from "@/_api/projet.api.js";
 import PlanningEtudiant from "@/components/utils/PlanningEtudiant.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
 
 export default {
   name: "AccueilEtudiant",

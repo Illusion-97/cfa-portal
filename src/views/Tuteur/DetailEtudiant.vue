@@ -85,7 +85,10 @@
         <v-card v-show="active === 4" name="dossier projet">
           <v-data-table :headers="dossProjFields" :items="dossProjs" :page.sync="pageDossProjet"
             :items-per-page="itemsPerPage" class="elevation-1" hide-default-footer v-if="dossProjs.length">
-          </v-data-table>
+            <template v-slot:[`item.action`]="{ item }">
+         <v-icon size="xxl" class="me-2" @click="telechargerDprojet(item.id, item.nom)">mdi-download</v-icon>
+          </template>
+      </v-data-table>
           <v-card-title v-else>Pas de dossier projet.</v-card-title>
           <div class="text-center pt-2">
             <v-pagination v-model="pageDossProjet" :length="Math.ceil(dossProjs.length / itemsPerPage)" square
@@ -97,7 +100,10 @@
         <v-card v-show="active === 5" name="dossier professionnel">
           <v-data-table :headers="dossProfFields" :items="dossProfs" :page.sync="pageDossProfessionnel"
             :items-per-page="itemsPerPage" class="elevation-1" hide-default-footer v-if="dossProfs.length">
-          </v-data-table>
+            <template v-slot:[`item.action`]="{ item }">
+         <v-icon size="xxl" class="me-2" @click="telechargerDprof(item.id, item.fileImport)">mdi-download</v-icon>
+          </template>
+            </v-data-table>
           <v-card-title v-else>Pas de dossier professionnel.</v-card-title>
           <div class="text-center pt-2">
             <v-pagination v-model="pageDossProfessionnel" :length="Math.ceil(dossProfs.length / itemsPerPage)" square
@@ -135,14 +141,22 @@
   </template>
 
   <script>
-  import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
-  import { congeApi } from "@/_api/conge.api.js";
-  import { absenceApi } from "@/_api/absence.api.js";
-  import { etudiantApi } from "@/_api/etudiant.api.js";
-  import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-  import { noteApi } from "@/_api/note.api.js";
-  import { promotionApi } from "@/_api/promotion.api.js";
-  import { notesFields, dossProfFields, absenceFields, congeFields, planningFields, dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
+  import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
+  import {congeApi} from "@/_api/conge.api.js";
+  import {absenceApi} from "@/_api/absence.api.js";
+  import {etudiantApi} from "@/_api/etudiant.api.js";
+  import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js";
+  import {noteApi} from "@/_api/note.api.js";
+  import {promotionApi} from "@/_api/promotion.api.js";
+  import {
+    absenceFields,
+    congeFields,
+    dossProfFields,
+    dossProjFields,
+    notesFields,
+    planningFields
+  } from "@/assets/js/fieldsDetailEtudiant.js";
+  //import MailComponent from "@/components/utils/MailComponent.vue";
 
   export default {
   data: () => {
@@ -227,7 +241,34 @@
         .getAllByIdEtudiant(this.etudiantId)
         .then((response) => (this.absences = response));
     },
-  },
+
+    telechargerDprojet(id, nomDossierProjet) {
+      dossierProjetApi
+      .genererDossier(id)
+      .then(response => {
+        let bas64 = response;
+        const linkSource = `data:application/pdf;base64,${bas64}`;
+        const downloadLink = document.createElement("a");
+        const fileName = "dossier-projet-" + nomDossierProjet + ".pdf";
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click();
+      })
+      .catch(error => {
+        console.error("Erreur lors de la génération du dossier projet :", error);
+      });
+    },
+
+    telechargerDprof(dossierId)
+    {
+      dossierProfessionnelApi.generateDossier(dossierId).then(response => {
+        console.log("dossier telecharger :", response);
+      })
+      .catch(error => {
+        console.error("Erreur lors de la génération du dossier :", error);
+      });
+    },
+},
 
     created() {
     this.etudiantId = this.$route.params.id;

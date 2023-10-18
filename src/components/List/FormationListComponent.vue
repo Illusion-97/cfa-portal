@@ -117,8 +117,9 @@
 </template>
 
 <script>
-import { formationApi } from "@/_api/formation.api.js";
+import {formationApi} from "@/_api/formation.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
+
 export default {
   name: "FormationListComponent",
   components: {

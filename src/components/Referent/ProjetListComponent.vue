@@ -79,7 +79,7 @@
   </div>
 </template>
 <script>
-import { projetApi } from "@/_api/projet.api.js";
+import {projetApi} from "@/_api/projet.api.js";
 
 export default {
   name: "projetListComponent",

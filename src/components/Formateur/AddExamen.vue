@@ -80,8 +80,8 @@
 
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
-import { promotionApi } from "@/_api/promotion.api.js";
+import {examenApi} from "@/_api/examen.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
 
 export default {
   props: {

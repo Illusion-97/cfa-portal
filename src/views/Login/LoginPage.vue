@@ -86,9 +86,9 @@
 
 <script>
 import VueRecaptcha from "vue-recaptcha";
-import { validationMixin } from "vuelidate";
-import { required, email } from "vuelidate/lib/validators";
-import { authenticationApi } from "@/_api/authentication.api.js";
+import {validationMixin} from "vuelidate";
+import {email, required} from "vuelidate/lib/validators";
+import {authenticationApi} from "@/_api/authentication.api.js";
 import router from "@/router/router.js";
 import store from "../../store/store";
 

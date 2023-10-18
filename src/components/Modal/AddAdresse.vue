@@ -35,7 +35,8 @@
     </div>
 </template>
 <script>
-import { adresseApi } from "@/_api/adresse.api.js";
+import {adresseApi} from "@/_api/adresse.api.js";
+
 export default {
     name: "AddAdresse",
     data() {

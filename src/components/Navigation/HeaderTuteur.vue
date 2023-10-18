@@ -32,8 +32,9 @@
 
 
 <script>
-import { authenticationApi } from "@/_api/authentication.api.js";
-import  Icon  from '../../assets/img/LOGO.png';
+import {authenticationApi} from "@/_api/authentication.api.js";
+import Icon from '../../assets/img/LOGO.png';
+
 export default {
   name: "HeaderFormateur",
   props: {

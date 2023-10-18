@@ -54,7 +54,8 @@
 </template>
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
+import {examenApi} from "@/_api/examen.api.js";
+
 export default {
   name: "ExamenDetail",
   components: {},

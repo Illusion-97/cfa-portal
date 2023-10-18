@@ -96,6 +96,12 @@
                                 </v-select>
                             </v-col>
                         </v-row>
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <v-select :items="listEtudiant" v-model="etudiantId"
+                                    label="Etudiant*" outlined :rules="required" clearable required></v-select>
+                            </v-col>
+                        </v-row>
                         <div>
                             <small>*indique les champs requis</small>
                         </div>
@@ -138,7 +144,9 @@
     </div>
 </template>
 <script>
+
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 import { adresseApi } from "@/_api/adresse.api.js";
 import { entrepriseApi } from "@/_api/entreprise.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
@@ -180,9 +188,11 @@ export default {
             listCentreFormation: [],
             listEntreprise: [],
             listAdresse: [],
+            listEtudiant: [],
             sexe: ['Mr', 'Mme'],
             adresseId: null,
             entrepriseId: null,
+            etudiantId: null,
             show1: false,
             required: [v => !!v || 'Le champ est requis'],
         };
@@ -197,6 +207,7 @@ export default {
         this.getCentreFormation();
         this.getEntreprise();
         this.getAdresse();
+        this.getEtudiant();
     },
     methods: {
         getCentreFormation() {
@@ -206,6 +217,16 @@ export default {
                     data.forEach(centreFormation => {
                         let item = { text: centreFormation.nom, value: centreFormation.id };
                         this.listCentreFormation.push(item);
+                    })
+                });
+        },
+        getEtudiant() {
+            etudiantApi
+                .getAllEtudiant()
+                .then((data) => {
+                    data.forEach(etudiant => {
+                        let item = { text: etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom, value: etudiant.id }
+                        this.listEtudiant.push(item);
                     })
                 });
         },
@@ -261,8 +282,16 @@ export default {
             this.formulaireTuteur.entrepriseDto.id = null;
             this.adresseId = null;
             this.entrepriseId = null;
+            this.etudiantId = null;
         },
         addTuteur() {
+            if (!this.etudiantId) {
+                console.error("Veuillez sélectionner un étudiant.");
+                return;
+            }
+            this.formulaireTuteur.etudiantDto = {
+                id: this.etudiantId,
+            };
             this.formulaireTuteur.adresseDto.id = this.adresseId;
             this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formulaireTuteur)

@@ -3,13 +3,11 @@ import VueRouter from "vue-router";
 import store from "@/store/store.js";
 
 //import { authenticationApi } from '@/_api/authentication.api.js';
-
-import { Role } from "@/_helpers/role.js";
+import {Role} from "@/_helpers/role.js";
 
 //#######################
 //#       READ ME       #
 //#######################
-
 // Les imports et les routes sont rangés dans l'ordre :
 //  - GLOBAL
 //  - ETUDIANT
@@ -18,11 +16,9 @@ import { Role } from "@/_helpers/role.js";
 //  - ADMIN
 //  - CEF
 //  - TUTEUR
-
 //#######################
 //#       IMPORTS       #
 //#######################
-
 //#######################
 //#       GLOBAL        #
 //#######################
@@ -46,7 +42,6 @@ import DetailFormation from "@/views/All/Formation/DetailFormation.vue";
 //#######################
 //#       ETUDIANT      #
 //#######################
-
 //Etudiant Administratif
 import Profil from "@/views/Etudiant/EspaceAdministratif/Profil.vue";
 import ProfilUpdate from "@/views/Etudiant/EspaceAdministratif/ProfilUpdate.vue";
@@ -70,7 +65,6 @@ import Notes from "@/views/Etudiant/EspacePedagogique/Notes.vue";
 import NotesDetails from "@/views/Etudiant/EspacePedagogique/NotesDetails.vue";
 
 //new espace Etudiant
-
 import AccueilEtudiant from "@/views/Etudiant/AccueilEtudiant.vue";
 import CursusEtudiant from "@/views/Etudiant/CursusEtudiant.vue";
 import ControleContinuEtudiant from "@/views/Etudiant/ControleContinuEtudiant.vue";
@@ -117,11 +111,9 @@ import DevoirsR from "@/views/Referent/DevoirsR.vue";
 import ExamenR from "@/views/Referent/ExamenR.vue";
 //import CreateExamenR from "@/views/Referent/CreateExamenR.vue";
 //import ModifierExamenR from "@/views/Referent/ModifierExamenR.vue";
-
 //#######################
 //#       ADMIN         #
 //#######################
-
 //Utilisateur
 import AdminDashboard from "@/views/Admin/AdminDashboard.vue";
 import AddUser from "@/views/Admin/Crud/User/AddUser.vue";
@@ -189,7 +181,7 @@ import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
 import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreFormationList.vue";
 import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
 import CentreFormationDetails from "@/views/Admin/Crud/CentreDeFormation/CentreFormationDetails.vue";
-//Activité Type 
+//Activité Type
 import ActiviteTypeDetail from "@/views/Admin/Crud/ActiviteType/ActiviteTypeDetail.vue";
 //Competence Pro
 import CompetenceProDetail from "@/views/Admin/Crud/CompetenceProfessionnelle/CompetenceProDetail.vue";

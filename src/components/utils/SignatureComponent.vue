@@ -41,8 +41,9 @@
 </template>
 <script>
 import VPerfectSignature from 'v-perfect-signature';
-import { signatureApi } from "@/_api/signature.api.js";
-import { signatureContent } from "../../assets/img/signatureContent.js"
+import {signatureApi} from "@/_api/signature.api.js";
+import {signatureContent} from "../../assets/img/signatureContent.js"
+
 export default {
     name: "SignatureComponent",
     components: {

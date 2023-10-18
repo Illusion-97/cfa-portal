@@ -156,6 +156,7 @@ import {etudiantApi} from "@/_api/etudiant.api.js";
 import {VueEditor} from "vue2-editor";
 import {activiteTypeApi} from "@/_api/activiteType.api.js";
 import {cursusApi} from "@/_api/cursus.api";
+
 export default {
   name: "DossierProjetCreer",
   components: { VueEditor },

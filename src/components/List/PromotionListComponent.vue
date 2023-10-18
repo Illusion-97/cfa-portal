@@ -15,7 +15,7 @@
 
     <div class="updateListPromotion">
       <div class="d-flex flex-row align-items-end justify-content-between m-3">
-        <form class="form-inline form" @submit="submit">
+        <form class="form-inline" @submit="submit">
           <input id="saisie" name="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
           <!--<search-bar-component @search="searchSortList"/>-->
           <button class="btn-submit" type="submit">
@@ -98,10 +98,11 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
-import { etudiantApi } from '@/_api/etudiant.api.js';
-import { interventionApi } from '@/_api/intervention.api.js';
+import {promotionApi} from "@/_api/promotion.api.js";
+import {etudiantApi} from '@/_api/etudiant.api.js';
+import {interventionApi} from '@/_api/intervention.api.js';
 import LoginWdg2 from "@/components/LoginWdg2.vue";
+
 export default {
   name: "PromotionListComponent",
   components: {

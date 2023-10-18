@@ -188,8 +188,8 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
-import { centreFormationApi } from "@/_api/centreFormation.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
+import {centreFormationApi} from "@/_api/centreFormation.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import CursusModal from "@/components/Modal/CursusModal.vue";
 import UtilisateurModal from "@/components/Modal/UtilisateurModal.vue";

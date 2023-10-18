@@ -8,7 +8,7 @@
       <template #thead-top>
         <b-tr>
           <b-th colspan="4">
-            <form class="form-inline form" @submit="submit">
+            <form class="form-inline " @submit="submit">
               <input id="saisie" placeholder="Rechercher" type="text" class="form-control" v-model="saisie" />
               <button class="btn-submit" type="submit">
                 <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -172,11 +172,11 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { absenceApi } from "@/_api/absence.api.js";
-import { positionnementApi } from "@/_api/positionnements.api.js";
-import { devoirApi } from "@/_api/devoir.api.js";
-import { niveauApi } from "@/_api/niveau.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {absenceApi} from "@/_api/absence.api.js";
+import {positionnementApi} from "@/_api/positionnements.api.js";
+import {devoirApi} from "@/_api/devoir.api.js";
+import {niveauApi} from "@/_api/niveau.api.js";
 
 export default {
   name: "EtudiantsInterventionListComponent",

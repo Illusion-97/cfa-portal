@@ -106,11 +106,12 @@
 </template>
 
 <script>
-import { congeApi } from "@/_api/conge.api.js";
-import { fileApi } from "@/_api/file.api.js";
+import {congeApi} from "@/_api/conge.api.js";
+import {fileApi} from "@/_api/file.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { leaveFields } from "@/assets/js/fields.js";
+import {leaveFields} from "@/assets/js/fields.js";
+
 export default {
   name: "DemandeConge",
   components: {

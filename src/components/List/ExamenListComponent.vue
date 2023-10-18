@@ -6,7 +6,7 @@
         <input class="col-9 form-control" type="text" :value="examen_input" disabled="disabled"/>
       </div>
 
-      <form class="form-inline form" @submit="submit">
+      <form class="form-inline" @submit="submit">
         <input
           id="saisie"
           name="saisie"
@@ -78,7 +78,7 @@
   </div>
 </template>
 <script>
-import { examenApi } from "@/_api/examen.api.js";
+import {examenApi} from "@/_api/examen.api.js";
 
 export default {
   name: "ExamenListComponent",

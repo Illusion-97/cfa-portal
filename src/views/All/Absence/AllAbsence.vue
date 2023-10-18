@@ -20,8 +20,9 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { absences_latesFields } from "@/assets/js/fields.js";
-import { absenceApi } from "@/_api/absence.api";
+import {absences_latesFields} from "@/assets/js/fields.js";
+import {absenceApi} from "@/_api/absence.api";
+
 export default {
   name: "AbsenceRetard",
   components: {
