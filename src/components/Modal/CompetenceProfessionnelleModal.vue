@@ -75,7 +75,8 @@
 </template>
 
 <script>
-import { competenceProfessionnelleApi } from "@/_api/competenceProfessionnelle.api";
+import {competenceProfessionnelleApi} from "@/_api/competenceProfessionnelle.api";
+
 export default {
   name: "CompetenceProModal",
   components: {},

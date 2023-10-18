@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import { centreFormationApi } from "@/_api/centreFormation.api.js"
-import { CentreDeFormations } from "@/assets/js/fieldsAdmin.js";
+import {centreFormationApi} from "@/_api/centreFormation.api.js"
+import {CentreDeFormations} from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../../../../components/LoginWdg2.vue";
 
 export default {

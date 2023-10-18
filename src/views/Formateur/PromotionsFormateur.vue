@@ -7,6 +7,7 @@
 <script>
 
 import PromotionListFormateur from "@/components/List/PromotionListFormateur.vue";
+
 export default {
   name: "PromotionsFormateur",
   components: {

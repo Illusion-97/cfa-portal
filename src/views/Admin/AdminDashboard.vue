@@ -7,6 +7,7 @@
 <script>
 
 import UserListComponent from "@/components/List/UserListComponent.vue";
+
 export default {
   name: "AdminDashboard",
   components: {

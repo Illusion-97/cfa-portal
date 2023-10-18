@@ -138,12 +138,13 @@
     </div>
 </template>
 <script>
-import { centreFormationApi } from "@/_api/centreFormation.api.js";
-import { adresseApi } from "@/_api/adresse.api.js";
-import { entrepriseApi } from "@/_api/entreprise.api.js";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import {centreFormationApi} from "@/_api/centreFormation.api.js";
+import {adresseApi} from "@/_api/adresse.api.js";
+import {entrepriseApi} from "@/_api/entreprise.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import addAdresse from "@/components/Modal/AddAdresse.vue";
 import addEntreprise from "@/components/Modal/AddEntreprise.vue";
+
 export default {
     name: "AddTuteur",
     components: {

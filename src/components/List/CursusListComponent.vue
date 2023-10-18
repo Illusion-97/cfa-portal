@@ -98,9 +98,9 @@
 </template>
 
 <script>
-import { cursusApi } from "@/_api/cursus.api.js";
+import {cursusApi} from "@/_api/cursus.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
-import { fieldsCursus } from "@/assets/js/fields.js";
+import {fieldsCursus} from "@/assets/js/fields.js";
 
 export default {
   name: "CursusListComponent",

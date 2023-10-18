@@ -83,10 +83,11 @@
 </template>
 <script>
 import Pagination from "@/components/Navigation/Pagination.vue";
-import { projetApi } from "@/_api/projet.api.js";
+import {projetApi} from "@/_api/projet.api.js";
 import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
 import {groupeApi} from "@/_api/groupe.api";
 import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
+
 export default {
   name: "projetListComponent",
   components: {Pagination, ProjetCreate, GroupeListComponent},

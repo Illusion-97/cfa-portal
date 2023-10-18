@@ -126,12 +126,13 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
-import { entrepriseApi } from "@/_api/entreprise.api.js";
-import { adresseApi } from "@/_api/adresse.api.js";
-import { fieldsEntreprise } from "@/assets/js/fields.js";
+import {validationMixin} from 'vuelidate'
+import {required} from 'vuelidate/lib/validators'
+import {entrepriseApi} from "@/_api/entreprise.api.js";
+import {adresseApi} from "@/_api/adresse.api.js";
+import {fieldsEntreprise} from "@/assets/js/fields.js";
 import Entreprise from "../../models/Entreprise"
+
 export default {
 name: "EntrepriseListComponent",
 mixins: [validationMixin],

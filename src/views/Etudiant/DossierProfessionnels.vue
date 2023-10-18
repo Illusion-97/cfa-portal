@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
+import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js";
 
 export default {
   name: "DossierPro",

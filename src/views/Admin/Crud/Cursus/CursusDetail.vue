@@ -85,7 +85,8 @@
 </template>
 
 <script>
-import { cursusApi } from "@/_api/cursus.api.js";
+import {cursusApi} from "@/_api/cursus.api.js";
+
 export default {
   name: "CursusDetail",
   components: {},

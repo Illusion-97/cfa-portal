@@ -88,8 +88,9 @@
 </template>
 
 <script>
-import { courseFieldsFormateur } from "@/assets/js/fields.js";
-import { formateurApi } from "@/_api/formateur.api";
+import {courseFieldsFormateur} from "@/assets/js/fields.js";
+import {formateurApi} from "@/_api/formateur.api";
+
 export default {
   name: "Intervention-Formateur",
   components: {},

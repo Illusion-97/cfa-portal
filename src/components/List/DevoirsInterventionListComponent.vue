@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { devoirApi } from "@/_api/devoir.api.js";
+import {devoirApi} from "@/_api/devoir.api.js";
 import DevoirCreate from "@/views/Admin/Crud/Devoir/DevoirCreate.vue"
 
 

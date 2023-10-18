@@ -157,9 +157,9 @@
 </template>
 
 <script>
-import { examenApi } from "@/_api/examen.api.js";
+import {examenApi} from "@/_api/examen.api.js";
 import AddExamen from "@/components/Formateur/AddExamen.vue";
-import { activiteTypeApi } from "@/_api/activiteType.api.js";
+import {activiteTypeApi} from "@/_api/activiteType.api.js";
 
 export default {
   name: "ExamensPromotionsListCompoenent",

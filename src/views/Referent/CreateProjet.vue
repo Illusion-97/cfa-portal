@@ -54,9 +54,9 @@
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
-import { projetApi } from "@/_api/projet.api.js";
-import { fileApi } from "@/_api/file.api.js";
-import { fileFields } from "@/assets/js/fields.js";
+import {projetApi} from "@/_api/projet.api.js";
+import {fileApi} from "@/_api/file.api.js";
+import {fileFields} from "@/assets/js/fields.js";
 
 export default {
   name: "projetCreate",

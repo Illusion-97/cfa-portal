@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import { authenticationApi } from "@/_api/authentication.api.js";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
-import { centreFormationApi } from "@/_api/centreFormation.api.js";
-import { promotionApi } from '@/_api/promotion.api.js';
-import { etudiantApi } from '@/_api/etudiant.api.js';
+import {authenticationApi} from "@/_api/authentication.api.js";
+import {utilisateurService} from "@/_services/utilisateur.service.js";
+import {centreFormationApi} from "@/_api/centreFormation.api.js";
+import {promotionApi} from '@/_api/promotion.api.js';
+import {etudiantApi} from '@/_api/etudiant.api.js';
 
 export default {
     name: 'HeaderFormateur',

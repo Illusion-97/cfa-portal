@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
+import {utilisateursRoleApi} from "@/_api/utilisateurRole.api.js";
 
 export default {
   name: "RoleModal",

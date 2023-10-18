@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import { interventionApi } from "@/_api/intervention.api.js";
+import {interventionApi} from "@/_api/intervention.api.js";
 import TableTemplate from "@/components/utils/TableTemplate.vue";
-import { courseFieldsReferent } from "@/assets/js/fields.js";
+import {courseFieldsReferent} from "@/assets/js/fields.js";
 
 export default {
   name: "Intervention",

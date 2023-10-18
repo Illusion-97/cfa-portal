@@ -172,11 +172,11 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { absenceApi } from "@/_api/absence.api.js";
-import { positionnementApi } from "@/_api/positionnements.api.js";
-import { devoirApi } from "@/_api/devoir.api.js";
-import { niveauApi } from "@/_api/niveau.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {absenceApi} from "@/_api/absence.api.js";
+import {positionnementApi} from "@/_api/positionnements.api.js";
+import {devoirApi} from "@/_api/devoir.api.js";
+import {niveauApi} from "@/_api/niveau.api.js";
 
 export default {
   name: "EtudiantsInterventionListComponent",

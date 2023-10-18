@@ -89,10 +89,10 @@
     </div>
 </template>
 <script>
-import { activiteTypeApi } from "@/_api/activiteType.api.js";
+import {activiteTypeApi} from "@/_api/activiteType.api.js";
 import EvaluationFormation from "../../models/EvaluationFormation";
-import { evaluationFormationApi } from "@/_api/evaluationFormation.api";
-import { VueEditor } from "vue2-editor";
+import {evaluationFormationApi} from "@/_api/evaluationFormation.api";
+import {VueEditor} from "vue2-editor";
 
 export default {
     name: "EvaluationComponent",

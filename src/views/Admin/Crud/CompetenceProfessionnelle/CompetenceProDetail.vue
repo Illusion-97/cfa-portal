@@ -10,8 +10,9 @@
 </template>
 
 <script>
-import { competenceProfessionnelleApi } from "@/_api/competenceProfessionnelle.api.js";
-import { fieldsCompetencePro } from "@/assets/js/fields.js";
+import {competenceProfessionnelleApi} from "@/_api/competenceProfessionnelle.api.js";
+import {fieldsCompetencePro} from "@/assets/js/fields.js";
+
 export default {
   name: "CompetenceProDetail",
   

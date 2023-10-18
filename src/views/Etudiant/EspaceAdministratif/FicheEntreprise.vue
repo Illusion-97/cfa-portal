@@ -63,7 +63,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { ficheEntrepriseApi } from "@/_api/ficheEntreprise.api.js";
+import {ficheEntrepriseApi} from "@/_api/ficheEntreprise.api.js";
+
 export default {
     name: "FicheEntreprise",
     components: {

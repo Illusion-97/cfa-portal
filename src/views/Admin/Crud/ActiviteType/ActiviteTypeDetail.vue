@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
-import { activiteTypeApi } from '@/_api/activiteType.api.js'
-import { fieldsActiviteType } from "@/assets/js/fields.js";
+import {validationMixin} from 'vuelidate'
+import {required} from 'vuelidate/lib/validators'
+import {activiteTypeApi} from '@/_api/activiteType.api.js'
+import {fieldsActiviteType} from "@/assets/js/fields.js";
 import ActiviteType from "../../../../models/ActiviteType"
 import CompetenceProModal from "@/components/Modal/CompetenceProfessionnelleModal.vue";
-import { competenceProfessionnelleApi } from "@/_api/competenceProfessionnelle.api.js";
+import {competenceProfessionnelleApi} from "@/_api/competenceProfessionnelle.api.js";
 
 export default {
   name: "activiteTypeDetail",

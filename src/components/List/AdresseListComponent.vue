@@ -61,9 +61,10 @@
   </div>
 </template>
 <script>
-import { adresseApi } from "@/_api/adresse.api.js";
+import {adresseApi} from "@/_api/adresse.api.js";
 import addAdresse from "@/views/Admin/Crud/Entreprise/EntrepriseAddAdresse.vue";
-import { AdresseFields } from "@/assets/js/fieldsAdmin.js";
+import {AdresseFields} from "@/assets/js/fieldsAdmin.js";
+
 export default {
   name: "AdresseListComponent",
   components: {

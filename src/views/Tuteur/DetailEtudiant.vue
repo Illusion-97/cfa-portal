@@ -153,14 +153,21 @@
   </template>
 
   <script>
-  import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
-  import { congeApi } from "@/_api/conge.api.js";
-  import { absenceApi } from "@/_api/absence.api.js";
-  import { etudiantApi } from "@/_api/etudiant.api.js";
-  import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-  import { noteApi } from "@/_api/note.api.js";
-  import { promotionApi } from "@/_api/promotion.api.js";
-  import { notesFields, dossProfFields, absenceFields, congeFields, planningFields, dossProjFields } from "@/assets/js/fieldsDetailEtudiant.js";
+  import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
+  import {congeApi} from "@/_api/conge.api.js";
+  import {absenceApi} from "@/_api/absence.api.js";
+  import {etudiantApi} from "@/_api/etudiant.api.js";
+  import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js";
+  import {noteApi} from "@/_api/note.api.js";
+  import {promotionApi} from "@/_api/promotion.api.js";
+  import {
+    absenceFields,
+    congeFields,
+    dossProfFields,
+    dossProjFields,
+    notesFields,
+    planningFields
+  } from "@/assets/js/fieldsDetailEtudiant.js";
   import MailComponent from "@/components/utils/MailComponent.vue";
 
   export default {

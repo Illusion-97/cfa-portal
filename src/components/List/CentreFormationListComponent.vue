@@ -135,9 +135,10 @@
 </template>
 
 <script>
-import { centreFormationApi } from "@/_api/centreFormation.api.js";
+import {centreFormationApi} from "@/_api/centreFormation.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
-import { mapActions } from "vuex";
+import {mapActions} from "vuex";
+
 export default {
   name: "CentreFormationListComponent",
   components: {

@@ -98,10 +98,11 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
-import { etudiantApi } from '@/_api/etudiant.api.js';
-import { interventionApi } from '@/_api/intervention.api.js';
+import {promotionApi} from "@/_api/promotion.api.js";
+import {etudiantApi} from '@/_api/etudiant.api.js';
+import {interventionApi} from '@/_api/intervention.api.js';
 import LoginWdg2 from "@/components/LoginWdg2.vue";
+
 export default {
   name: "PromotionListComponent",
   components: {
