@@ -36,8 +36,7 @@
             </span>
           </div>
           <div class="mon-group">
-            <!-- <label class="form-label">Liste des compétences professionnelles dans la bdd : </label> -->
-            <table class="table table-bordered table-striped table-hover">
+            <table style="width: 100%;">
               <thead class="thead-dark">
                 <tr>
                   <th>Numero de fiche</th>
@@ -50,10 +49,12 @@
                   <td v-if="editRowIndex !== row.id">{{ row.numeroFiche }}</td>
                   <td v-else><b-form-input type="number" v-model="row.numeroFiche"/></td>
 
-                  <td v-if="editRowIndex !== row.id" style="font-size: 20px">
-                    {{ row.libelle }}
+                  <td v-if="editRowIndex !== row.id" style="font-size: 15px; line-break: auto">
+                    <p style="line-break: auto">{{ row.libelle }}</p>
                   </td>
-                  <td v-else><b-form-textarea disabled rows="2" max-rows="5" v-model="row.libelle" @keyup.enter="modifier(cp)"/></td>
+                  <td v-else>
+                    <b-form-textarea rows="2" max-rows="5" v-model="row.libelle" @keyup.enter="modifier(cp)"/>
+                  </td>
                   <td style=" display: flex; flex-direction: row; justify-content: space-around">
                     <b-button v-if="editRowIndex == -1" @click="modifierForm(row.id)">Modifier</b-button>
                     <b-button v-if="editRowIndex === row.id" type="submit" variant="success"
@@ -65,11 +66,7 @@
             </table>
           </div>
         </div>
-        <div class="modal-footer text-right">
-          <!-- <button class="btn btn-primary" @click="close()">
-            Close
-          </button> -->
-        </div>
+
       </div>
     </div>
 </template>
@@ -148,7 +145,6 @@ export default {
 }
 
 .mon-group {
-  margin-bottom: 2em;
 }
 
 .mon-tr:hover {

@@ -61,7 +61,8 @@
             Voir les compétences associées
           </v-btn>
         </v-app>
-        <CompetenceProModal v-show="isModalVisible" @refresh="refreshCompetences" @close="closeModal" :idAct="idActiviteType" :cps="competence" v-on:close="onClickClose" />
+        <CompetenceProModal v-show="isModalVisible" @refresh="refreshCompetences"
+                            @close="closeModal" :idAct="idActiviteType" :cps="competence" v-on:close="onClickClose" />
       </template>
     </b-table>
     <v-btn color="back-color" class="back" @click="goBack()">

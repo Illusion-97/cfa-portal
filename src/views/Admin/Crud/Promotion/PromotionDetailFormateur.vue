@@ -11,7 +11,7 @@
               Etudiants
             </template>
             <div>
-              <form class="form-inline form m-4" @submit="submitEtudiant">
+              <form class="form-inline m-4" @submit="submitEtudiant">
                 <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieEtudiant" />
                 <button class="btn-submit" type="submit">
                   <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
@@ -60,7 +60,7 @@
             </template>
             <div id="interventions">
               <div class="d-flex flex-row align-items-end justify-content-between">
-              <form class="form-inline form m-4" @submit="submitIntervention">
+              <form class="form-inline m-4" @submit="submitIntervention">
                 <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieIntervention" />
                 <button class="btn-submit" type="submit">
                   <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />

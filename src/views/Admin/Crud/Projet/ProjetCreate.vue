@@ -1,10 +1,9 @@
 <template>
   <div class="container-fluid" >
-
     <span id="title"><h4>{{vue_title}}</h4></span>
-  <b-card>
+
     <v-app style="margin-left: 25%" class="w-50">
-    <form class="form mb-5" @submit="submit()">
+    <form class=" mb-5" @submit="submit()">
       <v-text-field rows="2" label="Nom du Projet" type="text" v-model="form.nom" required></v-text-field>
       <v-text-field label="Description" v-model="form.description" rows="3" max-rows="6"></v-text-field>
       <v-select label="Groupe" v-model="form.groupeId" :items="allGroupe" item-value="id" item-text="nom">
@@ -16,7 +15,7 @@
       </div>
     </form>
     </v-app>
-  </b-card>
+
   </div>
 </template>
 
