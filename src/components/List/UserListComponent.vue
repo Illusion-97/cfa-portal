@@ -128,6 +128,8 @@
             <b-col> {{ row.item.telephone }} </b-col>
             <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
             <b-col> {{ row.item.dateDeNaissance }} </b-col>
+            <b-col sm="2" class="text-sm-right"><b>Centre Formation:</b></b-col>
+            <b-col> {{ row.item.centreFormation }} </b-col>
           </b-row>
         </b-card>
       </template>
@@ -155,19 +157,30 @@
           <v-container fluid>
             <v-row>
               <v-col>
-                <v-text-field v-model="rowToModify.id" label="ID"></v-text-field>
+                <v-text-field v-model="rowToModify.login" label="Login"></v-text-field>
               </v-col>
               <v-col>
-                <v-text-field v-model="rowToModify.centreFormationId" label="Centre Formation"></v-text-field>
+                <v-text-field v-model="rowToModify.nom" label="Nom"></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="rowToModify.prenom" label="Prénom"></v-text-field>
               </v-col>
             </v-row>
             <v-row>
               <v-col>
-                <v-select v-model="rowToModify.civilite" label="Civilité"></v-select>
+                <v-select :items="sexe" v-model="rowToModify.civilite" label="Civilité" ></v-select>
               </v-col>
               <v-col>
-                <v-select v-model="rowToModify.adresse" label="Adresse"></v-select>
+                <v-select :items="listAdresse"  v-model="rowToModify.adresse" label="Adresse">
+                  </v-select>
               </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select  v-model="rowToModify.centreFormation" :items="listCentreFormation" label="Centre de formation*" required>
+                </v-select>
+
+            </v-col>
             </v-row>
             <v-row>
               <v-col>
@@ -190,19 +203,6 @@
                                         min="1950-01-01" @change="$refs.menu.save(rowToModify.dateDeNaissance)">
                                     </v-date-picker>
                                 </v-menu>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-text-field v-model="rowToModify.login" label="Login"></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-text-field v-model="rowToModify.nom" label="Nom"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field v-model="rowToModify.prenom" label="Prénom"></v-text-field>
               </v-col>
             </v-row>
             <v-row>
@@ -235,6 +235,8 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
+import { centreFormationApi } from "@/_api/centreFormation.api.js";
+import { adresseApi } from "@/_api/adresse.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
 import addTuteur from "@/components/Admin/AddTuteur.vue"
@@ -300,9 +302,13 @@ export default {
       showModalRoleUser: false,
       showModalTuteur:false,
       rowToModify: null,
+      listCentreFormation: [],
+      listAdresse: [],
+      sexe: ['Mr', 'Mme'],
       editRoles: [],
       options: [],
       item: {},
+      required: [v => !!v || 'Le champ est requis'],
     };
   },
   
@@ -318,10 +324,35 @@ export default {
     },
   },
   created() {
-    this.refreshList();
-    this.getRoles();
-  },
+  this.refreshList();
+  this.getRoles();
+
+  Promise.all([
+    centreFormationApi.getAllCentreFormations(),
+    adresseApi.getAllAdresses()
+  ])
+  .then(([centreFormationData, adresseData]) => {
+    // Mettre à jour listCentreFormation avec les données des centres de formation
+    this.listCentreFormation = centreFormationData.map(centreFormation => ({
+      text: centreFormation.nom,
+      value: centreFormation.id
+    }));
+
+    // Mettre à jour listAdresse avec les données des adresses
+    this.listAdresse = adresseData.map(adresse => ({
+      text: `${adresse.ville} ${adresse.libelle}`,
+      value: adresse.id
+    }));
+  })
+  .catch(error => {
+    console.error('Erreur lors de la récupération des données :', error);
+  });
+},
   methods: {
+    getCentreFormationName(centreFormationId) {
+    const centreFormation = this.listCentreFormation.find(cf => cf.value === centreFormationId);
+    return centreFormation ? centreFormation.text : "Pas de centre Formation";
+  },
     openModalAddTuteur() {
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
@@ -367,6 +398,7 @@ export default {
             rolesDto: e.rolesDto,
             civilite: e.civilite,
             telephone: e.telephone,
+            centreFormation: this.getCentreFormationName(e.centreFormationId),
             adresse:
               e.adresseDto != null
                 ? e.adresseDto.libelle +
@@ -528,16 +560,16 @@ export default {
   },
   modifierTuteur() {
   const userDto = {
-    id: this.item.id,
-    version: this.item.version,
-    civilite: this.item.civilite,
-    adresse: this.item.adresse,
-    nom: this.item.nom || '',
-    prenom: this.item.prenom || '',
-    telephone: this.item.telephone,
-    login: this.item.login || '',
-    centreFormationId : this.item.centreFormationId,
-    active: this.item.active
+    id: this.rowToModify.id, 
+    version : this.rowToModify.version,
+        civilite: this.rowToModify.civilite,
+        adresse: this.rowToModify.adresse,
+        nom: this.rowToModify.nom || '',
+        prenom: this.rowToModify.prenom || '',
+        telephone: this.rowToModify.telephone,
+        login: this.rowToModify.login || '',
+        centreFormation: this.rowToModify.centreFormation,
+        active: this.rowToModify.active
   };
   
   utilisateurApi.updateUtilisateur(userDto)
