@@ -46,7 +46,8 @@
 </template>
 
 <script>
-import { noteApi } from "@/_api/note.api.js";
+import {noteApi} from "@/_api/note.api.js";
+
 export default {
   name: "NoteDetail",
   components: {},

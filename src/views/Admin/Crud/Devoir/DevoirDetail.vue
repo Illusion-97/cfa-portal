@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import { devoirApi } from "@/_api/devoir.api.js";
+import {devoirApi} from "@/_api/devoir.api.js";
+
 export default {
   name: "devoirDetail",
   components: {},

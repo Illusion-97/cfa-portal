@@ -102,12 +102,12 @@
 </template>
 
 <script>
-  // import axios from 'axios';
-  import { interventionApi } from "@/_api/intervention.api.js";
-  import ModalPromotion from "@/components/Modal/ModalPromo.vue";
-  import ModalFormateur from "@/components/Modal/FormateurModal.vue"
-  import FormationList from "@/components/List/FormationListComponent.vue";
-  // import VueSimpleComplete from "vue-simple-complete";
+// import axios from 'axios';
+import {interventionApi} from "@/_api/intervention.api.js";
+import ModalPromotion from "@/components/Modal/ModalPromo.vue";
+import ModalFormateur from "@/components/Modal/FormateurModal.vue"
+import FormationList from "@/components/List/FormationListComponent.vue";
+// import VueSimpleComplete from "vue-simple-complete";
   export default {
     name: "intervention-form",
     data() {

@@ -24,7 +24,7 @@
 <script>
 // import { examenApi } from "@/_api/examen.api.js";
 
-import { livretEvaluationApi } from "@/_api/livretEvaluation.api.js";
+import {livretEvaluationApi} from "@/_api/livretEvaluation.api.js";
 
 
 export default {

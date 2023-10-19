@@ -2,13 +2,7 @@
   <div class="container-fluid">
     <b-card>
       <div style="display: grid; grid-template-columns:  1fr 0.25fr">
-        <!--<div class="text-align-left row" id="groupe-input" v-if="!isAction">
-        <b-form-select v-model="selectedGroup">
-          <b-form-select-option value="null">Choisissez un groupe</b-form-select-option>
-          <b-form-select-option v-for="group in allGroupe" :key="group.id" :value="group.nom">{{ group.nom }}</b-form-select-option>
-        </b-form-select>
-      </div>-->
-        <form class="form-inline form" @submit="submit">
+        <form class="form-inline " @submit="submit">
           <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher par nom de groupe"
             v-model="saisie" />
           <button class="btn-submit" type="submit">
@@ -63,8 +57,9 @@
 </template>
 
 <script>
-import { groupeApi } from "@/_api/groupe.api.js";
+import {groupeApi} from "@/_api/groupe.api.js";
 import Pagination from "@/components/Navigation/Pagination.vue";
+
 export default {
   name: "groupeListComponent",
   components: { Pagination },

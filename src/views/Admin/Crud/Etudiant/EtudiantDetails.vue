@@ -138,12 +138,12 @@
 </template>
 
 <script>
-import { etudiantApi } from "@/_api/etudiant.api.js";
-import { noteApi } from "@/_api/note.api.js";
-import { absenceApi } from "@/_api/absence.api.js";
-import { congeApi } from "@/_api/conge.api.js";
-import { maitreApprentissageApi } from "@/_api/maitreApprentissage.api.js";
-import  LivretEvaluationComponent  from"@/components/Formateur/LivretEvaluationComponent"
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {noteApi} from "@/_api/note.api.js";
+import {absenceApi} from "@/_api/absence.api.js";
+import {congeApi} from "@/_api/conge.api.js";
+import {maitreApprentissageApi} from "@/_api/maitreApprentissage.api.js";
+import LivretEvaluationComponent from "@/components/Formateur/LivretEvaluationComponent"
 
 import "@/assets/styles/CrudDetail.css";
 

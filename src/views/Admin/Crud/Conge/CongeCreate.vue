@@ -81,9 +81,10 @@
 </template>
 
 <script>
-import { congeApi } from "@/_api/conge.api.js";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import {congeApi} from "@/_api/conge.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
+
 export default {
   name: "CongeCreate",
   components: {

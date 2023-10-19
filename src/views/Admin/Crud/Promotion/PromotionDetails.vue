@@ -12,7 +12,8 @@
 </template>
 
 <script>
-  import PromotionDetailFormateur from '@/views/Admin/Crud/Promotion/PromotionDetailFormateur.vue'
+import PromotionDetailFormateur from '@/views/Admin/Crud/Promotion/PromotionDetailFormateur.vue'
+
 export default {
   name: "PromotionDetail",
   components: {

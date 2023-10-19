@@ -144,6 +144,7 @@
     </div>
 </template>
 <script>
+
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import { etudiantApi } from "@/_api/etudiant.api.js";
 import { adresseApi } from "@/_api/adresse.api.js";

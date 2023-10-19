@@ -85,8 +85,9 @@
 </template>
 
 <script>
-  import { promotionApi } from "../../_api/promotion.api";
-  export default {
+import {promotionApi} from "../../_api/promotion.api";
+
+export default {
     name: "ModalPromotion",
     props: {
       idName: String,

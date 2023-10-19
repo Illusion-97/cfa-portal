@@ -65,7 +65,8 @@
 </template>
 
 <script>
-import { entrepriseApi } from "@/_api/entreprise.api.js";
+import {entrepriseApi} from "@/_api/entreprise.api.js";
+
 export default {
   name: "EntrepriseDetail",
   components: {

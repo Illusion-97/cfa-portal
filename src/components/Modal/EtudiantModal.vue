@@ -94,8 +94,9 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
-import { etudiantApi } from "@/_api/etudiant.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+
 export default {
   name: "EtudiantModal",
   components: {},

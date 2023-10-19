@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import { dossierProjetApi } from "@/_api/dossierProjet.api.js";
-import { dossierProjetFields } from "@/assets/js/fields.js";
+import {dossierProjetApi} from "@/_api/dossierProjet.api.js";
+import {dossierProjetFields} from "@/assets/js/fields.js";
 
 export default {
   name: "DossierProjet",

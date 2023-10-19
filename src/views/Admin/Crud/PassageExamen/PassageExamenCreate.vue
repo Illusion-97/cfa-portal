@@ -52,7 +52,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import ExamenListComponent from "@/components/List/ExamenListComponent.vue";
 import InterventionListComponent from "@/components/List/InterventionListComponent.vue";
-import { passageExamenApi } from "@/_api/passageExamen.api.js";
+import {passageExamenApi} from "@/_api/passageExamen.api.js";
 
 export default {
   name: "PassageExamenCreate",

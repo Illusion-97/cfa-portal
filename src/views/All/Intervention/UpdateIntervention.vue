@@ -78,11 +78,10 @@
 </template>
 
 <script>
-    import axios from "axios";
-    import {
-        interventionApi
-    } from "@/_api/intervention.api.js";
-    export default {
+import axios from "axios";
+import {interventionApi} from "@/_api/intervention.api.js";
+
+export default {
         data() {
             return {
                 // param:this.$route.params,

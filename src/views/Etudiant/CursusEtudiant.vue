@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
 
 export default {
   name: "CursusEtudiant",

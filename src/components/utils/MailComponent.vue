@@ -17,6 +17,7 @@
 
 <script>
 import {etudiantApi} from "@/_api/etudiant.api";
+
 export default {
   name: "MailComponent",
   props:{

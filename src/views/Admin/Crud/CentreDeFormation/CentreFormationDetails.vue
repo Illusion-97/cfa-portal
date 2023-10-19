@@ -35,8 +35,9 @@
     </div>
 </template>
 <script>
-import { centreFormationApi } from '@/_api/centreFormation.api.js';
-import { promotionApi } from '@/_api/promotion.api.js';
+import {centreFormationApi} from '@/_api/centreFormation.api.js';
+import {promotionApi} from '@/_api/promotion.api.js';
+
 export default {
   name: "CentreFormationDetails",
   components:{

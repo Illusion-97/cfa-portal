@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import { formationApi } from "@/_api/formation.api.js";
+import {formationApi} from "@/_api/formation.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
-import { formationFields } from "@/assets/js/fields.js";
+import {formationFields} from "@/assets/js/fields.js";
 
 
 export default {

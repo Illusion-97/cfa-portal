@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div>
       <div style="display: grid; grid-column-gap: 20px; grid-template-columns: 1fr auto;">
-        <form class="form-inline form" @submit="submit">
+        <form class="form-inline" @submit="submit">
           <input id="saisie" name="saisie" placeholder="Rechercher un projet" type="text" class="form-control" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -83,10 +83,11 @@
 </template>
 <script>
 import Pagination from "@/components/Navigation/Pagination.vue";
-import { projetApi } from "@/_api/projet.api.js";
+import {projetApi} from "@/_api/projet.api.js";
 import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
 import {groupeApi} from "@/_api/groupe.api";
 import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
+
 export default {
   name: "projetListComponent",
   components: {Pagination, ProjetCreate, GroupeListComponent},

@@ -11,7 +11,7 @@
               Etudiants
             </template>
             <div>
-              <form class="form-inline form m-4" @submit="submitEtudiant">
+              <form class="form-inline m-4" @submit="submitEtudiant">
                 <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieEtudiant" />
                 <button class="btn-submit" type="submit">
                   <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
@@ -60,7 +60,7 @@
             </template>
             <div id="interventions">
               <div class="d-flex flex-row align-items-end justify-content-between">
-              <form class="form-inline form m-4" @submit="submitIntervention">
+              <form class="form-inline m-4" @submit="submitIntervention">
                 <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieIntervention" />
                 <button class="btn-submit" type="submit">
                   <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
@@ -151,12 +151,12 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
-import { utilisateurService } from "@/_services/utilisateur.service.js";
-import { interventionApi } from "@/_api/intervention.api";
-import { etudiantApi } from "@/_api/etudiant.api";
+import {utilisateurService} from "@/_services/utilisateur.service.js";
+import {interventionApi} from "@/_api/intervention.api";
+import {etudiantApi} from "@/_api/etudiant.api";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 
 export default {

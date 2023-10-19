@@ -126,8 +126,9 @@
 </template>
 
 <script>
-import { interventionApi } from "@/_api/intervention.api.js";
+import {interventionApi} from "@/_api/intervention.api.js";
 import LoginWdg2 from "../LoginWdg2.vue";
+
 export default {
   name: "InterventionListComponent",
   components: {
