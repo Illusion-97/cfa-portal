@@ -5,6 +5,9 @@
                 <v-row text-align="center" justify="center">
                     <v-col cols="12" md="8">
                         <v-form ref="myForm" @submit="addTuteur">
+                            <v-alert v-if="showAlert" class="m-4 " :show="dismissCountDown" dismissible fade type="success" @dismissed="dismissCountDown = 0">
+                            {{ message }}
+                            </v-alert>
                             <v-card>
                                 <v-card-title class="text-h4 text-center" style="text-align: center;">
                                     Page d'inscription
@@ -147,6 +150,9 @@ export default {
             externalAccount: false,
             active: false
         },
+        showAlert: false,
+        message: "",
+        dismissCountDown: null,
         valid: false,
         menu: false,
         activePicker: null,
@@ -186,15 +192,14 @@ export default {
     methods: {
         clear() {
             this.entreprise = "";
-            this.nom = "";
-            this.prenom = "";
-            this.email = "";
-            this.password = "";
-            this.telephone = null;
+            this.formTuteur.nom = "";
+            this.formTuteur.prenom = "";
+            this.formTuteur.login = "";
+            this.formTuteur.password = "";
+            this.formTuteur.telephone = null;
             this.adresse = "";
-            this.dateDeNaissance = null;
-            this.select = null;
-            this.etudiantId = null;
+            this.formTuteur.dateDeNaissance = null;
+            this.formTuteur.select = null;
         },
         goBack() {
             this.$router.go(-1);
@@ -210,18 +215,22 @@ export default {
                 });
         },
         addTuteur() {
-            if (!this.etudiantId) {
-                console.error("Veuillez sélectionner un étudiant.");
-                return;
-            }
-            this.formTuteur.etudiantDto = {
-                id: this.etudiantId,
-            };
+            // if (!this.etudiantId) {
+            //     console.error("Veuillez sélectionner un étudiant.");
+            //     return;
+            // }
+            // this.formTuteur.etudiantDto = {
+            //     id: this.etudiantId,
+            // };
             this.formTuteur.adresseDto.id = this.adresseId;
             this.formTuteur.entrepriseDto.id = this.entrepriseId;
             utilisateurApi.addTuteur(this.formTuteur)
                 .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouté.')))
                 .catch((error) => (this.$emit('hidden', error)))
+            this.showAlert = true;
+            this.dismissCountDown =6;
+            this.message = "Inscription réussi, en attende de l'activation de votre compte par l'administration";
+            this.clear();
         },
     },
 };
