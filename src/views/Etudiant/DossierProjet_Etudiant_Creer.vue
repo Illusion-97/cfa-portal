@@ -180,7 +180,7 @@ export default {
           nom: ""
         },
         filesAnnexe: [{file:undefined}],
-        annexeDossierProjets: [""],
+        annexeDossierProjets: [],
         infoDossierProjets: [""],
         competenceProfessionnelleIds: [],
         contenuDossierProjets: [""],
@@ -233,11 +233,23 @@ export default {
       };
       return newAnnexe;
     },
+    toBlob(str){
+      var blob = new Blob([str],{
+        type: 'text/plain'
+      })
+      console.log(blob)
+      console.log(str)
+      return blob
+    },
     async submit() {
       // élements de DossierProjet
-      const {filesAnnexe, fileImport, nom, projet, infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets, resumeDossierProjets,
+      const {filesAnnexe,nom, projet,annexeDossierProjets,infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets,resumeDossierProjets
       } = this.DossierProjet;
 
+      const blob1 = new Blob([this.DossierProjet.infoDossierProjets[0]], { type : 'plain/text' });
+      const blob2 = new Blob([this.DossierProjet.resumeDossierProjets[0]], { type : 'plain/text' });
+
+      console.log(blob2.text() + "    " + blob1.text())
       // Création de l'objet à envoyer
       const dpDto = {
         nom,
@@ -246,30 +258,36 @@ export default {
           id: projet.id,
           nom: projet.nom,
         },
+        annexeDossierProjets: [annexeDossierProjets[0]],
         infoDossierProjets: [infoDossierProjets[0]],
         competenceProfessionnelleIds,
         contenuDossierProjets: [contenuDossierProjets[0]],
         resumeDossierProjets: [resumeDossierProjets[0]],
       };
-      await dossierProjetApi.save(dpDto).then((data) => {
-        this.DossierProjet = data;
-        this.$bvModal.show("modal-delete-success");
-        this.idDp = data.id;
-      })
-      if (fileImport){
-        await dossierProjetApi.saveImport(fileImport, this.idDp)
+      await dossierProjetApi.save(dpDto).then(
+          this.$bvModal.show("modal-delete-success"));
+      console.log(filesAnnexe + filesAnnexe.length)
+      if (filesAnnexe.length == 0){
+        this.saveAnnexe();
       }
-      // Envoi de chaque fichier
-
-      const annexeData = new FormData();
-      for (let i = 0; i < filesAnnexe.length; i++) {
-        const annexe = filesAnnexe[i];
-        if(annexe) {
-          annexeData.append("pieceJointe", annexe.file);
+      this.saveImport();
+    },
+    saveImport(){
+      if (this.DossierProjet.fileImport){
+        dossierProjetApi.saveImport(this.DossierProjet.fileImport, this.DossierProjet.id)
+      }
+    },
+    saveAnnexe(){
+      if (this.DossierProjet.filesAnnexe){
+        const annexeData = new FormData();
+        for (let i = 0; i < this.DossierProjet.filesAnnexe.length; i++) {
+          const annexe = this.DossierProjet.filesAnnexe[i];
+          if(annexe) {
+            annexeData.append("pieceJointe", annexe.file);
+          }
         }
+        dossierProjetApi.saveAnnexe(annexeData, this.DossierProjet.id)
       }
-      await dossierProjetApi.saveAnnexe(annexeData, this.idDp)
-
     },
     getEtudiant() {
       etudiantApi

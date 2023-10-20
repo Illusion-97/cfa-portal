@@ -44,7 +44,7 @@ export default {
   methods:{
     sendMailTo(){
       if (this.header && this.mailContent){
-        etudiantApi.sendMail("ajiyar@dawan.fr", "ajiyar@dawan.fr", this.header, this.mailContent)
+        etudiantApi.sendMail(this.from, this.to, this.header, this.mailContent)
             .then(this.success(), this.header = "", this.mailContent = "")
       }
       else {

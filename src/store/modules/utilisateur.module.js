@@ -29,7 +29,6 @@ export const utilisateur = {
       for (var i=0; i<state.utilisateur.rolesDto.length; i++ ){
         if (state.utilisateur.rolesDto[i].intitule == "FORMATEUR"){
             isFormateur = true;
-            console.log(isFormateur+ " - " + typeof state.utilisateur.id)
             mailSchedulerApi.formateurSchedulerValisationFormation(state.utilisateur.id,isFormateur)
         }
       }
