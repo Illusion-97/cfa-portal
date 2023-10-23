@@ -28,13 +28,15 @@
 
             <!-- ACTIONS -->
             <div class="m-4">
+                <span style="display: block; font-size: small;"><i>*taille de fichier maximale pour l'import : 100Ko</i></span>
                 <b-button @click="toDataURL()" class="mr-2" variant="outline-primary">Sauvegarder</b-button>
                 <input type="file" @change="convertImage" ref="fileRef" style="display: none">
-                <b-button @click="openFileInput()" class="mr-2" variant="outline-primary">Importer</b-button>
+                <b-button @click="openFileInput()" class="mr-2" variant="outline-primary" title="Taille max ">Importer*</b-button>
                 <b-button @click="clear()" class="mr-2" variant="outline-primary">Vider</b-button>
                 <b-button variant="warning" @click="AnnulerModif">
                     <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
                     Annuler</b-button>
+
             </div>
         </div>
     </section>
@@ -87,7 +89,7 @@ export default {
 
         convertImage(event) {
             const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
+            if (file && file.type.startsWith('image/') && file.size <= 100 * 1024) {
                 const reader = new FileReader();
                 reader.onload = () => {
                     this.$refs.signaturePad.fromDataURL(reader.result);
@@ -97,14 +99,13 @@ export default {
                 this.alertsignature = false;
             } else {
                 this.alertsignature = true;
-                this.errorMessage = "Type de format non accépté, veuillez séléctionnée une image.";
+                this.errorMessage = "Taille de fichier ou format non accepté, veuillez séléctionnée une image.";
             }
         },
 
         // RECUPERATION DES DONNEE DANS L'URL
         toDataURL() {
             const dataURL = this.$refs.signaturePad.toDataURL();
-            console.log(dataURL);
             if (dataURL != undefined) {
                 if (this.signature != null) {
                     let signature = this.signature;
