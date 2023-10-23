@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import { interventionApi } from "@/_api/intervention.api.js";
+import {interventionApi} from "@/_api/intervention.api.js";
 import LoginWdg2 from "../../../components/LoginWdg2.vue";
-import { fieldsIntervention } from "@/assets/js/fields.js";
+import {fieldsIntervention} from "@/assets/js/fields.js";
 
 export default {
   name: "Intervention",

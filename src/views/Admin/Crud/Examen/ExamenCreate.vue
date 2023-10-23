@@ -36,7 +36,7 @@
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import FormationListComponent from "@/components/List/FormationListComponent.vue";
 import CursusListComponent from "@/components/List/CursusListComponent.vue";
-import { examenApi } from "@/_api/examen.api.js";
+import {examenApi} from "@/_api/examen.api.js";
 
 export default {
   name: "CongeCreate",

@@ -69,7 +69,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { formationApi } from "@/_api/formation.api.js";
+import {formationApi} from "@/_api/formation.api.js";
+
 export default {
   name: "DetailFormation",
   components: {

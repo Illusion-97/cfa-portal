@@ -83,8 +83,9 @@
 </template>
 
 <script>
-  import { formateurApi } from "../../_api/formateur.api";
-  export default {
+import {formateurApi} from "../../_api/formateur.api";
+
+export default {
     name: "FormateurModal",
     props: {
       idName: String,

@@ -9,7 +9,7 @@
 
     <div class="updateListCentreDeFormation">
       <div class="d-flex flex-row align-items-end justify-content-between m-3">
-        <form class="form-inline form " @submit="submit">
+        <form class="form-inline " @submit="submit">
           <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
           <button class="btn-submit" type="submit">
             <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import { centreFormationApi } from "@/_api/centreFormation.api.js"
-import { CentreDeFormations } from "@/assets/js/fieldsAdmin.js";
+import {centreFormationApi} from "@/_api/centreFormation.api.js"
+import {CentreDeFormations} from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../../../../components/LoginWdg2.vue";
 
 export default {

@@ -60,6 +60,7 @@ import {centreFormationApi} from "@/_api/centreFormation.api.js";
 import BodyTitle from "@/components/utils/BodyTitle.vue";
 import AdresseListComponent from "@/components/List/AdresseListComponent.vue";
 import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+
 export default {
   name: "AddEntreprise",
   components: {

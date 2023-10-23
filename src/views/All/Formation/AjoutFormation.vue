@@ -39,8 +39,9 @@
 </template>
 
 <script>
-    import { formationApi } from "@/_api/formation.api.js";
-    export default {
+import {formationApi} from "@/_api/formation.api.js";
+
+export default {
         name: "formation-form",
         components: {},
         data() {

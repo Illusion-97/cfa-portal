@@ -9,7 +9,7 @@
     <div class="d-flex flex-row align-items-end justify-content-between">
 
       <!-- BARRE DE RECHERCHE -->
-      <form class="form-inline form" @submit="submit">
+      <form class="form-inline" @submit="submit">
         <input id="saisie" name="saisie" type="text" class="form-control" placeholder="Rechercher" v-model="saisie" />
         <button class="btn-submit" type="submit">
           <font-awesome-icon :icon="['fas', 'search']" class="icon" />
@@ -61,9 +61,10 @@
   </div>
 </template>
 <script>
-import { adresseApi } from "@/_api/adresse.api.js";
+import {adresseApi} from "@/_api/adresse.api.js";
 import addAdresse from "@/views/Admin/Crud/Entreprise/EntrepriseAddAdresse.vue";
-import { AdresseFields } from "@/assets/js/fieldsAdmin.js";
+import {AdresseFields} from "@/assets/js/fieldsAdmin.js";
+
 export default {
   name: "AdresseListComponent",
   components: {

@@ -76,6 +76,8 @@
       </addTuteur>
     </b-collapse>
 
+  
+
     <b-collapse class="modalWdg2" :visible=visibleMajStudent>
       <login-wdg-2 @hidden="openModalMajStudent" @logInUser="logInUserWdg2Etudiant" @wdg2Close="wdg2CloseEtudiant" />
     </b-collapse>
@@ -103,9 +105,15 @@
       <template #cell(Modifier)="row">
         <b-button variant="warning" @click=ouvrirModalModification(row.item) class="pl-3 pr-3">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
-          Modifier
+         Roles
         </b-button>
       </template>
+      <template #cell(ModifierT)="row">
+  <b-button variant="success" @click="ouvrirFormulaireModificationTuteur(row.item)" class="pl-3 pr-3">
+    <font-awesome-icon :icon="['fas', 'edit']" />
+  </b-button>
+</template>
+
       <!--Description -->
       <template #row-details="row">
         <b-card>
@@ -136,6 +144,87 @@
       </b-form>
     </b-modal>
 
+    
+    <template>
+  <b-modal hide-footer v-model="showModalTuteur" persistent max-width="600">
+    <v-card>
+      <v-card-title>
+        <span class="headline">Modification Tuteur</span>
+      </v-card-title>
+      <v-card-text v-if="rowToModify">
+          <v-container fluid>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="rowToModify.id" label="ID"></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="rowToModify.centreFormationId" label="Centre Formation"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select v-model="rowToModify.civilite" label="Civilité"></v-select>
+              </v-col>
+              <v-col>
+                <v-select v-model="rowToModify.adresse" label="Adresse"></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="rowToModify.telephone" label="Téléphone" outlined clearable
+                                        :rules="[v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']">
+                                      </v-text-field>
+              </v-col>
+              <v-col>
+                <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
+                                    :return-value.sync="rowToModify.dateDeNaissance" transition="scale-transition"
+                                    offset-y min-width="auto">
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field v-model="rowToModify.dateDeNaissance" label="Date de naissance"
+                                            prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined
+                                            clearable></v-text-field>
+                                    </template>
+                                    <v-date-picker v-model="rowToModify.dateDeNaissance"
+                                        :active-picker.sync="activePicker" locale="fr"
+                                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                                        min="1950-01-01" @change="$refs.menu.save(rowToModify.dateDeNaissance)">
+                                    </v-date-picker>
+                                </v-menu>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="rowToModify.login" label="Login"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field v-model="rowToModify.nom" label="Nom"></v-text-field>
+              </v-col>
+              <v-col>
+                <v-text-field v-model="rowToModify.prenom" label="Prénom"></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <b-form-checkbox id="active" v-model="rowToModify.active" name="active">Active le compte</b-form-checkbox>
+              </v-col>
+            </v-row>
+          </v-container>
+      </v-card-text>
+      <v-card-actions>
+          <b-button type="button" class="mt-3" variant="warning" @click="modifierTuteur(rowToModify)">
+            <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" />Valider
+          </b-button>
+          <b-button variant="danger" @click="showModalTuteur = false">Annuler</b-button>
+      </v-card-actions>
+    </v-card>
+  </b-modal>
+</template>
+
+
+
+
     <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
       :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
       :page-class="'page-item'" :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
@@ -149,12 +238,14 @@ import { etudiantApi } from "@/_api/etudiant.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
 import addTuteur from "@/components/Admin/AddTuteur.vue"
+//import modifTuteur from "@/components/Admin/ModifTuteur.vue"
 import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "UserListComponent",
   components: {
     addTuteur,
+    //modifTuteur,
     LoginWdg2,
   },
   props: {
@@ -199,16 +290,22 @@ export default {
       variant: "",
       formData: null,
 
+      activePicker: null,
+            menu: false,
+
       showLoginWdg2Card: false,
       showLoginWdg2CardEtudiant: false,
       loading: false,
 
       showModalRoleUser: false,
+      showModalTuteur:false,
+      rowToModify: null,
       editRoles: [],
       options: [],
-      item: {}
+      item: {},
     };
   },
+  
   computed: {
     usersComputed() {
       return this.users;
@@ -247,6 +344,7 @@ export default {
         this.loading = false;
       }
     },
+   
     openModalMajUsers() {
       this.visibleMajUsers = !this.visibleMajUsers;
       this.visibleMajStudent = false;
@@ -424,6 +522,34 @@ export default {
       this.fetchRolesFromDatabase();
       this.showModalRoleUser = true; // Affiche la modal de modification des rôles
     },
+    ouvrirFormulaireModificationTuteur(row) {
+    this.rowToModify = { ...row }; 
+    this.showModalTuteur = true; 
+  },
+  modifierTuteur() {
+  const userDto = {
+    id: this.item.id,
+    version: this.item.version,
+    civilite: this.item.civilite,
+    adresse: this.item.adresse,
+    nom: this.item.nom || '',
+    prenom: this.item.prenom || '',
+    telephone: this.item.telephone,
+    login: this.item.login || '',
+    centreFormationId : this.item.centreFormationId,
+    active: this.item.active
+  };
+  
+  utilisateurApi.updateUtilisateur(userDto)
+    .then(response => {
+      console.log('Mise à jour réussie', response);
+      this.showModalTuteur = false;
+    })
+    .catch(error => {
+      console.error('Erreur lors de la mise à jour', error);
+    });
+},
+
     closeModal() {
       this.showModalRoleUser = false;
     },
@@ -469,6 +595,7 @@ export default {
         });
     }
   },
+  
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>

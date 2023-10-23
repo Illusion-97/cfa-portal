@@ -115,8 +115,9 @@
 
 <script>
 
-import  Icon  from '../../assets/img/institutionnel-logo.png';
-  export default {
+import Icon from '../../assets/img/institutionnel-logo.png';
+
+export default {
     name: 'SideBarComponentFormateur',
     props: {
       //! Menu settings

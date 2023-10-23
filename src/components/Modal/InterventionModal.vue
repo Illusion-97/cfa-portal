@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import { promotionApi } from "@/_api/promotion.api.js";
-import { interventionApi } from "@/_api/intervention.api.js";
+import {promotionApi} from "@/_api/promotion.api.js";
+import {interventionApi} from "@/_api/intervention.api.js";
 
 export default {
   name: "interventionModal",

@@ -70,7 +70,7 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { groupeApi } from "@/_api/groupe.api.js";
+import {groupeApi} from "@/_api/groupe.api.js";
 
 import EtudiantModal from "@/components/Modal/EtudiantModal.vue";
 

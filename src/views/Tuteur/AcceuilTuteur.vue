@@ -61,8 +61,9 @@
 </template>
 
 <script>
-import { tuteurApi } from "@/_api/tuteur.api.js";
+import {tuteurApi} from "@/_api/tuteur.api.js";
 import Pagination from "@/components/Navigation/Pagination.vue";
+
 export default {
   components: {Pagination},
   data() {

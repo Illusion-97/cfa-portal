@@ -1,7 +1,5 @@
 import axios from "axios";
-import {
-  requestOptions
-} from "@/_helpers/request-options.js";
+import {requestOptions} from "@/_helpers/request-options.js";
 //import handleResponse from '@/_helpers/handle-response.js';
 
 export const utilisateurApi = {
@@ -279,11 +277,21 @@ function addTuteur(tuteur) {
  * @param {*} Utilisateur 
  * @returns 
  */
-function updateUtilisateur(Utilisateur) {
+function updateUtilisateur(utilisateur) {
   return axios
-    .post(`${END_POINT}`, Utilisateur, requestOptions.headers())
-    .then((response) => response.data)
-    .catch((error) => console.log(error.message));
+    .put(END_POINT, utilisateur, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      console.log('Mise à jour réussie', response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la mise à jour', error);
+      throw error; 
+    });
 }
 
 /**

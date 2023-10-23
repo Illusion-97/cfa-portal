@@ -58,8 +58,8 @@
 
 <script>
 import BodyTitle from "@/components/utils/BodyTitle.vue";
-import { etudiantApi} from "@/_api/etudiant.api.js";
-import { fileApi } from "@/_api/file.api.js"
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {fileApi} from "@/_api/file.api.js"
 
 export default {
   name: "Abscences",

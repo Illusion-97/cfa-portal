@@ -178,11 +178,11 @@
 </template>
 
 <script>
-import { dossierProfessionnelApi } from "@/_api/dossierProfessionnel.api.js";
-import { experiencesApi } from "@/_api/experiences.api.js";
-import { cursusApi } from "@/_api/cursus.api.js";
-import { activiteTypeApi } from "@/_api/activiteType.api.js";
-import { VueEditor } from "vue2-editor";
+import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js";
+import {experiencesApi} from "@/_api/experiences.api.js";
+import {cursusApi} from "@/_api/cursus.api.js";
+import {activiteTypeApi} from "@/_api/activiteType.api.js";
+import {VueEditor} from "vue2-editor";
 
 export default {
   name: "Selects",

@@ -36,7 +36,8 @@
 </template>
 <script>
 import Planning from "@/components/utils/Planning.vue";
-import { utilisateurApi } from "@/_api/utilisateur.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api.js";
+
 export default {
   name: "",
   components: {

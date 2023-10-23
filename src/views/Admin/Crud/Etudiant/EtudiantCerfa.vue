@@ -1029,10 +1029,10 @@
 </template>
 
 <script>
-import { cerfaApi } from "@/_api/cerfa.api.js";
-import { etudiantApi} from "@/_api/etudiant.api.js";
-import { utilisateurApi } from "@/_api/utilisateur.api";
-import { utilisateur } from "../../../../store/modules/utilisateur.module";
+import {cerfaApi} from "@/_api/cerfa.api.js";
+import {etudiantApi} from "@/_api/etudiant.api.js";
+import {utilisateurApi} from "@/_api/utilisateur.api";
+import {utilisateur} from "../../../../store/modules/utilisateur.module";
 
 export default {
 name: "cerfaCreate",

@@ -71,9 +71,9 @@
 </template>
 
 <script>
-import { projetApi } from "@/_api/projet.api.js";
-import { groupeApi } from "@/_api/groupe.api.js";
-import { fileFields } from "@/assets/js/fields.js";
+import {projetApi} from "@/_api/projet.api.js";
+import {groupeApi} from "@/_api/groupe.api.js";
+import {fileFields} from "@/assets/js/fields.js";
 
 import "@/assets/styles/CrudDetail.css";
 

@@ -68,7 +68,8 @@
 </template>
 
 <script>
-import { utilisateurService } from "@/_services/utilisateur.service.js";
+import {utilisateurService} from "@/_services/utilisateur.service.js";
+
 export default {
   name: "Planning",
   data() {

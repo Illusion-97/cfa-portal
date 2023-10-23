@@ -6,6 +6,7 @@
 
 <script>
 import EntrepriseListComponent from "@/components/List/EntrepriseListComponent.vue";
+
 export default {
   name: "EntrepriseList",
   components: {

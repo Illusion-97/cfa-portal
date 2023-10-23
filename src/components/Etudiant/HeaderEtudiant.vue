@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { authenticationApi } from "@/_api/authentication.api.js";
+import {authenticationApi} from "@/_api/authentication.api.js";
 
 export default {
 
