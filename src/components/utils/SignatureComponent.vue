@@ -21,15 +21,16 @@
 
                 <VPerfectSignature width="50%" class="border border-dark" ref="signaturePad"
                     :stroke-options="strokeOptions" />
-
-                    <div v-if="alertsignature == true" class="my-invalid-feedback"> 
-                        Entrer une signature !
-                    </div>
+                <div v-if="alertsignature == true" class="my-invalid-feedback">
+                    {{ errorMessage }}
+                </div>
             </div>
 
             <!-- ACTIONS -->
             <div class="m-4">
                 <b-button @click="toDataURL()" class="mr-2" variant="outline-primary">Sauvegarder</b-button>
+                <input type="file" @change="convertImage" ref="fileRef" style="display: none">
+                <b-button @click="openFileInput()" class="mr-2" variant="outline-primary">Importer</b-button>
                 <b-button @click="clear()" class="mr-2" variant="outline-primary">Vider</b-button>
                 <b-button variant="warning" @click="AnnulerModif">
                     <font-awesome-icon :icon="['fas', 'undo-alt']" class="icon" />
@@ -49,10 +50,8 @@ export default {
     },
     watch: {
         signature(val) {
-            if (val != null || val != "") {
-
+            if (val) {
                 this.src = val.pieceJointe
-
             }
         },
     },
@@ -64,7 +63,8 @@ export default {
                 smoothing: 0.5,
                 streamline: 0.5
             },
-            alertsignature : false,
+            errorMessage: "",
+            alertsignature: false,
             signature: null,
             src: null,
             modifier: false,
@@ -73,7 +73,7 @@ export default {
     created() {
         // SIGNATURE
         signatureApi.getByUtilisateurId(this.$store.getters.getUtilisateur.id).then(response => {
-            if (response != "") {
+            if (response) {
                 this.modifier = false
                 this.signature = response
             }
@@ -81,10 +81,30 @@ export default {
         this.src = signatureContent.srcImg();
     },
     methods: {
+        openFileInput() {
+            this.$refs.fileRef.click();
+        },
+
+        convertImage(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    this.$refs.signaturePad.fromDataURL(reader.result);
+                }
+                reader.readAsDataURL(file);
+                this.errorMessage = null;
+                this.alertsignature = false;
+            } else {
+                this.alertsignature = true;
+                this.errorMessage = "Type de format non accépté, veuillez séléctionnée une image.";
+            }
+        },
+
         // RECUPERATION DES DONNEE DANS L'URL
         toDataURL() {
             const dataURL = this.$refs.signaturePad.toDataURL();
-
+            console.log(dataURL);
             if (dataURL != undefined) {
                 if (this.signature != null) {
                     let signature = this.signature;
@@ -109,8 +129,11 @@ export default {
                         console.log(err)
                     })
                 }
+                this.modifier = false;
+                this.alertsignature = false;
             }
             else {
+                this.errorMessage = "Entrer une signature !";
                 this.alertsignature = true;
             }
 
@@ -118,6 +141,8 @@ export default {
         // OTHER
         clear() {
             this.$refs.signaturePad.clear();
+            this.errorMessage = null;
+            this.alertsignature = false;
         },
         modifierSig() {
             this.modifier = true;
@@ -131,12 +156,11 @@ export default {
 </script>
 
 <style>
-
 .my-invalid-feedback {
-  width: 100%;
-  margin-top: 0.25rem;
-  font-size: 100%;
-  color: #dc3545;
-  font-weight: bolder;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 100%;
+    color: #dc3545;
+    font-weight: bolder;
 }
 </style>
