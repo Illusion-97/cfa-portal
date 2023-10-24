@@ -132,6 +132,18 @@
             </div>
           </b-tab>
 
+
+          <!-- ORDRE DE PASSAGE -->
+          <b-tab>
+            <template v-slot:title>
+              <font-awesome-icon :icon="['fas', 'table']" />
+              Ordre de passage
+            </template>
+            <div>
+              <OrdrePassage :ParentEtudiants="etudients"/>
+            </div>
+          </b-tab>
+
           <!-- TABLE NOTES -->
           <b-tab>
             <template v-slot:title>
@@ -153,6 +165,7 @@
 <script>
 import {promotionApi} from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
+import OrdrePassage from "@/components/Formateur/OrderPassage.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
 import {utilisateurService} from "@/_services/utilisateur.service.js";
 import {interventionApi} from "@/_api/intervention.api";
@@ -169,7 +182,9 @@ export default {
   },
   components: {
     ExamensPromotionsListCompoenent,
-    AjouterNotes, LoginWdg2
+    OrdrePassage,
+    AjouterNotes, 
+    LoginWdg2
   },
 
   data() {
