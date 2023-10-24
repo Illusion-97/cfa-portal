@@ -49,8 +49,8 @@ function getPromotionByid(id) {
  * @param {*} search 
  * @returns affiche toutes les promotions par pages
  */
-function getAllByPage(page, size, search ="" ) {
-  let req = `/promotions/${page}/${size}/sort/1/${search}`;
+function getAllByPage(page, size,choix="", search ="" ) {
+  let req = `/promotions/${page}/${size}/${choix}/${search}`;
 
   return axios
     .get(req, requestOptions.headers())
@@ -58,8 +58,8 @@ function getAllByPage(page, size, search ="" ) {
     .catch((error) => console.log(error));
 }
 
-function getAllByPageSort(page, size,choix = 0) {
-    let req = `/promotions/${page}/${size}/sort/${choix}`;
+function getAllByPageSort(page, size,choix = "") {
+    let req = `/promotions/${page}/${size}/${choix}`;
 
     return axios
         .get(req, requestOptions.headers())
