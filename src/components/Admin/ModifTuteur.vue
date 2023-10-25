@@ -1,11 +1,11 @@
 <template>
     <div id="container-fluid">
-
+        <div v-if="formulaireTuteur">
         <!-- FORMULAIRE -->
-        <b-card-body class="d-flex justify-content-center">
-            <v-app class="w-50">
-                <form @submit="addTuteur">
-                    <v-container>
+        <v-card>
+      <v-card-text>
+        <v-app class="w-60">
+        <v-container>
                         <v-row>
                             <v-col cols="12" md="2">
                                 <v-select :items="sexe" v-model="formulaireTuteur.civilite" label="Civilité" outlined>
@@ -48,7 +48,7 @@
                                 </div>
                             </v-col>
                             <v-col cols="12" md="5">
-                                <v-select :items="listAdresse" v-model="adresseId" label="Adresse*" outlined
+                                <v-select :items="listAdresse" v-model="formulaireTuteur.adresse" label="Adresse*" outlined
                                     :rules="required" clearable required>
                                     <template v-slot:prepend-item>
                                         <v-list-item @click="showModal('Adresse')">
@@ -79,12 +79,12 @@
                         </v-row>
                         <v-row>
                             <v-col cols="12" md="6">
-                                <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormationId"
+                                <v-select :items="listCentreFormation" v-model="formulaireTuteur.centreFormation"
                                     label="Centre de formation*" outlined :rules="required" clearable required></v-select>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <v-select :items="listEntreprise" v-model="entrepriseId" label="Entreprise*" outlined
-                                    :rules="required" clearable required>
+                                <v-select :items="listEntreprise" v-model="formulaireTuteur.entreprise" label="Entreprise*" outlined
+                                    :rules="required" clearable required >
                                     <template v-slot:prepend-item>
                                         <v-list-item @click="showModal('Entreprise')">
                                             <v-list-item-action>
@@ -96,25 +96,36 @@
                                 </v-select>
                             </v-col>
                         </v-row>
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <v-select :items="listEtudiant" v-model="formulaireTuteur.etudiant"
+                                    label="Etudiant*" outlined :rules="required" clearable required></v-select>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+              <v-col>
+                <b-form-checkbox id="active" v-model="formulaireTuteur.active" name="active">Active le compte</b-form-checkbox>
+              </v-col>
+            </v-row><br/>
                         <div>
                             <small>*indique les champs requis</small>
                         </div>
-                        <v-btn class="mr-4" type="submit" color='success'>
-                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'plus']" />
-                            Ajouter
-                        </v-btn>
-                        <v-btn class="mr-4" color="secondary" @click="clear">
+                        <b-button class="mr-4" type="submit" variant="success" @click="modifierTuteur(formulaireTuteur)">
+                            <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'check-circle']" />
+                           Valider
+                        </b-button>
+                        <b-button class="mr-4" variant="warning" @click="clear">
                             <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'broom']" />
                             Vider
-                        </v-btn>
-                        <v-btn class="mr-4" color="error" @click="hideComponent">
+                        </b-button>
+                        <b-button class="mr-4" variant="danger"  @click="hideModalTuteur">
                             <font-awesome-icon class="mr-1  mt-1" :icon="['fas', 'times-circle']" />
                             Annuler
-                        </v-btn>
+                        </b-button>
                     </v-container>
-                </form>
-            </v-app>
-        </b-card-body>
+                  </v-app>
+      </v-card-text>
+    </v-card>
 
         <!-- FORMULAIRE ADRESSE -->
         <b-modal size="lg" hide-footer :ref="'modal-Adresse'">
@@ -136,54 +147,57 @@
                 Annuler</b-button>
         </b-modal>
     </div>
+    </div>
 </template>
 <script>
 import { centreFormationApi } from "@/_api/centreFormation.api.js";
 import { adresseApi } from "@/_api/adresse.api.js";
+import { tuteurApi } from "@/_api/tuteur.api.js";
+import { etudiantApi } from "@/_api/etudiant.api.js";
 import { entrepriseApi } from "@/_api/entreprise.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import addAdresse from "@/components/Modal/AddAdresse.vue";
 import addEntreprise from "@/components/Modal/AddEntreprise.vue";
 export default {
-    name: "AddTuteur",
+    name: "modifTuteur",
+    props: {
+    tuteur: {
+      type: Object, 
+      required: true
+    },
     components: {
         addAdresse,
         addEntreprise,
-    },
+    }
+},
     data() {
         return {
-            formulaireTuteur: {
-                login: "",
-                password: "",
-                prenom: "",
-                nom: "",
-                civilite: null,
-                dateDeNaissance: null,
-                telephone: null,
-                adresseDto: {
-                    id: null
-                },
-                entrepriseDto: {
-                    id: null
-                },
-                rolesDto: [
-                    {
-                        intitule: "TUTEUR"
-                    }
-                ],
-                centreFormationId: null,
-                externalAccount: false,
-                active: true
-            },
+          formulaireTuteur:{
+            login: '',
+        password: '',
+        prenom: '',
+        nom: '',
+        civilite: null,
+        dateDeNaissance: null,
+        telephone: null,
+        centreFormationId: null,
+        adresseDto: {
+          id: null 
+        },
+        entrepriseDto: {
+          id: null 
+        },
+          },
+          
             activePicker: null,
             menu: false,
             listCentreFormation: [],
             listEntreprise: [],
+            listEtudiant: [],
             listAdresse: [],
             sexe: ['Mr', 'Mme'],
-            adresseId: null,
-            entrepriseId: null,
             show1: false,
+            showModalTuteur:false,
             required: [v => !!v || 'Le champ est requis'],
         };
     },
@@ -197,8 +211,23 @@ export default {
         this.getCentreFormation();
         this.getEntreprise();
         this.getAdresse();
+        this.getEtudiant();
+        this.fetchTuteur(); 
     },
+
     methods: {
+
+fetchTuteur() {
+    const tuteurId = this.tuteur.id;
+    tuteurApi.getById(tuteurId)
+  .then(() => {
+    this.formulaireTuteur = this.tuteur;
+    this.formulaireTuteur.active = this.tuteur.active; 
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+},
         getCentreFormation() {
             centreFormationApi
                 .getAllCentreFormations()
@@ -229,6 +258,16 @@ export default {
                     })
                 });
         },
+        getEtudiant(){
+      etudiantApi
+                .getAllEtudiant()
+                .then((data) => {
+                    data.forEach(etudiant => {
+                        let item = { text: etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom, value: etudiant.id }
+                        this.listEtudiant.push(item);
+                    })
+                });
+    },
         showModal(value) {
             if (value == "Adresse")
                 this.$refs["modal-Adresse"].show();
@@ -240,6 +279,10 @@ export default {
                 this.getEntreprise();
                 this.getAdresse();
             }
+        },
+        hideModalTuteur(){
+            this.clear();
+            this.$emit('cancel');
         },
         hideModal() {
             this.showModal();
@@ -256,19 +299,42 @@ export default {
             this.formulaireTuteur.civilite = null;
             this.formulaireTuteur.dateDeNaissance = null;
             this.formulaireTuteur.telephone = null;
-            this.formulaireTuteur.centreFormationId = null;
-            this.formulaireTuteur.adresseDto.id = null;
-            this.formulaireTuteur.entrepriseDto.id = null;
-            this.adresseId = null;
-            this.entrepriseId = null;
+            this.formulaireTuteur.centreFormation = null;
+            this.formulaireTuteur.adresse = null;
+            this.formulaireTuteur.entreprise = null;
+            this.formulaireTuteur.etudiant = null;
+
         },
-        addTuteur() {
-            this.formulaireTuteur.adresseDto.id = this.adresseId;
-            this.formulaireTuteur.entrepriseDto.id = this.entrepriseId;
-            utilisateurApi.addTuteur(this.formulaireTuteur)
-                .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouter.')))
-                .catch((error) => (this.$emit('hidden', error)))
-        },
+
+   modifierTuteur() {  
+
+    if (!this.formulaireTuteur.etudiant) {
+                console.error("Veuillez sélectionner un étudiant.");
+                return;
+            }
+    this.formulaireTuteur.etudiantDto = {
+    id: this.formulaireTuteur.etudiant,
+  };
+
+  this.formulaireTuteur.adresseDto = {
+    id: this.formulaireTuteur.adresse,
+  };
+
+  this.formulaireTuteur.entrepriseDto = {
+    id: this.formulaireTuteur.entreprise,
+  };
+
+  this.formulaireTuteur.centreFormationId = this.formulaireTuteur.centreFormation;
+
+  utilisateurApi.updateTuteur(this.formulaireTuteur)
+    .then(() => {
+      this.clear();
+      this.$emit('hidden', 'Tuteur modifié.');
+    })
+    .catch((error) => {
+      this.$emit('hidden', error);
+    });
+},
     }
 }          
 </script>

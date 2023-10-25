@@ -1,3 +1,4 @@
+
 <template>
   <div id="adminDashboard" class="container-fluid">
     <!-- MESSAGE D'ALERT -->
@@ -76,8 +77,6 @@
       </addTuteur>
     </b-collapse>
 
-  
-
     <b-collapse class="modalWdg2" :visible=visibleMajStudent>
       <login-wdg-2 @hidden="openModalMajStudent" @logInUser="logInUserWdg2Etudiant" @wdg2Close="wdg2CloseEtudiant" />
     </b-collapse>
@@ -105,13 +104,15 @@
       <template #cell(Modifier)="row">
         <b-button variant="warning" @click=ouvrirModalModification(row.item) class="pl-3 pr-3">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
-         Roles
+          Modifier
         </b-button>
       </template>
+
       <template #cell(ModifierT)="row">
-  <b-button variant="success" @click="ouvrirFormulaireModificationTuteur(row.item)" class="pl-3 pr-3">
-    <font-awesome-icon :icon="['fas', 'edit']" />
-  </b-button>
+        <span v-if="selected_role === 'TUTEUR'">
+  <b-button variant="primary" @click="ouvrirFormulaireModificationTuteur(row.item)" class="pl-3 pr-3">
+    <font-awesome-icon :icon="['fas', 'edit']" />Modifier
+  </b-button></span>
 </template>
 
       <!--Description -->
@@ -128,8 +129,6 @@
             <b-col> {{ row.item.telephone }} </b-col>
             <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
             <b-col> {{ row.item.dateDeNaissance }} </b-col>
-            <b-col sm="2" class="text-sm-right"><b>Centre Formation:</b></b-col>
-            <b-col> {{ row.item.centreFormation }} </b-col>
           </b-row>
         </b-card>
       </template>
@@ -146,84 +145,11 @@
       </b-form>
     </b-modal>
 
-    
-    <template>
-  <b-modal hide-footer v-model="showModalTuteur" persistent max-width="600">
-    <v-card>
-      <v-card-title>
-        <span class="headline">Modification Tuteur</span>
-      </v-card-title>
-      <v-card-text v-if="rowToModify">
-          <v-container fluid>
-            <v-row>
-              <v-col>
-                <v-text-field v-model="rowToModify.login" label="Login"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field v-model="rowToModify.nom" label="Nom"></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field v-model="rowToModify.prenom" label="Prénom"></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-select :items="sexe" v-model="rowToModify.civilite" label="Civilité" ></v-select>
-              </v-col>
-              <v-col>
-                <v-select :items="listAdresse"  v-model="rowToModify.adresse" label="Adresse">
-                  </v-select>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-select  v-model="rowToModify.centreFormation" :items="listCentreFormation" label="Centre de formation*" required>
-                </v-select>
 
-            </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-text-field v-model="rowToModify.telephone" label="Téléphone" outlined clearable
-                                        :rules="[v => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(v) || 'Numéro invalide']">
-                                      </v-text-field>
-              </v-col>
-              <v-col>
-                <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                    :return-value.sync="rowToModify.dateDeNaissance" transition="scale-transition"
-                                    offset-y min-width="auto">
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <v-text-field v-model="rowToModify.dateDeNaissance" label="Date de naissance"
-                                            prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on" outlined
-                                            clearable></v-text-field>
-                                    </template>
-                                    <v-date-picker v-model="rowToModify.dateDeNaissance"
-                                        :active-picker.sync="activePicker" locale="fr"
-                                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
-                                        min="1950-01-01" @change="$refs.menu.save(rowToModify.dateDeNaissance)">
-                                    </v-date-picker>
-                                </v-menu>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <b-form-checkbox id="active" v-model="rowToModify.active" name="active">Active le compte</b-form-checkbox>
-              </v-col>
-            </v-row>
-          </v-container>
-      </v-card-text>
-      <v-card-actions>
-          <b-button type="button" class="mt-3" variant="warning" @click="modifierTuteur(rowToModify)">
-            <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" />Valider
-          </b-button>
-          <b-button variant="danger" @click="showModalTuteur = false">Annuler</b-button>
-      </v-card-actions>
-    </v-card>
+   
+      <b-modal title="Modification Tuteur" size="xl" hide-footer v-model="showModalTuteur">
+    <modifTuteur :tuteur="rowToModify" @cancel="showModalTuteur = false" @hidden="updateTuteur" />
   </b-modal>
-</template>
-
-
-
 
     <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
       :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
@@ -235,19 +161,17 @@
 
 <script>
 import { etudiantApi } from "@/_api/etudiant.api.js";
-import { centreFormationApi } from "@/_api/centreFormation.api.js";
-import { adresseApi } from "@/_api/adresse.api.js";
 import { utilisateurApi } from "@/_api/utilisateur.api.js";
 import { utilisateursRoleApi } from "@/_api/utilisateurRole.api.js";
 import addTuteur from "@/components/Admin/AddTuteur.vue"
-//import modifTuteur from "@/components/Admin/ModifTuteur.vue"
 import { utilisateursFields } from "@/assets/js/fieldsAdmin.js";
+import modifTuteur from "@/components/Admin/ModifTuteur.vue"
 import LoginWdg2 from "../LoginWdg2.vue";
 export default {
   name: "UserListComponent",
   components: {
     addTuteur,
-    //modifTuteur,
+    modifTuteur,
     LoginWdg2,
   },
   props: {
@@ -292,9 +216,6 @@ export default {
       variant: "",
       formData: null,
 
-      activePicker: null,
-            menu: false,
-
       showLoginWdg2Card: false,
       showLoginWdg2CardEtudiant: false,
       loading: false,
@@ -302,16 +223,11 @@ export default {
       showModalRoleUser: false,
       showModalTuteur:false,
       rowToModify: null,
-      listCentreFormation: [],
-      listAdresse: [],
-      sexe: ['Mr', 'Mme'],
       editRoles: [],
       options: [],
-      item: {},
-      required: [v => !!v || 'Le champ est requis'],
+      item: {}
     };
   },
-  
   computed: {
     usersComputed() {
       return this.users;
@@ -324,35 +240,10 @@ export default {
     },
   },
   created() {
-  this.refreshList();
-  this.getRoles();
-
-  Promise.all([
-    centreFormationApi.getAllCentreFormations(),
-    adresseApi.getAllAdresses()
-  ])
-  .then(([centreFormationData, adresseData]) => {
-    // Mettre à jour listCentreFormation avec les données des centres de formation
-    this.listCentreFormation = centreFormationData.map(centreFormation => ({
-      text: centreFormation.nom,
-      value: centreFormation.id
-    }));
-
-    // Mettre à jour listAdresse avec les données des adresses
-    this.listAdresse = adresseData.map(adresse => ({
-      text: `${adresse.ville} ${adresse.libelle}`,
-      value: adresse.id
-    }));
-  })
-  .catch(error => {
-    console.error('Erreur lors de la récupération des données :', error);
-  });
-},
-  methods: {
-    getCentreFormationName(centreFormationId) {
-    const centreFormation = this.listCentreFormation.find(cf => cf.value === centreFormationId);
-    return centreFormation ? centreFormation.text : "Pas de centre Formation";
+    this.refreshList();
+    this.getRoles();
   },
+  methods: {
     openModalAddTuteur() {
       this.visibleAddTuteur = !this.visibleAddTuteur;
       this.visibleMajStudent = false;
@@ -375,7 +266,6 @@ export default {
         this.loading = false;
       }
     },
-   
     openModalMajUsers() {
       this.visibleMajUsers = !this.visibleMajUsers;
       this.visibleMajStudent = false;
@@ -395,10 +285,10 @@ export default {
             nom: e.nom,
             prenom: e.prenom,
             login: e.login,
+            password : e.password,
             rolesDto: e.rolesDto,
             civilite: e.civilite,
             telephone: e.telephone,
-            centreFormation: this.getCentreFormationName(e.centreFormationId),
             adresse:
               e.adresseDto != null
                 ? e.adresseDto.libelle +
@@ -408,6 +298,10 @@ export default {
                 e.adresseDto.ville
                 : "Pas d'adresse",
             dateDeNaissance: e.dateDeNaissance,
+            centreFormation : e.centreFormationId,
+            entreprise : e.entrepriseDto != null ? e.entrepriseDto.raisonSociale : "Pas d'entreprise" ,
+            etudiant : e.etudiantDto != null ? e.etudiantDto.nom + " " + e.etudiantDto.prenom : "Pas d'etudiant",
+            active : e.active
           };
           this.items.push(item);
         })
@@ -554,33 +448,27 @@ export default {
       this.fetchRolesFromDatabase();
       this.showModalRoleUser = true; // Affiche la modal de modification des rôles
     },
+
     ouvrirFormulaireModificationTuteur(row) {
-    this.rowToModify = { ...row }; 
+    this.rowToModify = { ...row };
+    this.visibleAddTuteur = !this.visibleAddTuteur;
+    this.visibleMajStudent = false;
+    this.visibleMajUsers = false;
     this.showModalTuteur = true; 
   },
-  modifierTuteur() {
-  const userDto = {
-    id: this.rowToModify.id, 
-    version : this.rowToModify.version,
-        civilite: this.rowToModify.civilite,
-        adresse: this.rowToModify.adresse,
-        nom: this.rowToModify.nom || '',
-        prenom: this.rowToModify.prenom || '',
-        telephone: this.rowToModify.telephone,
-        login: this.rowToModify.login || '',
-        centreFormation: this.rowToModify.centreFormation,
-        active: this.rowToModify.active
-  };
-  
-  utilisateurApi.updateUtilisateur(userDto)
-    .then(response => {
-      console.log('Mise à jour réussie', response);
-      this.showModalTuteur = false;
-    })
-    .catch(error => {
-      console.error('Erreur lors de la mise à jour', error);
-    });
-},
+
+    updateTuteur(mesg) {
+      if (mesg == "Tuteur modifié.") {
+        this.visibleAddTuteur = false;
+        this.showModalTuteur = false;
+        this.refreshList();
+      }
+      else {
+        this.visibleAddTuteur = true;
+        this.message = mesg;
+        this.loading = false;
+      }
+    },
 
     closeModal() {
       this.showModalRoleUser = false;
@@ -627,7 +515,6 @@ export default {
         });
     }
   },
-  
 };
 </script>
 <style scoped src="@/assets/styles/CrudListComponent.css"></style>
