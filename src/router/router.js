@@ -553,6 +553,7 @@ const routes = [
     component: AddAdresse,
     meta: { authorize: [Role.Referent] },
   },
+
   {
     path: "/referent/adresses/detail/:id",
     name: "referent_adresse_detail",

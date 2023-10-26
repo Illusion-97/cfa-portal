@@ -19,6 +19,7 @@ export const utilisateurApi = {
   getAllUtilisateursByAdresse,
   addUtilisateur,
   addTuteur,
+  updateTuteur,
   updateUtilisateur,
   deleteUtilisateur,
   getAllUsersByName,
@@ -271,6 +272,12 @@ function addTuteur(tuteur) {
   return axios
     .post(`${END_POINT}/tuteur`, tuteur, requestOptions.headers())
 }
+
+function updateTuteur(tuteur) {
+  return axios
+    .put(`${END_POINT}/tuteur`, tuteur, requestOptions.headers())
+}
+
 
 /**
  * 

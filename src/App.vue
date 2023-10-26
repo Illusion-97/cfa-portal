@@ -20,6 +20,7 @@
       <div v-else-if="path == 'tuteur'" class="test">
         <HeaderTuteur />
         <router-view />
+        <FooterEtudiant />
       </div>
       <router-view v-else class="monBody" />
     </div>

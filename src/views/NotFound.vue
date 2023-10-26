@@ -1,7 +1,7 @@
 <template>
     <section>
         <h1>404</h1>
-        <h2>La page n'existe pas</h2>
+        <h2>Cette page n'existe pas</h2>
 
     <v-btn @click="goBack()">
         Go back 

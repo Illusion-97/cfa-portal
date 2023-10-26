@@ -31,7 +31,7 @@ export const utilisateursFields = [
   },
   {
     key: "ModifierT",
-    label: "Modifier Tuteur",
+    label: "",
     thStyle: { width: "1%" },
   },
 ];
