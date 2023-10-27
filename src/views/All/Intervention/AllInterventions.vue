@@ -91,6 +91,9 @@ export default {
     this.lengthItv();
   },
   methods: {
+    sortByDate(){
+      console.log("miaou")
+    },
     fillList() {
       interventionApi
         .getIntervention(this.currentPage, this.perPage, this.keyword)

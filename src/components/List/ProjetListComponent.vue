@@ -71,7 +71,6 @@
               </span>
             </b-button>
           </td>
-
         </tr>
       </tbody>
     </table>
