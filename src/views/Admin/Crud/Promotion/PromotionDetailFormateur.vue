@@ -356,8 +356,12 @@ export default {
       this.pageCountIntervention = Math.ceil(this.countIntervention / this.perPage)
     },
     async pageChangeEtudiant(pageNum) {
-      if (pageNum) 
-        etudiantApi.getEtudiantsByPromotionByPage(this.$route.params.id, pageNum - 1, this.perPage, this.saisieEtudiant).then((response) => { this.etudients = response })
+      if (pageNum)
+        etudiantApi.getEtudiantsByPromotionByPage(
+            this.$route.params.id,
+            pageNum - 1,
+            this.perPage,
+            this.saisieEtudiant).then((response) => { this.etudients = response })
       else
         etudiantApi.getEtudiantsByPromotionByPage(this.$route.params.id, 0, this.perPage, this.saisieEtudiant).then((response) => { this.etudients = response })
 

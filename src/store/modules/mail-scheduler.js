@@ -18,8 +18,16 @@ function formateurSchedulerValisationFormation(user, isFormateur){
         isFormateur: isFormateur
     };
     // Envoyez une requête POST au backend avec les données
-    axios.post(process.env.VUE_APP_API_URL + "mail/schedule", data)
+    axios.post(process.env.VUE_APP_API_URL + "mail/schedule", data, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
         .then()
-        .catch();
+        .catch(error => {
+            if (error.request) {
+                console.error("La requête n'a pas abouti : " + error.message);
+            }
+        });
 }
 

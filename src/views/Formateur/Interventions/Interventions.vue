@@ -13,30 +13,6 @@
 
     <!-- LIST DES INTERVENTIONS -->
     <div class="row d-flex justify-content-arround p-2">
-      <!-- <div v-for="item in items" :key="item.id" @click="click(item)"
-        class="col-lg-4 col-md-12 col-sm-12 rounded mt-4 container-card">
-        <b-card header-text-variant="white" header-tag="header" header-bg-variant="dark" footer-tag="footer"
-          footer-bg-variant="success" footer-border-variant="dark" style="max-width: 32rem"
-          class="card-Promotions col d-flex flex-row align-items-center">
-          <b-card-header class="
-                  d-flex
-                  justify-content-center
-                  bg-white
-                  text-secondary
-                  col
-                  font-weight-bold
-                ">
-            {{ item.formationDto != null ? item.formationDto.titre : 'Pas de formation' }}
-          </b-card-header>
-          <b-card-text class="mt-4 d-flex justify-content-center bg-white text-secondary">
-            Date du debut : {{ item.dateDebut | formatDate }}
-          </b-card-text>
-          <b-card-footer class="d-flex justify-content-center bg-white text-secondary">
-            Date de fin : {{ item.dateFin | formatDate }}
-          </b-card-footer>
-        </b-card>
-      </div> -->
-    
       <table class="table table-striped">
           <thead class="thead-dark">
             <tr>

@@ -50,15 +50,13 @@
       </thead>
       <tbody v-if="projetsComputed">
         <tr
-          v-for="(projet, index) in projetsComputed"
+          v-for="projet in projetsComputed"
           :key="projet.id"
           class="mon-tr"
         >
           <td>{{ projet.nom }}</td>
           <td>{{ projet.description }}</td>
-          <td>
-            {{groupNameArray[index]}}
-          </td>
+          <td>{{projet.groupeNom}}</td>
           <td>
             <b-button variant="warning"  style="margin-right: 5px" @click="detail(projet.id)">
               <span tooltip="Modifier" flow="down">
@@ -73,7 +71,6 @@
               </span>
             </b-button>
           </td>
-
         </tr>
       </tbody>
     </table>
@@ -85,7 +82,6 @@
 import Pagination from "@/components/Navigation/Pagination.vue";
 import {projetApi} from "@/_api/projet.api.js";
 import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
-import {groupeApi} from "@/_api/groupe.api";
 import GroupeListComponent from "@/components/List/GroupeListComponent.vue";
 
 export default {
@@ -112,10 +108,9 @@ export default {
       isGroupeVisible: false,
       formAjoutProjet: true,
       projets: [],
-      groupName: [],
       perPage: 10,
       pageCount: 0,
-      currentPage: 1,
+      currentPage: 0,
       saisie: "",
       projet_input: "",
     };
@@ -126,11 +121,7 @@ export default {
     },
     nbPageComputed() {
       return this.pageCount;
-    },
-    groupNameArray() {
-      // Converti le tableau Set en Array
-      return this.groupName;
-    },
+    }
   },
   created() {
     this.refreshList();
@@ -150,16 +141,14 @@ export default {
     pageChange(pageNum) {
       projetApi
         .getAllByPage(pageNum - 1, this.perPage)
-        .then((response) => (this.projets = response, this.getGroupNameById(response.groupeId)));
+        .then((response) => (this.projets = response));
     },
     refreshList() {
       projetApi
           .getAllByPage(0, this.perPage)
           .then((response) => {
             this.projets = response;
-            this.projets.forEach(projet => {
-              this.getGroupNameById(projet.groupeId); // Appel de getGroupNameById pour chaque projet
-            });
+            console.log(response)
           });
       projetApi
           .getCount()
@@ -179,13 +168,6 @@ export default {
     showCreateProjet(){
       this.isVisible = !this.isVisible;
       this.isGroupeVisible = false;
-    },
-    async getGroupNameById(idGroup) {
-        groupeApi.getById(idGroup)
-            .then(response => {
-              this.groupName.push(response.nom)
-            });
-
     },
     clickList(projet) {
       if (!this.isAction) {
