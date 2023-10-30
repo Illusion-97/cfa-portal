@@ -10,17 +10,23 @@
 
         <!-- FORMULAIRE DATE HEURE -->
         <b-form v-if="showForm">
+            <table></table>
             <b-form-group label="Choisir la date et l'heure d'examen :">
                 <div class="w-100 d-flex justify-content-center">
-                    <b-form-input v-model="soutenance.joure" type="date" class="" required />
-                    <b-form-input v-model="soutenance.heure" type="time" class="" required />
+                    <b-form-input v-model="soutenance.jour" type="date" class="" required />
+                    <b-form-input v-model="soutenance.heure" type="time" class="mb-3" required />
                 </div>
                 <div>
-                    <b-form-input v-model="soutenance.minAccueil" type="time" class="" />
-                    <b-form-input v-model="soutenance.minEntretien" type="time" class="" />
-                    <b-form-input v-model="soutenance.minQuestion" type="time" class="" />
-                    <b-form-input v-model="soutenance.minEntretienFinal" type="time" class="" />
-                    <b-form-input v-model="soutenance.minDeliberation" type="time" class="" />
+                    <span>Accueil Candidat :</span>
+                    <b-form-input label="Acceuil Candidat" v-model="soutenance.minAccueil" type="time" class="mt-1 mb-3" />
+                    <span>Entretien Technique :</span>
+                    <b-form-input v-model="soutenance.minEntretien" type="time" class="mt-1 mb-3" />
+                    <span>Questionnaire à partir de production :</span>
+                    <b-form-input v-model="soutenance.minQuestion" type="time" class="mt-1 mb-3" />
+                    <span class="pb-5">Entretien Final :</span>
+                    <b-form-input v-model="soutenance.minEntretienFinal" type="time" class="mt-1 mb-3" />
+                    <span>Déliberation du Jury :</span>
+                    <b-form-input v-model="soutenance.minDeliberation" type="time" class="mt-1" />
                 </div>
             </b-form-group>
         </b-form>
@@ -86,7 +92,7 @@ export default {
         addEtudiant() {
             this.soutenance.etudiantDto = this.idEtudiant;
 
-            if (this.soutenance.date && this.soutenance.heure && this.idEtudiant) {
+            if (this.soutenance.jour && this.soutenance.heure && this.idEtudiant) {
 
                 console.log(this.soutenance);
 
@@ -95,6 +101,8 @@ export default {
                 this.$emit("childEtudiantAdd");
                 this.closeModal();
             } else {
+                console.log(this.soutenance);
+
                 this.color = "danger";
                 this.dismissCountDown = 8;
                 this.message = "Veuillez renseigner tout les champs";
