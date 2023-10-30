@@ -10,10 +10,35 @@
         <b-button variant="success" class="m-4" @click="downloadOrder">Télécharger le tableau</b-button>
 
         <!-- COMPONENT ADDETUDIANTOORDER -->
-        <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd" />
+        <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd"/>
 
         <!-- TABLEAU -->
-        <b-table v-if="showTab" :items="items" :fields="fields" />
+        <table class="table" v-if="items">
+            <thead class="">
+                <tr>
+                    <th>Nom du candidat</th>
+                    <th>Jour convocation oral</th>
+                    <th>Heure convocation oral</th>
+                    <th>Accueil candidat</th>
+                    <th>Entretien technique</th>
+                    <th>Questionnement à partir de production</th>
+                    <th>Entretien final</th>
+                    <th>Délibération du jury</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items" :key="item.id" class="mon-tr">
+                    <td>{{ item.etudiant.utilisateurDto.fullName }}</td>
+                    <td>{{ item.jour }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.minAccueil }}</td>
+                    <td>{{ item.minEntretien }}</td>
+                    <td>{{ item.minQuestion }}</td>
+                    <td>{{ item.minEntretienFinal }}</td>
+                    <td>{{ item.minDeliberation }}</td>
+                </tr>
+            </tbody>
+        </table>
 
         <div v-else>Pas d'étudiant l'iée a l'examen</div>
 
@@ -27,8 +52,7 @@
 </template>
 <script>
 import AddEtudiantToOrder from "@/components/Modal/AddEtudiantToOrder.vue";
-import { OrderPassageFields } from "@/assets/js/fieldsEtudiant.js";
-// import { etudiantApi } from "@/_api/etudiant.api";
+import { soutenanceApi } from "@/_api/soutenance.api.js";
 
 export default {
     components: {
@@ -43,29 +67,29 @@ export default {
             color: "",
             page: 0,
             pageCount: 0,
-            perPage: 7,
-            items: [
-                { id: 1, fullName: "toto1", jour: "jour1" },
-                { id: 2, fullName: "toto2", jour: "jour2" },
-                { id: 3, fullName: "toto3", jour: "jour3" },
-            ],
-            fields: OrderPassageFields,
+            perPage: 9,
+            items: [],
         }
     },
     created() {
         this.pageChange();
         this.getMaxOrder();
-        this.pageCount = Math.ceil(this.items.length / this.perPage);
     },
+
     methods: {
         // RECUPERER L'ORDER LIST
         getOrder() {
+            this.items = [];
             // récupération page de dates d'éxamens avec l'étudiant qui coorespond + ajouter les heure est stocker dans items
-
+            soutenanceApi.getPageSoutenanceByPromotionId(this.idPromotion, this.page, this.perPage)
+                .then((response) => {
+                    response.forEach(element => (this.items.push(element)));
+                }).catch();
         },
-        getMaxOrder() {
-            // récupére tous les order (ex: countOrder)
-
+        // récupére le nombre de tous les order 
+        async getMaxOrder() {
+            await soutenanceApi.countSoutenanceByPromotionId(this.idPromotion).then((response) => (this.pageCount = response));
+            this.pageCount = Math.ceil(this.pageCount / this.perPage);
         },
         // AJOUT ETUDIANT
         etudiantAdd() {
@@ -80,9 +104,11 @@ export default {
             if (pageNum) {
                 this.page = pageNum - 1;
                 this.getOrder();
-            }else {
+                this.getMaxOrder();
+            } else {
                 this.page = 0;
                 this.getOrder();
+                this.getMaxOrder();
             }
         },
         // AFFICHER MODAL 
@@ -91,6 +117,8 @@ export default {
         },
         // TELECHARGER TABLEAU ORDER
         downloadOrder() {
+            console.log(this.pageCount);
+
             // téléchargement du tableau de orderPassage
         }
     }

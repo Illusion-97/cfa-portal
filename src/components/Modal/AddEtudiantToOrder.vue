@@ -32,6 +32,7 @@
 </template>
 <script>
 import { etudiantApi } from "@/_api/etudiant.api";
+import { soutenanceApi } from "@/_api/soutenance.api";
 
 export default {
     data() {
@@ -46,6 +47,16 @@ export default {
             idEtudiant: null,
             date: null,
             time: null,
+            soutenance: {
+                etudiantDto: null,
+                jour: null,
+                heure: null,
+                minAccueil: null,
+                minEntretien: null,
+                minQuestion: null,
+                minEntretienFinal: null,
+                minDeliberation: null,
+            },
         };
     },
     methods: {
@@ -62,7 +73,7 @@ export default {
         onItemSelected(selectedItem) {
             if (selectedItem)
                 this.showForm = true
-            else{
+            else {
                 this.showForm = false
                 this.date = null;
                 this.time = null;
@@ -71,13 +82,16 @@ export default {
         // AJOUT DATE D'EXAMEN
         addEtudiant() {
             if (this.date && this.time && this.idEtudiant) {
-                console.log("date : " + this.date + ", heure : " + this.time + ", idEtudiant : " + this.idEtudiant);
-                // méthode pour sauvegarder la date et l'heure de l'éxamen de l'étudiant 
+                this.soutenance.etudiantDto = this.idEtudiant;
+                this.soutenance.jour = this.jour.getDate();
+                this.soutenance.heure = this.heure.getTime();
+                console.log(this.soutenance);
+
+                soutenanceApi.saveSoutenance(this.soutenance);
 
                 this.$emit("childEtudiantAdd");
-                this.showModal = false;
-            }
-            else {
+                this.closeModal();
+            } else {
                 this.color = "danger";
                 this.dismissCountDown = 8;
                 this.message = "Veuillez renseigner tout les champs";
