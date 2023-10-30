@@ -3,7 +3,7 @@
 
         <!-- SELECT ETUDIANT-->
         <v-app class="w-50">
-            <b-form-group label="Veuillez sélectionner un étudiant :">               
+            <b-form-group label="Veuillez sélectionner un étudiant :">
                 <v-select :items="etudiants" v-model="idEtudiant" @change="onItemSelected" outlined clearable />
             </b-form-group>
         </v-app>
@@ -13,14 +13,14 @@
             <b-form-group label="Choisir la date et l'heure d'examen :">
                 <div class="w-100 d-flex justify-content-center">
                     <b-form-input v-model="soutenance.joure" type="date" class="" required />
-                    <b-form-input v-model="soutenance.date" type="time" class="" required />
+                    <b-form-input v-model="soutenance.heure" type="time" class="" required />
                 </div>
                 <div>
-                    <b-form-input v-model="soutenance.minAccueil" type="time" class=""/>
-                    <b-form-input v-model="soutenance.minEntretien" type="time" class=""/>
-                    <b-form-input v-model="soutenance.minQuestion" type="time" class=""/>
-                    <b-form-input v-model="soutenance.minEntretienFinal" type="time" class=""/>
-                    <b-form-input v-model="soutenance.minDeliberation" type="time" class=""/>
+                    <b-form-input v-model="soutenance.minAccueil" type="time" class="" />
+                    <b-form-input v-model="soutenance.minEntretien" type="time" class="" />
+                    <b-form-input v-model="soutenance.minQuestion" type="time" class="" />
+                    <b-form-input v-model="soutenance.minEntretienFinal" type="time" class="" />
+                    <b-form-input v-model="soutenance.minDeliberation" type="time" class="" />
                 </div>
             </b-form-group>
         </b-form>
@@ -84,9 +84,10 @@ export default {
         },
         // AJOUT DATE D'EXAMEN
         addEtudiant() {
-            if (this.soutenance.date && this.soutenance.time && this.idEtudiant) {
+            this.soutenance.etudiantDto = this.idEtudiant;
 
-                this.soutenance.etudiantDto = this.idEtudiant;
+            if (this.soutenance.date && this.soutenance.heure && this.idEtudiant) {
+
                 console.log(this.soutenance);
 
                 soutenanceApi.saveSoutenance(this.soutenance);

@@ -10,7 +10,7 @@
         <b-button variant="success" class="m-4" @click="downloadOrder">Télécharger le tableau</b-button>
 
         <!-- COMPONENT ADDETUDIANTOORDER -->
-        <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd"/>
+        <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd" />
 
         <!-- TABLEAU -->
         <table class="table" v-if="items">
