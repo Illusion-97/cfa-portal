@@ -30,7 +30,7 @@
                 <tr v-for="item in items" :key="item.id" class="mon-tr">
                     <td>{{ item.etudiant.utilisateurDto.fullName }}</td>
                     <td>{{ item.jour }}</td>
-                    <td>{{ item.date }}</td>
+                    <td>{{ item.heure }}</td>
                     <td>{{ item.minAccueil }}</td>
                     <td>{{ item.minEntretien }}</td>
                     <td>{{ item.minQuestion }}</td>

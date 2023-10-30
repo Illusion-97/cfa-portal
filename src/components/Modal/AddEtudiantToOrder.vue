@@ -55,7 +55,7 @@ export default {
             soutenance: {
                 etudiantDto: null,
                 jour: null,
-                date: null,
+                heure: null,
                 minAccueil: null,
                 minEntretien: null,
                 minQuestion: null,
