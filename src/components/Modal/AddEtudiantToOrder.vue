@@ -12,8 +12,15 @@
         <b-form v-if="showForm">
             <b-form-group label="Choisir la date et l'heure d'examen :">
                 <div class="w-100 d-flex justify-content-center">
-                    <b-form-input v-model="date" type="date" class="" required />
-                    <b-form-input v-model="time" type="time" class="" required />
+                    <b-form-input v-model="soutenance.joure" type="date" class="" required />
+                    <b-form-input v-model="soutenance.date" type="time" class="" required />
+                </div>
+                <div>
+                    <b-form-input v-model="soutenance.minAccueil" type="time" class=""/>
+                    <b-form-input v-model="soutenance.minEntretien" type="time" class=""/>
+                    <b-form-input v-model="soutenance.minQuestion" type="time" class=""/>
+                    <b-form-input v-model="soutenance.minEntretienFinal" type="time" class=""/>
+                    <b-form-input v-model="soutenance.minDeliberation" type="time" class=""/>
                 </div>
             </b-form-group>
         </b-form>
@@ -41,16 +48,14 @@ export default {
             showForm: false,
             dismissCountDown: null,
             message: "",
-            color: "success",
+            color: "",
             idPromotion: this.$route.params.id,
             etudiants: [],
             idEtudiant: null,
-            date: null,
-            time: null,
             soutenance: {
                 etudiantDto: null,
                 jour: null,
-                heure: null,
+                date: null,
                 minAccueil: null,
                 minEntretien: null,
                 minQuestion: null,
@@ -75,16 +80,13 @@ export default {
                 this.showForm = true
             else {
                 this.showForm = false
-                this.date = null;
-                this.time = null;
             }
         },
         // AJOUT DATE D'EXAMEN
         addEtudiant() {
-            if (this.date && this.time && this.idEtudiant) {
+            if (this.soutenance.date && this.soutenance.time && this.idEtudiant) {
+
                 this.soutenance.etudiantDto = this.idEtudiant;
-                this.soutenance.jour = this.jour.getDate();
-                this.soutenance.heure = this.heure.getTime();
                 console.log(this.soutenance);
 
                 soutenanceApi.saveSoutenance(this.soutenance);
@@ -104,7 +106,6 @@ export default {
         },
         closeModal() {
             this.showModal = false;
-            this.fullName = null;
             this.onItemSelected();
         },
     },
