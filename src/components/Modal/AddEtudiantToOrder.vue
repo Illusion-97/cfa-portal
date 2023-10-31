@@ -7,7 +7,7 @@
             <b-form-group v-if="etudiants.length > 0 && !modifier" label="Veuillez sélectionner un étudiant* :">
                 <v-select :items="etudiants" v-model="soutenance.etudiant.id" @change="onItemSelected" outlined clearable />
             </b-form-group>
-            <div v-if="etudiants.length === 0 && !modifier">Aucun étudiant à ajouter</div>            
+            <div v-if="etudiants.length === 0 && !modifier">Aucun étudiant à ajouter</div>
         </v-app>
 
         <!-- FORMULAIRE DATE HEURE -->
@@ -31,7 +31,7 @@
                 </div>
             </b-form-group>
         </b-form>
-        <span  v-if="etudiants.length > 0" style="display: block; font-size: small;"><i>*Champs requis.</i></span>
+        <span v-if="etudiants.length > 0" style="display: block; font-size: small;"><i>*Champs requis.</i></span>
 
         <!-- MESSAGE D'ALERT -->
         <b-alert :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
@@ -42,7 +42,7 @@
         <div class="d-flex">
             <b-button v-if="showForm && !modifier" variant="outline-success" class="m-4"
                 @click="addEtudiant">Ajouter</b-button>
-            <b-button v-if="showForm && modifier == true" variant="outline-primary" class="m-4"
+            <b-button v-if="showForm && modifier" variant="outline-primary" class="m-4"
                 @click="addEtudiant">Modifier</b-button>
             <b-button variant="outline-danger" class="m-4" @click="closeModal">Annuler</b-button>
         </div>
@@ -120,7 +120,11 @@ export default {
 
                 soutenanceApi.saveSoutenance(this.soutenance).then(() => {
                     this.closeModal();
-                    this.$emit("childEtudiantAdd", this.soutenance.etudiant.utilisateurDto.fullName);
+                    if (this.modifier)
+                        this.$emit('childEtudiantAdd', this.soutenance.etudiant.utilisateurDto.fullName);
+                    else
+                        this.$emit('childEtudiantAdd');
+
                 }).catch(() => {
                     this.color = "danger";
                     this.dismissCountDown = 8;

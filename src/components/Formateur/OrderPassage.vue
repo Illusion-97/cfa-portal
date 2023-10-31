@@ -7,7 +7,8 @@
 
         <!-- BUTTON -->
         <b-button variant="warning" class="m-4" @click="showModalAddEtudiant">Ajouter un éléve</b-button>
-        <b-button v-if="items.length > 0" variant="success" class="m-4" @click="downloadOrder">Télécharger le tableau</b-button>
+        <b-button v-if="items.length > 0" variant="success" class="m-4" @click="downloadOrder">Télécharger le
+            tableau</b-button>
 
         <!-- COMPONENT ADDETUDIANTOORDER -->
         <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd" />
@@ -40,7 +41,8 @@
                     <td v-else></td>
                     <td v-if="item.minEntretienFinal">De {{ item.minEntretienFinal }} à {{ item.minDeliberation }}</td>
                     <td v-else></td>
-                    <td>{{ item.minDeliberation }}</td>
+                    <td v-if="item.minDeliberation">{{ item.minDeliberation }}</td>
+                    <td v-else></td>
                     <b-button variant="primary" class="m-4"
                         @click="showModalAddEtudiant(item.etudiant.id)">Modifier</b-button>
                 </tr>
