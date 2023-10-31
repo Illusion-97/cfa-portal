@@ -76,7 +76,7 @@ export async function deleteSoutenance(id) {
  * @returns 
  */
 function countSoutenanceByPromotionId(id) {
-    let req = `/${END_POINT}/count/${id}`;
+    let req = `/${END_POINT}/count/promotion/${id}`;
 
     return axios
         .get(req, requestOptions.headers())

@@ -12,7 +12,8 @@
             </template>
             <div>
               <form class="form-inline m-4" @submit="submitEtudiant">
-                <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieEtudiant" />
+                <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control"
+                  v-model="saisieEtudiant" />
                 <button class="btn-submit" type="submit">
                   <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
                 </button>
@@ -60,22 +61,23 @@
             </template>
             <div id="interventions">
               <div class="d-flex flex-row align-items-end justify-content-between">
-              <form class="form-inline m-4" @submit="submitIntervention">
-                <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control" v-model="saisieIntervention" />
-                <button class="btn-submit" type="submit">
-                  <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
-                </button>
-              </form>
+                <form class="form-inline m-4" @submit="submitIntervention">
+                  <input id="saisieEtudiant" placeholder="Rechercher" type="text" class="form-control"
+                    v-model="saisieIntervention" />
+                  <button class="btn-submit" type="submit">
+                    <font-awesome-icon :icon="['fas', 'search']" class="iconSearch" />
+                  </button>
+                </form>
 
-              <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de
-                positionnement</b-button>
+                <b-button variant="primary" class="m-4" @click="getGrille">Télécharger la grille de
+                  positionnement</b-button>
 
-              <b-button class="m-4" variant="warning" @click="openLoginWdg2EtudiantBypromo">
-                Import Etudiant de la promo
-              </b-button>
-              <b-button class="m-4" variant="success" @click="openLoginWdg2InterventionBypromo">
-                Import Intervention de la promo
-              </b-button>
+                <b-button class="m-4" variant="warning" @click="openLoginWdg2EtudiantBypromo">
+                  Import Etudiant de la promo
+                </b-button>
+                <b-button class="m-4" variant="success" @click="openLoginWdg2InterventionBypromo">
+                  Import Intervention de la promo
+                </b-button>
               </div>
               <div class="modal-import-dg2">
                 <div class="login-wdg2">
@@ -97,8 +99,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="intervention in intervention" :key="intervention.id"
-                    @click="clickIntervention(intervention)" class="mon-tr">
+                  <tr v-for="intervention in intervention" :key="intervention.id" @click="clickIntervention(intervention)"
+                    class="mon-tr">
                     <td>
                       {{
                         intervention.formationDto != null
@@ -140,7 +142,7 @@
               Ordre de passage
             </template>
             <div>
-              <OrdrePassage :ParentEtudiants="etudients"/>
+              <OrdrePassage />
             </div>
           </b-tab>
 
@@ -163,13 +165,13 @@
 </template>
 
 <script>
-import {promotionApi} from "@/_api/promotion.api.js";
+import { promotionApi } from "@/_api/promotion.api.js";
 import ExamensPromotionsListCompoenent from "@/components/List/ExamensPromotionsListCompoenent.vue";
 import OrdrePassage from "@/components/Formateur/OrderPassage.vue";
 import AjouterNotes from "@/components/Formateur/AjouterNotes.vue";
-import {utilisateurService} from "@/_services/utilisateur.service.js";
-import {interventionApi} from "@/_api/intervention.api";
-import {etudiantApi} from "@/_api/etudiant.api";
+import { utilisateurService } from "@/_services/utilisateur.service.js";
+import { interventionApi } from "@/_api/intervention.api";
+import { etudiantApi } from "@/_api/etudiant.api";
 import LoginWdg2 from "@/components/LoginWdg2.vue";
 
 export default {
@@ -183,7 +185,7 @@ export default {
   components: {
     ExamensPromotionsListCompoenent,
     OrdrePassage,
-    AjouterNotes, 
+    AjouterNotes,
     LoginWdg2
   },
 
@@ -277,7 +279,7 @@ export default {
           downloadLink.click();
         });
     },
-    getPromotionId() {    
+    getPromotionId() {
       promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
         this.promotion = response;
       });
@@ -358,12 +360,12 @@ export default {
       this.pageChangeIntervention();
     },
     async pageChangeIntervention(pageNum) {
-      if (pageNum) 
+      if (pageNum)
         interventionApi.findInterventionByPromotionId(this.$route.params.id, pageNum - 1, this.perPage, this.saisieIntervention).then((response) => { this.intervention = response })
       else
         interventionApi.findInterventionByPromotionId(this.$route.params.id, 0, this.perPage, this.saisieIntervention).then((response) => { this.intervention = response })
 
-      if (this.saisieIntervention != "") 
+      if (this.saisieIntervention != "")
         await interventionApi.countInterventionByPromotionId(this.$route.params.id, this.saisieIntervention).then((response) => { this.countIntervention = response.nb })
       else
         await interventionApi.countInterventionByPromotionId(this.$route.params.id, "").then((response) => { this.countIntervention = response.nb })
@@ -371,18 +373,18 @@ export default {
       this.pageCountIntervention = Math.ceil(this.countIntervention / this.perPage)
     },
     async pageChangeEtudiant(pageNum) {
-      if (pageNum) 
+      if (pageNum)
         etudiantApi.getEtudiantsByPromotionByPage(this.$route.params.id, pageNum - 1, this.perPage, this.saisieEtudiant).then((response) => { this.etudients = response })
       else
         etudiantApi.getEtudiantsByPromotionByPage(this.$route.params.id, 0, this.perPage, this.saisieEtudiant).then((response) => { this.etudients = response })
 
-      if (this.saisieEtudiant != "") 
+      if (this.saisieEtudiant != "")
         await etudiantApi.getCountEtudiantsByPromotion(this.$route.params.id, this.saisieEtudiant).then((response) => { this.countEtudiant = response.nb })
       else
         await etudiantApi.getCountEtudiantsByPromotion(this.$route.params.id, "").then((response) => { this.countEtudiant = response.nb })
 
       this.pageCountEtudiant = Math.ceil(this.countEtudiant / this.perPage)
-      }
+    }
   },
   created() {
     this.getPromotionId();

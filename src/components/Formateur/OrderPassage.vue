@@ -7,13 +7,13 @@
 
         <!-- BUTTON -->
         <b-button variant="warning" class="m-4" @click="showModalAddEtudiant">Ajouter un éléve</b-button>
-        <b-button variant="success" class="m-4" @click="downloadOrder">Télécharger le tableau</b-button>
+        <b-button v-if="items.length > 0" variant="success" class="m-4" @click="downloadOrder">Télécharger le tableau</b-button>
 
         <!-- COMPONENT ADDETUDIANTOORDER -->
         <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd" />
 
         <!-- TABLEAU -->
-        <table class="table" v-if="items">
+        <table class="table" v-if="items.length > 0">
             <thead class="">
                 <tr>
                     <th>Nom du candidat</th>
@@ -24,6 +24,7 @@
                     <th>Questionnement à partir de production</th>
                     <th>Entretien final</th>
                     <th>Délibération du jury</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,11 +32,17 @@
                     <td>{{ item.etudiant.utilisateurDto.fullName }}</td>
                     <td>{{ item.jour }}</td>
                     <td>{{ item.heure }}</td>
-                    <td>De {{ item.minAccueil }} à {{ item.minEntretien }}</td>
-                    <td>De {{ item.minEntretien }} à {{ item.minQuestion }}</td>
-                    <td>De {{ item.minQuestion }} à {{ item.minQuestion }}</td>
-                    <td>De {{ item.minEntretienFinal }} à {{ item.minEntretienFinal }}</td>
+                    <td v-if="item.minAccueil">De {{ item.minAccueil }} à {{ item.minEntretien }}</td>
+                    <td v-else></td>
+                    <td v-if="item.minEntretien">De {{ item.minEntretien }} à {{ item.minQuestion }}</td>
+                    <td v-else></td>
+                    <td v-if="item.minQuestion">De {{ item.minQuestion }} à {{ item.minEntretienFinal }}</td>
+                    <td v-else></td>
+                    <td v-if="item.minEntretienFinal">De {{ item.minEntretienFinal }} à {{ item.minDeliberation }}</td>
+                    <td v-else></td>
                     <td>{{ item.minDeliberation }}</td>
+                    <b-button variant="primary" class="m-4"
+                        @click="showModalAddEtudiant(item.etudiant.id)">Modifier</b-button>
                 </tr>
             </tbody>
         </table>
@@ -63,56 +70,62 @@ export default {
             idPromotion: this.$route.params.id,
             showTab: true,
             dismissCountDown: null,
-            message: "",
-            color: "",
-            page: 0,
+            message: null,
+            color: null,
+            page: null,
             pageCount: 0,
-            perPage: 9,
+            perPage: 5,
             items: [],
         }
     },
     created() {
         this.pageChange();
     },
-
     methods: {
         // RECUPERER L'ORDER LIST
-        getOrder() {
+        async getOrder() {
             this.items = [];
             // récupération page de dates d'éxamens avec l'étudiant qui coorespond 
-            soutenanceApi.getPageSoutenanceByPromotionId(this.idPromotion, this.page, this.perPage)
+            await soutenanceApi.getPageSoutenanceByPromotionId(this.idPromotion, this.page, this.perPage)
                 .then((response) => {
                     response.forEach(element => (this.items.push(element)));
-                }).catch();
-        },
-        // récupére le nombre de tous les order 
-        async getMaxOrder() {
+                });
+            // TRIER LA LISTE ETUDIANT 
+            await this.items.sort((a, b) => {
+                return a.etudiant.utilisateurDto.fullName.localeCompare(b.etudiant.utilisateurDto.fullName);
+            });
+
+            // récupére le nombre de tous les order 
             await soutenanceApi.countSoutenanceByPromotionId(this.idPromotion).then((response) => (this.pageCount = response));
-            this.pageCount = Math.ceil(this.pageCount / this.perPage);
+            this.pageCount = await Math.ceil(this.pageCount / this.perPage);
         },
         // AJOUT ETUDIANT
-        etudiantAdd() {
+        async etudiantAdd(data) {
             this.color = "success";
             this.dismissCountDown = 6;
-            this.message = "Etudiant ajouter à l'éxamen";
+            if (data)
+                this.message = "Soutenance de l'étudiant " + data + " mise à jour.";
+            else
+                this.message = "Etudiant ajouter à l'éxamen.";
             this.page = 0;
-            this.pageChange();
+            await this.pageChange();
         },
         // CHANGE PAGE
         pageChange(pageNum) {
             if (pageNum) {
                 this.page = pageNum - 1;
                 this.getOrder();
-                this.getMaxOrder();
             } else {
                 this.page = 0;
                 this.getOrder();
-                this.getMaxOrder();
             }
         },
         // AFFICHER MODAL 
-        showModalAddEtudiant() {
-            this.$refs.modalAddEtudiantToOrder.openModal();
+        showModalAddEtudiant(etudiantId) {
+            if (etudiantId > 0)
+                this.$refs.modalAddEtudiantToOrder.openModal(etudiantId);
+            else
+                this.$refs.modalAddEtudiantToOrder.openModal();
         },
         // TELECHARGER TABLEAU ORDER
         downloadOrder() {
