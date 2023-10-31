@@ -10,11 +10,10 @@
 
         <!-- FORMULAIRE DATE HEURE -->
         <b-form v-if="showForm">
-            <table></table>
             <b-form-group label="Choisir la date et l'heure d'examen :">
                 <div class="w-100 d-flex justify-content-center">
                     <b-form-input v-model="soutenance.jour" type="date" class="" required />
-                    <b-form-input v-model="soutenance.heure" type="time" class="mb-3" required />
+                    <b-form-input v-model="soutenance.heure" type="time" class="" required />
                 </div>
                 <div>
                     <span>Accueil Candidat :</span>
@@ -59,7 +58,9 @@ export default {
             etudiants: [],
             idEtudiant: null,
             soutenance: {
-                etudiantDto: null,
+                etudiant: {
+                    id: 0
+                },
                 jour: null,
                 heure: null,
                 minAccueil: null,
@@ -75,7 +76,7 @@ export default {
         getEtudiantByPromotionId() {
             etudiantApi.getEtudiantByPromotionId(this.idPromotion).then((response) => (
                 response.forEach(element => {
-                    let item = { text: element.utilisateurDto.fullName, value: element.utilisateurDto.id }
+                    let item = { text: element.utilisateurDto.fullName, value: element.id }
                     this.etudiants.push(item)
                 })
             ));
@@ -90,19 +91,14 @@ export default {
         },
         // AJOUT DATE D'EXAMEN
         addEtudiant() {
-            this.soutenance.etudiantDto = this.idEtudiant;
-
             if (this.soutenance.jour && this.soutenance.heure && this.idEtudiant) {
-
-                console.log(this.soutenance);
+                this.soutenance.etudiant.id = this.idEtudiant;
 
                 soutenanceApi.saveSoutenance(this.soutenance);
 
                 this.$emit("childEtudiantAdd");
                 this.closeModal();
             } else {
-                console.log(this.soutenance);
-
                 this.color = "danger";
                 this.dismissCountDown = 8;
                 this.message = "Veuillez renseigner tout les champs";

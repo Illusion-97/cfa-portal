@@ -31,10 +31,10 @@
                     <td>{{ item.etudiant.utilisateurDto.fullName }}</td>
                     <td>{{ item.jour }}</td>
                     <td>{{ item.heure }}</td>
-                    <td>{{ item.minAccueil }}</td>
-                    <td>{{ item.minEntretien }}</td>
-                    <td>{{ item.minQuestion }}</td>
-                    <td>{{ item.minEntretienFinal }}</td>
+                    <td>De {{ item.minAccueil }} à {{ item.minEntretien }}</td>
+                    <td>De {{ item.minEntretien }} à {{ item.minQuestion }}</td>
+                    <td>De {{ item.minQuestion }} à {{ item.minQuestion }}</td>
+                    <td>De {{ item.minEntretienFinal }} à {{ item.minEntretienFinal }}</td>
                     <td>{{ item.minDeliberation }}</td>
                 </tr>
             </tbody>
@@ -73,14 +73,13 @@ export default {
     },
     created() {
         this.pageChange();
-        this.getMaxOrder();
     },
 
     methods: {
         // RECUPERER L'ORDER LIST
         getOrder() {
             this.items = [];
-            // récupération page de dates d'éxamens avec l'étudiant qui coorespond + ajouter les heure est stocker dans items
+            // récupération page de dates d'éxamens avec l'étudiant qui coorespond 
             soutenanceApi.getPageSoutenanceByPromotionId(this.idPromotion, this.page, this.perPage)
                 .then((response) => {
                     response.forEach(element => (this.items.push(element)));
@@ -117,8 +116,6 @@ export default {
         },
         // TELECHARGER TABLEAU ORDER
         downloadOrder() {
-            console.log(this.pageCount);
-
             // téléchargement du tableau de orderPassage
         }
     }
