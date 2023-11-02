@@ -140,10 +140,13 @@ export const fieldsCursus = [
     thClass: "text-center",
   },
 ]
+
 export const fieldsIntervention = [
   {
     key: "dateDebut",
     label: "Date Début ",
+    action:"sortByDate"
+
   },
   {
     key: "dateFin",
