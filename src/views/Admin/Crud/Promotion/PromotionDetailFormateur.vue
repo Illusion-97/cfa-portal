@@ -142,7 +142,7 @@
               Ordre de passage
             </template>
             <div>
-              <OrdrePassage />
+              <OrdrePassage :promotion="promotion"/>
             </div>
           </b-tab>
 

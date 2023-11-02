@@ -64,6 +64,9 @@ import AddEtudiantToOrder from "@/components/Modal/AddEtudiantToOrder.vue";
 import { soutenanceApi } from "@/_api/soutenance.api.js";
 
 export default {
+    props: {
+        promotion: []
+    },
     components: {
         AddEtudiantToOrder
     },
@@ -92,7 +95,7 @@ export default {
                 .then((response) => {
                     response.forEach(element => (this.items.push(element)));
                 });
-            // TRIER LA LISTE ETUDIANT 
+            // trier la list soutenance 
             await this.items.sort((a, b) => {
                 return a.etudiant.utilisateurDto.fullName.localeCompare(b.etudiant.utilisateurDto.fullName);
             });
@@ -131,7 +134,15 @@ export default {
         },
         // TELECHARGER TABLEAU ORDER
         downloadOrder() {
-            // téléchargement du tableau de orderPassage
+            soutenanceApi.genererLstSoutenance(this.promotion.nom, this.idPromotion).then(response => {
+                let bas64 = response;
+                const linkSource = `data:application/pdf;base64,${bas64}`;
+                const downloadLink = document.createElement("a");
+                const fileName = "tableau_soutenace_"+ this.promotion.nom +".pdf";
+                downloadLink.href = linkSource;
+                downloadLink.download = fileName;
+                downloadLink.click();
+            });
         }
     }
 }

@@ -139,7 +139,6 @@ export default {
         // OPEN / CLOSE / CLEAR MODAL 
         async openModal(IdEtudiantmodif) {
             this.modifier = false;
-            console.log(this.etudiants);
             if (IdEtudiantmodif) {
                 await this.clearFormulaire(IdEtudiantmodif);
                 await this.getLstSoutenance();

@@ -12,6 +12,7 @@ export const soutenanceApi = {
     countSoutenanceByPromotionId,
     getSoutenanceByPromotionId,
     getPageSoutenanceByPromotionId,
+    genererLstSoutenance,
 }
 
 /**
@@ -115,3 +116,18 @@ function getPageSoutenanceByPromotionId(id, page, size) {
         .then(response => response.data)
         .catch((error) => console.log(error));
 }
+
+/**
+ * Récupération pdf List soutenance
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+function genererLstSoutenance(promotion, id){
+    let req = `${END_POINT}/generer/${promotion}${id}`;
+  
+    return  axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+  }
