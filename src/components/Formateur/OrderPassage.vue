@@ -134,6 +134,7 @@ export default {
         },
         // TELECHARGER TABLEAU ORDER
         downloadOrder() {
+            // TODO fichier lstsoutenance.ftl manquant
             soutenanceApi.genererLstSoutenance(this.promotion.nom, this.idPromotion).then(response => {
                 let bas64 = response;
                 const linkSource = `data:application/pdf;base64,${bas64}`;
