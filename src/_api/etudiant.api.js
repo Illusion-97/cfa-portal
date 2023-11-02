@@ -29,7 +29,8 @@ export const etudiantApi = {
     getAccueilEtudiant,
     getEtudiantsByPromotionByPage,
     getCountEtudiantsByPromotion,
-    sendMail
+    sendMail,
+    getEtudiantByPromotionId,
 }
 
 /**
@@ -375,7 +376,7 @@ function getAccueilEtudiant(id) {
 }
 
   /**
- * Récupération des etudiants en fonction de promotion
+ * Récupération des etudiants en fonction de promotion par page
  * 
  * @param {*} id 
  * @param {*} page 
@@ -400,6 +401,20 @@ function getEtudiantsByPromotionByPage(id, page, size, search) {
  */
 function getCountEtudiantsByPromotion(id, search) {
     let req = `/${END_POINT}/countEtudiantByPromotion/${id}/${search}`;
+    return axios
+        .get(req, requestOptions.headers())
+        .then(response => response.data)
+        .catch((error) => console.log(error));
+}
+
+/**
+ * Récupération des etudiants en fonction de promotion
+ * 
+ * @param {*} id 
+ * @returns 
+ */
+function getEtudiantByPromotionId(id) {
+    let req = `/${END_POINT}/promotion/${id}`;
     return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
