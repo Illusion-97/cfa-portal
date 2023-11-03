@@ -44,9 +44,17 @@
         <tr>
           <th>Nom de la promo</th>
           <th>Type</th>
-          <th>Date de debut</th>
-          <th>Date de fin
-            <button @click="sortByColumn2(2)">
+          <th>Date debut
+            <button @click="sortByColumn('sort_datedebut')">
+              <span v-if="opened3">
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
+              </span>
+              <span v-else>
+                <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-up']" />
+              </span>
+            </button></th>
+          <th>Date fin
+            <button @click="sortByColumn('sort_datefin')">
               <span v-if="opened2">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
               </span>
@@ -56,7 +64,7 @@
             </button>
           </th>
           <th>Nombre de Participants
-            <button @click="sortByColumn1(1)">
+            <button @click="sortByColumn('sort_participants')">
               <span v-if="opened1">
                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" />
               </span>
@@ -130,6 +138,7 @@ export default {
       opened1: false,
       opened2: false,
       opened3: false,
+      choix:"",
       message: "",
       title: "",
       color: "success",
@@ -149,14 +158,16 @@ export default {
       const uniquePromotions = [];
       if (this.promotions) {
         this.promotions.forEach((promotion) => {
-          const modifiedNom = promotion.nom.split("-");
-          modifiedNom.splice(-4)
+          let modifiedNom = promotion.nom.split("-");
           if (modifiedNom.includes("titre") && modifiedNom.includes("professionnel")) {
             // Supprimer les mots du tableau
             const indexTitre = modifiedNom.indexOf("professionnel");
             const indexProfessionnel = modifiedNom.indexOf("titre");
+            const indexType = modifiedNom.indexOf("tp");
+            modifiedNom.splice(indexType)
             modifiedNom.splice(indexTitre, 1);
             modifiedNom.splice(indexProfessionnel, 1);
+
           }
 
           this.title = modifiedNom.join(" ")
@@ -169,7 +180,6 @@ export default {
           const existingPromotion = uniquePromotions.find(
             (p) => p.id === promotionWithModifiedTitle.id
           );
-
           if (!existingPromotion) {
             // La promotion n'existe pas encore, l'ajouter à uniquePromotions
             uniquePromotions.push(promotionWithModifiedTitle);
@@ -199,58 +209,54 @@ export default {
         if (this.saisie !== "") {
           promotionApi
           .countByNomOrCentreFormationOrDate(this.saisie)
-          .then(
-            (response) => (this.pageCount = Math.ceil(response.nb / this.perPage))
-            );
+          .then((response) => (this.pageCount = Math.ceil(response.nb / this.perPage)));
           } else {
             this.refreshList();
           }
       promotionApi
-        .getAllByPage(this.currentPage, this.perPage, this.saisie)
+        .getAllByPage(this.currentPage, this.perPage,this.choix, this.saisie)
         .then((response) => (this.promotions = response))
     },
     pageChange(pageNum) {
       if (this.saisie === "" || this.saisie === undefined) {
         promotionApi
-          .getAllByPageSort(pageNum - 1, this.perPage)
+          .getAllByPage(pageNum - 1, this.perPage,this.choix,"")
           .then((response) => (this.promotions = response));
       } else {
         this.currentPage = pageNum - 1;
         this.submit();
     }
   },
-    sortByColumn1(param) {
-      this.opened1 = !this.opened1;
-      if (this.opened1 == true) {
-        this.opened2 = false
-        this.opened3 = false
+    conditionSearch(bool){
+      if (bool){
         promotionApi
-          .getAllByPageSort(this.currentPage, this.perPage, param)
-          .then((response) => {
-            this.promotions = response;
-          })
+            .getAllByPage(this.currentPage, this.perPage, this.choix,"")
+            .then((response) => {
+              this.promotions = response;
+            })}
+      else {
+        promotionApi
+            .getAllByPage(this.currentPage, this.perPage, "","")
+            .then((response) => {
+              this.promotions = response;
+            })
       }
     },
-    sortByColumn2(param) {
-      this.opened2 = !this.opened2;
-      if (this.opened2 == true) {
-        this.opened3 = false
-        this.opened1 = false
-        promotionApi
-          .getAllByPageSort(this.currentPage, this.perPage, param)
-          .then((response) => {
-            this.promotions = response;
-          })
-      }
-    },
-    sortByColumn3(param) {
-      this.opened = !this.opened;
-      if (this.opened == true) {
-        promotionApi
-          .getAllByPageSort(this.currentPage, this.perPage, param)
-          .then((response) => {
-            this.promotions = response;
-          })
+    sortByColumn(param){
+      this.choix = param;
+      switch (param) {
+        case "sort_participants":
+          this.opened1 = !this.opened1;this.opened2 = false;this.opened3 = false;
+          this.conditionSearch(this.opened1)
+          break;
+        case "sort_datefin":
+          this.opened2 = !this.opened2;this.opened1 = false;this.opened3 = false;
+          this.conditionSearch(this.opened2);
+          break;
+        case "sort_datedebut":
+          this.opened3 = !this.opened3;this.opened2 = false;this.opened1 = false;
+          this.conditionSearch(this.opened3);
+          break;
       }
     },
     refreshList() {
@@ -261,7 +267,7 @@ export default {
             this.pageCount = Math.ceil(response / this.perPage)
 
             promotionApi
-              .getAllByPageSort(this.currentPage, this.perPage, 0)
+              .getAllByPage(this.currentPage, this.perPage, this.choix,"")
               .then((response) => {
                 this.promotions = response;
               })
