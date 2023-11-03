@@ -104,7 +104,7 @@
       <template #cell(Modifier)="row">
         <b-button variant="warning" @click=ouvrirModalModification(row.item) class="pl-3 pr-3">
           <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
-          Modifier
+          Roles
         </b-button>
       </template>
 
@@ -134,7 +134,7 @@
       </template>
     </b-table>
 
-    <b-modal hide-footer v-model="showModalRoleUser" title="Modifier le rôle de l'utilisateur">
+    <b-modal hide-footer v-model="showModalRoleUser" title="Modifier le rôle de l'utilisateur" >
       <b-form>
         <label>Selectionner les roles : </label>
         <b-form-checkbox-group v-model="editRoles" :options="options" class="mb-3" value-field="item"
@@ -146,7 +146,6 @@
     </b-modal>
 
 
-   
       <b-modal title="Modification Tuteur" size="xl" hide-footer v-model="showModalTuteur">
     <modifTuteur :tuteur="rowToModify" @cancel="showModalTuteur = false" @hidden="updateTuteur" />
   </b-modal>
@@ -449,17 +448,14 @@ export default {
       this.showModalRoleUser = true; // Affiche la modal de modification des rôles
     },
 
-    ouvrirFormulaireModificationTuteur(row) {
-    this.rowToModify = { ...row };
-    this.visibleAddTuteur = !this.visibleAddTuteur;
-    this.visibleMajStudent = false;
-    this.visibleMajUsers = false;
-    this.showModalTuteur = true; 
-  },
+      ouvrirFormulaireModificationTuteur(row) {
+      this.rowToModify = { ...row };
+      this.showModalTuteur = true; 
+    },
 
     updateTuteur(mesg) {
       if (mesg == "Tuteur modifié.") {
-        this.visibleAddTuteur = false;
+        //this.visibleAddTuteur = false;
         this.showModalTuteur = false;
         this.refreshList();
       }

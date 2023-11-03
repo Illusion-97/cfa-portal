@@ -7,6 +7,7 @@ export const dossierProfessionnelApi = {
   getById,
   deleteDossierProfessionnel,
   deleteAnnexe,
+  deleteFacultatif,
   save,
   getAll,
   getByIdEtudiant,
@@ -133,6 +134,12 @@ function deleteAnnexe(annexeId) {
   .catch((error) => console.log(error));
 }
 
+function deleteFacultatif(faculId) {
+  return axios
+  .delete(`${END_POINT}/facultatif/${faculId}`, requestOptions.headers())
+  .then((response) => response.data)
+  .catch((error) => console.log(error));
+}
 /** 
    @param {*} id 
  * @param {*} form

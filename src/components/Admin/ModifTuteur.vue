@@ -160,14 +160,14 @@ import addAdresse from "@/components/Modal/AddAdresse.vue";
 import addEntreprise from "@/components/Modal/AddEntreprise.vue";
 export default {
     name: "modifTuteur",
+    components: {
+        addAdresse,
+        addEntreprise,
+    },
     props: {
     tuteur: {
       type: Object, 
       required: true
-    },
-    components: {
-        addAdresse,
-        addEntreprise,
     }
 },
     data() {
