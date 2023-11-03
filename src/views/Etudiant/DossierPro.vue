@@ -133,6 +133,7 @@
     </div>
     <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
       <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>
+      <input hidden type="text" class="form-control" v-model="newAnnexe.id" placeholder="id" />
       <input type="text" class="form-control" v-model="newAnnexe.libelleAnnexe" placeholder="Libelle" /><br>
       <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe">Ajouter</b-button>
     </b-modal>
@@ -150,7 +151,6 @@
     </b-list-group-item>
   </b-list-group>
 </b-modal>
-
 <br/>
 <h6>Facultatifs</h6> 
 <template>
@@ -423,14 +423,22 @@ export default {
     this.$bvModal.show('deleteModal');
   },
 
-    getAnnexe() {
-      this.$bvModal.show("annexe-modal");
-      this.newAnnexe = {
+  getAnnexe(selectedAnnexeId) {
+  const selectedAnnexe = this.annexes.find(annexe => annexe.id === selectedAnnexeId);
+  if (selectedAnnexe) {
+    this.newAnnexe = { ...selectedAnnexe };
+  } else {
+    this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
       pieceJointe: null,
-      dossierProfessionnelId:0
-    };   
+      dossierProfessionnelId: 0
+    };
+  }
+
+  // Affichage du modal
+  this.$bvModal.show("annexe-modal");
+
 },
 
 
@@ -540,9 +548,6 @@ onSubmit(event) {
     console.error("Error:", error);
   }
 },
-
-
-
 
     addAnnexe() {
       const annexe = {

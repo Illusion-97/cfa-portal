@@ -406,7 +406,7 @@ export default {
         this.newAnnexe.id=this.annexes[0].id;
         this.newAnnexe.version = this.annexes[0].version;
         this.newAnnexe.libelleAnnexe = this.annexes[0].libelleAnnexe;
-        this.newAnnexe.pieceJointe = this.annexes[0].pieceJointe.name;
+        this.newAnnexe.pieceJointe = this.annexes[0].pieceJointe;
       }
 
       this.facultatifs = this.dossierPro.facultatifDto;
@@ -463,7 +463,7 @@ updateDossier(event) {
       id: annexe.id,
       version: annexe.version,
       libelleAnnexe: annexe.libelleAnnexe,
-      pieceJointe: annexe.pieceJointe.name ? annexe.pieceJointe.name : annexe.pieceJointe,
+      pieceJointe: annexe.pieceJointe ? annexe.pieceJointe: annexe.pieceJointe,
       dossierProfessionnelId: this.dossierPro.id
     };
     annexeDtos.push(newAnnexe);
@@ -560,15 +560,19 @@ const f = this.dossierPro.facultatifDto.map((facultatif) => {
     this.$bvModal.show('deleteModal');
   },
 
-    getAnnexe() {
-      this.showAnnexeModal = true;
-      this.$bvModal.show("annexe-modal");
-      this.newAnnexe = {
+      getAnnexe(selectedAnnexeId) {
+  const selectedAnnexe = this.annexes.find(annexe => annexe.id === selectedAnnexeId);
+  if (selectedAnnexe) {
+    this.newAnnexe = { ...selectedAnnexe };
+  } else {
+    this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
       pieceJointe: null,
-      dossierProfessionnelId:0
-    };   
+      dossierProfessionnelId: 0
+    };
+  }
+  this.$bvModal.show("annexe-modal");
 },
 
 toggleSelectedComp(competenceId) {
@@ -780,10 +784,14 @@ watch: {
     return Math.ceil(this.dossierPro.facultatifDto.length / this.itemsPerPage);
   },
   displayedItems() {
+  if (this.dossierPro && this.dossierPro.facultatifDto) {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.dossierPro.facultatifDto.slice(startIndex, endIndex);
-  },
+  }
+  return [];
+},
+
     checkboxErrors() {
       const errors = []
       if (!this.$v.checkbox.$dirty) return errors
