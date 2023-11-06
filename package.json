@@ -20,7 +20,6 @@
     "bootstrap-icons": "^1.8.3",
     "bootstrap-vue": "^2.21.2",
     "cache-loader": "^4.1.0",
-    "caniuse-lite": "^1.0.30001561",
     "core-js": "^3.9.1",
     "file-saver": "^2.0.5",
     "jquery": "^3.6.0",
