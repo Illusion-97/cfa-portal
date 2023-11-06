@@ -3,31 +3,26 @@
   <!-- CONTAINER CREER DOSSIER -->
   <div class="container2" >
     
-    <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index">
+    <div v-for="(item, index) in data.item.cursus.activiteTypes" :key="index" >
 
-      <!-- ACTIVITES TYPES SELECTEURS -->
-      <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
+<h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-      <b-form-select v-model="start"  @change="getValue2">
-        <template #first>
-    <b-form-select-option v-for="option in optionsAT2(item)" :key="option.id" :value="option.value">
-  <span v-if="filledCompetences.includes(option.value)">&#x2705;</span>
-  {{ option.text }}
+<b-form-select v-model="start" @change="getValue2">
+  <template #first>
+<b-form-select-option v-for="option in optionsAT2(item)" :key="option.id" :value="option.value" >
+<span v-if="filledCompetences.includes(option.value)  ">&#x2705;</span>
+{{ option.text }}
 </b-form-select-option>
-  </template>
-      </b-form-select>
-      <!-- <b-form-select v-model="item[index]" :options="optionsAT(item)" @change="getValue"></b-form-select> -->
-      <br />
-    </div>
+</template>
+</b-form-select>
+     
+<br/>
 
-    <!-- ACTIVITES TYPES MODALE -->
-    <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-      scrollable no-close-on-esc @hidden="resetModal" hide-footer>
-
+<b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
+      scrollable no-close-on-esc @hidden="resetModal"  hide-footer v-model="showModal">
       <!-- FORMULAIRE -->
-      <b-form @submit="inputValidation">
-        <!-- ACCORDEON EXP 1 -->
-        <b-card no-body class="mb-1">
+      <b-form @submit="addExp">
+        <b-card no-body class="mb-1" >
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-1 variant="primary" class="titre-details-modal volets">1. Décrivez les
               tâches réalisées ou opérations que vous avez
@@ -37,16 +32,12 @@
           </b-card-header>
           <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.tacheRealisee" id="exp1" name="tacheRealisee" placeholder="Tâches réalisées" />
-
             </b-card-body>
-
           </b-collapse>
         </b-card>
 
-        <!-- ACCORDEON EXP 2 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-2 variant="primary" class="titre-details-modal volets">2. Précisez les
@@ -56,16 +47,11 @@
           </b-card-header>
           <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.moyenUtilise" id="exp2" name="moyenUtilise" placeholder="Moyens utilisés" />
-
             </b-card-body>
-
           </b-collapse>
         </b-card>
-
-        <!-- ACCORDEON EXP 3 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-3 variant="primary" class="titre-details-modal volets">3. Avec qui
@@ -75,16 +61,11 @@
           </b-card-header>
           <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.collaborateur" id="exp3" name="collaborateur" placeholder="Collaborateurs" />
-
             </b-card-body>
-
           </b-collapse>
         </b-card>
-
-        <!-- ACCORDEON EXP 4 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-4 variant="primary" class="titre-details-modal volets">4. Précisez le
@@ -94,15 +75,11 @@
           </b-card-header>
           <b-collapse id="accordion-4" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.contexte" id="exp4" name="contexte" placeholder="Contexte" />
             </b-card-body>
-
           </b-collapse>
         </b-card>
-
-        <!-- ACCORDEON EXP 5 -->
         <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-5 variant="primary" class="titre-details-modal volets">5. Informations
@@ -112,69 +89,30 @@
           </b-card-header>
           <b-collapse id="accordion-5" accordion="my-accordion" role="tabpanel">
 
-            <!-- INSERT EXP -->
             <b-card-body>
               <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
-
             </b-card-body>
           </b-collapse>
         </b-card>
-
+        
         
         <div id="div-save">
-          <!-- BOUTON SAVE EXP -->
+          <b-button size="sm" class="mr-2" variant="primary" @click.prevent=close>
+    <v-icon>mdi-arrow-left</v-icon>
+    Retour  
+  </b-button> 
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Créer</span>
           </b-button>
-        
+          
         </div>
+       
       </b-form>
+      
     </b-modal>
-
-    
-
-    <!-- MODALE SUCCESS DOSSIER CREE -->
-    <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
-      <p>
-        <img src="@/assets/img/verifier.png" class="check" />
-        Votre dossier professionnel a correctement été crée.
-      </p>
-      <div class="div-ok">
-        <b-button variant="primary">
-          <router-link class="nav-item first" :to="'/etudiant/dossierprofessionnel'">Ok</router-link>
-        </b-button>
-      </div>
-    </b-modal>
-
-    <!-- MODALE SUCCESS DOSSIER UPDATE -->
-    <b-modal id="modal-update-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
-      <p>
-        <img src="@/assets/img/verifier.png" class="check" />
-        Votre expérience professionnelle à correctement été mis à jour.
-      </p>
-      <div class="div-ok">
-        <b-button variant="primary" @click="$bvModal.hide('modal-update-success')">
-          Continuer
-        </b-button>
-      </div>
-    </b-modal>
-
-    <!-- MODALE SUCCESS DOSSIER DELETE -->
-    <b-modal id="modal-delete-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
-      <p>
-        <img src="@/assets/img/verifier.png" class="check" />
-        Votre expérience professionnelle à correctement supprimé.
-      </p>
-      <div class="div-ok">
-        <b-button variant="primary" @click="$bvModal.hide('modal-delete-success')">
-          Continuer
-        </b-button>
-      </div>
-    </b-modal>
-
-
-  </div>
+    </div>
+    </div>
 </template>
 
 <script>

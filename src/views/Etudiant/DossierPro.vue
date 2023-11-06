@@ -102,9 +102,7 @@
               <vue-editor v-model="expPro.information" id="exp5" name="information" placeholder="Informations" />
             </b-card-body>
           </b-collapse>
-        </b-card>
-        
-        
+        </b-card>            
         <div id="div-save">
           <b-button size="sm" class="mr-2" variant="primary" @click.prevent=close>
     <v-icon>mdi-arrow-left</v-icon>
@@ -113,15 +111,122 @@
           <b-button size="sm" variant="success" type="submit">
             <font-awesome-icon :icon="['fas', 'check-circle']" />
             <span class="icon-right">Créer</span>
+          </b-button>        
+        </div>      
+      </b-form>     
+    </b-modal>   
+  </div>
+
+  <h6>Annexes</h6> 
+    <b-form-select v-model="form.annexeDtos" @change="getAnnexe">
+      <b-form-select-option v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
+        {{ annexe.libelleAnnexe }}
+      </b-form-select-option>
+      <b-form-select-option value="">
+        <b-button >+ Ajouter des annexes</b-button>
+      </b-form-select-option>
+    </b-form-select> 
+    <div id="div-save">
+    <b-button @click="showDeleteModal" class="ml-2" variant="danger">
+      <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" /> Supprimer
+    </b-button>
+    </div>
+    <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
+      <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>
+      <input hidden type="text" class="form-control" v-model="newAnnexe.id" placeholder="id" />
+      <input type="text" class="form-control" v-model="newAnnexe.libelleAnnexe" placeholder="Libelle" /><br>
+      <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe">Ajouter</b-button>
+    </b-modal>
+
+    <b-modal id="deleteModal" title="Supprimer" @hide="selectedAnnexe = null" >
+  <b-list-group>
+    <b-list-group-item v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
+      <div class="d-flex justify-content-between align-items-center">
+        <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe }}</span>
+        <v-icon @click="deleteAnnexe(index)">mdi-close</v-icon>
+      </div>
+    </b-list-group-item>
+    <b-list-group-item v-if="annexes.length === 0">
+      Pas d'annexes ajoutées.
+    </b-list-group-item>
+  </b-list-group>
+</b-modal>
+<br/>
+<h6>Facultatifs</h6> 
+<template>
+  <v-app>
+    <v-main>
+      <v-list-group v-model="form.facultatifDto">
+        <b-button block variant="danger">
+          diplôme, titre, CQP, attestation de formation facultatif
+        </b-button>
+        <div v-for="(facultatif, index) in displayedItems" :key="index">
+          <v-list-item>
+            <v-text-field v-model="facultatif.intitule" label="Intitulé" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          <v-list-item>
+            <v-text-field v-model="facultatif.organisme" label="Organisme" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          <v-list-item>
+            <template>
+              <v-list-item class="containerDate">
+                <v-text-field v-model="facultatif.date" label="Sélectionnez une date" readonly></v-text-field>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                      <v-icon>mdi-calendar</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-date-picker v-model="facultatif.date" no-title scrollable locale="fr"></v-date-picker>
+                </v-menu>
+              </v-list-item>
+            </template>
+          </v-list-item>
+          <div id="div-save">
+          <v-pagination v-model="currentPage" :length="totalPages" @input="changePage"  color="info"></v-pagination>
+          <v-icon  size="sm" class="text-warning"   @click.prevent="clear">mdi-broom</v-icon>
+          <v-icon size="sm" class="text-danger"  @click.prevent="deleteFacultatif(index)"> mdi-close </v-icon>
+        </div>       
+        </div>
+      </v-list-group>
+      <b-button  size="s" pill variant="success" @click="ajouterFacultatif()">
+        <v-icon class="text-white">mdi-plus </v-icon>     
+          </b-button>  
+    </v-main>
+  </v-app>
+</template>
+
+<br/><br/>
+    
+    <div id="div-save">
+    
+          <!-- BOUTON SAVE EXP -->
+         
+          <b-button v-b-modal.modal-createDossier-success size="sm" variant="success" type="submit">
+            <font-awesome-icon :icon="['fas', 'check-circle']" />
+            <span class="icon-right">Valider</span>
           </b-button>
           
-        </div>
-       
-      </b-form>
+          <b-button size="sm" variant="danger" type="submit" @click.prevent="goBack()" class="icon-right">
+            <i class="fa-solid fa-circle-xmark"></i>
+            <span class="icon-right">Annuler</span>
+          </b-button>
       
+        </div>
+      </b-form>
+
+    <!-- MODALE SUCCESS DOSSIER CREE -->
+    <b-modal id="modal-createDossier-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
+      <p>
+        <img src="@/assets/img/verifier.png" class="check" />
+        Votre dossier professionnel a correctement été crée.
+      </p>
+      <div class="div-ok">
+        <b-button variant="primary">
+          <router-link class="nav-item first" :to="'/etudiant/dossierprofessionnels'">Ok</router-link>
+        </b-button>
+      </div>
     </b-modal>
-    
-  </div>
  
     <b-modal id="modal-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
       <p>
@@ -156,123 +261,7 @@
         </b-button>
       </div>
     </b-modal>
-
-  
-    <h6>Annexes</h6> 
-    <b-form-select v-model="form.annexeDtos" @change="getAnnexe">
-      <b-form-select-option v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
-        {{ annexe.libelleAnnexe }}
-      </b-form-select-option>
-      <b-form-select-option value="">
-        <b-button >+ Ajouter des annexes</b-button>
-      </b-form-select-option>
-    </b-form-select> 
-    <div id="div-save">
-    <b-button @click="showDeleteModal" class="ml-2" variant="danger">
-      <font-awesome-icon class="mr-1" :icon="['fas', 'trash']" /> Supprimer
-    </b-button>
-    </div>
-    <b-modal id="annexe-modal" size="xl" title="Ajouter des annexes" centered scrollable no-close-on-esc hide-footer>
-      <v-file-input id="fileInput" v-model="newAnnexe.pieceJointe"></v-file-input>
-      <input type="text" class="form-control" v-model="newAnnexe.libelleAnnexe" placeholder="Libelle" /><br>
-      <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe">Ajouter</b-button>
-    </b-modal>
-
-    <b-modal id="deleteModal" title="Supprimer" @hide="selectedAnnexe = null" >
-  <b-list-group>
-    <b-list-group-item v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
-      <div class="d-flex justify-content-between align-items-center">
-        <span>{{ annexe.libelleAnnexe }} : {{ annexe.pieceJointe }}</span>
-        <v-icon @click="deleteAnnexe(index)">mdi-close</v-icon>
-      </div>
-    </b-list-group-item>
-    <b-list-group-item v-if="annexes.length === 0">
-      Pas d'annexes ajoutées.
-    </b-list-group-item>
-  </b-list-group>
-</b-modal>
-
-<br/>
-
-
-<h6>Facultatif</h6>
-<template>
-  <v-app>
-    <v-main>
-      <v-list-group v-model="form.facultatifDto">
-        <b-button block variant="danger">
-          diplôme, titre, CQP, attestation de formation facultatif
-        </b-button>
-        <v-list-item>
-          <v-text-field v-model="newFacultatif.intitule"  label="Intitulé" 
-            @input="$v.newFacultatif.intitule.$touch()" @blur="$v.newFacultatif.intitule.$touch()" style="background-color: white;"></v-text-field>
-        </v-list-item>
-        <v-list-item>
-          <v-text-field v-model="newFacultatif.organisme"  label="Organisme" 
-            @input="$v.newFacultatif.organisme.$touch()" @blur="$v.newFacultatif.organisme.$touch()" style="background-color: white;"></v-text-field>
-        </v-list-item>
-        <v-list-item>
-          <template>
-  
-        <v-list-item class="containerDate">
-          <v-text-field v-model="newFacultatif.date" label="Sélectionnez une date" readonly  ></v-text-field>
-              <v-menu offset-y>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on">
-                    <v-icon>mdi-calendar</v-icon>
-                  </v-btn>
-                </template>
-                <v-date-picker v-model="newFacultatif.date" no-title scrollable locale="fr"></v-date-picker>
-              </v-menu>
-        </v-list-item>
-      
-</template>
-        </v-list-item>
-        <div id="div-save">
-    <b-button @click="clear()"  size="sm" variant="warning" type="submit"  @click.prevent="clear">
-      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" /> 
-     Effacer
-    </b-button>
-    </div>
-      </v-list-group>
-    </v-main>
-  </v-app>
-</template>
-   
-    
-<br/><br/>
-    
-    <div id="div-save">
-    
-          <!-- BOUTON SAVE EXP -->
-         
-          <b-button v-b-modal.modal-createDossier-success size="sm" variant="success" type="submit">
-            <font-awesome-icon :icon="['fas', 'check-circle']" />
-            <span class="icon-right">Valider</span>
-          </b-button>
-          
-          <b-button size="sm" variant="danger" type="submit" @click.prevent="goBack()" class="icon-right">
-            <i class="fa-solid fa-circle-xmark"></i>
-            <span class="icon-right">Annuler</span>
-          </b-button>
-      
-        </div>
-      </b-form>
-
-    <!-- MODALE SUCCESS DOSSIER CREE -->
-    <b-modal id="modal-createDossier-success" centered size="lg" no-close-on-esc hide-footer title="Félicitations !">
-      <p>
-        <img src="@/assets/img/verifier.png" class="check" />
-        Votre dossier professionnel a correctement été crée.
-      </p>
-      <div class="div-ok">
-        <b-button variant="primary">
-          <router-link class="nav-item first" :to="'/etudiant/dossierprofessionnels'">Ok</router-link>
-        </b-button>
-      </div>
-    </b-modal>
-  </div>
-
+</div>
 </template>
 
 <script>
@@ -304,7 +293,13 @@ export default {
       pieceJointe: null
     },
       annexe: null,
-      newFacultatif: [],
+      newFacultatif: {
+        intitule: '',
+        organisme: '',
+        date: '',
+      },
+      currentPage: 1, 
+      itemsPerPage: 1, 
       selectedActiviteTypes: [],
       text: "test",
       select1: null,
@@ -395,7 +390,19 @@ export default {
 
 
   methods: {
+    
+    ajouterFacultatif(){
+      const nouveauFacultatif = {
+      intitule: '',
+      organisme: '',
+      date: null, 
+    };
+    this.form.facultatifDto.push(nouveauFacultatif);
+    },  
 
+    changePage(newPage) {
+    this.currentPage = newPage;
+  },
     resetModal: function () {
       this.annexesCDA = null;
       this.selectActivite = null;
@@ -416,14 +423,22 @@ export default {
     this.$bvModal.show('deleteModal');
   },
 
-    getAnnexe() {
-      this.$bvModal.show("annexe-modal");
-      this.newAnnexe = {
+  getAnnexe(selectedAnnexeId) {
+  const selectedAnnexe = this.annexes.find(annexe => annexe.id === selectedAnnexeId);
+  if (selectedAnnexe) {
+    this.newAnnexe = { ...selectedAnnexe };
+  } else {
+    this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
       pieceJointe: null,
-      dossierProfessionnelId:0
-    };   
+      dossierProfessionnelId: 0
+    };
+  }
+
+  // Affichage du modal
+  this.$bvModal.show("annexe-modal");
+
 },
 
 
@@ -451,14 +466,7 @@ onSubmit(event) {
             
       experienceProfessionnelleDtos: [],
       annexeDtos: [],
-      facultatifDto: [{
-        id: 0,
-        version: 0,
-        intitule: this.newFacultatif.intitule,
-        organisme: this.newFacultatif.organisme,
-        date: this.newFacultatif.date,
-        dossierProfessionnelId: 0
-      }],
+      facultatifDto: [],
       fileImport: this.form.fileImport
     };  
 
@@ -515,6 +523,16 @@ onSubmit(event) {
     
   }
 
+  for (const facultatif of this.form.facultatifDto) {
+      const newFacultatif = {
+        intitule: facultatif.intitule,
+        organisme: facultatif.organisme,
+        date: facultatif.date,
+      };
+
+      dpDto.facultatifDto.push(newFacultatif);
+    }
+
   dossierProfessionnelApi
   .saveDossierProfessionnel(
     this.$store.getters.getUtilisateur.etudiantDto.id,
@@ -530,9 +548,6 @@ onSubmit(event) {
     console.error("Error:", error);
   }
 },
-
-
-
 
     addAnnexe() {
       const annexe = {
@@ -553,7 +568,10 @@ onSubmit(event) {
   deleteAnnexe(index) {
     this.annexes.splice(index, 1);
   }, 
-
+  deleteFacultatif(index)
+  {
+    this.form.facultatifDto.splice(index, 1);
+  },
   getValue2(value) {
     this.selectedActiviteTypes = value;
     this.compInModal = value;
@@ -644,20 +662,11 @@ setup(){
 
     clear() {
       this.$v.$reset()
-      this.name = ''
-      this.email = ''
-      this.select = null
-      this.form.nom = ''
-      this.newFacultatif.intitule = '';
-      this.newFacultatif.organisme = '';
-      this.newFacultatif.date = '';
-     // this.data = ''
-      this.date=''
+      this.form.facultatifDto.intitule = "";
+      this.form.facultatifDto.organisme = "";
+      this.form.facultatifDto.date = null;
       this.checkbox = false
     },
-
-  
-
     goBack() {
       window.history.back();
     },
@@ -701,6 +710,15 @@ setup(){
   },
 
   computed: {
+    totalPages() {
+    return Math.ceil(this.form.facultatifDto.length / this.itemsPerPage);
+  },
+  displayedItems() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.form.facultatifDto.slice(startIndex, endIndex);
+  },
+   
     checkboxErrors() {
       const errors = []
       if (!this.$v.checkbox.$dirty) return errors
@@ -786,6 +804,10 @@ a:hover {
 
 #div-save {
   justify-content: flex-end;
+  display: flex;
+}
+#div-save2 {
+  justify-content: flex-start;
   display: flex;
 }
 

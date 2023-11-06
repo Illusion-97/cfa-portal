@@ -175,50 +175,49 @@
 
 <br/>
 
-<h6>Facultatif</h6>
+<h6>Facultatifs</h6> 
 <template>
   <v-app>
     <v-main>
-      <v-list-group >
+      <v-list-group v-model="dossierPro.facultatifDto">
         <b-button block variant="danger">
           diplôme, titre, CQP, attestation de formation facultatif
         </b-button>
-        <v-list-item>
-          <input hidden type="text" class="form-control" v-model="newFacultatif.id" placeholder="id" />
-          <v-text-field v-model="newFacultatif.intitule" :counter="10" label="Intitulé" 
-            @input="$v.newFacultatif.intitule.$touch()" @blur="$v.newFacultatif.intitule.$touch()" style="background-color: white;"></v-text-field>
-        </v-list-item>
-        <v-list-item>
-          <v-text-field v-model="newFacultatif.organisme" label="Organisme" 
-            @input="$v.newFacultatif.organisme.$touch()" @blur="$v.newFacultatif.organisme.$touch()" style="background-color: white;"></v-text-field>
-        </v-list-item>
-        <v-list-item>
-  
-        <v-list-item class="containerDate">
-          <v-text-field v-model="newFacultatif.date" label="Sélectionnez une date" readonly></v-text-field>
-              <v-menu offset-y>
-                <template v-slot:activator="{ on }">
-                  <v-btn icon v-on="on">
-                    <v-icon>mdi-calendar</v-icon>
-                  </v-btn>
-                </template>
-                <v-date-picker v-model="newFacultatif.date" no-title scrollable locale="fr"></v-date-picker>
-              </v-menu>
-        </v-list-item>
-      
-        </v-list-item>
-        <div id="div-save">
-    <b-button  size="sm" variant="warning" type="submit"  @click.prevent="clear">
-      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'broom']" /> 
-     Effacer
-    </b-button>
-    </div>
+        <div v-for="(facultatif, index) in displayedItems" :key="index">
+          <v-list-item>
+            <v-text-field v-model="facultatif.intitule" label="Intitulé" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          <v-list-item>
+            <v-text-field v-model="facultatif.organisme" label="Organisme" style="background-color: white;"></v-text-field>
+          </v-list-item>
+          <v-list-item>
+            <template>
+              <v-list-item class="containerDate">
+                <v-text-field v-model="facultatif.date" label="Sélectionnez une date" readonly></v-text-field>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon v-on="on">
+                      <v-icon>mdi-calendar</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-date-picker v-model="facultatif.date" no-title scrollable locale="fr"></v-date-picker>
+                </v-menu>
+              </v-list-item>
+            </template>
+          </v-list-item>
+          <div id="div-save">
+          <v-pagination v-model="currentPage" :length="totalPages" @input="changePage"></v-pagination>
+          <v-icon  size="sm" class="text-warning"  @click.prevent="clear">mdi-broom</v-icon>
+          <v-icon size="sm" class="text-danger"  @click.prevent="deleteFacultatif(index, facultatif.id)"> mdi-close </v-icon>
+        </div>       
+        </div>
       </v-list-group>
+      <b-button  size="s" pill variant="success" @click="ajouterFacultatif()">
+        <v-icon class="text-white">mdi-plus </v-icon>     
+          </b-button>  
     </v-main>
   </v-app>
-</template>
-
-    
+</template>   
 <br/><br/>
 
 <template>
@@ -324,6 +323,8 @@ export default {
       selectActivite: [],
       compInModal: [],
       selectedCompetence:null,
+      currentPage: 1, 
+      itemsPerPage: 1,
       text: "",
       expPro:[],
       activitesByCursus: [],
@@ -366,6 +367,18 @@ export default {
     };
   },
   methods: {
+    ajouterFacultatif(){
+      const nouveauFacultatif = {
+      intitule: '',
+      organisme: '',
+      date: null, 
+    };
+    this.dossierPro.facultatifDto.push(nouveauFacultatif);
+    },  
+
+    changePage(newPage) {
+    this.currentPage = newPage;
+  },
     getActiviteTypeByCursus(){
       activiteTypeApi
           .getActiviteTypesByCursus(this.dossierPro.cursusDto.id)
@@ -393,7 +406,7 @@ export default {
         this.newAnnexe.id=this.annexes[0].id;
         this.newAnnexe.version = this.annexes[0].version;
         this.newAnnexe.libelleAnnexe = this.annexes[0].libelleAnnexe;
-        this.newAnnexe.pieceJointe = this.annexes[0].pieceJointe.name;
+        this.newAnnexe.pieceJointe = this.annexes[0].pieceJointe;
       }
 
       this.facultatifs = this.dossierPro.facultatifDto;
@@ -438,7 +451,7 @@ confirmDeleteFile() {
     },
     
     
-    updateDossier(event) {
+updateDossier(event) {
   event.preventDefault();
 
   const annexeDtos = [];
@@ -450,7 +463,7 @@ confirmDeleteFile() {
       id: annexe.id,
       version: annexe.version,
       libelleAnnexe: annexe.libelleAnnexe,
-      pieceJointe: annexe.pieceJointe.name ? annexe.pieceJointe.name : annexe.pieceJointe,
+      pieceJointe: annexe.pieceJointe ? annexe.pieceJointe: annexe.pieceJointe,
       dossierProfessionnelId: this.dossierPro.id
     };
     annexeDtos.push(newAnnexe);
@@ -483,6 +496,17 @@ if (!this.dossierPro.experienceProfessionnelleDtos.some(expPro => expPro.compete
 
   experienceProfessionnelleDtos.push(newExpPro);
 }
+
+const f = this.dossierPro.facultatifDto.map((facultatif) => {
+    return {
+      id: facultatif.id, 
+      version: facultatif.version,
+      intitule: facultatif.intitule,
+      organisme: facultatif.organisme,
+      date: facultatif.date,
+      dossierProfessionnelId: this.dossierPro.id,
+    };
+  });
   const dpDto = {
     id: this.dossierPro.id,
     nom: this.dossierPro.nom,
@@ -504,16 +528,7 @@ if (!this.dossierPro.experienceProfessionnelleDtos.some(expPro => expPro.compete
     },
     experienceProfessionnelleDtos, 
     annexeDtos,
-    facultatifDto: [
-      {
-        id: this.newFacultatif.id,
-        version: this.newFacultatif.version,
-        intitule: this.newFacultatif.intitule,
-        organisme: this.newFacultatif.organisme,
-        date: this.newFacultatif.date,
-        dossierProfessionnelId: this.dossierPro.id
-      }
-    ],
+    facultatifDto: f,
     fileImport: this.dossierPro.fileImport,
     version: this.dossierPro.version,
   };
@@ -545,15 +560,19 @@ if (!this.dossierPro.experienceProfessionnelleDtos.some(expPro => expPro.compete
     this.$bvModal.show('deleteModal');
   },
 
-    getAnnexe() {
-      this.showAnnexeModal = true;
-      this.$bvModal.show("annexe-modal");
-      this.newAnnexe = {
+      getAnnexe(selectedAnnexeId) {
+  const selectedAnnexe = this.annexes.find(annexe => annexe.id === selectedAnnexeId);
+  if (selectedAnnexe) {
+    this.newAnnexe = { ...selectedAnnexe };
+  } else {
+    this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
       pieceJointe: null,
-      dossierProfessionnelId:0
-    };   
+      dossierProfessionnelId: 0
+    };
+  }
+  this.$bvModal.show("annexe-modal");
 },
 
 toggleSelectedComp(competenceId) {
@@ -574,7 +593,6 @@ addAnnexe() {
   this.newAnnexe.pieceJointe = null;
 },
 
-
 deleteAnnexe(index, annexeId) {
   dossierProfessionnelApi.deleteAnnexe(annexeId)
     .then(() => {
@@ -587,6 +605,24 @@ deleteAnnexe(index, annexeId) {
     })
     .catch(error => {
       console.log("Echec", error);
+    })
+    .finally(() => {
+      this.$bvModal.hide('deleteModal');
+    });
+},
+clear() {
+      this.dossierPro.facultatifDto.intitule = "";
+      this.dossierPro.facultatifDto.organisme = "";
+      this.dossierPro.facultatifDto.date = null;
+    },
+deleteFacultatif(index, faculId) {
+  dossierProfessionnelApi.deleteFacultatif(faculId)
+    .then(() => {
+      this.dossierPro.facultatifDto.splice(index, 1);
+      console.log("Suppression réussie");
+    })
+    .catch(error => {
+      console.error("Echec de la suppression : " + error.message);
     })
     .finally(() => {
       this.$bvModal.hide('deleteModal');
@@ -744,6 +780,18 @@ watch: {
 
 
   computed: {
+    totalPages() {
+    return Math.ceil(this.dossierPro.facultatifDto.length / this.itemsPerPage);
+  },
+  displayedItems() {
+  if (this.dossierPro && this.dossierPro.facultatifDto) {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.dossierPro.facultatifDto.slice(startIndex, endIndex);
+  }
+  return [];
+},
+
     checkboxErrors() {
       const errors = []
       if (!this.$v.checkbox.$dirty) return errors
@@ -897,6 +945,7 @@ select {
   color: red;
   cursor: pointer;
 }
+
 
 
 </style>
