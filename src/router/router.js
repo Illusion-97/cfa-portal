@@ -24,6 +24,7 @@ import {Role} from "@/_helpers/role.js";
 //#######################
 import LoginPage from "@/views/Login/LoginPage.vue";
 import multiRole from "@/views/multiRole.vue";
+import Subscribe from "@/views/Login/Subscribe.vue"
 import Forgot from "@/views/Login/Forgot.vue";
 import NotFound from "@/views/NotFound.vue";
 import Forbidden from "@/views/Forbidden.vue";
@@ -226,6 +227,7 @@ const routes = [
   { path: "/multiRole", name: "multiRole", component: multiRole, meta: { authorize: [Role.Etudiant, Role.Formateur, Role.Admin, Role.Tuteur] }, },
   // { path: "/home", name: "etudiant_accueil", component: AccueilEtudiant },
   // { path: "/home", redirect: { name: "etudiant" } },
+  { path: "/subscribe", name: "subscribe", component: Subscribe },
   { path: "/login", name: "login", component: LoginPage },
   { path: "/forgot-password", name: "forgot", component: Forgot },
   { path: "/reset-password", name: "reset", component: Reset },
@@ -1735,6 +1737,9 @@ router.beforeEach((to, from, next) => {
     return next();
   }
   if (to.path == "/reset-password") {
+    return next();
+  }
+  if (to.path == "/subscribe") {
     return next();
   }
   if (to.path !== "/login") {
