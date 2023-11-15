@@ -201,6 +201,7 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    console.log(this.$store.getters.getUtilisateur.etudiantDto.id)
   },
   methods: {
     retour() {
@@ -221,7 +222,6 @@ export default {
         CompetencesCouvertes.push(compid)
       }
     },
-    //*******Partie sur les annexes du DossierProjet*******
     deleteAnnexe(index) {
       this.DossierProjet.filesAnnexe.splice(index, 1);
     },
@@ -233,27 +233,22 @@ export default {
       };
       return newAnnexe;
     },
-    toBlob(str){
-      var blob = new Blob([str],{
-        type: 'text/plain'
-      })
-      console.log(blob)
-      console.log(str)
-      return blob
-    },
     async submit() {
       // élements de DossierProjet
-      const {filesAnnexe,nom, projet,annexeDossierProjets,infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets,resumeDossierProjets
+      const {
+        filesAnnexe,
+        nom,
+        projet,
+        annexeDossierProjets,
+        infoDossierProjets,
+        competenceProfessionnelleIds,
+        contenuDossierProjets,
+        resumeDossierProjets
       } = this.DossierProjet;
-
-      const blob1 = new Blob([this.DossierProjet.infoDossierProjets[0]], { type : 'plain/text' });
-      const blob2 = new Blob([this.DossierProjet.resumeDossierProjets[0]], { type : 'plain/text' });
-
-      console.log(blob2.text() + "    " + blob1.text())
       // Création de l'objet à envoyer
       const dpDto = {
         nom,
-        etudiant: {id: this.etudiants.id },
+        etudiant: {id: this.etudiants.id},
         projet: {
           id: projet.id,
           nom: projet.nom,
@@ -264,17 +259,18 @@ export default {
         contenuDossierProjets: [contenuDossierProjets[0]],
         resumeDossierProjets: [resumeDossierProjets[0]],
       };
-      await dossierProjetApi.save(dpDto).then(
-          this.$bvModal.show("modal-delete-success"));
+      const response = await dossierProjetApi.save(dpDto);
+      this.$bvModal.show("modal-delete-success");
+      console.log(response.id);
       console.log(filesAnnexe + filesAnnexe.length)
-      if (filesAnnexe.length == 0){
-        this.saveAnnexe();
+      if (filesAnnexe.length == 0) {
+        await this.saveAnnexe();
       }
-      this.saveImport();
+      await this.saveImport(response.id);
     },
-    saveImport(){
+    saveImport(id){
       if (this.DossierProjet.fileImport){
-        dossierProjetApi.saveImport(this.DossierProjet.fileImport, this.DossierProjet.id)
+        dossierProjetApi.saveImport(this.DossierProjet.fileImport, id)
       }
     },
     saveAnnexe(){

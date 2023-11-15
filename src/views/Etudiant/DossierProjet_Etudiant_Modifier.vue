@@ -338,7 +338,8 @@ export default {
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
           .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index),this.importDp = dossierImport,
-              location.reload())
+              location.reload()
+          )
           .catch((error) => console.error(error));
     },
 
