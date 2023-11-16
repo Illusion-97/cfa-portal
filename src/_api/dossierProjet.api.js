@@ -127,10 +127,7 @@ async function saveImport(fileImport, id) {
 
 async function deleteFile(file, id) {
     return axios
-        .delete(`${END_POINT}/${id}?file=${file}`, {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-            }})
+        .delete(`${END_POINT}/${id}?file=${file}`, requestOptions.headers())
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
