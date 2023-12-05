@@ -324,6 +324,7 @@ export default {
               this.DossierProjet.annexeDossierProjets.push(file),
               this.deleteAnnexe(index))
           .catch((error) => console.error(error));
+      location.reload();
     },
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {

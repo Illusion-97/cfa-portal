@@ -236,7 +236,6 @@ export default {
     async submit() {
       // élements de DossierProjet
       const {
-        filesAnnexe,
         nom,
         projet,
         annexeDossierProjets,
@@ -261,11 +260,8 @@ export default {
       };
       const response = await dossierProjetApi.save(dpDto);
       this.$bvModal.show("modal-delete-success");
-      console.log(response.id);
-      console.log(filesAnnexe + filesAnnexe.length)
-      if (filesAnnexe.length == 0) {
-        await this.saveAnnexe();
-      }
+      await this.saveAnnexe(response.id);
+
       await this.saveImport(response.id);
     },
     saveImport(id){
@@ -273,8 +269,7 @@ export default {
         dossierProjetApi.saveImport(this.DossierProjet.fileImport, id)
       }
     },
-    saveAnnexe(){
-      if (this.DossierProjet.filesAnnexe){
+    saveAnnexe(id){
         const annexeData = new FormData();
         for (let i = 0; i < this.DossierProjet.filesAnnexe.length; i++) {
           const annexe = this.DossierProjet.filesAnnexe[i];
@@ -282,8 +277,7 @@ export default {
             annexeData.append("pieceJointe", annexe.file);
           }
         }
-        dossierProjetApi.saveAnnexe(annexeData, this.DossierProjet.id)
-      }
+        dossierProjetApi.saveAnnexe(annexeData, id)
     },
     getEtudiant() {
       etudiantApi
@@ -321,13 +315,15 @@ export default {
         return this.DossierProjet.nom = value
       }
     },
+    /*Sélecteur de compétences couvertes par le projet*/
     selectedComp(){
       return (compid) => {
         const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
         const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
         const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
         return { backgroundColor: bg, color: txt }
-      }},
+      }
+    },
     isButtonDisabled() {
       return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
     },
