@@ -324,6 +324,7 @@ export default {
               this.DossierProjet.annexeDossierProjets.push(file),
               this.deleteAnnexe(index))
           .catch((error) => console.error(error));
+      location.reload();
     },
     confirmDeleteAnnexe(file, index) {
       dossierProjetApi.deleteFile(file, this.dossierProjetId).then(() => {
@@ -338,7 +339,8 @@ export default {
     submitImport(dossierImport, index){
       dossierProjetApi.saveImport(dossierImport, this.dossierProjetId)
           .then(() =>this.$bvModal.hide('modal-import-confirmation-' + index),this.importDp = dossierImport,
-              location.reload())
+              location.reload()
+          )
           .catch((error) => console.error(error));
     },
 

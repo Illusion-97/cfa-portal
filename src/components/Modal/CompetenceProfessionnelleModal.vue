@@ -4,7 +4,7 @@
       <div class="modal-container" @click.stop>
         <div class="modal-header">
           <h3>Liste des compétences professionnelles</h3>
-          <b-button class="mt-2" color="primary" dark @click="close()">
+          <b-button class="mt-2" variant="danger" dark @click="close()">
             Fermer
           </b-button>
         </div>
@@ -16,7 +16,7 @@
 
         <div class="modal-body">
           <b-button @click="openModalAdd" color="blue-grey"
-            style="margin-bottom: 10px; background-color: #343a40; color: white">
+            style="margin-bottom: 10px; background-color: #17a2b8; color: white">
             <span v-if="!hiddenInput">
               <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'chevron-down']" /> Ajouter une compétence
               professionnelle
@@ -56,10 +56,11 @@
                     <b-form-textarea rows="2" max-rows="5" v-model="row.libelle" @keyup.enter="modifier(cp)"/>
                   </td>
                   <td style=" display: flex; flex-direction: row; justify-content: space-around">
-                    <b-button v-if="editRowIndex == -1" @click="modifierForm(row.id)">Modifier</b-button>
+                    <b-button v-if="editRowIndex == -1" @click="modifierForm(row.id)" variant="warning">
+                      <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />Modifier</b-button>
                     <b-button v-if="editRowIndex === row.id" type="submit" variant="success"
                       @click="validerForm(index)">Valider</b-button>
-                    <b-button v-if="editRowIndex === row.id" variant="danger" @click="annulerForm()">annuler</b-button>
+                    <b-button v-if="editRowIndex === row.id" variant="danger" @click="annulerForm()">Annuler</b-button>
                   </td>
                 </tr>
               </tbody>
@@ -129,7 +130,7 @@ export default {
         .then(() => {
           this.color = "success",
           this.dismissCountDown = 6,
-          this.message = "Compétence modifier avec succée.",
+          this.message = "Compétence modifiée avec succès.",
           this.loading = false
         })
       this.editRowIndex = -1;

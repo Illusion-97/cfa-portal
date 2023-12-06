@@ -201,6 +201,7 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    console.log(this.$store.getters.getUtilisateur.etudiantDto.id)
   },
   methods: {
     retour() {
@@ -221,7 +222,6 @@ export default {
         CompetencesCouvertes.push(compid)
       }
     },
-    //*******Partie sur les annexes du DossierProjet*******
     deleteAnnexe(index) {
       this.DossierProjet.filesAnnexe.splice(index, 1);
     },
@@ -233,27 +233,21 @@ export default {
       };
       return newAnnexe;
     },
-    toBlob(str){
-      var blob = new Blob([str],{
-        type: 'text/plain'
-      })
-      console.log(blob)
-      console.log(str)
-      return blob
-    },
     async submit() {
       // élements de DossierProjet
-      const {filesAnnexe,nom, projet,annexeDossierProjets,infoDossierProjets, competenceProfessionnelleIds, contenuDossierProjets,resumeDossierProjets
+      const {
+        nom,
+        projet,
+        annexeDossierProjets,
+        infoDossierProjets,
+        competenceProfessionnelleIds,
+        contenuDossierProjets,
+        resumeDossierProjets
       } = this.DossierProjet;
-
-      const blob1 = new Blob([this.DossierProjet.infoDossierProjets[0]], { type : 'plain/text' });
-      const blob2 = new Blob([this.DossierProjet.resumeDossierProjets[0]], { type : 'plain/text' });
-
-      console.log(blob2.text() + "    " + blob1.text())
       // Création de l'objet à envoyer
       const dpDto = {
         nom,
-        etudiant: {id: this.etudiants.id },
+        etudiant: {id: this.etudiants.id},
         projet: {
           id: projet.id,
           nom: projet.nom,
@@ -264,21 +258,18 @@ export default {
         contenuDossierProjets: [contenuDossierProjets[0]],
         resumeDossierProjets: [resumeDossierProjets[0]],
       };
-      await dossierProjetApi.save(dpDto).then(
-          this.$bvModal.show("modal-delete-success"));
-      console.log(filesAnnexe + filesAnnexe.length)
-      if (filesAnnexe.length == 0){
-        this.saveAnnexe();
-      }
-      this.saveImport();
+      const response = await dossierProjetApi.save(dpDto);
+      this.$bvModal.show("modal-delete-success");
+      await this.saveAnnexe(response.id);
+
+      await this.saveImport(response.id);
     },
-    saveImport(){
+    saveImport(id){
       if (this.DossierProjet.fileImport){
-        dossierProjetApi.saveImport(this.DossierProjet.fileImport, this.DossierProjet.id)
+        dossierProjetApi.saveImport(this.DossierProjet.fileImport, id)
       }
     },
-    saveAnnexe(){
-      if (this.DossierProjet.filesAnnexe){
+    saveAnnexe(id){
         const annexeData = new FormData();
         for (let i = 0; i < this.DossierProjet.filesAnnexe.length; i++) {
           const annexe = this.DossierProjet.filesAnnexe[i];
@@ -286,8 +277,7 @@ export default {
             annexeData.append("pieceJointe", annexe.file);
           }
         }
-        dossierProjetApi.saveAnnexe(annexeData, this.DossierProjet.id)
-      }
+        dossierProjetApi.saveAnnexe(annexeData, id)
     },
     getEtudiant() {
       etudiantApi
@@ -325,13 +315,15 @@ export default {
         return this.DossierProjet.nom = value
       }
     },
+    /*Sélecteur de compétences couvertes par le projet*/
     selectedComp(){
       return (compid) => {
         const CompetencesCouvertes = this.DossierProjet.competenceProfessionnelleIds
         const bg = CompetencesCouvertes.includes(compid) ? 'green' : 'transparent'
         const txt = CompetencesCouvertes.includes(compid) ? 'white' : 'black'
         return { backgroundColor: bg, color: txt }
-      }},
+      }
+    },
     isButtonDisabled() {
       return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
     },

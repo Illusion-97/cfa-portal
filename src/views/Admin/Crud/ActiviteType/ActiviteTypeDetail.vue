@@ -163,7 +163,7 @@ export default {
         activiteTypeApi.update(this.at).then(response => {
           this.color = "success";
           this.dismissCountDown = 6;
-          this.message = "l'activité type " + response.libelle + " a été modifier avec success"
+          this.message = "L'activité type " + response.libelle + " a été modifier avec succès"
           this.visible = false;
           this.getList()
         }).catch(err => {
@@ -177,7 +177,7 @@ export default {
         activiteTypeApi.save(this.at).then(response => {
           this.color = "success";
           this.dismissCountDown = 6;
-          this.message = "l'activité type " + response.libelle + " a été ajouté avec success"
+          this.message = "L'activité type " + response.libelle + " a été ajouté avec succès"
           this.visible = false;
           this.getList()
         }).catch(err => {
@@ -186,7 +186,7 @@ export default {
           this.message = err;
         })
       }
-
+      this.clear();
     },
     clear() {
       this.$v.$reset()
