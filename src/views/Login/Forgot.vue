@@ -1,50 +1,33 @@
 <template>
   <div class="wrapper fadeInDown">
-    <form id="EmailForm" @submit="submit">
+    <v-card  width="400" height="400" align="center">
+    <form id="EmailForm">
       <div class="form-horizontal">
         <div class="form-group">
 
           <div class="col-md-offset-2 col-md-12">
-            <h2>Mot de passe oublié</h2>
+            <h2>Vous avez oublié votre mot de passe ?</h2>
           </div>
         </div>
 
       <div class="form-group fadeIn second">
-        <div class="col-md-offset-2 col-md-4">
-            <label for="Email" class="control-label fadeIn third">Email</label>
+        <div class="col-md-offset-2 col-md-12">
+            <label for="Email" class="control-label fadeIn third">Contactez votre administrateur pour réinitialiser votre mot de passe.</label>
           </div>
-
-          <div class="col-md-12">
-            <input
-              name="email"
-              type="email"
-              v-model="email"
-              :class="{'form-control fadeIn third': true, 'is-invalid my-is-invalid': isInvalidInput}"
-              placeholder="Email"
-              autocomplete="email"
-              required
-              @input="isInvalidInputFalse()"
-            />
-            </div>
         </div>
 
-      <div v-if="errorMail.checkMail">
+      <!-- <div v-if="errorMail.checkMail">
         {{ errorMail.checkMail }}
-      </div>
+      </div> -->
 
       <div class="justify-center cardActionForgot">
-        <button color="error" class="btn btn-primary"  type="submit">
-            Continuer
+        <button color="error" class="btn btn-primary" @click="goBack">
+            Retour
           </button>
-          
-        <div class="link">
-          <router-link :to="{name: 'login'}">
-             Annuler 
-          </router-link>
-        </div>
       </div>
     </div>
   </form>
+</v-card>
 </div>
 </template>
 
@@ -94,6 +77,9 @@ export default {
   methods: {
     isInvalidInputFalse(){
       this.isInvalidInput = false;
+    },
+    goBack() {
+      this.$router.push({ name: 'login' });
     },
     submit() {
       if (this.$v.form.$invalid) {

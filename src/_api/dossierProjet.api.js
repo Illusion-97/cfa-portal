@@ -97,11 +97,7 @@ async function update(dpDto) {
 async function saveAnnexe(files, id) {
   const formData = new FormData();
   files.forEach(f => formData.append('pieceJointe', f));
-    const response = await axios.post(`${END_POINT}/save-annexe/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    const response = await axios.post(`${END_POINT}/save-annexe/${id}`, formData, requestOptions.headers());
     return response.data;
 }
 
@@ -109,11 +105,8 @@ async function saveAnnexe(files, id) {
 async function updateAnnexe(files, id) {
     const formData = new FormData();
     formData.append('pieceJointe', files);
-    const response = await axios.put(`${END_POINT}/update-annexe/${id}`, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+
+    const response = await axios.put(`${END_POINT}/update-annexe/${id}`, formData, requestOptions.headers());
     return response.data;
 }
 
@@ -128,20 +121,13 @@ async function saveImport(fileImport, id) {
   const formData = new FormData();
   formData.append('import', fileImport);
 
-    const response = await axios.post(`${END_POINT}/save-import/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    const response = await axios.post(`${END_POINT}/save-import/${id}`, formData, requestOptions.headers());
     return response.data;
 }
 
 async function deleteFile(file, id) {
     return axios
-        .delete(`${END_POINT}/${id}?file=${file}`, {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-            }})
+        .delete(`${END_POINT}/${id}?file=${file}`, requestOptions.headers())
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
@@ -175,25 +161,3 @@ async function deleteFile(file, id) {
         .then(response => response.data)
         .catch((error) => console.log(error));
   }
-
-  // function getAllByPage(page, size, search = "") {
-  //   let req = "";
-
-  //   if (search == "") req = `/${END_POINT}/${page}/${size}`;
-  //   else req = `/${END_POINT}/${page}/${size}?search=${search}`;
-    
-
-  //   return axios 
-  //   .get(req, requestOptions.headers())
-  //   .then(response => response.data)
-  //   .catch((error) => console.log(error));
-  // }
-
-  // function getCount(search = "") {
-  //   let req = `/${END_POINT}/count/${search}`;
-  
-  //   return axios
-  //     .get(req, requestOptions.headers())
-  //     .then(response => response.data["nb"])
-  //     .catch((error) => console.log(error));
-  // }
