@@ -132,7 +132,7 @@ export default {
     } else {
       dossierProfessionnelApi.voirDossierPro(dossierId)
         .then(() => {
-          const fileName = `dossierEtudiant${dossierId}-cursus-1.pdf`;
+          const fileName = `${this.items.nom}-DP.pdf`;
           this.pdfUrl = `http://localhost:8080/${fileName}`;
         })
         .catch((error) => console.log(error));

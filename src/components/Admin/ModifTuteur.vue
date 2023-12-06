@@ -1,12 +1,12 @@
 <template>
     <div id="container-fluid">
-        <div v-if="formulaireTuteur">
+        <div>
         <!-- FORMULAIRE -->
         <v-card>
       <v-card-text>
         <v-app class="w-60">
         <v-container>
-                        <v-row>
+                     <v-row>
                             <v-col cols="12" md="2">
                                 <v-select :items="sexe" v-model="formulaireTuteur.civilite" label="Civilité" outlined>
                                 </v-select>
