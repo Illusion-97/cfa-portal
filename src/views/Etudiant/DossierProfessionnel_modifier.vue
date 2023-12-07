@@ -126,7 +126,7 @@
 
   <br/>
     <h6>Annexes</h6> 
-    <b-form-select v-model="selectedAnnexe" @change="getAnnexe" v-if="annexes.length > 0">
+    <b-form-select v-model="dossierPro.annexeDtos" @change="getAnnexe" v-if="annexes.length > 0">
       <b-form-select-option v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
         {{ annexe.libelleAnnexe }}
       </b-form-select-option>
@@ -136,7 +136,7 @@
     </b-form-select> 
 
     <div v-if="annexes.length === 0">
-      <b-form-select v-model="selectedAnnexe" @change="getAnnexe">
+      <b-form-select v-model="dossierPro.annexeDtos" @change="getAnnexe">
       <b-form-select-option v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
         {{ annexe.libelleAnnexe }}
       </b-form-select-option>
@@ -158,7 +158,7 @@
       <b-button type="submit" class="btn btn-success" @click.prevent="addAnnexe">Ajouter</b-button>
     </b-modal>
 
-    <b-modal id="deleteModal" title="Supprimer" @hide="selectedAnnexe = null" >
+    <b-modal id="deleteModal" title="Supprimer" >
   <b-list-group>
     <b-list-group-item v-for="(annexe, index) in annexes" :key="index.id" :value="annexe.id">
   <div class="d-flex justify-content-between align-items-center">
@@ -207,8 +207,8 @@
           </v-list-item>
           <div id="div-save">
           <v-pagination v-model="currentPage" :length="totalPages" @input="changePage"></v-pagination>
-          <v-icon  size="sm" class="text-warning"  @click.prevent="clear">mdi-broom</v-icon>
-          <v-icon size="sm" class="text-danger"  @click.prevent="deleteFacultatif(index, facultatif.id)"> mdi-close </v-icon>
+          <v-btn icon @click.prevent="clear" color="warning"><v-icon size="sm" dark>mdi-broom</v-icon></v-btn>
+          <v-btn icon @click.prevent="deleteFacultatif(index, facultatif.id)" color="red"><v-icon size="sm" dark>mdi-close</v-icon> </v-btn>
         </div>       
         </div>
       </v-list-group>
@@ -340,7 +340,6 @@ export default {
       dpId: 0,
       selectedDate: null,
       isIdVisible: false,
-      selectedAnnexe: null,
       datePickerOpen: false,
       annexes: [],
       facultatifs:[],
@@ -455,20 +454,18 @@ updateDossier(event) {
   event.preventDefault();
 
   const annexeDtos = [];
-
-
   for (let i = 0; i < this.annexes.length; i++) {
     const annexe = this.annexes[i];
     const newAnnexe = {
       id: annexe.id,
       version: annexe.version,
       libelleAnnexe: annexe.libelleAnnexe,
-      pieceJointe: annexe.pieceJointe ? annexe.pieceJointe: annexe.pieceJointe,
+      pieceJointe: annexe.pieceJointe.name ? annexe.pieceJointe.name: annexe.pieceJointe,
       dossierProfessionnelId: this.dossierPro.id
     };
     annexeDtos.push(newAnnexe);
-
   }
+  
  const experienceProfessionnelleDtos = this.dossierPro.experienceProfessionnelleDtos.map((expPro) => {
   return {
     id: expPro.id,
@@ -482,9 +479,9 @@ updateDossier(event) {
     dossierProfessionnelId: expPro.dossierProfessionnelId
   };
 });
+
 if (!this.dossierPro.experienceProfessionnelleDtos.some(expPro => expPro.competenceProfessionnelleId === this.tempCompetence.id)) {
   const newExpPro = {
-    id: 0,
     tacheRealisee: this.expPro.tacheRealisee,
     moyenUtilise: this.expPro.moyenUtilise,
     collaborateur: this.expPro.collaborateur,
@@ -493,7 +490,6 @@ if (!this.dossierPro.experienceProfessionnelleDtos.some(expPro => expPro.compete
     competenceProfessionnelleId: this.tempCompetence.id,
     dossierProfessionnelId: this.dossierPro.id
   };
-
   experienceProfessionnelleDtos.push(newExpPro);
 }
 
@@ -555,25 +551,21 @@ const f = this.dossierPro.facultatifDto.map((facultatif) => {
       this.$bvModal.show("cc");
       console.log("launch");
     },
-    showDeleteModal(annexe) {
-    this.selectedAnnexe = annexe;
+    showDeleteModal() {
     this.$bvModal.show('deleteModal');
   },
 
-      getAnnexe(selectedAnnexeId) {
-  const selectedAnnexe = this.annexes.find(annexe => annexe.id === selectedAnnexeId);
-  if (selectedAnnexe) {
-    this.newAnnexe = { ...selectedAnnexe };
-  } else {
-    this.newAnnexe = {
+     getAnnexe() {
+      this.showAnnexeModal = true;
+      this.$bvModal.show("annexe-modal");
+      this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
       pieceJointe: null,
-      dossierProfessionnelId: 0
-    };
-  }
-  this.$bvModal.show("annexe-modal");
+      dossierProfessionnelId:0
+    };   
 },
+
 
 toggleSelectedComp(competenceId) {
     const selectedCompetence = this.selectedActivite.competencesProfessionnellesDto.find(comp => comp.id === competenceId);
@@ -585,7 +577,7 @@ addAnnexe() {
     id: 0,
     libelleAnnexe: this.newAnnexe.libelleAnnexe,
     pieceJointe: this.newAnnexe.pieceJointe,
-    dossierProfessionnelId: 0
+    dossierProfessionnelId: this.dossierPro.id
   };
   this.annexes.push(annexe);
   console.log(this.annexes);
@@ -611,9 +603,11 @@ deleteAnnexe(index, annexeId) {
     });
 },
 clear() {
-      this.dossierPro.facultatifDto.intitule = "";
-      this.dossierPro.facultatifDto.organisme = "";
-      this.dossierPro.facultatifDto.date = null;
+  this.displayedItems.forEach((facultatif) => {
+      facultatif.intitule = '';
+      facultatif.organisme = '';
+      facultatif.date = null; 
+    });
     },
 deleteFacultatif(index, faculId) {
   dossierProfessionnelApi.deleteFacultatif(faculId)
@@ -632,8 +626,15 @@ deleteFacultatif(index, faculId) {
 deleteExp(experienceId){
   experienceId = this.expPro.id;
   
-      experiencesApi.deleteById(experienceId);
-        this.$bvModal.hide('delete-Exp');
+  experiencesApi.deleteById(experienceId);
+  this.expPro.id = null;
+  this.expPro.tacheRealisee = '';
+  this.expPro.moyenUtilise = '';
+  this.expPro.collaborateur = '';
+  this.expPro.contexte = '';
+  this.expPro.information = '';
+
+  this.$bvModal.hide('delete-Exp');
         
       },
     
@@ -732,10 +733,56 @@ isExperienceFilled(experience) {
     },
     
   
-    addExp(event) { 
-    event.preventDefault();
+async addExp(event) {
+  event.preventDefault();
+
+  const fields = ['tacheRealisee', 'moyenUtilise', 'collaborateur', 'contexte', 'information'];
+  let isValid = true; 
+
+  for (const field of fields) {
+    const fieldValue = this.expPro[field];
+
+    //chercher les balise <img>
+    if (fieldValue && fieldValue.includes('<img')) {
+      const imgTags = fieldValue.match(/<img[^>]*>/g);
+
+      //verification de la taille
+      if (imgTags) {
+        for (const imgTag of imgTags) {
+          const srcMatch = imgTag.match(/src=["'](.*?)["']/);
+          if (srcMatch && srcMatch[1]) {
+            const imageUrl = srcMatch[1];
+            const imageSize = await this.getImageSize(imageUrl);
+            const maxSizeInBytes = 200 * 1024;
+
+            if (imageSize > maxSizeInBytes) {
+              this.$bvToast.toast(`Les images ou captures d'écrans ne doivent pas dépasser 200 ko par image.`, {
+                title: 'Erreur',
+                variant: 'danger',
+                solid: true,
+              });
+              isValid = false; 
+            }
+          }
+        }
+      }
+    }
+  }
+  if (isValid) {
     this.showModal = false;
-   console.log(this.expPro);
+  }
+},
+
+async getImageSize(imageUrl) {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const sizeInBytes = blob.size;
+    return sizeInBytes;
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la taille de image:', error);
+    return null;
+  }
 },
 close(){
       this.expPro = {}; 
@@ -946,6 +993,25 @@ select {
   cursor: pointer;
 }
 
+@media only screen and (max-width: 600px) {
+  /*styles spécifiques pour les écrans de 600px de large ou moins */
+  .container {
+    margin: 50px;
+  }
 
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+  /*styles spécifiques pour les écrans entre 601 et 1024px de large */
+  .container {
+    margin: 40px;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  /* styles spécifiques pour les écrans de 1025px de large ou plus */
+  .container {
+    margin: 80px;
+  }
+}
+}
 
 </style>

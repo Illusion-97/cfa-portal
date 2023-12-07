@@ -74,7 +74,6 @@ import DossierProfessionnelEtudiant from "@/views/Etudiant/DossierProfessionnelE
 import DossierProjetEtudiant from "@/views/Etudiant/DossierProjetEtudiant.vue";
 import DossierProfessionnels from "@/views/Etudiant/DossierProfessionnels.vue";
 import DossierProfessionnel_modifier from "@/views/Etudiant/DossierProfessionnel_modifier.vue";
-import DossierVoir from "@/views/Etudiant/DossierVoir.vue";
 import DossierPro from "@/views/Etudiant/DossierPro.vue";
 import AbsenceEtudiant from "@/views/Etudiant/Absences.vue";
 
@@ -408,12 +407,6 @@ const routes = [
     path: "/etudiant/modifierdossierpro",
     name: "modifier_dossier_pro",
     component: DossierProfessionnel_modifier,
-    meta: { authorize: [Role.Etudiant] },
-  },
-  {
-    path: "/etudiant/dossierVoir",
-    name: "dossierVoir",
-    component: DossierVoir,
     meta: { authorize: [Role.Etudiant] },
   },
 

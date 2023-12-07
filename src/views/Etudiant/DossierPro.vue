@@ -16,19 +16,13 @@
 
 <h6>Activité type {{ index + 1 }} : {{ item.libelle }}</h6>
 
-<b-form-select v-model="start" @change="getValue2">
-  <template #first>
-<b-form-select-option v-for="option in optionsAT2(item)" :key="option.id" :value="option.value" >
-<span v-if="filledCompetences.includes(option.value)  ">&#x2705;</span>
-{{ option.text }}
-</b-form-select-option>
-</template>
+<b-form-select v-model="start" :options="optionsAT2(item)" @change="getValue2">
 </b-form-select>
      
 <br/>
 
 <b-modal id="exp-pro-modal" size="xl" :title="'Compétence professionnelle : ' + compInModal.libelle" centered
-      scrollable no-close-on-esc @hidden="resetModal"  hide-footer v-model="showModal">
+      scrollable no-close-on-esc @hidden="resetModal"  hide-footer v-model="showModal" >
       <!-- FORMULAIRE -->
       <b-form @submit="addExp">
         <b-card no-body class="mb-1" >
@@ -116,6 +110,8 @@
       </b-form>     
     </b-modal>   
   </div>
+  <div>
+  </div>
 
   <h6>Annexes</h6> 
     <b-form-select v-model="form.annexeDtos" @change="getAnnexe">
@@ -152,6 +148,7 @@
   </b-list-group>
 </b-modal>
 <br/>
+
 <h6>Facultatifs</h6> 
 <template>
   <v-app>
@@ -184,8 +181,8 @@
           </v-list-item>
           <div id="div-save">
           <v-pagination v-model="currentPage" :length="totalPages" @input="changePage"  color="info"></v-pagination>
-          <v-icon  size="sm" class="text-warning"   @click.prevent="clear">mdi-broom</v-icon>
-          <v-icon size="sm" class="text-danger"  @click.prevent="deleteFacultatif(index)"> mdi-close </v-icon>
+          <v-btn icon @click.prevent="clear" color="warning"><v-icon size="sm" dark>mdi-broom</v-icon> </v-btn>
+          <v-btn icon @click.prevent="deleteFacultatif(index)" color="red"><v-icon size="sm" dark>mdi-close</v-icon> </v-btn>
         </div>       
         </div>
       </v-list-group>
@@ -268,7 +265,6 @@
 import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js";
 import {validationMixin} from 'vuelidate'
 import {email, maxLength, required} from 'vuelidate/lib/validators'
-import {experiencesApi} from "@/_api/experiences.api.js";
 import {cursusApi} from "@/_api/cursus.api.js";
 import {activiteTypeApi} from "@/_api/activiteType.api.js";
 import {VueEditor} from "vue2-editor";
@@ -310,7 +306,6 @@ export default {
       compInModal: [],
       expPro:[],
       activitesByCursus: [],
-      filledCompetences: [],
       hideDelete: false,
       start: [],
       showMessage: '',
@@ -409,7 +404,6 @@ export default {
       this.selectActivite = null;
     },
 
-
     goDiplome() {
       this.$bvModal.show("bbb");
       console.log("launch");
@@ -423,19 +417,14 @@ export default {
     this.$bvModal.show('deleteModal');
   },
 
-  getAnnexe(selectedAnnexeId) {
-  const selectedAnnexe = this.annexes.find(annexe => annexe.id === selectedAnnexeId);
-  if (selectedAnnexe) {
-    this.newAnnexe = { ...selectedAnnexe };
-  } else {
+  getAnnexe() {
+  
     this.newAnnexe = {
       id: 0,
       libelleAnnexe: "",
       pieceJointe: null,
       dossierProfessionnelId: 0
     };
-  }
-
   // Affichage du modal
   this.$bvModal.show("annexe-modal");
 
@@ -554,7 +543,7 @@ onSubmit(event) {
     id: 0,
     libelleAnnexe: this.newAnnexe.libelleAnnexe,
     pieceJointe: this.newAnnexe.pieceJointe,
-    dossierProfessionnelId: 0
+    dossierProfessionnelId: this.form
   };
 
   this.annexes.push(annexe);
@@ -577,10 +566,6 @@ onSubmit(event) {
     this.compInModal = value;
     this.showModal = true;
     this.tempCompetence = value;
-    if(this.inputValidation != null)
-    {
-      this.filledCompetences.push(value);
-    }
     this.expPro = {
       id:0,
       tacheRealisee: "",
@@ -616,32 +601,58 @@ onSubmit(event) {
       }
       return tab;
     },
-
-    inputValidation(event){
     
-    if (this.expPro.tacheRealisee == null || this.expPro.moyenUtilise == null ||
-        this.expPro.collaborateur == null || this.expPro.contexte == null ||
-        this.expPro.information == null ) {
-      this.showFailed();
-      event.preventDefault();        
-      return;
+async addExp(event) {
+  event.preventDefault();
+
+  const fields = ['tacheRealisee', 'moyenUtilise', 'collaborateur', 'contexte', 'information'];
+  let isValid = true; 
+
+  for (const field of fields) {
+    const fieldValue = this.expPro[field];
+
+    //chercher les balise <img>
+    if (fieldValue && fieldValue.includes('<img')) {
+      const imgTags = fieldValue.match(/<img[^>]*>/g);
+
+      //verification de la taille
+      if (imgTags) {
+        for (const imgTag of imgTags) {
+          const srcMatch = imgTag.match(/src=["'](.*?)["']/);
+          if (srcMatch && srcMatch[1]) {
+            const imageUrl = srcMatch[1];
+            const imageSize = await this.getImageSize(imageUrl);
+            const maxSizeInBytes = 200 * 1024;
+
+            if (imageSize > maxSizeInBytes) {
+              this.$bvToast.toast(`Les images ou captures d'écrans ne doivent pas dépasser 200 ko par image.`, {
+                title: 'Erreur',
+                variant: 'danger',
+                solid: true,
+              });
+              isValid = false; 
+            }
+          }
+        }
+      }
     }
-    this.expPro !== null;
-    this.addExp(event);
-    
-          },
-
-          showFailed(){
-      this.showMessage = "Vous devez renseigner tous les champs." ;
-    },
-    
-  
-    addExp(event) { 
-    event.preventDefault();
+  }
+  if (isValid) {
     this.$bvModal.hide("exp-pro-modal");
-   console.log(this.expPro);
+  }
 },
 
+async getImageSize(imageUrl) {
+  try {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const sizeInBytes = blob.size;
+    return sizeInBytes;
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la taille de l\'image:', error);
+    return null;
+  }
+},
 
 close(){
       this.expPro = {}; 
@@ -661,12 +672,13 @@ setup(){
     },
 
     clear() {
-      this.$v.$reset()
-      this.form.facultatifDto.intitule = "";
-      this.form.facultatifDto.organisme = "";
-      this.form.facultatifDto.date = null;
-      this.checkbox = false
+      this.displayedItems.forEach((facultatif) => {
+      facultatif.intitule = '';
+      facultatif.organisme = '';
+      facultatif.date = null; 
+    });
     },
+    
     goBack() {
       window.history.back();
     },
@@ -684,15 +696,8 @@ setup(){
       checked(val) {
         return val
       },
-    },
+    }
 
-    deleteExp() {
-      experiencesApi
-        .deleteById(this.expPro.id)
-
-        .then(() =>
-          this.$bvModal.hide("exp-pro-modal"),
-          this.$bvModal.show("modal-delete-success"));}        
   },
 
   created() {
@@ -875,5 +880,30 @@ select {
   background: none;
   color: red;
   cursor: pointer;
+}
+.competence-saisie {
+  color: green; 
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  /*styles spécifiques pour les écrans de 600px de large ou moins */
+  .container {
+    margin: 50px;
+  }
+
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+  /*styles spécifiques pour les écrans entre 601 et 1024px de large */
+  .container {
+    margin: 40px;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  /* styles spécifiques pour les écrans de 1025px de large ou plus */
+  .container {
+    margin: 80px;
+  }
+}
 }
 </style>
