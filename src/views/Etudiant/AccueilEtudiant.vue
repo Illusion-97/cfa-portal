@@ -10,7 +10,7 @@
           </h2>
           <br />
           <!-- AVATAR -->
-          <img src="@/assets/img/avatar.png" class="avatar" />
+          <img src="@/assets/img/avatar.png" alt="avatar" class="avatar" />
         </div>
 
         <div class="col col-top">
@@ -79,13 +79,6 @@
       <PlanningEtudiant />
     </div>
     <div v-else>Pas de planning.</div>
-
-    <!-- PROCHAIN COURS -->
-    <!-- <br>
-    <b-table small head-variant="light" :items="accueil.prochainCours" :fields="fieldsCours"></b-table> -->
-
-    <!-- MEMBRES-->
-    <!-- <b-table small head-variant="dark" :items="tabOut"></b-table> -->
   </div>
 </template>
 
@@ -143,26 +136,6 @@ export default {
       etudiantApi
         .getById(this.etudiantId)
         .then((response) => (this.item = response));
-    },
-    tabOut() {
-      let tab = [];
-      let mb = this.accueil.membreEtudiantDtos[0];
-
-      mb.forEach(function (i) {
-        tab.push({
-          Nom: i.membreNom,
-          Prenom: i.membrePrenom,
-          Rôle: i.membreRole[0],
-        });
-      });
-
-      tab.push({
-        Nom: this.accueil.managerNom,
-        Prenom: this.accueil.managerPrenom,
-        Rôle: this.accueil.managerRole,
-      });
-
-      return tab;
     },
   },
 

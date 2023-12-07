@@ -35,10 +35,6 @@
         <tr v-for="note in notesComputed" :key="note.id" @dblclick="detailNote(note.id)" style="cursor:pointer;">
           <td>{{ note.noteObtenu }}</td>
           <td>{{ note.observations }}</td>
-          <!-- <td>
-            <router-link class="btn btn-info" :to="{name:'referent_note_detail', params: { id: note.id }}">Détails</router-link>
-            &nbsp;
-          </td> -->
         </tr>
       </tbody>
     </table>
@@ -129,6 +125,4 @@ export default {
   },
 };
 </script>
-<style scoped src="@/assets/styles/CrudListComponent.css">
-
-
+<style scoped src="@/assets/styles/CrudListComponent.css"/>

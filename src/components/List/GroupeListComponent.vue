@@ -16,13 +16,12 @@
 
       </div>
 
-      <table class="table table-striped table-hover text-center">
+      <table class="table table-striped table-hover text-center" aria-describedby="mydesc">
         <thead>
           <tr>
             <th>Nom</th>
             <th>Etudiants</th>
             <th>Action</th>
-            <!-- <th v-if="isAction">Action</th> -->
           </tr>
         </thead>
         <tbody v-if="groupeComputed">
@@ -43,11 +42,6 @@
                 </span>
               </b-button>
             </td>
-            <!-- <td v-if="isAction">
-            <button class="btn btn-danger" v-on:click="deleteGroupe(groupe.id)">
-              Supprimer
-            </button>
-          </td> -->
           </tr>
         </tbody>
       </table>

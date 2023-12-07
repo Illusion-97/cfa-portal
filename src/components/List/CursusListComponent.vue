@@ -43,7 +43,7 @@
         </span> 
         </b-button>
 
-        <b-button block variant="warning" @click="showModal(row.item)">
+        <b-button block variant="warning" @click="$bvModal.show('modal-' + row.item.id)">
           <span tooltip="Modifier" flow="left">
             <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'edit']" />
             Modifier
@@ -58,7 +58,7 @@
           Voir AT
         </span>
         </b-button>
-        <b-modal hide-footer :ref="'modal-' + row.item.id">
+        <b-modal hide-footer :id="'modal-' + row.item.id">
           <template #modal-title>
             <div class="text-center">Modifier le cursus</div>
           </template>
@@ -82,7 +82,7 @@
             <b-button type="submit" class="mt-3" variant="warning" block>
               <font-awesome-icon class="mr-1" :icon="['fas', 'edit']" />Modifier</b-button>
           </b-form>
-          <b-button class="mt-3" variant="danger" block @click="hideModal(row.item)">
+          <b-button class="mt-3" variant="danger" block @click="hideModal(row.item.id)">
             Annuler</b-button>
         </b-modal>
       </template>
@@ -168,13 +168,6 @@ export default {
         );
       this.saisie = "";
     },
-    showModal(item) {
-      this.$refs["modal-" + item.id].show();
-    },
-    hideModal(item) {
-      this.$refs["modal-" + item.id].hide();
-      this.refreshList();
-    },
     pageChange(pageNum) {
       cursusApi
         .getAllByPage(pageNum - 1, this.perPage)
@@ -186,12 +179,14 @@ export default {
         params: { id: cursus.id },
       });
     },
-    modifierCursus(item) {
-      cursusApi.save(item);
+    hideModal(item){
+      this.$bvModal.hide("modal-" + item);
+    },
+    async modifierCursus(item) {
+      await cursusApi.save(item);
+      this.refreshList();
       this.items = null;
-      this.refreshList();
       this.hideModal(item);
-      this.refreshList();
     },
     gotoActiviteTypeCursus(cursus) {
       this.$router.push({
@@ -199,20 +194,6 @@ export default {
         params: { id: cursus.id },
       });
     },
-    createCursus() {
-      let route = this.$route.path.split("/").splice(1);
-      if (route[0] == "admin") {
-        this.$router.push({
-          name: "admin_cursus_create",
-          params: {},
-        });
-      } else {
-        this.$router.push({
-          name: "cef_addCursus",
-        });
-      }
-    },
-
     refreshList() {
       cursusApi.getAllByPage(0, this.perPage).then((response) => {
         this.items = response;
@@ -226,29 +207,6 @@ export default {
           console.log(err);
         });
     },
-    deleteCursus(cursusId) {
-      cursusApi.deleteCursus(cursusId).then(() => this.refreshList());
-    },
-    clickList(cursus) {
-      this.cursus_input = cursus.titre;
-      this.$emit("click-list", cursus);
-    },
-    dblClick(cursus) {
-      let route = this.$route.path.split("/").splice(1);
-
-      if (route[0] == "admin")
-        this.$router.push({
-          name: "admin_cursus_detail",
-          params: { id: cursus.id },
-        });
-      else if (route[0] == "cef")
-        this.$router.push({
-          name: "cef_cursus_detail",
-          params: { id: cursus.id },
-        });
-
-    },
-
     // open the card to let the user login to webservice DG2
     openLoginWdg2() {
       this.showLoginWdg2Card = !this.showLoginWdg2Card;

@@ -534,7 +534,6 @@ export default {
 }
 
 .customPagination>.page-item.active>.page-link {
-  background-color: antiquewhite;
   background-color: #0d153e;
   border: 1px solid black;
   font-weight: bold;
