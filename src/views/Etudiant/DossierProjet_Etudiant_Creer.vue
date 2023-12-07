@@ -328,13 +328,9 @@ export default {
       return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
     },
     paginatedFiles() {
-      if (this.DossierProjet && this.DossierProjet.filesAnnexe) {
         const startIndex = (this.annexePage - 1) * this.itemsPerPage;
         const endIndex = startIndex + this.itemsPerPage;
         return this.DossierProjet.filesAnnexe.slice(startIndex, endIndex);
-      } else {
-        return [];
-      }
     },
   }
 };
