@@ -14,13 +14,12 @@ export const dossierProfessionnelApi = {
   getByIdEtudiant2,
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
-  voirDossierPro,
+  generateDossierProByStudentAndPromo,
   updateDossierProfessionnel,
   handleFileUpload,
   getAllByPage,
   deleteFileImport,
-  saveImport,
-  generateDossier
+  saveImport
 }
 
 /**
@@ -214,8 +213,8 @@ function updateDossierProfessionnel(dpDto, id, file) {
  * @returns 
  */
 
-function voirDossierPro(dossierId) {
-  let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
+function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
+  let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${cursusId}`;
 
   return axios
     .get(req, { responseType: 'arraybuffer' }) 
@@ -226,25 +225,6 @@ function voirDossierPro(dossierId) {
       window.open(objectUrl);
     })
 
-    .catch((error) => console.log(error));
-}
-function generateDossier(dossierId) {
-  let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
-
-  return axios
-    .get(req, { responseType: 'arraybuffer' }) 
-    .then(response => {
-      const blob = new Blob([response.data], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = `dossierPro-${dossierId}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    })
     .catch((error) => console.log(error));
 }
 
