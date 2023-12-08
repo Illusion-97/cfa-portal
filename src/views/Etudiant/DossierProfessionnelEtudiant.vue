@@ -121,7 +121,7 @@
         <br />
         <span class="fsize14">
           Les <b>images</b> ou <b>captures d'écrans</b> utilisées dans votre
-          dossier professionnel ne doivent pas dépasser <b>400 ko</b> par image et
+          dossier professionnel ne doivent pas dépasser <b>200 ko</b> par image et
           doivent être au format <b>png</b> ou <b>jpg</b>.
           <br />
           Vous pouvez utiliser l'outil gratuit disponible sur

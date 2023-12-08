@@ -126,9 +126,6 @@ export default {
         .countFormation(this.key)
         .then((data) => (this.pageCount = Math.ceil(data / this.perPage)));
     },
-    goToDetailFormation(id) {
-      this.$router.push({ name: "admin_formation_detail", params: { id: id } });
-    },
     openLoginWdg2() {
       this.showLoginWdg2Card = !this.showLoginWdg2Card;
     },

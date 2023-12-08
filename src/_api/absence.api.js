@@ -91,7 +91,7 @@ function getAllByIdEtudiant(id) {
 }
 
 /**
- * Récupération des justificatif en fonction de l'absence
+ * Récupération des justificatifs en fonction de l'absence
  * 
  * @param {*} idAbsence 
  * @returns 

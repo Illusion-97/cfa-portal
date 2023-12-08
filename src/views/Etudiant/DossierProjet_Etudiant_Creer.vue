@@ -110,7 +110,7 @@
                 <v-simple-table>
                   <thead>
                   <tr>
-                    <th class="text-left">File</th>
+                    <th class="text-left" id="file-th">File</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -201,7 +201,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-    console.log(this.$store.getters.getUtilisateur.etudiantDto.id)
   },
   methods: {
     retour() {

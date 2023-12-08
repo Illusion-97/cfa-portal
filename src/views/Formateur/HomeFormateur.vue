@@ -18,7 +18,7 @@
               </tr>
             </tbody>
           </table>
-          <p  v-else class="font-weight-bold" style="font-size: 20px; word-break: break-all">Pas d'intervention a venir</p>
+          <p  v-else class="font-weight-bold" style="font-size: 20px; word-break: break-all">Pas d'intervention à venir</p>
         </div>
 
         <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"

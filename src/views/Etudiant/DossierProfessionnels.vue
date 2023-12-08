@@ -125,7 +125,7 @@ export default {
     } else {
       dossierProfessionnelApi.generateDossierProByStudentAndPromo(etudiantId, cursusDto.id)
         .then(() => {
-          const fileName = `dossierEtudiant${etudiantId}-cursus${cursusDto.id}-1.pdf`;
+          const fileName = `${this.items.nom}-DP.pdf`;
           this.pdfUrl = `http://localhost:8080/${fileName}`;
         })
         .catch((error) => console.log(error));

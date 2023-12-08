@@ -382,7 +382,6 @@ new Vue({
 page: 1,
 numPages: 0,
   },
-template:'#main',
 components:{
 pdf: pdf
   },

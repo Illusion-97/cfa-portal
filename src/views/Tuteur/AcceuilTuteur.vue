@@ -119,4 +119,4 @@ export default {
 };
 </script>
 
-<style scoped src="@/assets/styles/StyleTuteur.css/">
+<style scoped src="@/assets/styles/StyleTuteur.css/"/>

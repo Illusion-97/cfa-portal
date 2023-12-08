@@ -150,45 +150,60 @@ function deleteFacultatif(faculId) {
 //   }};
 
  function saveDossierProfessionnel(id, form, file) {
-  console.log(form);
-  const formData = new FormData();
-  formData.append('dossierProfessionnel', JSON.stringify(form));
+  return new Promise((resolve, reject) => {
+    console.log(form);
+    const formData = new FormData();
+    formData.append('dossierProfessionnel', JSON.stringify(form));
 
-  if (Array.isArray(file)) {
-    file.forEach(f => formData.append('pieceJointe', f));
-  } else if (file) {
-    formData.append('pieceJointe', file);
-  }
+    if (Array.isArray(file)) {
+      file.forEach(f => formData.append('pieceJointe', f));
+    } else if (file) {
+      formData.append('pieceJointe', file);
+    }
 
-  try {
-    const response =  axios.post(`${END_POINT}/save/etudiant/${id}`, formData, {
+     axios.post(`${END_POINT}/save/etudiant/${id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(response => {
+      resolve(response.data); 
+    })
+    .catch(error => {
+      console.log(error);
+      reject(error); 
     });
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+});
 }
 
 
-/**
- * Save du DossierProfessionnel par etudiant 
- * 
- * @param {*} id 
- * @param {*} form 
- * @returns 
- */
+function updateDossierProfessionnel(dpDto, id, file) {
+  return new Promise((resolve, reject) => {
+    console.log(dpDto);
+    const formData = new FormData();
+    formData.append('dossierProfessionnel', JSON.stringify(dpDto));
 
-// function saveDossierProfessionnel(id, form) {
-//   return axios
-//     .post(`${END_POINT}/save/etudiant/${id}`, formData, config)
-//     .then((response) => response.data)
-//     .catch((error) => console.log(error));
-// }
+    if (Array.isArray(file)) {
+      file.forEach(f => formData.append('pieceJointe', f));
+    } else if (file) {
+      formData.append('pieceJointe', file);
+    }
+
+    axios
+      .put(`${END_POINT}/update/etudiant/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(response => {
+        resolve(response.data); 
+      })
+      .catch(error => {
+        console.log(error);
+        reject(error); 
+      });
+  });
+}
 
 /**
  * Génération d'un DossierProfessionnel par etudiant et promotion
@@ -221,30 +236,6 @@ function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
  */
 
 
-function updateDossierProfessionnel(dpDto, id,file) {
-  console.log(dpDto);
-  const formData = new FormData();
-  formData.append('dossierProfessionnel', JSON.stringify(dpDto));
-
-  if (Array.isArray(file)) {
-    file.forEach(f => formData.append('pieceJointe', f));
-  } else if (file) {
-    formData.append('pieceJointe', file);
-  }
-
-  try {
-    const response =  axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
 
 /* function updateDossierProfessionnel(dpDto, id, pieceJointe) {
   const formData = new FormData();
@@ -258,6 +249,15 @@ function updateDossierProfessionnel(dpDto, id,file) {
   });
  }*/
 
+/**
+ * Importation d'un DossierProfessionnel par etudiant et cursus
+ * 
+ * @param {*} etudiantId 
+ * @param {*} promotionId 
+ * @param {*} nom
+ * @param {*} file
+ * @returns 
+ */
 function handleFileUpload(etudiantId,cursusId,file,nom)
 {
   const formData = new FormData();
