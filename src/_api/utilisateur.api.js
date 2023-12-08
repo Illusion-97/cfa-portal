@@ -273,6 +273,11 @@ function addTuteur(tuteur) {
     .post(`${END_POINT}/tuteur`, tuteur, requestOptions.headers())
 }
 
+/**
+ * 
+ * @param {*} tuteur 
+ * @returns 
+ */
 function updateTuteur(tuteur) {
   return axios
     .put(`${END_POINT}/tuteur`, tuteur, requestOptions.headers())

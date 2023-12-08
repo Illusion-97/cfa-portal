@@ -72,7 +72,7 @@
     </div>
 
     <!-- AJOUT TUTEUR -->
-    <b-collapse id="collapse-1" :visible=visibleAddTuteur class="mt-2 mb-4">
+    <b-collapse v-if="!showModalTuteur"  id="collapse-1" :visible=visibleAddTuteur class="mt-2 mb-4">
       <addTuteur @hidden="ajoutTuteur" @cancel="openModalAddTuteur">
       </addTuteur>
     </b-collapse>
@@ -147,7 +147,7 @@
 
 
       <b-modal title="Modification Tuteur" size="xl" hide-footer v-model="showModalTuteur">
-    <modifTuteur :tuteur="rowToModify" @cancel="showModalTuteur = false" @hidden="updateTuteur" />
+    <modifTuteur :tuteur="item" @cancel="showModalTuteur = false" @hidden="updateTuteur" />
   </b-modal>
 
     <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
@@ -221,7 +221,6 @@ export default {
 
       showModalRoleUser: false,
       showModalTuteur:false,
-      rowToModify: null,
       editRoles: [],
       options: [],
       item: {}
@@ -448,19 +447,18 @@ export default {
       this.showModalRoleUser = true; // Affiche la modal de modification des rôles
     },
 
-      ouvrirFormulaireModificationTuteur(row) {
-      this.rowToModify = { ...row };
-      this.showModalTuteur = true; 
-    },
+    ouvrirFormulaireModificationTuteur(item) {
+    this.item = item;
+    this.showModalTuteur = true; 
+},
+
 
     updateTuteur(mesg) {
       if (mesg == "Tuteur modifié.") {
-        //this.visibleAddTuteur = false;
         this.showModalTuteur = false;
         this.refreshList();
       }
       else {
-        this.visibleAddTuteur = true;
         this.message = mesg;
         this.loading = false;
       }
