@@ -110,7 +110,7 @@
                 <v-simple-table>
                   <thead>
                   <tr>
-                    <th class="text-left">File</th>
+                    <th class="text-left" id="file-th">File</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -201,7 +201,6 @@ export default {
         .catch((error) => {
           console.error(error);
         });
-    console.log(this.$store.getters.getUtilisateur.etudiantDto.id)
   },
   methods: {
     retour() {
@@ -328,13 +327,9 @@ export default {
       return !this.DossierProjet.nom || !this.DossierProjet.projet || this.DossierProjet.nom.trim() === "" || this.DossierProjet.projet.nom.trim() === "";
     },
     paginatedFiles() {
-      if (this.DossierProjet && this.DossierProjet.filesAnnexe) {
         const startIndex = (this.annexePage - 1) * this.itemsPerPage;
         const endIndex = startIndex + this.itemsPerPage;
         return this.DossierProjet.filesAnnexe.slice(startIndex, endIndex);
-      } else {
-        return [];
-      }
     },
   }
 };

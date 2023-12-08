@@ -14,13 +14,12 @@ export const dossierProfessionnelApi = {
   getByIdEtudiant2,
   saveDossierProfessionnel,
   getAllDossierProfessionnelByEtudiantAndByCursus,
-  voirDossierPro,
+  generateDossierProByStudentAndPromo,
   updateDossierProfessionnel,
   handleFileUpload,
   getAllByPage,
   deleteFileImport,
-  saveImport,
-  generateDossier
+  saveImport
 }
 
 /**
@@ -206,8 +205,8 @@ function updateDossierProfessionnel(dpDto, id, file) {
  * @returns 
  */
 
-function voirDossierPro(dossierId) {
-  let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
+function generateDossierProByStudentAndPromo(etudiantId, cursusId) {
+  let req = `${END_POINT}/dossier-professionnel/${etudiantId}/${cursusId}`;
 
   return axios
     .get(req, { responseType: 'arraybuffer' }, requestOptions.headers()) 
@@ -220,6 +219,7 @@ function voirDossierPro(dossierId) {
 
     .catch((error) => console.log(error));
 }
+<<<<<<< HEAD
 function generateDossier(dossierId) {
   let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
 
@@ -239,6 +239,8 @@ function generateDossier(dossierId) {
     })
     .catch((error) => console.log(error));
 }
+=======
+>>>>>>> 8cb550748862edceaa3cc1d1e9dd937a9ad81479
 
 
 

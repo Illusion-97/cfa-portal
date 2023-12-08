@@ -82,16 +82,7 @@ export default {
 };
 </script>
 <style scoped>
-.opts,
 label {
   color: black;
-}
-
-.table {
-  text-align: center;
-}
-
-.icon:hover {
-  cursor: pointer;
 }
 </style>

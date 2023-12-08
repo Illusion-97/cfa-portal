@@ -82,7 +82,7 @@ function getCount(search = "") {
  * @returns 
  */
 function getByRoleByPage(role = "", page, size, search = "") {
-  let req = "";
+  let req;
 
   if (role == "") {
     if (search == "") req = `/${END_POINT}/${page}/${size}`;
@@ -105,7 +105,7 @@ function getByRoleByPage(role = "", page, size, search = "") {
  * @returns 
  */
 function getCountByRole(role, search = "") {
-  let req = "";
+  let req;
 
   if (role == "") {
     if (search == "") req = `/${END_POINT}/count`;
@@ -223,7 +223,7 @@ function getAllUtilisateurs() {
  * @returns 
  */
 async function getAllUsersByName(name) {
-  let users = [];
+  let users;
   const response = await axios.get(`$/admin/userList?name=${name}`, requestOptions.headers());
   users = response.data;
   return users;

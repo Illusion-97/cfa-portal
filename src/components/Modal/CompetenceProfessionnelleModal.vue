@@ -128,11 +128,12 @@ export default {
       competenceProfessionnelleApi
         .update(this.cps[index])
         .then(() => {
-          this.color = "success",
-          this.dismissCountDown = 6,
-          this.message = "Compétence modifiée avec succès.",
-          this.loading = false
-        })
+                this.color = "success",
+                this.dismissCountDown = 6,
+                this.message = "Compétence modifiée avec succès.",
+                this.loading = false,
+                location.reload()
+              })
       this.editRowIndex = -1;
     },
   },

@@ -61,9 +61,6 @@ export default {
   },
 
   methods: {
-    formatName() {
-      return "ICONE POUR DL PDF";
-    },
     generer(item) {
 
       livretEvaluationApi.generer(item.etudiantId, item.titreProfessionnelId).then(response => {

@@ -1,28 +1,15 @@
   <template>
   <div id="main-cr-prj" style="margin-top: 1em">
     <!-- Button retour -->
-    <b-alert :show="dismissCountDownSuccess" dismissible fade variant="success" @dismiss-count-down="countDownChanged">
-      L'E-Mail a été correctement envoyé
-    </b-alert>
-    <b-alert :show="dismissCountDownFail" dismissible fade variant="danger" @dismiss-count-down="countDownChanged2">
-      Veuillez renseigner tous les champs
-    </b-alert>
-    <div class="card-retour" style="margin-top: 1em; display: flex;
-     flex-direction: row; margin-right: 0">
+    <div class="card-retour" style="margin-top: 1em">
       <v-btn color="back-color" class="back" @click="goBack()">
         <v-icon>
           mdi-arrow-left
         </v-icon>
         Précédent
       </v-btn>
-      <v-btn color="back-color" @click="clicked = !clicked;">
-        <v-icon icon="mdi-domain" size="large" color="white">mdi-email</v-icon>
-      </v-btn>
     </div>
     <br>
-    <div :hidden="clicked" style="animation: ease-in 0.5s; z-index: 9999">
-      <mail-component :fail="showFail" :success="showSuccess" style="transition: ease-in 0.5s" :from="$store.getters.getUtilisateur.login" :to="login"></mail-component>
-    </div>
     <div class="grid-1" v-if="this.$store.getters.getUtilisateur.tuteurDto">
 
       <!-- Nom des categorie du tableau -->
@@ -108,6 +95,7 @@
               color="#08092d" v-if="dossProjs.length"></v-pagination>
           </div>
         </v-card>
+
         <!-- Tableau Dossier Professionnel -->
         <v-card v-show="active === 5" name="dossier professionnel">
           <v-data-table :headers="dossProfFields" :items="dossProfs" :page.sync="pageDossProfessionnel"
@@ -148,7 +136,7 @@
         </v-card>
       </v-card>
     </div>
-    <div v-else>Aucun détails de l'étudiant</div>
+    <div v-else>Aucun d'étail de l'étudiant</div>
   </div>
   </template>
 
@@ -168,16 +156,11 @@
     notesFields,
     planningFields
   } from "@/assets/js/fieldsDetailEtudiant.js";
-  import MailComponent from "@/components/utils/MailComponent.vue";
+  //import MailComponent from "@/components/utils/MailComponent.vue";
 
   export default {
-    components: {MailComponent},
   data: () => {
     return {
-      clicked:true,
-      dismissSecs: 5,
-      dismissCountDownSuccess: 0,
-      dismissCountDownFail: 0,
       active: 1,
       pageNotes: 1,
       pagePromos: 1,
@@ -187,7 +170,6 @@
       pageAbsence: 1,
       itemsPerPage: 8,
       etudiantId: 0,
-      login:"",
       infos: [],
       notes: [],
       promos: [],
@@ -208,22 +190,10 @@
     goBack() {
       this.$router.go(-1);
     },
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDownSuccess = dismissCountDown;
-    },
-    countDownChanged2(dismissCountDown) {
-      this.dismissCountDownFail = dismissCountDown;
-    },
-    showSuccess() {
-      this.dismissCountDownSuccess = this.dismissSecs
-    },
-    showFail() {
-      this.dismissCountDownFail = this.dismissSecs
-    },
+
     async getInfoEtudiant() {
       try {
         const response = await etudiantApi.getById(this.etudiantId);
-        this.login = response.utilisateurDto.login
         this.infos = response.utilisateurDto;
       } catch (error) {
         console.error("Erreur lors de la récupération des informations de l'étudiant :", error);
@@ -309,14 +279,11 @@
     this.getdossProfEtudiant();
     this.getCongeEtudiant();
     this.getabsenceEtudiant();
-
   },
-
   };
   </script>
 
   <style >
-
   #main-cr-prj {
   margin: 0% 3% 0% 3%;
   display: grid;

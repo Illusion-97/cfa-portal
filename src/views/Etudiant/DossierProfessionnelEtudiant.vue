@@ -101,8 +101,8 @@
         <li>Pas de dossier professionnel.</li>
       </ul>
 
-      <h4 v-if="dp.promotions != 0 && this.$store.getters.getUtilisateur.etudiantDto">
-  <router-link 
+      <h4>
+  <router-link
     :to="{
       name: 'etudiant_dossierpro',
     }"
@@ -230,6 +230,19 @@ export default {
       
   }
 };
+
+  /*uploadFile() {
+    dossierProfessionnelApi
+      .generateDossierProByStudentAndPromo(this.$store.getters.getDossierId.etudiantDto.id.promotionId)
+      .then(data => {
+        this.dp = data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    },*/
+
+
 
  
   </script>

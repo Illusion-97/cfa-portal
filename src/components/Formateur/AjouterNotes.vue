@@ -335,11 +335,6 @@ export default {
         ville: noteData.ville,
       };
     },
-    isModify(item){
-      if (item.note != 0 || item.satisfaction != null){
-        return true
-      }else {return false}
-    },
     geIndexForItem(id) {
       for (let i = 0; i < this.items.length; i++) {
         if (id === this.items[i].id) {

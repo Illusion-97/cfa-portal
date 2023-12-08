@@ -26,21 +26,12 @@
             <tr>
               <th>Etudiant</th>
               <th>Email</th>
-              <th>Promotions</th>
             </tr>
           </thead>
           <tbody v-if="etudiantsComputed">
             <tr v-for="etudiant in etudiantsComputed" :key="etudiant.id">
               <td>{{ etudiant.utilisateurDto.fullName }}</td>
               <td>{{ etudiant.utilisateurDto.login }}</td>
-              <td>
-                <div
-                  v-for="promotion in etudiant.promotionsDto"
-                  :key="promotion.id"
-                >
-                  {{ promotion.nom.split("-").join(" ") }}
-                </div>
-              </td>
             </tr>
           </tbody>
         </table>
