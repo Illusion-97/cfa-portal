@@ -138,13 +138,6 @@
 <script>
 import {dossierProfessionnelApi} from "@/_api/dossierProfessionnel.api.js";
 
-//erreur avec l'import à corriger import "bootstrap-icons/font/bootstrap-icons.css";
-
-
-// SWITCH
-// import Vue from "vue";
-// import VSwitch from "v-switch-case";
-// Vue.use(VSwitch);
 
 export default {
   name: "DossierProfessionnelEtudiant",

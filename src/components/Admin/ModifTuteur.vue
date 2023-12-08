@@ -259,14 +259,20 @@ fetchTuteur() {
                 });
         },
         getEtudiant(){
-      etudiantApi
-                .getAllEtudiant()
-                .then((data) => {
-                    data.forEach(etudiant => {
-                        let item = { text: etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom, value: etudiant.id }
-                        this.listEtudiant.push(item);
-                    })
-                });
+            etudiantApi
+    .getAllEtudiant()
+    .then((data) => {
+        data.forEach(etudiant => {
+            if (etudiant.utilisateurDto && etudiant.utilisateurDto.prenom && etudiant.utilisateurDto.nom) {
+                let item = {
+                    text: etudiant.utilisateurDto.prenom + " " + etudiant.utilisateurDto.nom,
+                    value: etudiant.id
+                };
+                this.listEtudiant.push(item);
+            }
+        });
+    });
+
     },
         showModal(value) {
             if (value == "Adresse")
@@ -281,7 +287,6 @@ fetchTuteur() {
             }
         },
         hideModalTuteur(){
-            this.clear();
             this.$emit('cancel');
         },
         hideModal() {

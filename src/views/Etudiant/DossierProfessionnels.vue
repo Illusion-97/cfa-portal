@@ -117,30 +117,13 @@ export default {
       });
     },
 
-    voirDossier(dossierId, fileImport) {
-    if (dossierId) {
-      if (fileImport) {
-        fetch(fileImport)
-        .then((response) => response.blob())
-        .then((blob) => {
-          const url = URL.createObjectURL(blob);
-          const newPage = window.open('', '_blank');
-          newPage.document.write(`<html><body><iframe src="${url}" width="100%" height="100%"></iframe></body></html>`);
-          newPage.document.close();
-        })
-        .catch((error) => console.log(error));
-    } else {
+    voirDossier(dossierId) {
       dossierProfessionnelApi.voirDossierPro(dossierId)
         .then(() => {
           const fileName = `${this.items.nom}-DP.pdf`;
           this.pdfUrl = `http://localhost:8080/${fileName}`;
         })
         .catch((error) => console.log(error));
-    }
-  }
-     else {
-      console.error("Undefined");
-    }
 },
   
   },

@@ -162,11 +162,7 @@ function deleteFacultatif(faculId) {
       formData.append('pieceJointe', file);
     }
 
-     axios.post(`${END_POINT}/save/etudiant/${id}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+     axios.post(`${END_POINT}/save/etudiant/${id}`, formData,requestOptions.headers())
     .then(response => {
       resolve(response.data); 
     })
@@ -191,11 +187,7 @@ function updateDossierProfessionnel(dpDto, id, file) {
     }
 
     axios
-      .put(`${END_POINT}/update/etudiant/${id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .put(`${END_POINT}/update/etudiant/${id}`, formData, requestOptions.headers())
       .then(response => {
         resolve(response.data); 
       })
@@ -218,7 +210,7 @@ function voirDossierPro(dossierId) {
   let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
 
   return axios
-    .get(req, { responseType: 'arraybuffer' }) 
+    .get(req, { responseType: 'arraybuffer' }, requestOptions.headers()) 
 
     .then(response => {
       const blob = new Blob([response.data], { type: 'application/pdf' });  
@@ -232,7 +224,7 @@ function generateDossier(dossierId) {
   let req = `${END_POINT}/dossier-professionnel/${dossierId}`;
 
   return axios
-    .get(req, { responseType: 'arraybuffer' }) 
+    .get(req, { responseType: 'arraybuffer' }, requestOptions.headers()) 
     .then(response => {
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
@@ -249,25 +241,6 @@ function generateDossier(dossierId) {
 }
 
 
-/** 
-@param {*} id 
- * @param {*} form
- * @returns 
- */
-
-
-
-/* function updateDossierProfessionnel(dpDto, id, pieceJointe) {
-  const formData = new FormData();
-  formData.append('dpDto', JSON.stringify(dpDto)); 
-  formData.append('pieceJointe', pieceJointe); 
-
-  return axios.put(`${END_POINT}/update/etudiant/${id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
- }*/
 
 /**
  * Importation d'un DossierProfessionnel par etudiant et cursus
@@ -287,7 +260,7 @@ function handleFileUpload(etudiantId,cursusId,file,nom)
   }
  
   return axios
-    .post(`${END_POINT}/upload/${etudiantId}/${cursusId}`, formData)
+    .post(`${END_POINT}/upload/${etudiantId}/${cursusId}`, formData, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => console.log(error));
 
@@ -296,26 +269,18 @@ function handleFileUpload(etudiantId,cursusId,file,nom)
 function deleteFileImport(fileImport, id)
  {
   return axios
-    .delete(`${END_POINT}/deleteFile/${id}?fileImport=${fileImport}`,
-    {
-      headers: {
-          "Access-Control-Allow-Origin": "*",
-      }})
+    .delete(`${END_POINT}/deleteFile/${id}?fileImport=${fileImport}`, requestOptions.headers())
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
     });
   }
 
-  function saveImport(file, dossierId) {
-    const formData = new FormData();
-    formData.append('fileImport', file);
-  
-    return axios.post(`${END_POINT}/uploadFile/${dossierId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      .then((response) => response.data)
+ function saveImport(file, dossierId) {
+  const formData = new FormData();
+  formData.append('fileImport', file);
+
+  return axios.post(`${END_POINT}/saveFile/${dossierId}`, formData, requestOptions.headers())
+    .then((response) => response.data)
     .catch((error) => console.log(error));
-  }
+}
