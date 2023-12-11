@@ -5,8 +5,13 @@
                 <v-row text-align="center" justify="center">
                     <v-col cols="12" md="8">
                         <v-form ref="myForm" @submit="addTuteur">
-                            <v-alert v-if="showAlert" class="m-4 " :show="dismissCountDown" dismissible fade type="success" @dismissed="dismissCountDown = 0">
-                            {{ message }}
+                            <v-alert v-if="showAlert" class="m-4 " :show="dismissCountDown" dismissible fade type="success"
+                                @dismissed="dismissCountDown = 0">
+                                {{ message }}
+                            </v-alert>
+                            <v-alert v-if="showAlert2" class="m-4 " :show="dismissCountDown" dismissible fade type="error"
+                                @dismissed="dismissCountDown = 0">
+                                {{ message }}
                             </v-alert>
                             <v-card>
                                 <v-card-title class="text-h4 text-center" style="text-align: center;">
@@ -92,13 +97,6 @@
                                                 <v-text-field v-model="adresse" label="Adresse"></v-text-field>
                                             </v-form>
                                         </v-col>
-                                        <!-- <v-col cols="12" md="4">
-                                            <v-form v-model="valid">
-                                                <v-select v-model="etudiantId" :items="listEtudiant"
-                                                    :rules="[v => !!v || 'Veuillez selectionner un étudiant']"
-                                                    label="Etudiant" required></v-select>
-                                            </v-form>
-                                        </v-col> -->
                                         <v-col cols="12" class="text-right">
                                             <v-btn class="mr-4" type="submit" color="success">
                                                 <font-awesome-icon class="mr-1 mt-1" :icon="['fas', 'check']" />
@@ -151,6 +149,7 @@ export default {
             active: false
         },
         showAlert: false,
+        showAlert2: false,
         message: "",
         dismissCountDown: null,
         valid: false,
@@ -215,23 +214,50 @@ export default {
                 });
         },
         addTuteur() {
-            // if (!this.etudiantId) {
-            //     console.error("Veuillez sélectionner un étudiant.");
-            //     return;
-            // }
-            // this.formTuteur.etudiantDto = {
-            //     id: this.etudiantId,
-            // };
+            // ...
             this.formTuteur.adresseDto.id = this.adresseId;
             this.formTuteur.entrepriseDto.id = this.entrepriseId;
+
             utilisateurApi.addTuteur(this.formTuteur)
-                .then(() => (this.clear(), this.$emit('hidden', 'Tuteur ajouté.')))
-                .catch((error) => (this.$emit('hidden', error)))
-            this.showAlert = true;
-            this.dismissCountDown =6;
-            this.message = "Inscription réussi, en attende de l'activation de votre compte par l'administration";
-            this.clear();
-        },
+                .then(() => {
+                    this.showAlert = true;
+                    this.dismissCountDown = 6;
+                    this.message = "Inscription réussie, en attente de l'activation de votre compte par l'administration";
+                    this.clear();
+                    //this.$emit('hidden', 'Tuteur ajouté.');
+                    setTimeout(() => {
+                        this.showAlert = false;
+                        this.dismissCountDown = null;
+                    }, this.dismissCountDown * 1000);
+                })
+                .catch(error => {
+                    // Gestion des erreurs du serveur
+                    if (error.response && error.response.status === 409) {
+                        // Erreur 409 : Adresse e-mail déjà existante
+                        this.showAlert2 = true;
+                        this.dismissCountDown = 6;
+
+                        setTimeout(() => {
+                        this.showAlert2 = false;
+                        this.dismissCountDown = null;
+                    }, this.dismissCountDown * 1000);
+                    } else {
+                        // Autre erreur : émettez un événement avec le message d'erreur
+                        this.showAlert2 = true;
+                        this.dismissCountDown = 6;
+                        this.message = "Une erreur est survenue lors de l'inscription. Veuillez réessayer.";
+
+                        //this.$emit('hidden', error);
+                        setTimeout(() => {
+                        this.showAlert2 = false;
+                        this.dismissCountDown = null;
+                    }, this.dismissCountDown * 1000);
+                    }
+                });
+
+
+        }
+
     },
 };
 </script>
