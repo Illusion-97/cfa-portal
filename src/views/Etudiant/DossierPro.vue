@@ -1,6 +1,5 @@
 <template>
   <div class="container" >
-    {{ data.item.cursus.activiteTypes }}
     <h5>
       Créer le dossier professionnel :
       <span>{{ data.item.cursus.titre }}</span>
