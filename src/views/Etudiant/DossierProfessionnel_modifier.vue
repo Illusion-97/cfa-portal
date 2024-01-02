@@ -2,7 +2,7 @@
   <div class="container">  
     <div v-if="dossierPro">
       <h5>Modification du dossier professionnel : 
-      <span>{{ this.cursus.titre }}</span></h5>  
+      <span>{{ this.dossierPro.cursusDto.titre }}</span></h5>  
       <b-form @submit="updateDossier">
       <v-col cols="12" sm="6"  md="4">
       <v-text-field  type="text" v-model="dossierPro.nom" variant="filled"  clearable >
