@@ -17,9 +17,9 @@ export const soutenanceApi = {
 
 /**
  * Récupération d'une Soutenance
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getBySoutenanceId(id) {
     let req = `/${END_POINT}/${id}`;
@@ -32,22 +32,55 @@ function getBySoutenanceId(id) {
 
 /**
 *Save d'une soutenance
-* 
-* @param {*} soutenance 
-* @returns 
+*
+* @param {*} soutenance
+* @returns
 */
 export async function saveSoutenance(soutenance) {
+    const { etudiant,jour, heure, minAccueil, minEntretien, minQuestion, minEntretienFinal, minDeliberation, hasSpecialManagement } = soutenance
+    const date = parseDateStringToDateObject(jour);
+    Object.keys(soutenance).forEach(key => console.log(key, soutenance[key]))
+
+    const payload = {
+        studentId: etudiant.id,
+        examDate: parseTimeToDate(date, heure),
+        minAccueil: parseTimeToDate(date, minAccueil),
+        minEntretien: parseTimeToDate(date, minEntretien),
+        minQuestion: parseTimeToDate(date, minQuestion),
+        minEntretienFinal: parseTimeToDate(date, minEntretienFinal),
+        minDeliberation: parseTimeToDate(date, minDeliberation),
+        hasSpecialManagement: hasSpecialManagement,
+    }
+    Object.keys(payload).forEach(key => console.log(key, payload[key]))
+
     return axios
-        .post(`${END_POINT}`, soutenance, requestOptions.headers())
+        .post(`${END_POINT}`, payload, requestOptions.headers())
         .then((response) => response.data)
         .catch((error) => console.log(error));
 }
 
+const parseTimeToDate = (date, time) => {
+    const [hours, minutes] = time.split(':');
+    date = new Date(date);
+    date.setHours(parseInt(hours));
+    date.setMinutes(parseInt(minutes));
+    console.log('examDate', date)
+    return date;
+}
+const parseDateStringToDateObject = (dateString) => {
+    const date = new Date();
+    const [year, month, day] = dateString.split('-');
+    date.setFullYear(parseInt(year));
+    date.setMonth(parseInt(month) - 1);
+    date.setDate(parseInt(day));
+    return date;
+}
+
 /**
 *Update d'une soutenance
-* 
-* @param {*} soutenance 
-* @returns 
+*
+* @param {*} soutenance
+* @returns
 */
 function updateSoutenance(soutenance) {
     return axios
@@ -57,10 +90,10 @@ function updateSoutenance(soutenance) {
 }
 
 /**
-* Suppression d'une soutenance 
-* 
-* @param {*} id 
-* @returns 
+* Suppression d'une soutenance
+*
+* @param {*} id
+* @returns
 */
 
 export async function deleteSoutenance(id) {
@@ -72,9 +105,9 @@ export async function deleteSoutenance(id) {
 
 /**
  * Méthode de recherche pour soutenance
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function countSoutenanceByPromotionId(id) {
     let req = `/${END_POINT}/count/promotion/${id}`;
@@ -87,9 +120,9 @@ function countSoutenanceByPromotionId(id) {
 
 /**
  * Récupération des soutenance par id de promotion
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getSoutenanceByPromotionId(id) {
     let req = `/${END_POINT}/promotion/${id}`;
@@ -101,12 +134,12 @@ function getSoutenanceByPromotionId(id) {
 }
 
 /**
- * Récupération des soutenance par id de promotion, page, size 
- * 
- * @param {*} id 
- * @param {*} page 
- * @param {*} size 
- * @returns 
+ * Récupération des soutenance par id de promotion, page, size
+ *
+ * @param {*} id
+ * @param {*} page
+ * @param {*} size
+ * @returns
  */
 function getPageSoutenanceByPromotionId(id, page, size) {
     let req = `/${END_POINT}/promotion/${id}/${page}/${size}`;
@@ -119,13 +152,13 @@ function getPageSoutenanceByPromotionId(id, page, size) {
 
 /**
  * Récupération pdf List soutenance
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function genererLstSoutenance(promotion, id){
     let req = `${END_POINT}/generer/${promotion}${id}`;
-  
+
     return  axios
         .get(req, requestOptions.headers())
         .then(response => response.data)
