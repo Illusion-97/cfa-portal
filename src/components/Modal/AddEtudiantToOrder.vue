@@ -5,13 +5,13 @@
         <v-app class="w-50">
             <span v-if="modifier">Etudiant : {{ soutenance.etudiant.utilisateurDto.fullName }}</span>
             <b-form-group v-if="etudiants.length > 0 && !modifier" label="Veuillez sélectionner un étudiant* :">
-                <v-select :items="etudiants" v-model="soutenance.etudiant.id" @change="onItemSelected" outlined clearable />
+                <v-select :items="etudiants" v-model="soutenance.etudiant.id" outlined clearable />
             </b-form-group>
             <div v-if="etudiants.length === 0 && !modifier">Aucun étudiant à ajouter</div>
         </v-app>
 
         <!-- FORMULAIRE DATE HEURE -->
-        <b-form v-if="showForm">
+        <b-form v-if="soutenance.etudiant.id >= 0">
             <b-form-group label="Choisir la date et l'heure d'examen* :">
                 <div class="w-100 d-flex justify-content-center">
                     <b-form-input v-model="soutenance.jour" type="date" class="" required />
@@ -27,7 +27,11 @@
                     <span class="pb-5">Entretien Final :</span>
                     <b-form-input v-model="soutenance.minEntretienFinal" type="time" class="mt-1 mb-3" />
                     <span>Déliberation du Jury :</span>
-                    <b-form-input v-model="soutenance.minDeliberation" type="time" class="mt-1" />
+                    <b-form-input v-model="soutenance.minDeliberation" type="time" class="mt-1 mb-3" />
+                    <div class="d-flex align-content-center">
+                        <span>Aménagement spécifique :</span>
+                        <b-form-checkbox v-model="soutenance.hasSpecialManagement" type="checkbox" class="ml-1" />
+                    </div>
                 </div>
             </b-form-group>
         </b-form>
@@ -39,24 +43,23 @@
         </b-alert>
 
         <!-- BUTTON -->
-        <div class="d-flex">
-            <b-button v-if="showForm && !modifier" variant="outline-success" class="m-4"
-                @click="addEtudiant">Ajouter</b-button>
-            <b-button v-if="showForm && modifier" variant="outline-primary" class="m-4"
-                @click="addEtudiant">Modifier</b-button>
+        <div class="d-flex" v-if="soutenance.id >= 0">
+            <b-button v-if="!modifier" variant="outline-success" class="m-4"
+                      @click="addEtudiant">Ajouter</b-button>
+            <b-button v-if="modifier" variant="outline-primary" class="m-4"
+                      @click="addEtudiant">Modifier</b-button>
             <b-button variant="outline-danger" class="m-4" @click="closeModal">Annuler</b-button>
         </div>
     </b-modal>
 </template>
 <script>
-import { etudiantApi } from "@/_api/etudiant.api";
-import { soutenanceApi } from "@/_api/soutenance.api";
+import {etudiantApi} from "@/_api/etudiant.api";
+import {soutenanceApi} from "@/_api/soutenance.api";
 
 export default {
     data() {
         return {
             showModal: false,
-            showForm: false,
             modifier: false,
             dismissCountDown: null,
             idPromotion: this.$route.params.id,
@@ -65,7 +68,7 @@ export default {
             etudiants: [],
             lstSoutenances: [],
             soutenance: {
-                id: 0,
+                id: -1,
                 version: 0,
                 etudiant: {
                     id: 0
@@ -77,6 +80,7 @@ export default {
                 minQuestion: null,
                 minEntretienFinal: null,
                 minDeliberation: null,
+                hasSpecialManagement: false,
             },
         };
     },
@@ -89,7 +93,7 @@ export default {
             ));
 
             console.log("ETUDIANTS")
-          console.log(this.etudiants)
+            console.log(this.etudiants)
             //RECUPERATION DES SOUTENANCES
             await this.getLstSoutenance();
 
@@ -104,12 +108,8 @@ export default {
             await soutenanceApi.getSoutenanceByPromotionId(this.idPromotion)
                 .then((response) => this.lstSoutenances = response);
         },
-        // ON SELECT ITEM
-        onItemSelected(selectedItem) {
-            if (selectedItem)
-                this.showForm = true;
-            else
-                this.showForm = false;
+        async getSoutenanceById(soutenanceId) {
+            return soutenanceApi.getBySoutenanceId(soutenanceId);
         },
         // AJOUT DATE D'EXAMEN
         addEtudiant() {
@@ -134,15 +134,14 @@ export default {
             }
         },
         // OPEN / CLOSE / CLEAR MODAL
-        async openModal(IdEtudiantmodif) {
+        async openModal(soutenanceId) {
             this.modifier = false;
-            console.log(IdEtudiantmodif)
-            if (IdEtudiantmodif) {
-                await this.clearFormulaire(IdEtudiantmodif);
+            console.log(soutenanceId)
+            await this.clearFormulaire(soutenanceId);
+            if (!isNaN(soutenanceId)) {
                 await this.getLstSoutenance();
-                await this.completeForm(IdEtudiantmodif);
+                await this.completeForm(soutenanceId);
             } else {
-                await this.clearFormulaire();
                 await this.getEtudiantByPromotionId();
             }
             this.showModal = true;
@@ -151,27 +150,51 @@ export default {
             this.showModal = false;
             this.clearFormulaire();
         },
-        clearFormulaire(item) {
-            if (item)
-                this.onItemSelected(item);
-            else
-                this.onItemSelected();
-            this.soutenance.id = 0;
-            this.soutenance.etudiant.id = null;
-            this.soutenance.jour = null;
-            this.soutenance.heure = null;
-            this.soutenance.minAccueil = null;
-            this.soutenance.minEntretien = null;
-            this.soutenance.minQuestion = null;
-            this.soutenance.minEntretienFinal = null;
-            this.soutenance.minDeliberation = null;
+        clearFormulaire() {
+            this.soutenance = {
+                id: 0,
+                etudiant: {
+                    id: -1
+                },
+                jour: null,
+                heure: null,
+                minAccueil: null,
+                minEntretien: null,
+                minQuestion: null,
+                minEntretienFinal: null,
+                minDeliberation: null,
+                hasSpecialManagement: false,
+            }
         },
         // REMPLIR LE FORMULAIRE AVEC LA SOUTENANCE DE L'ETUDIANT
-        completeForm(idEtudiant) {
-            this.lstSoutenances.forEach(element => {
-                if (element.etudiant.id == idEtudiant)
-                    this.soutenance = element
-            });
+
+        formatExamDateToHour(examDate) {
+            return `${examDate.getHours()}:${examDate.getMinutes()}`;
+        },
+        formatExamDateToDate(examDate) {
+            const res = `${examDate.getFullYear()}-${(examDate.getMonth() + 1).toString().padStart(2, '0')}-${(examDate.getDate()).toString().padStart(2, '0')}`
+            console.log(res);
+            return res;
+        },
+        formatTime(timeString) {
+            const [hours, minutes] = timeString.split(':');
+            return `${hours}:${minutes}`;
+        },
+
+        async completeForm(soutenanceId) {
+            const soutenance = await this.getSoutenanceById(soutenanceId)
+            const date = new Date(soutenance.examDate);
+            this.soutenance = {
+                ...soutenance,
+                heure: this.formatExamDateToHour(date),
+                jour: this.formatExamDateToDate(date),
+                minAccueil: this.formatTime(soutenance.minAccueil),
+                minEntretien: this.formatTime(soutenance.minEntretien),
+                minQuestion: this.formatTime(soutenance.minQuestion),
+                minEntretienFinal: this.formatTime(soutenance.minEntretienFinal),
+                minDeliberation: this.formatTime(soutenance.minDeliberation),
+
+            }
             this.modifier = true;
         },
     },

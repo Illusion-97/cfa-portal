@@ -37,19 +37,19 @@ function getBySoutenanceId(id) {
 * @returns
 */
 export async function saveSoutenance(soutenance) {
-    const { etudiant,jour, heure, minAccueil, minEntretien, minQuestion, minEntretienFinal, minDeliberation } = soutenance
+    const { etudiant,jour, heure, minAccueil, minEntretien, minQuestion, minEntretienFinal, minDeliberation, hasSpecialManagement } = soutenance
     const date = parseDateStringToDateObject(jour);
     Object.keys(soutenance).forEach(key => console.log(key, soutenance[key]))
 
     const payload = {
         studentId: etudiant.id,
-        jour: date,
-        heure: parseTimeToDate(date, heure),
+        examDate: parseTimeToDate(date, heure),
         minAccueil: parseTimeToDate(date, minAccueil),
         minEntretien: parseTimeToDate(date, minEntretien),
         minQuestion: parseTimeToDate(date, minQuestion),
         minEntretienFinal: parseTimeToDate(date, minEntretienFinal),
         minDeliberation: parseTimeToDate(date, minDeliberation),
+        hasSpecialManagement: hasSpecialManagement,
     }
     Object.keys(payload).forEach(key => console.log(key, payload[key]))
 
@@ -61,8 +61,10 @@ export async function saveSoutenance(soutenance) {
 
 const parseTimeToDate = (date, time) => {
     const [hours, minutes] = time.split(':');
+    date = new Date(date);
     date.setHours(parseInt(hours));
     date.setMinutes(parseInt(minutes));
+    console.log('examDate', date)
     return date;
 }
 const parseDateStringToDateObject = (dateString) => {
