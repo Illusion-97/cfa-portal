@@ -67,6 +67,11 @@ export default {
           link:"admin_projet_list",
           name: "Projet",
           icon: "bx bx-clipboard"
+        },
+        {
+          link:"admin_oder_passage",
+          name: "Convocation Examen",
+          icon: "bx bxs-graduation"
         }
       ],
     };
