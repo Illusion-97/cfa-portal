@@ -35,9 +35,9 @@ export const etudiantApi = {
 
 /**
  * Récupération de tous les étudiants
- * 
- * @returns 
- */       
+ *
+ * @returns
+ */
 function getAllEtudiant() {
     return axios
         .get(`${END_POINT}`, requestOptions.headers())
@@ -47,10 +47,10 @@ function getAllEtudiant() {
 
 /**
  * Récupération d'un etudiant par sont id
- * 
- * @param {*} id 
- * @returns 
- */       
+ *
+ * @param {*} id
+ * @returns
+ */
 function getById(id) {
     let req = `/etudiants/${id}`;
 
@@ -61,12 +61,12 @@ function getById(id) {
 }
 
 /**
- * Récupération des étudiants par page, size, search 
- * 
- * @param {*} page 
- * @param {*} size 
- * @param {*} search 
- * @returns 
+ * Récupération des étudiants par page, size, search
+ *
+ * @param {*} page
+ * @param {*} size
+ * @param {*} search
+ * @returns
  */
 function getAllByPage(page, size, search = "") {
     let req = `/etudiants/${page}/${size}/${search}`;
@@ -78,10 +78,10 @@ function getAllByPage(page, size, search = "") {
 }
 
 /**
- * Méthode de recherche 
- * 
- * @param {*} search 
- * @returns 
+ * Méthode de recherche
+ *
+ * @param {*} search
+ * @returns
  */
 function getCount(search = "") {
     let req = `/etudiants/count/${search}`;
@@ -93,10 +93,10 @@ function getCount(search = "") {
 }
 
 /**
- * Save d'un dossier projet 
- * 
- * @param {*} form 
- * @returns 
+ * Save d'un dossier projet
+ *
+ * @param {*} form
+ * @returns
  */
 function save(form) {
     let req = "etudiants";
@@ -110,9 +110,9 @@ function save(form) {
 
 /**
  * Delete d'un dossier projet par dossier projet
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function deleteEtudiant(id) {
     let req = `etudiants/${id}`;
@@ -125,9 +125,9 @@ function deleteEtudiant(id) {
 
 /**
  * Récupération d'un formateur par l'id etudiant
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getFormateurReferent(id) {
 
@@ -145,9 +145,9 @@ function getFormateurReferent(id) {
 
 /**
  * Récupération d'une promotions par l'id etudiant
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getPromotions(id) {
 
@@ -160,11 +160,11 @@ function getPromotions(id) {
 
 /**
  * Récupération Notes par etudiant
- * 
- * @param {*} id 
- * @param {*} page 
- * @param {*} size 
- * @returns 
+ *
+ * @param {*} id
+ * @param {*} page
+ * @param {*} size
+ * @returns
  */
 function getNotesById(id, page, size) {
 
@@ -177,8 +177,8 @@ function getNotesById(id, page, size) {
 
 /**
  * Méthode de recherche pour notes
- * 
- * @returns 
+ *
+ * @returns
  */
 function getCountNotes() {
 
@@ -191,8 +191,8 @@ function getCountNotes() {
 
 /**
  * Méthode de recherche pour devoirs
- * 
- * @returns 
+ *
+ * @returns
  */
 function getCountDevoirs() {
     let req = `/devoirs/count`;
@@ -205,11 +205,11 @@ function getCountDevoirs() {
 
 /**
  * Récupération des devoir par etudiant
- * 
- * @param {*} id 
- * @param {*} page 
- * @param {*} size 
- * @returns 
+ *
+ * @param {*} id
+ * @param {*} page
+ * @param {*} size
+ * @returns
  */
 function getDevoirsById(id, page, size) {
 
@@ -222,11 +222,11 @@ function getDevoirsById(id, page, size) {
 
 /**
  * Récupération des abscence par etudiant
- * 
- * @param {*} id 
- * @param {*} page 
- * @param {*} size 
- * @returns 
+ *
+ * @param {*} id
+ * @param {*} page
+ * @param {*} size
+ * @returns
  */
 function getAbsencesById(id, page, size) {
 
@@ -239,8 +239,8 @@ function getAbsencesById(id, page, size) {
 
 /**
  * Méthode de recherche pour absence
- * 
- * @returns 
+ *
+ * @returns
  */
 function getCountAbsence() {
 
@@ -253,9 +253,9 @@ function getCountAbsence() {
 
 /**
  * Récupération des groupes par etudiant
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getGroupes(id){
     let req = "etudiants/" + id + "/groupes";
@@ -281,9 +281,9 @@ function getProjets(id){
 
 /**
  * Récupération des intervention par etudiant pour la semaine
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getInterventionByIdEtudiantByWeek(id){
     let req = "etudiants/" + id + "/interventions/semaines";
@@ -294,10 +294,10 @@ function getInterventionByIdEtudiantByWeek(id){
 }
 
 /**
- * Récupération des notes par etudiant 
- * 
- * @param {*} id 
- * @returns 
+ * Récupération des notes par etudiant
+ *
+ * @param {*} id
+ * @returns
  */
 function getNotesByIdEtudiant(id) {
     let req = "notes/note-etudiant/" + id;
@@ -309,10 +309,10 @@ function getNotesByIdEtudiant(id) {
 
 /**
  * Récupération d'un etudiant par intervention qui ont des devoir et absence
- * 
- * @param {*} id 
- * @param {*} search 
- * @returns 
+ *
+ * @param {*} id
+ * @param {*} search
+ * @returns
  */
 
 function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
@@ -326,8 +326,8 @@ function getEtudiantsByInterventionIdwithDevoirsAndAbsence(id, search = ""){
 
 /**
  * Récupération des etudiants de DG2
- * 
- * @param {*} logInUser (id user) 
+ *
+ * @param {*} logInUser (id user)
  * @returns Liste des étudiants de dawan
  */
 
@@ -340,15 +340,15 @@ function fetchAllEtudiantDG2Http(logInUser) {
   headers.headers["X-AUTH-TOKEN"] = `${logInUser.logInUser.email}:${logInUser.logInUser.password}`;
 
   return axios.get(req, headers);
-  
+
   }
 
   /**
-   * Récupération des etudiants depuis Dawan.org en fonction de promotion 
-   * 
-   * @param {*} logInUser 
-   * @param {*} promoId 
-   * @returns 
+   * Récupération des etudiants depuis Dawan.org en fonction de promotion
+   *
+   * @param {*} logInUser
+   * @param {*} promoId
+   * @returns
    */
 
   function fetchAllEtudiantDG2HttpByIdPromotion(logInUser, promoId){
@@ -362,9 +362,9 @@ function fetchAllEtudiantDG2Http(logInUser) {
 
   /**
  * TODO a retirer si plus utiliser
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getAccueilEtudiant(id) {
 
@@ -377,12 +377,12 @@ function getAccueilEtudiant(id) {
 
   /**
  * Récupération des etudiants en fonction de promotion par page
- * 
- * @param {*} id 
- * @param {*} page 
- * @param {*} size 
- * @param {*} search 
- * @returns 
+ *
+ * @param {*} id
+ * @param {*} page
+ * @param {*} size
+ * @param {*} search
+ * @returns
  */
 function getEtudiantsByPromotionByPage(id, page, size, search) {
     let req = `/${END_POINT}/promotion/${id}/${page}/${size}/${search}`;
@@ -394,10 +394,10 @@ function getEtudiantsByPromotionByPage(id, page, size, search) {
 
 /**
  * Méthode de recherche pour promotion
- * 
- * @param {*} id 
- * @param {*} search 
- * @returns 
+ *
+ * @param {*} id
+ * @param {*} search
+ * @returns
  */
 function getCountEtudiantsByPromotion(id, search) {
     let req = `/${END_POINT}/countEtudiantByPromotion/${id}/${search}`;
@@ -409,12 +409,12 @@ function getCountEtudiantsByPromotion(id, search) {
 
 /**
  * Récupération des etudiants en fonction de promotion
- * 
- * @param {*} id 
- * @returns 
+ *
+ * @param {*} id
+ * @returns
  */
 function getEtudiantByPromotionId(id) {
-    let req = `/${END_POINT}/promotion/${id}`;
+    let req = `/${END_POINT}/promotion/${id}/0/10`;
     return axios
         .get(req, requestOptions.headers())
         .then(response => response.data)

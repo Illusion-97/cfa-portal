@@ -90,19 +90,20 @@ export default {
         // RECUPERER L'ORDER LIST
         async getOrder() {
             this.items = [];
-            // récupération page de dates d'éxamens avec l'étudiant qui coorespond 
+            // récupération page de dates d'éxamens avec l'étudiant qui coorespond
             await soutenanceApi.getPageSoutenanceByPromotionId(this.idPromotion, this.page, this.perPage)
                 .then((response) => {
+                  // this.items.push(...response)
                     response.forEach(element => (this.items.push(element)));
                 });
-            // trier la list soutenance 
-            await this.items.sort((a, b) => {
-                return a.etudiant.utilisateurDto.fullName.localeCompare(b.etudiant.utilisateurDto.fullName);
+            // trier la list soutenance
+            this.items.sort((a, b) => {
+              return a.etudiant.utilisateurDto.fullName.localeCompare(b.etudiant.utilisateurDto.fullName);
             });
 
-            // récupére le nombre de tous les order 
+            // récupére le nombre de tous les order
             await soutenanceApi.countSoutenanceByPromotionId(this.idPromotion).then((response) => (this.pageCount = response));
-            this.pageCount = await Math.ceil(this.pageCount / this.perPage);
+            this.pageCount = Math.ceil(this.pageCount / this.perPage);
         },
         // AJOUT ETUDIANT
         async etudiantAdd(data) {
@@ -125,7 +126,7 @@ export default {
                 this.getOrder();
             }
         },
-        // AFFICHER MODAL 
+        // AFFICHER MODAL
         showModalAddEtudiant(etudiantId) {
             if (etudiantId > 0)
                 this.$refs.modalAddEtudiantToOrder.openModal(etudiantId);

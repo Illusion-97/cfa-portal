@@ -83,29 +83,26 @@ export default {
     methods: {
         async getEtudiantByPromotionId() {
             // RECUPERATION DES ETUDIANTS
-            this.etudiants = await [];
+            this.etudiants = [];
             await etudiantApi.getEtudiantByPromotionId(this.idPromotion).then((response) => (
-                response.forEach(element => {
-                    let item = { text: element.utilisateurDto.fullName, value: element.id };
-                    this.etudiants.push(item);
-                })
+                this.etudiants = response.map((element) => ({ text: element.utilisateurDto.fullName, value: element.id }))
             ));
+
+            console.log("ETUDIANTS")
+          console.log(this.etudiants)
             //RECUPERATION DES SOUTENANCES
             await this.getLstSoutenance();
 
             // ENLEVER LES ETUDIANT QUI ONT DES SOUTENANCES
-            this.etudiants = await this.etudiants.filter(item => {
-                return !this.lstSoutenances.some(itemB => item.value == itemB.etudiant.id)
+            this.etudiants = this.etudiants.filter(item => {
+                return !this.lstSoutenances.some(itemB => item.value === itemB.etudiant.id)
             })
         },
         //RECUPERATION DES SOUTENANCES
         async getLstSoutenance() {
-            this.lstSoutenances = await [];
-            await soutenanceApi.getSoutenanceByPromotionId(this.idPromotion).then((response) => (
-                response.forEach(element => (
-                    this.lstSoutenances.push(element)
-                ))
-            ));
+            this.lstSoutenances = [];
+            await soutenanceApi.getSoutenanceByPromotionId(this.idPromotion)
+                .then((response) => this.lstSoutenances = response);
         },
         // ON SELECT ITEM
         onItemSelected(selectedItem) {
@@ -136,9 +133,10 @@ export default {
                 this.message = "Veuillez renseigner tous les champs.";
             }
         },
-        // OPEN / CLOSE / CLEAR MODAL 
+        // OPEN / CLOSE / CLEAR MODAL
         async openModal(IdEtudiantmodif) {
             this.modifier = false;
+            console.log(IdEtudiantmodif)
             if (IdEtudiantmodif) {
                 await this.clearFormulaire(IdEtudiantmodif);
                 await this.getLstSoutenance();
