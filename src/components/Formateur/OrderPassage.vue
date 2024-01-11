@@ -158,7 +158,7 @@ export default {
         let bas64 = response;
         const linkSource = `data:application/pdf;base64,${bas64}`;
         const downloadLink = document.createElement("a");
-        const fileName = "tableau_soutenace_"+ this.promotion.nom +".pdf";
+        const fileName = "tableau_soutenance_"+ this.promotion.nom +".pdf";
         downloadLink.href = linkSource;
         downloadLink.download = fileName;
         downloadLink.click();

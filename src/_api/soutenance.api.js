@@ -157,7 +157,7 @@ function getPageSoutenanceByPromotionId(id, page, size) {
  * @returns
  */
 function genererLstSoutenance(promotion, id){
-    let req = `${END_POINT}/generer/${promotion}${id}`;
+    let req = `${END_POINT}/generer/${promotion}/${id}`;
 
     return  axios
         .get(req, requestOptions.headers())
