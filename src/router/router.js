@@ -143,6 +143,9 @@ import NoteDetail from "@/views/Admin/Crud/Note/NoteDetail.vue";
 import PassageExamenList from "@/views/Admin/Crud/PassageExamen/PassageExamenList.vue";
 import PassageExamenCreate from "@/views/Admin/Crud/PassageExamen/PassageExamenCreate.vue";
 import PassageExamenDetail from "@/views/Admin/Crud/PassageExamen/PassageExamenDetail.vue";
+//OrderPassage
+import PromotionListAdmin from '@/views/Admin/PromotionsAdmin.vue'
+import PromotionDetailAdminOrder from "@/views/Admin/Crud/Promotion/PromotionDetailAdmin.vue";
 //Projet
 import ProjetList from "@/views/Admin/Crud/Projet/ProjetList.vue";
 import ProjetCreate from "@/views/Admin/Crud/Projet/ProjetCreate.vue";
@@ -1185,6 +1188,16 @@ const routes = [
     component: PassageExamenDetail,
     meta: { authorize: [Role.Admin] },
   },
+  //#######################
+  //#     OderPassage     #
+  //#######################
+  {
+    path: "/admin/orderPassages",
+    name: "admin_orderPassagePromotion_list",
+    component: PromotionListAdmin,
+    meta: { authorize: [Role.Admin] },
+  },
+  { path: "/admin/orderPassages/detail/:id", name: "admin_promotion_detail_order_passage", component: PromotionDetailAdminOrder, meta: { authorize: [Role.Admin] } },
   //#######################
   //#       Projet        #
   //#######################

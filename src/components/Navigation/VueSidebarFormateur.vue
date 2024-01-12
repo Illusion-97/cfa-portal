@@ -69,7 +69,7 @@ export default {
           icon: "bx bx-clipboard"
         },
         {
-          link:"admin_oder_passage",
+          link:"admin_orderPassagePromotion_list",
           name: "Convocation Examen",
           icon: "bx bxs-graduation"
         }
