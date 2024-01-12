@@ -1,172 +1,203 @@
 <template>
-    <div>
-      <!-- MESSAGE D'ALERT -->
-      <b-alert class="m-4 " :show="dismissCountDown" dismissible fade :variant="color" @dismissed="dismissCountDown = 0">
-        {{ message }}
-      </b-alert>
-      <!-- BUTTON -->
-      <b-button variant="warning" class="m-4" @click="showModalAddEtudiant">Ajouter un éléve</b-button>
-      <b-button v-if="items.length > 0" variant="success" class="m-4" @click="downloadOrder">Télécharger le
-        tableau</b-button>
+    <div v-if="promotion">
+      <section>
+        <div class="container-fluid mt-4">
+          <b-tabs content-class="mt-3" fill v-model="tabIndex">
   
-      <!-- COMPONENT ADDETUDIANTOORDER -->
-      <AddEtudiantToOrder ref="modalAddEtudiantToOrder" @childEtudiantAdd="etudiantAdd" />
-      <!-- TABLEAU -->
-      <table class="table" v-if="items.length > 0">
-        <thead class="">
-        <tr>
-          <th>Nom du candidat</th>
-          <th>Jour convocation oral</th>
-          <th>Heure convocation oral</th>
-          <th>Accueil candidat</th>
-          <th>Entretien technique</th>
-          <th>Questionnement à partir de production</th>
-          <th>Entretien final</th>
-          <th>Délibération du jury</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="item in items" :key="item.id" class="mon-tr">
-          <td>{{ item.etudiant.utilisateurDto.fullName }}</td>
-          <td>{{ formatExamDate(item.examDate)}}</td>
-          <td>{{ formatExamTime(item.examDate)}}</td>
-          <td v-if="item.minAccueil">De {{ formatTime(item.minAccueil) }} à {{ formatTime(item.minEntretien) }}</td>
-          <td v-else></td>
-          <td v-if="item.minEntretien">De {{ formatTime(item.minEntretien) }} à {{ formatTime(item.minQuestion) }}</td>
-          <td v-else></td>
-          <td v-if="item.minQuestion">De {{ formatTime(item.minQuestion) }} à {{ formatTime(item.minEntretienFinal) }}</td>
-          <td v-else></td>
-          <td v-if="item.minEntretienFinal">De {{ formatTime(item.minEntretienFinal) }} à {{ formatTime(item.minDeliberation) }}</td>
-          <td v-else></td>
-          <td v-if="item.minDeliberation">{{ formatTime(item.minDeliberation) }}</td>
-          <td v-else></td>
-          <b-button variant="primary" class="m-4"
-                    @click="showModalAddEtudiant(item.id)">Modifier</b-button>
-        </tr>
-        </tbody>
-      </table>
-  
-      <div v-else>Pas d'étudiant l'iée a l'examen</div>
-  
-      <!-- PAGINATION -->
-      <paginate class="customPagination" :page-count="pageCount" :page-range="1" :margin-pages="2"
-                :click-handler="pageChange" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination float-right'"
-                :page-class="'page-item'" :page-link-class="'page-link'" :prev-class="'page-item'" :next-class="'page-item'"
-                :prev-link-class="'page-link'" :next-link-class="'page-link'" :active-class="'active'">
-      </paginate>
-    </div>
-  </template>
-  <script>
-  import AddEtudiantToOrder from "@/components/Modal/AddEtudiantToOrder.vue";
-  import { soutenanceApi } from "@/_api/soutenance.api.js";
-  
-  export default {
-    props: {
-      promotion: []
-    },
-    components: {
-      AddEtudiantToOrder
-    },
-    data() {
-      return {
-        idPromotion: this.$route.params.id,
-        showTab: true,
-        dismissCountDown: null,
-        message: null,
-        color: null,
-        page: null,
-        pageCount: 0,
-        perPage: 5,
-        items: [],
-      }
-    },
-    mounted() {
-        try {
-    console.log("Avant l'appel à pageChange");
-    this.pageChange();
-    console.log("Après l'appel à pageChange");
-  } catch (error) {
-    console.error("Erreur lors de l'exécution de mounted :", error);
-  }
-      
-    },
-    methods: {
-  
-      formatExamDate(date) {
-        date = new Date(date);
-        return (date.getDate()).toString().padStart(2, '0')
-            + '/' + (date.getMonth() + 1).toString().padStart(2, '0')
-            + '/' + (date.getFullYear()).toString().padStart(2, '0')
-      },
-      formatExamTime(date) {
-        date = new Date(date);
-        return (date.getHours()).toString().padStart(2, '0')
-            + ':' + (date.getMinutes()).toString().padStart(2, '0')
-      },
-      formatTime(timeString) {
-        const [hours, minutes] = timeString.split(':');
-        return `${hours}:${minutes}`;
-      },
-  
-  
-      // RECUPERER L'ORDER LIST
-      async getOrder() {
-        console.log("Appel getOrder");
-        this.items = [];
-        // récupération page de dates d'éxamens avec l'étudiant qui coorespond
-        await soutenanceApi.getPageSoutenanceByPromotionId(this.idPromotion, this.page, this.perPage)
-            .then((response) => {
-              // this.items.push(...response)
-              response.forEach(element => (this.items.push(element)),console.log(response));
-            });
-        // trier la list soutenance
-        this.items.sort((a, b) => {
-          return a.etudiant.utilisateurDto.fullName.localeCompare(b.etudiant.utilisateurDto.fullName);
-        });
         
   
-        // récupére le nombre de tous les order
-        await soutenanceApi.countSoutenanceByPromotionId(this.idPromotion).then((response) => (this.pageCount = response));
-        this.pageCount = Math.ceil(this.pageCount / this.perPage);
-      },
-      // AJOUT ETUDIANT
-      async etudiantAdd(data) {
-        this.color = "success";
-        this.dismissCountDown = 6;
-        if (data)
-          this.message = "Soutenance de l'étudiant " + data + " mise à jour.";
-        else
-          this.message = "Etudiant ajouter à l'éxamen.";
-        this.page = 0;
-        await this.pageChange();
-      },
-      // CHANGE PAGE
-      pageChange(pageNum = 1) {
-      this.page = pageNum - 1;
-      this.getOrder();
+        
+  
+            
+  
+  
+            <!-- ORDRE DE PASSAGE -->
+            <b-tab>
+              <template v-slot:title>
+                <font-awesome-icon :icon="['fas', 'table']" />
+                Ordre de passage
+              </template>
+              <div>
+                <OrdrePassage :promotion="promotion"/>
+              </div>
+            </b-tab>
+  
+          </b-tabs>
+        </div>
+      </section>
+    </div>
+  </template>
+  
+  <script>
+import { promotionApi } from "@/_api/promotion.api.js";
+import OrdrePassage from "@/components/Admin/OrderPassage.vue";
+
+export default {
+  name: "PromotionDetailFormateur",
+  props: {
+    promotionProp: {
+      type: Array,
+      default: null,
     },
-      // AFFICHER MODAL
-      showModalAddEtudiant(soutenanceId) {
-        if(soutenanceId)
-          this.$refs.modalAddEtudiantToOrder.openModal(soutenanceId);
-        else
-          this.$refs.modalAddEtudiantToOrder.openModal();
-      },
-      // TELECHARGER TABLEAU ORDER
-      downloadOrder() {
-        soutenanceApi.genererLstSoutenance(this.promotion.nom, this.idPromotion).then(response => {
-          let bas64 = response;
-          const linkSource = `data:application/pdf;base64,${bas64}`;
-          const downloadLink = document.createElement("a");
-          const fileName = "tableau_soutenance_"+ this.promotion.nom +".pdf";
-          downloadLink.href = linkSource;
-          downloadLink.download = fileName;
-          downloadLink.click();
-        });
-      }
-    }
+  },
+  components: {
+    OrdrePassage,
+  },
+
+  data() {
+    return {
+      tabIndex: 1,
+      promotionId: this.$route.params.id,
+      promotion: [],
+      etudients: [],
+      intervention: [],
+      pageCountEtudiant: 0,
+      pageCountIntervention: 0,
+      countIntervention: 0,
+      countEtudiant: 0,
+      perPage: 9,
+      onglet: 1,
+      isModalVisible: false,
+    };
+  },
+  computed: {
+    isAdmin() {
+      // Supposons que cette fonction est utilisée dans le reste du code
+      return true;
+    },
+  },
+  methods: {
+    getPromotionId() {
+      promotionApi.getPromotionByid(this.$route.params.id).then((response) => {
+        this.promotion = response;
+      });
+    },
+    reloadExam() {
+      // Supposons que cette fonction est utilisée dans le reste du code
+    },
+    // ... Autres méthodes si nécessaires ...
+  },
+  created() {
+    this.getPromotionId();
+  },
+};
+</script>
+
+  
+  <style src="@/assets/styles/Onglet.css"></style>
+  <style scoped>
+  /* .mon-titre {
+    display: flex;
+    justify-content: space-around;
+  } */
+  
+  .btn-submit {
+    border: 0;
+    background-color: inherit;
+    border-radius: 100%;
+    width: 2.5em;
+    margin-left: -3em;
   }
-  </script>
-  <style scoped></style>
+  
+  .iconSearch {
+    color: brown;
+  }
+  
+  #saisieEtudiant,
+  .select {
+    border-radius: 20px;
+    width: 400px;
+    /* background: #000; */
+  }
+  
+  h1 {
+    /* border: 1px solid #6c757d; */
+    display: flex;
+    justify-content: center;
+    padding: 0.5em;
+    /* padding-left: 2em; */
+  }
+  
+  .mon-dropdown {
+    margin-left: 1em;
+    margin-top: 0.5em;
+  }
+  
+  .mon-btn {
+    height: 2.5em;
+    margin-top: 1.5em;
+  }
+  
+  .identite {
+    margin-top: 4em;
+    margin-bottom: 7em;
+  }
+  
+  .identite>.nom {
+    font-size: 1.5em;
+  }
+  
+  #my-card {
+    width: 90%;
+    padding-bottom: 1em;
+    margin-bottom: 5em;
+    margin-top: 5em;
+  }
+  
+  #my-card>.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #6c757d;
+    color: white;
+    margin-bottom: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 25px;
+  }
+  
+  .card-text {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card-text>span {
+    display: inline-block;
+    width: 40em;
+    padding-left: 3em;
+  }
+  
+  .mon-tr:hover {
+    background-color: rgb(216, 213, 213) !important;
+    cursor: pointer;
+  }
+  
+  .ma_fenetre {
+    margin-bottom: 5em;
+  }
+  
+  .mon-plus {
+    font-size: 24px;
+    height: 1.5em;
+    line-height: 0.7em;
+    float: right;
+  }
+  
+  .ma-croix {
+    margin-right: 0.6em;
+  }
+  
+  .stickyPosition {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+  }
+  
+  .modal-import-dg2 {
+    margin-inline: 10%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+  </style>
   
