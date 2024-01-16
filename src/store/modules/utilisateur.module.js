@@ -1,5 +1,5 @@
 import {utilisateurApi} from "@/_api/utilisateur.api.js";
-import {mailSchedulerApi} from "@/store/modules/mail-scheduler";
+//import {mailSchedulerApi} from "@/store/modules/mail-scheduler";
 
 export const utilisateur = {
   state: {
@@ -25,12 +25,12 @@ export const utilisateur = {
   },
   getters: {
     getUtilisateur: (state) => {
-      let isFormateur = false
+      //let isFormateur = false
       for (var i=0; i<state.utilisateur.rolesDto.length; i++ ){
-        if (state.utilisateur.rolesDto[i].intitule == "FORMATEUR"){
-            isFormateur = true;
-            mailSchedulerApi.formateurSchedulerValisationFormation(state.utilisateur.id,isFormateur)
-        }
+        // if (state.utilisateur.rolesDto[i].intitule == "FORMATEUR"){
+        //     isFormateur = true;
+        //     mailSchedulerApi.formateurSchedulerValisationFormation(state.utilisateur.id,isFormateur)
+        // }
       }
       return state.utilisateur;
     },

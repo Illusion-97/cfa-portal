@@ -130,6 +130,10 @@
             <b-col sm="2" class="text-sm-right"><b>Date de naissance:</b></b-col>
             <b-col> {{ row.item.dateDeNaissance }} </b-col>
           </b-row>
+          <b-row class="mb-2" v-if="isEtudiant(row.item)">
+            <b-col sm="2" class="text-sm-right"><b>Promotion:</b></b-col>
+            <b-col>{{ row.item.promotion || 'N/A' }}</b-col>
+          </b-row>
         </b-card>
       </template>
     </b-table>
@@ -240,6 +244,7 @@ export default {
   created() {
     this.refreshList();
     this.getRoles();
+    console.log("role", this.$store.getters.getUtilisateur.getRoles)
   },
   methods: {
     openModalAddTuteur() {
@@ -274,6 +279,9 @@ export default {
       this.visibleAddTuteur = false
       this.visibleMajUsers = false
     },
+    isEtudiant(user){
+      return user.rolesDto.map(r => r.intitule).includes("ETUDIANT")
+    },
     assigneTableItems(users) {
       this.items = [];
       if (users != null) {
@@ -299,8 +307,10 @@ export default {
             centreFormation : e.centreFormationId,
             entreprise : e.entrepriseDto != null ? e.entrepriseDto.raisonSociale : "Pas d'entreprise" ,
             etudiant : e.etudiantDto != null ? e.etudiantDto.nom + " " + e.etudiantDto.prenom : "Pas d'etudiant",
-            active : e.active
+            active : e.active,
+            promotion: e.etudiant != null ? e.etudiant?.promotions[0]?.nom : "Pas de promotion",
           };
+          
           this.items.push(item);
         })
       }
@@ -494,20 +504,22 @@ export default {
           console.error('Une erreur s\'est produite lors de la modification des rôles :', error);
         });
       this.editRoles = [];
-      console.log(this.items);
+      //console.log(this.items);
     },
     fetchRolesFromDatabase() {
-      utilisateursRoleApi.getAll()
-        .then((data) => {
-          this.options = data.map((role) => ({
-            item: role.id,
-            name: role.intitule,
-          }));
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+  utilisateursRoleApi.getAll()
+    .then((data) => {
+      this.options = data
+        .map((role) => ({
+          item: role.id,
+          name: role.intitule,
+        }));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
   },
 };
 </script>
