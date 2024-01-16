@@ -3,14 +3,6 @@
       <section>
         <div class="container-fluid mt-4">
           <b-tabs content-class="mt-3" fill v-model="tabIndex">
-  
-        
-  
-        
-  
-            
-  
-  
             <!-- ORDRE DE PASSAGE -->
             <b-tab>
               <template v-slot:title>
