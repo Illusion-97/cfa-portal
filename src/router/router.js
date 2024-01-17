@@ -180,6 +180,8 @@ import AddEntrepriseAdresse from "@/views/Admin/Crud/Entreprise/EntrepriseAddAdr
 import CursusList from "@/views/Admin/Crud/Cursus/CursusList.vue";
 import AddCursus from "@/views/Admin/Crud/Cursus/CursusCreate.vue";
 import CursusDetail from "@/views/Admin/Crud/Cursus/CursusDetail.vue";
+//Modele
+import CursusModeleDetail from "@/views/Admin/Crud/Modele/ModeleDetail.vue";
 //CentreFormation
 import CentreFormationList from "@/views/Admin/Crud/CentreDeFormation/CentreFormationList.vue";
 import AddCentreFormation from "@/views/Admin/Crud/CentreDeFormation/CentreFormationCreate.vue";
@@ -1132,6 +1134,15 @@ const routes = [
     path: "/admin/cursus/detail/:id",
     name: "admin_cursus_detail",
     component: CursusDetail,
+    meta: { authorize: [Role.Admin] },
+  },
+  //#######################
+  //#       Modele        #
+  //#######################
+  {
+    path: "/admin/cursus/modele/detail/:id",
+    name: "admin_cursus_modele_details",
+    component: CursusModeleDetail,
     meta: { authorize: [Role.Admin] },
   },
   //#######################

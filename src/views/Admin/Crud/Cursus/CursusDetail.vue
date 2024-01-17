@@ -1,12 +1,19 @@
 <template>
   <div class="container-fluid">
     <br>
+    <div class="button-container">
       <v-btn color="back-color" class="back" @click="goBack()">
         <v-icon>
           mdi-arrow-left
         </v-icon>
         Précédent
       </v-btn>
+      <!-- Ajout du bouton "Suivant" en haut à droite -->
+      <v-btn class="btnModel" @click="goToDetailModele(cursusId)">
+        <font-awesome-icon class="mr-1" :icon="['fas', 'eye']" />
+        Voir le modèle
+      </v-btn>
+    </div>
 
     <div id="my-card">
       <div>
@@ -130,6 +137,9 @@ export default {
     detail(id) {
       this.$router.push({ name: "admin_promotion_details", params: { id: id } });
     },
+    goToDetailModele(id){
+      this.$router.push({ name: "admin_cursus_modele_details", params: { id: id } });
+    }
   }
 };
 </script>
@@ -173,6 +183,23 @@ export default {
 }
 .back-color {
   background-color: #00072d !important;
+  color: white !important;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px; /* Ajustez selon vos besoins */
+}
+
+/* Ajoutez du style pour les boutons si nécessaire */
+.back {
+  background-color: #00072d !important;
+  color: white !important;
+}
+
+.btnModel {
+  background-color: #007bff !important;
   color: white !important;
 }
 </style>
