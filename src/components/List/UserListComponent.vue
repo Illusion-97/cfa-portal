@@ -109,7 +109,7 @@
       </template>
 
       <template #cell(ModifierT)="row">
-        <span v-if="selected_role === 'TUTEUR'">
+        <span v-if="isTuteur(row.item)">
   <b-button variant="primary" @click="ouvrirFormulaireModificationTuteur(row.item)" class="pl-3 pr-3">
     <font-awesome-icon :icon="['fas', 'edit']" />Modifier
   </b-button></span>
@@ -281,6 +281,9 @@ export default {
     },
     isEtudiant(user){
       return user.rolesDto.map(r => r.intitule).includes("ETUDIANT")
+    },
+    isTuteur(user){
+      return user.rolesDto.map(r => r.intitule).includes("TUTEUR")
     },
     assigneTableItems(users) {
       this.items = [];
